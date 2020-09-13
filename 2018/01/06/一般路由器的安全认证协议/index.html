@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="WLAN的安全认证和加密无加密认证&amp;emsp;&amp;emsp;无加密认证主要采用设置SSID和采用MAC地址过滤两种方式来实现。SSID就是构建的一个无线局域网的名称标识。一个无线客户端到连接一个无线局域网必须要获得该无线局域网的SSID。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一般路由器的安全认证协议">
+<meta property="og:url" content="http://example.com/2018/01/06/%E4%B8%80%E8%88%AC%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="曾经的梦想">
+<meta property="og:description" content="WLAN的安全认证和加密无加密认证&amp;emsp;&amp;emsp;无加密认证主要采用设置SSID和采用MAC地址过滤两种方式来实现。SSID就是构建的一个无线局域网的名称标识。一个无线客户端到连接一个无线局域网必须要获得该无线局域网的SSID。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-service.csdnimg.cn/img_convert/7c4ee85ded76628d673645b1525211a4.png">
+<meta property="article:published_time" content="2018-01-06T04:00:07.000Z">
+<meta property="article:modified_time" content="2020-09-13T03:57:45.614Z">
+<meta property="article:author" content="embed_cxf">
+<meta property="article:tag" content="网络">
+<meta property="article:tag" content="路由器">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-service.csdnimg.cn/img_convert/7c4ee85ded76628d673645b1525211a4.png">
+
+<link rel="canonical" href="http://example.com/2018/01/06/%E4%B8%80%E8%88%AC%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>一般路由器的安全认证协议 | 曾经的梦想</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="曾经的梦想" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">曾经的梦想</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">曾梦想仗剑走天涯</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/01/06/%E4%B8%80%E8%88%AC%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="embed_cxf">
+      <meta itemprop="description" content="一个迷茫的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曾经的梦想">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一般路由器的安全认证协议
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-06 12:00:07" itemprop="dateCreated datePublished" datetime="2018-01-06T12:00:07+08:00">2018-01-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-13 11:57:45" itemprop="dateModified" datetime="2020-09-13T11:57:45+08:00">2020-09-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/01/06/%E4%B8%80%E8%88%AC%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE/" class="post-meta-item leancloud_visitors" data-flag-title="一般路由器的安全认证协议" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2018/01/06/%E4%B8%80%E8%88%AC%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/01/06/%E4%B8%80%E8%88%AC%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="WLAN的安全认证和加密"><a href="#WLAN的安全认证和加密" class="headerlink" title="WLAN的安全认证和加密"></a>WLAN的安全认证和加密</h1><h2 id="无加密认证"><a href="#无加密认证" class="headerlink" title="无加密认证"></a>无加密认证</h2><p>&emsp;&emsp;无加密认证主要采用设置SSID和采用MAC地址过滤两种方式来实现。SSID就是构建的一个无线局域网的名称标识。一个无线客户端到连接一个无线局域网必须要获得该无线局域网的SSID。</p>
+<a id="more"></a>
+<p>&emsp;&emsp;无线网卡设置了不同的SSID就可以进入不同网络，SSID通常由AP广播出来，无线工作站通过扫描功能可以查看当前区域内的SSID。出于安全考虑可以禁用SSIＤ广播，此时用户就要手工设置SSID才能进入相应的网络。</p>
+<blockquote>
+<p>注意：同意生产商推出的无线路由器或AP都是用了相同的SSID，一旦那些企图非法连接的攻击者利用通用的初始化字符串来连接无线网络，就极易建立起一条非法的连接，从而给无线网络带来威胁。因此，建议最好能够将SSID命名为一些较有个性的名字。同时禁用SSID广播，这样构建的无线网络不会出现在其他人所搜索的可用网络列表中。</p>
+</blockquote>
+<h2 id="MAC地址过滤"><a href="#MAC地址过滤" class="headerlink" title="MAC地址过滤"></a>MAC地址过滤</h2><p>&emsp;&emsp;MAC地址（Medium/ Media Access Contorl ,介质访问控制）是固化在网卡里的物理地址。MAC地址是由48位二进制数构成。MAC地址通常是由网卡生产厂家烧入网卡的EPEOM，它存储的是传输数据时真正赖以标志发出数据的计算机和接收数据的主机地址。在网络底层的物理传输过程中，是通过物理地址来世界主机的，它一般也是全球唯一的。<br>&emsp;&emsp;无线AP可以通过工作站的MAC地址来对特定的工作站进行地址过滤管理，从而可以表示是允许还是拒绝工作站来访问AP。<br>&emsp;&emsp;启用过滤之后，需要将客户无线网卡的MAC地址在无线路由器中进行注册。</p>
+<h2 id="相关的安全认证协议"><a href="#相关的安全认证协议" class="headerlink" title="相关的安全认证协议"></a>相关的安全认证协议</h2><p>&emsp;&emsp;安全认证的作用是实现网络中的身份认证，通过设置相关的安全认证协议和密钥来实现对无线接入的安全管理。通常用户在访问某个无线网络时，弹出的认证窗口要求用户端输入相关的密码，这就是安全认证的过程。<br>&emsp;&emsp;很多人都设置过路由器，特别是在设置wifi密码的时候会选择一个“加密方式”<br><img src="https://img-service.csdnimg.cn/img_convert/7c4ee85ded76628d673645b1525211a4.png" alt="这里写图片描述"><br>很多人都会选择“WPA/WPA2”这一项，为什么了？不知道。<br>&emsp;&emsp;如果无线网络这是为免费访问，则可以不需要设置认证选项。常见的无线认证协议有WEP、WPA-PSK/WAP2-PSK等</p>
+<h3 id="WEP"><a href="#WEP" class="headerlink" title="WEP"></a>WEP</h3><p>&emsp;&emsp;WEP（Wired Equivalent Privacy）即有限等效加密技术。它是IEEEE 802.11b标准中定义的最基本的加密技术，多用于小型的、对安全性要求不高的场合。WEP协议是对在两台设备间无线传输的数据进行加密的协议，用以防止非法用户窃听或侵入无线网络。<br>&emsp;&emsp;早期的无线网络中，均没有验证的说法，为此，仅可以使用WEP加密方式来实现验证。WEP加密方式提供给用户4个密钥，Key1，Key2，Key3，Key4，用户可以选择设置4个密钥，并设置一个激活密钥，当无线设备需要连该网络时，需要选择激活的密钥，并输入正确的密码方可以连接成功。<br>&emsp;&emsp;WEP的算法长度分别为64位和128位方式。64位Key只能支持5位或13位数字或英文字符，128位Key只能支持10位或26位数字或英文字符。一般在配置时，均会给出四种选择方式。用户可以根据实际网络验证需求来选择验证方式。<br>&emsp;&emsp;WEP验证方分为开放式系统验证和共享密钥验证两种模式，开放式系统验证的AP，随便输入一个密码，都可以连接，但如果密码不正确，会显示为“受限制”。共享密钥采用WEP加密的质询进行响应，如果工作站的提供的密钥是错误的，则立即拒绝请求。如果工作站有正确的WEP密码，就可以解密该质询，并允许其接入。由于安全性较差，当前WEP验证方式基本上已经淘汰。</p>
+<h3 id="WPA-PSK-WAP2-PSK"><a href="#WPA-PSK-WAP2-PSK" class="headerlink" title="WPA-PSK/WAP2-PSK"></a>WPA-PSK/WAP2-PSK</h3><p>&emsp;&emsp;WPA/WPA2是无线联盟指定的一种等级更高的数据保护和访问控制标准，用于升级现存的或将来的无线局域网系统。WPA（Wi-Fi ProtectedAccess）是一种保护局无线网络安全的协议，WPA由IEEE802.11i标准定义，它是替代WEP的过渡方案。WPA2 是经由Wi-Fi联盟验证过的IEEE 802.11i标准的认证形式。它采用RADIUS和Pre-Shared Key（预共享密钥）两种验证方式。<br>&emsp;&emsp;RADIUS方式中用户提供认证所需的凭证，如果用户名和密码，通过特定的用户服务器（一般是RADIUS服务器）来实现，适用于大型企业网络。PSK方式仅要求在每个WLAN节点（AP，无线路由器、网卡等）预先输入一个密钥即可实现。只要密钥吻合，客户就可以获得WLAN访问权。它是设计给家庭和小型公司网络用的验证协议。<br>&emsp;&emsp;WPA包含了认证、加密和数据完整性校验三个组成部分，是一个完整的安全性方案。当前流星的认证方式包括WPA-PSK，WPA2-PSK，WPA/WPA2混合模式-PSK三种方式。</p>
+<h2 id="加密协议"><a href="#加密协议" class="headerlink" title="加密协议"></a>加密协议</h2><p>&emsp;&emsp; 加密协议用户实现对无线信息的加密保护。如果对无线信号不进行加密，则可能导致信号被非法截取之后被破解，为此在无线网络中出现了加密算法和相关的协议。<br>&emsp;&emsp;TKLP和AES是目前在无线网络上广泛使用的加密协议。它们主要在WPA/WPA2协议模式下工作，WAP-PSK/WPA2-PSK 均可使用AES和TKLP实现加密。</p>
+<h3 id="TKLP加密算法"><a href="#TKLP加密算法" class="headerlink" title="TKLP加密算法"></a>TKLP加密算法</h3><p>&emsp;&emsp;TKLP（Temporal Key Integrity Protocol）即暂时密钥集成协议，它与WEP一样基于R4加密算法，TKLP中密码使用的密钥长度为128位。TKLP在现有的WEP加密引擎中追加了“密钥细分（每发一个包重新生成一个新的密钥）“、”消息完整性检查（MI）“、”具有序列功能的初始向量（IV）“、”密钥生成和定期更新功能“等4种算法，从而提高了加密安全强度。<br>&emsp;&emsp;WPA采用TKLP传输的每一个数据包都具有独有的48位序列号，由于48位序列号重复率低。因此很难实施重放攻击。TKLP是比WEP更安全的加密方法，但是比较慢。要设置TKLP协议，无线客户端需要支持TKLP，另外必须设置WPA-PSK密钥（预共享密钥）。<br>&emsp;&emsp;当TKLP用作加密方法时，必须输入WPA-PSK预共享密钥，可以指定8~63个字母数字字符或64位十六进制数字来做密钥。</p>
+<h3 id="AES加密算法"><a href="#AES加密算法" class="headerlink" title="AES加密算法"></a>AES加密算法</h3><p>&emsp;&emsp;AES（Advanced Encryption Standard），级高级加密标准，是没过国家标准与技术研究所用于加密电子数据的规范，该算法汇聚了设计简单、密钥安装快、需要的内存空间少、在所有的平台上运行良好、支持并行处理并且可以抵抗所有已知攻击等优点。<br>&emsp;&emsp;AES是一个迭代的、对称密钥分组的密码，它可以使用128,、192和256位密钥，并且用128位（16字节）分组加密和解密数据。与公共密钥密码使用密钥对不同，对称密钥密码使用相同的密钥加密和解密数据。通过分组密码返回的加密数据的位数与输入数据相同。迭代加密使用一个循环结构，在该循环中重复置换（Permutations）和替换（Substitutes）输入数据。<br>&emsp;&emsp;AES提供了比TKLP更加高级的加密技术，现在无线路由器都提供了这2种算法、TKLP安全性不如AES，而且使用TKLP算法时路由器的吞吐量下降。<br>&emsp;&emsp;当AES用作加密方法时，必须输入WPA-PSK预共享密钥。可以指定8~63个字母数字字符或64位十六进制数字来做密钥。</p>
+<h3 id="IEEE-802-11x"><a href="#IEEE-802-11x" class="headerlink" title="IEEE 802.11x"></a>IEEE 802.11x</h3><p>&emsp;&emsp; IEEE 802.11x是一种C/S模式（客户机和服务器结构）下基于端口的访问控制和认证协议。C/S中间通过AP来代理所有的信息，对于无线客户端来说Radius服务器是透明的，客户的信息一般被保存在数据库中。IEEE 802.11x限制未被授权的设备对LAN的访问。在对网络建立连接前，认证服务器会对每一个想要进行连接的客户端进行审核。IEEE 802.11x本身并不提供实际的认证机制，需要和上层认证协议（如EAP协议）配合来实现用户认证和密钥分发。<br>&emsp;&emsp;使用IEEE 802.11x协议，可以在无线工作站与AP建立连接之前，对用户身份的合法性进行认证。当无线终端向AP发起连接请求时，AP会要求用户输入用户名和密码，再把这个用户名和密码送到验证服务器上做验证，如果验证通过才允许用户享用网络资源。这样可以大大提高整个网络的安全性。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/WechatIMG28.jpg" alt="embed_cxf 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/WechatIMG29.jpg" alt="embed_cxf 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"># 网络</a>
+              <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/" rel="tag"># 路由器</a>
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" rel="tag"># 网络安全</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/10/07/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E4%BA%A4%E6%8D%A2%E4%BC%A0%E8%BE%93%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/" rel="prev" title="通信工程交换传输实习报告">
+      <i class="fa fa-chevron-left"></i> 通信工程交换传输实习报告
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/01/09/%E8%93%9D%E7%89%99%E6%8A%80%E6%9C%AF/" rel="next" title="蓝牙技术">
+      蓝牙技术 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WLAN%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%92%8C%E5%8A%A0%E5%AF%86"><span class="nav-number">1.</span> <span class="nav-text">WLAN的安全认证和加密</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E5%8A%A0%E5%AF%86%E8%AE%A4%E8%AF%81"><span class="nav-number">1.1.</span> <span class="nav-text">无加密认证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MAC%E5%9C%B0%E5%9D%80%E8%BF%87%E6%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">MAC地址过滤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.3.</span> <span class="nav-text">相关的安全认证协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WEP"><span class="nav-number">1.3.1.</span> <span class="nav-text">WEP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WPA-PSK-WAP2-PSK"><span class="nav-number">1.3.2.</span> <span class="nav-text">WPA-PSK&#x2F;WAP2-PSK</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.4.</span> <span class="nav-text">加密协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TKLP%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">TKLP加密算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AES%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="nav-number">1.4.2.</span> <span class="nav-text">AES加密算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IEEE-802-11x"><span class="nav-number">1.4.3.</span> <span class="nav-text">IEEE 802.11x</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="embed_cxf"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">embed_cxf</p>
+  <div class="site-description" itemprop="description">一个迷茫的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lengmo714@qq.com" title="E-Mail → mailto:lengmo714@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3124723200/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;3124723200&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/Silent_F" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://apps.apple.com/cn/app/%E5%BF%AB%E9%80%9F%E6%89%93%E5%9C%B0%E9%BC%A0/id1530515717" title="game1 → https:&#x2F;&#x2F;apps.apple.com&#x2F;cn&#x2F;app&#x2F;%E5%BF%AB%E9%80%9F%E6%89%93%E5%9C%B0%E9%BC%A0&#x2F;id1530515717" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>game1</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider"></span>
+</span>
+</div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">embed_cxf</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '80d60V4tSVpFn1patE5mwyA5-gzGzoHsz',
+      appKey     : '6d1cXy06aaBYYsxyBjrNIUdL',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-CN' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
