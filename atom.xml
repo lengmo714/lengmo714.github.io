@@ -278,9 +278,9 @@
     <link href="http://example.com/2020/05/26/Lua-cjson%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/"/>
     <id>http://example.com/2020/05/26/Lua-cjson%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2/</id>
     <published>2020-05-26T09:46:24.000Z</published>
-    <updated>2020-09-13T05:48:40.661Z</updated>
+    <updated>2020-09-20T09:58:19.254Z</updated>
     
-    <content type="html"><![CDATA[<p>在安装lua-cjson时在网上查找了很多文章，关于具体的安装方法众说纷纭，主要原因是因为lua-cjson在安装时需要进行配置的更改，以下是经过实操得到的具体安装步骤。</p><a id="more"></a><p>wget <a href="http://www.kyne.com.au/~mark/software/download/lua-cjson-2.1.0.tar.gz">http://www.kyne.com.au/~mark/software/download/lua-cjson-2.1.0.tar.gz</a> 下载安装包</p><p>tar zxvf lua-cjson-2.1.0.tar.gz</p><p>cd lua-cjson-2.1.0/</p><p>修改配置文件</p><p>修改lua版本，默认版本为5.1 （我的当前版本为5.3，可以通过lua -v 查看版本信息）<br>注释掉 CJSON_LDFLAGS = -shared<br>设置CJSON_LDFLAGS = -bundle -undefined dynamic_lookup （这里就是OSX和Unix的区别，bundle是Mac使用的文件格式，如果不使用这些选项，可能引起“multiple lua vms detected”错误）<br>保存配置文件然后退出</p><p>make</p><p>sudo make install</p><p>检查 /usr/local/lib/lua/5.3文件夹下是否存在cjson.so文件</p><p>如果存在则代表安装成功<br>————————————————<br>版权声明：本文为CSDN博主「桃丶夭」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/weixin_39843367/java/article/details/103770161">https://blog.csdn.net/weixin_39843367/java/article/details/103770161</a></p>]]></content>
+    <content type="html"><![CDATA[<p>在安装lua-cjson时在网上查找了很多文章，关于具体的安装方法众说纷纭，主要原因是因为lua-cjson在安装时需要进行配置的更改，以下是经过实操得到的具体安装步骤。</p><a id="more"></a><p>wget <a href="http://www.kyne.com.au/~mark/software/download/lua-cjson-2.1.0.tar.gz">http://www.kyne.com.au/~mark/software/download/lua-cjson-2.1.0.tar.gz</a> 下载安装包</p><p>tar zxvf lua-cjson-2.1.0.tar.gz</p><p>cd lua-cjson-2.1.0/</p><p>修改配置文件</p><p>修改lua版本，默认版本为5.1 （我的当前版本为5.3，可以通过lua -v 查看版本信息）<br>注释掉 CJSON_LDFLAGS = -shared<br>设置CJSON_LDFLAGS = -bundle -undefined dynamic_lookup （这里就是OSX和Unix的区别，bundle是Mac使用的文件格式，如果不使用这些选项，可能引起“multiple lua vms detected”错误）<br>保存配置文件然后退出</p><p>make</p><p>sudo make install</p><p>检查 /usr/local/lib/lua/5.3文件夹下是否存在cjson.so文件</p><p>如果存在则代表安装成功</p>]]></content>
     
     
     <summary type="html">&lt;p&gt;在安装lua-cjson时在网上查找了很多文章，关于具体的安装方法众说纷纭，主要原因是因为lua-cjson在安装时需要进行配置的更改，以下是经过实操得到的具体安装步骤。&lt;/p&gt;</summary>
