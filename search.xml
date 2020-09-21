@@ -1119,6 +1119,34 @@
       </tags>
   </entry>
   <entry>
+    <title>Lua模块引入import 和require的区别</title>
+    <url>/2020/04/23/Lua%E6%A8%A1%E5%9D%97%E5%BC%95%E5%85%A5import-%E5%92%8Crequire%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p>Lua 中引入一个模块，可以采用两种方式：<code>import </code>和<code>require</code>方式，具体的区别在于：</p>
+<a id="more"></a>
+<h3 id="载入一个模块"><a href="#载入一个模块" class="headerlink" title="载入一个模块"></a>载入一个模块</h3><p><code>import() </code>与 <code>require() </code>功能相同，但具有一定程度的自动化特性。</p>
+<p>假设我们有如下的目录结构：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">app&#x2F;</span><br><span class="line">app&#x2F;classes&#x2F;</span><br><span class="line">app&#x2F;classes&#x2F;MyClass.lua</span><br><span class="line">app&#x2F;classes&#x2F;MyClassBase.lua</span><br><span class="line">app&#x2F;classes&#x2F;data&#x2F;Data1.lua</span><br><span class="line">app&#x2F;classes&#x2F;data&#x2F;Data2.lua</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>MyClass 中需要载入 MyClassBase 和 MyClassData。如果用 require()，MyClass 内的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">local MyClassBase = require(<span class="string">&quot;app.classes.MyClassBase&quot;</span>)</span><br><span class="line">local MyClass = <span class="class"><span class="keyword">class</span>(<span class="params"><span class="string">&quot;MyClass&quot;</span>, MyClassBase</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">local Data1 = require(&quot;app.classes.data.Data1&quot;)</span><br><span class="line">local Data2 = require(<span class="string">&quot;app.classes.data.Data2&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>假如我们将 MyClass 及其相关文件换一个目录存放，那么就必须修改 MyClass 中的 require() 命令，否则将找不到模块文件。</p>
+<p>而使用 import()，我们只需要如下写：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">local MyClassBase = <span class="keyword">import</span>(<span class="string">&quot;.MyClassBase&quot;</span>)</span><br><span class="line">local MyClass = <span class="class"><span class="keyword">class</span>(<span class="params"><span class="string">&quot;MyClass&quot;</span>, MyClassBase</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">local Data1 = import(&quot;.data.Data1&quot;)</span><br><span class="line">local Data2 = <span class="keyword">import</span>(<span class="string">&quot;.data.Data2&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当在模块名前面有一个”.” 时，import() 会从当前模块所在目录中查找其他模块。因此 MyClass 及其相关文件不管存放到什么目录里，我们都不再需要修改 MyClass 中的 import() 命令。这在开发一些重复使用的功能组件时，会非常方便。</p>
+<p>我们可以在模块名前添加多个”.” ，这样 import() 会从更上层的目录开始查找模块。</p>
+<p>不过 import() 只有在模块级别调用（也就是没有将 import() 写在任何函数中）时，才能够自动得到当前模块名。</p>
+<p><a href="https://www.cnblogs.com/Alex1991/p/8708768.html">本文参考链接</a></p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Lua日期和时间</title>
     <url>/2020/04/17/Lua%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/</url>
     <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;Lua语言的标准库提供了两个用于操作日期和时间的函数，这两个函数在C语言标准库中也存在，提供的是同样的功能。虽然这两个函数看上去很简单，但依旧可以基于这些简单的功能完成很多复杂的工作。</p>
@@ -1165,34 +1193,6 @@
 <p>&ensp;&ensp;&ensp;&ensp;我们还可以使用函数os.difftime来计算一段代码的执行时间。不过，对于这个需求更好的方式是使用函数os.clock，该函数会返回程序消耗的CPU时间（单位是秒）。函数os.clock在性能测试中的典型用法如：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local x = os.clock()</span><br><span class="line">local s = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>,<span class="number">100000</span> do s = s + i end</span><br><span class="line">print(string.format(<span class="string">&quot;elapsed time: %.2f\n&quot;</span>,os.clock() - x))</span><br></pre></td></tr></table></figure>
 <p>&ensp;&ensp;&ensp;&ensp;与函数os.time不同，函数os.clock通常具有比秒更高的精度，因此返回值为一个浮点数。具体的精度与平台相关，在POSIX系统中通常是1毫秒。</p>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lua模块引入import 和require的区别</title>
-    <url>/2020/04/23/Lua%E6%A8%A1%E5%9D%97%E5%BC%95%E5%85%A5import-%E5%92%8Crequire%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<p>Lua 中引入一个模块，可以采用两种方式：<code>import </code>和<code>require</code>方式，具体的区别在于：</p>
-<a id="more"></a>
-<h3 id="载入一个模块"><a href="#载入一个模块" class="headerlink" title="载入一个模块"></a>载入一个模块</h3><p><code>import() </code>与 <code>require() </code>功能相同，但具有一定程度的自动化特性。</p>
-<p>假设我们有如下的目录结构：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">app&#x2F;</span><br><span class="line">app&#x2F;classes&#x2F;</span><br><span class="line">app&#x2F;classes&#x2F;MyClass.lua</span><br><span class="line">app&#x2F;classes&#x2F;MyClassBase.lua</span><br><span class="line">app&#x2F;classes&#x2F;data&#x2F;Data1.lua</span><br><span class="line">app&#x2F;classes&#x2F;data&#x2F;Data2.lua</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>MyClass 中需要载入 MyClassBase 和 MyClassData。如果用 require()，MyClass 内的代码如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">local MyClassBase = require(<span class="string">&quot;app.classes.MyClassBase&quot;</span>)</span><br><span class="line">local MyClass = <span class="class"><span class="keyword">class</span>(<span class="params"><span class="string">&quot;MyClass&quot;</span>, MyClassBase</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">local Data1 = require(&quot;app.classes.data.Data1&quot;)</span><br><span class="line">local Data2 = require(<span class="string">&quot;app.classes.data.Data2&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>假如我们将 MyClass 及其相关文件换一个目录存放，那么就必须修改 MyClass 中的 require() 命令，否则将找不到模块文件。</p>
-<p>而使用 import()，我们只需要如下写：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">local MyClassBase = <span class="keyword">import</span>(<span class="string">&quot;.MyClassBase&quot;</span>)</span><br><span class="line">local MyClass = <span class="class"><span class="keyword">class</span>(<span class="params"><span class="string">&quot;MyClass&quot;</span>, MyClassBase</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">local Data1 = import(&quot;.data.Data1&quot;)</span><br><span class="line">local Data2 = <span class="keyword">import</span>(<span class="string">&quot;.data.Data2&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>当在模块名前面有一个”.” 时，import() 会从当前模块所在目录中查找其他模块。因此 MyClass 及其相关文件不管存放到什么目录里，我们都不再需要修改 MyClass 中的 import() 命令。这在开发一些重复使用的功能组件时，会非常方便。</p>
-<p>我们可以在模块名前添加多个”.” ，这样 import() 会从更上层的目录开始查找模块。</p>
-<p>不过 import() 只有在模块级别调用（也就是没有将 import() 写在任何函数中）时，才能够自动得到当前模块名。</p>
-<p><a href="https://www.cnblogs.com/Alex1991/p/8708768.html">本文参考链接</a></p>
 ]]></content>
       <categories>
         <category>编程语言</category>
@@ -1671,25 +1671,6 @@
       </tags>
   </entry>
   <entry>
-    <title>cocos 2dx使用webView</title>
-    <url>/2019/03/18/cocos-2dx%E4%BD%BF%E7%94%A8webView/</url>
-    <content><![CDATA[<p>废话不多说，直接上代码<br>注意：只能在真机跑，不能进行模拟器调试<br>代码：</p>
-<a id="more"></a>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local webView1 = ccexp.WebView:create()</span><br><span class="line">   webView1:setContentSize(cc.size(<span class="number">1280</span>,<span class="number">720</span>))</span><br><span class="line">   webView1:setScalesPageToFit(<span class="keyword">true</span>)</span><br><span class="line">   -- webView1:loadHTMLString(<span class="keyword">true</span>)</span><br><span class="line">   webView1:setPosition(cc.p(<span class="number">640</span>,<span class="number">360</span>))</span><br><span class="line">   webView1:loadURL(<span class="string">&quot;http://www.baidu.com&quot;</span>)</span><br><span class="line">   self:addChild(webView1)</span><br><span class="line">   webView1:setOnShouldStartLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1ShouldStartLoading,url is &quot;</span>, url)</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">   end)</span><br><span class="line">   webView1:setOnDidFinishLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1DidFinishLoading url is &quot;</span> , url)</span><br><span class="line">   end)</span><br><span class="line">   webView1:setOnDidFailLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1DidFailLoading url is &quot;</span> , url)</span><br><span class="line">   end)  </span><br><span class="line">   webView1:reload()</span><br></pre></td></tr></table></figure>
-
-<p>因为苹果不支持http协议，所以在真机运行时需要稍微修改xcode设置<br>添加下面设置<br><img src="https://img-blog.csdnimg.cn/20190318133012896.jpg" alt="在这里插入图片描述"></p>
-<p>如果是加载本地的html文件，用下面代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local webView1 = ccexp.WebView:create()</span><br><span class="line">    webView1:setContentSize(cc.size(<span class="number">1280</span>,<span class="number">720</span>))</span><br><span class="line">    webView1:setScalesPageToFit(<span class="keyword">true</span>)</span><br><span class="line">    -- webView1:loadHTMLString(<span class="keyword">true</span>)</span><br><span class="line">    webView1:setPosition(cc.p(<span class="number">640</span>,<span class="number">360</span>))</span><br><span class="line"></span><br><span class="line">    local url = <span class="string">&quot;8/8.html&quot;</span></span><br><span class="line">    url = cc.FileUtils:getInstance():fullPathForFilename(url)</span><br><span class="line">    webView1:loadURL(url)</span><br><span class="line"></span><br><span class="line">    self:addChild(webView1)</span><br><span class="line">    webView1:setOnShouldStartLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1ShouldStartLoading,url is &quot;</span>, url)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">    end)</span><br><span class="line">    webView1:setOnDidFinishLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1DidFinishLoading url is &quot;</span> , url)</span><br><span class="line">    end)</span><br><span class="line">    webView1:setOnDidFailLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1DidFailLoading url is &quot;</span> , url)</span><br><span class="line">    end)  </span><br><span class="line">    webView1:reload()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-        <tag>cocos 2d</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>cocos2dx(3.17)-lua 游戏开发 (持续更新)</title>
     <url>/2018/12/06/cocos2dx-3-17-lua-%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/</url>
     <content><![CDATA[<h2 id="cocos2dx-lua-游戏开发"><a href="#cocos2dx-lua-游戏开发" class="headerlink" title="cocos2dx-lua 游戏开发"></a>cocos2dx-lua 游戏开发</h2><p>开发环境： mac，cocos2dx 3.17</p>
@@ -1796,6 +1777,38 @@
       </tags>
   </entry>
   <entry>
+    <title>cocos 2dx使用webView</title>
+    <url>/2019/03/18/cocos-2dx%E4%BD%BF%E7%94%A8webView/</url>
+    <content><![CDATA[<p>废话不多说，直接上代码<br>注意：只能在真机跑，不能进行模拟器调试<br>代码：</p>
+<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local webView1 = ccexp.WebView:create()</span><br><span class="line">   webView1:setContentSize(cc.size(<span class="number">1280</span>,<span class="number">720</span>))</span><br><span class="line">   webView1:setScalesPageToFit(<span class="keyword">true</span>)</span><br><span class="line">   -- webView1:loadHTMLString(<span class="keyword">true</span>)</span><br><span class="line">   webView1:setPosition(cc.p(<span class="number">640</span>,<span class="number">360</span>))</span><br><span class="line">   webView1:loadURL(<span class="string">&quot;http://www.baidu.com&quot;</span>)</span><br><span class="line">   self:addChild(webView1)</span><br><span class="line">   webView1:setOnShouldStartLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1ShouldStartLoading,url is &quot;</span>, url)</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">   end)</span><br><span class="line">   webView1:setOnDidFinishLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1DidFinishLoading url is &quot;</span> , url)</span><br><span class="line">   end)</span><br><span class="line">   webView1:setOnDidFailLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1DidFailLoading url is &quot;</span> , url)</span><br><span class="line">   end)  </span><br><span class="line">   webView1:reload()</span><br></pre></td></tr></table></figure>
+
+<p>因为苹果不支持http协议，所以在真机运行时需要稍微修改xcode设置<br>添加下面设置<br><img src="https://img-blog.csdnimg.cn/20190318133012896.jpg" alt="在这里插入图片描述"></p>
+<p>如果是加载本地的html文件，用下面代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local webView1 = ccexp.WebView:create()</span><br><span class="line">    webView1:setContentSize(cc.size(<span class="number">1280</span>,<span class="number">720</span>))</span><br><span class="line">    webView1:setScalesPageToFit(<span class="keyword">true</span>)</span><br><span class="line">    -- webView1:loadHTMLString(<span class="keyword">true</span>)</span><br><span class="line">    webView1:setPosition(cc.p(<span class="number">640</span>,<span class="number">360</span>))</span><br><span class="line"></span><br><span class="line">    local url = <span class="string">&quot;8/8.html&quot;</span></span><br><span class="line">    url = cc.FileUtils:getInstance():fullPathForFilename(url)</span><br><span class="line">    webView1:loadURL(url)</span><br><span class="line"></span><br><span class="line">    self:addChild(webView1)</span><br><span class="line">    webView1:setOnShouldStartLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1ShouldStartLoading,url is &quot;</span>, url)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">    end)</span><br><span class="line">    webView1:setOnDidFinishLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1DidFinishLoading url is &quot;</span> , url)</span><br><span class="line">    end)</span><br><span class="line">    webView1:setOnDidFailLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1DidFailLoading url is &quot;</span> , url)</span><br><span class="line">    end)  </span><br><span class="line">    webView1:reload()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+        <tag>cocos 2d</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cocos2dx_lua 游戏暂停与继续</title>
+    <url>/2019/03/05/cocos2dx-lua-%E6%B8%B8%E6%88%8F%E6%9A%82%E5%81%9C%E4%B8%8E%E7%BB%A7%E7%BB%AD/</url>
+    <content><![CDATA[<p>直接上代码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">CCDirector.sharedDirector():pause()  --游戏暂停</span><br><span class="line">CCDirector.sharedDirector():resume() --游戏继续</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>游戏开发</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+        <tag>cocos 2d</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>cocos2dx lua 热更新</title>
     <url>/2018/12/21/cocos2dx-lua-%E7%83%AD%E6%9B%B4%E6%96%B0/</url>
     <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>&emsp;&emsp;每次登陆游戏利用cocos的assetManager从服务器拉去当前最新的两个文件。 </p>
@@ -1825,19 +1838,6 @@
 <p>AssetsManagerEx是AssetsManager的加强版，不同的是不再使用升级包的方式，而是采用单个文件拉取的方式。首先获取本地更新配置，之后与服务器的更新配置比对，得出差异文件，之后单个拉取差异文件。当本地版本大于服务器版本时，会清理掉本地更新缓存。AssetsManagerEx也有尚未解决的问题，例如多个更新序列无法并行，只能顺序启动。另外版本后期随着项目庞大配置文件几乎包含了所有的文件信息，对比文件时间的耗时会越来越长。</p>
 <p>参考：<a href="https://blog.csdn.net/u012278016/article/details/84298942">https://blog.csdn.net/u012278016/article/details/84298942</a></p>
 ]]></content>
-      <categories>
-        <category>游戏开发</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-        <tag>cocos 2d</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cocos2dx_lua 游戏暂停与继续</title>
-    <url>/2019/03/05/cocos2dx-lua-%E6%B8%B8%E6%88%8F%E6%9A%82%E5%81%9C%E4%B8%8E%E7%BB%A7%E7%BB%AD/</url>
-    <content><![CDATA[<p>直接上代码</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">CCDirector.sharedDirector():pause()  --游戏暂停</span><br><span class="line">CCDirector.sharedDirector():resume() --游戏继续</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>游戏开发</category>
       </categories>
@@ -1931,30 +1931,6 @@
       </tags>
   </entry>
   <entry>
-    <title>cocos2dx使用帧动画</title>
-    <url>/2019/03/08/cocos2dx%E4%BD%BF%E7%94%A8%E5%B8%A7%E5%8A%A8%E7%94%BB/</url>
-    <content><![CDATA[<p>开发语言：lua<br>开发引擎：cocos2d_x </p>
-<p>一般来说，使用cocos2d_x开发游戏的时候都有两种做UI的方式，一种是用代码手写，一种是用cocos studio做UI，帧动画也一样，可以用这里两种方式，下面介绍博主常用的两种方法。</p>
-<a id="more"></a>
-<h3 id="代码手写帧动画"><a href="#代码手写帧动画" class="headerlink" title="代码手写帧动画"></a>代码手写帧动画</h3><blockquote>
-<p>博主这里是先将用来做帧动画的图片合成plis合图，然后创建一个精灵。用plist合图中的图片不断的去替换原来精灵的图片。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">cc.SpriteFrameCache:getInstance():addSpriteFrames(<span class="string">&quot;tupian.plist&quot;</span>)</span><br><span class="line">           local Circle_sp = cc.Sprite:createWithSpriteFrameName(<span class="string">&quot;1.png&quot;</span>)</span><br><span class="line">           Circle_sp:move(a_x,a_y)</span><br><span class="line">           Circle_sp:addTo(self._lr , <span class="number">1</span>)</span><br><span class="line">           local animation = cc.Animation:create()  </span><br><span class="line">           <span class="keyword">for</span> i=<span class="number">1</span>,<span class="number">6</span> <span class="keyword">do</span>  </span><br><span class="line">               local _frame = cc.SpriteFrameCache:getInstance():getSpriteFrame( i ..<span class="string">&quot;.png&quot;</span>) </span><br><span class="line">               <span class="keyword">if</span>  _frame then</span><br><span class="line">                   animation:addSpriteFrame(_frame) </span><br><span class="line">               end</span><br><span class="line">           end  </span><br><span class="line">           animation:setDelayPerUnit(<span class="number">0.08</span>)             --设置两个帧播放时间                  </span><br><span class="line">           animation:setRestoreOriginalFrame(<span class="keyword">false</span>)    --动画执行后还原初始状态              </span><br><span class="line">           local action = cc.Animate:create(animation) </span><br><span class="line">           local hide = cc.CallFunc:create(function()</span><br><span class="line">               local fadein = cc.FadeIn:create(<span class="number">0.08</span>)</span><br><span class="line">               local fadeout = cc.FadeOut:create(<span class="number">0.08</span>)</span><br><span class="line">               local delay = cc.DelayTime:create(<span class="number">0.08</span>)</span><br><span class="line">               Circle_sp:runAction(cc.Sequence:create(fadein,delay,fadeout))</span><br><span class="line">           end)     </span><br><span class="line">           local delay = cc.DelayTime:create(<span class="number">0.5</span>)             </span><br><span class="line">           Circle_sp:runAction(cc.Sequence:create(action,delay,hide))  </span><br></pre></td></tr></table></figure>
-
-<h3 id="用cocos-studio-做帧动画"><a href="#用cocos-studio-做帧动画" class="headerlink" title="用cocos studio 做帧动画"></a>用cocos studio 做帧动画</h3><blockquote>
-<p>需要自己在cocos studio 上提前做好相应的帧动画</p>
-</blockquote>
-<p>跳转链接：<a href="https://blog.csdn.net/Silent_F/article/details/84846000#_228">https://blog.csdn.net/Silent_F/article/details/84846000#_228</a></p>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-        <tag>cocos 2d</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>git强制拉取远程项目覆盖本地项目</title>
     <url>/2019/11/15/git%E5%BC%BA%E5%88%B6%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E9%A1%B9%E7%9B%AE%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE/</url>
     <content><![CDATA[<h3 id="git强制覆盖："><a href="#git强制覆盖：" class="headerlink" title="git强制覆盖："></a>git强制覆盖：</h3><blockquote>
@@ -1996,17 +1972,27 @@
       </tags>
   </entry>
   <entry>
-    <title>pip问题:raise ReadTimeoutError(self._pool, None, &#39;Read timed out.&#39;)</title>
-    <url>/2020/03/04/pip%E9%97%AE%E9%A2%98-raise-ReadTimeoutError-self-pool-None-Read-timed-out/</url>
-    <content><![CDATA[<p>刚在用pip安装requests库时出现了下面问题：</p>
+    <title>cocos2dx使用帧动画</title>
+    <url>/2019/03/08/cocos2dx%E4%BD%BF%E7%94%A8%E5%B8%A7%E5%8A%A8%E7%94%BB/</url>
+    <content><![CDATA[<p>开发语言：lua<br>开发引擎：cocos2d_x </p>
+<p>一般来说，使用cocos2d_x开发游戏的时候都有两种做UI的方式，一种是用代码手写，一种是用cocos studio做UI，帧动画也一样，可以用这里两种方式，下面介绍博主常用的两种方法。</p>
 <a id="more"></a>
-<p><img src="https://img-blog.csdnimg.cn/20200304215052292.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>解决方法很简单：<br> 1  直接指定下载源<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> pip install --index-url https:&#x2F;&#x2F;pypi.douban.com&#x2F;simple &lt;model&gt;</span><br><span class="line"> </span><br><span class="line">比如 pip install --index-url https:&#x2F;&#x2F;pypi.douban.com&#x2F;simple requests</span><br></pre></td></tr></table></figure><br>2 或者延迟等待时间</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip --default-timeout&#x3D;100 install -U pip</span><br></pre></td></tr></table></figure>]]></content>
+<h3 id="代码手写帧动画"><a href="#代码手写帧动画" class="headerlink" title="代码手写帧动画"></a>代码手写帧动画</h3><blockquote>
+<p>博主这里是先将用来做帧动画的图片合成plis合图，然后创建一个精灵。用plist合图中的图片不断的去替换原来精灵的图片。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">cc.SpriteFrameCache:getInstance():addSpriteFrames(<span class="string">&quot;tupian.plist&quot;</span>)</span><br><span class="line">           local Circle_sp = cc.Sprite:createWithSpriteFrameName(<span class="string">&quot;1.png&quot;</span>)</span><br><span class="line">           Circle_sp:move(a_x,a_y)</span><br><span class="line">           Circle_sp:addTo(self._lr , <span class="number">1</span>)</span><br><span class="line">           local animation = cc.Animation:create()  </span><br><span class="line">           <span class="keyword">for</span> i=<span class="number">1</span>,<span class="number">6</span> <span class="keyword">do</span>  </span><br><span class="line">               local _frame = cc.SpriteFrameCache:getInstance():getSpriteFrame( i ..<span class="string">&quot;.png&quot;</span>) </span><br><span class="line">               <span class="keyword">if</span>  _frame then</span><br><span class="line">                   animation:addSpriteFrame(_frame) </span><br><span class="line">               end</span><br><span class="line">           end  </span><br><span class="line">           animation:setDelayPerUnit(<span class="number">0.08</span>)             --设置两个帧播放时间                  </span><br><span class="line">           animation:setRestoreOriginalFrame(<span class="keyword">false</span>)    --动画执行后还原初始状态              </span><br><span class="line">           local action = cc.Animate:create(animation) </span><br><span class="line">           local hide = cc.CallFunc:create(function()</span><br><span class="line">               local fadein = cc.FadeIn:create(<span class="number">0.08</span>)</span><br><span class="line">               local fadeout = cc.FadeOut:create(<span class="number">0.08</span>)</span><br><span class="line">               local delay = cc.DelayTime:create(<span class="number">0.08</span>)</span><br><span class="line">               Circle_sp:runAction(cc.Sequence:create(fadein,delay,fadeout))</span><br><span class="line">           end)     </span><br><span class="line">           local delay = cc.DelayTime:create(<span class="number">0.5</span>)             </span><br><span class="line">           Circle_sp:runAction(cc.Sequence:create(action,delay,hide))  </span><br></pre></td></tr></table></figure>
+
+<h3 id="用cocos-studio-做帧动画"><a href="#用cocos-studio-做帧动画" class="headerlink" title="用cocos studio 做帧动画"></a>用cocos studio 做帧动画</h3><blockquote>
+<p>需要自己在cocos studio 上提前做好相应的帧动画</p>
+</blockquote>
+<p>跳转链接：<a href="https://blog.csdn.net/Silent_F/article/details/84846000#_228">https://blog.csdn.net/Silent_F/article/details/84846000#_228</a></p>
+]]></content>
       <categories>
-        <category>编程语言</category>
+        <category>游戏开发</category>
       </categories>
       <tags>
-        <tag>python</tag>
+        <tag>lua</tag>
+        <tag>cocos 2d</tag>
       </tags>
   </entry>
   <entry>
@@ -2029,6 +2015,20 @@
       </categories>
       <tags>
         <tag>lua</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>pip问题:raise ReadTimeoutError(self._pool, None, &#39;Read timed out.&#39;)</title>
+    <url>/2020/03/04/pip%E9%97%AE%E9%A2%98-raise-ReadTimeoutError-self-pool-None-Read-timed-out/</url>
+    <content><![CDATA[<p>刚在用pip安装requests库时出现了下面问题：</p>
+<a id="more"></a>
+<p><img src="https://img-blog.csdnimg.cn/20200304215052292.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>解决方法很简单：<br> 1  直接指定下载源<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> pip install --index-url https:&#x2F;&#x2F;pypi.douban.com&#x2F;simple &lt;model&gt;</span><br><span class="line"> </span><br><span class="line">比如 pip install --index-url https:&#x2F;&#x2F;pypi.douban.com&#x2F;simple requests</span><br></pre></td></tr></table></figure><br>2 或者延迟等待时间</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip --default-timeout&#x3D;100 install -U pip</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -2185,6 +2185,24 @@
       </tags>
   </entry>
   <entry>
+    <title>windows系统完全换ubuntu</title>
+    <url>/2018/09/13/windows%E7%B3%BB%E7%BB%9F%E5%AE%8C%E5%85%A8%E6%8D%A2ubuntu/</url>
+    <content><![CDATA[<p>&emsp;&emsp;笔者今天突发奇想兴致一来，就将原本使用的windows系统换为了ubuntu系统，安装的是最新的18.04版本，不得不说，这个最新的版本比以前的老版本博主个人觉得新版本还是好用些，具体的要自己体会才知道。</p>
+<a id="more"></a>
+<p>&emsp;&emsp;下面笔者博主分享下自己的换系统的过程。<br>1.去ubuntu官网下载一个系统镜像，具体过程笔者这里就不介绍了，如果连下载镜像都不会，那就没有使用ubuntu 系统的必要了。<br>2.做一个启动盘，笔者这里使用的Rufus启动盘，制作很简单，首先去网上下载一个Rufus安装包,安装后打开，在‘‘引导类型选择’’这栏选择自己之前下载的ubuntu的ios镜像文件，再点‘‘确定’’。注意，这步操作会将U盘格式化，如果U盘里面有重要的文件，记得提前备份。<br><img src="https://img-blog.csdn.net/20180913015222804?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>3.进行第二步操作后，会有一个‘‘状态’’的进度条，当进度条进行到100%后启动盘就制作完成了。<br><img src="https://img-blog.csdn.net/20180913015559562?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>4.启动盘制作好后，将U盘插上电脑，设置电脑为U盘启动，就能进入ubuntu 系统的安装步骤了，安装的步骤很简单，可以按照系统一路点击‘‘继续’’，也可能按照自己的方式去安装，选择引导地址等。</p>
+<p>好了，今天的分享就到这里，希望可以帮助到您。</p>
+<blockquote>
+<p>本博客仅供参考，希望对您有所帮助</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一般路由器的安全认证协议</title>
     <url>/2018/01/06/%E4%B8%80%E8%88%AC%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE/</url>
     <content><![CDATA[<h1 id="WLAN的安全认证和加密"><a href="#WLAN的安全认证和加密" class="headerlink" title="WLAN的安全认证和加密"></a>WLAN的安全认证和加密</h1><h2 id="无加密认证"><a href="#无加密认证" class="headerlink" title="无加密认证"></a>无加密认证</h2><p>&emsp;&emsp;无加密认证主要采用设置SSID和采用MAC地址过滤两种方式来实现。SSID就是构建的一个无线局域网的名称标识。一个无线客户端到连接一个无线局域网必须要获得该无线局域网的SSID。</p>
@@ -2209,24 +2227,6 @@
         <tag>网络</tag>
         <tag>路由器</tag>
         <tag>网络安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>windows系统完全换ubuntu</title>
-    <url>/2018/09/13/windows%E7%B3%BB%E7%BB%9F%E5%AE%8C%E5%85%A8%E6%8D%A2ubuntu/</url>
-    <content><![CDATA[<p>&emsp;&emsp;笔者今天突发奇想兴致一来，就将原本使用的windows系统换为了ubuntu系统，安装的是最新的18.04版本，不得不说，这个最新的版本比以前的老版本博主个人觉得新版本还是好用些，具体的要自己体会才知道。</p>
-<a id="more"></a>
-<p>&emsp;&emsp;下面笔者博主分享下自己的换系统的过程。<br>1.去ubuntu官网下载一个系统镜像，具体过程笔者这里就不介绍了，如果连下载镜像都不会，那就没有使用ubuntu 系统的必要了。<br>2.做一个启动盘，笔者这里使用的Rufus启动盘，制作很简单，首先去网上下载一个Rufus安装包,安装后打开，在‘‘引导类型选择’’这栏选择自己之前下载的ubuntu的ios镜像文件，再点‘‘确定’’。注意，这步操作会将U盘格式化，如果U盘里面有重要的文件，记得提前备份。<br><img src="https://img-blog.csdn.net/20180913015222804?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>3.进行第二步操作后，会有一个‘‘状态’’的进度条，当进度条进行到100%后启动盘就制作完成了。<br><img src="https://img-blog.csdn.net/20180913015559562?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>4.启动盘制作好后，将U盘插上电脑，设置电脑为U盘启动，就能进入ubuntu 系统的安装步骤了，安装的步骤很简单，可以按照系统一路点击‘‘继续’’，也可能按照自己的方式去安装，选择引导地址等。</p>
-<p>好了，今天的分享就到这里，希望可以帮助到您。</p>
-<blockquote>
-<p>本博客仅供参考，希望对您有所帮助</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -2655,27 +2655,6 @@
       </tags>
   </entry>
   <entry>
-    <title>无人机项目的打算</title>
-    <url>/2017/02/20/%E6%97%A0%E4%BA%BA%E6%9C%BA%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%89%93%E7%AE%97/</url>
-    <content><![CDATA[<blockquote>
-<p><strong>前言</strong> 开始做无人机这么久了，说实话自己的投入不是很够，真正学到的不是很多。</p>
-</blockquote>
-<a id="more"></a>
-<p>&emsp;&emsp;今年大三下学期，自己的压力也比较大，首先还是自己快要找工作了；其次自己现在作为实验室飞行器组的一员，暑假的时候要去参加电赛，对飞行器的进展缓慢有点压力。<br>&emsp;&emsp;今天来实验室，碰到郑boss，也就对我们飞行器组的现状进行了交流。</p>
-<h3 id="现状分析"><a href="#现状分析" class="headerlink" title="现状分析"></a>现状分析</h3><p>&emsp;&emsp;现阶段我们为本科，所学的东西有限，而对于无人机的学习也只是停留在理解的层面，就是说拿别人已经完成了的作品来学习，而且学习只是学习硬件和软件，根本就没有碰到更底层或者原理算法这些方面。<br>&emsp;&emsp;我们的飞行器只是能够飞行，而且还飞得不是很稳，更不用说实现定点定高，图像识别这些基本的功能。说得难听点，我们现在弄出来的没有一点技术含量。<br>&emsp;&emsp;实验室才开始弄飞行器两年，技术累积不够。而且真正能够接手的人少。缺乏核心力量。也就导致我们的飞行器进度特别缓慢。</p>
-<h3 id="接下来的打算"><a href="#接下来的打算" class="headerlink" title="接下来的打算"></a>接下来的打算</h3><p>&emsp;&emsp;郑boss建议把重心放在软件上，因为飞行器用的主控芯片是STM32，而我们实验室一直的重点就是放在STM32上（可是我的STM32很弱），所以我们就先用开源的代码，去理解别人的代码，先实现飞行器能够稳定的飞行，达到别人的水平。再去实现其他的功能。<br>&emsp;&emsp;而我自己认为硬件对飞行器来说也重要，但是我们学习的重点还是放在软件（这点还是和郑boss的看法一样），但是不能只学习，在学习软件的同时慢慢去熟悉算法。因为想让飞行器飞得更平稳更好，算法也是很重要的，如果只是单单的弄软件，不去尝试算法，应该很难把飞行器做好（个人这么认为）。<br>&emsp;&emsp;所以接下来我个人就从最基本的STM32入手，加强对STM32的学习，同时从各个模块开始调试，特别是把库里面的代码先跑一遍，结合现象去理解。</p>
-<blockquote>
-<p><em>一个项目的完成离不开一个team，所以在做项目的同时，团队成员之间的交流是必不可少的。我们飞行器组的进展缓慢，我个人认为和我们的交流少也有一定的关系</em></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>无人机</category>
-      </categories>
-      <tags>
-        <tag>无人机</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>树莓派3创建ftp服务及远程桌面配置</title>
     <url>/2017/07/16/%E6%A0%91%E8%8E%93%E6%B4%BE3%E5%88%9B%E5%BB%BAftp%E6%9C%8D%E5%8A%A1%E5%8F%8A%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<p>&emsp;&emsp;拿到树莓派，首先要下载系统并开启树莓派，详情可参考链接：<a href="http://www.fengpla.org/2017/06/27/RaspberryPi/">http://www.fengpla.org/2017/06/27/RaspberryPi/</a></p>
@@ -2724,6 +2703,27 @@
       </tags>
   </entry>
   <entry>
+    <title>无人机项目的打算</title>
+    <url>/2017/02/20/%E6%97%A0%E4%BA%BA%E6%9C%BA%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%89%93%E7%AE%97/</url>
+    <content><![CDATA[<blockquote>
+<p><strong>前言</strong> 开始做无人机这么久了，说实话自己的投入不是很够，真正学到的不是很多。</p>
+</blockquote>
+<a id="more"></a>
+<p>&emsp;&emsp;今年大三下学期，自己的压力也比较大，首先还是自己快要找工作了；其次自己现在作为实验室飞行器组的一员，暑假的时候要去参加电赛，对飞行器的进展缓慢有点压力。<br>&emsp;&emsp;今天来实验室，碰到郑boss，也就对我们飞行器组的现状进行了交流。</p>
+<h3 id="现状分析"><a href="#现状分析" class="headerlink" title="现状分析"></a>现状分析</h3><p>&emsp;&emsp;现阶段我们为本科，所学的东西有限，而对于无人机的学习也只是停留在理解的层面，就是说拿别人已经完成了的作品来学习，而且学习只是学习硬件和软件，根本就没有碰到更底层或者原理算法这些方面。<br>&emsp;&emsp;我们的飞行器只是能够飞行，而且还飞得不是很稳，更不用说实现定点定高，图像识别这些基本的功能。说得难听点，我们现在弄出来的没有一点技术含量。<br>&emsp;&emsp;实验室才开始弄飞行器两年，技术累积不够。而且真正能够接手的人少。缺乏核心力量。也就导致我们的飞行器进度特别缓慢。</p>
+<h3 id="接下来的打算"><a href="#接下来的打算" class="headerlink" title="接下来的打算"></a>接下来的打算</h3><p>&emsp;&emsp;郑boss建议把重心放在软件上，因为飞行器用的主控芯片是STM32，而我们实验室一直的重点就是放在STM32上（可是我的STM32很弱），所以我们就先用开源的代码，去理解别人的代码，先实现飞行器能够稳定的飞行，达到别人的水平。再去实现其他的功能。<br>&emsp;&emsp;而我自己认为硬件对飞行器来说也重要，但是我们学习的重点还是放在软件（这点还是和郑boss的看法一样），但是不能只学习，在学习软件的同时慢慢去熟悉算法。因为想让飞行器飞得更平稳更好，算法也是很重要的，如果只是单单的弄软件，不去尝试算法，应该很难把飞行器做好（个人这么认为）。<br>&emsp;&emsp;所以接下来我个人就从最基本的STM32入手，加强对STM32的学习，同时从各个模块开始调试，特别是把库里面的代码先跑一遍，结合现象去理解。</p>
+<blockquote>
+<p><em>一个项目的完成离不开一个team，所以在做项目的同时，团队成员之间的交流是必不可少的。我们飞行器组的进展缓慢，我个人认为和我们的交流少也有一定的关系</em></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>无人机</category>
+      </categories>
+      <tags>
+        <tag>无人机</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>用lua解决八皇后问题</title>
     <url>/2020/04/01/%E7%94%A8lua%E8%A7%A3%E5%86%B3%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;要解决八皇后问题，首先必须认识到每一行中只能有一个皇后。因此，可以用一个由8个数字组成的简单数组来表示可能的解决方案。例如，数组{3,7,2,1,8,6,5,4}表示皇后在棋盘中的位置分别是(1,3)、(2,7)、(3,2)、(4,1)、(5,8)、(6,4)、(7,5)和(8,4)。当然，这个示例并不是一个正确的解，例如(3,2)中的皇后就可以攻击(4,1)中的皇后。此外，我们还必须认识到解必须是整数1到8组成的排列，这样才能保证每一列中也只有一个皇后。</p>
@@ -2739,6 +2739,31 @@
       </categories>
       <tags>
         <tag>lua</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>电脑数据信息安全常识</title>
+    <url>/2018/08/16/%E7%94%B5%E8%84%91%E6%95%B0%E6%8D%AE%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%B8%B8%E8%AF%86/</url>
+    <content><![CDATA[<p><strong>为什么需要数据安全防护？</strong><br><strong>数据丢失每时每刻都有可能发生，对于数据灾难您是否做好了预防的准备？</strong><br>*<em>\</em> **有超过20%的笔记本电脑在开始使用的三年内会发生硬件故障</p>
+<a id="more"></a>
+<p>*<em>\</em> *<em>有6%左右的PC机每年都会遇到数据丢失的情况<br>**\</em> *<em>有60%的企业重要数据存储在舍友任何保护措施的PC机或者笔记本里<br>**\</em> **有20%的常规备份并不能挽救所有的数据</p>
+<h3 id="数据丢失可以避免吗？"><a href="#数据丢失可以避免吗？" class="headerlink" title="数据丢失可以避免吗？"></a>数据丢失可以避免吗？</h3><p>&emsp;&emsp;凡事没有100%的安全，数据安全也是一样。只有做好数据安全防护，才能最大限度地降低数据丢失的可能性，保证数据的安全。</p>
+<h3 id="数据安全防护常识"><a href="#数据安全防护常识" class="headerlink" title="数据安全防护常识"></a>数据安全防护常识</h3><p>*<em>\</em> *<em>对重要数据定期进行备份<br>**\</em> *<em>避免在潮湿、灰尘和烟雾的地方使用设备<br>**\</em> *<em>避免振动<br>**\</em> *<em>使用防病毒软件并定期升级<br>**\</em> **使用USP或者其他措施防止电源中断或电压波动对设备的伤害</p>
+<h3 id="数据存储介质保护常识"><a href="#数据存储介质保护常识" class="headerlink" title="数据存储介质保护常识"></a>数据存储介质保护常识</h3><p>*<em>\</em> *<em>避免非正常或频繁的开关机<br>**\</em> *<em>避免恶劣的工作环境<br>**\</em> **避免对分区进行的误操作</p>
+<h3 id="数据备份常识"><a href="#数据备份常识" class="headerlink" title="数据备份常识"></a>数据备份常识</h3><p>*<em>\</em> *<em>不在原盘上进行备份<br>**\</em> *<em>保证备份不带病毒<br>**\</em> **定期对备份文件进行测试</p>
+<h3 id="什么原因可造成数据灾难"><a href="#什么原因可造成数据灾难" class="headerlink" title="什么原因可造成数据灾难"></a>什么原因可造成数据灾难</h3><p>*<em>\</em> *<em>人为误操作<br>**\</em> *<em>硬盘硬件故障<br>**\</em> *<em>系统软件故障<br>**\</em> *<em>病毒破坏<br>**\</em> *<em>供电中断<br>**\</em> **自然灾害</p>
+<h3 id="数据灾难发生的现象"><a href="#数据灾难发生的现象" class="headerlink" title="数据灾难发生的现象"></a>数据灾难发生的现象</h3><p>*<em>\</em> *<em>设备无法启动<br>**\</em> *<em>找不到硬盘分区<br>**\</em> *<em>计算机不识别硬盘<br>**\</em> *<em>硬盘出现异常声响<br>**\</em> *<em>屏幕出现蓝屏<br>**\</em> **文件打不开或出现乱码</p>
+<h3 id="数据灾难发生后的正确操作"><a href="#数据灾难发生后的正确操作" class="headerlink" title="数据灾难发生后的正确操作"></a>数据灾难发生后的正确操作</h3><p>*<em>\</em> *<em>强行关机，切忌反复多次开机测试<br>**\</em> *<em>保护好存储介质，不要对其进行任何操作<br>**\</em> **确认数据安全后再进行系统还原等写操作</p>
+<blockquote>
+<p>本博客仅供参考，希望对您有所帮助</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>计算机使用</category>
+      </categories>
+      <tags>
+        <tag>数据安全</tag>
+        <tag>数据安全防护常识</tag>
       </tags>
   </entry>
   <entry>
@@ -2800,31 +2825,6 @@
       <tags>
         <tag>服务器</tag>
         <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>电脑数据信息安全常识</title>
-    <url>/2018/08/16/%E7%94%B5%E8%84%91%E6%95%B0%E6%8D%AE%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%B8%B8%E8%AF%86/</url>
-    <content><![CDATA[<p><strong>为什么需要数据安全防护？</strong><br><strong>数据丢失每时每刻都有可能发生，对于数据灾难您是否做好了预防的准备？</strong><br>*<em>\</em> **有超过20%的笔记本电脑在开始使用的三年内会发生硬件故障</p>
-<a id="more"></a>
-<p>*<em>\</em> *<em>有6%左右的PC机每年都会遇到数据丢失的情况<br>**\</em> *<em>有60%的企业重要数据存储在舍友任何保护措施的PC机或者笔记本里<br>**\</em> **有20%的常规备份并不能挽救所有的数据</p>
-<h3 id="数据丢失可以避免吗？"><a href="#数据丢失可以避免吗？" class="headerlink" title="数据丢失可以避免吗？"></a>数据丢失可以避免吗？</h3><p>&emsp;&emsp;凡事没有100%的安全，数据安全也是一样。只有做好数据安全防护，才能最大限度地降低数据丢失的可能性，保证数据的安全。</p>
-<h3 id="数据安全防护常识"><a href="#数据安全防护常识" class="headerlink" title="数据安全防护常识"></a>数据安全防护常识</h3><p>*<em>\</em> *<em>对重要数据定期进行备份<br>**\</em> *<em>避免在潮湿、灰尘和烟雾的地方使用设备<br>**\</em> *<em>避免振动<br>**\</em> *<em>使用防病毒软件并定期升级<br>**\</em> **使用USP或者其他措施防止电源中断或电压波动对设备的伤害</p>
-<h3 id="数据存储介质保护常识"><a href="#数据存储介质保护常识" class="headerlink" title="数据存储介质保护常识"></a>数据存储介质保护常识</h3><p>*<em>\</em> *<em>避免非正常或频繁的开关机<br>**\</em> *<em>避免恶劣的工作环境<br>**\</em> **避免对分区进行的误操作</p>
-<h3 id="数据备份常识"><a href="#数据备份常识" class="headerlink" title="数据备份常识"></a>数据备份常识</h3><p>*<em>\</em> *<em>不在原盘上进行备份<br>**\</em> *<em>保证备份不带病毒<br>**\</em> **定期对备份文件进行测试</p>
-<h3 id="什么原因可造成数据灾难"><a href="#什么原因可造成数据灾难" class="headerlink" title="什么原因可造成数据灾难"></a>什么原因可造成数据灾难</h3><p>*<em>\</em> *<em>人为误操作<br>**\</em> *<em>硬盘硬件故障<br>**\</em> *<em>系统软件故障<br>**\</em> *<em>病毒破坏<br>**\</em> *<em>供电中断<br>**\</em> **自然灾害</p>
-<h3 id="数据灾难发生的现象"><a href="#数据灾难发生的现象" class="headerlink" title="数据灾难发生的现象"></a>数据灾难发生的现象</h3><p>*<em>\</em> *<em>设备无法启动<br>**\</em> *<em>找不到硬盘分区<br>**\</em> *<em>计算机不识别硬盘<br>**\</em> *<em>硬盘出现异常声响<br>**\</em> *<em>屏幕出现蓝屏<br>**\</em> **文件打不开或出现乱码</p>
-<h3 id="数据灾难发生后的正确操作"><a href="#数据灾难发生后的正确操作" class="headerlink" title="数据灾难发生后的正确操作"></a>数据灾难发生后的正确操作</h3><p>*<em>\</em> *<em>强行关机，切忌反复多次开机测试<br>**\</em> *<em>保护好存储介质，不要对其进行任何操作<br>**\</em> **确认数据安全后再进行系统还原等写操作</p>
-<blockquote>
-<p>本博客仅供参考，希望对您有所帮助</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>计算机使用</category>
-      </categories>
-      <tags>
-        <tag>数据安全</tag>
-        <tag>数据安全防护常识</tag>
       </tags>
   </entry>
   <entry>
