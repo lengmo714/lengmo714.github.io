@@ -1513,6 +1513,30 @@
       </tags>
   </entry>
   <entry>
+    <title>Python实现微信自动聊天</title>
+    <url>/2019/07/16/Python%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E8%87%AA%E5%8A%A8%E8%81%8A%E5%A4%A9/</url>
+    <content><![CDATA[<p>闲着无聊，在网上找了一些好玩的代码，比如用Python实现微信自动回消息<br>之前弄了一个定时自动给好友发天气或者发心灵鸡汤的脚本，下载链接：<a href="https://download.csdn.net/download/silent_f/11162951">https://download.csdn.net/download/silent_f/11162951</a></p>
+<a id="more"></a>
+<p>今天这里就介绍微信接入图灵机器人，自动和好友聊天的脚本</p>
+<h3 id="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"><a href="#1、自动和所有好友聊天，只要好友发消息来，就会给好友回复" class="headerlink" title="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"></a>1、自动和所有好友聊天，只要好友发消息来，就会给好友回复</h3><p>这里笔者用的是3.6版本python ,安装itchat,<br>用下面命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip3 install itchat </span><br></pre></td></tr></table></figure>
+<p>然后去图灵机器人官网注册账号，获取一个key</p>
+<p>具体代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> itchat</span><br><span class="line"><span class="keyword">import</span> importlib,sys </span><br><span class="line">importlib.reload(sys)</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_response</span>(<span class="params">_info</span>):</span></span><br><span class="line">    print(_info)                                       <span class="comment"># 从好友发过来的消息</span></span><br><span class="line">    api_url = <span class="string">&#x27;http://www.tuling123.com/openapi/api&#x27;</span>   <span class="comment"># 图灵机器人网址</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;key&#x27;</span>: <span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>,     <span class="comment"># 如果这个 apiKey 如不能用，那就注册一次</span></span><br><span class="line">        <span class="string">&#x27;info&#x27;</span>: _info,                                 <span class="comment"># 这是我们从好友接收到的消息 然后转发给图灵机器人</span></span><br><span class="line">        <span class="string">&#x27;userid&#x27;</span>: <span class="string">&#x27;wechat-robot&#x27;</span>,                      <span class="comment"># 这里你想改什么都可以</span></span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(api_url, data=data).json()       <span class="comment"># 把data数据发</span></span><br><span class="line">    print(r.get(<span class="string">&#x27;text&#x27;</span>))                               <span class="comment"># 机器人回复给好友的消息</span></span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line"><span class="meta">@itchat.msg_register(itchat.content.TEXT)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">text_reply</span>(<span class="params">msg</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span> + get_response(msg[<span class="string">&quot;Text&quot;</span>])[<span class="string">&quot;text&quot;</span>]</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    itchat.auto_login()                  <span class="comment"># hotReload = True, 保持在线，下次运行代码可自动登录  hotReload=True</span></span><br><span class="line">    itchat.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、和指定好友聊天"><a href="#2、和指定好友聊天" class="headerlink" title="2、和指定好友聊天"></a>2、和指定好友聊天</h3><p>代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> wxpy <span class="keyword">import</span> Bot,Tuling,embed,ensure_one</span><br><span class="line">bot = Bot()</span><br><span class="line">my_friend = ensure_one(bot.search(<span class="string">&#x27;张三&#x27;</span>))  <span class="comment">#想和机器人聊天的好友的备注</span></span><br><span class="line">tuling = Tuling(api_key=<span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>)     <span class="comment">#这里是图灵机器人申请后的api</span></span><br><span class="line"><span class="meta">@bot.register(my_friend)  # 使用图灵机器人自动与指定好友聊天</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reply_my_friend</span>(<span class="params">msg</span>):</span></span><br><span class="line">    tuling.do_reply(msg)</span><br><span class="line">embed()</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、在指定微信群里聊天"><a href="#3、在指定微信群里聊天" class="headerlink" title="3、在指定微信群里聊天"></a>3、在指定微信群里聊天</h3><p>代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> wxpy <span class="keyword">import</span> Bot,Tuling,embed</span><br><span class="line">bot = Bot(cache_path=<span class="literal">True</span>)</span><br><span class="line">my_group = bot.groups().search(<span class="string">&#x27;8个人儿? ? ? ? ?&#x27;</span>)[<span class="number">0</span>]  <span class="comment"># 更改为自己的群聊名称</span></span><br><span class="line">tuling = Tuling(api_key=<span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>)  <span class="comment"># 图灵机器人申请的apikey</span></span><br><span class="line"><span class="meta">@bot.register(my_group, except_self=False)  # 使用图灵机器人自动在指定群聊天</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reply_my_friend</span>(<span class="params">msg</span>):</span></span><br><span class="line">    print(tuling.do_reply(msg))</span><br><span class="line">embed()</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>STM32GPIO部分介绍</title>
     <url>/2017/04/24/STM32GPIO%E9%83%A8%E5%88%86%E4%BB%8B%E7%BB%8D/</url>
     <content><![CDATA[<p>&emsp;&emsp;最近在老师交给了一个项目，需要用到STM32单片机，这里就在学习的过程中所注意到的一些地方或细节部分记录了下来，笔者所使用的是STM32F407ZGT6芯片（探索者）。</p>
@@ -1544,30 +1568,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Python实现微信自动聊天</title>
-    <url>/2019/07/16/Python%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E8%87%AA%E5%8A%A8%E8%81%8A%E5%A4%A9/</url>
-    <content><![CDATA[<p>闲着无聊，在网上找了一些好玩的代码，比如用Python实现微信自动回消息<br>之前弄了一个定时自动给好友发天气或者发心灵鸡汤的脚本，下载链接：<a href="https://download.csdn.net/download/silent_f/11162951">https://download.csdn.net/download/silent_f/11162951</a></p>
-<a id="more"></a>
-<p>今天这里就介绍微信接入图灵机器人，自动和好友聊天的脚本</p>
-<h3 id="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"><a href="#1、自动和所有好友聊天，只要好友发消息来，就会给好友回复" class="headerlink" title="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"></a>1、自动和所有好友聊天，只要好友发消息来，就会给好友回复</h3><p>这里笔者用的是3.6版本python ,安装itchat,<br>用下面命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip3 install itchat </span><br></pre></td></tr></table></figure>
-<p>然后去图灵机器人官网注册账号，获取一个key</p>
-<p>具体代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> itchat</span><br><span class="line"><span class="keyword">import</span> importlib,sys </span><br><span class="line">importlib.reload(sys)</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_response</span>(<span class="params">_info</span>):</span></span><br><span class="line">    print(_info)                                       <span class="comment"># 从好友发过来的消息</span></span><br><span class="line">    api_url = <span class="string">&#x27;http://www.tuling123.com/openapi/api&#x27;</span>   <span class="comment"># 图灵机器人网址</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;key&#x27;</span>: <span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>,     <span class="comment"># 如果这个 apiKey 如不能用，那就注册一次</span></span><br><span class="line">        <span class="string">&#x27;info&#x27;</span>: _info,                                 <span class="comment"># 这是我们从好友接收到的消息 然后转发给图灵机器人</span></span><br><span class="line">        <span class="string">&#x27;userid&#x27;</span>: <span class="string">&#x27;wechat-robot&#x27;</span>,                      <span class="comment"># 这里你想改什么都可以</span></span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(api_url, data=data).json()       <span class="comment"># 把data数据发</span></span><br><span class="line">    print(r.get(<span class="string">&#x27;text&#x27;</span>))                               <span class="comment"># 机器人回复给好友的消息</span></span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line"><span class="meta">@itchat.msg_register(itchat.content.TEXT)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">text_reply</span>(<span class="params">msg</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span> + get_response(msg[<span class="string">&quot;Text&quot;</span>])[<span class="string">&quot;text&quot;</span>]</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    itchat.auto_login()                  <span class="comment"># hotReload = True, 保持在线，下次运行代码可自动登录  hotReload=True</span></span><br><span class="line">    itchat.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="2、和指定好友聊天"><a href="#2、和指定好友聊天" class="headerlink" title="2、和指定好友聊天"></a>2、和指定好友聊天</h3><p>代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> wxpy <span class="keyword">import</span> Bot,Tuling,embed,ensure_one</span><br><span class="line">bot = Bot()</span><br><span class="line">my_friend = ensure_one(bot.search(<span class="string">&#x27;张三&#x27;</span>))  <span class="comment">#想和机器人聊天的好友的备注</span></span><br><span class="line">tuling = Tuling(api_key=<span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>)     <span class="comment">#这里是图灵机器人申请后的api</span></span><br><span class="line"><span class="meta">@bot.register(my_friend)  # 使用图灵机器人自动与指定好友聊天</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reply_my_friend</span>(<span class="params">msg</span>):</span></span><br><span class="line">    tuling.do_reply(msg)</span><br><span class="line">embed()</span><br></pre></td></tr></table></figure>
-
-<h3 id="3、在指定微信群里聊天"><a href="#3、在指定微信群里聊天" class="headerlink" title="3、在指定微信群里聊天"></a>3、在指定微信群里聊天</h3><p>代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> wxpy <span class="keyword">import</span> Bot,Tuling,embed</span><br><span class="line">bot = Bot(cache_path=<span class="literal">True</span>)</span><br><span class="line">my_group = bot.groups().search(<span class="string">&#x27;8个人儿? ? ? ? ?&#x27;</span>)[<span class="number">0</span>]  <span class="comment"># 更改为自己的群聊名称</span></span><br><span class="line">tuling = Tuling(api_key=<span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>)  <span class="comment"># 图灵机器人申请的apikey</span></span><br><span class="line"><span class="meta">@bot.register(my_group, except_self=False)  # 使用图灵机器人自动在指定群聊天</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reply_my_friend</span>(<span class="params">msg</span>):</span></span><br><span class="line">    print(tuling.do_reply(msg))</span><br><span class="line">embed()</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>STM32系统时钟树分析</title>
     <url>/2017/05/17/STM32%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%92%9F%E6%A0%91%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p>下面是一个STM32芯片的时钟树图</p>
@@ -1590,32 +1590,6 @@
       <tags>
         <tag>stm32</tag>
         <tag>时钟树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>break、return和goto</title>
-    <url>/2020/04/13/break%E3%80%81return%E5%92%8Cgoto/</url>
-    <content><![CDATA[<h2 id="break、return-和-goto"><a href="#break、return-和-goto" class="headerlink" title="break、return 和 goto"></a>break、return 和 goto</h2><p>&ensp;&ensp;&ensp;&ensp;break和return语句用于从当前的循环结构中跳出，goto语句则允许跳转到函数中的几乎任何地方。</p>
-<a id="more"></a>
-<p>&ensp;&ensp;&ensp;&ensp;我们可以使用break语句结束循环，该语句会中断包含它的内层循环；该语句不能在循环外使用。break中断后，程序会紧接着被中断的循环继续执行。<br>&ensp;&ensp;&ensp;&ensp;return语句用于返回函数的执行结果或简单地结束函数的运行。所有函数的最后都有一个隐含的return，因此我们不需要在每一个没有返还值的函数最后书写return语句。<br>&ensp;&ensp;&ensp;&ensp;按照这个语法，return只能是代码块中的最后一句：换句话说，它只能是代码块的最后一句，或者是end、else和until之前的最后一句。例如，在下面的例子中，return是then代码块的最后一句：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local i = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> a[i] do</span><br><span class="line">	<span class="keyword">if</span> a[i] == v then <span class="keyword">return</span> i end</span><br><span class="line">	i = i + <span class="number">1</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>通常，这些地方正是使用return的典型位置，return之后的语句不会被执行。不过，有时再代码块中间使用return也是很有用你的。列如，在调试我们可能不想让某个函数执行。在这种情况下，可以显示地使用一个包含break的do：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo()</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">	do <span class="keyword">return</span> end</span><br><span class="line">	other statements</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;goto语句用于将当前程序跳转到相应的标签出继续执行。goto语句一直以来备受争议，至今仍有很多人认为它们不利于程序开发并且应该在变成语言中禁止。不过尽管如此，仍有很多语言处于很多原因保留了goto语句。goto语句有很强大的功能，只要足够细心，我们就能够利用它来提高代码质量。<br>&ensp;&ensp;&ensp;&ensp;在lua语言中，goto语句的语法非常传统，既保留字goto后面紧跟着标签名，标签名可以是人以有效的标识符。标签的语法稍微有点复杂：标签名称前后各紧跟两个冒号，形如<code>::name::</code>。这个复杂的语法是有意而为的，主要是为了在程序中醒目地突出这些标签。<br>&ensp;&ensp;&ensp;&ensp;在使用goto跳转时，Lua语言设置了一些限制条件。首先，标签遵循常见的可见性规则，因此不能直接跳转到一个代码块中的标签。其次，goto不能跳转到函数外。最后，goto不能跳转到局部变量的作用域。<br>&ensp;&ensp;&ensp;&ensp;关于goto语句典型且正确的使用方式，请参考其他一些编程语言中存在但Lua语言中不存在的代码结构，例如continue、多级break、多级continue、redo和局部错误处理等。continue语句仅仅相当于一个跳转到位于循环体最后位置处标签的goto语句，而redo语句则相当于跳转到代码块开始位置的goto语句：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> some_condition do</span><br><span class="line">	::redo::</span><br><span class="line">	<span class="keyword">if</span> some_other_condition then goto <span class="keyword">continue</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> yet_another_condition then goto redo</span><br><span class="line">	end</span><br><span class="line">	some code </span><br><span class="line">	::<span class="keyword">continue</span>::</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;Lua语言规范中一个很有用的细节是，局部变量的作用域终止于声明变量的代码块中的最后一个有效语句处，标签被认为是无效语句。下列代码展示了这个使用的细节：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> some_condition do </span><br><span class="line">	<span class="keyword">if</span> some_other_condition then goto <span class="keyword">continue</span> end</span><br><span class="line">	local var = something</span><br><span class="line">	::<span class="keyword">continue</span>::</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>读者可能认为，这个goto语句跳转到了变量var的作用域内。但实际上这个continue标签出现在该代码块的最后一个有效语句后，因此goto并未跳转进入变量var的作用域内。<br>&ensp;&ensp;&ensp;&ensp;goto语句在编写状态机时也很有用。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">-- 一个使用goto语句的状态机的示例</span><br><span class="line">::s1:: do </span><br><span class="line">	local c = io.read(<span class="number">1</span>)</span><br><span class="line">	<span class="keyword">if</span> c == <span class="string">&#x27;0&#x27;</span> then goto s2</span><br><span class="line">	elseif c == nil then <span class="keyword">print</span> <span class="string">&#x27;ok&#x27;</span>; <span class="keyword">return</span></span><br><span class="line">	<span class="keyword">else</span> goto s1</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">::s2:: do</span><br><span class="line">	local c = io.read(<span class="number">1</span>)</span><br><span class="line">	<span class="keyword">if</span> c == <span class="string">&#x27;0&#x27;</span> then goto s1</span><br><span class="line">	elseif c == nil then <span class="keyword">print</span><span class="string">&#x27;not ok&#x27;</span>; <span class="keyword">return</span></span><br><span class="line">	<span class="keyword">else</span> goto s2</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">goto s1</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;虽然可以使用更好的方式来编写这段代码，但上例中的方法有助于将一个有限自动机自动地转化为Lua语言代码。<br>&ensp;&ensp;&ensp;&ensp;再举一个简单的迷宫游戏的例子。迷宫中有几个房间，每个房间的东南西北向各有一扇门。玩家每次可以出入移动的方向，如果在这个方向上有一扇门，则玩家可以进入相应的房间，否则程序输出一个警告，玩家的最终目的是从第一个房间走到最后一个房间。<br>&ensp;&ensp;&ensp;&ensp;这个游戏是一个典型的状态机，当玩家所在房间就是一个状态。为实现这个迷宫游戏，我们可以为每个房间对应的逻辑便编写一段代码，然后用goto语句表示从一个房间移动到另一个房间。<br>如下例</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">goto room1 </span><br><span class="line"></span><br><span class="line">::room1:: do</span><br><span class="line">	local move = io.read()</span><br><span class="line">	<span class="keyword">if</span> move == <span class="string">&quot;south&quot;</span> then goto room3</span><br><span class="line">	elseif move == <span class="string">&quot;east&quot;</span> then goto room2</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		print(<span class="string">&quot;invalid move&quot;</span>)</span><br><span class="line">		goto room1</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">::room2:: do</span><br><span class="line">	local move = io.read()</span><br><span class="line">	<span class="keyword">if</span> move == <span class="string">&quot;south&quot;</span> then goto room4</span><br><span class="line">	elseif move == <span class="string">&quot;west&quot;</span> then goto room1</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		print(<span class="string">&quot;invalid move&quot;</span>)</span><br><span class="line">		goto room2</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">::room3:: do</span><br><span class="line">	local move = io.read()</span><br><span class="line">	<span class="keyword">if</span> move == <span class="string">&quot;north&quot;</span> then goto room1</span><br><span class="line">	elseif move == <span class="string">&quot;east&quot;</span> then goto room4</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		print(<span class="string">&quot;invalid move&quot;</span>)</span><br><span class="line">		goto room3</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">::room4:: do</span><br><span class="line">	print(<span class="string">&quot;Congratulations, you won!&quot;</span>)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;对于这个简单的游戏，读者可能会发现，使用数据驱动编程是一种更好的设计方法。不过，如果游戏中的每间房都各自不同，那么久非常适合使用这种状态机的实现方法。</p>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
       </tags>
   </entry>
   <entry>
@@ -1645,6 +1619,32 @@
       </categories>
       <tags>
         <tag>Zigbee</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>break、return和goto</title>
+    <url>/2020/04/13/break%E3%80%81return%E5%92%8Cgoto/</url>
+    <content><![CDATA[<h2 id="break、return-和-goto"><a href="#break、return-和-goto" class="headerlink" title="break、return 和 goto"></a>break、return 和 goto</h2><p>&ensp;&ensp;&ensp;&ensp;break和return语句用于从当前的循环结构中跳出，goto语句则允许跳转到函数中的几乎任何地方。</p>
+<a id="more"></a>
+<p>&ensp;&ensp;&ensp;&ensp;我们可以使用break语句结束循环，该语句会中断包含它的内层循环；该语句不能在循环外使用。break中断后，程序会紧接着被中断的循环继续执行。<br>&ensp;&ensp;&ensp;&ensp;return语句用于返回函数的执行结果或简单地结束函数的运行。所有函数的最后都有一个隐含的return，因此我们不需要在每一个没有返还值的函数最后书写return语句。<br>&ensp;&ensp;&ensp;&ensp;按照这个语法，return只能是代码块中的最后一句：换句话说，它只能是代码块的最后一句，或者是end、else和until之前的最后一句。例如，在下面的例子中，return是then代码块的最后一句：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local i = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> a[i] do</span><br><span class="line">	<span class="keyword">if</span> a[i] == v then <span class="keyword">return</span> i end</span><br><span class="line">	i = i + <span class="number">1</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>通常，这些地方正是使用return的典型位置，return之后的语句不会被执行。不过，有时再代码块中间使用return也是很有用你的。列如，在调试我们可能不想让某个函数执行。在这种情况下，可以显示地使用一个包含break的do：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo()</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">	do <span class="keyword">return</span> end</span><br><span class="line">	other statements</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;goto语句用于将当前程序跳转到相应的标签出继续执行。goto语句一直以来备受争议，至今仍有很多人认为它们不利于程序开发并且应该在变成语言中禁止。不过尽管如此，仍有很多语言处于很多原因保留了goto语句。goto语句有很强大的功能，只要足够细心，我们就能够利用它来提高代码质量。<br>&ensp;&ensp;&ensp;&ensp;在lua语言中，goto语句的语法非常传统，既保留字goto后面紧跟着标签名，标签名可以是人以有效的标识符。标签的语法稍微有点复杂：标签名称前后各紧跟两个冒号，形如<code>::name::</code>。这个复杂的语法是有意而为的，主要是为了在程序中醒目地突出这些标签。<br>&ensp;&ensp;&ensp;&ensp;在使用goto跳转时，Lua语言设置了一些限制条件。首先，标签遵循常见的可见性规则，因此不能直接跳转到一个代码块中的标签。其次，goto不能跳转到函数外。最后，goto不能跳转到局部变量的作用域。<br>&ensp;&ensp;&ensp;&ensp;关于goto语句典型且正确的使用方式，请参考其他一些编程语言中存在但Lua语言中不存在的代码结构，例如continue、多级break、多级continue、redo和局部错误处理等。continue语句仅仅相当于一个跳转到位于循环体最后位置处标签的goto语句，而redo语句则相当于跳转到代码块开始位置的goto语句：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> some_condition do</span><br><span class="line">	::redo::</span><br><span class="line">	<span class="keyword">if</span> some_other_condition then goto <span class="keyword">continue</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> yet_another_condition then goto redo</span><br><span class="line">	end</span><br><span class="line">	some code </span><br><span class="line">	::<span class="keyword">continue</span>::</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;Lua语言规范中一个很有用的细节是，局部变量的作用域终止于声明变量的代码块中的最后一个有效语句处，标签被认为是无效语句。下列代码展示了这个使用的细节：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> some_condition do </span><br><span class="line">	<span class="keyword">if</span> some_other_condition then goto <span class="keyword">continue</span> end</span><br><span class="line">	local var = something</span><br><span class="line">	::<span class="keyword">continue</span>::</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>读者可能认为，这个goto语句跳转到了变量var的作用域内。但实际上这个continue标签出现在该代码块的最后一个有效语句后，因此goto并未跳转进入变量var的作用域内。<br>&ensp;&ensp;&ensp;&ensp;goto语句在编写状态机时也很有用。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">-- 一个使用goto语句的状态机的示例</span><br><span class="line">::s1:: do </span><br><span class="line">	local c = io.read(<span class="number">1</span>)</span><br><span class="line">	<span class="keyword">if</span> c == <span class="string">&#x27;0&#x27;</span> then goto s2</span><br><span class="line">	elseif c == nil then <span class="keyword">print</span> <span class="string">&#x27;ok&#x27;</span>; <span class="keyword">return</span></span><br><span class="line">	<span class="keyword">else</span> goto s1</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">::s2:: do</span><br><span class="line">	local c = io.read(<span class="number">1</span>)</span><br><span class="line">	<span class="keyword">if</span> c == <span class="string">&#x27;0&#x27;</span> then goto s1</span><br><span class="line">	elseif c == nil then <span class="keyword">print</span><span class="string">&#x27;not ok&#x27;</span>; <span class="keyword">return</span></span><br><span class="line">	<span class="keyword">else</span> goto s2</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">goto s1</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;虽然可以使用更好的方式来编写这段代码，但上例中的方法有助于将一个有限自动机自动地转化为Lua语言代码。<br>&ensp;&ensp;&ensp;&ensp;再举一个简单的迷宫游戏的例子。迷宫中有几个房间，每个房间的东南西北向各有一扇门。玩家每次可以出入移动的方向，如果在这个方向上有一扇门，则玩家可以进入相应的房间，否则程序输出一个警告，玩家的最终目的是从第一个房间走到最后一个房间。<br>&ensp;&ensp;&ensp;&ensp;这个游戏是一个典型的状态机，当玩家所在房间就是一个状态。为实现这个迷宫游戏，我们可以为每个房间对应的逻辑便编写一段代码，然后用goto语句表示从一个房间移动到另一个房间。<br>如下例</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">goto room1 </span><br><span class="line"></span><br><span class="line">::room1:: do</span><br><span class="line">	local move = io.read()</span><br><span class="line">	<span class="keyword">if</span> move == <span class="string">&quot;south&quot;</span> then goto room3</span><br><span class="line">	elseif move == <span class="string">&quot;east&quot;</span> then goto room2</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		print(<span class="string">&quot;invalid move&quot;</span>)</span><br><span class="line">		goto room1</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">::room2:: do</span><br><span class="line">	local move = io.read()</span><br><span class="line">	<span class="keyword">if</span> move == <span class="string">&quot;south&quot;</span> then goto room4</span><br><span class="line">	elseif move == <span class="string">&quot;west&quot;</span> then goto room1</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		print(<span class="string">&quot;invalid move&quot;</span>)</span><br><span class="line">		goto room2</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">::room3:: do</span><br><span class="line">	local move = io.read()</span><br><span class="line">	<span class="keyword">if</span> move == <span class="string">&quot;north&quot;</span> then goto room1</span><br><span class="line">	elseif move == <span class="string">&quot;east&quot;</span> then goto room4</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		print(<span class="string">&quot;invalid move&quot;</span>)</span><br><span class="line">		goto room3</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">::room4:: do</span><br><span class="line">	print(<span class="string">&quot;Congratulations, you won!&quot;</span>)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;对于这个简单的游戏，读者可能会发现，使用数据驱动编程是一种更好的设计方法。不过，如果游戏中的每间房都各自不同，那么久非常适合使用这种状态机的实现方法。</p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
       </tags>
   </entry>
   <entry>
@@ -2921,6 +2921,47 @@
       </tags>
   </entry>
   <entry>
+    <title>苹果审核机制</title>
+    <url>/2020/05/31/%E8%8B%B9%E6%9E%9C%E5%AE%A1%E6%A0%B8%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<p>这篇文章为大家揭秘苹果的审核机制，希望对你有所帮助。</p>
+<a id="more"></a>
+<p>对于苹果审核我们一直抱有疑问的态度，它到底是机审还是人工审核呢？据熟悉该部门的人士透露，虽然苹果确实使用自动过滤器（机审），但该部门仍一直依赖人工审核。机审的作用主要是过滤掉明显不合格审核内容及高效分配工作，提高人工审核的公平性和效率。而所有审核结果，均由苹果的评审员人工进行审核。</p>
+<p>据脸书、YouTube 知情人士透露，苹果人工审核工作是由苹果内部员工组成。App 评审员最基础是从 iPhone 应用程序开始审核，随着工作经验的累积，培训力度也会随之增加，审核员的工作方向还会包括内购、订阅等功能审核或 Apple Watch、Apple TV 不同平台应用程序的审核。</p>
+<p>目前 App Review 总部有 300 多名评审员，其设在加利福尼亚州森尼维尔（Sunnyvale）的两个办公室里。据一位知情人士透露，苹果最近在爱尔兰科克和中国上海开设了新的应用程序评论办事处，近年来苹果一直增加评审员的成员。相信对于开发者们来讲，审核时间和效率的提高是一个很好的消息。</p>
+<p>苹果对于评审员的语言要求非常高，由于之前审核 App 是按语言进行分配的，也就是说中文 App 给中文团队审核，但考虑到徇私舞弊问题，目前由机审筛选后随机分配。这也就是为什么苹果评审员的语言是他们考核重点，苹果公司表示，有些评审员会说 81 种不同的语言。</p>
+<p>60% 通过率和 40% 拒绝率</p>
+<p>苹果的每个评审员每天大概需要审核 50 – 100 个应用程序，Watchtower 会跟踪每一个 App 的审核情况，以便回复开发者或通过开发者修改后重新提交审核时进行比对，同时也为苹果收集 App 质量相关数据。</p>
+<p>对于评审员来讲，苹果为其制定了 SLA 的考核制度（服务级别协议），苹果在对审核时间的要求上是十分明确的。要求评审员在 24 小时内需要达到 50% 的应用完成审核，48 小时内需要达到 90% 的应用完成审核。苹果称，会有 40% 的 App 被拒审或更新被驳回，核查出相关问题，并反馈给开发者。在同时多维度考核数据时，SLA 会达到正常标准，低于正常值时，评审员会收到邮件通知进行警告。</p>
+<p>这样的审核制度保证了开发者提交审核后的反馈以及对于审核效率和质量的规定。</p>
+<p>拒绝后开发者应该怎么办？</p>
+<p>开发者可向委员会（App Review Board）进行申诉，委员会是由高级评审员组成，有权修改级别较低的评审员的审核决定。</p>
+<p>通过苹果拒审整体情况来看，大多数 App 主要由三大理由被苹果拒绝审核：</p>
+<p>1.具有迷惑性或欺骗性的 App</p>
+<p>2.存在漏洞的 App</p>
+<p>3.侵犯用户隐私的 App</p>
+<p>作为苹果App Store的审核人员是一种什么体验？</p>
+<p>开发者们可从这三个出发点主要反思代码中是否有相关内容体验，确保产品顺利过审。</p>
+<p>开发者需要注意：</p>
+<p>曾在苹果工作过的审核员称，当被拒审后，开发者选择上诉后，苹果会对推翻或者驳回 App 的理由进行解释，这时，苹果内部会有人给开发者打电话。所以开发者如果接到苹果的电话可以及时沟通，尽可能将拒审原因询问清楚。</p>
+<p>拒审并不会因为公司规模和开发者团队的大小而决定，苹果会对所有开发者一视同仁。不要有优越感，苹果的拒审不会看背景，所以开发者提交审核时建议多方检查后再进行提交。</p>
+<p>作为苹果App Store的审核人员是一种什么体验？</p>
+<p>支付异常、家长控制 App 苹果评审员会格外关注，如有问题会主动联系，所以相关 App 需要注意，确定没有逃脱或欺骗等行为。</p>
+<p>苹果在 App Review 网页中给予开发者常见拒审原因的解决方法，开发者可参考苹果建议，进行及时更正，尽快上架 App。</p>
+<p>如果开发者需要进一步提出上诉等操作可通过“联系我们”直接与苹果沟通。</p>
+<p>总结</p>
+<p>①苹果人工审核相对严格，建议开发者积极回应，及时修改，争取提早过审；</p>
+<p>②苹果的拒审率为 40%，所以被拒审了或多或少会有问题，及时改正即可，或上诉提交高级评审员。但这里也会有些问题，可能会出现新的审核结果，所以利弊参半；</p>
+<p>③由于评审员工作经验、水平及评审模式略有不同，根据提供审核结果的评审员评定，尽量修改，如再三确定没有问题，可进行申诉；</p>
+<p>④拒审原因苹果有提供相关常见解说，如遇相关问题或提交审核前，可进行参考。</p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+      </categories>
+      <tags>
+        <tag>ios上架</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>蓝牙技术</title>
     <url>/2018/01/09/%E8%93%9D%E7%89%99%E6%8A%80%E6%9C%AF/</url>
     <content><![CDATA[<h1 id="蓝牙技术"><a href="#蓝牙技术" class="headerlink" title="蓝牙技术"></a>蓝牙技术</h1><h2 id="蓝牙协议体系结构"><a href="#蓝牙协议体系结构" class="headerlink" title="蓝牙协议体系结构"></a>蓝牙协议体系结构</h2><p>&emsp;&emsp;蓝牙协议体系的目的是是符合该规范的各种应用之间能够互通，本地设备与远端设备需要使用相同的协议，不同的应用需要不同的协议。但是，所有的应用都要使用协议体系中的数据链路层和物理层，完整蓝牙的协议栈如图</p>
@@ -2991,47 +3032,6 @@
         <tag>计算机图形学</tag>
         <tag>计算机</tag>
         <tag>图形</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>苹果审核机制</title>
-    <url>/2020/05/31/%E8%8B%B9%E6%9E%9C%E5%AE%A1%E6%A0%B8%E6%9C%BA%E5%88%B6/</url>
-    <content><![CDATA[<p>这篇文章为大家揭秘苹果的审核机制，希望对你有所帮助。</p>
-<a id="more"></a>
-<p>对于苹果审核我们一直抱有疑问的态度，它到底是机审还是人工审核呢？据熟悉该部门的人士透露，虽然苹果确实使用自动过滤器（机审），但该部门仍一直依赖人工审核。机审的作用主要是过滤掉明显不合格审核内容及高效分配工作，提高人工审核的公平性和效率。而所有审核结果，均由苹果的评审员人工进行审核。</p>
-<p>据脸书、YouTube 知情人士透露，苹果人工审核工作是由苹果内部员工组成。App 评审员最基础是从 iPhone 应用程序开始审核，随着工作经验的累积，培训力度也会随之增加，审核员的工作方向还会包括内购、订阅等功能审核或 Apple Watch、Apple TV 不同平台应用程序的审核。</p>
-<p>目前 App Review 总部有 300 多名评审员，其设在加利福尼亚州森尼维尔（Sunnyvale）的两个办公室里。据一位知情人士透露，苹果最近在爱尔兰科克和中国上海开设了新的应用程序评论办事处，近年来苹果一直增加评审员的成员。相信对于开发者们来讲，审核时间和效率的提高是一个很好的消息。</p>
-<p>苹果对于评审员的语言要求非常高，由于之前审核 App 是按语言进行分配的，也就是说中文 App 给中文团队审核，但考虑到徇私舞弊问题，目前由机审筛选后随机分配。这也就是为什么苹果评审员的语言是他们考核重点，苹果公司表示，有些评审员会说 81 种不同的语言。</p>
-<p>60% 通过率和 40% 拒绝率</p>
-<p>苹果的每个评审员每天大概需要审核 50 – 100 个应用程序，Watchtower 会跟踪每一个 App 的审核情况，以便回复开发者或通过开发者修改后重新提交审核时进行比对，同时也为苹果收集 App 质量相关数据。</p>
-<p>对于评审员来讲，苹果为其制定了 SLA 的考核制度（服务级别协议），苹果在对审核时间的要求上是十分明确的。要求评审员在 24 小时内需要达到 50% 的应用完成审核，48 小时内需要达到 90% 的应用完成审核。苹果称，会有 40% 的 App 被拒审或更新被驳回，核查出相关问题，并反馈给开发者。在同时多维度考核数据时，SLA 会达到正常标准，低于正常值时，评审员会收到邮件通知进行警告。</p>
-<p>这样的审核制度保证了开发者提交审核后的反馈以及对于审核效率和质量的规定。</p>
-<p>拒绝后开发者应该怎么办？</p>
-<p>开发者可向委员会（App Review Board）进行申诉，委员会是由高级评审员组成，有权修改级别较低的评审员的审核决定。</p>
-<p>通过苹果拒审整体情况来看，大多数 App 主要由三大理由被苹果拒绝审核：</p>
-<p>1.具有迷惑性或欺骗性的 App</p>
-<p>2.存在漏洞的 App</p>
-<p>3.侵犯用户隐私的 App</p>
-<p>作为苹果App Store的审核人员是一种什么体验？</p>
-<p>开发者们可从这三个出发点主要反思代码中是否有相关内容体验，确保产品顺利过审。</p>
-<p>开发者需要注意：</p>
-<p>曾在苹果工作过的审核员称，当被拒审后，开发者选择上诉后，苹果会对推翻或者驳回 App 的理由进行解释，这时，苹果内部会有人给开发者打电话。所以开发者如果接到苹果的电话可以及时沟通，尽可能将拒审原因询问清楚。</p>
-<p>拒审并不会因为公司规模和开发者团队的大小而决定，苹果会对所有开发者一视同仁。不要有优越感，苹果的拒审不会看背景，所以开发者提交审核时建议多方检查后再进行提交。</p>
-<p>作为苹果App Store的审核人员是一种什么体验？</p>
-<p>支付异常、家长控制 App 苹果评审员会格外关注，如有问题会主动联系，所以相关 App 需要注意，确定没有逃脱或欺骗等行为。</p>
-<p>苹果在 App Review 网页中给予开发者常见拒审原因的解决方法，开发者可参考苹果建议，进行及时更正，尽快上架 App。</p>
-<p>如果开发者需要进一步提出上诉等操作可通过“联系我们”直接与苹果沟通。</p>
-<p>总结</p>
-<p>①苹果人工审核相对严格，建议开发者积极回应，及时修改，争取提早过审；</p>
-<p>②苹果的拒审率为 40%，所以被拒审了或多或少会有问题，及时改正即可，或上诉提交高级评审员。但这里也会有些问题，可能会出现新的审核结果，所以利弊参半；</p>
-<p>③由于评审员工作经验、水平及评审模式略有不同，根据提供审核结果的评审员评定，尽量修改，如再三确定没有问题，可进行申诉；</p>
-<p>④拒审原因苹果有提供相关常见解说，如遇相关问题或提交审核前，可进行参考。</p>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-      </categories>
-      <tags>
-        <tag>ios上架</tag>
       </tags>
   </entry>
   <entry>
@@ -3250,6 +3250,95 @@
       </tags>
   </entry>
   <entry>
+    <title>Lua中函数的使用</title>
+    <url>/2020/04/10/Lua%E4%B8%AD%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;在Lua语言中，函数是对语句和表达式进行抽象的主要方式。函数既可以用于完成某种特定任务，也可以只是进行一些计算然后返回计算结果。在前一种情况下，我们将一句函数调用视为一条语句；而在后一种情况下，我们则将函数调用视为表达式：</p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(<span class="number">8</span>*<span class="number">9</span> , <span class="number">9</span>/<span class="number">8</span>)</span><br><span class="line">a = math.sin(<span class="number">3</span>) + math.cos(<span class="number">10</span>)</span><br><span class="line">print(os.date())</span><br></pre></td></tr></table></figure>
+<p>无论哪种情况，函数调用时都需要使用一对圆括号把参数列表括起来。即使被调用的函数不需要参数，也需要一对空括号()。对于这个规则，唯一的例外就是，当函数只有一个参数且该参数是字符串常量或表构造器时:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print &quot;Hello World&quot;    &lt;--&gt; print(&quot;Hello World&quot;)</span><br><span class="line">dofile &quot;a.lua&quot;		   &lt;--&gt; dofile(&#x27;a.lua&#x27;)</span><br><span class="line">print [[a multi-line message]] &lt;--&gt; print([[a multi-line message]])</span><br><span class="line">f&#123;x = 10 , y = 20&#125;		&lt;--&gt; f(&#123;x = 10 , y = 20&#125;)</span><br><span class="line">type&#123;&#125;	</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;Lua语言也为面向对象风格的调用提供了一种特殊的语法，即冒号操作符。形如x:foo(x)的表达式意味为调用对象o的foo方法。<br>&ensp;&ensp;&ensp;&ensp;一个Lua程序既可以调用Lua语言编写的函数，也可以调用C语言编写的函数。一般来说，我们选择使用C语言编写的函数来实现对性能要求更高，或不容易直接通过Lua语言进行操作的操作系统机制等。例如，Lua语言标准库中所有的函数就都是使用C语言编写的。不过，无论一个函数是用Lua语言编写的还是用C语言编写的，在调用它们时都没有任何区别。<br>&ensp;&ensp;&ensp;&ensp;正如我们已经在其他示例中所看到的，Lua语言中的函数定义的常见语法格式形如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function add( a )</span><br><span class="line">	local sum = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>, <span class="comment">#a do</span></span><br><span class="line">		sum = sum + a[i]</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> sum</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>这种语法中，一个函数定义具有一个函数名、一个参数组成的列表和由一组语句组成的函数体。参数的行为与局部变量的行为完全一致，相当于一个用函数调用时转入的值进行初始化的局部变量。<br>&ensp;&ensp;&ensp;&ensp;调用函数时使用的参数个数可以与定义函数时使用的参数个数不一致。Lua语言会通过抛弃多余参数和将不足的参数设为nil的方式来调整参数的个数。例如，考虑如下的函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function f (a,b) print(a , b) end</span><br></pre></td></tr></table></figure>
+<p>其形为如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f()				-- nil  nil</span><br><span class="line">f(<span class="number">3</span>)			-- <span class="number">3</span>  nil</span><br><span class="line">f(<span class="number">3</span>,<span class="number">4</span>)			-- <span class="number">3</span>  <span class="number">4</span></span><br><span class="line">f(<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)		-- <span class="number">3</span>  <span class="number">4</span>  (<span class="number">5</span>被丢弃)</span><br></pre></td></tr></table></figure>
+<p>虽然这种行为可能导致编程错误，但同样又是有用的，尤其是对于默认参数的情况。例如，考虑如下递增全局计数器的函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function incCount( n )</span><br><span class="line">	n = n <span class="keyword">or</span> <span class="number">1</span></span><br><span class="line">	globalCounter = globalCounter + n</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>该函数以1作为默认实参，当调用无参数的incCount()时，将globalCounter加1。在调用incCount()时，Lua语言首先把参数n初始化为nil，接下来or表达式又返回了其第二个操作数，最终把n赋成了默认值1。</p>
+<h2 id="多返回值"><a href="#多返回值" class="headerlink" title="多返回值"></a>多返回值</h2><p>&ensp;&ensp;&ensp;&ensp;Lua语言中一种与众不同但又非常有用的特性是允许一个函数返回多个结果。Lua语言中几个预定义函数就会返回多个值。我们已经接触过函数string.find，该函数用于在字符串中定位模式。当找到了对应的模式时，该函数会返回两个索引值：所匹配模式在字符串中初始字符和结尾字符的索引。使用多重赋值可以同时获取到这两个结果：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s, e = string.find(<span class="string">&quot;hello lua users&quot;</span> , <span class="string">&quot;Lua&quot;</span>)</span><br><span class="line">print(s, e) 		-- <span class="number">7</span> 	<span class="number">9</span></span><br></pre></td></tr></table></figure>
+<p>请记住，字符串的第一个字符的索引值为1。<br>&ensp;&ensp;&ensp;&ensp;Lua语言编写的函数同样可以返回多个结果，只需在return关键字后列出所有要返回的值即可。例如，一个用于查找序列中最大元素的函数可以同时返回最大值及该元素的位置：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function maximum(a)</span><br><span class="line">	local mi = <span class="number">1</span></span><br><span class="line">	local m = a[mi]</span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>, <span class="comment">#a do</span></span><br><span class="line">		<span class="keyword">if</span> a[i] &gt; m then</span><br><span class="line">			mi = i ; m = a[i]</span><br><span class="line">		end</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> m, mi</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">print(maximum(&#123;<span class="number">8</span>,<span class="number">10</span>,<span class="number">23</span>,<span class="number">12</span>,<span class="number">5</span>&#125;))  -<span class="number">-23</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;Lua语言根据函数的被调用情况调整返回值的数量。当函数被作为一条单独语句调用时，其所有返回值都会被丢弃；当函数被作为表达式调用时，将只保留函数的第一个返回值。只有当函数调用是一系列表达式中的最后一个表达式时，其所有的返回值才能被获取到。这里所谓的“一系列表达式”在Lua中表现为4种情况：多重赋值、函数调用时传入的实参列表、表构造器和return语句。为了分别展示这几种情况，接下来举几个例子：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo0() end			-- 不返回结果</span><br><span class="line">function foo1() <span class="keyword">return</span> <span class="string">&quot;a&quot;</span> end 		-- 返回<span class="number">1</span>个结果</span><br><span class="line">function foo2() <span class="keyword">return</span> <span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span> end 	-- 返回<span class="number">2</span>个结果</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;在多重赋值中，如果一个函数调用是一系列表达式中的最后一个表达式，则该函数调用将产生尽可能多的返回值以匹配待赋值变量：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x,y = foo2()			-- x = <span class="string">&quot;a&quot;</span>, y = <span class="string">&quot;b&quot;</span></span><br><span class="line">x = foo2()				-- x = <span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>被丢弃</span><br><span class="line">x,y,z = <span class="number">10</span>, foo2()		-- x = <span class="number">10</span>, y = <span class="string">&quot;a&quot;</span>, z = <span class="string">&quot;b&quot;</span></span><br></pre></td></tr></table></figure>
+<p>在多重赋值中，如果一个函数没有返回值或者返回值个数不够多，那么Lua语言会用nil来补充缺失的值：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x,y = foo0()		-- x = nil , y = nil</span><br><span class="line">x,y = foo1()		-- x = <span class="string">&quot;a&quot;</span> , y = nil</span><br><span class="line">x,y,z = foo2()		-- x = <span class="string">&quot;a&quot;</span> , y = <span class="string">&quot;b&quot;</span> , z = nil</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;请注意，只有当函数调用一系列表达式中的最后一个表达式时才能返回多值结果，否则只能返回一个结果：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x,y = foo2(), <span class="number">20</span> 			-- x = <span class="string">&quot;a&quot;</span>, y = <span class="number">20</span>  (<span class="string">&#x27;b&#x27;</span>被丢弃)</span><br><span class="line">x,y = foo0(), <span class="number">20</span>, <span class="number">30</span> 		-- x = nil, y = <span class="number">20</span>  (<span class="number">30</span>被丢弃)</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;当一个调用是另一个函数调用的最后一个实参时，第一个函数的所有返回值都会被作为实参传给第二个函数。我们已经见到过很多这样的代码结构，例如函数print。由于函数print能够接收可变数量的参数，所以print(g())会打印出g返回的所有结果。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(foo0())			-- 没有结果</span><br><span class="line">print(foo1())			-- a</span><br><span class="line">print(foo2())			-- a   b</span><br><span class="line">print(foo2(),<span class="number">1</span>)			-- a   <span class="number">1</span></span><br><span class="line">print(foo2() .. <span class="string">&quot;x&quot;</span>)	-- ax</span><br></pre></td></tr></table></figure>
+<p>当在表达式中调用foo2时，Lua语言会把其返回值的个数调整为1.因此，在上例的最后一行，只有第一个返回值”a”参与了字符串连接操作。<br>&ensp;&ensp;&ensp;&ensp;当我们调用f(g())时，如果f的参数是固定的，那么Lua语言会把g返回值的个数调整成与f的参数个数一致。<br>&ensp;&ensp;&ensp;&ensp;表构造器会完整地接收函数调用的所有返回值，而不会调整返回值的个数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">t = &#123;foo0()&#125;		-- t = &#123;&#125;</span><br><span class="line">t = &#123;foo1()&#125;		-- t = &#123;<span class="string">&quot;a&quot;</span>&#125;</span><br><span class="line">t = &#123;foo2()&#125;		-- t = &#123;<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>不过，这种行为只有当函数调用是表达式列表中的最后一个时才有效，在其他位置上的函数总是只返回一个结果：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">t = &#123;foo0(),foo2(),<span class="number">4</span>&#125;  -- t[<span class="number">1</span>] = nil, t[<span class="number">2</span>] = <span class="string">&quot;a&quot;</span>, t[<span class="number">3</span>] = <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>最后，形如return f()的语句会返回f返回的所有结果：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo(i)</span><br><span class="line">	<span class="keyword">if</span> i == <span class="number">0</span> then <span class="keyword">return</span> foo0()</span><br><span class="line">	elseif i == <span class="number">1</span> then <span class="keyword">return</span> foo1()</span><br><span class="line">	elseif i == <span class="number">2</span> then <span class="keyword">return</span> foo2()</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">print(foo(<span class="number">1</span>))		-- a</span><br><span class="line">print(foo(<span class="number">2</span>))		-- a b</span><br><span class="line">print(foo(<span class="number">0</span>))		-- 无结果</span><br><span class="line">print(foo(<span class="number">3</span>))		-- 无结果</span><br></pre></td></tr></table></figure>
+<p>将函数调用用一对圆括号括起来可以强制其只返回一个结果：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(foo0())		-- nil</span><br><span class="line">print(foo1())		-- a</span><br><span class="line">print(foo2())		-- a</span><br></pre></td></tr></table></figure>
+<p>应该意识到，return语句后面的内容是不需要加括号的，如果加了括号会导致程序出现额外的行为。因此，无论f究竟返回几个值，形如return(f(x))的语句只返回一个值。又是这可能是我们所希望出现的情况，但有时又可能不是。</p>
+<h2 id="可变长参数函数"><a href="#可变长参数函数" class="headerlink" title="可变长参数函数"></a>可变长参数函数</h2><p>&ensp;&ensp;&ensp;&ensp;Lua语言中的函数可以是可变长参数函数，即可以支持数量可变的参数。例如，我们已经使用一个、两个或多个参数调用过函数print。虽然函数print是在C语言中定义的，但也可以在Lua语言中定义可变长参数函数。<br>&ensp;&ensp;&ensp;&ensp;下面是一个简答的示例，该函数返回所有参数的总和：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function add (...)</span><br><span class="line">	local s = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> _, v <span class="keyword">in</span> ipairs&#123;...&#125; do</span><br><span class="line">		s = s + v</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> s </span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">print(add(<span class="number">3</span>,<span class="number">4</span>,<span class="number">10</span>,<span class="number">25</span>,<span class="number">12</span>)) 	-- <span class="number">54</span></span><br></pre></td></tr></table></figure>
+<p>参数列表中的三个点(…)表示该函数的参数是可变长的。当这个函数被调用时，Lua内部会把它所有参数收集起来，我们把这些被收集起来的参数称为函数的额外参数。当函数要访问这些参数时仍需用到三个点，但不同的是此时这三个点是作为一个表达式来使用的。在上例中，表达式{…}的结果是一个由所有可变长参数组成的列表，该函数会遍历该列表来累加其中的元素。<br>&ensp;&ensp;&ensp;&ensp;我们将三个点组成的表达式称为可变长参数表达式，其行为类似于一个具有多个返回值的函数，返回的是当前函数的所有可变长参数。<br>实际上，可以通过变长参数来模拟Lua中普遍的参数传递机制，例如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">funtion foo (a,b,c)</span><br></pre></td></tr></table></figure>
+<p>可以写成</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo(...)</span><br><span class="line">	local a,b,c = ...</span><br></pre></td></tr></table></figure>
+<p>喜欢Perl参数传递机制的人可能会更喜欢第二种形式。<br>&ensp;&ensp;&ensp;&ensp;形如下列的函数只是将调用它时所传入的所有参数简单地返回：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function id (...) <span class="keyword">return</span> ... end</span><br></pre></td></tr></table></figure>
+<p>该函数是一个多值恒等式函数。下列函数的行为则类似于直接调用函数foo，唯一不同之处是在调用函数foo之前会先打印出传递函数foo的所有参数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo1( ... )</span><br><span class="line">	print(<span class="string">&quot;calling foo:&quot;</span>,...)</span><br><span class="line">	<span class="keyword">return</span> foo(...)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>当跟踪对某个特定的函数调用时，这个技巧很有用。<br>&ensp;&ensp;&ensp;&ensp;接下来再让我们看另外一个很有用的示例。Lua语言提供了专门用于格式化输出的函数string.format和输出文本的函数io.write。我们会很自然地想到把这两个函数合并为一个具有可变长参数的函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function fwirte(fmt, ...)</span><br><span class="line">	<span class="keyword">return</span> io.wirte(string.format(fmt, ...))</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>注意，在三个点前游一个固定的参数fmt。具有可变长参数的函数也可以具有任意数量的固定参数，但固定参数必须放在变长参数之前。Lua语言会先将前面的参数赋给固定参数，然后将剩余的参数作为可变长参数。<br>&ensp;&ensp;&ensp;&ensp;要遍历可变长参数，函数可以使用表达式{…}将可变长参数放在一个表中，就像add示例中所作的那样。不过，在某些罕见的情况下，如果可变长参数中包含无效的nil，那么{…}获得的表可能不再是一个有效的序列。此时，就没有办法在表中判断原始参数究竟是不是以nil结尾的。对于这种情况，Lua语言提供了函数table.pack。该函数像表达式{…}一样保存所有的参数，然后将其放在一个表中返回，但是这个表还有一个保存了参数个数的额外字段”n”。例如，下面的函数使用了函数table.pack来检测参数中是否有nil：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function nonils(...)</span><br><span class="line">	local arg = table.pack(...)</span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>  , arg.n do</span><br><span class="line">		<span class="keyword">if</span> arg[i] == nil then <span class="keyword">return</span> false end</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> true</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">print(nonils(<span class="number">2</span>,<span class="number">3</span>,nil))			-- false</span><br><span class="line">print(nonils(<span class="number">2</span>,<span class="number">3</span>))				-- true</span><br><span class="line">print(nonils())					-- true</span><br><span class="line">print(nonils(nil))				-- false</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;另一种遍历函数的可变长参数的方法是使用函数select。函数select总是具有一个固定的参数select，以及数量可变的参数。如果select是数值n，那么函数select则返回第n个参数后的所有参数；否则，select应该是字符串”#”，以便函数select返回额外参数的总数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(select(<span class="number">1</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>))			-- a	b	c</span><br><span class="line">print(select(<span class="number">2</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>))			-- b	c</span><br><span class="line">print(select(<span class="number">3</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>))			-- c</span><br><span class="line">print(select(<span class="string">&quot;#&quot;</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>))			-- <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>通常，我们在需要把返回值个数调整为1的地方使用函数select，因此可以把select(n,…)认为是返回第n个额外参数的表达式。<br>&ensp;&ensp;&ensp;&ensp;来看一个使用函数select的典型示例，下面是使用该函数的add函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function add(...)</span><br><span class="line">	local s = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>, select(<span class="string">&quot;#&quot;</span>,...) do</span><br><span class="line">		s = s + select(i , ...)</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>对于参数较少的情况，第二个版本的add更快，因为该版本避免了每次调用时创建一个新表。不过，对于参数较多的情况，多次带有很多参数调用函数select会超过创建表的开销，因此第一个版本会更好。</p>
+<h2 id="函数table-unpack"><a href="#函数table-unpack" class="headerlink" title="函数table.unpack"></a>函数table.unpack</h2><p>&ensp;&ensp;&ensp;&ensp;多重返回值还涉及一个特殊的函数table.unpack。该函数的参数是一个数组，返回值为数组内的所有元素：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(table.unpack&#123;<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>&#125;)		-- <span class="number">10</span>	<span class="number">20</span>	<span class="number">30</span></span><br><span class="line">a,b = table.unpack&#123;<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>&#125;		-- a = <span class="number">10</span>, b = <span class="number">20</span> , <span class="number">30</span>被丢弃</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;顾名思义，函数table.unpack与函数table.pack的功能相反。pack把参数列表转换成Lua语言中一个真实的列表，而unpack则把Lua语言中的真实的列表转换成一组返回值，进而可以作为另一个函数的参数被使用。<br>&ensp;&ensp;&ensp;&ensp;unpack函数的重要用途之一体现在泛型调用机制中。泛型调用机制允许我们动态地调用具有任意参数的函数。例如，在IOS C中，我们无法编写泛型调用的代码，只能声明可变长参数的函数或使用函数指针来调用不同的函数。但是，我们仍然不能调用具有可变量参数的函数，因为C语言中的每一个函数调用的实参个数是固定的，并且每个实参的类型也是固定的。而在Lua语言中，却可以做到这一点。如果我们想通过数组a传入可变的参数来调用函数f，那么可以写成：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f(table.unpack(a))</span><br></pre></td></tr></table></figure>
+<p>unpack会返回a中所有的元素，而这些元素又被用作f的参数。例如，考虑如下的代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(string.find(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;ll&quot;</span>))</span><br></pre></td></tr></table></figure>
+<p>可以使用如下的代码动态地构造一个等价的调用：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f = string.find</span><br><span class="line">a = &#123;<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;ll&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">print(f(table.unpack(a)))</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;通常，函数table.unpack使用长度操作符获取返回值的个数，因而该函数只能用于序列。不过，如果有需要，也可以显示地限制返回元素的范围：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(table.unpack(&#123;<span class="string">&quot;Sun&quot;</span>,<span class="string">&quot;Mon&quot;</span>,<span class="string">&quot;Tue&quot;</span>,<span class="string">&quot;Wed&quot;</span>&#125;,<span class="number">2</span>,<span class="number">3</span>))		-- Mon	Tue</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;虽然预定义的函数unpack是用C语言编写的，但是也可以利用递归在Lua语言中实现：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function unpack(t,i,n)</span><br><span class="line">	i = i <span class="keyword">or</span> <span class="number">1</span></span><br><span class="line">	n = n <span class="keyword">or</span> <span class="comment">#t</span></span><br><span class="line">	<span class="keyword">if</span> i &lt;= n then</span><br><span class="line">		<span class="keyword">return</span> t[i],unpack(t,i+<span class="number">1</span>,n)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>在第一次调用该函数时，只传入一个参数，此时i为1，n为序列长度；然后，函数返回t[1]及unpack(t,2,n)返回的所有结果，而unpack(t,2,n)又会返回t[2]及unpack(t,3,n)返回的所有结果，一次类推，直到处理完n个元素为止。</p>
+<h2 id="正确的尾调用"><a href="#正确的尾调用" class="headerlink" title="正确的尾调用"></a>正确的尾调用</h2><p>&ensp;&ensp;&ensp;&ensp;Lua语言中有关函数的另一个有趣的特性是，Lua语言是支持尾调用消除的。这意味着Lua语言可以正确地尾递归，虽然尾调用消除的概念并没有直接涉及递归。<br>&ensp;&ensp;&ensp;&ensp;尾调用是被当作函数调用使用的跳转。当一个函数的最后一个动作是调用另一个函数而没有再进行其他工作时，就行程了尾调用。例如，下例代码中对函数g的调用就是尾调用：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function f(x) x = x + <span class="number">1</span>;<span class="keyword">return</span> g(x) end</span><br></pre></td></tr></table></figure>
+<p>当函数f调用完函数g之后，f不再需要进行其他的工作。这样，当被调用的函数执行结束后，程序就不再需要返回最初的调用者。因此，在尾调用后，程序也就不需要在调用栈中保存有关调用函数的任何信息。当g返回时，程序的执行路径会直接返回到调用f的位置。在一些语言的实现中，例如Lua语言解释器，就利用了这个特点，是的进行尾调用时不使用任何额外的栈空间。我们就将这种实现称为尾调用消除。<br>&ensp;&ensp;&ensp;&ensp;由于尾调用不会使用栈空间，所以一个程序中能够嵌套的尾调用的数量是无限的。例如，下例函数支持任意的数字作为参数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo (n)</span><br><span class="line">	<span class="keyword">if</span> n &gt; <span class="number">0</span> then</span><br><span class="line">		<span class="keyword">return</span> foo(n - <span class="number">1</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>该函数永远不会发生栈溢出。<br>&ensp;&ensp;&ensp;&ensp;关于尾调用消除的一个重点就是如何判断一个调用是尾调用。很多函数之所有不是尾调用，是由于这些函数在调用之后还进行了其他工作。例如，下例中调用g就不是尾调用：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function f(x)</span><br><span class="line">	g(x)</span><br><span class="line">end	</span><br></pre></td></tr></table></figure>
+<p>这个示例的问题在于，当调用完g后，f在返回前还不得不丢弃g返回的所有结果。类似的，以下的所有调用也都不符合尾调用的定义:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> g(x) + <span class="number">1</span>				-- 必须进行加法</span><br><span class="line"><span class="keyword">return</span> x <span class="keyword">or</span> g(x)			-- 必须把返回值限制为<span class="number">1</span>个</span><br><span class="line"><span class="keyword">return</span> (g(x))				-- 必须把返回值限制为<span class="number">1</span>个</span><br></pre></td></tr></table></figure>
+<p>在lua语言中，只有形如return func(args)的调用才是尾调用。不过，由于Lua语言会在调用钱对func及其参数求值，所以func及其参数都可以是复杂的表达式。例如，下面的例子就是尾调用：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> x[i].foo(x[j] + a * b, i + j)</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Lua中模块和包</title>
     <url>/2020/04/21/Lua%E4%B8%AD%E6%A8%A1%E5%9D%97%E5%92%8C%E5%8C%85/</url>
     <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;通常，Lua语言不会设置规则。相反，Lua语言提供的是足够强大的机制供不同的开发者实现最适合自己的规则。然而，这种方法对于模块而言并不是特别适用。模块系统的主要目标之一就是允许不同的人共享代码，缺乏公共规则就无法实现这样的分享。</p>
@@ -3405,95 +3494,6 @@
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">a + i &lt; b/2 + 1     &lt;--&gt; (a + i) &lt; ((b/2) + 1)</span><br><span class="line">5 + x^2*8			&lt;--&gt; 5 + ((x^2) * 8)</span><br><span class="line">a &lt; y and y &lt;= z    &lt;--&gt; (a &lt; y) and (y &lt;= z)</span><br><span class="line">-x^2				&lt;--&gt; -(x^2)</span><br><span class="line">x^y^z				&lt;--&gt; x^(y^z)</span><br></pre></td></tr></table></figure>
 <p>当不能确定某些表达式的运算符优先级时，应该显示地用括号来指定所希望的运算次序。</p>
 ]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lua中函数的使用</title>
-    <url>/2020/04/10/Lua%E4%B8%AD%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;在Lua语言中，函数是对语句和表达式进行抽象的主要方式。函数既可以用于完成某种特定任务，也可以只是进行一些计算然后返回计算结果。在前一种情况下，我们将一句函数调用视为一条语句；而在后一种情况下，我们则将函数调用视为表达式：</p>
-<a id="more"></a>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(<span class="number">8</span>*<span class="number">9</span> , <span class="number">9</span>/<span class="number">8</span>)</span><br><span class="line">a = math.sin(<span class="number">3</span>) + math.cos(<span class="number">10</span>)</span><br><span class="line">print(os.date())</span><br></pre></td></tr></table></figure>
-<p>无论哪种情况，函数调用时都需要使用一对圆括号把参数列表括起来。即使被调用的函数不需要参数，也需要一对空括号()。对于这个规则，唯一的例外就是，当函数只有一个参数且该参数是字符串常量或表构造器时:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print &quot;Hello World&quot;    &lt;--&gt; print(&quot;Hello World&quot;)</span><br><span class="line">dofile &quot;a.lua&quot;		   &lt;--&gt; dofile(&#x27;a.lua&#x27;)</span><br><span class="line">print [[a multi-line message]] &lt;--&gt; print([[a multi-line message]])</span><br><span class="line">f&#123;x = 10 , y = 20&#125;		&lt;--&gt; f(&#123;x = 10 , y = 20&#125;)</span><br><span class="line">type&#123;&#125;	</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;Lua语言也为面向对象风格的调用提供了一种特殊的语法，即冒号操作符。形如x:foo(x)的表达式意味为调用对象o的foo方法。<br>&ensp;&ensp;&ensp;&ensp;一个Lua程序既可以调用Lua语言编写的函数，也可以调用C语言编写的函数。一般来说，我们选择使用C语言编写的函数来实现对性能要求更高，或不容易直接通过Lua语言进行操作的操作系统机制等。例如，Lua语言标准库中所有的函数就都是使用C语言编写的。不过，无论一个函数是用Lua语言编写的还是用C语言编写的，在调用它们时都没有任何区别。<br>&ensp;&ensp;&ensp;&ensp;正如我们已经在其他示例中所看到的，Lua语言中的函数定义的常见语法格式形如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function add( a )</span><br><span class="line">	local sum = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>, <span class="comment">#a do</span></span><br><span class="line">		sum = sum + a[i]</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> sum</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>这种语法中，一个函数定义具有一个函数名、一个参数组成的列表和由一组语句组成的函数体。参数的行为与局部变量的行为完全一致，相当于一个用函数调用时转入的值进行初始化的局部变量。<br>&ensp;&ensp;&ensp;&ensp;调用函数时使用的参数个数可以与定义函数时使用的参数个数不一致。Lua语言会通过抛弃多余参数和将不足的参数设为nil的方式来调整参数的个数。例如，考虑如下的函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function f (a,b) print(a , b) end</span><br></pre></td></tr></table></figure>
-<p>其形为如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f()				-- nil  nil</span><br><span class="line">f(<span class="number">3</span>)			-- <span class="number">3</span>  nil</span><br><span class="line">f(<span class="number">3</span>,<span class="number">4</span>)			-- <span class="number">3</span>  <span class="number">4</span></span><br><span class="line">f(<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)		-- <span class="number">3</span>  <span class="number">4</span>  (<span class="number">5</span>被丢弃)</span><br></pre></td></tr></table></figure>
-<p>虽然这种行为可能导致编程错误，但同样又是有用的，尤其是对于默认参数的情况。例如，考虑如下递增全局计数器的函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function incCount( n )</span><br><span class="line">	n = n <span class="keyword">or</span> <span class="number">1</span></span><br><span class="line">	globalCounter = globalCounter + n</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>该函数以1作为默认实参，当调用无参数的incCount()时，将globalCounter加1。在调用incCount()时，Lua语言首先把参数n初始化为nil，接下来or表达式又返回了其第二个操作数，最终把n赋成了默认值1。</p>
-<h2 id="多返回值"><a href="#多返回值" class="headerlink" title="多返回值"></a>多返回值</h2><p>&ensp;&ensp;&ensp;&ensp;Lua语言中一种与众不同但又非常有用的特性是允许一个函数返回多个结果。Lua语言中几个预定义函数就会返回多个值。我们已经接触过函数string.find，该函数用于在字符串中定位模式。当找到了对应的模式时，该函数会返回两个索引值：所匹配模式在字符串中初始字符和结尾字符的索引。使用多重赋值可以同时获取到这两个结果：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s, e = string.find(<span class="string">&quot;hello lua users&quot;</span> , <span class="string">&quot;Lua&quot;</span>)</span><br><span class="line">print(s, e) 		-- <span class="number">7</span> 	<span class="number">9</span></span><br></pre></td></tr></table></figure>
-<p>请记住，字符串的第一个字符的索引值为1。<br>&ensp;&ensp;&ensp;&ensp;Lua语言编写的函数同样可以返回多个结果，只需在return关键字后列出所有要返回的值即可。例如，一个用于查找序列中最大元素的函数可以同时返回最大值及该元素的位置：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function maximum(a)</span><br><span class="line">	local mi = <span class="number">1</span></span><br><span class="line">	local m = a[mi]</span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>, <span class="comment">#a do</span></span><br><span class="line">		<span class="keyword">if</span> a[i] &gt; m then</span><br><span class="line">			mi = i ; m = a[i]</span><br><span class="line">		end</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> m, mi</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">print(maximum(&#123;<span class="number">8</span>,<span class="number">10</span>,<span class="number">23</span>,<span class="number">12</span>,<span class="number">5</span>&#125;))  -<span class="number">-23</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;Lua语言根据函数的被调用情况调整返回值的数量。当函数被作为一条单独语句调用时，其所有返回值都会被丢弃；当函数被作为表达式调用时，将只保留函数的第一个返回值。只有当函数调用是一系列表达式中的最后一个表达式时，其所有的返回值才能被获取到。这里所谓的“一系列表达式”在Lua中表现为4种情况：多重赋值、函数调用时传入的实参列表、表构造器和return语句。为了分别展示这几种情况，接下来举几个例子：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo0() end			-- 不返回结果</span><br><span class="line">function foo1() <span class="keyword">return</span> <span class="string">&quot;a&quot;</span> end 		-- 返回<span class="number">1</span>个结果</span><br><span class="line">function foo2() <span class="keyword">return</span> <span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span> end 	-- 返回<span class="number">2</span>个结果</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;在多重赋值中，如果一个函数调用是一系列表达式中的最后一个表达式，则该函数调用将产生尽可能多的返回值以匹配待赋值变量：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x,y = foo2()			-- x = <span class="string">&quot;a&quot;</span>, y = <span class="string">&quot;b&quot;</span></span><br><span class="line">x = foo2()				-- x = <span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>被丢弃</span><br><span class="line">x,y,z = <span class="number">10</span>, foo2()		-- x = <span class="number">10</span>, y = <span class="string">&quot;a&quot;</span>, z = <span class="string">&quot;b&quot;</span></span><br></pre></td></tr></table></figure>
-<p>在多重赋值中，如果一个函数没有返回值或者返回值个数不够多，那么Lua语言会用nil来补充缺失的值：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x,y = foo0()		-- x = nil , y = nil</span><br><span class="line">x,y = foo1()		-- x = <span class="string">&quot;a&quot;</span> , y = nil</span><br><span class="line">x,y,z = foo2()		-- x = <span class="string">&quot;a&quot;</span> , y = <span class="string">&quot;b&quot;</span> , z = nil</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;请注意，只有当函数调用一系列表达式中的最后一个表达式时才能返回多值结果，否则只能返回一个结果：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x,y = foo2(), <span class="number">20</span> 			-- x = <span class="string">&quot;a&quot;</span>, y = <span class="number">20</span>  (<span class="string">&#x27;b&#x27;</span>被丢弃)</span><br><span class="line">x,y = foo0(), <span class="number">20</span>, <span class="number">30</span> 		-- x = nil, y = <span class="number">20</span>  (<span class="number">30</span>被丢弃)</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;当一个调用是另一个函数调用的最后一个实参时，第一个函数的所有返回值都会被作为实参传给第二个函数。我们已经见到过很多这样的代码结构，例如函数print。由于函数print能够接收可变数量的参数，所以print(g())会打印出g返回的所有结果。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(foo0())			-- 没有结果</span><br><span class="line">print(foo1())			-- a</span><br><span class="line">print(foo2())			-- a   b</span><br><span class="line">print(foo2(),<span class="number">1</span>)			-- a   <span class="number">1</span></span><br><span class="line">print(foo2() .. <span class="string">&quot;x&quot;</span>)	-- ax</span><br></pre></td></tr></table></figure>
-<p>当在表达式中调用foo2时，Lua语言会把其返回值的个数调整为1.因此，在上例的最后一行，只有第一个返回值”a”参与了字符串连接操作。<br>&ensp;&ensp;&ensp;&ensp;当我们调用f(g())时，如果f的参数是固定的，那么Lua语言会把g返回值的个数调整成与f的参数个数一致。<br>&ensp;&ensp;&ensp;&ensp;表构造器会完整地接收函数调用的所有返回值，而不会调整返回值的个数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">t = &#123;foo0()&#125;		-- t = &#123;&#125;</span><br><span class="line">t = &#123;foo1()&#125;		-- t = &#123;<span class="string">&quot;a&quot;</span>&#125;</span><br><span class="line">t = &#123;foo2()&#125;		-- t = &#123;<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-<p>不过，这种行为只有当函数调用是表达式列表中的最后一个时才有效，在其他位置上的函数总是只返回一个结果：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">t = &#123;foo0(),foo2(),<span class="number">4</span>&#125;  -- t[<span class="number">1</span>] = nil, t[<span class="number">2</span>] = <span class="string">&quot;a&quot;</span>, t[<span class="number">3</span>] = <span class="number">4</span></span><br></pre></td></tr></table></figure>
-<p>最后，形如return f()的语句会返回f返回的所有结果：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo(i)</span><br><span class="line">	<span class="keyword">if</span> i == <span class="number">0</span> then <span class="keyword">return</span> foo0()</span><br><span class="line">	elseif i == <span class="number">1</span> then <span class="keyword">return</span> foo1()</span><br><span class="line">	elseif i == <span class="number">2</span> then <span class="keyword">return</span> foo2()</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">print(foo(<span class="number">1</span>))		-- a</span><br><span class="line">print(foo(<span class="number">2</span>))		-- a b</span><br><span class="line">print(foo(<span class="number">0</span>))		-- 无结果</span><br><span class="line">print(foo(<span class="number">3</span>))		-- 无结果</span><br></pre></td></tr></table></figure>
-<p>将函数调用用一对圆括号括起来可以强制其只返回一个结果：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(foo0())		-- nil</span><br><span class="line">print(foo1())		-- a</span><br><span class="line">print(foo2())		-- a</span><br></pre></td></tr></table></figure>
-<p>应该意识到，return语句后面的内容是不需要加括号的，如果加了括号会导致程序出现额外的行为。因此，无论f究竟返回几个值，形如return(f(x))的语句只返回一个值。又是这可能是我们所希望出现的情况，但有时又可能不是。</p>
-<h2 id="可变长参数函数"><a href="#可变长参数函数" class="headerlink" title="可变长参数函数"></a>可变长参数函数</h2><p>&ensp;&ensp;&ensp;&ensp;Lua语言中的函数可以是可变长参数函数，即可以支持数量可变的参数。例如，我们已经使用一个、两个或多个参数调用过函数print。虽然函数print是在C语言中定义的，但也可以在Lua语言中定义可变长参数函数。<br>&ensp;&ensp;&ensp;&ensp;下面是一个简答的示例，该函数返回所有参数的总和：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function add (...)</span><br><span class="line">	local s = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> _, v <span class="keyword">in</span> ipairs&#123;...&#125; do</span><br><span class="line">		s = s + v</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> s </span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">print(add(<span class="number">3</span>,<span class="number">4</span>,<span class="number">10</span>,<span class="number">25</span>,<span class="number">12</span>)) 	-- <span class="number">54</span></span><br></pre></td></tr></table></figure>
-<p>参数列表中的三个点(…)表示该函数的参数是可变长的。当这个函数被调用时，Lua内部会把它所有参数收集起来，我们把这些被收集起来的参数称为函数的额外参数。当函数要访问这些参数时仍需用到三个点，但不同的是此时这三个点是作为一个表达式来使用的。在上例中，表达式{…}的结果是一个由所有可变长参数组成的列表，该函数会遍历该列表来累加其中的元素。<br>&ensp;&ensp;&ensp;&ensp;我们将三个点组成的表达式称为可变长参数表达式，其行为类似于一个具有多个返回值的函数，返回的是当前函数的所有可变长参数。<br>实际上，可以通过变长参数来模拟Lua中普遍的参数传递机制，例如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">funtion foo (a,b,c)</span><br></pre></td></tr></table></figure>
-<p>可以写成</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo(...)</span><br><span class="line">	local a,b,c = ...</span><br></pre></td></tr></table></figure>
-<p>喜欢Perl参数传递机制的人可能会更喜欢第二种形式。<br>&ensp;&ensp;&ensp;&ensp;形如下列的函数只是将调用它时所传入的所有参数简单地返回：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function id (...) <span class="keyword">return</span> ... end</span><br></pre></td></tr></table></figure>
-<p>该函数是一个多值恒等式函数。下列函数的行为则类似于直接调用函数foo，唯一不同之处是在调用函数foo之前会先打印出传递函数foo的所有参数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo1( ... )</span><br><span class="line">	print(<span class="string">&quot;calling foo:&quot;</span>,...)</span><br><span class="line">	<span class="keyword">return</span> foo(...)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>当跟踪对某个特定的函数调用时，这个技巧很有用。<br>&ensp;&ensp;&ensp;&ensp;接下来再让我们看另外一个很有用的示例。Lua语言提供了专门用于格式化输出的函数string.format和输出文本的函数io.write。我们会很自然地想到把这两个函数合并为一个具有可变长参数的函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function fwirte(fmt, ...)</span><br><span class="line">	<span class="keyword">return</span> io.wirte(string.format(fmt, ...))</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>注意，在三个点前游一个固定的参数fmt。具有可变长参数的函数也可以具有任意数量的固定参数，但固定参数必须放在变长参数之前。Lua语言会先将前面的参数赋给固定参数，然后将剩余的参数作为可变长参数。<br>&ensp;&ensp;&ensp;&ensp;要遍历可变长参数，函数可以使用表达式{…}将可变长参数放在一个表中，就像add示例中所作的那样。不过，在某些罕见的情况下，如果可变长参数中包含无效的nil，那么{…}获得的表可能不再是一个有效的序列。此时，就没有办法在表中判断原始参数究竟是不是以nil结尾的。对于这种情况，Lua语言提供了函数table.pack。该函数像表达式{…}一样保存所有的参数，然后将其放在一个表中返回，但是这个表还有一个保存了参数个数的额外字段”n”。例如，下面的函数使用了函数table.pack来检测参数中是否有nil：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function nonils(...)</span><br><span class="line">	local arg = table.pack(...)</span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>  , arg.n do</span><br><span class="line">		<span class="keyword">if</span> arg[i] == nil then <span class="keyword">return</span> false end</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> true</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">print(nonils(<span class="number">2</span>,<span class="number">3</span>,nil))			-- false</span><br><span class="line">print(nonils(<span class="number">2</span>,<span class="number">3</span>))				-- true</span><br><span class="line">print(nonils())					-- true</span><br><span class="line">print(nonils(nil))				-- false</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;另一种遍历函数的可变长参数的方法是使用函数select。函数select总是具有一个固定的参数select，以及数量可变的参数。如果select是数值n，那么函数select则返回第n个参数后的所有参数；否则，select应该是字符串”#”，以便函数select返回额外参数的总数。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(select(<span class="number">1</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>))			-- a	b	c</span><br><span class="line">print(select(<span class="number">2</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>))			-- b	c</span><br><span class="line">print(select(<span class="number">3</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>))			-- c</span><br><span class="line">print(select(<span class="string">&quot;#&quot;</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>))			-- <span class="number">3</span></span><br></pre></td></tr></table></figure>
-<p>通常，我们在需要把返回值个数调整为1的地方使用函数select，因此可以把select(n,…)认为是返回第n个额外参数的表达式。<br>&ensp;&ensp;&ensp;&ensp;来看一个使用函数select的典型示例，下面是使用该函数的add函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function add(...)</span><br><span class="line">	local s = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>, select(<span class="string">&quot;#&quot;</span>,...) do</span><br><span class="line">		s = s + select(i , ...)</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>对于参数较少的情况，第二个版本的add更快，因为该版本避免了每次调用时创建一个新表。不过，对于参数较多的情况，多次带有很多参数调用函数select会超过创建表的开销，因此第一个版本会更好。</p>
-<h2 id="函数table-unpack"><a href="#函数table-unpack" class="headerlink" title="函数table.unpack"></a>函数table.unpack</h2><p>&ensp;&ensp;&ensp;&ensp;多重返回值还涉及一个特殊的函数table.unpack。该函数的参数是一个数组，返回值为数组内的所有元素：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(table.unpack&#123;<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>&#125;)		-- <span class="number">10</span>	<span class="number">20</span>	<span class="number">30</span></span><br><span class="line">a,b = table.unpack&#123;<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>&#125;		-- a = <span class="number">10</span>, b = <span class="number">20</span> , <span class="number">30</span>被丢弃</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;顾名思义，函数table.unpack与函数table.pack的功能相反。pack把参数列表转换成Lua语言中一个真实的列表，而unpack则把Lua语言中的真实的列表转换成一组返回值，进而可以作为另一个函数的参数被使用。<br>&ensp;&ensp;&ensp;&ensp;unpack函数的重要用途之一体现在泛型调用机制中。泛型调用机制允许我们动态地调用具有任意参数的函数。例如，在IOS C中，我们无法编写泛型调用的代码，只能声明可变长参数的函数或使用函数指针来调用不同的函数。但是，我们仍然不能调用具有可变量参数的函数，因为C语言中的每一个函数调用的实参个数是固定的，并且每个实参的类型也是固定的。而在Lua语言中，却可以做到这一点。如果我们想通过数组a传入可变的参数来调用函数f，那么可以写成：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f(table.unpack(a))</span><br></pre></td></tr></table></figure>
-<p>unpack会返回a中所有的元素，而这些元素又被用作f的参数。例如，考虑如下的代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(string.find(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;ll&quot;</span>))</span><br></pre></td></tr></table></figure>
-<p>可以使用如下的代码动态地构造一个等价的调用：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f = string.find</span><br><span class="line">a = &#123;<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;ll&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">print(f(table.unpack(a)))</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;通常，函数table.unpack使用长度操作符获取返回值的个数，因而该函数只能用于序列。不过，如果有需要，也可以显示地限制返回元素的范围：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(table.unpack(&#123;<span class="string">&quot;Sun&quot;</span>,<span class="string">&quot;Mon&quot;</span>,<span class="string">&quot;Tue&quot;</span>,<span class="string">&quot;Wed&quot;</span>&#125;,<span class="number">2</span>,<span class="number">3</span>))		-- Mon	Tue</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;虽然预定义的函数unpack是用C语言编写的，但是也可以利用递归在Lua语言中实现：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function unpack(t,i,n)</span><br><span class="line">	i = i <span class="keyword">or</span> <span class="number">1</span></span><br><span class="line">	n = n <span class="keyword">or</span> <span class="comment">#t</span></span><br><span class="line">	<span class="keyword">if</span> i &lt;= n then</span><br><span class="line">		<span class="keyword">return</span> t[i],unpack(t,i+<span class="number">1</span>,n)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>在第一次调用该函数时，只传入一个参数，此时i为1，n为序列长度；然后，函数返回t[1]及unpack(t,2,n)返回的所有结果，而unpack(t,2,n)又会返回t[2]及unpack(t,3,n)返回的所有结果，一次类推，直到处理完n个元素为止。</p>
-<h2 id="正确的尾调用"><a href="#正确的尾调用" class="headerlink" title="正确的尾调用"></a>正确的尾调用</h2><p>&ensp;&ensp;&ensp;&ensp;Lua语言中有关函数的另一个有趣的特性是，Lua语言是支持尾调用消除的。这意味着Lua语言可以正确地尾递归，虽然尾调用消除的概念并没有直接涉及递归。<br>&ensp;&ensp;&ensp;&ensp;尾调用是被当作函数调用使用的跳转。当一个函数的最后一个动作是调用另一个函数而没有再进行其他工作时，就行程了尾调用。例如，下例代码中对函数g的调用就是尾调用：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function f(x) x = x + <span class="number">1</span>;<span class="keyword">return</span> g(x) end</span><br></pre></td></tr></table></figure>
-<p>当函数f调用完函数g之后，f不再需要进行其他的工作。这样，当被调用的函数执行结束后，程序就不再需要返回最初的调用者。因此，在尾调用后，程序也就不需要在调用栈中保存有关调用函数的任何信息。当g返回时，程序的执行路径会直接返回到调用f的位置。在一些语言的实现中，例如Lua语言解释器，就利用了这个特点，是的进行尾调用时不使用任何额外的栈空间。我们就将这种实现称为尾调用消除。<br>&ensp;&ensp;&ensp;&ensp;由于尾调用不会使用栈空间，所以一个程序中能够嵌套的尾调用的数量是无限的。例如，下例函数支持任意的数字作为参数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo (n)</span><br><span class="line">	<span class="keyword">if</span> n &gt; <span class="number">0</span> then</span><br><span class="line">		<span class="keyword">return</span> foo(n - <span class="number">1</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>该函数永远不会发生栈溢出。<br>&ensp;&ensp;&ensp;&ensp;关于尾调用消除的一个重点就是如何判断一个调用是尾调用。很多函数之所有不是尾调用，是由于这些函数在调用之后还进行了其他工作。例如，下例中调用g就不是尾调用：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function f(x)</span><br><span class="line">	g(x)</span><br><span class="line">end	</span><br></pre></td></tr></table></figure>
-<p>这个示例的问题在于，当调用完g后，f在返回前还不得不丢弃g返回的所有结果。类似的，以下的所有调用也都不符合尾调用的定义:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> g(x) + <span class="number">1</span>				-- 必须进行加法</span><br><span class="line"><span class="keyword">return</span> x <span class="keyword">or</span> g(x)			-- 必须把返回值限制为<span class="number">1</span>个</span><br><span class="line"><span class="keyword">return</span> (g(x))				-- 必须把返回值限制为<span class="number">1</span>个</span><br></pre></td></tr></table></figure>
-<p>在lua语言中，只有形如return func(args)的调用才是尾调用。不过，由于Lua语言会在调用钱对func及其参数求值，所以func及其参数都可以是复杂的表达式。例如，下面的例子就是尾调用：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> x[i].foo(x[j] + a * b, i + j)</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>编程语言</category>
       </categories>
