@@ -916,6 +916,52 @@
       </tags>
   </entry>
   <entry>
+    <title>Lua实现马儿可夫链算法</title>
+    <url>/2020/04/23/Lua%E5%AE%9E%E7%8E%B0%E9%A9%AC%E5%84%BF%E5%8F%AF%E5%A4%AB%E9%93%BE%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;马尔可夫链算法根据哪个单词能出现在基础文本中由n个前序列单词组成的序列之后，来生成伪随机文本。这里我们假设n为2。</p>
+<a id="more"></a>
+<p>&ensp;&ensp;&ensp;&ensp;程序的第一部分读取原始文本并创建一个表，该表的键为每两个单词组成的前缀，值为紧跟这个前缀的单词所组成的列表。当这个表构建好后，程序就利用它来生成随机文本，随机文本中每个单词所组成的列表。当这个表构建好后，程序就利用它来生成随机文本，随机文本中每个单词出现在它之前两个单词后的概率与其出现在基础文本中相同两个前序单词后的概率相同。最终，我们会得到一串相对比较随机的文本。例如，”<em>Constructors can also traverse a table constructor, then the parentheses in the following line does the whole file in a field n to store the contents of each function, but to show its only ragument, If you want to find the maximum element in an array can return both the maximum value and continues showing the prompt and running the code. The following words are reserved and cannot be used to convert between degrees and radians.</em>“<br>&ensp;&ensp;&ensp;&ensp;要将由两个单词组成的前缀作为表的键，需要使用空格来连接两个单词：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function prefix(w1,w2)</span><br><span class="line">	<span class="keyword">return</span> w1 .. <span class="string">&quot; &quot;</span> .. w2</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>我们使用字符串NOWORD（换行符）初始化前缀单词及标记文本的结尾。例如，对于文本”the more wo try the more we do”而言，构造出的表如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	[<span class="string">&quot;\n \n&quot;</span>]    = &#123;<span class="string">&quot;the&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;\n the&quot;</span>]   = &#123;<span class="string">&quot;more&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;the more&quot;</span>] = &#123;<span class="string">&quot;we&quot;</span>,<span class="string">&quot;we&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;more we&quot;</span>]  = &#123;<span class="string">&quot;try&quot;</span>,<span class="string">&quot;do&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;we try&quot;</span>]   = &#123;<span class="string">&quot;the&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;try the&quot;</span>]  = &#123;<span class="string">&quot;more&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;we do&quot;</span>]    = &#123;<span class="string">&quot;\n&quot;</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;程序表保存在变量statetab中。如果要像表中的某个前缀所对应的列表中插入一个新单词，可以使用如下的函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function insert (prefix,value)</span><br><span class="line">	local list = statetab[prefix]</span><br><span class="line">	<span class="keyword">if</span> list == nil then</span><br><span class="line">		statetab[prefix] = &#123;value&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		list[<span class="comment">#list + 1] = value</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>该函数首先检查某前缀是否已经有了对应的列表，如果没有，则以新值来创建一个新列表；否则，就将新值添加到现有列表的末尾。<br>&ensp;&ensp;&ensp;&ensp;为了构造表statetab，我们使用两个变量W1和w2来记录最后读取的两个单词。我们使用allwords迭代器读取单词，只不过修改了其中”单词”的定义以便将可选的诸如逗号和句号等标点符号包括在内。对于新读取的每一个单词，把它添加到与w1-w2相关联的列表中，然后更新w1和w2。<br>&ensp;&ensp;&ensp;&ensp;在构造完表后，程序便开始生成具有MAXGEN个单词的文本。首先，程序重新初始化变量w1和w2。然后，对于每个前缀，程序从其对应的单词列表中随机地选出一个单词，输出这个单词，并更新W1和w2。如下示例：</p>
+<blockquote>
+<p>示例 马儿可夫链的辅助定义</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function allwords()</span><br><span class="line">	local line = io.read()  -- 当前行</span><br><span class="line">	local pos  = <span class="number">1</span>			-- 当前行的当前位置</span><br><span class="line">	<span class="keyword">return</span> fucntion ()		-- 迭代函数</span><br><span class="line">	<span class="keyword">while</span> line do			-- 当还有行时循环</span><br><span class="line">		local w, e = string.match(line, <span class="string">&quot;(%w[,;.:]?)()&quot;</span>,pos)</span><br><span class="line">		<span class="keyword">if</span> w then			-- 发现一个单词？</span><br><span class="line">			pos = e 		-- 更新位置</span><br><span class="line">			<span class="keyword">return</span> w  		-- 返回该单词</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			line = io.read() -- 没找到单词；尝试下一行</span><br><span class="line">			pos  = <span class="number">1</span>		 -- 从第一个位置重新开始</span><br><span class="line">		end</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> nil 				-- 没有行了：迭代结束</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">function prefix (w1,w2)</span><br><span class="line">	<span class="keyword">return</span> w1 .. <span class="string">&quot; &quot;</span> .. w2 </span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local statetab = &#123;&#125;</span><br><span class="line"></span><br><span class="line">function insert (prefix,value)</span><br><span class="line">	local list = statetab[prefix]</span><br><span class="line">	<span class="keyword">if</span> list == list then</span><br><span class="line">		statetab[prefix] = &#123;value&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		list[<span class="comment">#list + 1] = value</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>示例：马尔科夫链程序</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local MAXGEN = <span class="number">200</span></span><br><span class="line">local NOWORD = <span class="string">&quot;\n&quot;</span></span><br><span class="line"></span><br><span class="line">-- 创建表</span><br><span class="line">local w1,w2 = NOWORD, NOWORD</span><br><span class="line"><span class="keyword">for</span> nextword <span class="keyword">in</span> allwords() do</span><br><span class="line">	insert(prefix(w1,w2),nextword)</span><br><span class="line">	w1 = w2; w2 = nextword;</span><br><span class="line">end</span><br><span class="line">insert(prefix(w1,w2),NOWORD)</span><br><span class="line"></span><br><span class="line">-- 生成文本</span><br><span class="line">w1 = NOWORD; w2 = NOWORD    -- 重新初始化</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span> , MAXGEN do</span><br><span class="line">	local list = statetab[prefix(w1,w2)]</span><br><span class="line">	-- 从列表中随机选出一个元素</span><br><span class="line">	local r = math.random(<span class="comment">#list)</span></span><br><span class="line">	local nextword = list[r]</span><br><span class="line">	<span class="keyword">if</span> nextword == NOWORD then <span class="keyword">return</span> end</span><br><span class="line">	io.write(nextword,<span class="string">&quot; &quot;</span>)</span><br><span class="line">	w1 = w2; w2 = nextword</span><br><span class="line">end</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lua局部变量和代码块</title>
+    <url>/2020/04/13/Lua%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E4%BB%A3%E7%A0%81%E5%9D%97/</url>
+    <content><![CDATA[<h2 id="局部变量和代码块"><a href="#局部变量和代码块" class="headerlink" title="局部变量和代码块"></a>局部变量和代码块</h2><p>&ensp;&ensp;&ensp;&ensp;Lua语言中的变量在默认情况下是全局变量，所有的局部变量在使用前必须声明。与全局变量不同，局部变量的生效范围仅限于声明它的代码块。一个代码块是一个控制结构的主体，或是一个函数的主体，或是一个代码段：</p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = <span class="number">10</span> </span><br><span class="line">local i = <span class="number">1</span>		-- 对于代码段来说是局部的</span><br><span class="line"><span class="keyword">while</span> i &lt;= x do</span><br><span class="line">	local x = i * <span class="number">2</span>	--对于循环来说是局部的</span><br><span class="line">	print(x)		-- <span class="number">2</span>,<span class="number">4</span>,<span class="number">6.</span>..</span><br><span class="line">	i = i + <span class="number">1</span></span><br><span class="line">end</span><br><span class="line"><span class="keyword">if</span> i &gt; <span class="number">20</span> then</span><br><span class="line">	local x 			-- 对于<span class="string">&quot;zhen&quot;</span>来说是局部的</span><br><span class="line">	x = <span class="number">20</span></span><br><span class="line">	print(x + <span class="number">2</span>)		-- 如果测试成功会输出<span class="number">22</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	print(x)		-- <span class="number">10</span>(全局的)</span><br><span class="line">end</span><br><span class="line">print(x)</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;请注意，上述示例在交互模式中不能正常运行。因为在交互模式中，每一行代码就是一个代码段。一旦输入示例的第二行，Lua语言解释器就会直接运行它并在下一行开始一个新的代码段。这样，局部的声明就超出了原来的作用范围。解决这个问题的一种方式是显示地声明整个代码块，即将它放入一对do-end中。一旦输入了do，命令就只会在遇到匹配的end时才结束，这样Lua语言解释器就不会单独执行每一行的命令。<br>&ensp;&ensp;&ensp;&ensp;当需要更好地控制某些局部变量的生效范围时，do程序块也同样有用：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local x1 , x2</span><br><span class="line">do</span><br><span class="line">	local a2 = <span class="number">2</span> * a2</span><br><span class="line">	local d = (b^<span class="number">2</span> - <span class="number">4</span>*a*c)^(<span class="number">1</span>/<span class="number">2</span>)</span><br><span class="line">	x1 = (-b + d)/a2</span><br><span class="line">	x2 = (-b - d)/a2</span><br><span class="line">end</span><br><span class="line">print(x1,x2)</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;尽可能地使用局部变量是一种良好的编程风格。首先，局部变量可以避免由于不必要的命名而造成全局变量的混乱；其次，局部变量还能避免同一程序中不同代码部分中的命名冲突；再次，访问局部变量比访问全局变量更快；最后，局部变量会随着其作用域的结束儿消失，从而使得垃圾收集器能够将其释放。<br>&ensp;&ensp;&ensp;&ensp;鉴于局部变量优于全局变量，有些人就认为Lua语言应该把变量默认视为局部的。然而，把变量默认视为局部的也有一些列的问题。一个更好的解决办法并不是把变量默认视为局部变量，而是在使用变量前必须先声明。Lua语言的发型版中有一个用于全局变量检查的模块strict.lua，如果视图在一个函数中对不存在的全局变量赋值或者使用不存在的全局变量，将会抛出异常。<br>&ensp;&ensp;&ensp;&ensp;局部变量的声明可以包含初始值，其赋值规则与常见的多重赋值一样：多余的值被丢弃，多余的变量被赋值为nil。如果一个声明中没有赋值，则变量会被初始化为nil：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local a , b = <span class="number">1</span> , <span class="number">10</span></span><br><span class="line"><span class="keyword">if</span> a &lt; b then</span><br><span class="line">	print(a)			-- <span class="number">1</span></span><br><span class="line">	local a 			-- <span class="string">&#x27;= nil&#x27;</span> 是隐式的</span><br><span class="line">	print(a)			-- nil</span><br><span class="line">end</span><br><span class="line">print(a,b)				-- <span class="number">1</span>, <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<p>Lua语言中有一种常见的用法：<br><code>local foo = foo</code><br>这段代码声明了一个局部变量foo，然后用全局变量foo对其赋值。这个用法在需要提高对foo的访问速度时很有用。当其他函数改变了全局变量foo的值，而代码段又需要保留foo的原始值时，这个用法也很有用，尤其是在进行运行时动态替换时。即使其他代码把print动态替换成了而其他函数，在<code>local print = print</code>语句之前的所有代码使用的还都是原先的print函数。<br>有些人认为在代码块的中间位置声明变量时一个不好的习惯，实际上恰恰相反，我们很少会在不赋初始值的情况下声明变量，在需要时才声明变量可以避免漏掉初始化这个变量。此外，通过缩小变量的作用域还有助于提高代码的可读性。</p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Lua字符串</title>
     <url>/2020/04/08/Lua%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
     <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;字符串用于文本。Lua语言中的字符串即可以表示单个字符，也可以表示一整本书籍。在Lua语言中，操作100K或者1M个字母组成的字符串的程序也很常见。</p>
@@ -972,52 +1018,6 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt; string.gsub(<span class="string">&quot;hello world&quot;</span>, <span class="string">&quot;l&quot;</span> , <span class="string">&quot;.&quot;</span>)			-- he..o wor.d <span class="number">3</span></span><br><span class="line">&gt; string.gsub(<span class="string">&quot;hello world&quot;</span>, <span class="string">&quot;ll&quot;</span> , <span class="string">&quot;..&quot;</span>)       -- he..o world <span class="number">1</span></span><br><span class="line">&gt; string.gsub(<span class="string">&quot;hello world&quot;</span>, <span class="string">&quot;a&quot;</span>, <span class="string">&quot;.&quot;</span>)			-- hello world <span class="number">0</span></span><br></pre></td></tr></table></figure>
 <p>该函数还会在第二个返回值中返回发生替换的次数。</p>
 <h2 id="Unicode编码"><a href="#Unicode编码" class="headerlink" title="Unicode编码"></a>Unicode编码</h2><p>&ensp;&ensp;&ensp;&ensp;UTF-8是Web环境中用于Unicode的主要编码之一。由于UTF-8编码娱ASCII编码部分兼容，所以UTF-8对于Lua来说是一种理想的编码方式。这种兼容性保证了用于ASCII字符串的一些字符操作技巧无须修改就可以用于UTF-8字符串。<br>&ensp;&ensp;&ensp;&ensp;UTF-8使用变长的多个字节来编码一个Unicode字符。例如，UTF-8编码使用一个字节的65来代表A，使用两个字节的215-144代表希伯来语字符Aleph。UTF-8使用一个字节表示所有ASCII范围内的字符（小于128）。对于其他字符，则使用字节序列表示，其中第一个字节的范围时[194,244]，而后续的字节范围时[128,191]。更准确地说，对于两个字节组成的序列，第一个字节的范围是[194,223]；对于三个字节组成的序列来说，第一个字节的范围是[224,239]；对于四个字节组成的序列来说，第一个字节的范围是[240,224]，这些范围互相之间均不重叠。这种特点保证了任意字符对应的字节序列不会在其他字符对应的字节序列中出现。特别地，一个小于128的字节永远不会在多字节序列中，它只会代表与之对应的ASCII字符。<br>&ensp;&ensp;&ensp;&ensp;Lua语言中的一些机制对UTF-8字符串来说同样“有效”。由于Lua语言使用8个字节来编码字符，所以可以像操作其他字符串一样读写和存储UTF-8字符串。字符串常量也可以包含UTF-8数据。字符串连接UTF-8字符串同样适用。对字符串比较会按照Unicode编码中的字符代码顺序进行。<br>&ensp;&ensp;&ensp;&ensp;Lua语言的操作系统库和输入输出库是与对应系统之间的主要接口，所以它们是否支持UTF-8取决于对应的操作系统。例如，在Linux操作系统下文件名要使用UTF-8编码，而在Windows操作系统下文件名使用UTF-16编码。因此，如果要在Windows操作系统中处理Unicode文件名，要么使用额外的库，要么就修改Lua语言的标准库。</p>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lua实现马儿可夫链算法</title>
-    <url>/2020/04/23/Lua%E5%AE%9E%E7%8E%B0%E9%A9%AC%E5%84%BF%E5%8F%AF%E5%A4%AB%E9%93%BE%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;马尔可夫链算法根据哪个单词能出现在基础文本中由n个前序列单词组成的序列之后，来生成伪随机文本。这里我们假设n为2。</p>
-<a id="more"></a>
-<p>&ensp;&ensp;&ensp;&ensp;程序的第一部分读取原始文本并创建一个表，该表的键为每两个单词组成的前缀，值为紧跟这个前缀的单词所组成的列表。当这个表构建好后，程序就利用它来生成随机文本，随机文本中每个单词所组成的列表。当这个表构建好后，程序就利用它来生成随机文本，随机文本中每个单词出现在它之前两个单词后的概率与其出现在基础文本中相同两个前序单词后的概率相同。最终，我们会得到一串相对比较随机的文本。例如，”<em>Constructors can also traverse a table constructor, then the parentheses in the following line does the whole file in a field n to store the contents of each function, but to show its only ragument, If you want to find the maximum element in an array can return both the maximum value and continues showing the prompt and running the code. The following words are reserved and cannot be used to convert between degrees and radians.</em>“<br>&ensp;&ensp;&ensp;&ensp;要将由两个单词组成的前缀作为表的键，需要使用空格来连接两个单词：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function prefix(w1,w2)</span><br><span class="line">	<span class="keyword">return</span> w1 .. <span class="string">&quot; &quot;</span> .. w2</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>我们使用字符串NOWORD（换行符）初始化前缀单词及标记文本的结尾。例如，对于文本”the more wo try the more we do”而言，构造出的表如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	[<span class="string">&quot;\n \n&quot;</span>]    = &#123;<span class="string">&quot;the&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;\n the&quot;</span>]   = &#123;<span class="string">&quot;more&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;the more&quot;</span>] = &#123;<span class="string">&quot;we&quot;</span>,<span class="string">&quot;we&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;more we&quot;</span>]  = &#123;<span class="string">&quot;try&quot;</span>,<span class="string">&quot;do&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;we try&quot;</span>]   = &#123;<span class="string">&quot;the&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;try the&quot;</span>]  = &#123;<span class="string">&quot;more&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;we do&quot;</span>]    = &#123;<span class="string">&quot;\n&quot;</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;程序表保存在变量statetab中。如果要像表中的某个前缀所对应的列表中插入一个新单词，可以使用如下的函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function insert (prefix,value)</span><br><span class="line">	local list = statetab[prefix]</span><br><span class="line">	<span class="keyword">if</span> list == nil then</span><br><span class="line">		statetab[prefix] = &#123;value&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		list[<span class="comment">#list + 1] = value</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>该函数首先检查某前缀是否已经有了对应的列表，如果没有，则以新值来创建一个新列表；否则，就将新值添加到现有列表的末尾。<br>&ensp;&ensp;&ensp;&ensp;为了构造表statetab，我们使用两个变量W1和w2来记录最后读取的两个单词。我们使用allwords迭代器读取单词，只不过修改了其中”单词”的定义以便将可选的诸如逗号和句号等标点符号包括在内。对于新读取的每一个单词，把它添加到与w1-w2相关联的列表中，然后更新w1和w2。<br>&ensp;&ensp;&ensp;&ensp;在构造完表后，程序便开始生成具有MAXGEN个单词的文本。首先，程序重新初始化变量w1和w2。然后，对于每个前缀，程序从其对应的单词列表中随机地选出一个单词，输出这个单词，并更新W1和w2。如下示例：</p>
-<blockquote>
-<p>示例 马儿可夫链的辅助定义</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function allwords()</span><br><span class="line">	local line = io.read()  -- 当前行</span><br><span class="line">	local pos  = <span class="number">1</span>			-- 当前行的当前位置</span><br><span class="line">	<span class="keyword">return</span> fucntion ()		-- 迭代函数</span><br><span class="line">	<span class="keyword">while</span> line do			-- 当还有行时循环</span><br><span class="line">		local w, e = string.match(line, <span class="string">&quot;(%w[,;.:]?)()&quot;</span>,pos)</span><br><span class="line">		<span class="keyword">if</span> w then			-- 发现一个单词？</span><br><span class="line">			pos = e 		-- 更新位置</span><br><span class="line">			<span class="keyword">return</span> w  		-- 返回该单词</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			line = io.read() -- 没找到单词；尝试下一行</span><br><span class="line">			pos  = <span class="number">1</span>		 -- 从第一个位置重新开始</span><br><span class="line">		end</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> nil 				-- 没有行了：迭代结束</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">function prefix (w1,w2)</span><br><span class="line">	<span class="keyword">return</span> w1 .. <span class="string">&quot; &quot;</span> .. w2 </span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local statetab = &#123;&#125;</span><br><span class="line"></span><br><span class="line">function insert (prefix,value)</span><br><span class="line">	local list = statetab[prefix]</span><br><span class="line">	<span class="keyword">if</span> list == list then</span><br><span class="line">		statetab[prefix] = &#123;value&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		list[<span class="comment">#list + 1] = value</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>示例：马尔科夫链程序</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local MAXGEN = <span class="number">200</span></span><br><span class="line">local NOWORD = <span class="string">&quot;\n&quot;</span></span><br><span class="line"></span><br><span class="line">-- 创建表</span><br><span class="line">local w1,w2 = NOWORD, NOWORD</span><br><span class="line"><span class="keyword">for</span> nextword <span class="keyword">in</span> allwords() do</span><br><span class="line">	insert(prefix(w1,w2),nextword)</span><br><span class="line">	w1 = w2; w2 = nextword;</span><br><span class="line">end</span><br><span class="line">insert(prefix(w1,w2),NOWORD)</span><br><span class="line"></span><br><span class="line">-- 生成文本</span><br><span class="line">w1 = NOWORD; w2 = NOWORD    -- 重新初始化</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span> , MAXGEN do</span><br><span class="line">	local list = statetab[prefix(w1,w2)]</span><br><span class="line">	-- 从列表中随机选出一个元素</span><br><span class="line">	local r = math.random(<span class="comment">#list)</span></span><br><span class="line">	local nextword = list[r]</span><br><span class="line">	<span class="keyword">if</span> nextword == NOWORD then <span class="keyword">return</span> end</span><br><span class="line">	io.write(nextword,<span class="string">&quot; &quot;</span>)</span><br><span class="line">	w1 = w2; w2 = nextword</span><br><span class="line">end</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lua局部变量和代码块</title>
-    <url>/2020/04/13/Lua%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E4%BB%A3%E7%A0%81%E5%9D%97/</url>
-    <content><![CDATA[<h2 id="局部变量和代码块"><a href="#局部变量和代码块" class="headerlink" title="局部变量和代码块"></a>局部变量和代码块</h2><p>&ensp;&ensp;&ensp;&ensp;Lua语言中的变量在默认情况下是全局变量，所有的局部变量在使用前必须声明。与全局变量不同，局部变量的生效范围仅限于声明它的代码块。一个代码块是一个控制结构的主体，或是一个函数的主体，或是一个代码段：</p>
-<a id="more"></a>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = <span class="number">10</span> </span><br><span class="line">local i = <span class="number">1</span>		-- 对于代码段来说是局部的</span><br><span class="line"><span class="keyword">while</span> i &lt;= x do</span><br><span class="line">	local x = i * <span class="number">2</span>	--对于循环来说是局部的</span><br><span class="line">	print(x)		-- <span class="number">2</span>,<span class="number">4</span>,<span class="number">6.</span>..</span><br><span class="line">	i = i + <span class="number">1</span></span><br><span class="line">end</span><br><span class="line"><span class="keyword">if</span> i &gt; <span class="number">20</span> then</span><br><span class="line">	local x 			-- 对于<span class="string">&quot;zhen&quot;</span>来说是局部的</span><br><span class="line">	x = <span class="number">20</span></span><br><span class="line">	print(x + <span class="number">2</span>)		-- 如果测试成功会输出<span class="number">22</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	print(x)		-- <span class="number">10</span>(全局的)</span><br><span class="line">end</span><br><span class="line">print(x)</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;请注意，上述示例在交互模式中不能正常运行。因为在交互模式中，每一行代码就是一个代码段。一旦输入示例的第二行，Lua语言解释器就会直接运行它并在下一行开始一个新的代码段。这样，局部的声明就超出了原来的作用范围。解决这个问题的一种方式是显示地声明整个代码块，即将它放入一对do-end中。一旦输入了do，命令就只会在遇到匹配的end时才结束，这样Lua语言解释器就不会单独执行每一行的命令。<br>&ensp;&ensp;&ensp;&ensp;当需要更好地控制某些局部变量的生效范围时，do程序块也同样有用：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local x1 , x2</span><br><span class="line">do</span><br><span class="line">	local a2 = <span class="number">2</span> * a2</span><br><span class="line">	local d = (b^<span class="number">2</span> - <span class="number">4</span>*a*c)^(<span class="number">1</span>/<span class="number">2</span>)</span><br><span class="line">	x1 = (-b + d)/a2</span><br><span class="line">	x2 = (-b - d)/a2</span><br><span class="line">end</span><br><span class="line">print(x1,x2)</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;尽可能地使用局部变量是一种良好的编程风格。首先，局部变量可以避免由于不必要的命名而造成全局变量的混乱；其次，局部变量还能避免同一程序中不同代码部分中的命名冲突；再次，访问局部变量比访问全局变量更快；最后，局部变量会随着其作用域的结束儿消失，从而使得垃圾收集器能够将其释放。<br>&ensp;&ensp;&ensp;&ensp;鉴于局部变量优于全局变量，有些人就认为Lua语言应该把变量默认视为局部的。然而，把变量默认视为局部的也有一些列的问题。一个更好的解决办法并不是把变量默认视为局部变量，而是在使用变量前必须先声明。Lua语言的发型版中有一个用于全局变量检查的模块strict.lua，如果视图在一个函数中对不存在的全局变量赋值或者使用不存在的全局变量，将会抛出异常。<br>&ensp;&ensp;&ensp;&ensp;局部变量的声明可以包含初始值，其赋值规则与常见的多重赋值一样：多余的值被丢弃，多余的变量被赋值为nil。如果一个声明中没有赋值，则变量会被初始化为nil：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local a , b = <span class="number">1</span> , <span class="number">10</span></span><br><span class="line"><span class="keyword">if</span> a &lt; b then</span><br><span class="line">	print(a)			-- <span class="number">1</span></span><br><span class="line">	local a 			-- <span class="string">&#x27;= nil&#x27;</span> 是隐式的</span><br><span class="line">	print(a)			-- nil</span><br><span class="line">end</span><br><span class="line">print(a,b)				-- <span class="number">1</span>, <span class="number">10</span></span><br></pre></td></tr></table></figure>
-<p>Lua语言中有一种常见的用法：<br><code>local foo = foo</code><br>这段代码声明了一个局部变量foo，然后用全局变量foo对其赋值。这个用法在需要提高对foo的访问速度时很有用。当其他函数改变了全局变量foo的值，而代码段又需要保留foo的原始值时，这个用法也很有用，尤其是在进行运行时动态替换时。即使其他代码把print动态替换成了而其他函数，在<code>local print = print</code>语句之前的所有代码使用的还都是原先的print函数。<br>有些人认为在代码块的中间位置声明变量时一个不好的习惯，实际上恰恰相反，我们很少会在不赋初始值的情况下声明变量，在需要时才声明变量可以避免漏掉初始化这个变量。此外，通过缩小变量的作用域还有助于提高代码的可读性。</p>
 ]]></content>
       <categories>
         <category>编程语言</category>
@@ -1119,34 +1119,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Lua模块引入import 和require的区别</title>
-    <url>/2020/04/23/Lua%E6%A8%A1%E5%9D%97%E5%BC%95%E5%85%A5import-%E5%92%8Crequire%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<p>Lua 中引入一个模块，可以采用两种方式：<code>import </code>和<code>require</code>方式，具体的区别在于：</p>
-<a id="more"></a>
-<h3 id="载入一个模块"><a href="#载入一个模块" class="headerlink" title="载入一个模块"></a>载入一个模块</h3><p><code>import() </code>与 <code>require() </code>功能相同，但具有一定程度的自动化特性。</p>
-<p>假设我们有如下的目录结构：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">app&#x2F;</span><br><span class="line">app&#x2F;classes&#x2F;</span><br><span class="line">app&#x2F;classes&#x2F;MyClass.lua</span><br><span class="line">app&#x2F;classes&#x2F;MyClassBase.lua</span><br><span class="line">app&#x2F;classes&#x2F;data&#x2F;Data1.lua</span><br><span class="line">app&#x2F;classes&#x2F;data&#x2F;Data2.lua</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>MyClass 中需要载入 MyClassBase 和 MyClassData。如果用 require()，MyClass 内的代码如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">local MyClassBase = require(<span class="string">&quot;app.classes.MyClassBase&quot;</span>)</span><br><span class="line">local MyClass = <span class="class"><span class="keyword">class</span>(<span class="params"><span class="string">&quot;MyClass&quot;</span>, MyClassBase</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">local Data1 = require(&quot;app.classes.data.Data1&quot;)</span><br><span class="line">local Data2 = require(<span class="string">&quot;app.classes.data.Data2&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>假如我们将 MyClass 及其相关文件换一个目录存放，那么就必须修改 MyClass 中的 require() 命令，否则将找不到模块文件。</p>
-<p>而使用 import()，我们只需要如下写：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">local MyClassBase = <span class="keyword">import</span>(<span class="string">&quot;.MyClassBase&quot;</span>)</span><br><span class="line">local MyClass = <span class="class"><span class="keyword">class</span>(<span class="params"><span class="string">&quot;MyClass&quot;</span>, MyClassBase</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">local Data1 = import(&quot;.data.Data1&quot;)</span><br><span class="line">local Data2 = <span class="keyword">import</span>(<span class="string">&quot;.data.Data2&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>当在模块名前面有一个”.” 时，import() 会从当前模块所在目录中查找其他模块。因此 MyClass 及其相关文件不管存放到什么目录里，我们都不再需要修改 MyClass 中的 import() 命令。这在开发一些重复使用的功能组件时，会非常方便。</p>
-<p>我们可以在模块名前添加多个”.” ，这样 import() 会从更上层的目录开始查找模块。</p>
-<p>不过 import() 只有在模块级别调用（也就是没有将 import() 写在任何函数中）时，才能够自动得到当前模块名。</p>
-<p><a href="https://www.cnblogs.com/Alex1991/p/8708768.html">本文参考链接</a></p>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Lua日期和时间</title>
     <url>/2020/04/17/Lua%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/</url>
     <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;Lua语言的标准库提供了两个用于操作日期和时间的函数，这两个函数在C语言标准库中也存在，提供的是同样的功能。虽然这两个函数看上去很简单，但依旧可以基于这些简单的功能完成很多复杂的工作。</p>
@@ -1193,6 +1165,34 @@
 <p>&ensp;&ensp;&ensp;&ensp;我们还可以使用函数os.difftime来计算一段代码的执行时间。不过，对于这个需求更好的方式是使用函数os.clock，该函数会返回程序消耗的CPU时间（单位是秒）。函数os.clock在性能测试中的典型用法如：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local x = os.clock()</span><br><span class="line">local s = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>,<span class="number">100000</span> do s = s + i end</span><br><span class="line">print(string.format(<span class="string">&quot;elapsed time: %.2f\n&quot;</span>,os.clock() - x))</span><br></pre></td></tr></table></figure>
 <p>&ensp;&ensp;&ensp;&ensp;与函数os.time不同，函数os.clock通常具有比秒更高的精度，因此返回值为一个浮点数。具体的精度与平台相关，在POSIX系统中通常是1毫秒。</p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lua模块引入import 和require的区别</title>
+    <url>/2020/04/23/Lua%E6%A8%A1%E5%9D%97%E5%BC%95%E5%85%A5import-%E5%92%8Crequire%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p>Lua 中引入一个模块，可以采用两种方式：<code>import </code>和<code>require</code>方式，具体的区别在于：</p>
+<a id="more"></a>
+<h3 id="载入一个模块"><a href="#载入一个模块" class="headerlink" title="载入一个模块"></a>载入一个模块</h3><p><code>import() </code>与 <code>require() </code>功能相同，但具有一定程度的自动化特性。</p>
+<p>假设我们有如下的目录结构：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">app&#x2F;</span><br><span class="line">app&#x2F;classes&#x2F;</span><br><span class="line">app&#x2F;classes&#x2F;MyClass.lua</span><br><span class="line">app&#x2F;classes&#x2F;MyClassBase.lua</span><br><span class="line">app&#x2F;classes&#x2F;data&#x2F;Data1.lua</span><br><span class="line">app&#x2F;classes&#x2F;data&#x2F;Data2.lua</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>MyClass 中需要载入 MyClassBase 和 MyClassData。如果用 require()，MyClass 内的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">local MyClassBase = require(<span class="string">&quot;app.classes.MyClassBase&quot;</span>)</span><br><span class="line">local MyClass = <span class="class"><span class="keyword">class</span>(<span class="params"><span class="string">&quot;MyClass&quot;</span>, MyClassBase</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">local Data1 = require(&quot;app.classes.data.Data1&quot;)</span><br><span class="line">local Data2 = require(<span class="string">&quot;app.classes.data.Data2&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>假如我们将 MyClass 及其相关文件换一个目录存放，那么就必须修改 MyClass 中的 require() 命令，否则将找不到模块文件。</p>
+<p>而使用 import()，我们只需要如下写：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">local MyClassBase = <span class="keyword">import</span>(<span class="string">&quot;.MyClassBase&quot;</span>)</span><br><span class="line">local MyClass = <span class="class"><span class="keyword">class</span>(<span class="params"><span class="string">&quot;MyClass&quot;</span>, MyClassBase</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">local Data1 = import(&quot;.data.Data1&quot;)</span><br><span class="line">local Data2 = <span class="keyword">import</span>(<span class="string">&quot;.data.Data2&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当在模块名前面有一个”.” 时，import() 会从当前模块所在目录中查找其他模块。因此 MyClass 及其相关文件不管存放到什么目录里，我们都不再需要修改 MyClass 中的 import() 命令。这在开发一些重复使用的功能组件时，会非常方便。</p>
+<p>我们可以在模块名前添加多个”.” ，这样 import() 会从更上层的目录开始查找模块。</p>
+<p>不过 import() 只有在模块级别调用（也就是没有将 import() 写在任何函数中）时，才能够自动得到当前模块名。</p>
+<p><a href="https://www.cnblogs.com/Alex1991/p/8708768.html">本文参考链接</a></p>
 ]]></content>
       <categories>
         <category>编程语言</category>
@@ -1622,6 +1622,29 @@
       </tags>
   </entry>
   <entry>
+    <title>cocos 2dx_lua键盘监听</title>
+    <url>/2020/06/08/cocos-2dx-lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/</url>
+    <content><![CDATA[<a id="more"></a>
+<pre><code class="python">local function keyboardPressed(KeyCode,event)
+        print(KeyCode)
+    end
+    local function keyboardReleased(KeyCode,event)
+    end
+    local listener = cc.EventListenerKeyboard:create()  
+    listener:registerScriptHandler(keyboardPressed, cc.Handler.EVENT_KEYBOARD_PRESSED)  
+    listener:registerScriptHandler(keyboardReleased, cc.Handler.EVENT_KEYBOARD_RELEASED)  
+    local eventDispatcher = self:getEventDispatcher()  
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener,self)</code></pre>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+        <tag>cocos 2d</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>break、return和goto</title>
     <url>/2020/04/13/break%E3%80%81return%E5%92%8Cgoto/</url>
     <content><![CDATA[<h2 id="break、return-和-goto"><a href="#break、return-和-goto" class="headerlink" title="break、return 和 goto"></a>break、return 和 goto</h2><p>&ensp;&ensp;&ensp;&ensp;break和return语句用于从当前的循环结构中跳出，goto语句则允许跳转到函数中的几乎任何地方。</p>
@@ -1648,19 +1671,15 @@
       </tags>
   </entry>
   <entry>
-    <title>cocos 2dx_lua键盘监听</title>
-    <url>/2020/06/08/cocos-2dx-lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/</url>
-    <content><![CDATA[<a id="more"></a>
-<pre><code class="python">local function keyboardPressed(KeyCode,event)
-        print(KeyCode)
-    end
-    local function keyboardReleased(KeyCode,event)
-    end
-    local listener = cc.EventListenerKeyboard:create()  
-    listener:registerScriptHandler(keyboardPressed, cc.Handler.EVENT_KEYBOARD_PRESSED)  
-    listener:registerScriptHandler(keyboardReleased, cc.Handler.EVENT_KEYBOARD_RELEASED)  
-    local eventDispatcher = self:getEventDispatcher()  
-    eventDispatcher:addEventListenerWithSceneGraphPriority(listener,self)</code></pre>
+    <title>cocos 2dx使用webView</title>
+    <url>/2019/03/18/cocos-2dx%E4%BD%BF%E7%94%A8webView/</url>
+    <content><![CDATA[<p>废话不多说，直接上代码<br>注意：只能在真机跑，不能进行模拟器调试<br>代码：</p>
+<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local webView1 = ccexp.WebView:create()</span><br><span class="line">   webView1:setContentSize(cc.size(<span class="number">1280</span>,<span class="number">720</span>))</span><br><span class="line">   webView1:setScalesPageToFit(<span class="keyword">true</span>)</span><br><span class="line">   -- webView1:loadHTMLString(<span class="keyword">true</span>)</span><br><span class="line">   webView1:setPosition(cc.p(<span class="number">640</span>,<span class="number">360</span>))</span><br><span class="line">   webView1:loadURL(<span class="string">&quot;http://www.baidu.com&quot;</span>)</span><br><span class="line">   self:addChild(webView1)</span><br><span class="line">   webView1:setOnShouldStartLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1ShouldStartLoading,url is &quot;</span>, url)</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">   end)</span><br><span class="line">   webView1:setOnDidFinishLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1DidFinishLoading url is &quot;</span> , url)</span><br><span class="line">   end)</span><br><span class="line">   webView1:setOnDidFailLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1DidFailLoading url is &quot;</span> , url)</span><br><span class="line">   end)  </span><br><span class="line">   webView1:reload()</span><br></pre></td></tr></table></figure>
+
+<p>因为苹果不支持http协议，所以在真机运行时需要稍微修改xcode设置<br>添加下面设置<br><img src="https://img-blog.csdnimg.cn/20190318133012896.jpg" alt="在这里插入图片描述"></p>
+<p>如果是加载本地的html文件，用下面代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local webView1 = ccexp.WebView:create()</span><br><span class="line">    webView1:setContentSize(cc.size(<span class="number">1280</span>,<span class="number">720</span>))</span><br><span class="line">    webView1:setScalesPageToFit(<span class="keyword">true</span>)</span><br><span class="line">    -- webView1:loadHTMLString(<span class="keyword">true</span>)</span><br><span class="line">    webView1:setPosition(cc.p(<span class="number">640</span>,<span class="number">360</span>))</span><br><span class="line"></span><br><span class="line">    local url = <span class="string">&quot;8/8.html&quot;</span></span><br><span class="line">    url = cc.FileUtils:getInstance():fullPathForFilename(url)</span><br><span class="line">    webView1:loadURL(url)</span><br><span class="line"></span><br><span class="line">    self:addChild(webView1)</span><br><span class="line">    webView1:setOnShouldStartLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1ShouldStartLoading,url is &quot;</span>, url)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">    end)</span><br><span class="line">    webView1:setOnDidFinishLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1DidFinishLoading url is &quot;</span> , url)</span><br><span class="line">    end)</span><br><span class="line">    webView1:setOnDidFailLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1DidFailLoading url is &quot;</span> , url)</span><br><span class="line">    end)  </span><br><span class="line">    webView1:reload()</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>游戏开发</category>
@@ -1767,25 +1786,6 @@
     first_tempView.scrollEnabled = NO;
 
 </code></pre>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-        <tag>cocos 2d</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cocos 2dx使用webView</title>
-    <url>/2019/03/18/cocos-2dx%E4%BD%BF%E7%94%A8webView/</url>
-    <content><![CDATA[<p>废话不多说，直接上代码<br>注意：只能在真机跑，不能进行模拟器调试<br>代码：</p>
-<a id="more"></a>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local webView1 = ccexp.WebView:create()</span><br><span class="line">   webView1:setContentSize(cc.size(<span class="number">1280</span>,<span class="number">720</span>))</span><br><span class="line">   webView1:setScalesPageToFit(<span class="keyword">true</span>)</span><br><span class="line">   -- webView1:loadHTMLString(<span class="keyword">true</span>)</span><br><span class="line">   webView1:setPosition(cc.p(<span class="number">640</span>,<span class="number">360</span>))</span><br><span class="line">   webView1:loadURL(<span class="string">&quot;http://www.baidu.com&quot;</span>)</span><br><span class="line">   self:addChild(webView1)</span><br><span class="line">   webView1:setOnShouldStartLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1ShouldStartLoading,url is &quot;</span>, url)</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">   end)</span><br><span class="line">   webView1:setOnDidFinishLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1DidFinishLoading url is &quot;</span> , url)</span><br><span class="line">   end)</span><br><span class="line">   webView1:setOnDidFailLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1DidFailLoading url is &quot;</span> , url)</span><br><span class="line">   end)  </span><br><span class="line">   webView1:reload()</span><br></pre></td></tr></table></figure>
-
-<p>因为苹果不支持http协议，所以在真机运行时需要稍微修改xcode设置<br>添加下面设置<br><img src="https://img-blog.csdnimg.cn/20190318133012896.jpg" alt="在这里插入图片描述"></p>
-<p>如果是加载本地的html文件，用下面代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local webView1 = ccexp.WebView:create()</span><br><span class="line">    webView1:setContentSize(cc.size(<span class="number">1280</span>,<span class="number">720</span>))</span><br><span class="line">    webView1:setScalesPageToFit(<span class="keyword">true</span>)</span><br><span class="line">    -- webView1:loadHTMLString(<span class="keyword">true</span>)</span><br><span class="line">    webView1:setPosition(cc.p(<span class="number">640</span>,<span class="number">360</span>))</span><br><span class="line"></span><br><span class="line">    local url = <span class="string">&quot;8/8.html&quot;</span></span><br><span class="line">    url = cc.FileUtils:getInstance():fullPathForFilename(url)</span><br><span class="line">    webView1:loadURL(url)</span><br><span class="line"></span><br><span class="line">    self:addChild(webView1)</span><br><span class="line">    webView1:setOnShouldStartLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1ShouldStartLoading,url is &quot;</span>, url)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">    end)</span><br><span class="line">    webView1:setOnDidFinishLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1DidFinishLoading url is &quot;</span> , url)</span><br><span class="line">    end)</span><br><span class="line">    webView1:setOnDidFailLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1DidFailLoading url is &quot;</span> , url)</span><br><span class="line">    end)  </span><br><span class="line">    webView1:reload()</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>游戏开发</category>
@@ -1931,6 +1931,30 @@
       </tags>
   </entry>
   <entry>
+    <title>cocos2dx使用帧动画</title>
+    <url>/2019/03/08/cocos2dx%E4%BD%BF%E7%94%A8%E5%B8%A7%E5%8A%A8%E7%94%BB/</url>
+    <content><![CDATA[<p>开发语言：lua<br>开发引擎：cocos2d_x </p>
+<p>一般来说，使用cocos2d_x开发游戏的时候都有两种做UI的方式，一种是用代码手写，一种是用cocos studio做UI，帧动画也一样，可以用这里两种方式，下面介绍博主常用的两种方法。</p>
+<a id="more"></a>
+<h3 id="代码手写帧动画"><a href="#代码手写帧动画" class="headerlink" title="代码手写帧动画"></a>代码手写帧动画</h3><blockquote>
+<p>博主这里是先将用来做帧动画的图片合成plis合图，然后创建一个精灵。用plist合图中的图片不断的去替换原来精灵的图片。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">cc.SpriteFrameCache:getInstance():addSpriteFrames(<span class="string">&quot;tupian.plist&quot;</span>)</span><br><span class="line">           local Circle_sp = cc.Sprite:createWithSpriteFrameName(<span class="string">&quot;1.png&quot;</span>)</span><br><span class="line">           Circle_sp:move(a_x,a_y)</span><br><span class="line">           Circle_sp:addTo(self._lr , <span class="number">1</span>)</span><br><span class="line">           local animation = cc.Animation:create()  </span><br><span class="line">           <span class="keyword">for</span> i=<span class="number">1</span>,<span class="number">6</span> <span class="keyword">do</span>  </span><br><span class="line">               local _frame = cc.SpriteFrameCache:getInstance():getSpriteFrame( i ..<span class="string">&quot;.png&quot;</span>) </span><br><span class="line">               <span class="keyword">if</span>  _frame then</span><br><span class="line">                   animation:addSpriteFrame(_frame) </span><br><span class="line">               end</span><br><span class="line">           end  </span><br><span class="line">           animation:setDelayPerUnit(<span class="number">0.08</span>)             --设置两个帧播放时间                  </span><br><span class="line">           animation:setRestoreOriginalFrame(<span class="keyword">false</span>)    --动画执行后还原初始状态              </span><br><span class="line">           local action = cc.Animate:create(animation) </span><br><span class="line">           local hide = cc.CallFunc:create(function()</span><br><span class="line">               local fadein = cc.FadeIn:create(<span class="number">0.08</span>)</span><br><span class="line">               local fadeout = cc.FadeOut:create(<span class="number">0.08</span>)</span><br><span class="line">               local delay = cc.DelayTime:create(<span class="number">0.08</span>)</span><br><span class="line">               Circle_sp:runAction(cc.Sequence:create(fadein,delay,fadeout))</span><br><span class="line">           end)     </span><br><span class="line">           local delay = cc.DelayTime:create(<span class="number">0.5</span>)             </span><br><span class="line">           Circle_sp:runAction(cc.Sequence:create(action,delay,hide))  </span><br></pre></td></tr></table></figure>
+
+<h3 id="用cocos-studio-做帧动画"><a href="#用cocos-studio-做帧动画" class="headerlink" title="用cocos studio 做帧动画"></a>用cocos studio 做帧动画</h3><blockquote>
+<p>需要自己在cocos studio 上提前做好相应的帧动画</p>
+</blockquote>
+<p>跳转链接：<a href="https://blog.csdn.net/Silent_F/article/details/84846000#_228">https://blog.csdn.net/Silent_F/article/details/84846000#_228</a></p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+        <tag>cocos 2d</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>git强制拉取远程项目覆盖本地项目</title>
     <url>/2019/11/15/git%E5%BC%BA%E5%88%B6%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E9%A1%B9%E7%9B%AE%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE/</url>
     <content><![CDATA[<h3 id="git强制覆盖："><a href="#git强制覆盖：" class="headerlink" title="git强制覆盖："></a>git强制覆盖：</h3><blockquote>
@@ -1969,30 +1993,6 @@
       </categories>
       <tags>
         <tag>lua</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cocos2dx使用帧动画</title>
-    <url>/2019/03/08/cocos2dx%E4%BD%BF%E7%94%A8%E5%B8%A7%E5%8A%A8%E7%94%BB/</url>
-    <content><![CDATA[<p>开发语言：lua<br>开发引擎：cocos2d_x </p>
-<p>一般来说，使用cocos2d_x开发游戏的时候都有两种做UI的方式，一种是用代码手写，一种是用cocos studio做UI，帧动画也一样，可以用这里两种方式，下面介绍博主常用的两种方法。</p>
-<a id="more"></a>
-<h3 id="代码手写帧动画"><a href="#代码手写帧动画" class="headerlink" title="代码手写帧动画"></a>代码手写帧动画</h3><blockquote>
-<p>博主这里是先将用来做帧动画的图片合成plis合图，然后创建一个精灵。用plist合图中的图片不断的去替换原来精灵的图片。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">cc.SpriteFrameCache:getInstance():addSpriteFrames(<span class="string">&quot;tupian.plist&quot;</span>)</span><br><span class="line">           local Circle_sp = cc.Sprite:createWithSpriteFrameName(<span class="string">&quot;1.png&quot;</span>)</span><br><span class="line">           Circle_sp:move(a_x,a_y)</span><br><span class="line">           Circle_sp:addTo(self._lr , <span class="number">1</span>)</span><br><span class="line">           local animation = cc.Animation:create()  </span><br><span class="line">           <span class="keyword">for</span> i=<span class="number">1</span>,<span class="number">6</span> <span class="keyword">do</span>  </span><br><span class="line">               local _frame = cc.SpriteFrameCache:getInstance():getSpriteFrame( i ..<span class="string">&quot;.png&quot;</span>) </span><br><span class="line">               <span class="keyword">if</span>  _frame then</span><br><span class="line">                   animation:addSpriteFrame(_frame) </span><br><span class="line">               end</span><br><span class="line">           end  </span><br><span class="line">           animation:setDelayPerUnit(<span class="number">0.08</span>)             --设置两个帧播放时间                  </span><br><span class="line">           animation:setRestoreOriginalFrame(<span class="keyword">false</span>)    --动画执行后还原初始状态              </span><br><span class="line">           local action = cc.Animate:create(animation) </span><br><span class="line">           local hide = cc.CallFunc:create(function()</span><br><span class="line">               local fadein = cc.FadeIn:create(<span class="number">0.08</span>)</span><br><span class="line">               local fadeout = cc.FadeOut:create(<span class="number">0.08</span>)</span><br><span class="line">               local delay = cc.DelayTime:create(<span class="number">0.08</span>)</span><br><span class="line">               Circle_sp:runAction(cc.Sequence:create(fadein,delay,fadeout))</span><br><span class="line">           end)     </span><br><span class="line">           local delay = cc.DelayTime:create(<span class="number">0.5</span>)             </span><br><span class="line">           Circle_sp:runAction(cc.Sequence:create(action,delay,hide))  </span><br></pre></td></tr></table></figure>
-
-<h3 id="用cocos-studio-做帧动画"><a href="#用cocos-studio-做帧动画" class="headerlink" title="用cocos studio 做帧动画"></a>用cocos studio 做帧动画</h3><blockquote>
-<p>需要自己在cocos studio 上提前做好相应的帧动画</p>
-</blockquote>
-<p>跳转链接：<a href="https://blog.csdn.net/Silent_F/article/details/84846000#_228">https://blog.csdn.net/Silent_F/article/details/84846000#_228</a></p>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-        <tag>cocos 2d</tag>
       </tags>
   </entry>
   <entry>
@@ -2131,6 +2131,28 @@
       </tags>
   </entry>
   <entry>
+    <title>windows平台下删除注册表后应用程序无法使用的情况</title>
+    <url>/2017/04/23/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E5%88%A0%E9%99%A4%E6%B3%A8%E5%86%8C%E8%A1%A8%E5%90%8E%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E7%9A%84%E6%83%85%E5%86%B5/</url>
+    <content><![CDATA[<h1 id="windows平台下删除注册表后应用程序无法使用的情况"><a href="#windows平台下删除注册表后应用程序无法使用的情况" class="headerlink" title="windows平台下删除注册表后应用程序无法使用的情况"></a>windows平台下删除注册表后应用程序无法使用的情况</h1><p>&emsp;&emsp;相信大家都有在Windows系统下不小心删除注册表的经历，或者因为注册表出现问题从而导致某个应用程序不能使用。在很多情况下，大家所遇到的只是某个应用程序的注册表出现问题不能使用。这个在网上有很多方面。</p>
+<a id="more"></a>
+<p>&emsp;&emsp;笔者在这里介绍一下笔者所遇到的问题及解决的方法。笔者不小心删除了所有的注册表文件，也就是说所有的应用程序都不能使用，尝试了很多方法都没有解决，差点就选择重装系统了。最后笔者的解决办法也很简单，建一个脚本文件。方法如下：</p>
+<hr>
+<ul>
+<li>在桌面新建一个文件文件</li>
+<li>在文件中输入一下命令：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">assoc.exe&#x3D;exefile</span><br></pre></td></tr></table></figure></li>
+<li>保存文件并命名为‘什么都可以.bat’,然后双击该脚本文件即恢复所有注册表文件。</li>
+</ul>
+<p>或者直接打开管理员运行窗口，在窗口中输入命令‘assoc.exe=exefile’，再回车。如下图：<br><img src="https://img-service.csdnimg.cn/img_convert/724786774b7394c36fa555dad8278694.png" alt="这里写图片描述"></p>
+]]></content>
+      <categories>
+        <category>计算机使用</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+        <tag>注册表</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ubuntu系统安装百度云盘</title>
     <url>/2018/09/13/ubuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E7%99%BE%E5%BA%A6%E4%BA%91%E7%9B%98/</url>
     <content><![CDATA[<p>&emsp;&emsp;百度云盘是我们在学习生活中常用的应用程序之一，在很多时候在云盘上下载文件需要安装客户端才能下载，笔者昨天将系统换乘了ubuntu系统，今天在下载文件的时候就遇到了这个问题，下面介绍下笔者是如何在ubuntu系统上安装百度云盘的。</p>
@@ -2160,28 +2182,6 @@
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>windows平台下删除注册表后应用程序无法使用的情况</title>
-    <url>/2017/04/23/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E5%88%A0%E9%99%A4%E6%B3%A8%E5%86%8C%E8%A1%A8%E5%90%8E%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E7%9A%84%E6%83%85%E5%86%B5/</url>
-    <content><![CDATA[<h1 id="windows平台下删除注册表后应用程序无法使用的情况"><a href="#windows平台下删除注册表后应用程序无法使用的情况" class="headerlink" title="windows平台下删除注册表后应用程序无法使用的情况"></a>windows平台下删除注册表后应用程序无法使用的情况</h1><p>&emsp;&emsp;相信大家都有在Windows系统下不小心删除注册表的经历，或者因为注册表出现问题从而导致某个应用程序不能使用。在很多情况下，大家所遇到的只是某个应用程序的注册表出现问题不能使用。这个在网上有很多方面。</p>
-<a id="more"></a>
-<p>&emsp;&emsp;笔者在这里介绍一下笔者所遇到的问题及解决的方法。笔者不小心删除了所有的注册表文件，也就是说所有的应用程序都不能使用，尝试了很多方法都没有解决，差点就选择重装系统了。最后笔者的解决办法也很简单，建一个脚本文件。方法如下：</p>
-<hr>
-<ul>
-<li>在桌面新建一个文件文件</li>
-<li>在文件中输入一下命令：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">assoc.exe&#x3D;exefile</span><br></pre></td></tr></table></figure></li>
-<li>保存文件并命名为‘什么都可以.bat’,然后双击该脚本文件即恢复所有注册表文件。</li>
-</ul>
-<p>或者直接打开管理员运行窗口，在窗口中输入命令‘assoc.exe=exefile’，再回车。如下图：<br><img src="https://img-service.csdnimg.cn/img_convert/724786774b7394c36fa555dad8278694.png" alt="这里写图片描述"></p>
-]]></content>
-      <categories>
-        <category>计算机使用</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-        <tag>注册表</tag>
       </tags>
   </entry>
   <entry>
@@ -2358,6 +2358,27 @@
       </tags>
   </entry>
   <entry>
+    <title>公用电信网间互联管理规定</title>
+    <url>/2018/08/10/%E5%85%AC%E7%94%A8%E7%94%B5%E4%BF%A1%E7%BD%91%E9%97%B4%E4%BA%92%E8%81%94%E7%AE%A1%E7%90%86%E8%A7%84%E5%AE%9A/</url>
+    <content><![CDATA[<p>&emsp;&emsp;网间互联有利于破除网络壁垒，节约网络建设成本，方便用户的使用。国际电信联盟（International Telecommunications Union，TTU）和一些国家（地区）的电信法都对电信网间互联提出了要求。其核心的要义是：建立电信网间的有效通信连接，以使一个电信业务经营者的用户能够与另一个电信业务经营者的用户相互通信或者能够使用另一电信业务经营者的各种电信业务。</p>
+<a id="more"></a>
+<p>&emsp;&emsp;为了维护国家利益和电信用户的合法权益，保护电信业务经营者之间公平、有效竞争，保障公用电信网间及时。合理地互联，2001年5月10日，原信息产业部根据《电信条例》，颁布了《公用电信网间互联管理规定》（以下简称《网间互联规定》）。2014年9月23日，《网间互联规定》根据中华人民共和国工业和信息化部令第28号公布的《工业和信息化部关于废止和修改部分规章的决定》进行了修正。</p>
+<h1 id="《网间互联规定》概述"><a href="#《网间互联规定》概述" class="headerlink" title="《网间互联规定》概述"></a>《网间互联规定》概述</h1><p>&emsp;&emsp;电信网间互联，是指将不同的网络连接起来，以构成成大规模的电信网系统，实现网络间的数据通信、资源共享和协同工作。电信网间互联包含了两层含义：一是网间互联，二是业务互通。网间互联的目的在于实现业务互通。互联互通问题的解决对于在竞争中处于劣势地位的电信运营商有重要的意义，同时会大幅度地提升小网络的价值。</p>
+<h2 id="相关概念的界定"><a href="#相关概念的界定" class="headerlink" title="相关概念的界定"></a>相关概念的界定</h2><p>&emsp;&emsp;（1）互联，是指建立电信网间的有效通信连接，以使一个电信业务经营者的用户能够与另一个电信业务经营者的用户相互通信或者能够使用另一个电信业务经营者的各种电信业务。互联包括两个电信网网间直接相联实现业务互通的方式，以及两个电信网通过第三方的网络转接实现业务互通的方式。<br>&emsp;&emsp;（2）互联点，是指两个电信网网间直接相连是的物理接口点。<br>&emsp;&emsp;（3）主导的电信业务经营者，是指控制必要的基础电信设施，并且所经营的固定本地电话业务占本地网范围内同类业务市场50%以上的市场份额，能够对其他电信业务经营者进入电信业务市场构成实质性影响的经营者。<br>&emsp;&emsp;（4）非主导的电信业务经营者，是指主导的电信业务经营者意外的电信业务经营者。</p>
+<h2 id="《网间互联规定》的原则"><a href="#《网间互联规定》的原则" class="headerlink" title="《网间互联规定》的原则"></a>《网间互联规定》的原则</h2><p>&emsp;&emsp;《电信条例》第十七条规定中指出，电信网之间应当按照技术可行、经济合理、公平公正、相互配合的原则实现互联互通。主导的电信业务经营者不得拒绝其他电信业务经营者和专用网经营单位提出的互联互通要求。但是，并未对需要互通的业务范围作出规定。</p>
+<h2 id="《网间互联规定》的使用范围"><a href="#《网间互联规定》的使用范围" class="headerlink" title="《网间互联规定》的使用范围"></a>《网间互联规定》的使用范围</h2><p>&emsp;&emsp;《网间互联规定》第二条，明确了在中华人民共和国境内经营基础电信业务的经营者电信网间的互联的具体范围。<br>&emsp;&emsp;（1）明确了空间范围，即在中华人民共和国境内。<br>&emsp;&emsp;（2）明确了经营范围，即经营基础电信业务的经营者。按照《电信业务分类目录》，基础电信业务包括固定网络国内长途及本地电话业务；移动网络电话和数据业务；卫星通信及卫星移动通信业务；互联网及其他公共数据传送业务；带宽、波长、光纤、光缆、管道及其他网络元素出租、出售业务；网络承载、接入及网络外包等业务；国际通信基础设施、国际电信业务；无线寻呼业务；转售的基础电信业务。<br>&emsp;&emsp;（3）明确了电信网互联的具体范围，主要包括固定本地电话网、国内长途电话网、国际电话网、IP电话网、陆地蜂窝移动通信网、卫星移动通信网、互联网骨干网、工业和信息化部规定的其他电信网。</p>
+<h1 id="电信业务经营者的互联义务"><a href="#电信业务经营者的互联义务" class="headerlink" title="电信业务经营者的互联义务"></a>电信业务经营者的互联义务</h1><p>&emsp;&emsp;《网间互联规定》第六至第十五条、第二十一条、第三十八条明确了电信业务经营者的互联义务。总体来说，可从电信业务经营者、主导的电信业务经营者和非主导的电信业务经营者3个方面来理解。</p>
+<h2 id="电信业务经营者的共同义务"><a href="#电信业务经营者的共同义务" class="headerlink" title="电信业务经营者的共同义务"></a>电信业务经营者的共同义务</h2><p>&emsp;&emsp;第六条，电信业务经营者应当设立互联工作机构负责互联工作。互联工作机构应当建立正常的工作联系制度，保证电信业务经营者与电信主管部门之间以及电信业务经营者之间工作聚到的畅通。<br>&emsp;&emsp;第八条，电信业务经营者不得拒绝其他电信业务经营者提出的互联要求，不得违反国家有关规定擅自限制用户选择其他电信业务经营者依法开办的电信业务。<br>&emsp;&emsp;第十二条，电信业务经营者应当执行工业和信息化部制定的相关网间互联技术规范、技术规定。网间通信质量应当符合国家有关标准。电信业务经营者应当保证网间通信质量不低于其网络内部同类业务的通信质量。<br>&emsp;&emsp;第十四条，电信业务经营者向本网开放的各种电信业务接入号码（含短号码）、其他特种业务号码（含电信业务经营者所用的业务号码、政府公务类业务号码、社会服务类业务号码）、智能业务号码等，应一方防的要求，应当及时向对方网开放，并保证通信质量。<br>&emsp;&emsp;第二十一条，电信业务经营者在互联互通中应当执行《电信网间通话费结算办法》，不得在规定标准以外加收费用。<br>&emsp;&emsp;电信业务经营应当按互联协议规定的结算周期进行网间结算，不得无故拖延应向对方结算的费用。<br>&emsp;&emsp;第三十八条，电信业务经营者应当保障网间通信畅通，不得擅自中断互联互通。电信业务经营者应当建立网间通信重大障碍报告制度。发生网间通信中断或网间通信严重不畅时，电信业务经营者应当立即采取有效措施恢复通信，并及时向电信主管部门报告。<br>&emsp;&emsp;前款所称网间通信严重不畅，是指网间接通率（应答试呼比）低于20%，以及用户有明显感知的时延。短话、杂音等情况。</p>
+<h2 id="主导的电信业务经营者的义务"><a href="#主导的电信业务经营者的义务" class="headerlink" title="主导的电信业务经营者的义务"></a>主导的电信业务经营者的义务</h2><p>&emsp;&emsp;第七条，主导的电信业务经营者应当根据本规定制定包括网间互联的程序、时限、互联点的数量、用于网间互谅的交换机局址、非捆绑网络元素提供或出租的目录及费用等内容的互联规程。互联规程报工业和信息化部批准后执行。互联规程对主导的电信业务经营者的互联互通活动具有约束力。<br>&emsp;&emsp;第九条，主导的电信业务经营者有义务向非主导的电信业务经营者提供与互联有关的网络功能（含网络组织、信令方式、计费方式、同步方式等）、设备配置（光端机、交换机等）的信息，以及与互联有关的管道（孔）、杆路、线缆引入口及槽道、光缆（光纤）、带宽、电路等通信设施的使用信息。非主导的电信业务经营者有义务向主导的电信业务经营者提供与互联有关的网络功能、设备配置的计划和规划信息。<br>&emsp;&emsp;双方应当对对方提供的信息保密，并不得利用该信息从事与互联无关的活动。<br>&emsp;&emsp;第十条，非主导的电信业务经营者的电信网与主导经营者的电信网网间互联，互联传输线路必须经由主导的电信业务经营者的管道（孔）、杆路、线缆引入口及槽道等通信设施的，主导的电信业务经营者应当予以配合提供使用，不得附加任何不合理的条件。两个非主导的电信业务经营者的电信网网间直接相联，互联传输线路必须经由主导的电信业务经营者的楼层院落、管道（孔）、杆路、线缆引入口及槽道等通信设施的，主导的电信业务经营者应当予以配合提供使用，并不得附加任何不合理的条件。<br>&emsp;&emsp;前款主导的电信业务经营者的通信设施经省、自治区、直辖市通信管理局确认无法提供使用的，非主导的电信业务经营者可以通过架空、直埋等其他方式解决互联传输线路问题。<br>&emsp;&emsp;第十一条，主导的电信业务经营者应当在规定的互联时限内提供互联，非主导的电信业务经营者应当在规定的互联时限内实施互联。双方均不得无故拖延互联时间。<br>&emsp;&emsp;第十三条，应非主导的电信业务经营者的要求，主导的电信业务经营者应当向对方的用户提供电话号码查询业务，并经双方协商后，可按查号规则查询到对方网的可查询用户号码。非主导的电信业务经营者应当按查号规则向双方提供本网的可查询用户号码资料。<br>&emsp;&emsp;非主导的电信业务经营者的要求，主导的电信业务经营者应当向对方网用户提供火警、匪警、医疗急救、交通事故报警等紧急特种业务。非主导的电信业务经营者应当每日进行紧急特种业务的拨叫例测。双方应当共同保证紧急特种业务的通信质量。</p>
+<h2 id="两个非主导的电信业务经营者之间的互联义务"><a href="#两个非主导的电信业务经营者之间的互联义务" class="headerlink" title="两个非主导的电信业务经营者之间的互联义务"></a>两个非主导的电信业务经营者之间的互联义务</h2><p>&emsp;&emsp;第十五条，两个非主导的电信业务经营者的电信网网间直接相联，由双方协商解决。两个非主导的电信业务经营者的电信网网间未直接相联的，其网间业务应当经第三方的固定本地电话网或工业和信息化部制定的机构的网络转接实现互通。非主导电信业务经营者选择主导的电信业务经营者的固定本地电话网作为第三方的网络时，主导的电信业务经营者不得拒绝提供转接，并应当保证转接的通信质量。</p>
+<h1 id="互联时限"><a href="#互联时限" class="headerlink" title="互联时限"></a>互联时限</h1><p>&emsp;&emsp;《电信互联规定》第二十八条涉及全国范围（跨省、自治区、直辖市）同步实施的网间互联，非主导的电信业务经营者应当根据本网工程进度情况或网络运行情况，向主导的电信业务经营者当面提交互联的书面要求，并向工业和信息化部备案后，互联工作开始启动。<br>&emsp;&emsp;互联双方应当从互联启动之日起两个月内签订互联协议。<br>&emsp;&emsp;涉及全国范围同步实施的网间互联需要新设互联点的，应当自互联启动之日起7个月内实现业务开通。<br>&emsp;&emsp;涉及全国范围同步实施的网间互联不需新设互联点，只需进行网络扩容改造的，应当自互联启动之日起4个月内实现业务开通。<br>&emsp;&emsp;涉及全国范围同步实施的网间互联只涉及局数修改的，应当自互联启动之日起两个月内实现业务开通。<br>&emsp;&emsp;必要时，工业和信息化部对涉及全国范围同步实施的网间互联提出具体的业务开通时间要求。</p>
+<h1 id="互联争议的协调与处理"><a href="#互联争议的协调与处理" class="headerlink" title="互联争议的协调与处理"></a>互联争议的协调与处理</h1><p>&emsp;&emsp;《电信互联规定》第三十九至四十五条规定了互联争议的解决办法。<br>&emsp;&emsp;在互联实施中，电信业务经营者发生下列争议，致使互联不能继续进行，或者互联后滇西业务经营者发生下列争议影响网间业务互通时，任何一方均可以向电信主管部门申请协调：<br>&emsp;&emsp;（1）互联技术方案；<br>&emsp;&emsp;（2）与互联有关的网络功能及通信设施的提供；<br>&emsp;&emsp;（3）互联时限；<br>&emsp;&emsp;（4）电信业务的提供；<br>&emsp;&emsp;（5）网间通信质量；<br>&emsp;&emsp;（6）与互联有关的费用；<br>&emsp;&emsp;（7）其他需要协调的问题。</p>
+]]></content>
+      <categories>
+        <category>初级通信工程师</category>
+      </categories>
+  </entry>
+  <entry>
     <title>光栅图形学算法——裁剪算法</title>
     <url>/2017/07/15/%E5%85%89%E6%A0%85%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E8%A3%81%E5%89%AA%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p>&emsp;&emsp;使用计算机处理图形信息时，计算机内部存储的图形往往比较大，而屏幕显示的只是图形的一部分。</p>
@@ -2442,27 +2463,6 @@
         <tag>计算机图形学</tag>
         <tag>计算机</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>公用电信网间互联管理规定</title>
-    <url>/2018/08/10/%E5%85%AC%E7%94%A8%E7%94%B5%E4%BF%A1%E7%BD%91%E9%97%B4%E4%BA%92%E8%81%94%E7%AE%A1%E7%90%86%E8%A7%84%E5%AE%9A/</url>
-    <content><![CDATA[<p>&emsp;&emsp;网间互联有利于破除网络壁垒，节约网络建设成本，方便用户的使用。国际电信联盟（International Telecommunications Union，TTU）和一些国家（地区）的电信法都对电信网间互联提出了要求。其核心的要义是：建立电信网间的有效通信连接，以使一个电信业务经营者的用户能够与另一个电信业务经营者的用户相互通信或者能够使用另一电信业务经营者的各种电信业务。</p>
-<a id="more"></a>
-<p>&emsp;&emsp;为了维护国家利益和电信用户的合法权益，保护电信业务经营者之间公平、有效竞争，保障公用电信网间及时。合理地互联，2001年5月10日，原信息产业部根据《电信条例》，颁布了《公用电信网间互联管理规定》（以下简称《网间互联规定》）。2014年9月23日，《网间互联规定》根据中华人民共和国工业和信息化部令第28号公布的《工业和信息化部关于废止和修改部分规章的决定》进行了修正。</p>
-<h1 id="《网间互联规定》概述"><a href="#《网间互联规定》概述" class="headerlink" title="《网间互联规定》概述"></a>《网间互联规定》概述</h1><p>&emsp;&emsp;电信网间互联，是指将不同的网络连接起来，以构成成大规模的电信网系统，实现网络间的数据通信、资源共享和协同工作。电信网间互联包含了两层含义：一是网间互联，二是业务互通。网间互联的目的在于实现业务互通。互联互通问题的解决对于在竞争中处于劣势地位的电信运营商有重要的意义，同时会大幅度地提升小网络的价值。</p>
-<h2 id="相关概念的界定"><a href="#相关概念的界定" class="headerlink" title="相关概念的界定"></a>相关概念的界定</h2><p>&emsp;&emsp;（1）互联，是指建立电信网间的有效通信连接，以使一个电信业务经营者的用户能够与另一个电信业务经营者的用户相互通信或者能够使用另一个电信业务经营者的各种电信业务。互联包括两个电信网网间直接相联实现业务互通的方式，以及两个电信网通过第三方的网络转接实现业务互通的方式。<br>&emsp;&emsp;（2）互联点，是指两个电信网网间直接相连是的物理接口点。<br>&emsp;&emsp;（3）主导的电信业务经营者，是指控制必要的基础电信设施，并且所经营的固定本地电话业务占本地网范围内同类业务市场50%以上的市场份额，能够对其他电信业务经营者进入电信业务市场构成实质性影响的经营者。<br>&emsp;&emsp;（4）非主导的电信业务经营者，是指主导的电信业务经营者意外的电信业务经营者。</p>
-<h2 id="《网间互联规定》的原则"><a href="#《网间互联规定》的原则" class="headerlink" title="《网间互联规定》的原则"></a>《网间互联规定》的原则</h2><p>&emsp;&emsp;《电信条例》第十七条规定中指出，电信网之间应当按照技术可行、经济合理、公平公正、相互配合的原则实现互联互通。主导的电信业务经营者不得拒绝其他电信业务经营者和专用网经营单位提出的互联互通要求。但是，并未对需要互通的业务范围作出规定。</p>
-<h2 id="《网间互联规定》的使用范围"><a href="#《网间互联规定》的使用范围" class="headerlink" title="《网间互联规定》的使用范围"></a>《网间互联规定》的使用范围</h2><p>&emsp;&emsp;《网间互联规定》第二条，明确了在中华人民共和国境内经营基础电信业务的经营者电信网间的互联的具体范围。<br>&emsp;&emsp;（1）明确了空间范围，即在中华人民共和国境内。<br>&emsp;&emsp;（2）明确了经营范围，即经营基础电信业务的经营者。按照《电信业务分类目录》，基础电信业务包括固定网络国内长途及本地电话业务；移动网络电话和数据业务；卫星通信及卫星移动通信业务；互联网及其他公共数据传送业务；带宽、波长、光纤、光缆、管道及其他网络元素出租、出售业务；网络承载、接入及网络外包等业务；国际通信基础设施、国际电信业务；无线寻呼业务；转售的基础电信业务。<br>&emsp;&emsp;（3）明确了电信网互联的具体范围，主要包括固定本地电话网、国内长途电话网、国际电话网、IP电话网、陆地蜂窝移动通信网、卫星移动通信网、互联网骨干网、工业和信息化部规定的其他电信网。</p>
-<h1 id="电信业务经营者的互联义务"><a href="#电信业务经营者的互联义务" class="headerlink" title="电信业务经营者的互联义务"></a>电信业务经营者的互联义务</h1><p>&emsp;&emsp;《网间互联规定》第六至第十五条、第二十一条、第三十八条明确了电信业务经营者的互联义务。总体来说，可从电信业务经营者、主导的电信业务经营者和非主导的电信业务经营者3个方面来理解。</p>
-<h2 id="电信业务经营者的共同义务"><a href="#电信业务经营者的共同义务" class="headerlink" title="电信业务经营者的共同义务"></a>电信业务经营者的共同义务</h2><p>&emsp;&emsp;第六条，电信业务经营者应当设立互联工作机构负责互联工作。互联工作机构应当建立正常的工作联系制度，保证电信业务经营者与电信主管部门之间以及电信业务经营者之间工作聚到的畅通。<br>&emsp;&emsp;第八条，电信业务经营者不得拒绝其他电信业务经营者提出的互联要求，不得违反国家有关规定擅自限制用户选择其他电信业务经营者依法开办的电信业务。<br>&emsp;&emsp;第十二条，电信业务经营者应当执行工业和信息化部制定的相关网间互联技术规范、技术规定。网间通信质量应当符合国家有关标准。电信业务经营者应当保证网间通信质量不低于其网络内部同类业务的通信质量。<br>&emsp;&emsp;第十四条，电信业务经营者向本网开放的各种电信业务接入号码（含短号码）、其他特种业务号码（含电信业务经营者所用的业务号码、政府公务类业务号码、社会服务类业务号码）、智能业务号码等，应一方防的要求，应当及时向对方网开放，并保证通信质量。<br>&emsp;&emsp;第二十一条，电信业务经营者在互联互通中应当执行《电信网间通话费结算办法》，不得在规定标准以外加收费用。<br>&emsp;&emsp;电信业务经营应当按互联协议规定的结算周期进行网间结算，不得无故拖延应向对方结算的费用。<br>&emsp;&emsp;第三十八条，电信业务经营者应当保障网间通信畅通，不得擅自中断互联互通。电信业务经营者应当建立网间通信重大障碍报告制度。发生网间通信中断或网间通信严重不畅时，电信业务经营者应当立即采取有效措施恢复通信，并及时向电信主管部门报告。<br>&emsp;&emsp;前款所称网间通信严重不畅，是指网间接通率（应答试呼比）低于20%，以及用户有明显感知的时延。短话、杂音等情况。</p>
-<h2 id="主导的电信业务经营者的义务"><a href="#主导的电信业务经营者的义务" class="headerlink" title="主导的电信业务经营者的义务"></a>主导的电信业务经营者的义务</h2><p>&emsp;&emsp;第七条，主导的电信业务经营者应当根据本规定制定包括网间互联的程序、时限、互联点的数量、用于网间互谅的交换机局址、非捆绑网络元素提供或出租的目录及费用等内容的互联规程。互联规程报工业和信息化部批准后执行。互联规程对主导的电信业务经营者的互联互通活动具有约束力。<br>&emsp;&emsp;第九条，主导的电信业务经营者有义务向非主导的电信业务经营者提供与互联有关的网络功能（含网络组织、信令方式、计费方式、同步方式等）、设备配置（光端机、交换机等）的信息，以及与互联有关的管道（孔）、杆路、线缆引入口及槽道、光缆（光纤）、带宽、电路等通信设施的使用信息。非主导的电信业务经营者有义务向主导的电信业务经营者提供与互联有关的网络功能、设备配置的计划和规划信息。<br>&emsp;&emsp;双方应当对对方提供的信息保密，并不得利用该信息从事与互联无关的活动。<br>&emsp;&emsp;第十条，非主导的电信业务经营者的电信网与主导经营者的电信网网间互联，互联传输线路必须经由主导的电信业务经营者的管道（孔）、杆路、线缆引入口及槽道等通信设施的，主导的电信业务经营者应当予以配合提供使用，不得附加任何不合理的条件。两个非主导的电信业务经营者的电信网网间直接相联，互联传输线路必须经由主导的电信业务经营者的楼层院落、管道（孔）、杆路、线缆引入口及槽道等通信设施的，主导的电信业务经营者应当予以配合提供使用，并不得附加任何不合理的条件。<br>&emsp;&emsp;前款主导的电信业务经营者的通信设施经省、自治区、直辖市通信管理局确认无法提供使用的，非主导的电信业务经营者可以通过架空、直埋等其他方式解决互联传输线路问题。<br>&emsp;&emsp;第十一条，主导的电信业务经营者应当在规定的互联时限内提供互联，非主导的电信业务经营者应当在规定的互联时限内实施互联。双方均不得无故拖延互联时间。<br>&emsp;&emsp;第十三条，应非主导的电信业务经营者的要求，主导的电信业务经营者应当向对方的用户提供电话号码查询业务，并经双方协商后，可按查号规则查询到对方网的可查询用户号码。非主导的电信业务经营者应当按查号规则向双方提供本网的可查询用户号码资料。<br>&emsp;&emsp;非主导的电信业务经营者的要求，主导的电信业务经营者应当向对方网用户提供火警、匪警、医疗急救、交通事故报警等紧急特种业务。非主导的电信业务经营者应当每日进行紧急特种业务的拨叫例测。双方应当共同保证紧急特种业务的通信质量。</p>
-<h2 id="两个非主导的电信业务经营者之间的互联义务"><a href="#两个非主导的电信业务经营者之间的互联义务" class="headerlink" title="两个非主导的电信业务经营者之间的互联义务"></a>两个非主导的电信业务经营者之间的互联义务</h2><p>&emsp;&emsp;第十五条，两个非主导的电信业务经营者的电信网网间直接相联，由双方协商解决。两个非主导的电信业务经营者的电信网网间未直接相联的，其网间业务应当经第三方的固定本地电话网或工业和信息化部制定的机构的网络转接实现互通。非主导电信业务经营者选择主导的电信业务经营者的固定本地电话网作为第三方的网络时，主导的电信业务经营者不得拒绝提供转接，并应当保证转接的通信质量。</p>
-<h1 id="互联时限"><a href="#互联时限" class="headerlink" title="互联时限"></a>互联时限</h1><p>&emsp;&emsp;《电信互联规定》第二十八条涉及全国范围（跨省、自治区、直辖市）同步实施的网间互联，非主导的电信业务经营者应当根据本网工程进度情况或网络运行情况，向主导的电信业务经营者当面提交互联的书面要求，并向工业和信息化部备案后，互联工作开始启动。<br>&emsp;&emsp;互联双方应当从互联启动之日起两个月内签订互联协议。<br>&emsp;&emsp;涉及全国范围同步实施的网间互联需要新设互联点的，应当自互联启动之日起7个月内实现业务开通。<br>&emsp;&emsp;涉及全国范围同步实施的网间互联不需新设互联点，只需进行网络扩容改造的，应当自互联启动之日起4个月内实现业务开通。<br>&emsp;&emsp;涉及全国范围同步实施的网间互联只涉及局数修改的，应当自互联启动之日起两个月内实现业务开通。<br>&emsp;&emsp;必要时，工业和信息化部对涉及全国范围同步实施的网间互联提出具体的业务开通时间要求。</p>
-<h1 id="互联争议的协调与处理"><a href="#互联争议的协调与处理" class="headerlink" title="互联争议的协调与处理"></a>互联争议的协调与处理</h1><p>&emsp;&emsp;《电信互联规定》第三十九至四十五条规定了互联争议的解决办法。<br>&emsp;&emsp;在互联实施中，电信业务经营者发生下列争议，致使互联不能继续进行，或者互联后滇西业务经营者发生下列争议影响网间业务互通时，任何一方均可以向电信主管部门申请协调：<br>&emsp;&emsp;（1）互联技术方案；<br>&emsp;&emsp;（2）与互联有关的网络功能及通信设施的提供；<br>&emsp;&emsp;（3）互联时限；<br>&emsp;&emsp;（4）电信业务的提供；<br>&emsp;&emsp;（5）网间通信质量；<br>&emsp;&emsp;（6）与互联有关的费用；<br>&emsp;&emsp;（7）其他需要协调的问题。</p>
-]]></content>
-      <categories>
-        <category>初级通信工程师</category>
-      </categories>
   </entry>
   <entry>
     <title>初识无人机</title>
@@ -2616,22 +2616,6 @@
       </tags>
   </entry>
   <entry>
-    <title>您没有可用的IOS App套装ID 无法创建苹果app的问题</title>
-    <url>/2020/03/02/%E6%82%A8%E6%B2%A1%E6%9C%89%E5%8F%AF%E7%94%A8%E7%9A%84IOS-App%E5%A5%97%E8%A3%85ID-%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E8%8B%B9%E6%9E%9Capp%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>这两天在提交苹果应用的时候遇到下面问题：</p>
-<a id="more"></a>
-<p><img src="https://img-blog.csdnimg.cn/20200302214839230.png" alt="在这里插入图片描述"><br>应该是两天可能苹果系统的同步问题，添加了应用id但在<a href="https://appstoreconnect.apple.com/">https://appstoreconnect.apple.com/</a> 后台无法创建APP，无法选择新添加的应用id创建APP。</p>
-<p>这个问题是因为苹果那边系统同步的问题，经测试，新添加的应用id要过一天才能同步过来，才能选择创建，所以先等待一下！很快苹果会恢复正常。</p>
-<p>如果您不想等待，可以尝试使用fastlane 命令创建后台应用</p>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-      </categories>
-      <tags>
-        <tag>ios上架</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数据手套的设计与实现</title>
     <url>/2017/06/14/%E6%95%B0%E6%8D%AE%E6%89%8B%E5%A5%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<p><strong>摘要 :</strong> 数据手套在人机交互中提供了一种有效的人机交互手段，从数据手套的理论出发，本论文利用一些硬件设备以及软件开发环境，设计了一款可以与机械臂、虚拟手等终端交互的数据手套。硬件设备包括弯曲度传感器、MPU6050六轴传感器、HC-05蓝牙串口通信模块、TFT显示屏、STM32F103最小系统开发板，数据手套软件开发平台为Keil uVision5，所用的开发语言为C语言，在系统调试的时候用到了匿名四轴上位机和串口调试助手，用来对MPU6050六轴传感器和弯曲度传感器进行调试，此外在整个系统中移植了UCOS-II嵌入式实时操作系统，保证了数据在传输时的实时性和高效性。实现了数据手套对五轴机械臂的控制以及人手到虚拟手的动作映射。</p>
@@ -2652,6 +2636,43 @@
       <tags>
         <tag>stm32</tag>
         <tag>数据手套</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>您没有可用的IOS App套装ID 无法创建苹果app的问题</title>
+    <url>/2020/03/02/%E6%82%A8%E6%B2%A1%E6%9C%89%E5%8F%AF%E7%94%A8%E7%9A%84IOS-App%E5%A5%97%E8%A3%85ID-%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E8%8B%B9%E6%9E%9Capp%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>这两天在提交苹果应用的时候遇到下面问题：</p>
+<a id="more"></a>
+<p><img src="https://img-blog.csdnimg.cn/20200302214839230.png" alt="在这里插入图片描述"><br>应该是两天可能苹果系统的同步问题，添加了应用id但在<a href="https://appstoreconnect.apple.com/">https://appstoreconnect.apple.com/</a> 后台无法创建APP，无法选择新添加的应用id创建APP。</p>
+<p>这个问题是因为苹果那边系统同步的问题，经测试，新添加的应用id要过一天才能同步过来，才能选择创建，所以先等待一下！很快苹果会恢复正常。</p>
+<p>如果您不想等待，可以尝试使用fastlane 命令创建后台应用</p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+      </categories>
+      <tags>
+        <tag>ios上架</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>无人机项目的打算</title>
+    <url>/2017/02/20/%E6%97%A0%E4%BA%BA%E6%9C%BA%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%89%93%E7%AE%97/</url>
+    <content><![CDATA[<blockquote>
+<p><strong>前言</strong> 开始做无人机这么久了，说实话自己的投入不是很够，真正学到的不是很多。</p>
+</blockquote>
+<a id="more"></a>
+<p>&emsp;&emsp;今年大三下学期，自己的压力也比较大，首先还是自己快要找工作了；其次自己现在作为实验室飞行器组的一员，暑假的时候要去参加电赛，对飞行器的进展缓慢有点压力。<br>&emsp;&emsp;今天来实验室，碰到郑boss，也就对我们飞行器组的现状进行了交流。</p>
+<h3 id="现状分析"><a href="#现状分析" class="headerlink" title="现状分析"></a>现状分析</h3><p>&emsp;&emsp;现阶段我们为本科，所学的东西有限，而对于无人机的学习也只是停留在理解的层面，就是说拿别人已经完成了的作品来学习，而且学习只是学习硬件和软件，根本就没有碰到更底层或者原理算法这些方面。<br>&emsp;&emsp;我们的飞行器只是能够飞行，而且还飞得不是很稳，更不用说实现定点定高，图像识别这些基本的功能。说得难听点，我们现在弄出来的没有一点技术含量。<br>&emsp;&emsp;实验室才开始弄飞行器两年，技术累积不够。而且真正能够接手的人少。缺乏核心力量。也就导致我们的飞行器进度特别缓慢。</p>
+<h3 id="接下来的打算"><a href="#接下来的打算" class="headerlink" title="接下来的打算"></a>接下来的打算</h3><p>&emsp;&emsp;郑boss建议把重心放在软件上，因为飞行器用的主控芯片是STM32，而我们实验室一直的重点就是放在STM32上（可是我的STM32很弱），所以我们就先用开源的代码，去理解别人的代码，先实现飞行器能够稳定的飞行，达到别人的水平。再去实现其他的功能。<br>&emsp;&emsp;而我自己认为硬件对飞行器来说也重要，但是我们学习的重点还是放在软件（这点还是和郑boss的看法一样），但是不能只学习，在学习软件的同时慢慢去熟悉算法。因为想让飞行器飞得更平稳更好，算法也是很重要的，如果只是单单的弄软件，不去尝试算法，应该很难把飞行器做好（个人这么认为）。<br>&emsp;&emsp;所以接下来我个人就从最基本的STM32入手，加强对STM32的学习，同时从各个模块开始调试，特别是把库里面的代码先跑一遍，结合现象去理解。</p>
+<blockquote>
+<p><em>一个项目的完成离不开一个team，所以在做项目的同时，团队成员之间的交流是必不可少的。我们飞行器组的进展缓慢，我个人认为和我们的交流少也有一定的关系</em></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>无人机</category>
+      </categories>
+      <tags>
+        <tag>无人机</tag>
       </tags>
   </entry>
   <entry>
@@ -2703,27 +2724,6 @@
       </tags>
   </entry>
   <entry>
-    <title>无人机项目的打算</title>
-    <url>/2017/02/20/%E6%97%A0%E4%BA%BA%E6%9C%BA%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%89%93%E7%AE%97/</url>
-    <content><![CDATA[<blockquote>
-<p><strong>前言</strong> 开始做无人机这么久了，说实话自己的投入不是很够，真正学到的不是很多。</p>
-</blockquote>
-<a id="more"></a>
-<p>&emsp;&emsp;今年大三下学期，自己的压力也比较大，首先还是自己快要找工作了；其次自己现在作为实验室飞行器组的一员，暑假的时候要去参加电赛，对飞行器的进展缓慢有点压力。<br>&emsp;&emsp;今天来实验室，碰到郑boss，也就对我们飞行器组的现状进行了交流。</p>
-<h3 id="现状分析"><a href="#现状分析" class="headerlink" title="现状分析"></a>现状分析</h3><p>&emsp;&emsp;现阶段我们为本科，所学的东西有限，而对于无人机的学习也只是停留在理解的层面，就是说拿别人已经完成了的作品来学习，而且学习只是学习硬件和软件，根本就没有碰到更底层或者原理算法这些方面。<br>&emsp;&emsp;我们的飞行器只是能够飞行，而且还飞得不是很稳，更不用说实现定点定高，图像识别这些基本的功能。说得难听点，我们现在弄出来的没有一点技术含量。<br>&emsp;&emsp;实验室才开始弄飞行器两年，技术累积不够。而且真正能够接手的人少。缺乏核心力量。也就导致我们的飞行器进度特别缓慢。</p>
-<h3 id="接下来的打算"><a href="#接下来的打算" class="headerlink" title="接下来的打算"></a>接下来的打算</h3><p>&emsp;&emsp;郑boss建议把重心放在软件上，因为飞行器用的主控芯片是STM32，而我们实验室一直的重点就是放在STM32上（可是我的STM32很弱），所以我们就先用开源的代码，去理解别人的代码，先实现飞行器能够稳定的飞行，达到别人的水平。再去实现其他的功能。<br>&emsp;&emsp;而我自己认为硬件对飞行器来说也重要，但是我们学习的重点还是放在软件（这点还是和郑boss的看法一样），但是不能只学习，在学习软件的同时慢慢去熟悉算法。因为想让飞行器飞得更平稳更好，算法也是很重要的，如果只是单单的弄软件，不去尝试算法，应该很难把飞行器做好（个人这么认为）。<br>&emsp;&emsp;所以接下来我个人就从最基本的STM32入手，加强对STM32的学习，同时从各个模块开始调试，特别是把库里面的代码先跑一遍，结合现象去理解。</p>
-<blockquote>
-<p><em>一个项目的完成离不开一个team，所以在做项目的同时，团队成员之间的交流是必不可少的。我们飞行器组的进展缓慢，我个人认为和我们的交流少也有一定的关系</em></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>无人机</category>
-      </categories>
-      <tags>
-        <tag>无人机</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>用lua解决八皇后问题</title>
     <url>/2020/04/01/%E7%94%A8lua%E8%A7%A3%E5%86%B3%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;要解决八皇后问题，首先必须认识到每一行中只能有一个皇后。因此，可以用一个由8个数字组成的简单数组来表示可能的解决方案。例如，数组{3,7,2,1,8,6,5,4}表示皇后在棋盘中的位置分别是(1,3)、(2,7)、(3,2)、(4,1)、(5,8)、(6,4)、(7,5)和(8,4)。当然，这个示例并不是一个正确的解，例如(3,2)中的皇后就可以攻击(4,1)中的皇后。此外，我们还必须认识到解必须是整数1到8组成的排列，这样才能保证每一列中也只有一个皇后。</p>
@@ -2739,31 +2739,6 @@
       </categories>
       <tags>
         <tag>lua</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>电脑数据信息安全常识</title>
-    <url>/2018/08/16/%E7%94%B5%E8%84%91%E6%95%B0%E6%8D%AE%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%B8%B8%E8%AF%86/</url>
-    <content><![CDATA[<p><strong>为什么需要数据安全防护？</strong><br><strong>数据丢失每时每刻都有可能发生，对于数据灾难您是否做好了预防的准备？</strong><br>*<em>\</em> **有超过20%的笔记本电脑在开始使用的三年内会发生硬件故障</p>
-<a id="more"></a>
-<p>*<em>\</em> *<em>有6%左右的PC机每年都会遇到数据丢失的情况<br>**\</em> *<em>有60%的企业重要数据存储在舍友任何保护措施的PC机或者笔记本里<br>**\</em> **有20%的常规备份并不能挽救所有的数据</p>
-<h3 id="数据丢失可以避免吗？"><a href="#数据丢失可以避免吗？" class="headerlink" title="数据丢失可以避免吗？"></a>数据丢失可以避免吗？</h3><p>&emsp;&emsp;凡事没有100%的安全，数据安全也是一样。只有做好数据安全防护，才能最大限度地降低数据丢失的可能性，保证数据的安全。</p>
-<h3 id="数据安全防护常识"><a href="#数据安全防护常识" class="headerlink" title="数据安全防护常识"></a>数据安全防护常识</h3><p>*<em>\</em> *<em>对重要数据定期进行备份<br>**\</em> *<em>避免在潮湿、灰尘和烟雾的地方使用设备<br>**\</em> *<em>避免振动<br>**\</em> *<em>使用防病毒软件并定期升级<br>**\</em> **使用USP或者其他措施防止电源中断或电压波动对设备的伤害</p>
-<h3 id="数据存储介质保护常识"><a href="#数据存储介质保护常识" class="headerlink" title="数据存储介质保护常识"></a>数据存储介质保护常识</h3><p>*<em>\</em> *<em>避免非正常或频繁的开关机<br>**\</em> *<em>避免恶劣的工作环境<br>**\</em> **避免对分区进行的误操作</p>
-<h3 id="数据备份常识"><a href="#数据备份常识" class="headerlink" title="数据备份常识"></a>数据备份常识</h3><p>*<em>\</em> *<em>不在原盘上进行备份<br>**\</em> *<em>保证备份不带病毒<br>**\</em> **定期对备份文件进行测试</p>
-<h3 id="什么原因可造成数据灾难"><a href="#什么原因可造成数据灾难" class="headerlink" title="什么原因可造成数据灾难"></a>什么原因可造成数据灾难</h3><p>*<em>\</em> *<em>人为误操作<br>**\</em> *<em>硬盘硬件故障<br>**\</em> *<em>系统软件故障<br>**\</em> *<em>病毒破坏<br>**\</em> *<em>供电中断<br>**\</em> **自然灾害</p>
-<h3 id="数据灾难发生的现象"><a href="#数据灾难发生的现象" class="headerlink" title="数据灾难发生的现象"></a>数据灾难发生的现象</h3><p>*<em>\</em> *<em>设备无法启动<br>**\</em> *<em>找不到硬盘分区<br>**\</em> *<em>计算机不识别硬盘<br>**\</em> *<em>硬盘出现异常声响<br>**\</em> *<em>屏幕出现蓝屏<br>**\</em> **文件打不开或出现乱码</p>
-<h3 id="数据灾难发生后的正确操作"><a href="#数据灾难发生后的正确操作" class="headerlink" title="数据灾难发生后的正确操作"></a>数据灾难发生后的正确操作</h3><p>*<em>\</em> *<em>强行关机，切忌反复多次开机测试<br>**\</em> *<em>保护好存储介质，不要对其进行任何操作<br>**\</em> **确认数据安全后再进行系统还原等写操作</p>
-<blockquote>
-<p>本博客仅供参考，希望对您有所帮助</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>计算机使用</category>
-      </categories>
-      <tags>
-        <tag>数据安全</tag>
-        <tag>数据安全防护常识</tag>
       </tags>
   </entry>
   <entry>
@@ -2828,6 +2803,31 @@
       </tags>
   </entry>
   <entry>
+    <title>电脑数据信息安全常识</title>
+    <url>/2018/08/16/%E7%94%B5%E8%84%91%E6%95%B0%E6%8D%AE%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%B8%B8%E8%AF%86/</url>
+    <content><![CDATA[<p><strong>为什么需要数据安全防护？</strong><br><strong>数据丢失每时每刻都有可能发生，对于数据灾难您是否做好了预防的准备？</strong><br>*<em>\</em> **有超过20%的笔记本电脑在开始使用的三年内会发生硬件故障</p>
+<a id="more"></a>
+<p>*<em>\</em> *<em>有6%左右的PC机每年都会遇到数据丢失的情况<br>**\</em> *<em>有60%的企业重要数据存储在舍友任何保护措施的PC机或者笔记本里<br>**\</em> **有20%的常规备份并不能挽救所有的数据</p>
+<h3 id="数据丢失可以避免吗？"><a href="#数据丢失可以避免吗？" class="headerlink" title="数据丢失可以避免吗？"></a>数据丢失可以避免吗？</h3><p>&emsp;&emsp;凡事没有100%的安全，数据安全也是一样。只有做好数据安全防护，才能最大限度地降低数据丢失的可能性，保证数据的安全。</p>
+<h3 id="数据安全防护常识"><a href="#数据安全防护常识" class="headerlink" title="数据安全防护常识"></a>数据安全防护常识</h3><p>*<em>\</em> *<em>对重要数据定期进行备份<br>**\</em> *<em>避免在潮湿、灰尘和烟雾的地方使用设备<br>**\</em> *<em>避免振动<br>**\</em> *<em>使用防病毒软件并定期升级<br>**\</em> **使用USP或者其他措施防止电源中断或电压波动对设备的伤害</p>
+<h3 id="数据存储介质保护常识"><a href="#数据存储介质保护常识" class="headerlink" title="数据存储介质保护常识"></a>数据存储介质保护常识</h3><p>*<em>\</em> *<em>避免非正常或频繁的开关机<br>**\</em> *<em>避免恶劣的工作环境<br>**\</em> **避免对分区进行的误操作</p>
+<h3 id="数据备份常识"><a href="#数据备份常识" class="headerlink" title="数据备份常识"></a>数据备份常识</h3><p>*<em>\</em> *<em>不在原盘上进行备份<br>**\</em> *<em>保证备份不带病毒<br>**\</em> **定期对备份文件进行测试</p>
+<h3 id="什么原因可造成数据灾难"><a href="#什么原因可造成数据灾难" class="headerlink" title="什么原因可造成数据灾难"></a>什么原因可造成数据灾难</h3><p>*<em>\</em> *<em>人为误操作<br>**\</em> *<em>硬盘硬件故障<br>**\</em> *<em>系统软件故障<br>**\</em> *<em>病毒破坏<br>**\</em> *<em>供电中断<br>**\</em> **自然灾害</p>
+<h3 id="数据灾难发生的现象"><a href="#数据灾难发生的现象" class="headerlink" title="数据灾难发生的现象"></a>数据灾难发生的现象</h3><p>*<em>\</em> *<em>设备无法启动<br>**\</em> *<em>找不到硬盘分区<br>**\</em> *<em>计算机不识别硬盘<br>**\</em> *<em>硬盘出现异常声响<br>**\</em> *<em>屏幕出现蓝屏<br>**\</em> **文件打不开或出现乱码</p>
+<h3 id="数据灾难发生后的正确操作"><a href="#数据灾难发生后的正确操作" class="headerlink" title="数据灾难发生后的正确操作"></a>数据灾难发生后的正确操作</h3><p>*<em>\</em> *<em>强行关机，切忌反复多次开机测试<br>**\</em> *<em>保护好存储介质，不要对其进行任何操作<br>**\</em> **确认数据安全后再进行系统还原等写操作</p>
+<blockquote>
+<p>本博客仅供参考，希望对您有所帮助</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>计算机使用</category>
+      </categories>
+      <tags>
+        <tag>数据安全</tag>
+        <tag>数据安全防护常识</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>笔记本电脑不用软件开wifi热点</title>
     <url>/2018/05/21/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91%E4%B8%8D%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%BC%80wifi%E7%83%AD%E7%82%B9/</url>
     <content><![CDATA[<p>&emsp;&emsp;此方法创建wifi热点，笔记本和台式电脑都适用，但有两个基本要求</p>
@@ -2873,51 +2873,6 @@
         <tag>windows</tag>
         <tag>网络</tag>
         <tag>wifi</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>自动售货机控制系统</title>
-    <url>/2016/11/11/%E8%87%AA%E5%8A%A8%E5%94%AE%E8%B4%A7%E6%9C%BA%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<blockquote>
-<p>用VHDL语言写一个自动售货机的控制系统。使用的仿真器是MAX+plus。</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="设计说明"><a href="#设计说明" class="headerlink" title="设计说明"></a>设计说明</h2><p>&emsp;&emsp;根据要求可自动出售两种货物，这里的自动售货机可销售cola和pepsi两种饮料：售货机可识别1元和0.5元两种货币，在一次购买过程中，可购买一个或者多个商品，系统会自动计算所需钱数和找零的钱数并自动找零。另外有3个发光二极管、6个LCD数码管：两个用来显示所需金额，两个用来显示已付金额，两个用来显示找零数。</p>
-<hr>
-<h3 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h3><p>&emsp;&emsp;这里设计的自动售货机当通电时，表示一次销售的开始。顾客选择一种商品或多种商品后就进入投币状态。若不投币，则自动返回初始状态。投币后，系统自动计算所投钱数。若投币够，则出货并找零。若投币不够，如果顾客没有继续投币，则退币并回到初始状态。本系统的投币销售流程图如图所示：<br><img src="https://img-service.csdnimg.cn/img_convert/d1eabd5b6f544d3dbaf500a2631e9480.png" alt="流程图"></p>
-<hr>
-<h3 id="各模块说明"><a href="#各模块说明" class="headerlink" title="各模块说明"></a>各模块说明</h3><p>&emsp;&emsp;本文设计的自动售货机总体分四个模块：总控模块、二进制译码模块、BCD码译码模块和顶层模块。</p>
-<p>&emsp;&emsp;<strong>总控模块：</strong>总控模块是本系统最重要的模块，该模块大体有5个输入端口和6个输出端口。其输入端口包括clk、coin1（投入一元货币）、coin5（投入0.5元货币）、cola（选择cola）、pepsi(选择pepsi)，输出端口有paid（已投入多少钱）、needed（还需多少钱）moneyout（找零）、success（灯亮表示交易成功）、failure（灯亮表示交易失败）、showmoneyout（灯亮表示正在找零）。该模块实现了本系统最重要的交易过程，包括选择商品、投入货币，计算剩余金额，找零出货等。</p>
-<p>&emsp;&emsp;<strong>二进制译码模块：</strong>该模块有一个输入端口和两个输出端口。输入端口是一个8位的二进制数输出端口bcd0、bcd1是两个4位的BCD码。该模块的主要的功能是实现将主控模块输出的二进制数（paid、needed、moneyout）转换成BCD码，以便输出到七段数码管上显示出来。该模块的原理是将一个8位的二进制转换成2个4位的BCD码，分为高四位和低四位。</p>
-<p>&emsp;&emsp;<strong>BCD码译码模块：</strong>该模块有一个输入端口和一个输出端口</p>
-<p>&emsp;&emsp;<strong>顶层模块：</strong>该模块有五个输入和九个输出端口。其输入口包括clk1、P2（选择pepsi）、P1_5（选择cola）、C5（投入5毛）、C1（投入1块），输出端口有shuwout(退币指示灯)、s（交易成功指示灯）、f（交易失败指示灯）、paid_lcd0、paid_lcd1（已付金额）、needed_lcd0、needed_lcd1（需付金额）、mout__lcd0、mout_lcd1（退币金额）。</p>
-<hr>
-<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><strong>主控模块完整程序</strong><br><strong>BCD译码模块完整程序</strong><br><strong>顶层模块完整程序</strong><br>具体的代码见我的<a href="https://github.com/lengmo714/Vending-machine-system">github网站</a>（1自动售货机文档）.</p>
-<h3 id="各模块连接"><a href="#各模块连接" class="headerlink" title="各模块连接"></a>各模块连接</h3><blockquote>
-<p>售货机主控系统和译码器模块图：<br><img src="https://img-service.csdnimg.cn/img_convert/f5f1f4e917444c4cce3eb8d6da9cce55.png" alt="售货机主控系统和译码器模块图"></p>
-</blockquote>
-<blockquote>
-<p>售货机顶层模块：<br><img src="https://img-service.csdnimg.cn/img_convert/4df84e2b8029ab2733362a06f65fe407.png" alt="顶层模块"></p>
-</blockquote>
-<h2 id="波形仿真"><a href="#波形仿真" class="headerlink" title="波形仿真"></a>波形仿真</h2><h3 id="主控模块的波形方真"><a href="#主控模块的波形方真" class="headerlink" title="主控模块的波形方真"></a>主控模块的波形方真</h3><blockquote>
-<p><img src="https://img-service.csdnimg.cn/img_convert/f7f04dccc357657185bcc3d8f5956083.png" alt="这里写图片描述"><br>上图表示顾客选择了pepsi饮料后，且投了2个一元的硬币。Success为高电平，代表售货机有饮料售出。且余额为0.</p>
-<p><img src="https://img-service.csdnimg.cn/img_convert/2001d4f44737745d7012f1a22e88f661.png" alt="这里写图片描述"><br>上图表示顾客选择了cola饮料后，且投2个一元的硬币。Success为高电平，代表有饮料售出，且找回顾客0.5元。</p>
-</blockquote>
-<h3 id="BCD译码仿真"><a href="#BCD译码仿真" class="headerlink" title="BCD译码仿真"></a>BCD译码仿真</h3><blockquote>
-<p><img src="https://img-service.csdnimg.cn/img_convert/23edbb1b46af54491c5f6e6c6cc6e90c.png" alt="这里写图片描述"><br>上图表示自动售货机的译码系统，上图表示将8位数字转换成４位BCD码。</p>
-</blockquote>
-<h3 id="TOP文件的仿真"><a href="#TOP文件的仿真" class="headerlink" title="TOP文件的仿真"></a>TOP文件的仿真</h3><blockquote>
-<p><img src="https://img-service.csdnimg.cn/img_convert/8ef709c8ec45f9acbef476a677265048.png" alt="这里写图片描述"><br>上图表示顾客选择了pepsi饮料后，且投了2个一元的硬币。Success为高电平，代表售货机有饮料售出。且余额为0。</p>
-</blockquote>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>&emsp;&emsp;其实这个自动售货机控制系统老师很早之前就要我弄了，我自己一直拖，直到老师要考核才重视起来。<br>&emsp;&emsp;这个项目很多都是在网上找资料借鉴的别人的东西，自己就是把别人的代码读懂了，再将整个的流程走了一遍。收货还是很多的。自己为了第二天老师考核（答辩）的时候能够顺利通过，前一天晚上熬夜到三点。也算是体会到了做项目的艰辛。<br>&emsp;&emsp;在答辩的过程中，老师的一些问题，一些话语也是让我受益匪浅。做项目真的是让我收益很多。这里也希望这篇博客能给大家带来帮助，但是希望只是作为一个参考，更多的部分还是要自己去做，这才您才能真正学习到知识。</p>
-]]></content>
-      <categories>
-        <category>课程设计</category>
-      </categories>
-      <tags>
-        <tag>课程设计</tag>
-        <tag>通信工程</tag>
-        <tag>自动售货机控制系统</tag>
       </tags>
   </entry>
   <entry>
@@ -2986,6 +2941,51 @@
       </categories>
       <tags>
         <tag>蓝牙</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>自动售货机控制系统</title>
+    <url>/2016/11/11/%E8%87%AA%E5%8A%A8%E5%94%AE%E8%B4%A7%E6%9C%BA%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<blockquote>
+<p>用VHDL语言写一个自动售货机的控制系统。使用的仿真器是MAX+plus。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="设计说明"><a href="#设计说明" class="headerlink" title="设计说明"></a>设计说明</h2><p>&emsp;&emsp;根据要求可自动出售两种货物，这里的自动售货机可销售cola和pepsi两种饮料：售货机可识别1元和0.5元两种货币，在一次购买过程中，可购买一个或者多个商品，系统会自动计算所需钱数和找零的钱数并自动找零。另外有3个发光二极管、6个LCD数码管：两个用来显示所需金额，两个用来显示已付金额，两个用来显示找零数。</p>
+<hr>
+<h3 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h3><p>&emsp;&emsp;这里设计的自动售货机当通电时，表示一次销售的开始。顾客选择一种商品或多种商品后就进入投币状态。若不投币，则自动返回初始状态。投币后，系统自动计算所投钱数。若投币够，则出货并找零。若投币不够，如果顾客没有继续投币，则退币并回到初始状态。本系统的投币销售流程图如图所示：<br><img src="https://img-service.csdnimg.cn/img_convert/d1eabd5b6f544d3dbaf500a2631e9480.png" alt="流程图"></p>
+<hr>
+<h3 id="各模块说明"><a href="#各模块说明" class="headerlink" title="各模块说明"></a>各模块说明</h3><p>&emsp;&emsp;本文设计的自动售货机总体分四个模块：总控模块、二进制译码模块、BCD码译码模块和顶层模块。</p>
+<p>&emsp;&emsp;<strong>总控模块：</strong>总控模块是本系统最重要的模块，该模块大体有5个输入端口和6个输出端口。其输入端口包括clk、coin1（投入一元货币）、coin5（投入0.5元货币）、cola（选择cola）、pepsi(选择pepsi)，输出端口有paid（已投入多少钱）、needed（还需多少钱）moneyout（找零）、success（灯亮表示交易成功）、failure（灯亮表示交易失败）、showmoneyout（灯亮表示正在找零）。该模块实现了本系统最重要的交易过程，包括选择商品、投入货币，计算剩余金额，找零出货等。</p>
+<p>&emsp;&emsp;<strong>二进制译码模块：</strong>该模块有一个输入端口和两个输出端口。输入端口是一个8位的二进制数输出端口bcd0、bcd1是两个4位的BCD码。该模块的主要的功能是实现将主控模块输出的二进制数（paid、needed、moneyout）转换成BCD码，以便输出到七段数码管上显示出来。该模块的原理是将一个8位的二进制转换成2个4位的BCD码，分为高四位和低四位。</p>
+<p>&emsp;&emsp;<strong>BCD码译码模块：</strong>该模块有一个输入端口和一个输出端口</p>
+<p>&emsp;&emsp;<strong>顶层模块：</strong>该模块有五个输入和九个输出端口。其输入口包括clk1、P2（选择pepsi）、P1_5（选择cola）、C5（投入5毛）、C1（投入1块），输出端口有shuwout(退币指示灯)、s（交易成功指示灯）、f（交易失败指示灯）、paid_lcd0、paid_lcd1（已付金额）、needed_lcd0、needed_lcd1（需付金额）、mout__lcd0、mout_lcd1（退币金额）。</p>
+<hr>
+<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><strong>主控模块完整程序</strong><br><strong>BCD译码模块完整程序</strong><br><strong>顶层模块完整程序</strong><br>具体的代码见我的<a href="https://github.com/lengmo714/Vending-machine-system">github网站</a>（1自动售货机文档）.</p>
+<h3 id="各模块连接"><a href="#各模块连接" class="headerlink" title="各模块连接"></a>各模块连接</h3><blockquote>
+<p>售货机主控系统和译码器模块图：<br><img src="https://img-service.csdnimg.cn/img_convert/f5f1f4e917444c4cce3eb8d6da9cce55.png" alt="售货机主控系统和译码器模块图"></p>
+</blockquote>
+<blockquote>
+<p>售货机顶层模块：<br><img src="https://img-service.csdnimg.cn/img_convert/4df84e2b8029ab2733362a06f65fe407.png" alt="顶层模块"></p>
+</blockquote>
+<h2 id="波形仿真"><a href="#波形仿真" class="headerlink" title="波形仿真"></a>波形仿真</h2><h3 id="主控模块的波形方真"><a href="#主控模块的波形方真" class="headerlink" title="主控模块的波形方真"></a>主控模块的波形方真</h3><blockquote>
+<p><img src="https://img-service.csdnimg.cn/img_convert/f7f04dccc357657185bcc3d8f5956083.png" alt="这里写图片描述"><br>上图表示顾客选择了pepsi饮料后，且投了2个一元的硬币。Success为高电平，代表售货机有饮料售出。且余额为0.</p>
+<p><img src="https://img-service.csdnimg.cn/img_convert/2001d4f44737745d7012f1a22e88f661.png" alt="这里写图片描述"><br>上图表示顾客选择了cola饮料后，且投2个一元的硬币。Success为高电平，代表有饮料售出，且找回顾客0.5元。</p>
+</blockquote>
+<h3 id="BCD译码仿真"><a href="#BCD译码仿真" class="headerlink" title="BCD译码仿真"></a>BCD译码仿真</h3><blockquote>
+<p><img src="https://img-service.csdnimg.cn/img_convert/23edbb1b46af54491c5f6e6c6cc6e90c.png" alt="这里写图片描述"><br>上图表示自动售货机的译码系统，上图表示将8位数字转换成４位BCD码。</p>
+</blockquote>
+<h3 id="TOP文件的仿真"><a href="#TOP文件的仿真" class="headerlink" title="TOP文件的仿真"></a>TOP文件的仿真</h3><blockquote>
+<p><img src="https://img-service.csdnimg.cn/img_convert/8ef709c8ec45f9acbef476a677265048.png" alt="这里写图片描述"><br>上图表示顾客选择了pepsi饮料后，且投了2个一元的硬币。Success为高电平，代表售货机有饮料售出。且余额为0。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>&emsp;&emsp;其实这个自动售货机控制系统老师很早之前就要我弄了，我自己一直拖，直到老师要考核才重视起来。<br>&emsp;&emsp;这个项目很多都是在网上找资料借鉴的别人的东西，自己就是把别人的代码读懂了，再将整个的流程走了一遍。收货还是很多的。自己为了第二天老师考核（答辩）的时候能够顺利通过，前一天晚上熬夜到三点。也算是体会到了做项目的艰辛。<br>&emsp;&emsp;在答辩的过程中，老师的一些问题，一些话语也是让我受益匪浅。做项目真的是让我收益很多。这里也希望这篇博客能给大家带来帮助，但是希望只是作为一个参考，更多的部分还是要自己去做，这才您才能真正学习到知识。</p>
+]]></content>
+      <categories>
+        <category>课程设计</category>
+      </categories>
+      <tags>
+        <tag>课程设计</tag>
+        <tag>通信工程</tag>
+        <tag>自动售货机控制系统</tag>
       </tags>
   </entry>
   <entry>
