@@ -22,28 +22,6 @@
       </tags>
   </entry>
   <entry>
-    <title>C++中&quot;.&quot;,&quot;-&gt;&quot;,&quot;:&quot;和&quot;::&quot;的区别</title>
-    <url>/2019/03/05/C-%E4%B8%AD/</url>
-    <content><![CDATA[<p>在学习C++的过程中我们经常会用到<code>.</code>和<code>::</code>和<code>：</code>和<code>-&gt;</code></p>
-<a id="more"></a>
-<p>这几个符号，很多新手在遇到这几个符号的时候都会有点弄不清楚，当然包括笔者，这里笔者稍微总结一下这几者的却别</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、`A.B`则A为对象或者结构体；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>、`A-&gt;B`则A为指针，-&gt;是成员提取，A-&gt;B是提取A中的成员B，A只能是指向类、结构、联合的指针；</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>、`::`是作用域运算符，A::B表示作用域A中的名称B，A可以是名字空间、类、结构；</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>、`：`一般用来表示继承；</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-<p>一般情况下用“.”，只需要声明一个结构体。格式是，结构体类型名+结构体名。然后用结构体名加“.”加域名就可以引用域 了。因为自动分配了结构体的内存。如同 int a;一样。<br>而用“-&gt;”，则要声明一个结构体的指针，还要手动开辟一个该结构体的内存，然后把返回的指针给声明的结构体指针，才能用“-&gt;”正确引用。否则内存中只分配了指针的内存，没有分配结构体的内存，导致想要的结构体实际上是不存在。这时候用“-&gt;”引用自然出错了，因为没有结构体，自然没有结构体的域了。</p>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Arduino Mega 2560 Reference Design原理图解读</title>
     <url>/2017/05/07/Arduino-Mega-2560-Reference-Design%E5%8E%9F%E7%90%86%E5%9B%BE%E8%A7%A3%E8%AF%BB/</url>
     <content><![CDATA[<ul>
@@ -80,6 +58,28 @@
       </categories>
       <tags>
         <tag>Arduino</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++中&quot;.&quot;,&quot;-&gt;&quot;,&quot;:&quot;和&quot;::&quot;的区别</title>
+    <url>/2019/03/05/C-%E4%B8%AD/</url>
+    <content><![CDATA[<p>在学习C++的过程中我们经常会用到<code>.</code>和<code>::</code>和<code>：</code>和<code>-&gt;</code></p>
+<a id="more"></a>
+<p>这几个符号，很多新手在遇到这几个符号的时候都会有点弄不清楚，当然包括笔者，这里笔者稍微总结一下这几者的却别</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、`A.B`则A为对象或者结构体；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>、`A-&gt;B`则A为指针，-&gt;是成员提取，A-&gt;B是提取A中的成员B，A只能是指向类、结构、联合的指针；</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>、`::`是作用域运算符，A::B表示作用域A中的名称B，A可以是名字空间、类、结构；</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>、`：`一般用来表示继承；</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<p>一般情况下用“.”，只需要声明一个结构体。格式是，结构体类型名+结构体名。然后用结构体名加“.”加域名就可以引用域 了。因为自动分配了结构体的内存。如同 int a;一样。<br>而用“-&gt;”，则要声明一个结构体的指针，还要手动开辟一个该结构体的内存，然后把返回的指针给声明的结构体指针，才能用“-&gt;”正确引用。否则内存中只分配了指针的内存，没有分配结构体的内存，导致想要的结构体实际上是不存在。这时候用“-&gt;”引用自然出错了，因为没有结构体，自然没有结构体的域了。</p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -916,6 +916,33 @@
       </tags>
   </entry>
   <entry>
+    <title>Lua实现马儿可夫链算法</title>
+    <url>/2020/04/23/Lua%E5%AE%9E%E7%8E%B0%E9%A9%AC%E5%84%BF%E5%8F%AF%E5%A4%AB%E9%93%BE%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;马尔可夫链算法根据哪个单词能出现在基础文本中由n个前序列单词组成的序列之后，来生成伪随机文本。这里我们假设n为2。</p>
+<a id="more"></a>
+<p>&ensp;&ensp;&ensp;&ensp;程序的第一部分读取原始文本并创建一个表，该表的键为每两个单词组成的前缀，值为紧跟这个前缀的单词所组成的列表。当这个表构建好后，程序就利用它来生成随机文本，随机文本中每个单词所组成的列表。当这个表构建好后，程序就利用它来生成随机文本，随机文本中每个单词出现在它之前两个单词后的概率与其出现在基础文本中相同两个前序单词后的概率相同。最终，我们会得到一串相对比较随机的文本。例如，”<em>Constructors can also traverse a table constructor, then the parentheses in the following line does the whole file in a field n to store the contents of each function, but to show its only ragument, If you want to find the maximum element in an array can return both the maximum value and continues showing the prompt and running the code. The following words are reserved and cannot be used to convert between degrees and radians.</em>“<br>&ensp;&ensp;&ensp;&ensp;要将由两个单词组成的前缀作为表的键，需要使用空格来连接两个单词：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function prefix(w1,w2)</span><br><span class="line">	<span class="keyword">return</span> w1 .. <span class="string">&quot; &quot;</span> .. w2</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>我们使用字符串NOWORD（换行符）初始化前缀单词及标记文本的结尾。例如，对于文本”the more wo try the more we do”而言，构造出的表如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	[<span class="string">&quot;\n \n&quot;</span>]    = &#123;<span class="string">&quot;the&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;\n the&quot;</span>]   = &#123;<span class="string">&quot;more&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;the more&quot;</span>] = &#123;<span class="string">&quot;we&quot;</span>,<span class="string">&quot;we&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;more we&quot;</span>]  = &#123;<span class="string">&quot;try&quot;</span>,<span class="string">&quot;do&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;we try&quot;</span>]   = &#123;<span class="string">&quot;the&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;try the&quot;</span>]  = &#123;<span class="string">&quot;more&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;we do&quot;</span>]    = &#123;<span class="string">&quot;\n&quot;</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;程序表保存在变量statetab中。如果要像表中的某个前缀所对应的列表中插入一个新单词，可以使用如下的函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function insert (prefix,value)</span><br><span class="line">	local list = statetab[prefix]</span><br><span class="line">	<span class="keyword">if</span> list == nil then</span><br><span class="line">		statetab[prefix] = &#123;value&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		list[<span class="comment">#list + 1] = value</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>该函数首先检查某前缀是否已经有了对应的列表，如果没有，则以新值来创建一个新列表；否则，就将新值添加到现有列表的末尾。<br>&ensp;&ensp;&ensp;&ensp;为了构造表statetab，我们使用两个变量W1和w2来记录最后读取的两个单词。我们使用allwords迭代器读取单词，只不过修改了其中”单词”的定义以便将可选的诸如逗号和句号等标点符号包括在内。对于新读取的每一个单词，把它添加到与w1-w2相关联的列表中，然后更新w1和w2。<br>&ensp;&ensp;&ensp;&ensp;在构造完表后，程序便开始生成具有MAXGEN个单词的文本。首先，程序重新初始化变量w1和w2。然后，对于每个前缀，程序从其对应的单词列表中随机地选出一个单词，输出这个单词，并更新W1和w2。如下示例：</p>
+<blockquote>
+<p>示例 马儿可夫链的辅助定义</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function allwords()</span><br><span class="line">	local line = io.read()  -- 当前行</span><br><span class="line">	local pos  = <span class="number">1</span>			-- 当前行的当前位置</span><br><span class="line">	<span class="keyword">return</span> fucntion ()		-- 迭代函数</span><br><span class="line">	<span class="keyword">while</span> line do			-- 当还有行时循环</span><br><span class="line">		local w, e = string.match(line, <span class="string">&quot;(%w[,;.:]?)()&quot;</span>,pos)</span><br><span class="line">		<span class="keyword">if</span> w then			-- 发现一个单词？</span><br><span class="line">			pos = e 		-- 更新位置</span><br><span class="line">			<span class="keyword">return</span> w  		-- 返回该单词</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			line = io.read() -- 没找到单词；尝试下一行</span><br><span class="line">			pos  = <span class="number">1</span>		 -- 从第一个位置重新开始</span><br><span class="line">		end</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> nil 				-- 没有行了：迭代结束</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">function prefix (w1,w2)</span><br><span class="line">	<span class="keyword">return</span> w1 .. <span class="string">&quot; &quot;</span> .. w2 </span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local statetab = &#123;&#125;</span><br><span class="line"></span><br><span class="line">function insert (prefix,value)</span><br><span class="line">	local list = statetab[prefix]</span><br><span class="line">	<span class="keyword">if</span> list == list then</span><br><span class="line">		statetab[prefix] = &#123;value&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		list[<span class="comment">#list + 1] = value</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>示例：马尔科夫链程序</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local MAXGEN = <span class="number">200</span></span><br><span class="line">local NOWORD = <span class="string">&quot;\n&quot;</span></span><br><span class="line"></span><br><span class="line">-- 创建表</span><br><span class="line">local w1,w2 = NOWORD, NOWORD</span><br><span class="line"><span class="keyword">for</span> nextword <span class="keyword">in</span> allwords() do</span><br><span class="line">	insert(prefix(w1,w2),nextword)</span><br><span class="line">	w1 = w2; w2 = nextword;</span><br><span class="line">end</span><br><span class="line">insert(prefix(w1,w2),NOWORD)</span><br><span class="line"></span><br><span class="line">-- 生成文本</span><br><span class="line">w1 = NOWORD; w2 = NOWORD    -- 重新初始化</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span> , MAXGEN do</span><br><span class="line">	local list = statetab[prefix(w1,w2)]</span><br><span class="line">	-- 从列表中随机选出一个元素</span><br><span class="line">	local r = math.random(<span class="comment">#list)</span></span><br><span class="line">	local nextword = list[r]</span><br><span class="line">	<span class="keyword">if</span> nextword == NOWORD then <span class="keyword">return</span> end</span><br><span class="line">	io.write(nextword,<span class="string">&quot; &quot;</span>)</span><br><span class="line">	w1 = w2; w2 = nextword</span><br><span class="line">end</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Lua字符串</title>
     <url>/2020/04/08/Lua%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
     <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;字符串用于文本。Lua语言中的字符串即可以表示单个字符，也可以表示一整本书籍。在Lua语言中，操作100K或者1M个字母组成的字符串的程序也很常见。</p>
@@ -973,33 +1000,6 @@
 <p>该函数还会在第二个返回值中返回发生替换的次数。</p>
 <h2 id="Unicode编码"><a href="#Unicode编码" class="headerlink" title="Unicode编码"></a>Unicode编码</h2><p>&ensp;&ensp;&ensp;&ensp;UTF-8是Web环境中用于Unicode的主要编码之一。由于UTF-8编码娱ASCII编码部分兼容，所以UTF-8对于Lua来说是一种理想的编码方式。这种兼容性保证了用于ASCII字符串的一些字符操作技巧无须修改就可以用于UTF-8字符串。<br>&ensp;&ensp;&ensp;&ensp;UTF-8使用变长的多个字节来编码一个Unicode字符。例如，UTF-8编码使用一个字节的65来代表A，使用两个字节的215-144代表希伯来语字符Aleph。UTF-8使用一个字节表示所有ASCII范围内的字符（小于128）。对于其他字符，则使用字节序列表示，其中第一个字节的范围时[194,244]，而后续的字节范围时[128,191]。更准确地说，对于两个字节组成的序列，第一个字节的范围是[194,223]；对于三个字节组成的序列来说，第一个字节的范围是[224,239]；对于四个字节组成的序列来说，第一个字节的范围是[240,224]，这些范围互相之间均不重叠。这种特点保证了任意字符对应的字节序列不会在其他字符对应的字节序列中出现。特别地，一个小于128的字节永远不会在多字节序列中，它只会代表与之对应的ASCII字符。<br>&ensp;&ensp;&ensp;&ensp;Lua语言中的一些机制对UTF-8字符串来说同样“有效”。由于Lua语言使用8个字节来编码字符，所以可以像操作其他字符串一样读写和存储UTF-8字符串。字符串常量也可以包含UTF-8数据。字符串连接UTF-8字符串同样适用。对字符串比较会按照Unicode编码中的字符代码顺序进行。<br>&ensp;&ensp;&ensp;&ensp;Lua语言的操作系统库和输入输出库是与对应系统之间的主要接口，所以它们是否支持UTF-8取决于对应的操作系统。例如，在Linux操作系统下文件名要使用UTF-8编码，而在Windows操作系统下文件名使用UTF-16编码。因此，如果要在Windows操作系统中处理Unicode文件名，要么使用额外的库，要么就修改Lua语言的标准库。</p>
 ]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lua实现马儿可夫链算法</title>
-    <url>/2020/04/23/Lua%E5%AE%9E%E7%8E%B0%E9%A9%AC%E5%84%BF%E5%8F%AF%E5%A4%AB%E9%93%BE%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;马尔可夫链算法根据哪个单词能出现在基础文本中由n个前序列单词组成的序列之后，来生成伪随机文本。这里我们假设n为2。</p>
-<a id="more"></a>
-<p>&ensp;&ensp;&ensp;&ensp;程序的第一部分读取原始文本并创建一个表，该表的键为每两个单词组成的前缀，值为紧跟这个前缀的单词所组成的列表。当这个表构建好后，程序就利用它来生成随机文本，随机文本中每个单词所组成的列表。当这个表构建好后，程序就利用它来生成随机文本，随机文本中每个单词出现在它之前两个单词后的概率与其出现在基础文本中相同两个前序单词后的概率相同。最终，我们会得到一串相对比较随机的文本。例如，”<em>Constructors can also traverse a table constructor, then the parentheses in the following line does the whole file in a field n to store the contents of each function, but to show its only ragument, If you want to find the maximum element in an array can return both the maximum value and continues showing the prompt and running the code. The following words are reserved and cannot be used to convert between degrees and radians.</em>“<br>&ensp;&ensp;&ensp;&ensp;要将由两个单词组成的前缀作为表的键，需要使用空格来连接两个单词：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function prefix(w1,w2)</span><br><span class="line">	<span class="keyword">return</span> w1 .. <span class="string">&quot; &quot;</span> .. w2</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>我们使用字符串NOWORD（换行符）初始化前缀单词及标记文本的结尾。例如，对于文本”the more wo try the more we do”而言，构造出的表如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	[<span class="string">&quot;\n \n&quot;</span>]    = &#123;<span class="string">&quot;the&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;\n the&quot;</span>]   = &#123;<span class="string">&quot;more&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;the more&quot;</span>] = &#123;<span class="string">&quot;we&quot;</span>,<span class="string">&quot;we&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;more we&quot;</span>]  = &#123;<span class="string">&quot;try&quot;</span>,<span class="string">&quot;do&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;we try&quot;</span>]   = &#123;<span class="string">&quot;the&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;try the&quot;</span>]  = &#123;<span class="string">&quot;more&quot;</span>&#125;,</span><br><span class="line">	[<span class="string">&quot;we do&quot;</span>]    = &#123;<span class="string">&quot;\n&quot;</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;程序表保存在变量statetab中。如果要像表中的某个前缀所对应的列表中插入一个新单词，可以使用如下的函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function insert (prefix,value)</span><br><span class="line">	local list = statetab[prefix]</span><br><span class="line">	<span class="keyword">if</span> list == nil then</span><br><span class="line">		statetab[prefix] = &#123;value&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		list[<span class="comment">#list + 1] = value</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>该函数首先检查某前缀是否已经有了对应的列表，如果没有，则以新值来创建一个新列表；否则，就将新值添加到现有列表的末尾。<br>&ensp;&ensp;&ensp;&ensp;为了构造表statetab，我们使用两个变量W1和w2来记录最后读取的两个单词。我们使用allwords迭代器读取单词，只不过修改了其中”单词”的定义以便将可选的诸如逗号和句号等标点符号包括在内。对于新读取的每一个单词，把它添加到与w1-w2相关联的列表中，然后更新w1和w2。<br>&ensp;&ensp;&ensp;&ensp;在构造完表后，程序便开始生成具有MAXGEN个单词的文本。首先，程序重新初始化变量w1和w2。然后，对于每个前缀，程序从其对应的单词列表中随机地选出一个单词，输出这个单词，并更新W1和w2。如下示例：</p>
-<blockquote>
-<p>示例 马儿可夫链的辅助定义</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function allwords()</span><br><span class="line">	local line = io.read()  -- 当前行</span><br><span class="line">	local pos  = <span class="number">1</span>			-- 当前行的当前位置</span><br><span class="line">	<span class="keyword">return</span> fucntion ()		-- 迭代函数</span><br><span class="line">	<span class="keyword">while</span> line do			-- 当还有行时循环</span><br><span class="line">		local w, e = string.match(line, <span class="string">&quot;(%w[,;.:]?)()&quot;</span>,pos)</span><br><span class="line">		<span class="keyword">if</span> w then			-- 发现一个单词？</span><br><span class="line">			pos = e 		-- 更新位置</span><br><span class="line">			<span class="keyword">return</span> w  		-- 返回该单词</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			line = io.read() -- 没找到单词；尝试下一行</span><br><span class="line">			pos  = <span class="number">1</span>		 -- 从第一个位置重新开始</span><br><span class="line">		end</span><br><span class="line">	end</span><br><span class="line">	<span class="keyword">return</span> nil 				-- 没有行了：迭代结束</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">function prefix (w1,w2)</span><br><span class="line">	<span class="keyword">return</span> w1 .. <span class="string">&quot; &quot;</span> .. w2 </span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local statetab = &#123;&#125;</span><br><span class="line"></span><br><span class="line">function insert (prefix,value)</span><br><span class="line">	local list = statetab[prefix]</span><br><span class="line">	<span class="keyword">if</span> list == list then</span><br><span class="line">		statetab[prefix] = &#123;value&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		list[<span class="comment">#list + 1] = value</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>示例：马尔科夫链程序</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local MAXGEN = <span class="number">200</span></span><br><span class="line">local NOWORD = <span class="string">&quot;\n&quot;</span></span><br><span class="line"></span><br><span class="line">-- 创建表</span><br><span class="line">local w1,w2 = NOWORD, NOWORD</span><br><span class="line"><span class="keyword">for</span> nextword <span class="keyword">in</span> allwords() do</span><br><span class="line">	insert(prefix(w1,w2),nextword)</span><br><span class="line">	w1 = w2; w2 = nextword;</span><br><span class="line">end</span><br><span class="line">insert(prefix(w1,w2),NOWORD)</span><br><span class="line"></span><br><span class="line">-- 生成文本</span><br><span class="line">w1 = NOWORD; w2 = NOWORD    -- 重新初始化</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span> , MAXGEN do</span><br><span class="line">	local list = statetab[prefix(w1,w2)]</span><br><span class="line">	-- 从列表中随机选出一个元素</span><br><span class="line">	local r = math.random(<span class="comment">#list)</span></span><br><span class="line">	local nextword = list[r]</span><br><span class="line">	<span class="keyword">if</span> nextword == NOWORD then <span class="keyword">return</span> end</span><br><span class="line">	io.write(nextword,<span class="string">&quot; &quot;</span>)</span><br><span class="line">	w1 = w2; w2 = nextword</span><br><span class="line">end</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>编程语言</category>
       </categories>
@@ -1364,6 +1364,119 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac -XCode 各种目录路径和调试方法</title>
+    <url>/2020/07/17/Mac-XCode-%E5%90%84%E7%A7%8D%E7%9B%AE%E5%BD%95%E8%B7%AF%E5%BE%84%E5%92%8C%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>hosts文件所在目录:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;private&#x2F;etc&#x2F;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>xcode插件目录:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Application Support&#x2F;Developer&#x2F;Shared&#x2F;Xcode&#x2F;Plug-ins</span><br></pre></td></tr></table></figure>
+<p>模拟器上app应用运行生成缓存文件：删除无影响，可重新生成</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Developer&#x2F;XCPGDevices</span><br></pre></td></tr></table></figure>
+<p>Xcode对模拟器缓存路径：如果删除下次运行时间会较长，但不影响使用。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Developer&#x2F;Xcode&#x2F;DerivedData</span><br></pre></td></tr></table></figure>
+<p>Xcode中卸载多余模拟器位置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;资源库&#x2F;Developer&#x2F;CoreSimulator&#x2F;Profiles&#x2F;Runtimes&#x2F;</span><br></pre></td></tr></table></figure>
+<p>Xcode对真机设备支持: 连接设备时自动生成对应的版本支持文件，如果删除了，再次连接还会重新生成。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Developer&#x2F;Xcode&#x2F;iOS DeviceSupport</span><br></pre></td></tr></table></figure>
+<p>Xcode6以后的模拟器的位置。每个长串名字的文件夹代表一个模拟器，在它的device.plist文件可以看到具体的哪个模拟器型号。不可恢复。慎重删除，删除之后再用就得重新下载了。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Developer&#x2F;CoreSimulator&#x2F;Devices</span><br></pre></td></tr></table></figure>
+<p>提交App Store或者Adhoc时打包的ipa文件路径，删除了不可恢复，可重新打包。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Developer&#x2F;Xcode&#x2F;Archives</span><br></pre></td></tr></table></figure>
+<p>删除多余配置证书路径:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;MobileDevice&#x2F;Provisioning Profiles</span><br></pre></td></tr></table></figure>
+<p>pod缓存路径:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Caches&#x2F;CocoaPods&#x2F;Pods&#x2F;Release</span><br></pre></td></tr></table></figure>
+<p>XCode来定位循环引用的方法:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1）在product－Analyze中使用静态分析来检测代码中可能存在循环引用的问题。</span><br><span class="line"></span><br><span class="line">2）在Xcode－open developer tool－Instruments打开工具集，选择Leaks工具可以对已安装的应用进行内存泄漏检测，此工具能检测静态分析不会提示，但是到运行时才会出现的内存泄漏问题。</span><br></pre></td></tr></table></figure>
+<p>Xcode来定位及分析僵尸对象方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1 ）在product－scheme－edit scheme－diagnostics中将enable zombie objects勾选上。</span><br><span class="line"></span><br><span class="line">2）在Xcode－open developer tool－Instruments打开工具集，选择Zombies工具可以对已安装的应用进行僵尸对象检测。</span><br></pre></td></tr></table></figure>
+<p>存在多Xcode 时，更改默认路径：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Xcode &gt; Preferences &gt; Locations路径查看到正在使用的版本和该版本路径。可下拉选择需要版本。</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>计算机使用</category>
+      </categories>
+      <tags>
+        <tag>Xcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python中列表 元组 集合 词典的区别</title>
+    <url>/2020/04/20/Python%E4%B8%AD%E5%88%97%E8%A1%A8-%E5%85%83%E7%BB%84-%E9%9B%86%E5%90%88-%E8%AF%8D%E5%85%B8%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p><strong>Python 集合（数组）</strong><br>Python 编程语言中有四种集合数据类型：<br>列表、元组、集合、词典</p>
+<a id="more"></a>
+<h3 id="列表（List）"><a href="#列表（List）" class="headerlink" title="列表（List）"></a>列表（List）</h3><p><strong>列表（List）</strong> 是一种有序和可更改的集合。允许重复的成员。<br>在 Python 中，列表用方括号编写<br>例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">thislist &#x3D; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br></pre></td></tr></table></figure>
+<p>Python 有一组可以在列表上使用的内建方法:<br><img src="https://img-blog.csdnimg.cn/20191204155917438.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p><strong>元组（Tuple）</strong> 是一种有序且不可更改的集合。允许重复的成员。<br>在 Python 中，元组是用圆括号编写的。<br>例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">thistuple = (<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>Python 提供两个可以在元组上使用的内建方法:<br><img src="https://img-blog.csdnimg.cn/20191204160047773.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p><strong>集合（Set）</strong> 是一个无序和无索引的集合。没有重复的成员。<br>在 Python 中，集合用花括号编写。<br>例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">thisset = &#123;<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>Python 拥有一套能够在集合（set）上使用的内建方法。<br><img src="https://img-blog.csdnimg.cn/20191204160209470.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="词典"><a href="#词典" class="headerlink" title="词典"></a>词典</h3><p><strong>词典（Dictionary）</strong> 是一个无序，可变和有索引的集合。没有重复的成员。<br>在 Python 中，字典用花括号编写，拥有键和值。<br>例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">thisdict =	&#123;</span><br><span class="line">  <span class="string">&quot;a&quot;</span>: <span class="string">&quot;1&quot;</span>,</span><br><span class="line">  <span class="string">&quot;c&quot;</span>: <span class="string">&quot;2&quot;</span>,</span><br><span class="line">  <span class="string">&quot;d&quot;</span>: <span class="number">3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Python 提供一组可以在字典上使用的内建方法:<br><img src="https://img-blog.csdnimg.cn/20191204160356296.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PADS破解</title>
+    <url>/2018/05/10/PADS%E7%A0%B4%E8%A7%A3/</url>
+    <content><![CDATA[<h2 id="破解PADS"><a href="#破解PADS" class="headerlink" title="破解PADS"></a>破解PADS</h2><blockquote>
+<p>今天在网上查找关于PADS的资料，发现有很多网友在安装PADS后破解都失败，遇到了一点困难，这里介绍一种非常方便的方法。</p>
+</blockquote>
+<a id="more"></a>
+
+<p>1、首先下载一个专用的破解工具，下载地址：链接：<a href="https://pan.baidu.com/s/1W9bUQU3_IX58WWkYmtNwMQ">https://pan.baidu.com/s/1W9bUQU3_IX58WWkYmtNwMQ</a> 密码：4zcp<br>2、下载后解压，运行**.exe<strong>文件<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="https://img-blog.csdn.net/20180510153232344?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70&quot;width=&quot;60%25&quot;">https://img-blog.csdn.net/20180510153232344?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>3、运行后，会出现下面界面<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="https://img-blog.csdn.net/2018051015334020?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70&quot;width=&quot;60%25&quot;">https://img-blog.csdn.net/2018051015334020?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>4、点击浏览，找到自己PADS的安装路径，再点</strong>破戒**<br>5、如果出现下面界面，则破戒成功，不然多破戒几次，如多次破戒不成功就可能是安装问题了。<br><img src="https://img-blog.csdn.net/20180510153854129?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<blockquote>
+<p>希望这篇博客对各位有所帮助</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>模块使用</category>
+      </categories>
+      <tags>
+        <tag>PADS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM32GPIO部分介绍</title>
+    <url>/2017/04/24/STM32GPIO%E9%83%A8%E5%88%86%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[<p>&emsp;&emsp;最近在老师交给了一个项目，需要用到STM32单片机，这里就在学习的过程中所注意到的一些地方或细节部分记录了下来，笔者所使用的是STM32F407ZGT6芯片（探索者）。</p>
+<a id="more"></a>
+<p><strong>查看芯片的数据手册</strong></p>
+<p><img src="https://img-service.csdnimg.cn/img_convert/daf9a3f236d9d41007895d1e04285e0c.png" alt="这里写图片描述"><br>这个表格对每个I/O口的功能进行了很详细的介绍。每个I/O除了作为I/O使用外，还可以作为其他的复用。已以PE2口为例，“Alternate functions”所展示就是其可以复用的功能。</p>
+<p> <strong>芯片结构</strong><br>F3系列和F4系列芯片的芯片结构大体相似，区别在于F4将F3芯片的上下拉结构配置由内部转到了外部。如下图所示。<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="http://img.blog.csdn.net/20170424220019763?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170424220019763?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="http://img.blog.csdn.net/20170424220033550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170424220033550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>同时大家注意到在第二张图的右边有一个“TF:5V容忍”，F4芯片I/O口大部分也支持5V容忍，5V容忍就是说STM32的输出电压是3.3V，但是也容忍输出5V。<br>那么哪些I/O口支持5V容忍了，这个得看最上面的芯片手册，如果芯片后面有一栏写有“TF”标示，即说明支持5V容忍。</p>
+<p><strong>GPIO相关配置寄存器</strong><br>每组GPIO口包含１０组寄存器。</p>
+<p><code>一个端口模式寄存器（GPIOx_MODER） 一个端口输出类型寄存器(GPIOx_OTYPER) 一个端口输出速度寄存器（GPIOx_OSPEEDR) 一个端口上拉下拉寄存器（GPIOx_PUPDR)　　前４个为３２位配置寄存器 一个端口输入数据寄存器（GPIOx_IDR） 一个端口输出数据寄存器（GPIOx_ODR)　　中间２个为３２位数据寄存器 一个端口置位/复位寄存器（GPIOx_BSRR) 一个端口配置锁存寄存器（GPIOx_LCKR) 两个复位功能寄存器（低位GPIOx_AFRL &amp; GPIOx_AFRH) </code> </p>
+<blockquote>
+<p>如果配置一个IO口需要2个位，那么刚好32位寄存器配置一组IO口16个IO口<br>如果配置一个IO口只需要1个位，一般高16位保留<br>BSRR寄存器32位分为低16位BSRRL和高16位BSRRH，BSRRL配置一组IO口的16个IO口的置位状态（1），BSRRH配置复位状态（0）。</p>
+</blockquote>
+<p><strong>端口模式寄存器(GPIOx_MODER)</strong><br><img src="https://img-service.csdnimg.cn/img_convert/875fe81a1a4ff569e7d342338069376a.png" alt="这里写图片描述"><br>MODER寄存器没２位控制一个IO,３２位就控制１６个IO。以GPIOA为例，它就有GPIOA0~15，如果配置为’00’,则为“输入（复位状态）”模式。那么32位刚好可以配置一组IO的16个IO。</p>
+<p><strong>端口输出类型寄存器(GPIOx_OTYPER)</strong><br>但是只有输出模式是不够的，还需要输出类型。<br><img src="https://img-service.csdnimg.cn/img_convert/cca47a8cdd0cb884208c510d8f3dbdf1.png" alt="这里写图片描述"><br>OTYPER寄存器每位控制一个IO，低16位控制一组IO的16个IO，高16位保留没有用。<br> 每个IO只用到一位，可以设置位0或者1。如果设置为0则为“输出推挽”，若要设置为“复用输出推挽”，则将端口模式寄存器设置为“复用功能模式”，再将这里设置为“输出推挽”模式即可。</p>
+<p><strong>提示</strong> 任何方式操作IO口，都必须先使能相应IO口始终。<br>‘RCC_AHB1PeriphColckCmd();’</p>
+<blockquote>
+<p>其它的寄存器设置方法与这两个类似，这里不过多介绍。</p>
+</blockquote>
+<blockquote>
+<p>以上图片均来自探索者光盘自带的资料。<br>如果不妥地方，还请各位读者多多指出。需要更详细资料的也可以和笔者联系</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>stm32</category>
+      </categories>
+      <tags>
+        <tag>stm32</tag>
+        <tag>GPIO</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Lua迭代器和泛型for</title>
     <url>/2020/04/22/Lua%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E6%B3%9B%E5%9E%8Bfor/</url>
     <content><![CDATA[<h2 id="迭代器和闭包"><a href="#迭代器和闭包" class="headerlink" title="迭代器和闭包"></a>迭代器和闭包</h2><p>&ensp;&ensp;&ensp;&ensp;迭代器是一种可以让我们遍历一个集合中所有元素的代码结构。在Lua语言中，通常使用函数表示迭代器：每一次调用函数时，函数会返回集合中的”下一个“元素。一个典型的例子是io.read，每次调用该函数时它都会返回标准输入中的下一行，在没有读取的行时返回nil。</p>
@@ -1431,88 +1544,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac -XCode 各种目录路径和调试方法</title>
-    <url>/2020/07/17/Mac-XCode-%E5%90%84%E7%A7%8D%E7%9B%AE%E5%BD%95%E8%B7%AF%E5%BE%84%E5%92%8C%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>hosts文件所在目录:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;private&#x2F;etc&#x2F;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>xcode插件目录:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Application Support&#x2F;Developer&#x2F;Shared&#x2F;Xcode&#x2F;Plug-ins</span><br></pre></td></tr></table></figure>
-<p>模拟器上app应用运行生成缓存文件：删除无影响，可重新生成</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Developer&#x2F;XCPGDevices</span><br></pre></td></tr></table></figure>
-<p>Xcode对模拟器缓存路径：如果删除下次运行时间会较长，但不影响使用。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Developer&#x2F;Xcode&#x2F;DerivedData</span><br></pre></td></tr></table></figure>
-<p>Xcode中卸载多余模拟器位置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;资源库&#x2F;Developer&#x2F;CoreSimulator&#x2F;Profiles&#x2F;Runtimes&#x2F;</span><br></pre></td></tr></table></figure>
-<p>Xcode对真机设备支持: 连接设备时自动生成对应的版本支持文件，如果删除了，再次连接还会重新生成。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Developer&#x2F;Xcode&#x2F;iOS DeviceSupport</span><br></pre></td></tr></table></figure>
-<p>Xcode6以后的模拟器的位置。每个长串名字的文件夹代表一个模拟器，在它的device.plist文件可以看到具体的哪个模拟器型号。不可恢复。慎重删除，删除之后再用就得重新下载了。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Developer&#x2F;CoreSimulator&#x2F;Devices</span><br></pre></td></tr></table></figure>
-<p>提交App Store或者Adhoc时打包的ipa文件路径，删除了不可恢复，可重新打包。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Developer&#x2F;Xcode&#x2F;Archives</span><br></pre></td></tr></table></figure>
-<p>删除多余配置证书路径:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;MobileDevice&#x2F;Provisioning Profiles</span><br></pre></td></tr></table></figure>
-<p>pod缓存路径:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;Library&#x2F;Caches&#x2F;CocoaPods&#x2F;Pods&#x2F;Release</span><br></pre></td></tr></table></figure>
-<p>XCode来定位循环引用的方法:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1）在product－Analyze中使用静态分析来检测代码中可能存在循环引用的问题。</span><br><span class="line"></span><br><span class="line">2）在Xcode－open developer tool－Instruments打开工具集，选择Leaks工具可以对已安装的应用进行内存泄漏检测，此工具能检测静态分析不会提示，但是到运行时才会出现的内存泄漏问题。</span><br></pre></td></tr></table></figure>
-<p>Xcode来定位及分析僵尸对象方法：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1 ）在product－scheme－edit scheme－diagnostics中将enable zombie objects勾选上。</span><br><span class="line"></span><br><span class="line">2）在Xcode－open developer tool－Instruments打开工具集，选择Zombies工具可以对已安装的应用进行僵尸对象检测。</span><br></pre></td></tr></table></figure>
-<p>存在多Xcode 时，更改默认路径：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Xcode &gt; Preferences &gt; Locations路径查看到正在使用的版本和该版本路径。可下拉选择需要版本。</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>计算机使用</category>
-      </categories>
-      <tags>
-        <tag>Xcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PADS破解</title>
-    <url>/2018/05/10/PADS%E7%A0%B4%E8%A7%A3/</url>
-    <content><![CDATA[<h2 id="破解PADS"><a href="#破解PADS" class="headerlink" title="破解PADS"></a>破解PADS</h2><blockquote>
-<p>今天在网上查找关于PADS的资料，发现有很多网友在安装PADS后破解都失败，遇到了一点困难，这里介绍一种非常方便的方法。</p>
-</blockquote>
-<a id="more"></a>
-
-<p>1、首先下载一个专用的破解工具，下载地址：链接：<a href="https://pan.baidu.com/s/1W9bUQU3_IX58WWkYmtNwMQ">https://pan.baidu.com/s/1W9bUQU3_IX58WWkYmtNwMQ</a> 密码：4zcp<br>2、下载后解压，运行**.exe<strong>文件<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="https://img-blog.csdn.net/20180510153232344?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70&quot;width=&quot;60%25&quot;">https://img-blog.csdn.net/20180510153232344?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>3、运行后，会出现下面界面<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="https://img-blog.csdn.net/2018051015334020?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70&quot;width=&quot;60%25&quot;">https://img-blog.csdn.net/2018051015334020?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>4、点击浏览，找到自己PADS的安装路径，再点</strong>破戒**<br>5、如果出现下面界面，则破戒成功，不然多破戒几次，如多次破戒不成功就可能是安装问题了。<br><img src="https://img-blog.csdn.net/20180510153854129?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<blockquote>
-<p>希望这篇博客对各位有所帮助</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>模块使用</category>
-      </categories>
-      <tags>
-        <tag>PADS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python中列表 元组 集合 词典的区别</title>
-    <url>/2020/04/20/Python%E4%B8%AD%E5%88%97%E8%A1%A8-%E5%85%83%E7%BB%84-%E9%9B%86%E5%90%88-%E8%AF%8D%E5%85%B8%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<p><strong>Python 集合（数组）</strong><br>Python 编程语言中有四种集合数据类型：<br>列表、元组、集合、词典</p>
-<a id="more"></a>
-<h3 id="列表（List）"><a href="#列表（List）" class="headerlink" title="列表（List）"></a>列表（List）</h3><p><strong>列表（List）</strong> 是一种有序和可更改的集合。允许重复的成员。<br>在 Python 中，列表用方括号编写<br>例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">thislist &#x3D; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br></pre></td></tr></table></figure>
-<p>Python 有一组可以在列表上使用的内建方法:<br><img src="https://img-blog.csdnimg.cn/20191204155917438.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p><strong>元组（Tuple）</strong> 是一种有序且不可更改的集合。允许重复的成员。<br>在 Python 中，元组是用圆括号编写的。<br>例：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">thistuple = (<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>Python 提供两个可以在元组上使用的内建方法:<br><img src="https://img-blog.csdnimg.cn/20191204160047773.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p><strong>集合（Set）</strong> 是一个无序和无索引的集合。没有重复的成员。<br>在 Python 中，集合用花括号编写。<br>例：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">thisset = &#123;<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-<p>Python 拥有一套能够在集合（set）上使用的内建方法。<br><img src="https://img-blog.csdnimg.cn/20191204160209470.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="词典"><a href="#词典" class="headerlink" title="词典"></a>词典</h3><p><strong>词典（Dictionary）</strong> 是一个无序，可变和有索引的集合。没有重复的成员。<br>在 Python 中，字典用花括号编写，拥有键和值。<br>例：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">thisdict =	&#123;</span><br><span class="line">  <span class="string">&quot;a&quot;</span>: <span class="string">&quot;1&quot;</span>,</span><br><span class="line">  <span class="string">&quot;c&quot;</span>: <span class="string">&quot;2&quot;</span>,</span><br><span class="line">  <span class="string">&quot;d&quot;</span>: <span class="number">3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Python 提供一组可以在字典上使用的内建方法:<br><img src="https://img-blog.csdnimg.cn/20191204160356296.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Python实现微信自动聊天</title>
     <url>/2019/07/16/Python%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E8%87%AA%E5%8A%A8%E8%81%8A%E5%A4%A9/</url>
     <content><![CDATA[<p>闲着无聊，在网上找了一些好玩的代码，比如用Python实现微信自动回消息<br>之前弄了一个定时自动给好友发天气或者发心灵鸡汤的脚本，下载链接：<a href="https://download.csdn.net/download/silent_f/11162951">https://download.csdn.net/download/silent_f/11162951</a></p>
@@ -1534,37 +1565,6 @@
       </categories>
       <tags>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM32GPIO部分介绍</title>
-    <url>/2017/04/24/STM32GPIO%E9%83%A8%E5%88%86%E4%BB%8B%E7%BB%8D/</url>
-    <content><![CDATA[<p>&emsp;&emsp;最近在老师交给了一个项目，需要用到STM32单片机，这里就在学习的过程中所注意到的一些地方或细节部分记录了下来，笔者所使用的是STM32F407ZGT6芯片（探索者）。</p>
-<a id="more"></a>
-<p><strong>查看芯片的数据手册</strong></p>
-<p><img src="https://img-service.csdnimg.cn/img_convert/daf9a3f236d9d41007895d1e04285e0c.png" alt="这里写图片描述"><br>这个表格对每个I/O口的功能进行了很详细的介绍。每个I/O除了作为I/O使用外，还可以作为其他的复用。已以PE2口为例，“Alternate functions”所展示就是其可以复用的功能。</p>
-<p> <strong>芯片结构</strong><br>F3系列和F4系列芯片的芯片结构大体相似，区别在于F4将F3芯片的上下拉结构配置由内部转到了外部。如下图所示。<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="http://img.blog.csdn.net/20170424220019763?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170424220019763?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="http://img.blog.csdn.net/20170424220033550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170424220033550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>同时大家注意到在第二张图的右边有一个“TF:5V容忍”，F4芯片I/O口大部分也支持5V容忍，5V容忍就是说STM32的输出电压是3.3V，但是也容忍输出5V。<br>那么哪些I/O口支持5V容忍了，这个得看最上面的芯片手册，如果芯片后面有一栏写有“TF”标示，即说明支持5V容忍。</p>
-<p><strong>GPIO相关配置寄存器</strong><br>每组GPIO口包含１０组寄存器。</p>
-<p><code>一个端口模式寄存器（GPIOx_MODER） 一个端口输出类型寄存器(GPIOx_OTYPER) 一个端口输出速度寄存器（GPIOx_OSPEEDR) 一个端口上拉下拉寄存器（GPIOx_PUPDR)　　前４个为３２位配置寄存器 一个端口输入数据寄存器（GPIOx_IDR） 一个端口输出数据寄存器（GPIOx_ODR)　　中间２个为３２位数据寄存器 一个端口置位/复位寄存器（GPIOx_BSRR) 一个端口配置锁存寄存器（GPIOx_LCKR) 两个复位功能寄存器（低位GPIOx_AFRL &amp; GPIOx_AFRH) </code> </p>
-<blockquote>
-<p>如果配置一个IO口需要2个位，那么刚好32位寄存器配置一组IO口16个IO口<br>如果配置一个IO口只需要1个位，一般高16位保留<br>BSRR寄存器32位分为低16位BSRRL和高16位BSRRH，BSRRL配置一组IO口的16个IO口的置位状态（1），BSRRH配置复位状态（0）。</p>
-</blockquote>
-<p><strong>端口模式寄存器(GPIOx_MODER)</strong><br><img src="https://img-service.csdnimg.cn/img_convert/875fe81a1a4ff569e7d342338069376a.png" alt="这里写图片描述"><br>MODER寄存器没２位控制一个IO,３２位就控制１６个IO。以GPIOA为例，它就有GPIOA0~15，如果配置为’00’,则为“输入（复位状态）”模式。那么32位刚好可以配置一组IO的16个IO。</p>
-<p><strong>端口输出类型寄存器(GPIOx_OTYPER)</strong><br>但是只有输出模式是不够的，还需要输出类型。<br><img src="https://img-service.csdnimg.cn/img_convert/cca47a8cdd0cb884208c510d8f3dbdf1.png" alt="这里写图片描述"><br>OTYPER寄存器每位控制一个IO，低16位控制一组IO的16个IO，高16位保留没有用。<br> 每个IO只用到一位，可以设置位0或者1。如果设置为0则为“输出推挽”，若要设置为“复用输出推挽”，则将端口模式寄存器设置为“复用功能模式”，再将这里设置为“输出推挽”模式即可。</p>
-<p><strong>提示</strong> 任何方式操作IO口，都必须先使能相应IO口始终。<br>‘RCC_AHB1PeriphColckCmd();’</p>
-<blockquote>
-<p>其它的寄存器设置方法与这两个类似，这里不过多介绍。</p>
-</blockquote>
-<blockquote>
-<p>以上图片均来自探索者光盘自带的资料。<br>如果不妥地方，还请各位读者多多指出。需要更详细资料的也可以和笔者联系</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>stm32</category>
-      </categories>
-      <tags>
-        <tag>stm32</tag>
-        <tag>GPIO</tag>
       </tags>
   </entry>
   <entry>
@@ -1622,6 +1622,29 @@
       </tags>
   </entry>
   <entry>
+    <title>cocos 2dx_lua键盘监听</title>
+    <url>/2020/06/08/cocos-2dx-lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/</url>
+    <content><![CDATA[<a id="more"></a>
+<pre><code class="python">local function keyboardPressed(KeyCode,event)
+        print(KeyCode)
+    end
+    local function keyboardReleased(KeyCode,event)
+    end
+    local listener = cc.EventListenerKeyboard:create()  
+    listener:registerScriptHandler(keyboardPressed, cc.Handler.EVENT_KEYBOARD_PRESSED)  
+    listener:registerScriptHandler(keyboardReleased, cc.Handler.EVENT_KEYBOARD_RELEASED)  
+    local eventDispatcher = self:getEventDispatcher()  
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener,self)</code></pre>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+        <tag>cocos 2d</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>break、return和goto</title>
     <url>/2020/04/13/break%E3%80%81return%E5%92%8Cgoto/</url>
     <content><![CDATA[<h2 id="break、return-和-goto"><a href="#break、return-和-goto" class="headerlink" title="break、return 和 goto"></a>break、return 和 goto</h2><p>&ensp;&ensp;&ensp;&ensp;break和return语句用于从当前的循环结构中跳出，goto语句则允许跳转到函数中的几乎任何地方。</p>
@@ -1667,19 +1690,16 @@
       </tags>
   </entry>
   <entry>
-    <title>cocos 2dx_lua键盘监听</title>
-    <url>/2020/06/08/cocos-2dx-lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/</url>
-    <content><![CDATA[<a id="more"></a>
-<pre><code class="python">local function keyboardPressed(KeyCode,event)
-        print(KeyCode)
-    end
-    local function keyboardReleased(KeyCode,event)
-    end
-    local listener = cc.EventListenerKeyboard:create()  
-    listener:registerScriptHandler(keyboardPressed, cc.Handler.EVENT_KEYBOARD_PRESSED)  
-    listener:registerScriptHandler(keyboardReleased, cc.Handler.EVENT_KEYBOARD_RELEASED)  
-    local eventDispatcher = self:getEventDispatcher()  
-    eventDispatcher:addEventListenerWithSceneGraphPriority(listener,self)</code></pre>
+    <title>cocos2dx lua webView禁止屏幕滚动</title>
+    <url>/2019/03/19/cocos2dx-lua-webView%E7%A6%81%E6%AD%A2%E5%B1%8F%E5%B9%95%E6%BB%9A%E5%8A%A8/</url>
+    <content><![CDATA[<p>直接上截图</p>
+<a id="more"></a>
+<p><img src="https://img-blog.csdnimg.cn/2019031909062268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<pre><code class="java">    UIScrollView *first_tempView = (UIScrollView *)[self.uiWebView.subviews
+                                                    objectAtIndex:0];
+    first_tempView.scrollEnabled = NO;
+
+</code></pre>
 ]]></content>
       <categories>
         <category>游戏开发</category>
@@ -1767,26 +1787,6 @@
 
 <h3 id="解析json数据"><a href="#解析json数据" class="headerlink" title="解析json数据"></a>解析json数据</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">在文件中添加下面语句</span><br><span class="line">local json = cc.load(<span class="string">&quot;tools&quot;</span>).json</span><br></pre></td></tr></table></figure>
 <h3 id="背景音乐与音效"><a href="#背景音乐与音效" class="headerlink" title="背景音乐与音效"></a>背景音乐与音效</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">AudioEngine.playMuisc(“bg.mp2”, true)      --播放背景音乐，第二个参数为true表示循环播放，默认情况下为false</span><br><span class="line">AudioEngine.stopMusic()                    --停止播放背景音乐</span><br><span class="line"></span><br><span class="line">AudioEngine.pauseMusic()                   --暂停播放背景音乐</span><br><span class="line"></span><br><span class="line">AudioEngine.resumeMusic()                  --恢复播放背景音乐</span><br><span class="line"></span><br><span class="line">AudioEngine.isMusicPlaying()               --判断背景音乐是否播放</span><br><span class="line"></span><br><span class="line">AudioEngine.preloadEffect(“effect.mp3”)    --预加载音效</span><br><span class="line"></span><br><span class="line">AudioEngine.playEffect(“effect.mp3”)       --播放音效</span><br><span class="line"></span><br><span class="line">AudioEngine.pauseEffect(id)                --暂停播放音效，id是playEffect返回的参数</span><br><span class="line"></span><br><span class="line">AudioEngine.pauseAllEffect()               --暂停所有音效的播放</span><br><span class="line"></span><br><span class="line">AudioEngine.resumeEffect(id)               --继续播放某个音效</span><br><span class="line"></span><br><span class="line">AudioEngine.resumeAllEffect()              --继续播放所有音效</span><br><span class="line"></span><br><span class="line">AudioEngine.stopEffect(id)                 --停止播放某一音效</span><br><span class="line"></span><br><span class="line">AudioEngine.stopAllEffect()                --停止所有音效播放</span><br><span class="line"></span><br><span class="line">AudioEngine.setMusicVolume(<span class="number">0.5</span>)            --设置背景音乐音量</span><br><span class="line"></span><br><span class="line">AudioEngine.setEffectsVolume(<span class="number">0.5</span>)          --设置音效音量</span><br><span class="line"></span><br><span class="line">AudioEngine.getMusicVolume()               --获得背景音乐音量</span><br><span class="line"></span><br><span class="line">AudioEngine.getEffectsVolume()             --获得音效音量</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>游戏开发</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-        <tag>cocos 2d</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cocos2dx lua webView禁止屏幕滚动</title>
-    <url>/2019/03/19/cocos2dx-lua-webView%E7%A6%81%E6%AD%A2%E5%B1%8F%E5%B9%95%E6%BB%9A%E5%8A%A8/</url>
-    <content><![CDATA[<p>直接上截图</p>
-<a id="more"></a>
-<p><img src="https://img-blog.csdnimg.cn/2019031909062268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<pre><code class="java">    UIScrollView *first_tempView = (UIScrollView *)[self.uiWebView.subviews
-                                                    objectAtIndex:0];
-    first_tempView.scrollEnabled = NO;
-
-</code></pre>
-]]></content>
       <categories>
         <category>游戏开发</category>
       </categories>
@@ -1891,6 +1891,57 @@
       </tags>
   </entry>
   <entry>
+    <title>git强制拉取远程项目覆盖本地项目</title>
+    <url>/2019/11/15/git%E5%BC%BA%E5%88%B6%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E9%A1%B9%E7%9B%AE%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE/</url>
+    <content><![CDATA[<h3 id="git强制覆盖："><a href="#git强制覆盖：" class="headerlink" title="git强制覆盖："></a>git强制覆盖：</h3><blockquote>
+<p>最近在工作中经常需要从git拉取到一些项目到本地，但是因为本地项目被我自己修改，所以无法用传统的方式将远程仓库的项目拉取下来。下面介绍一种远程仓库强制拉取项目到本地的方法。</p>
+</blockquote>
+<a id="more"></a>
+<hr>
+<blockquote>
+<p>除非必须强制，不要轻易使用。</p>
+</blockquote>
+<p><strong>需要将这些更新取回本地，用命令<code>git fetch</code>.</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git fetch --all</span><br></pre></td></tr></table></figure>
+<p><strong>撤销本地、暂存区、版本库(用远程服务器的origin/master替换本地、暂存区、版本库)</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git reset --hard origin&#x2F;master</span><br></pre></td></tr></table></figure>
+
+<p><strong>git pull来从远程仓库”同步”代码</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
+<p>或者用下面一行命令<br><strong>git强制覆盖本地命令（单条执行）：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git fetch --all &amp;&amp; git reset --hard origin&#x2F;master &amp;&amp; git pull</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>计算机使用</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cocos2dx使用帧动画</title>
+    <url>/2019/03/08/cocos2dx%E4%BD%BF%E7%94%A8%E5%B8%A7%E5%8A%A8%E7%94%BB/</url>
+    <content><![CDATA[<p>开发语言：lua<br>开发引擎：cocos2d_x </p>
+<p>一般来说，使用cocos2d_x开发游戏的时候都有两种做UI的方式，一种是用代码手写，一种是用cocos studio做UI，帧动画也一样，可以用这里两种方式，下面介绍博主常用的两种方法。</p>
+<a id="more"></a>
+<h3 id="代码手写帧动画"><a href="#代码手写帧动画" class="headerlink" title="代码手写帧动画"></a>代码手写帧动画</h3><blockquote>
+<p>博主这里是先将用来做帧动画的图片合成plis合图，然后创建一个精灵。用plist合图中的图片不断的去替换原来精灵的图片。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">cc.SpriteFrameCache:getInstance():addSpriteFrames(<span class="string">&quot;tupian.plist&quot;</span>)</span><br><span class="line">           local Circle_sp = cc.Sprite:createWithSpriteFrameName(<span class="string">&quot;1.png&quot;</span>)</span><br><span class="line">           Circle_sp:move(a_x,a_y)</span><br><span class="line">           Circle_sp:addTo(self._lr , <span class="number">1</span>)</span><br><span class="line">           local animation = cc.Animation:create()  </span><br><span class="line">           <span class="keyword">for</span> i=<span class="number">1</span>,<span class="number">6</span> <span class="keyword">do</span>  </span><br><span class="line">               local _frame = cc.SpriteFrameCache:getInstance():getSpriteFrame( i ..<span class="string">&quot;.png&quot;</span>) </span><br><span class="line">               <span class="keyword">if</span>  _frame then</span><br><span class="line">                   animation:addSpriteFrame(_frame) </span><br><span class="line">               end</span><br><span class="line">           end  </span><br><span class="line">           animation:setDelayPerUnit(<span class="number">0.08</span>)             --设置两个帧播放时间                  </span><br><span class="line">           animation:setRestoreOriginalFrame(<span class="keyword">false</span>)    --动画执行后还原初始状态              </span><br><span class="line">           local action = cc.Animate:create(animation) </span><br><span class="line">           local hide = cc.CallFunc:create(function()</span><br><span class="line">               local fadein = cc.FadeIn:create(<span class="number">0.08</span>)</span><br><span class="line">               local fadeout = cc.FadeOut:create(<span class="number">0.08</span>)</span><br><span class="line">               local delay = cc.DelayTime:create(<span class="number">0.08</span>)</span><br><span class="line">               Circle_sp:runAction(cc.Sequence:create(fadein,delay,fadeout))</span><br><span class="line">           end)     </span><br><span class="line">           local delay = cc.DelayTime:create(<span class="number">0.5</span>)             </span><br><span class="line">           Circle_sp:runAction(cc.Sequence:create(action,delay,hide))  </span><br></pre></td></tr></table></figure>
+
+<h3 id="用cocos-studio-做帧动画"><a href="#用cocos-studio-做帧动画" class="headerlink" title="用cocos studio 做帧动画"></a>用cocos studio 做帧动画</h3><blockquote>
+<p>需要自己在cocos studio 上提前做好相应的帧动画</p>
+</blockquote>
+<p>跳转链接：<a href="https://blog.csdn.net/Silent_F/article/details/84846000#_228">https://blog.csdn.net/Silent_F/article/details/84846000#_228</a></p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+        <tag>cocos 2d</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>cocos2dx3.17-lua的csb文件使用方法</title>
     <url>/2018/12/13/cocos2dx3-17-lua%E7%9A%84csb%E6%96%87%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<p>开发环境：xcode 、vscode<br>开发语言：lua</p>
@@ -1928,57 +1979,6 @@
       <tags>
         <tag>lua</tag>
         <tag>cocos 2d</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cocos2dx使用帧动画</title>
-    <url>/2019/03/08/cocos2dx%E4%BD%BF%E7%94%A8%E5%B8%A7%E5%8A%A8%E7%94%BB/</url>
-    <content><![CDATA[<p>开发语言：lua<br>开发引擎：cocos2d_x </p>
-<p>一般来说，使用cocos2d_x开发游戏的时候都有两种做UI的方式，一种是用代码手写，一种是用cocos studio做UI，帧动画也一样，可以用这里两种方式，下面介绍博主常用的两种方法。</p>
-<a id="more"></a>
-<h3 id="代码手写帧动画"><a href="#代码手写帧动画" class="headerlink" title="代码手写帧动画"></a>代码手写帧动画</h3><blockquote>
-<p>博主这里是先将用来做帧动画的图片合成plis合图，然后创建一个精灵。用plist合图中的图片不断的去替换原来精灵的图片。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">cc.SpriteFrameCache:getInstance():addSpriteFrames(<span class="string">&quot;tupian.plist&quot;</span>)</span><br><span class="line">           local Circle_sp = cc.Sprite:createWithSpriteFrameName(<span class="string">&quot;1.png&quot;</span>)</span><br><span class="line">           Circle_sp:move(a_x,a_y)</span><br><span class="line">           Circle_sp:addTo(self._lr , <span class="number">1</span>)</span><br><span class="line">           local animation = cc.Animation:create()  </span><br><span class="line">           <span class="keyword">for</span> i=<span class="number">1</span>,<span class="number">6</span> <span class="keyword">do</span>  </span><br><span class="line">               local _frame = cc.SpriteFrameCache:getInstance():getSpriteFrame( i ..<span class="string">&quot;.png&quot;</span>) </span><br><span class="line">               <span class="keyword">if</span>  _frame then</span><br><span class="line">                   animation:addSpriteFrame(_frame) </span><br><span class="line">               end</span><br><span class="line">           end  </span><br><span class="line">           animation:setDelayPerUnit(<span class="number">0.08</span>)             --设置两个帧播放时间                  </span><br><span class="line">           animation:setRestoreOriginalFrame(<span class="keyword">false</span>)    --动画执行后还原初始状态              </span><br><span class="line">           local action = cc.Animate:create(animation) </span><br><span class="line">           local hide = cc.CallFunc:create(function()</span><br><span class="line">               local fadein = cc.FadeIn:create(<span class="number">0.08</span>)</span><br><span class="line">               local fadeout = cc.FadeOut:create(<span class="number">0.08</span>)</span><br><span class="line">               local delay = cc.DelayTime:create(<span class="number">0.08</span>)</span><br><span class="line">               Circle_sp:runAction(cc.Sequence:create(fadein,delay,fadeout))</span><br><span class="line">           end)     </span><br><span class="line">           local delay = cc.DelayTime:create(<span class="number">0.5</span>)             </span><br><span class="line">           Circle_sp:runAction(cc.Sequence:create(action,delay,hide))  </span><br></pre></td></tr></table></figure>
-
-<h3 id="用cocos-studio-做帧动画"><a href="#用cocos-studio-做帧动画" class="headerlink" title="用cocos studio 做帧动画"></a>用cocos studio 做帧动画</h3><blockquote>
-<p>需要自己在cocos studio 上提前做好相应的帧动画</p>
-</blockquote>
-<p>跳转链接：<a href="https://blog.csdn.net/Silent_F/article/details/84846000#_228">https://blog.csdn.net/Silent_F/article/details/84846000#_228</a></p>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-        <tag>cocos 2d</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git强制拉取远程项目覆盖本地项目</title>
-    <url>/2019/11/15/git%E5%BC%BA%E5%88%B6%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E9%A1%B9%E7%9B%AE%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE/</url>
-    <content><![CDATA[<h3 id="git强制覆盖："><a href="#git强制覆盖：" class="headerlink" title="git强制覆盖："></a>git强制覆盖：</h3><blockquote>
-<p>最近在工作中经常需要从git拉取到一些项目到本地，但是因为本地项目被我自己修改，所以无法用传统的方式将远程仓库的项目拉取下来。下面介绍一种远程仓库强制拉取项目到本地的方法。</p>
-</blockquote>
-<a id="more"></a>
-<hr>
-<blockquote>
-<p>除非必须强制，不要轻易使用。</p>
-</blockquote>
-<p><strong>需要将这些更新取回本地，用命令<code>git fetch</code>.</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git fetch --all</span><br></pre></td></tr></table></figure>
-<p><strong>撤销本地、暂存区、版本库(用远程服务器的origin/master替换本地、暂存区、版本库)</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git reset --hard origin&#x2F;master</span><br></pre></td></tr></table></figure>
-
-<p><strong>git pull来从远程仓库”同步”代码</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
-<p>或者用下面一行命令<br><strong>git强制覆盖本地命令（单条执行）：</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git fetch --all &amp;&amp; git reset --hard origin&#x2F;master &amp;&amp; git pull</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>计算机使用</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -2034,20 +2034,6 @@
       </tags>
   </entry>
   <entry>
-    <title>pip问题:raise ReadTimeoutError(self._pool, None, &#39;Read timed out.&#39;)</title>
-    <url>/2020/03/04/pip%E9%97%AE%E9%A2%98-raise-ReadTimeoutError-self-pool-None-Read-timed-out/</url>
-    <content><![CDATA[<p>刚在用pip安装requests库时出现了下面问题：</p>
-<a id="more"></a>
-<p><img src="https://img-blog.csdnimg.cn/20200304215052292.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>解决方法很简单：<br> 1  直接指定下载源<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> pip install --index-url https:&#x2F;&#x2F;pypi.douban.com&#x2F;simple &lt;model&gt;</span><br><span class="line"> </span><br><span class="line">比如 pip install --index-url https:&#x2F;&#x2F;pypi.douban.com&#x2F;simple requests</span><br></pre></td></tr></table></figure><br>2 或者延迟等待时间</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip --default-timeout&#x3D;100 install -U pip</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>pip问题：Traceback (most recent call last):</title>
     <url>/2019/03/16/pip%E9%97%AE%E9%A2%98%EF%BC%9ATraceback-most-recent-call-last/</url>
     <content><![CDATA[<p>刚刚在用pip安装ipython时，遇到了下面这个错误</p>
@@ -2056,6 +2042,21 @@
 </blockquote>
 <a id="more"></a>
 <p><img src="https://img-blog.csdnimg.cn/20190316231619212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>解决方案如下：打开python 的安装路径，到<code>python3.7\Lib\site-packages\pip</code>路径下，打开<br><code>__main__.py</code>文件，修改最后一行，<br>将原本的<code>sys.exit(_main())</code> 改为 <code>sys.exit(_main__._main())</code> ,如下图<br><img src="https://img-blog.csdnimg.cn/20190316231948392.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python画素描画</title>
+    <url>/2020/04/23/python%E7%94%BB%E7%B4%A0%E6%8F%8F%E7%94%BB/</url>
+    <content><![CDATA[<p>废话不多说，直接上代码</p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageFilter, ImageOps</span><br><span class="line">img = Image.open(<span class="string">&#x27;/Users/demo/Desktop/b.png&#x27;</span>)  <span class="comment"># 原图路径</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dodge</span>(<span class="params">a,b,alpha</span>):</span></span><br><span class="line">	<span class="keyword">return</span> min(int(a*<span class="number">255</span>/(<span class="number">256</span>-b*alpha)),<span class="number">255</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">draw</span>(<span class="params">img,blur=<span class="number">25</span>,alpha=<span class="number">1.0</span></span>):</span></span><br><span class="line">	img1 = img.convert(<span class="string">&#x27;L&#x27;</span>)</span><br><span class="line">	img2 = img1.copy()</span><br><span class="line">	img2 = ImageOps.invert(img2)</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(blur):</span><br><span class="line">		img2 = img2.filter(ImageFilter.BLUR)</span><br><span class="line">	width,height = img1.size</span><br><span class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> range(width):</span><br><span class="line">		<span class="keyword">for</span> y <span class="keyword">in</span> range(height):</span><br><span class="line">			a = img1.getpixel((x,y))</span><br><span class="line">			b = img2.getpixel((x,y))</span><br><span class="line">			img1.putpixel((x,y),dodge(a,b,alpha))</span><br><span class="line">	img1.show()</span><br><span class="line">	img1.save(<span class="string">&quot;/Users/demo/Desktop/a1.png&quot;</span>)   <span class="comment"># 生成后的图片</span></span><br><span class="line">draw(img)</span><br></pre></td></tr></table></figure>
+<p>效果图<br>原图：<br><img src="https://img-blog.csdnimg.cn/20200423160506821.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>转换后的图：<br><img src="https://img-blog.csdnimg.cn/20200423160517371.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 ]]></content>
       <categories>
         <category>编程语言</category>
@@ -2078,21 +2079,6 @@
       <tags>
         <tag>python</tag>
         <tag>贪吃蛇</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python画素描画</title>
-    <url>/2020/04/23/python%E7%94%BB%E7%B4%A0%E6%8F%8F%E7%94%BB/</url>
-    <content><![CDATA[<p>废话不多说，直接上代码</p>
-<a id="more"></a>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageFilter, ImageOps</span><br><span class="line">img = Image.open(<span class="string">&#x27;/Users/demo/Desktop/b.png&#x27;</span>)  <span class="comment"># 原图路径</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dodge</span>(<span class="params">a,b,alpha</span>):</span></span><br><span class="line">	<span class="keyword">return</span> min(int(a*<span class="number">255</span>/(<span class="number">256</span>-b*alpha)),<span class="number">255</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">draw</span>(<span class="params">img,blur=<span class="number">25</span>,alpha=<span class="number">1.0</span></span>):</span></span><br><span class="line">	img1 = img.convert(<span class="string">&#x27;L&#x27;</span>)</span><br><span class="line">	img2 = img1.copy()</span><br><span class="line">	img2 = ImageOps.invert(img2)</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(blur):</span><br><span class="line">		img2 = img2.filter(ImageFilter.BLUR)</span><br><span class="line">	width,height = img1.size</span><br><span class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> range(width):</span><br><span class="line">		<span class="keyword">for</span> y <span class="keyword">in</span> range(height):</span><br><span class="line">			a = img1.getpixel((x,y))</span><br><span class="line">			b = img2.getpixel((x,y))</span><br><span class="line">			img1.putpixel((x,y),dodge(a,b,alpha))</span><br><span class="line">	img1.show()</span><br><span class="line">	img1.save(<span class="string">&quot;/Users/demo/Desktop/a1.png&quot;</span>)   <span class="comment"># 生成后的图片</span></span><br><span class="line">draw(img)</span><br></pre></td></tr></table></figure>
-<p>效果图<br>原图：<br><img src="https://img-blog.csdnimg.cn/20200423160506821.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>转换后的图：<br><img src="https://img-blog.csdnimg.cn/20200423160517371.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -2203,33 +2189,6 @@
       </tags>
   </entry>
   <entry>
-    <title>一般路由器的安全认证协议</title>
-    <url>/2018/01/06/%E4%B8%80%E8%88%AC%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE/</url>
-    <content><![CDATA[<h1 id="WLAN的安全认证和加密"><a href="#WLAN的安全认证和加密" class="headerlink" title="WLAN的安全认证和加密"></a>WLAN的安全认证和加密</h1><h2 id="无加密认证"><a href="#无加密认证" class="headerlink" title="无加密认证"></a>无加密认证</h2><p>&emsp;&emsp;无加密认证主要采用设置SSID和采用MAC地址过滤两种方式来实现。SSID就是构建的一个无线局域网的名称标识。一个无线客户端到连接一个无线局域网必须要获得该无线局域网的SSID。</p>
-<a id="more"></a>
-<p>&emsp;&emsp;无线网卡设置了不同的SSID就可以进入不同网络，SSID通常由AP广播出来，无线工作站通过扫描功能可以查看当前区域内的SSID。出于安全考虑可以禁用SSIＤ广播，此时用户就要手工设置SSID才能进入相应的网络。</p>
-<blockquote>
-<p>注意：同意生产商推出的无线路由器或AP都是用了相同的SSID，一旦那些企图非法连接的攻击者利用通用的初始化字符串来连接无线网络，就极易建立起一条非法的连接，从而给无线网络带来威胁。因此，建议最好能够将SSID命名为一些较有个性的名字。同时禁用SSID广播，这样构建的无线网络不会出现在其他人所搜索的可用网络列表中。</p>
-</blockquote>
-<h2 id="MAC地址过滤"><a href="#MAC地址过滤" class="headerlink" title="MAC地址过滤"></a>MAC地址过滤</h2><p>&emsp;&emsp;MAC地址（Medium/ Media Access Contorl ,介质访问控制）是固化在网卡里的物理地址。MAC地址是由48位二进制数构成。MAC地址通常是由网卡生产厂家烧入网卡的EPEOM，它存储的是传输数据时真正赖以标志发出数据的计算机和接收数据的主机地址。在网络底层的物理传输过程中，是通过物理地址来世界主机的，它一般也是全球唯一的。<br>&emsp;&emsp;无线AP可以通过工作站的MAC地址来对特定的工作站进行地址过滤管理，从而可以表示是允许还是拒绝工作站来访问AP。<br>&emsp;&emsp;启用过滤之后，需要将客户无线网卡的MAC地址在无线路由器中进行注册。</p>
-<h2 id="相关的安全认证协议"><a href="#相关的安全认证协议" class="headerlink" title="相关的安全认证协议"></a>相关的安全认证协议</h2><p>&emsp;&emsp;安全认证的作用是实现网络中的身份认证，通过设置相关的安全认证协议和密钥来实现对无线接入的安全管理。通常用户在访问某个无线网络时，弹出的认证窗口要求用户端输入相关的密码，这就是安全认证的过程。<br>&emsp;&emsp;很多人都设置过路由器，特别是在设置wifi密码的时候会选择一个“加密方式”<br><img src="https://img-service.csdnimg.cn/img_convert/7c4ee85ded76628d673645b1525211a4.png" alt="这里写图片描述"><br>很多人都会选择“WPA/WPA2”这一项，为什么了？不知道。<br>&emsp;&emsp;如果无线网络这是为免费访问，则可以不需要设置认证选项。常见的无线认证协议有WEP、WPA-PSK/WAP2-PSK等</p>
-<h3 id="WEP"><a href="#WEP" class="headerlink" title="WEP"></a>WEP</h3><p>&emsp;&emsp;WEP（Wired Equivalent Privacy）即有限等效加密技术。它是IEEEE 802.11b标准中定义的最基本的加密技术，多用于小型的、对安全性要求不高的场合。WEP协议是对在两台设备间无线传输的数据进行加密的协议，用以防止非法用户窃听或侵入无线网络。<br>&emsp;&emsp;早期的无线网络中，均没有验证的说法，为此，仅可以使用WEP加密方式来实现验证。WEP加密方式提供给用户4个密钥，Key1，Key2，Key3，Key4，用户可以选择设置4个密钥，并设置一个激活密钥，当无线设备需要连该网络时，需要选择激活的密钥，并输入正确的密码方可以连接成功。<br>&emsp;&emsp;WEP的算法长度分别为64位和128位方式。64位Key只能支持5位或13位数字或英文字符，128位Key只能支持10位或26位数字或英文字符。一般在配置时，均会给出四种选择方式。用户可以根据实际网络验证需求来选择验证方式。<br>&emsp;&emsp;WEP验证方分为开放式系统验证和共享密钥验证两种模式，开放式系统验证的AP，随便输入一个密码，都可以连接，但如果密码不正确，会显示为“受限制”。共享密钥采用WEP加密的质询进行响应，如果工作站的提供的密钥是错误的，则立即拒绝请求。如果工作站有正确的WEP密码，就可以解密该质询，并允许其接入。由于安全性较差，当前WEP验证方式基本上已经淘汰。</p>
-<h3 id="WPA-PSK-WAP2-PSK"><a href="#WPA-PSK-WAP2-PSK" class="headerlink" title="WPA-PSK/WAP2-PSK"></a>WPA-PSK/WAP2-PSK</h3><p>&emsp;&emsp;WPA/WPA2是无线联盟指定的一种等级更高的数据保护和访问控制标准，用于升级现存的或将来的无线局域网系统。WPA（Wi-Fi ProtectedAccess）是一种保护局无线网络安全的协议，WPA由IEEE802.11i标准定义，它是替代WEP的过渡方案。WPA2 是经由Wi-Fi联盟验证过的IEEE 802.11i标准的认证形式。它采用RADIUS和Pre-Shared Key（预共享密钥）两种验证方式。<br>&emsp;&emsp;RADIUS方式中用户提供认证所需的凭证，如果用户名和密码，通过特定的用户服务器（一般是RADIUS服务器）来实现，适用于大型企业网络。PSK方式仅要求在每个WLAN节点（AP，无线路由器、网卡等）预先输入一个密钥即可实现。只要密钥吻合，客户就可以获得WLAN访问权。它是设计给家庭和小型公司网络用的验证协议。<br>&emsp;&emsp;WPA包含了认证、加密和数据完整性校验三个组成部分，是一个完整的安全性方案。当前流星的认证方式包括WPA-PSK，WPA2-PSK，WPA/WPA2混合模式-PSK三种方式。</p>
-<h2 id="加密协议"><a href="#加密协议" class="headerlink" title="加密协议"></a>加密协议</h2><p>&emsp;&emsp; 加密协议用户实现对无线信息的加密保护。如果对无线信号不进行加密，则可能导致信号被非法截取之后被破解，为此在无线网络中出现了加密算法和相关的协议。<br>&emsp;&emsp;TKLP和AES是目前在无线网络上广泛使用的加密协议。它们主要在WPA/WPA2协议模式下工作，WAP-PSK/WPA2-PSK 均可使用AES和TKLP实现加密。</p>
-<h3 id="TKLP加密算法"><a href="#TKLP加密算法" class="headerlink" title="TKLP加密算法"></a>TKLP加密算法</h3><p>&emsp;&emsp;TKLP（Temporal Key Integrity Protocol）即暂时密钥集成协议，它与WEP一样基于R4加密算法，TKLP中密码使用的密钥长度为128位。TKLP在现有的WEP加密引擎中追加了“密钥细分（每发一个包重新生成一个新的密钥）“、”消息完整性检查（MI）“、”具有序列功能的初始向量（IV）“、”密钥生成和定期更新功能“等4种算法，从而提高了加密安全强度。<br>&emsp;&emsp;WPA采用TKLP传输的每一个数据包都具有独有的48位序列号，由于48位序列号重复率低。因此很难实施重放攻击。TKLP是比WEP更安全的加密方法，但是比较慢。要设置TKLP协议，无线客户端需要支持TKLP，另外必须设置WPA-PSK密钥（预共享密钥）。<br>&emsp;&emsp;当TKLP用作加密方法时，必须输入WPA-PSK预共享密钥，可以指定8~63个字母数字字符或64位十六进制数字来做密钥。</p>
-<h3 id="AES加密算法"><a href="#AES加密算法" class="headerlink" title="AES加密算法"></a>AES加密算法</h3><p>&emsp;&emsp;AES（Advanced Encryption Standard），级高级加密标准，是没过国家标准与技术研究所用于加密电子数据的规范，该算法汇聚了设计简单、密钥安装快、需要的内存空间少、在所有的平台上运行良好、支持并行处理并且可以抵抗所有已知攻击等优点。<br>&emsp;&emsp;AES是一个迭代的、对称密钥分组的密码，它可以使用128,、192和256位密钥，并且用128位（16字节）分组加密和解密数据。与公共密钥密码使用密钥对不同，对称密钥密码使用相同的密钥加密和解密数据。通过分组密码返回的加密数据的位数与输入数据相同。迭代加密使用一个循环结构，在该循环中重复置换（Permutations）和替换（Substitutes）输入数据。<br>&emsp;&emsp;AES提供了比TKLP更加高级的加密技术，现在无线路由器都提供了这2种算法、TKLP安全性不如AES，而且使用TKLP算法时路由器的吞吐量下降。<br>&emsp;&emsp;当AES用作加密方法时，必须输入WPA-PSK预共享密钥。可以指定8~63个字母数字字符或64位十六进制数字来做密钥。</p>
-<h3 id="IEEE-802-11x"><a href="#IEEE-802-11x" class="headerlink" title="IEEE 802.11x"></a>IEEE 802.11x</h3><p>&emsp;&emsp; IEEE 802.11x是一种C/S模式（客户机和服务器结构）下基于端口的访问控制和认证协议。C/S中间通过AP来代理所有的信息，对于无线客户端来说Radius服务器是透明的，客户的信息一般被保存在数据库中。IEEE 802.11x限制未被授权的设备对LAN的访问。在对网络建立连接前，认证服务器会对每一个想要进行连接的客户端进行审核。IEEE 802.11x本身并不提供实际的认证机制，需要和上层认证协议（如EAP协议）配合来实现用户认证和密钥分发。<br>&emsp;&emsp;使用IEEE 802.11x协议，可以在无线工作站与AP建立连接之前，对用户身份的合法性进行认证。当无线终端向AP发起连接请求时，AP会要求用户输入用户名和密码，再把这个用户名和密码送到验证服务器上做验证，如果验证通过才允许用户享用网络资源。这样可以大大提高整个网络的安全性。</p>
-]]></content>
-      <categories>
-        <category>网络</category>
-      </categories>
-      <tags>
-        <tag>网络</tag>
-        <tag>路由器</tag>
-        <tag>网络安全</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>不同编程语言的区别</title>
     <url>/2018/10/05/%E4%B8%8D%E5%90%8C%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<hr>
@@ -2285,6 +2244,33 @@
       <tags>
         <tag>蓝牙模块</tag>
         <tag>HC05</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一般路由器的安全认证协议</title>
+    <url>/2018/01/06/%E4%B8%80%E8%88%AC%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE/</url>
+    <content><![CDATA[<h1 id="WLAN的安全认证和加密"><a href="#WLAN的安全认证和加密" class="headerlink" title="WLAN的安全认证和加密"></a>WLAN的安全认证和加密</h1><h2 id="无加密认证"><a href="#无加密认证" class="headerlink" title="无加密认证"></a>无加密认证</h2><p>&emsp;&emsp;无加密认证主要采用设置SSID和采用MAC地址过滤两种方式来实现。SSID就是构建的一个无线局域网的名称标识。一个无线客户端到连接一个无线局域网必须要获得该无线局域网的SSID。</p>
+<a id="more"></a>
+<p>&emsp;&emsp;无线网卡设置了不同的SSID就可以进入不同网络，SSID通常由AP广播出来，无线工作站通过扫描功能可以查看当前区域内的SSID。出于安全考虑可以禁用SSIＤ广播，此时用户就要手工设置SSID才能进入相应的网络。</p>
+<blockquote>
+<p>注意：同意生产商推出的无线路由器或AP都是用了相同的SSID，一旦那些企图非法连接的攻击者利用通用的初始化字符串来连接无线网络，就极易建立起一条非法的连接，从而给无线网络带来威胁。因此，建议最好能够将SSID命名为一些较有个性的名字。同时禁用SSID广播，这样构建的无线网络不会出现在其他人所搜索的可用网络列表中。</p>
+</blockquote>
+<h2 id="MAC地址过滤"><a href="#MAC地址过滤" class="headerlink" title="MAC地址过滤"></a>MAC地址过滤</h2><p>&emsp;&emsp;MAC地址（Medium/ Media Access Contorl ,介质访问控制）是固化在网卡里的物理地址。MAC地址是由48位二进制数构成。MAC地址通常是由网卡生产厂家烧入网卡的EPEOM，它存储的是传输数据时真正赖以标志发出数据的计算机和接收数据的主机地址。在网络底层的物理传输过程中，是通过物理地址来世界主机的，它一般也是全球唯一的。<br>&emsp;&emsp;无线AP可以通过工作站的MAC地址来对特定的工作站进行地址过滤管理，从而可以表示是允许还是拒绝工作站来访问AP。<br>&emsp;&emsp;启用过滤之后，需要将客户无线网卡的MAC地址在无线路由器中进行注册。</p>
+<h2 id="相关的安全认证协议"><a href="#相关的安全认证协议" class="headerlink" title="相关的安全认证协议"></a>相关的安全认证协议</h2><p>&emsp;&emsp;安全认证的作用是实现网络中的身份认证，通过设置相关的安全认证协议和密钥来实现对无线接入的安全管理。通常用户在访问某个无线网络时，弹出的认证窗口要求用户端输入相关的密码，这就是安全认证的过程。<br>&emsp;&emsp;很多人都设置过路由器，特别是在设置wifi密码的时候会选择一个“加密方式”<br><img src="https://img-service.csdnimg.cn/img_convert/7c4ee85ded76628d673645b1525211a4.png" alt="这里写图片描述"><br>很多人都会选择“WPA/WPA2”这一项，为什么了？不知道。<br>&emsp;&emsp;如果无线网络这是为免费访问，则可以不需要设置认证选项。常见的无线认证协议有WEP、WPA-PSK/WAP2-PSK等</p>
+<h3 id="WEP"><a href="#WEP" class="headerlink" title="WEP"></a>WEP</h3><p>&emsp;&emsp;WEP（Wired Equivalent Privacy）即有限等效加密技术。它是IEEEE 802.11b标准中定义的最基本的加密技术，多用于小型的、对安全性要求不高的场合。WEP协议是对在两台设备间无线传输的数据进行加密的协议，用以防止非法用户窃听或侵入无线网络。<br>&emsp;&emsp;早期的无线网络中，均没有验证的说法，为此，仅可以使用WEP加密方式来实现验证。WEP加密方式提供给用户4个密钥，Key1，Key2，Key3，Key4，用户可以选择设置4个密钥，并设置一个激活密钥，当无线设备需要连该网络时，需要选择激活的密钥，并输入正确的密码方可以连接成功。<br>&emsp;&emsp;WEP的算法长度分别为64位和128位方式。64位Key只能支持5位或13位数字或英文字符，128位Key只能支持10位或26位数字或英文字符。一般在配置时，均会给出四种选择方式。用户可以根据实际网络验证需求来选择验证方式。<br>&emsp;&emsp;WEP验证方分为开放式系统验证和共享密钥验证两种模式，开放式系统验证的AP，随便输入一个密码，都可以连接，但如果密码不正确，会显示为“受限制”。共享密钥采用WEP加密的质询进行响应，如果工作站的提供的密钥是错误的，则立即拒绝请求。如果工作站有正确的WEP密码，就可以解密该质询，并允许其接入。由于安全性较差，当前WEP验证方式基本上已经淘汰。</p>
+<h3 id="WPA-PSK-WAP2-PSK"><a href="#WPA-PSK-WAP2-PSK" class="headerlink" title="WPA-PSK/WAP2-PSK"></a>WPA-PSK/WAP2-PSK</h3><p>&emsp;&emsp;WPA/WPA2是无线联盟指定的一种等级更高的数据保护和访问控制标准，用于升级现存的或将来的无线局域网系统。WPA（Wi-Fi ProtectedAccess）是一种保护局无线网络安全的协议，WPA由IEEE802.11i标准定义，它是替代WEP的过渡方案。WPA2 是经由Wi-Fi联盟验证过的IEEE 802.11i标准的认证形式。它采用RADIUS和Pre-Shared Key（预共享密钥）两种验证方式。<br>&emsp;&emsp;RADIUS方式中用户提供认证所需的凭证，如果用户名和密码，通过特定的用户服务器（一般是RADIUS服务器）来实现，适用于大型企业网络。PSK方式仅要求在每个WLAN节点（AP，无线路由器、网卡等）预先输入一个密钥即可实现。只要密钥吻合，客户就可以获得WLAN访问权。它是设计给家庭和小型公司网络用的验证协议。<br>&emsp;&emsp;WPA包含了认证、加密和数据完整性校验三个组成部分，是一个完整的安全性方案。当前流星的认证方式包括WPA-PSK，WPA2-PSK，WPA/WPA2混合模式-PSK三种方式。</p>
+<h2 id="加密协议"><a href="#加密协议" class="headerlink" title="加密协议"></a>加密协议</h2><p>&emsp;&emsp; 加密协议用户实现对无线信息的加密保护。如果对无线信号不进行加密，则可能导致信号被非法截取之后被破解，为此在无线网络中出现了加密算法和相关的协议。<br>&emsp;&emsp;TKLP和AES是目前在无线网络上广泛使用的加密协议。它们主要在WPA/WPA2协议模式下工作，WAP-PSK/WPA2-PSK 均可使用AES和TKLP实现加密。</p>
+<h3 id="TKLP加密算法"><a href="#TKLP加密算法" class="headerlink" title="TKLP加密算法"></a>TKLP加密算法</h3><p>&emsp;&emsp;TKLP（Temporal Key Integrity Protocol）即暂时密钥集成协议，它与WEP一样基于R4加密算法，TKLP中密码使用的密钥长度为128位。TKLP在现有的WEP加密引擎中追加了“密钥细分（每发一个包重新生成一个新的密钥）“、”消息完整性检查（MI）“、”具有序列功能的初始向量（IV）“、”密钥生成和定期更新功能“等4种算法，从而提高了加密安全强度。<br>&emsp;&emsp;WPA采用TKLP传输的每一个数据包都具有独有的48位序列号，由于48位序列号重复率低。因此很难实施重放攻击。TKLP是比WEP更安全的加密方法，但是比较慢。要设置TKLP协议，无线客户端需要支持TKLP，另外必须设置WPA-PSK密钥（预共享密钥）。<br>&emsp;&emsp;当TKLP用作加密方法时，必须输入WPA-PSK预共享密钥，可以指定8~63个字母数字字符或64位十六进制数字来做密钥。</p>
+<h3 id="AES加密算法"><a href="#AES加密算法" class="headerlink" title="AES加密算法"></a>AES加密算法</h3><p>&emsp;&emsp;AES（Advanced Encryption Standard），级高级加密标准，是没过国家标准与技术研究所用于加密电子数据的规范，该算法汇聚了设计简单、密钥安装快、需要的内存空间少、在所有的平台上运行良好、支持并行处理并且可以抵抗所有已知攻击等优点。<br>&emsp;&emsp;AES是一个迭代的、对称密钥分组的密码，它可以使用128,、192和256位密钥，并且用128位（16字节）分组加密和解密数据。与公共密钥密码使用密钥对不同，对称密钥密码使用相同的密钥加密和解密数据。通过分组密码返回的加密数据的位数与输入数据相同。迭代加密使用一个循环结构，在该循环中重复置换（Permutations）和替换（Substitutes）输入数据。<br>&emsp;&emsp;AES提供了比TKLP更加高级的加密技术，现在无线路由器都提供了这2种算法、TKLP安全性不如AES，而且使用TKLP算法时路由器的吞吐量下降。<br>&emsp;&emsp;当AES用作加密方法时，必须输入WPA-PSK预共享密钥。可以指定8~63个字母数字字符或64位十六进制数字来做密钥。</p>
+<h3 id="IEEE-802-11x"><a href="#IEEE-802-11x" class="headerlink" title="IEEE 802.11x"></a>IEEE 802.11x</h3><p>&emsp;&emsp; IEEE 802.11x是一种C/S模式（客户机和服务器结构）下基于端口的访问控制和认证协议。C/S中间通过AP来代理所有的信息，对于无线客户端来说Radius服务器是透明的，客户的信息一般被保存在数据库中。IEEE 802.11x限制未被授权的设备对LAN的访问。在对网络建立连接前，认证服务器会对每一个想要进行连接的客户端进行审核。IEEE 802.11x本身并不提供实际的认证机制，需要和上层认证协议（如EAP协议）配合来实现用户认证和密钥分发。<br>&emsp;&emsp;使用IEEE 802.11x协议，可以在无线工作站与AP建立连接之前，对用户身份的合法性进行认证。当无线终端向AP发起连接请求时，AP会要求用户输入用户名和密码，再把这个用户名和密码送到验证服务器上做验证，如果验证通过才允许用户享用网络资源。这样可以大大提高整个网络的安全性。</p>
+]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>路由器</tag>
+        <tag>网络安全</tag>
       </tags>
   </entry>
   <entry>
@@ -2355,6 +2341,85 @@
         <tag>算法</tag>
         <tag>消隐算法</tag>
         <tag>计算机图形学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>初识无人机</title>
+    <url>/2016/10/30/%E5%88%9D%E8%AF%86%E6%97%A0%E4%BA%BA%E6%9C%BA/</url>
+    <content><![CDATA[<h3 id="了解无人机"><a href="#了解无人机" class="headerlink" title="了解无人机"></a>了解无人机</h3><blockquote>
+<p>&emsp;&emsp;相信很多人和我一样，刚开始了解无人机是从《爸爸去哪儿》开始的，当航拍进入人们的视野，无人机遍开始“火”了起来。</p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>&emsp;&emsp;但自己真正接触飞行器是在大二下学期的时候。真正开始了解无人机是在大二暑假的时候。那个时候国防科技大学开办了一个“智能无人系统”的暑假学校，其实刚开始我也不知道是干嘛的，但是我想肯定和无人机有关，就报了名。最后在老师的帮助下有幸的进入了这个暑假学校。</p>
+</blockquote>
+<blockquote>
+<p>&emsp;&emsp;暑假学校不但讲了无人机，还讲了智能机器人，无人车、水下滑翔机。海陆空都有讲到。不过主要还是讲了无人机。而讲无人机的老师是北航了全权副教授。后来我才知道我们班有部分同学是因为全权副教授才去报名参加的，我上了全权老师的课后，不得不感叹他是一个很厉害的人。</p>
+</blockquote>
+<blockquote>
+<p>给大家介绍一些学习的资源：</p>
+</blockquote>
+<ul>
+<li><strong><a href="http://rfly.buaa.edu.cn/index.html">北航可靠飞行控制研究组</a></strong></li>
+<li><strong>北航可靠飞行控制研究组微信公众号：buaarfly</strong></li>
+</ul>
+<blockquote>
+<p>下面这个是我一个非常厉害师兄的主页，很适合初学者：<br>  —— <a href="http://www.nephen.com/arrange/archive.html">来风的官网</a></p>
+</blockquote>
+<hr>
+<h3 id="关于无人机"><a href="#关于无人机" class="headerlink" title="关于无人机"></a>关于无人机</h3><p>&emsp;&emsp;其实自己对于“无人机”和“航模”这两个概念一直不是很清楚，这两个概念也很容易混淆。</p>
+<p>根据百度上的解释：</p>
+<blockquote>
+<p><a href="5j4ReWAlphA0rIDUcWtPWOi39ko9WPghD0QnZ3YlLjGKM48hBEerfUfb2qMAvCmMRbfcj9q">无人机</a>: 无人驾驶飞机简称“无人机”，英文缩写为“UAV”，是利用无线电遥控设备和自备的程序控制装置操纵的不载人飞机。<br><a href="http://baike.baidu.com/link?url=IwUUOxhRDJCTtvbob6PKWXbq40X8WxXXrjtYVbKDnvdD2dXvk7XtbP2ttQZUgnbXJpuWQL7llgqeQL1bc3UdDz5ugER7cNe_QnD08lR1Ppa">航模</a>:是仿航天器外形制作的一种可回收模型，隶属于航空航天模型，是供运动用的一种不载人的飞行器。</p>
+</blockquote>
+<p>但是全权老师的课件上又是这么区分的：</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">.</th>
+<th align="left">无人机</th>
+<th align="left">航模</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">操控方式</td>
+<td align="left">可自主驾驶</td>
+<td align="left">需遥控操纵</td>
+</tr>
+<tr>
+<td align="center">用途</td>
+<td align="left">军事用途/民用特种用途</td>
+<td align="left">接近于玩具</td>
+</tr>
+<tr>
+<td align="center">组成</td>
+<td align="left">复杂，需地面站</td>
+<td align="left">简单无需地面站</td>
+</tr>
+<tr>
+<td align="center">半自主控制方式：多旋翼属于航模范畴</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">全自主控制方式：多旋翼属于无人机范畴</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+</blockquote>
+<p>出于纠结，我也没有单纯的说自己的弄的是无人机还是航模，就只是说自己做的“<a href="http://baike.baidu.com/link?url=DrGZ6kRIPv74tKFT6p_EBBqeXTQ54dIJey-TcN98vYf9Ps7oF985ELiyIjQGr3wWm9jUkzD89eyAlYyJGI8T46dFdhW7ZBb-0bPx0I9s8VMr_2B9zY8mfy-0bGpxYoXiFo3P7HfmVn-9EnTeD7MKJq">四旋翼飞行器</a>”</p>
+<blockquote>
+<p>从这篇博客后，自己就准备从零开始学习四旋翼飞行器了。加油！<br>还望和更多有共同目标的人一起学习。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>无人机</category>
+      </categories>
+      <tags>
+        <tag>无人机</tag>
+        <tag>试飞</tag>
       </tags>
   </entry>
   <entry>
@@ -2444,6 +2509,20 @@
       </tags>
   </entry>
   <entry>
+    <title>pip问题:raise ReadTimeoutError(self._pool, None, &#39;Read timed out.&#39;)</title>
+    <url>/2020/03/04/pip%E9%97%AE%E9%A2%98-raise-ReadTimeoutError-self-pool-None-Read-timed-out/</url>
+    <content><![CDATA[<p>刚在用pip安装requests库时出现了下面问题：</p>
+<a id="more"></a>
+<p><img src="https://img-blog.csdnimg.cn/20200304215052292.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>解决方法很简单：<br> 1  直接指定下载源<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> pip install --index-url https:&#x2F;&#x2F;pypi.douban.com&#x2F;simple &lt;model&gt;</span><br><span class="line"> </span><br><span class="line">比如 pip install --index-url https:&#x2F;&#x2F;pypi.douban.com&#x2F;simple requests</span><br></pre></td></tr></table></figure><br>2 或者延迟等待时间</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip --default-timeout&#x3D;100 install -U pip</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>公用电信网间互联管理规定</title>
     <url>/2018/08/10/%E5%85%AC%E7%94%A8%E7%94%B5%E4%BF%A1%E7%BD%91%E9%97%B4%E4%BA%92%E8%81%94%E7%AE%A1%E7%90%86%E8%A7%84%E5%AE%9A/</url>
     <content><![CDATA[<p>&emsp;&emsp;网间互联有利于破除网络壁垒，节约网络建设成本，方便用户的使用。国际电信联盟（International Telecommunications Union，TTU）和一些国家（地区）的电信法都对电信网间互联提出了要求。其核心的要义是：建立电信网间的有效通信连接，以使一个电信业务经营者的用户能够与另一个电信业务经营者的用户相互通信或者能够使用另一电信业务经营者的各种电信业务。</p>
@@ -2463,85 +2542,6 @@
       <categories>
         <category>初级通信工程师</category>
       </categories>
-  </entry>
-  <entry>
-    <title>初识无人机</title>
-    <url>/2016/10/30/%E5%88%9D%E8%AF%86%E6%97%A0%E4%BA%BA%E6%9C%BA/</url>
-    <content><![CDATA[<h3 id="了解无人机"><a href="#了解无人机" class="headerlink" title="了解无人机"></a>了解无人机</h3><blockquote>
-<p>&emsp;&emsp;相信很多人和我一样，刚开始了解无人机是从《爸爸去哪儿》开始的，当航拍进入人们的视野，无人机遍开始“火”了起来。</p>
-</blockquote>
-<a id="more"></a>
-<blockquote>
-<p>&emsp;&emsp;但自己真正接触飞行器是在大二下学期的时候。真正开始了解无人机是在大二暑假的时候。那个时候国防科技大学开办了一个“智能无人系统”的暑假学校，其实刚开始我也不知道是干嘛的，但是我想肯定和无人机有关，就报了名。最后在老师的帮助下有幸的进入了这个暑假学校。</p>
-</blockquote>
-<blockquote>
-<p>&emsp;&emsp;暑假学校不但讲了无人机，还讲了智能机器人，无人车、水下滑翔机。海陆空都有讲到。不过主要还是讲了无人机。而讲无人机的老师是北航了全权副教授。后来我才知道我们班有部分同学是因为全权副教授才去报名参加的，我上了全权老师的课后，不得不感叹他是一个很厉害的人。</p>
-</blockquote>
-<blockquote>
-<p>给大家介绍一些学习的资源：</p>
-</blockquote>
-<ul>
-<li><strong><a href="http://rfly.buaa.edu.cn/index.html">北航可靠飞行控制研究组</a></strong></li>
-<li><strong>北航可靠飞行控制研究组微信公众号：buaarfly</strong></li>
-</ul>
-<blockquote>
-<p>下面这个是我一个非常厉害师兄的主页，很适合初学者：<br>  —— <a href="http://www.nephen.com/arrange/archive.html">来风的官网</a></p>
-</blockquote>
-<hr>
-<h3 id="关于无人机"><a href="#关于无人机" class="headerlink" title="关于无人机"></a>关于无人机</h3><p>&emsp;&emsp;其实自己对于“无人机”和“航模”这两个概念一直不是很清楚，这两个概念也很容易混淆。</p>
-<p>根据百度上的解释：</p>
-<blockquote>
-<p><a href="5j4ReWAlphA0rIDUcWtPWOi39ko9WPghD0QnZ3YlLjGKM48hBEerfUfb2qMAvCmMRbfcj9q">无人机</a>: 无人驾驶飞机简称“无人机”，英文缩写为“UAV”，是利用无线电遥控设备和自备的程序控制装置操纵的不载人飞机。<br><a href="http://baike.baidu.com/link?url=IwUUOxhRDJCTtvbob6PKWXbq40X8WxXXrjtYVbKDnvdD2dXvk7XtbP2ttQZUgnbXJpuWQL7llgqeQL1bc3UdDz5ugER7cNe_QnD08lR1Ppa">航模</a>:是仿航天器外形制作的一种可回收模型，隶属于航空航天模型，是供运动用的一种不载人的飞行器。</p>
-</blockquote>
-<p>但是全权老师的课件上又是这么区分的：</p>
-<blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">.</th>
-<th align="left">无人机</th>
-<th align="left">航模</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">操控方式</td>
-<td align="left">可自主驾驶</td>
-<td align="left">需遥控操纵</td>
-</tr>
-<tr>
-<td align="center">用途</td>
-<td align="left">军事用途/民用特种用途</td>
-<td align="left">接近于玩具</td>
-</tr>
-<tr>
-<td align="center">组成</td>
-<td align="left">复杂，需地面站</td>
-<td align="left">简单无需地面站</td>
-</tr>
-<tr>
-<td align="center">半自主控制方式：多旋翼属于航模范畴</td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="center">全自主控制方式：多旋翼属于无人机范畴</td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-</tbody></table>
-</blockquote>
-<p>出于纠结，我也没有单纯的说自己的弄的是无人机还是航模，就只是说自己做的“<a href="http://baike.baidu.com/link?url=DrGZ6kRIPv74tKFT6p_EBBqeXTQ54dIJey-TcN98vYf9Ps7oF985ELiyIjQGr3wWm9jUkzD89eyAlYyJGI8T46dFdhW7ZBb-0bPx0I9s8VMr_2B9zY8mfy-0bGpxYoXiFo3P7HfmVn-9EnTeD7MKJq">四旋翼飞行器</a>”</p>
-<blockquote>
-<p>从这篇博客后，自己就准备从零开始学习四旋翼飞行器了。加油！<br>还望和更多有共同目标的人一起学习。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>无人机</category>
-      </categories>
-      <tags>
-        <tag>无人机</tag>
-        <tag>试飞</tag>
-      </tags>
   </entry>
   <entry>
     <title>在Lua中调用C语言</title>
@@ -2632,29 +2632,6 @@
       </tags>
   </entry>
   <entry>
-    <title>数据手套的设计与实现</title>
-    <url>/2017/06/14/%E6%95%B0%E6%8D%AE%E6%89%8B%E5%A5%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<p><strong>摘要 :</strong> 数据手套在人机交互中提供了一种有效的人机交互手段，从数据手套的理论出发，本论文利用一些硬件设备以及软件开发环境，设计了一款可以与机械臂、虚拟手等终端交互的数据手套。硬件设备包括弯曲度传感器、MPU6050六轴传感器、HC-05蓝牙串口通信模块、TFT显示屏、STM32F103最小系统开发板，数据手套软件开发平台为Keil uVision5，所用的开发语言为C语言，在系统调试的时候用到了匿名四轴上位机和串口调试助手，用来对MPU6050六轴传感器和弯曲度传感器进行调试，此外在整个系统中移植了UCOS-II嵌入式实时操作系统，保证了数据在传输时的实时性和高效性。实现了数据手套对五轴机械臂的控制以及人手到虚拟手的动作映射。</p>
-<a id="more"></a>
-<p><strong>关键词</strong> 人机交互；数据手套；虚拟手</p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>&emsp;&emsp;人机交互是研究系统与用户之间的交互关系[1]。随着社会的不断发展和科学技术水平的提高，传统的计算机输入设备（鼠标、键盘）已不再唯一。越来越多的场合出现了各种不同的人机交互的应用场景，比如人脸识别、人体感应游戏、VR（虚拟现实）[2]。数据手套作为一种新型的人机交互工具，目前在越来越多的领域得到了广泛的应用。其目的在于能够通过内置的传感器，实时获取手部包括手掌、手指等有效部位的弯曲等角度的数据[3]。而且手部某一个关节的运动，不仅会作用于对应的传感器的数据变化，而且通过软组织的相互作用，使得其他的传感器数据也发生变化，这就要求为保证一定的数据精度，必须对求得的数据进行一定的处理[4]。本课题所研究的数据手套硬件部分主要包括嵌入式控制器、TFT显示屏、弯曲度传感器、蓝牙串口通信模块、MPU6050六轴传感器等，具有可穿戴，无线连接，使用灵活等特点。目的在于做出一款可用于控制机械臂、与虚拟手交互映射等娱乐交互的数据手套。</p>
-<h2 id="系统硬件设计"><a href="#系统硬件设计" class="headerlink" title="系统硬件设计"></a>系统硬件设计</h2><p>&emsp;&emsp;本论文所研究的数据手套在功能上要求能够实时的检测到使用者手指的弯曲以及整个手姿态变化的数据信息[5]，并对检测到的数据信息做出判断后发送相应的指令给与之交互的终端。根据数据手套在功能上的要求，本课题设计出了以下解决方案：<br>&emsp;&emsp;（1）采用弯曲度传感器采集手指弯曲的数据信息，弯曲度传感器具有柔韧性好，可折叠，测量范围广等特点，比较适合用来收集弯曲即手指的数据信息。<br>&emsp;&emsp;（2）MPU6050传感器是全球首例9轴运动处理传感器。它集成了3MEMS陀螺仪，3轴MEMS加速度计，以及一个可扩展的数字运动处理器DMP（Digital  Motion Processor），可以使用I2C接口连接一个第三方的数字传感器。MPU6050传感器还免除了组合陀螺仪与加速度器时之轴间差的问题，减少了大量的封装空间，而且MPU6050支持mpu的dmp官方解算库，可以直接输出四元数，欧拉角格式的数据。<br>&emsp;&emsp;（3）在通信方式的选择上，考虑到本课题需要无线通信、功耗低，能快速连接且组网简单的通信特点，最终选择了蓝牙无线通信方式，使用的是HC-05蓝牙通信模块，HC-05蓝牙通信模块是一款高性能主从一体蓝牙串口模块，可以不用知道太多蓝牙相关知识就可以很好的上手。<br>&emsp;&emsp;（4）电源可以使用USB数据线接PC机供电，也可以使用大容量锂电池供电。锂电池具有续航时间长、可循环充电、绿色环保且重量轻等特点。<br>数据手套硬件系统主要包括以下几个功能模块：主控芯片模块、弯曲度传感器模块、MPU6050传感器模块、电源模块、蓝牙通信模块、数据显示模块，硬件系统图、硬件实物图分别如图2.1、图2.2所示<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img src="https://img-blog.csdn.net/2018070120234672?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width=400 height=256 /><br>  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;   图2.1 数据手套硬件系统图<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img src="https://img-blog.csdn.net/20180701202404387?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width=400 height=256 /><br>图2.2 硬件实物图</p>
-<h2 id="系统软件设计及调试"><a href="#系统软件设计及调试" class="headerlink" title="系统软件设计及调试"></a>系统软件设计及调试</h2><p>&emsp;&emsp;数据手套软件开发平台为Keil uVision5，所用的开发语言为C语言，在系统调试的时候用到了匿名四轴上位机和串口调试助手，用来对MPU6050六轴传感器和弯曲度传感器进行调试，此外在整个系统中移植了UCOS-II嵌入式实时操作系统，保证了数据在传输时的实时性和高效性。<br>&emsp;&emsp;UCOS-II嵌入式实时操作系统是一个可移植、可固化的、可裁剪的、占先式多任务实时内核，它适用于多种微处理器，微控制器和数字处理芯片[6]。本系统软件主流程图如图3.1所示：<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img src="https://img-blog.csdn.net/20180701203107760?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width=400 height=256 /><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图3.1 系统软件主流程图<br>&emsp;&emsp;UCOS的原理就是当一个任务A正在执行的时候，如果它释放了CPU的控制权，先对任务A进行现场保护，然后从任务就绪表中查找其他就绪任务去执行，等到任务A的等待时间到了，它可能重新获得CPU控制权，这个时候恢复任务A的现场，从而继续执行任务A，这样看起来就好像是两个任务同时执行了。实际上，任何时候都只有一个任务可以获得CPU控制权。所谓的任务，其实就是一个死循环函数，该函数实现一定的工程，一个工程可以有很多这样的任务，UCOS-II对这些任务进行调度管理，让这些任务可以并发工作。本课题中创建了五个用户任务，分别是led_task，led闪烁提示系统工作状态；gui_task，显示屏实时显示姿态数据；adc_task弯曲度传感器采集手指弯曲信息；mpu6050_task，mpu6050传感器采集姿态信息；hc05_task蓝牙发送数据。<br>&emsp;&emsp;弯曲度传感器数据是利用STM32F103单片机接收经过电阻——电压转换电路转换过的弯曲度传感器的电压信号，每只手有五根手指，在单片机上设置五个ADC规则通道，用自带的AD转换电路进行AD转换得到手指的弯曲程度，ADC通道0<del>4分别代表大拇指、食指、中指、无名指、小指弯曲度的值。通过PC上串口调试助手读出其经过AD转换过后不同弯曲程度时的数值[7]，并对其进行分别量化和判断处理，的到最后的手指弯曲数据。<br>&emsp;&emsp;MPU6050传感器的数据可以通过对MPU6050传感器的软件设置可以直接读出传感器采集到的加速度和角速度原始数据，不过这些原始数据，在本课题研究中用处不大，我们期望得到的是姿态数据，也就是欧拉角。首先我们在PC端上通过匿名四轴上位机对MPU6050传感器的原始数据输出波形进行分析并对其进行滤波处理，在此原始数据的基础上还需要通过对加速度计和陀螺仪进行融合计算得出的欧拉角，得到三个轴上的欧拉角，以度为单位。MPU6050搭载有一个运动处理器（DMP），可以将采集到的原始数据直接转换输出四元数，再根据输出的四元数计算出对应的欧拉角。<br>欧拉角到姿态矩阵的转换关系为：<br><img src="https://img-blog.csdn.net/20180701203430782?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br><img src="https://img-blog.csdn.net/20180701203506127?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>姿态矩阵T解算得到欧拉角：<br><img src="https://img-blog.csdn.net/2018070120354750?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>可以直接使用欧拉角微分方程进行姿态解算：<br><img src="https://img-blog.csdn.net/20180701203725832?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>&emsp;&emsp;上式中，等式左边是输出的欧拉角，分别对应三个旋转轴，等式右边是根据上一个周期测算出来的角度，每个旋转轴上的角度都是根据陀螺仪传感器实际测量的角速度和时间间隔周期计算出来的，单位为弧度。所以，根据以上微分方程即可解算出当前传感器在每个旋转轴上的欧拉角。<br>&emsp;&emsp;HC-05蓝牙模块式一款高性能的主从一体蓝牙串口模块，可以同各种带蓝牙功能的电脑、蓝牙主机、手机等职能终端配对，该模块支持非常宽的波特率范围：4800</del>1382400，并且模块兼容5V或3.3V单片机系统，使用非常灵活、方便。在使用的时候，首先将蓝牙模块处于AT指令模式，在PC上通过串口调试助手进行AT指令配置。蓝牙配置好后， 主控芯片将获取到的弯曲度传感器的数据和MPU6050的数据信息用特定的数据包格式通过蓝牙发送。<br>&emsp;&emsp;显示模块的主要功能是在一块TFT显示屏上显示当前手部在空间中x,y,z轴的一个姿态,分别用欧拉角pitch（俯仰角）、yaw（偏航角）、roll（翻滚角）表示。</p>
-<h2 id="应用场景展示"><a href="#应用场景展示" class="headerlink" title="应用场景展示"></a>应用场景展示</h2><p>&emsp;&emsp;数据手套作为一种人机交互设备，可应用与多个领域多个行业，理论上与本设备交互设备能具备蓝牙通信功能，在通信协议一致的情况下便都能与本设备进行交互。在本课题中只要应用于与五轴机械臂交互和与虚拟手的交互映射。<br>###4.1 与五轴机械臂交互<br>&emsp;&emsp;数据手套与之交互的五轴机械臂为安诺五轴机械臂，这款机械臂的主控芯片为arduino，控制方式是使用现在数字程序中常使用的指令——G代码，机械臂的五个轴从下到上分别是A轴、B轴、C轴、D轴和X轴，每个轴分为正向转动和反向转动，所以控制机械臂只需要十个控制指令即可。本课题在控制的时，五根手指分别控制五个轴，当pitch的值小于20时手指控制机械臂的五个轴正向转动，当pitch的值大于20时，手指控制机械臂的五个轴反向转动。手部首先分别读取五个弯曲传感器的初始值（即五个手指没有弯曲时的值），再给定一个触发条件，当达到这个触发条件时，数据手套发送控制指令。如：pitch的值为15，ADC通道0的初始值为200，触发条件为ADC通道0的值大于300，当ADC通道0的值大于300时，数据手套控制五轴机械臂A轴的正向转动。交互图如图4.1所示。<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img src="https://img-blog.csdn.net/20180701204056117?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width=300 height=400 /><br>###4.2 与虚拟手的交互映射<br>&emsp;&emsp;虚拟手的开发平台为Unity3D，所用的开发语言为C#。数据手套与之交互时所用到的通信协议为：<br>0x55+0x53+aacx_t+pitch_s+aacy_t+roll_s+aacz_t+yaw_s+0xaa+finger0+finger1+finger2 +finger3 +finger4 +0xbb共15（byte）,虚拟手接收到数据包后对数据包进行解析，首先是对MPU6050的数据进行解析。MPU6050的数据有16位，其中aacx、aacy、aacz代表高八位，pitch_s、roll_s、yaw_s代表低八位，要得到一个MPU6050的数据，需要将高八位左移八位，然后与第八位进行或运算，具体的计算方法如下：<br><img src="https://img-blog.csdn.net/20180701204251395?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>&emsp;&emsp;然后对五跟手指即五个弯曲度传感器的值进行解析。假设接口上所读取到的X，用X来除以0.06，即X/0.06即(a1~a5)为弯曲传感器上的电压值的量化Vx*3.3/4096（Vx为传感器上的电压）<br><img src="https://img-blog.csdn.net/20180701204340765?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>根据以上方程便可求出R的阻值。<br>&emsp;&emsp;R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度成正相关。当手做出某个手势时，主控芯片获取当前五根手指的弯曲数据及手部在空间中的姿态数据，通过蓝牙发送给虚拟手，虚拟手接收到数据后进行解析，然后做出相应的手势。交互图如图4.2、图4.3、图4.4、图4.5、图4.6所示。<br><img src="https://img-blog.csdn.net/20180701204507742?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><img src="https://img-blog.csdn.net/20180701204524365?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><img src="https://img-blog.csdn.net/20180701204643990?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><img src="https://img-blog.csdn.net/20180701204533343?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><img src="https://img-blog.csdn.net/20180701204551897?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
-<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>&emsp;&emsp;本课题从理论出发，完成了UCOS嵌入式操作系统在ARM平台上的移植，提高了系统稳定性，一步步的设计到实现，通过获取手指的弯曲度数据、手部在空间中姿态数据，进行了数据的分析及处理，给出了与五轴机械臂的交互及与虚拟手交互映射的方法，以实际的应用测试了数据采集和手势识别的准确性和实时性，基本达到了本课题的目的。</p>
-<blockquote>
-<p>手套代码去我的下载查看<br><a href="https://download.csdn.net/download/silent_f/10612775">数据手套上位机代码</a><br><a href="https://download.csdn.net/download/silent_f/10612768">数据手套控制虚拟手代码</a><br><a href="https://download.csdn.net/download/silent_f/10612762">数据手套控制机械臂代码</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>课程设计</category>
-      </categories>
-      <tags>
-        <tag>stm32</tag>
-        <tag>数据手套</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>无人机项目的打算</title>
     <url>/2017/02/20/%E6%97%A0%E4%BA%BA%E6%9C%BA%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%89%93%E7%AE%97/</url>
     <content><![CDATA[<blockquote>
@@ -2721,6 +2698,29 @@
         <tag>ftp</tag>
         <tag>ftp服务器</tag>
         <tag>xrdp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据手套的设计与实现</title>
+    <url>/2017/06/14/%E6%95%B0%E6%8D%AE%E6%89%8B%E5%A5%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<p><strong>摘要 :</strong> 数据手套在人机交互中提供了一种有效的人机交互手段，从数据手套的理论出发，本论文利用一些硬件设备以及软件开发环境，设计了一款可以与机械臂、虚拟手等终端交互的数据手套。硬件设备包括弯曲度传感器、MPU6050六轴传感器、HC-05蓝牙串口通信模块、TFT显示屏、STM32F103最小系统开发板，数据手套软件开发平台为Keil uVision5，所用的开发语言为C语言，在系统调试的时候用到了匿名四轴上位机和串口调试助手，用来对MPU6050六轴传感器和弯曲度传感器进行调试，此外在整个系统中移植了UCOS-II嵌入式实时操作系统，保证了数据在传输时的实时性和高效性。实现了数据手套对五轴机械臂的控制以及人手到虚拟手的动作映射。</p>
+<a id="more"></a>
+<p><strong>关键词</strong> 人机交互；数据手套；虚拟手</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>&emsp;&emsp;人机交互是研究系统与用户之间的交互关系[1]。随着社会的不断发展和科学技术水平的提高，传统的计算机输入设备（鼠标、键盘）已不再唯一。越来越多的场合出现了各种不同的人机交互的应用场景，比如人脸识别、人体感应游戏、VR（虚拟现实）[2]。数据手套作为一种新型的人机交互工具，目前在越来越多的领域得到了广泛的应用。其目的在于能够通过内置的传感器，实时获取手部包括手掌、手指等有效部位的弯曲等角度的数据[3]。而且手部某一个关节的运动，不仅会作用于对应的传感器的数据变化，而且通过软组织的相互作用，使得其他的传感器数据也发生变化，这就要求为保证一定的数据精度，必须对求得的数据进行一定的处理[4]。本课题所研究的数据手套硬件部分主要包括嵌入式控制器、TFT显示屏、弯曲度传感器、蓝牙串口通信模块、MPU6050六轴传感器等，具有可穿戴，无线连接，使用灵活等特点。目的在于做出一款可用于控制机械臂、与虚拟手交互映射等娱乐交互的数据手套。</p>
+<h2 id="系统硬件设计"><a href="#系统硬件设计" class="headerlink" title="系统硬件设计"></a>系统硬件设计</h2><p>&emsp;&emsp;本论文所研究的数据手套在功能上要求能够实时的检测到使用者手指的弯曲以及整个手姿态变化的数据信息[5]，并对检测到的数据信息做出判断后发送相应的指令给与之交互的终端。根据数据手套在功能上的要求，本课题设计出了以下解决方案：<br>&emsp;&emsp;（1）采用弯曲度传感器采集手指弯曲的数据信息，弯曲度传感器具有柔韧性好，可折叠，测量范围广等特点，比较适合用来收集弯曲即手指的数据信息。<br>&emsp;&emsp;（2）MPU6050传感器是全球首例9轴运动处理传感器。它集成了3MEMS陀螺仪，3轴MEMS加速度计，以及一个可扩展的数字运动处理器DMP（Digital  Motion Processor），可以使用I2C接口连接一个第三方的数字传感器。MPU6050传感器还免除了组合陀螺仪与加速度器时之轴间差的问题，减少了大量的封装空间，而且MPU6050支持mpu的dmp官方解算库，可以直接输出四元数，欧拉角格式的数据。<br>&emsp;&emsp;（3）在通信方式的选择上，考虑到本课题需要无线通信、功耗低，能快速连接且组网简单的通信特点，最终选择了蓝牙无线通信方式，使用的是HC-05蓝牙通信模块，HC-05蓝牙通信模块是一款高性能主从一体蓝牙串口模块，可以不用知道太多蓝牙相关知识就可以很好的上手。<br>&emsp;&emsp;（4）电源可以使用USB数据线接PC机供电，也可以使用大容量锂电池供电。锂电池具有续航时间长、可循环充电、绿色环保且重量轻等特点。<br>数据手套硬件系统主要包括以下几个功能模块：主控芯片模块、弯曲度传感器模块、MPU6050传感器模块、电源模块、蓝牙通信模块、数据显示模块，硬件系统图、硬件实物图分别如图2.1、图2.2所示<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img src="https://img-blog.csdn.net/2018070120234672?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width=400 height=256 /><br>  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;   图2.1 数据手套硬件系统图<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img src="https://img-blog.csdn.net/20180701202404387?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width=400 height=256 /><br>图2.2 硬件实物图</p>
+<h2 id="系统软件设计及调试"><a href="#系统软件设计及调试" class="headerlink" title="系统软件设计及调试"></a>系统软件设计及调试</h2><p>&emsp;&emsp;数据手套软件开发平台为Keil uVision5，所用的开发语言为C语言，在系统调试的时候用到了匿名四轴上位机和串口调试助手，用来对MPU6050六轴传感器和弯曲度传感器进行调试，此外在整个系统中移植了UCOS-II嵌入式实时操作系统，保证了数据在传输时的实时性和高效性。<br>&emsp;&emsp;UCOS-II嵌入式实时操作系统是一个可移植、可固化的、可裁剪的、占先式多任务实时内核，它适用于多种微处理器，微控制器和数字处理芯片[6]。本系统软件主流程图如图3.1所示：<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img src="https://img-blog.csdn.net/20180701203107760?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width=400 height=256 /><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图3.1 系统软件主流程图<br>&emsp;&emsp;UCOS的原理就是当一个任务A正在执行的时候，如果它释放了CPU的控制权，先对任务A进行现场保护，然后从任务就绪表中查找其他就绪任务去执行，等到任务A的等待时间到了，它可能重新获得CPU控制权，这个时候恢复任务A的现场，从而继续执行任务A，这样看起来就好像是两个任务同时执行了。实际上，任何时候都只有一个任务可以获得CPU控制权。所谓的任务，其实就是一个死循环函数，该函数实现一定的工程，一个工程可以有很多这样的任务，UCOS-II对这些任务进行调度管理，让这些任务可以并发工作。本课题中创建了五个用户任务，分别是led_task，led闪烁提示系统工作状态；gui_task，显示屏实时显示姿态数据；adc_task弯曲度传感器采集手指弯曲信息；mpu6050_task，mpu6050传感器采集姿态信息；hc05_task蓝牙发送数据。<br>&emsp;&emsp;弯曲度传感器数据是利用STM32F103单片机接收经过电阻——电压转换电路转换过的弯曲度传感器的电压信号，每只手有五根手指，在单片机上设置五个ADC规则通道，用自带的AD转换电路进行AD转换得到手指的弯曲程度，ADC通道0<del>4分别代表大拇指、食指、中指、无名指、小指弯曲度的值。通过PC上串口调试助手读出其经过AD转换过后不同弯曲程度时的数值[7]，并对其进行分别量化和判断处理，的到最后的手指弯曲数据。<br>&emsp;&emsp;MPU6050传感器的数据可以通过对MPU6050传感器的软件设置可以直接读出传感器采集到的加速度和角速度原始数据，不过这些原始数据，在本课题研究中用处不大，我们期望得到的是姿态数据，也就是欧拉角。首先我们在PC端上通过匿名四轴上位机对MPU6050传感器的原始数据输出波形进行分析并对其进行滤波处理，在此原始数据的基础上还需要通过对加速度计和陀螺仪进行融合计算得出的欧拉角，得到三个轴上的欧拉角，以度为单位。MPU6050搭载有一个运动处理器（DMP），可以将采集到的原始数据直接转换输出四元数，再根据输出的四元数计算出对应的欧拉角。<br>欧拉角到姿态矩阵的转换关系为：<br><img src="https://img-blog.csdn.net/20180701203430782?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br><img src="https://img-blog.csdn.net/20180701203506127?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>姿态矩阵T解算得到欧拉角：<br><img src="https://img-blog.csdn.net/2018070120354750?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>可以直接使用欧拉角微分方程进行姿态解算：<br><img src="https://img-blog.csdn.net/20180701203725832?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>&emsp;&emsp;上式中，等式左边是输出的欧拉角，分别对应三个旋转轴，等式右边是根据上一个周期测算出来的角度，每个旋转轴上的角度都是根据陀螺仪传感器实际测量的角速度和时间间隔周期计算出来的，单位为弧度。所以，根据以上微分方程即可解算出当前传感器在每个旋转轴上的欧拉角。<br>&emsp;&emsp;HC-05蓝牙模块式一款高性能的主从一体蓝牙串口模块，可以同各种带蓝牙功能的电脑、蓝牙主机、手机等职能终端配对，该模块支持非常宽的波特率范围：4800</del>1382400，并且模块兼容5V或3.3V单片机系统，使用非常灵活、方便。在使用的时候，首先将蓝牙模块处于AT指令模式，在PC上通过串口调试助手进行AT指令配置。蓝牙配置好后， 主控芯片将获取到的弯曲度传感器的数据和MPU6050的数据信息用特定的数据包格式通过蓝牙发送。<br>&emsp;&emsp;显示模块的主要功能是在一块TFT显示屏上显示当前手部在空间中x,y,z轴的一个姿态,分别用欧拉角pitch（俯仰角）、yaw（偏航角）、roll（翻滚角）表示。</p>
+<h2 id="应用场景展示"><a href="#应用场景展示" class="headerlink" title="应用场景展示"></a>应用场景展示</h2><p>&emsp;&emsp;数据手套作为一种人机交互设备，可应用与多个领域多个行业，理论上与本设备交互设备能具备蓝牙通信功能，在通信协议一致的情况下便都能与本设备进行交互。在本课题中只要应用于与五轴机械臂交互和与虚拟手的交互映射。<br>###4.1 与五轴机械臂交互<br>&emsp;&emsp;数据手套与之交互的五轴机械臂为安诺五轴机械臂，这款机械臂的主控芯片为arduino，控制方式是使用现在数字程序中常使用的指令——G代码，机械臂的五个轴从下到上分别是A轴、B轴、C轴、D轴和X轴，每个轴分为正向转动和反向转动，所以控制机械臂只需要十个控制指令即可。本课题在控制的时，五根手指分别控制五个轴，当pitch的值小于20时手指控制机械臂的五个轴正向转动，当pitch的值大于20时，手指控制机械臂的五个轴反向转动。手部首先分别读取五个弯曲传感器的初始值（即五个手指没有弯曲时的值），再给定一个触发条件，当达到这个触发条件时，数据手套发送控制指令。如：pitch的值为15，ADC通道0的初始值为200，触发条件为ADC通道0的值大于300，当ADC通道0的值大于300时，数据手套控制五轴机械臂A轴的正向转动。交互图如图4.1所示。<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img src="https://img-blog.csdn.net/20180701204056117?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width=300 height=400 /><br>###4.2 与虚拟手的交互映射<br>&emsp;&emsp;虚拟手的开发平台为Unity3D，所用的开发语言为C#。数据手套与之交互时所用到的通信协议为：<br>0x55+0x53+aacx_t+pitch_s+aacy_t+roll_s+aacz_t+yaw_s+0xaa+finger0+finger1+finger2 +finger3 +finger4 +0xbb共15（byte）,虚拟手接收到数据包后对数据包进行解析，首先是对MPU6050的数据进行解析。MPU6050的数据有16位，其中aacx、aacy、aacz代表高八位，pitch_s、roll_s、yaw_s代表低八位，要得到一个MPU6050的数据，需要将高八位左移八位，然后与第八位进行或运算，具体的计算方法如下：<br><img src="https://img-blog.csdn.net/20180701204251395?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>&emsp;&emsp;然后对五跟手指即五个弯曲度传感器的值进行解析。假设接口上所读取到的X，用X来除以0.06，即X/0.06即(a1~a5)为弯曲传感器上的电压值的量化Vx*3.3/4096（Vx为传感器上的电压）<br><img src="https://img-blog.csdn.net/20180701204340765?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>根据以上方程便可求出R的阻值。<br>&emsp;&emsp;R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度成正相关。当手做出某个手势时，主控芯片获取当前五根手指的弯曲数据及手部在空间中的姿态数据，通过蓝牙发送给虚拟手，虚拟手接收到数据后进行解析，然后做出相应的手势。交互图如图4.2、图4.3、图4.4、图4.5、图4.6所示。<br><img src="https://img-blog.csdn.net/20180701204507742?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><img src="https://img-blog.csdn.net/20180701204524365?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><img src="https://img-blog.csdn.net/20180701204643990?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><img src="https://img-blog.csdn.net/20180701204533343?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><img src="https://img-blog.csdn.net/20180701204551897?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>&emsp;&emsp;本课题从理论出发，完成了UCOS嵌入式操作系统在ARM平台上的移植，提高了系统稳定性，一步步的设计到实现，通过获取手指的弯曲度数据、手部在空间中姿态数据，进行了数据的分析及处理，给出了与五轴机械臂的交互及与虚拟手交互映射的方法，以实际的应用测试了数据采集和手势识别的准确性和实时性，基本达到了本课题的目的。</p>
+<blockquote>
+<p>手套代码去我的下载查看<br><a href="https://download.csdn.net/download/silent_f/10612775">数据手套上位机代码</a><br><a href="https://download.csdn.net/download/silent_f/10612768">数据手套控制虚拟手代码</a><br><a href="https://download.csdn.net/download/silent_f/10612762">数据手套控制机械臂代码</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>课程设计</category>
+      </categories>
+      <tags>
+        <tag>stm32</tag>
+        <tag>数据手套</tag>
       </tags>
   </entry>
   <entry>
@@ -4082,91 +4082,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Lua闭包详解</title>
-    <url>/2020/04/14/Lua%E9%97%AD%E5%8C%85%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;在Lua语言中，函数是严格遵循词法定界的第一类值。</p>
-<a id="more"></a>
-<p>&ensp;&ensp;&ensp;&ensp;“第一类值”以为这Lua语言中的函数与其他常见类型的值具有同等权限：一个程序可以将某个函数保存到变量中或表中，也可以将某个函数作为参数传递给其他函数，还可以将某个函数作为其他函数的返回值返回。<br>&ensp;&ensp;&ensp;&ensp;“词法定界”意味着Lua语言中的函数可以访问包含其自身的外部函数中的变量。<br>&ensp;&ensp;&ensp;&ensp;上述两个特行联合起来为Lua语言带来了极大的灵活性。例如，一个程序可以通过重新定义函数来增加新功能，也可以通过擦除函数来为不受信任的代码创建一个安全的运行时环境。更重要的是，上述两个特行允许我们在Lua语言中使用很多函数式语言的强大编程技巧。即使对函数式编程毫无兴趣，也不妨学习下如何使用这些技巧。因为这些技巧可以使程序变得更加小巧和简单。</p>
-<h2 id="函数是第一类值"><a href="#函数是第一类值" class="headerlink" title="函数是第一类值"></a>函数是第一类值</h2><p>如前所述，Lua语言中的函数是第一类值。以下的示例演示了第一类值的含义：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = &#123;p = <span class="keyword">print</span>&#125;				-- <span class="string">&#x27;a.p&#x27;</span>指向<span class="string">&#x27;print&#x27;</span>函数</span><br><span class="line">a.p(<span class="string">&quot;Hello World&quot;</span>)			-- HEllo World</span><br><span class="line"><span class="keyword">print</span> = math.sin			-- <span class="string">&#x27;print&#x27;</span>现在指向sine函数</span><br><span class="line">a.p(print(<span class="number">1</span>))				-- <span class="number">0.8414709848079</span></span><br><span class="line">math.sin = a.p 				-- <span class="string">&#x27;sin&#x27;</span>现在指向<span class="keyword">print</span>函数</span><br><span class="line">math.sin(<span class="number">10</span>,<span class="number">20</span>)				-- <span class="number">10</span>	<span class="number">20</span></span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;如果函数也是值的话，那么是否有创建函数的表达式呢？答案是肯定的。事实上，Lua语言中常见的函数定义方式如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo(x) <span class="keyword">return</span> <span class="number">2</span>*x end</span><br></pre></td></tr></table></figure>
-<p>就是所谓的语法糖的例子，它只是下面这种写法的一种美化形式：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">foo = function(x) <span class="keyword">return</span> <span class="number">2</span>*x end</span><br></pre></td></tr></table></figure>
-<p>赋值语句右边的表达式(function(x) body end)就是函数构造器，与表构造器{}相似。因此，函数定义实际上就是创建类型为”function”的值并把她赋值给一个变量的语句。<br>&ensp;&ensp;&ensp;&ensp;请注意，在Lua语言中，所有的函数都是匿名的。像其他所有的值一样，函数并没有名字。当讨论函数时，比如print，实际上指的是保存函数的变量。虽然我们通常会把函数赋值给全局变量，从而看似给函数起了一个名字，但在很多场景下仍然会保留函数的匿名性。<br>&ensp;&ensp;&ensp;&ensp;表标准库提供了函数table.sort，该函数以一个表为参数并对其中的元素排序。这种函数必须支持各种各样的排序方式：升序或降序、按数值顺序或按字母顺序、按表中的键等。函数sort并没有试图穷尽所有的排序方式，而是提供了一个可选的参数，也就是所谓的排序函数，排序函数接收两个参数并根据第一个元素是否应排在第二个元素之前返回不同的值。<br>假如，有一个如下所示的表：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">network = &#123;</span><br><span class="line">	&#123;name = <span class="string">&quot;grauna&quot;</span> , IP = <span class="string">&quot;210,26.30.34&quot;</span>&#125;,</span><br><span class="line">	&#123;name = <span class="string">&quot;arraial&quot;</span>, IP = <span class="string">&quot;210,26,30,23&quot;</span>&#125;,</span><br><span class="line">	&#123;name = <span class="string">&quot;lua&quot;</span>,	   IP = <span class="string">&quot;210,26,23,12&quot;</span>&#125;,</span><br><span class="line">	&#123;name = <span class="string">&quot;derain&quot;</span>,  IP = <span class="string">&quot;210,26,23,20&quot;</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果想针对name字段、按字母顺序逆序对这个表排序，只需使用下面语句：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">talbe.sort(network,function (a,b) <span class="keyword">return</span> (a.name &gt; b.name) end)</span><br></pre></td></tr></table></figure>
-<p>可见，匿名函数在这条语句中显示出了很好的便利性。<br>&ensp;&ensp;&ensp;&ensp;像函数sort这样以另一个函数为参数的函数，我们称之为高阶函数。高阶函数是一种强大的编程机制，而利用匿名函数作为参数正式其灵活性的主要来源。不过尽管如此，请记住高阶函数也并没有什么特殊的，它们只是Lua语言将函数作为第一类值处理所带来的直接体现。<br>&ensp;&ensp;&ensp;&ensp;为了进一步演示高阶函数的用法，让我们再来实现一个常见的高阶函数，即导数。按照通常的定义，函数f的导数为$f’(x) = (f(x + d) - f(x))/d$,其中d趋向于无穷小。根据这个定义，可以赢如下方式近似第计算导数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function derivative (f,delta)</span><br><span class="line">	delta = delta <span class="keyword">or</span> <span class="number">1e-4</span></span><br><span class="line">	<span class="keyword">return</span> function (x)</span><br><span class="line">		<span class="keyword">return</span> (f(x + delta) - f(x))/delta</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>对于指定的函数f，调用derivative(f)将返回其导数，也就是另一个函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c = derivative(math.sin)</span><br><span class="line">&gt; print(math.cos(<span class="number">5.2</span>),c(<span class="number">5.2</span>))</span><br><span class="line">print(math.cos(<span class="number">10</span>),c(<span class="number">10</span>)) 		</span><br></pre></td></tr></table></figure>
-<h2 id="非全局函数"><a href="#非全局函数" class="headerlink" title="非全局函数"></a>非全局函数</h2><p>&ensp;&ensp;&ensp;&ensp;由于函数是一种“第一类值”，因此一个显而易见的结果就是：函数不仅可以被存储在全局变量中，还可以被存储在表字段和局部变量中。<br>&ensp;&ensp;&ensp;&ensp;创建函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Lib = &#123;&#125;</span><br><span class="line">Lib.foo = function(x,y) <span class="keyword">return</span> x + y end</span><br><span class="line">Lib.goo = function(x,y) <span class="keyword">return</span> x - y end</span><br><span class="line">print(Lib.foo(<span class="number">2</span>,<span class="number">3</span>),Lib.goo(<span class="number">2</span>,<span class="number">3</span>))		-- <span class="number">5</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
-<p>当然，也可使用表构造器：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Lib = &#123;</span><br><span class="line">	foo = function(x,y) <span class="keyword">return</span> x + y end</span><br><span class="line">	goo = function(X,y) <span class="keyword">return</span> x - y end</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>除此以外，Lua语言还提供了另一种特殊的语言来定义这类函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Lib = &#123;&#125;</span><br><span class="line">function Lib.foo(x,y) <span class="keyword">return</span> x + y end</span><br><span class="line">function Lib.goo(x,y) <span class="keyword">return</span> x - y end</span><br></pre></td></tr></table></figure>
-<p>在表字段中存储函数是Lua语言中实现面向对象编程的关键要素。<br>&ensp;&ensp;&ensp;&ensp;当把一个函数存储到局部变量时，就得到一个局部函数，即一个被限定在指定作用域中使用的函数。局部函数对于包而言尤其有用：由于Lua语言将每个程序段作为一个函数处理，所以在一段程序中声明的函数就是局部函数，这些局部函数只在该程序段中可见。词法定界保证了程序段中的其他函数可以使用这些局部函数。<br>对于这种局部函数的使用，Lua语言提供了一种语法他那个：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local function f (params)</span><br><span class="line">	body</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;在定义局部递归函数时，由于原来的方法不使用，所有有一点是极易出错的。考虑如下代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local fact = function(n)</span><br><span class="line">	<span class="keyword">if</span> n == <span class="number">0</span> then <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> n * fact(n<span class="number">-1</span>)   --有问题</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>当Lua语言编译函数体中的fact(n-1)调用时，局部的fact尚未定义。因此，这个表达式会尝试调用全局的fact而非局部的fact。我们可以通过先定义局部变量再定义函数的方式来解决这个问题：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local fact</span><br><span class="line">fact = function(n)</span><br><span class="line">	<span class="keyword">if</span> n == <span class="number">0</span> then <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> n * fact(n<span class="number">-1</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>这样，函数内的fact指向的是局部变量。尽管在定义函数时，这个局部变量的值尚未确定，但到了执行函数时，fact肯定有了正确的赋值。<br>&ensp;&ensp;&ensp;&ensp;当Lua语言展开局部函数的语法糖时，使用的并不是之前的基本函数定义。相反，形如</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local function foo(params) body end</span><br></pre></td></tr></table></figure>
-<p>的定义会被展开成</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local foo; foo = function(params) body end</span><br></pre></td></tr></table></figure>
-<p>因此，使用这个语法来定义递归函数不会有问题。<br>&ensp;&ensp;&ensp;&ensp;当然，这个技巧对于简介递归函数是无效的。在间接递归的情况下，必须使用与明确的前向声明等价的形式：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local f </span><br><span class="line"></span><br><span class="line"><span class="function">local function <span class="title">g</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	some code <span class="title">f</span><span class="params">()</span> some code</span></span><br><span class="line"><span class="function">end</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">function <span class="title">f</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	some code <span class="title">g</span><span class="params">()</span> some code</span></span><br><span class="line"><span class="function">end</span></span><br></pre></td></tr></table></figure>
-<p>请注意，不能在最后一个函数定义前加上local。否则，Lua语言会创建一个全新的局部变量f，从而使得先前声明的f变为未定义状态。</p>
-<h2 id="词法定界"><a href="#词法定界" class="headerlink" title="词法定界"></a>词法定界</h2><p>&ensp;&ensp;&ensp;&ensp;当编写一个被其他函数B包含的函数A时，被包含的函数A可以访问包含其的函数B的所有局部变量，我们将这种特行称为词法定界。虽然这种可见性规则听上去很明确，但实际上并非如此。词法定界外加嵌套的第一类值函数可以为编程语言提供强大的功能，但很多编程语言并不支持将这两者组合使用。<br>&ensp;&ensp;&ensp;&ensp;先看一个例子。假设有一个表，其中包含了学生的姓名和对应的成绩，如果我们想基于分数对学生姓名排序，分数高者在前，那么可以使用如下的代码完成上述需求：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">name = &#123;<span class="string">&quot;Peter&quot;</span>,<span class="string">&quot;Paul&quot;</span>,<span class="string">&quot;MAry&quot;</span>&#125;</span><br><span class="line">grades = &#123;Mary = <span class="number">10</span>, Paul = <span class="number">7</span>, Peter = <span class="number">8</span>&#125;</span><br><span class="line">table.sort(names,function(n1,n2)</span><br><span class="line">	<span class="keyword">return</span> grades[n1] &gt; grades[n2]</span><br><span class="line">end)</span><br></pre></td></tr></table></figure>
-<p>现在，假设我们想创建一个函数来完成这个需求：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function sortbygrade(names,grades)</span><br><span class="line">	table.sort( names, function(n1,n2)</span><br><span class="line">		<span class="keyword">return</span> grades[n1] &gt; grades[n2]</span><br><span class="line">	end)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>在后一个示例中，有趣的一点就在于传给函数sort的匿名函数可以访问grades,而grades是包含匿名函数的外层函数sortbygrade的形参。在该匿名函数中，grades既不是全局变量也不是局部变量，而是我们所说的非局部变量。<br>&ensp;&ensp;&ensp;&ensp;这一点之所有如此有趣是因为函数作为第一类值，能够逃逸出它们变量的原始定界范围。考虑如下代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function newCounter()</span><br><span class="line">	local count = <span class="number">0</span></span><br><span class="line">	<span class="keyword">return</span> function ()</span><br><span class="line">		count = count + <span class="number">1</span></span><br><span class="line">		<span class="keyword">return</span> count</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">c1 = newCounter()</span><br><span class="line">print(c1())			-- <span class="number">1</span></span><br><span class="line">pirnt(c2())			-- <span class="number">2</span></span><br></pre></td></tr></table></figure>
-<p>在上述代码中，匿名函数访问了一个非局部变量并将其当作计数器。然而，游艺创建变量的函数已经返回，因此当我们调用匿名函数时，变量count似乎已经超出了作用范围。但其实不然，由于闭包概念的存在，Lua语言能够正确地应对这种情况。简单地说，一个闭包就是一个函数外加能够使该函数正确访问非局部变量所需的其他机制。如果我们再次调用newCounter，那么一个新的局部变量count和一个新的闭包会被创建出来，这个新的闭包针对的是这个新变量：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c2 = newCounter()</span><br><span class="line">print(c2())			-- <span class="number">1</span></span><br><span class="line">print(c1())			-- <span class="number">3</span></span><br><span class="line">print(c3())			-- <span class="number">2</span></span><br></pre></td></tr></table></figure>
-<p>因此，c1和c2是不同的闭包。它们建立在相同的函数之上，但是各自拥有局部变量count的独立实例。<br>&ensp;&ensp;&ensp;&ensp;从技术上讲，Lua语言中只有闭包而没有函数。函数本身只是闭包的一种原型。不过尽管如此，只要不会引起混淆，我们就仍将使用术语“函数”来指代闭包。<br>&ensp;&ensp;&ensp;&ensp;闭包在许多场合中均是一种有价值的工具。闭包在作为诸如sort这样的高阶函数的参数时就非常有用。同样，闭包对于那些创建了其他函数的函数也很有用。这种机制使得Lua程序能够综合运用函数式编程世界中多种精妙的编程技巧。另外，闭包对于回调函数来说也很有用。对于回调函数而言，一个典型的例子就是在传统GUI工具箱中创建按钮。每个按钮通常都对应一个回调函数，当用户按下按钮时，完成不同的处理动作的回调函数就会被调用。<br>&ensp;&ensp;&ensp;&ensp;例如，假设有一个具有10个类似按钮的数字计算器，我们就可以使用如下的函数来创建这些按钮：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function digitButton(digit)</span><br><span class="line">	<span class="keyword">return</span> Button&#123; label = tostring(digit),</span><br><span class="line">		action = function()</span><br><span class="line">			add_to_display(digit)</span><br><span class="line">		end</span><br><span class="line">	&#125;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>在上述示例中，假设Button是一个创建新按钮的工具箱函数，label是按钮的标签，action是当按钮按下时被调用的回调函数。回调可能发生在函数digitButton早已执行完后，那时变量digit已经超出了作用范围，但闭包仍可以访问它。<br>&ensp;&ensp;&ensp;&ensp;闭包在另一种很不一样的场景下也非常有用。由于函数可以保存在普通变量中，因此在Lua语言中可以轻松地重新定义函数，甚至是预定义函数。这种机制也正是Lua语言灵活的原因之一。通常，当重新定义一个函数的时候，我们需要在新的实现中调用原来的那个函数。例如，假设要重新定义函数sin以使其参数以角度为单位而不是以弧度为单位。那么这个新函数就可以先对参数进行转换，然后再调用原来的sin函数进行真正的计算。代码可能形如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local oldSin - math.sin </span><br><span class="line">math.sin = function(x)</span><br><span class="line">	<span class="keyword">return</span> oldSin(x * (math.pi/<span class="number">180</span>))</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>另一种更清晰一点的完成重新定义的写法是：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">do </span><br><span class="line">	local oldSin = math.sin </span><br><span class="line">	local k = math.pi/<span class="number">180</span></span><br><span class="line">	math.sin = function(x)</span><br><span class="line">		<span class="keyword">return</span> oldSin(x * k)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>上述代码使用了do代码段来限制局部变量oldSin的作用范围；根据可见性规则，局部变量oldSin只在这部分代码段中有效。因此，只有新版本的函数sin才能访问原来的sin函数，其他部分的代码则访问不了。<br>&ensp;&ensp;&ensp;&ensp;我们可以使用同样的技巧来创建安全的运行时环境，即所谓的沙盒。当执行一些诸如从远程服务器上下载到的未受信任代码时，安全的运行时环境非常重要。例如，我们可以通过使用闭包重定义函数io.open来限制一个程序能够访问的文件：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">do </span><br><span class="line">	local oldOpen = io.open</span><br><span class="line">	local access_OK - function (filename, mode)</span><br><span class="line">		check access </span><br><span class="line">	end</span><br><span class="line">	io.open = function (filename ,mode)</span><br><span class="line">		<span class="keyword">if</span> access_OK(filename, mode) then</span><br><span class="line">			<span class="keyword">return</span> oldOpen(filename,mode)</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> nil, <span class="string">&quot;access denied&quot;</span></span><br><span class="line">		end</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>上述示例的巧妙之处在于，在经过重新定义后，一个程序就只能通过新的受限版本来调用原来未受限版本的io.open函数。示例代码将原来不安全的版本保存为闭包的一个私有变量，该变量无法从外部访问。通过这一技巧，就可以在保证简洁性和灵活性的前提下在Lua语言本身上构建Lua沙盒。相对于提供一套大而全的解决方案，Lua语言提供的是一套“元机制”，借助这种机制可以根据特定的安全需求来裁剪具体的运行时环境。</p>
-<h2 id="小试函数式编程"><a href="#小试函数式编程" class="headerlink" title="小试函数式编程"></a>小试函数式编程</h2><p>&ensp;&ensp;&ensp;&ensp;这里，我们的目标就是开发一个用来表示几何区域的系统，其中区域即为点的几何。我们希望能够利用该系统表示各种各样的图形，同时可以通过多种方式组合和修改这些图形。<br>&ensp;&ensp;&ensp;&ensp;为了实现这样的一个系统，首先需要找到表示这些图形的合理数据结构。我们可以尝试着使用面向对象的方案，利用继承来抽象某些图形；或者，也可以直接利用特征函数来进行更高层次的抽象。鉴于一个几何区域就是点的集合，因此可以通过特征函数来表示一个区域，即可以提供一个点并根据点是否属于指定区域而返回真或假的函数来表示一个区域。<br>&ensp;&ensp;&ensp;&ensp;举例来说，下面的函数表示一个点(1.0,3.0)为圆心、半径4.5的圆盘：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function disk1(x,y)</span><br><span class="line">	<span class="keyword">return</span> (x - <span class="number">1.0</span>)^<span class="number">2</span> + (y - <span class="number">3.0</span>)^<span class="number">2</span> &lt;= <span class="number">4.5</span>^<span class="number">2</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>利用高阶函数和词法定界，可以很容易地定义一个根据指定的圆心和半径创建圆盘的工厂：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function disk(cx,cy,r)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> (x - cx)^<span class="number">2</span> + (y - cy)^<span class="number">2</span> &lt;= r^<span class="number">2</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>形如disk(1.0,3.0,4.5)的调用会创建一个与disk1等价的圆盘。<br>下面的函数创建了一个指定边界的轴对称矩形：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function rect(left,right,bottom,up)</span><br><span class="line">	<span class="keyword">return</span> function(x,y)</span><br><span class="line">		<span class="keyword">return</span> left &lt;= x <span class="keyword">and</span> x &lt;= right <span class="keyword">and</span> bottom &lt;= y <span class="keyword">and</span> y &lt;= up</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>按照类似的方式，可以定义函数以创建诸如三角形或非轴承矩形等其他基本图形。每一种图形都具有完全独立的实现，所需的仅仅是一个正确的特征函数。<br>&ensp;&ensp;&ensp;&ensp;接下来让我们考虑一下如何改变和组合区域。我们可以很容易地创建任何区域的补集：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function complement(r)</span><br><span class="line">	<span class="keyword">return</span> function(x,y)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">not</span> r(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>并集、交集和差集也很简单。</p>
-<blockquote>
-<p>示例 区域的并集、交集和差集</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function union (r1,r2)</span><br><span class="line">	<span class="keyword">return</span> function(x,y)</span><br><span class="line">		<span class="keyword">return</span> r1(x,y) <span class="keyword">or</span> r2(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">function intersection (r1,r2)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> r1(x,y) <span class="keyword">and</span> r2(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">function difference (r1,r2)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> r1(x,y) <span class="keyword">and</span> <span class="keyword">not</span> r2(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>以下函数按照指定的增量平移指定的区域：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function translate(r,dx,dy)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> r(x - dx, y -dy)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;为了使一个区域可视化，我们可以遍历每个像素进行视口测试；位于区域内的像素被绘制成黑色，而位于区域外的像素被绘制成白色。为了用简单的方式演示这个过程，我们接下来写一个函数来生成一个PBM格式的文件来绘制指定的区域。<br>&ensp;&ensp;&ensp;&ensp;PBM文件的结构很简单。PBM文件的文本形式以字符串”P1”开头，接下来的一行是图片的宽和高，然后是对应每一个像素、由1和0组成的数字序列，最后是EOF。</p>
-<blockquote>
-<p>示例 在PBM文件中绘制区域</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function plot(r,M,N)</span><br><span class="line">	io.write(<span class="string">&quot;P1\n&quot;</span>,M,<span class="string">&quot; &quot;</span>,N,<span class="string">&quot;\n&quot;</span>)		-- 文件头</span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>, N do</span><br><span class="line">		local y = (N - i*<span class="number">2</span>)/N</span><br><span class="line">		<span class="keyword">for</span> j = <span class="number">1</span>, M do</span><br><span class="line">			local x = (j*<span class="number">2</span> - M)/M</span><br><span class="line">			io.write(r(x,y) <span class="keyword">and</span> <span class="string">&quot;1&quot;</span> <span class="keyword">or</span> <span class="string">&quot;0&quot;</span>)</span><br><span class="line">		end</span><br><span class="line">		io.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;为了让示例更加完整，一下的代码绘制了一个南半球所能看到的娥眉月：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c1 = disk(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">plot(difference(c1,translate(c1,<span class="number">0.3</span>,<span class="number">0</span>)),<span class="number">500</span>,<span class="number">500</span>)</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Lua面向对象编程</title>
     <url>/2020/04/24/Lua%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</url>
     <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;从很多意义上讲，Lua语言中的一张表就是一个对象。首先，表与对象一样，可以拥有状态。其次，表与对象一样，拥有一个与其无关的标识(self)；特别地，两个具有相同值的对象（表）是两个不同的对象，而一个对象可以具有多个不同的值；最后，表与对象一样，具有创建者和被创建位置无关的声明周期。</p>
@@ -4261,6 +4176,91 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = Account:new&#123;&#125;</span><br><span class="line">a:deposit(<span class="number">100.00</span>)</span><br><span class="line">print(a:balance())</span><br></pre></td></tr></table></figure>
 <p>不过，我们不能恶意修改账户余额。这种实现通过让表balance为模块所私有，保证了它的安全性。<br>&ensp;&ensp;&ensp;&ensp;对偶表示无须修改即可实现继承。这种实现方式与标准实现方式在内存和时间开销方面基本相同。新对象需要一个新表，而且再每一个被使用的私有表中需要一个新的元素。访问balance[self]会比访问self.balance稍慢，这是因为后者使用了局部变量而前者使用了外部变量。通常，这种区别是可以忽略的。</p>
 ]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lua闭包详解</title>
+    <url>/2020/04/14/Lua%E9%97%AD%E5%8C%85%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;在Lua语言中，函数是严格遵循词法定界的第一类值。</p>
+<a id="more"></a>
+<p>&ensp;&ensp;&ensp;&ensp;“第一类值”以为这Lua语言中的函数与其他常见类型的值具有同等权限：一个程序可以将某个函数保存到变量中或表中，也可以将某个函数作为参数传递给其他函数，还可以将某个函数作为其他函数的返回值返回。<br>&ensp;&ensp;&ensp;&ensp;“词法定界”意味着Lua语言中的函数可以访问包含其自身的外部函数中的变量。<br>&ensp;&ensp;&ensp;&ensp;上述两个特行联合起来为Lua语言带来了极大的灵活性。例如，一个程序可以通过重新定义函数来增加新功能，也可以通过擦除函数来为不受信任的代码创建一个安全的运行时环境。更重要的是，上述两个特行允许我们在Lua语言中使用很多函数式语言的强大编程技巧。即使对函数式编程毫无兴趣，也不妨学习下如何使用这些技巧。因为这些技巧可以使程序变得更加小巧和简单。</p>
+<h2 id="函数是第一类值"><a href="#函数是第一类值" class="headerlink" title="函数是第一类值"></a>函数是第一类值</h2><p>如前所述，Lua语言中的函数是第一类值。以下的示例演示了第一类值的含义：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = &#123;p = <span class="keyword">print</span>&#125;				-- <span class="string">&#x27;a.p&#x27;</span>指向<span class="string">&#x27;print&#x27;</span>函数</span><br><span class="line">a.p(<span class="string">&quot;Hello World&quot;</span>)			-- HEllo World</span><br><span class="line"><span class="keyword">print</span> = math.sin			-- <span class="string">&#x27;print&#x27;</span>现在指向sine函数</span><br><span class="line">a.p(print(<span class="number">1</span>))				-- <span class="number">0.8414709848079</span></span><br><span class="line">math.sin = a.p 				-- <span class="string">&#x27;sin&#x27;</span>现在指向<span class="keyword">print</span>函数</span><br><span class="line">math.sin(<span class="number">10</span>,<span class="number">20</span>)				-- <span class="number">10</span>	<span class="number">20</span></span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;如果函数也是值的话，那么是否有创建函数的表达式呢？答案是肯定的。事实上，Lua语言中常见的函数定义方式如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo(x) <span class="keyword">return</span> <span class="number">2</span>*x end</span><br></pre></td></tr></table></figure>
+<p>就是所谓的语法糖的例子，它只是下面这种写法的一种美化形式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">foo = function(x) <span class="keyword">return</span> <span class="number">2</span>*x end</span><br></pre></td></tr></table></figure>
+<p>赋值语句右边的表达式(function(x) body end)就是函数构造器，与表构造器{}相似。因此，函数定义实际上就是创建类型为”function”的值并把她赋值给一个变量的语句。<br>&ensp;&ensp;&ensp;&ensp;请注意，在Lua语言中，所有的函数都是匿名的。像其他所有的值一样，函数并没有名字。当讨论函数时，比如print，实际上指的是保存函数的变量。虽然我们通常会把函数赋值给全局变量，从而看似给函数起了一个名字，但在很多场景下仍然会保留函数的匿名性。<br>&ensp;&ensp;&ensp;&ensp;表标准库提供了函数table.sort，该函数以一个表为参数并对其中的元素排序。这种函数必须支持各种各样的排序方式：升序或降序、按数值顺序或按字母顺序、按表中的键等。函数sort并没有试图穷尽所有的排序方式，而是提供了一个可选的参数，也就是所谓的排序函数，排序函数接收两个参数并根据第一个元素是否应排在第二个元素之前返回不同的值。<br>假如，有一个如下所示的表：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">network = &#123;</span><br><span class="line">	&#123;name = <span class="string">&quot;grauna&quot;</span> , IP = <span class="string">&quot;210,26.30.34&quot;</span>&#125;,</span><br><span class="line">	&#123;name = <span class="string">&quot;arraial&quot;</span>, IP = <span class="string">&quot;210,26,30,23&quot;</span>&#125;,</span><br><span class="line">	&#123;name = <span class="string">&quot;lua&quot;</span>,	   IP = <span class="string">&quot;210,26,23,12&quot;</span>&#125;,</span><br><span class="line">	&#123;name = <span class="string">&quot;derain&quot;</span>,  IP = <span class="string">&quot;210,26,23,20&quot;</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果想针对name字段、按字母顺序逆序对这个表排序，只需使用下面语句：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">talbe.sort(network,function (a,b) <span class="keyword">return</span> (a.name &gt; b.name) end)</span><br></pre></td></tr></table></figure>
+<p>可见，匿名函数在这条语句中显示出了很好的便利性。<br>&ensp;&ensp;&ensp;&ensp;像函数sort这样以另一个函数为参数的函数，我们称之为高阶函数。高阶函数是一种强大的编程机制，而利用匿名函数作为参数正式其灵活性的主要来源。不过尽管如此，请记住高阶函数也并没有什么特殊的，它们只是Lua语言将函数作为第一类值处理所带来的直接体现。<br>&ensp;&ensp;&ensp;&ensp;为了进一步演示高阶函数的用法，让我们再来实现一个常见的高阶函数，即导数。按照通常的定义，函数f的导数为$f’(x) = (f(x + d) - f(x))/d$,其中d趋向于无穷小。根据这个定义，可以赢如下方式近似第计算导数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function derivative (f,delta)</span><br><span class="line">	delta = delta <span class="keyword">or</span> <span class="number">1e-4</span></span><br><span class="line">	<span class="keyword">return</span> function (x)</span><br><span class="line">		<span class="keyword">return</span> (f(x + delta) - f(x))/delta</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>对于指定的函数f，调用derivative(f)将返回其导数，也就是另一个函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c = derivative(math.sin)</span><br><span class="line">&gt; print(math.cos(<span class="number">5.2</span>),c(<span class="number">5.2</span>))</span><br><span class="line">print(math.cos(<span class="number">10</span>),c(<span class="number">10</span>)) 		</span><br></pre></td></tr></table></figure>
+<h2 id="非全局函数"><a href="#非全局函数" class="headerlink" title="非全局函数"></a>非全局函数</h2><p>&ensp;&ensp;&ensp;&ensp;由于函数是一种“第一类值”，因此一个显而易见的结果就是：函数不仅可以被存储在全局变量中，还可以被存储在表字段和局部变量中。<br>&ensp;&ensp;&ensp;&ensp;创建函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Lib = &#123;&#125;</span><br><span class="line">Lib.foo = function(x,y) <span class="keyword">return</span> x + y end</span><br><span class="line">Lib.goo = function(x,y) <span class="keyword">return</span> x - y end</span><br><span class="line">print(Lib.foo(<span class="number">2</span>,<span class="number">3</span>),Lib.goo(<span class="number">2</span>,<span class="number">3</span>))		-- <span class="number">5</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<p>当然，也可使用表构造器：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Lib = &#123;</span><br><span class="line">	foo = function(x,y) <span class="keyword">return</span> x + y end</span><br><span class="line">	goo = function(X,y) <span class="keyword">return</span> x - y end</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除此以外，Lua语言还提供了另一种特殊的语言来定义这类函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Lib = &#123;&#125;</span><br><span class="line">function Lib.foo(x,y) <span class="keyword">return</span> x + y end</span><br><span class="line">function Lib.goo(x,y) <span class="keyword">return</span> x - y end</span><br></pre></td></tr></table></figure>
+<p>在表字段中存储函数是Lua语言中实现面向对象编程的关键要素。<br>&ensp;&ensp;&ensp;&ensp;当把一个函数存储到局部变量时，就得到一个局部函数，即一个被限定在指定作用域中使用的函数。局部函数对于包而言尤其有用：由于Lua语言将每个程序段作为一个函数处理，所以在一段程序中声明的函数就是局部函数，这些局部函数只在该程序段中可见。词法定界保证了程序段中的其他函数可以使用这些局部函数。<br>对于这种局部函数的使用，Lua语言提供了一种语法他那个：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local function f (params)</span><br><span class="line">	body</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;在定义局部递归函数时，由于原来的方法不使用，所有有一点是极易出错的。考虑如下代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local fact = function(n)</span><br><span class="line">	<span class="keyword">if</span> n == <span class="number">0</span> then <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> n * fact(n<span class="number">-1</span>)   --有问题</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>当Lua语言编译函数体中的fact(n-1)调用时，局部的fact尚未定义。因此，这个表达式会尝试调用全局的fact而非局部的fact。我们可以通过先定义局部变量再定义函数的方式来解决这个问题：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local fact</span><br><span class="line">fact = function(n)</span><br><span class="line">	<span class="keyword">if</span> n == <span class="number">0</span> then <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> n * fact(n<span class="number">-1</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>这样，函数内的fact指向的是局部变量。尽管在定义函数时，这个局部变量的值尚未确定，但到了执行函数时，fact肯定有了正确的赋值。<br>&ensp;&ensp;&ensp;&ensp;当Lua语言展开局部函数的语法糖时，使用的并不是之前的基本函数定义。相反，形如</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local function foo(params) body end</span><br></pre></td></tr></table></figure>
+<p>的定义会被展开成</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local foo; foo = function(params) body end</span><br></pre></td></tr></table></figure>
+<p>因此，使用这个语法来定义递归函数不会有问题。<br>&ensp;&ensp;&ensp;&ensp;当然，这个技巧对于简介递归函数是无效的。在间接递归的情况下，必须使用与明确的前向声明等价的形式：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local f </span><br><span class="line"></span><br><span class="line"><span class="function">local function <span class="title">g</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	some code <span class="title">f</span><span class="params">()</span> some code</span></span><br><span class="line"><span class="function">end</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">function <span class="title">f</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	some code <span class="title">g</span><span class="params">()</span> some code</span></span><br><span class="line"><span class="function">end</span></span><br></pre></td></tr></table></figure>
+<p>请注意，不能在最后一个函数定义前加上local。否则，Lua语言会创建一个全新的局部变量f，从而使得先前声明的f变为未定义状态。</p>
+<h2 id="词法定界"><a href="#词法定界" class="headerlink" title="词法定界"></a>词法定界</h2><p>&ensp;&ensp;&ensp;&ensp;当编写一个被其他函数B包含的函数A时，被包含的函数A可以访问包含其的函数B的所有局部变量，我们将这种特行称为词法定界。虽然这种可见性规则听上去很明确，但实际上并非如此。词法定界外加嵌套的第一类值函数可以为编程语言提供强大的功能，但很多编程语言并不支持将这两者组合使用。<br>&ensp;&ensp;&ensp;&ensp;先看一个例子。假设有一个表，其中包含了学生的姓名和对应的成绩，如果我们想基于分数对学生姓名排序，分数高者在前，那么可以使用如下的代码完成上述需求：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">name = &#123;<span class="string">&quot;Peter&quot;</span>,<span class="string">&quot;Paul&quot;</span>,<span class="string">&quot;MAry&quot;</span>&#125;</span><br><span class="line">grades = &#123;Mary = <span class="number">10</span>, Paul = <span class="number">7</span>, Peter = <span class="number">8</span>&#125;</span><br><span class="line">table.sort(names,function(n1,n2)</span><br><span class="line">	<span class="keyword">return</span> grades[n1] &gt; grades[n2]</span><br><span class="line">end)</span><br></pre></td></tr></table></figure>
+<p>现在，假设我们想创建一个函数来完成这个需求：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function sortbygrade(names,grades)</span><br><span class="line">	table.sort( names, function(n1,n2)</span><br><span class="line">		<span class="keyword">return</span> grades[n1] &gt; grades[n2]</span><br><span class="line">	end)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>在后一个示例中，有趣的一点就在于传给函数sort的匿名函数可以访问grades,而grades是包含匿名函数的外层函数sortbygrade的形参。在该匿名函数中，grades既不是全局变量也不是局部变量，而是我们所说的非局部变量。<br>&ensp;&ensp;&ensp;&ensp;这一点之所有如此有趣是因为函数作为第一类值，能够逃逸出它们变量的原始定界范围。考虑如下代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function newCounter()</span><br><span class="line">	local count = <span class="number">0</span></span><br><span class="line">	<span class="keyword">return</span> function ()</span><br><span class="line">		count = count + <span class="number">1</span></span><br><span class="line">		<span class="keyword">return</span> count</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">c1 = newCounter()</span><br><span class="line">print(c1())			-- <span class="number">1</span></span><br><span class="line">pirnt(c2())			-- <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>在上述代码中，匿名函数访问了一个非局部变量并将其当作计数器。然而，游艺创建变量的函数已经返回，因此当我们调用匿名函数时，变量count似乎已经超出了作用范围。但其实不然，由于闭包概念的存在，Lua语言能够正确地应对这种情况。简单地说，一个闭包就是一个函数外加能够使该函数正确访问非局部变量所需的其他机制。如果我们再次调用newCounter，那么一个新的局部变量count和一个新的闭包会被创建出来，这个新的闭包针对的是这个新变量：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c2 = newCounter()</span><br><span class="line">print(c2())			-- <span class="number">1</span></span><br><span class="line">print(c1())			-- <span class="number">3</span></span><br><span class="line">print(c3())			-- <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>因此，c1和c2是不同的闭包。它们建立在相同的函数之上，但是各自拥有局部变量count的独立实例。<br>&ensp;&ensp;&ensp;&ensp;从技术上讲，Lua语言中只有闭包而没有函数。函数本身只是闭包的一种原型。不过尽管如此，只要不会引起混淆，我们就仍将使用术语“函数”来指代闭包。<br>&ensp;&ensp;&ensp;&ensp;闭包在许多场合中均是一种有价值的工具。闭包在作为诸如sort这样的高阶函数的参数时就非常有用。同样，闭包对于那些创建了其他函数的函数也很有用。这种机制使得Lua程序能够综合运用函数式编程世界中多种精妙的编程技巧。另外，闭包对于回调函数来说也很有用。对于回调函数而言，一个典型的例子就是在传统GUI工具箱中创建按钮。每个按钮通常都对应一个回调函数，当用户按下按钮时，完成不同的处理动作的回调函数就会被调用。<br>&ensp;&ensp;&ensp;&ensp;例如，假设有一个具有10个类似按钮的数字计算器，我们就可以使用如下的函数来创建这些按钮：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function digitButton(digit)</span><br><span class="line">	<span class="keyword">return</span> Button&#123; label = tostring(digit),</span><br><span class="line">		action = function()</span><br><span class="line">			add_to_display(digit)</span><br><span class="line">		end</span><br><span class="line">	&#125;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>在上述示例中，假设Button是一个创建新按钮的工具箱函数，label是按钮的标签，action是当按钮按下时被调用的回调函数。回调可能发生在函数digitButton早已执行完后，那时变量digit已经超出了作用范围，但闭包仍可以访问它。<br>&ensp;&ensp;&ensp;&ensp;闭包在另一种很不一样的场景下也非常有用。由于函数可以保存在普通变量中，因此在Lua语言中可以轻松地重新定义函数，甚至是预定义函数。这种机制也正是Lua语言灵活的原因之一。通常，当重新定义一个函数的时候，我们需要在新的实现中调用原来的那个函数。例如，假设要重新定义函数sin以使其参数以角度为单位而不是以弧度为单位。那么这个新函数就可以先对参数进行转换，然后再调用原来的sin函数进行真正的计算。代码可能形如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local oldSin - math.sin </span><br><span class="line">math.sin = function(x)</span><br><span class="line">	<span class="keyword">return</span> oldSin(x * (math.pi/<span class="number">180</span>))</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>另一种更清晰一点的完成重新定义的写法是：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">do </span><br><span class="line">	local oldSin = math.sin </span><br><span class="line">	local k = math.pi/<span class="number">180</span></span><br><span class="line">	math.sin = function(x)</span><br><span class="line">		<span class="keyword">return</span> oldSin(x * k)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>上述代码使用了do代码段来限制局部变量oldSin的作用范围；根据可见性规则，局部变量oldSin只在这部分代码段中有效。因此，只有新版本的函数sin才能访问原来的sin函数，其他部分的代码则访问不了。<br>&ensp;&ensp;&ensp;&ensp;我们可以使用同样的技巧来创建安全的运行时环境，即所谓的沙盒。当执行一些诸如从远程服务器上下载到的未受信任代码时，安全的运行时环境非常重要。例如，我们可以通过使用闭包重定义函数io.open来限制一个程序能够访问的文件：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">do </span><br><span class="line">	local oldOpen = io.open</span><br><span class="line">	local access_OK - function (filename, mode)</span><br><span class="line">		check access </span><br><span class="line">	end</span><br><span class="line">	io.open = function (filename ,mode)</span><br><span class="line">		<span class="keyword">if</span> access_OK(filename, mode) then</span><br><span class="line">			<span class="keyword">return</span> oldOpen(filename,mode)</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> nil, <span class="string">&quot;access denied&quot;</span></span><br><span class="line">		end</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>上述示例的巧妙之处在于，在经过重新定义后，一个程序就只能通过新的受限版本来调用原来未受限版本的io.open函数。示例代码将原来不安全的版本保存为闭包的一个私有变量，该变量无法从外部访问。通过这一技巧，就可以在保证简洁性和灵活性的前提下在Lua语言本身上构建Lua沙盒。相对于提供一套大而全的解决方案，Lua语言提供的是一套“元机制”，借助这种机制可以根据特定的安全需求来裁剪具体的运行时环境。</p>
+<h2 id="小试函数式编程"><a href="#小试函数式编程" class="headerlink" title="小试函数式编程"></a>小试函数式编程</h2><p>&ensp;&ensp;&ensp;&ensp;这里，我们的目标就是开发一个用来表示几何区域的系统，其中区域即为点的几何。我们希望能够利用该系统表示各种各样的图形，同时可以通过多种方式组合和修改这些图形。<br>&ensp;&ensp;&ensp;&ensp;为了实现这样的一个系统，首先需要找到表示这些图形的合理数据结构。我们可以尝试着使用面向对象的方案，利用继承来抽象某些图形；或者，也可以直接利用特征函数来进行更高层次的抽象。鉴于一个几何区域就是点的集合，因此可以通过特征函数来表示一个区域，即可以提供一个点并根据点是否属于指定区域而返回真或假的函数来表示一个区域。<br>&ensp;&ensp;&ensp;&ensp;举例来说，下面的函数表示一个点(1.0,3.0)为圆心、半径4.5的圆盘：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function disk1(x,y)</span><br><span class="line">	<span class="keyword">return</span> (x - <span class="number">1.0</span>)^<span class="number">2</span> + (y - <span class="number">3.0</span>)^<span class="number">2</span> &lt;= <span class="number">4.5</span>^<span class="number">2</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>利用高阶函数和词法定界，可以很容易地定义一个根据指定的圆心和半径创建圆盘的工厂：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function disk(cx,cy,r)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> (x - cx)^<span class="number">2</span> + (y - cy)^<span class="number">2</span> &lt;= r^<span class="number">2</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>形如disk(1.0,3.0,4.5)的调用会创建一个与disk1等价的圆盘。<br>下面的函数创建了一个指定边界的轴对称矩形：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function rect(left,right,bottom,up)</span><br><span class="line">	<span class="keyword">return</span> function(x,y)</span><br><span class="line">		<span class="keyword">return</span> left &lt;= x <span class="keyword">and</span> x &lt;= right <span class="keyword">and</span> bottom &lt;= y <span class="keyword">and</span> y &lt;= up</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>按照类似的方式，可以定义函数以创建诸如三角形或非轴承矩形等其他基本图形。每一种图形都具有完全独立的实现，所需的仅仅是一个正确的特征函数。<br>&ensp;&ensp;&ensp;&ensp;接下来让我们考虑一下如何改变和组合区域。我们可以很容易地创建任何区域的补集：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function complement(r)</span><br><span class="line">	<span class="keyword">return</span> function(x,y)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">not</span> r(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>并集、交集和差集也很简单。</p>
+<blockquote>
+<p>示例 区域的并集、交集和差集</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function union (r1,r2)</span><br><span class="line">	<span class="keyword">return</span> function(x,y)</span><br><span class="line">		<span class="keyword">return</span> r1(x,y) <span class="keyword">or</span> r2(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">function intersection (r1,r2)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> r1(x,y) <span class="keyword">and</span> r2(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">function difference (r1,r2)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> r1(x,y) <span class="keyword">and</span> <span class="keyword">not</span> r2(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>以下函数按照指定的增量平移指定的区域：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function translate(r,dx,dy)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> r(x - dx, y -dy)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;为了使一个区域可视化，我们可以遍历每个像素进行视口测试；位于区域内的像素被绘制成黑色，而位于区域外的像素被绘制成白色。为了用简单的方式演示这个过程，我们接下来写一个函数来生成一个PBM格式的文件来绘制指定的区域。<br>&ensp;&ensp;&ensp;&ensp;PBM文件的结构很简单。PBM文件的文本形式以字符串”P1”开头，接下来的一行是图片的宽和高，然后是对应每一个像素、由1和0组成的数字序列，最后是EOF。</p>
+<blockquote>
+<p>示例 在PBM文件中绘制区域</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function plot(r,M,N)</span><br><span class="line">	io.write(<span class="string">&quot;P1\n&quot;</span>,M,<span class="string">&quot; &quot;</span>,N,<span class="string">&quot;\n&quot;</span>)		-- 文件头</span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>, N do</span><br><span class="line">		local y = (N - i*<span class="number">2</span>)/N</span><br><span class="line">		<span class="keyword">for</span> j = <span class="number">1</span>, M do</span><br><span class="line">			local x = (j*<span class="number">2</span> - M)/M</span><br><span class="line">			io.write(r(x,y) <span class="keyword">and</span> <span class="string">&quot;1&quot;</span> <span class="keyword">or</span> <span class="string">&quot;0&quot;</span>)</span><br><span class="line">		end</span><br><span class="line">		io.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;为了让示例更加完整，一下的代码绘制了一个南半球所能看到的娥眉月：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c1 = disk(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">plot(difference(c1,translate(c1,<span class="number">0.3</span>,<span class="number">0</span>)),<span class="number">500</span>,<span class="number">500</span>)</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>编程语言</category>
       </categories>
