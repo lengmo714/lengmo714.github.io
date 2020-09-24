@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="&amp;emsp;&amp;emsp;主要讲述的内容:  消隐的分类，如何消除隐藏线、隐藏面，主要介绍以下几个算法：  Z缓冲区（Z-Buffer）算法 扫描线Z-buffer算法 区域子分割算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="光栅图形学算法--消隐算法">
+<meta property="og:url" content="http://example.com/2017/07/27/%E5%85%89%E6%A0%85%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AE%97%E6%B3%95-%E6%B6%88%E9%9A%90%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="曾经的梦想">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;主要讲述的内容:  消隐的分类，如何消除隐藏线、隐藏面，主要介绍以下几个算法：  Z缓冲区（Z-Buffer）算法 扫描线Z-buffer算法 区域子分割算法">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-07-27T13:14:25.000Z">
+<meta property="article:modified_time" content="2020-09-13T03:52:42.758Z">
+<meta property="article:author" content="embed_cxf">
+<meta property="article:tag" content="光栅图形学">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="消隐算法">
+<meta property="article:tag" content="计算机图形学">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2017/07/27/%E5%85%89%E6%A0%85%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AE%97%E6%B3%95-%E6%B6%88%E9%9A%90%E7%AE%97%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>光栅图形学算法--消隐算法 | 曾经的梦想</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="曾经的梦想" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">曾经的梦想</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">曾梦想仗剑走天涯</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/07/27/%E5%85%89%E6%A0%85%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AE%97%E6%B3%95-%E6%B6%88%E9%9A%90%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="embed_cxf">
+      <meta itemprop="description" content="一个迷茫的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曾经的梦想">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          光栅图形学算法--消隐算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-27 21:14:25" itemprop="dateCreated datePublished" datetime="2017-07-27T21:14:25+08:00">2017-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-13 11:52:42" itemprop="dateModified" datetime="2020-09-13T11:52:42+08:00">2020-09-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">计算机图形学</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2017/07/27/%E5%85%89%E6%A0%85%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AE%97%E6%B3%95-%E6%B6%88%E9%9A%90%E7%AE%97%E6%B3%95/" class="post-meta-item leancloud_visitors" data-flag-title="光栅图形学算法--消隐算法" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2017/07/27/%E5%85%89%E6%A0%85%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AE%97%E6%B3%95-%E6%B6%88%E9%9A%90%E7%AE%97%E6%B3%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/07/27/%E5%85%89%E6%A0%85%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AE%97%E6%B3%95-%E6%B6%88%E9%9A%90%E7%AE%97%E6%B3%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&emsp;&emsp;<strong>主要讲述的内容:</strong>  消隐的分类，如何消除隐藏线、隐藏面，主要介绍以下几个算法：</p>
+<ul>
+<li>Z缓冲区（Z-Buffer）算法</li>
+<li>扫描线Z-buffer算法</li>
+<li>区域子分割算法<a id="more"></a>
+<h1 id="消隐"><a href="#消隐" class="headerlink" title="消隐"></a>消隐</h1>&emsp;&emsp;当我们观察空间任何一个不透明的物体时，只能看到该物体朝向我们的那些表面，其余的表面由于被物体所遮挡我们看不到。<blockquote>
+<p>如果把可见和不可见的线都画出来，对视觉会造成多义性</p>
+</blockquote>
+</li>
+</ul>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170727211020839?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170727211020839?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>如上图中，最左边的图形把所有的线都画出来了，那么就会有两种情况，中间那种和最右边那种，这时就会产生多义性。<br>要消除二义性，就必须在绘制时消除被遮挡的不可见的线或面，习惯上称作消除隐藏线和隐藏面，简称<strong>消隐</strong>。<br>要绘制出意义明确、富有真实感的立体图形，首先必须消去形体中的不可见部分，而只在图形中表现可见部分<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170727211050810?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170727211050810?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>消隐不仅与消隐对象有关，还与观察者的位置有关<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170727211107039?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170727211107039?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>当观察者在E1时，看到的就是AB，当观察这在E2时，看到的就是BD，可见与不可见只是相对于观察者的位置。</p>
+<h2 id="消隐的分类"><a href="#消隐的分类" class="headerlink" title="消隐的分类"></a>消隐的分类</h2><h3 id="按消隐对象分类"><a href="#按消隐对象分类" class="headerlink" title="按消隐对象分类"></a>按消隐对象分类</h3><p><strong>（1）线消隐</strong><br>消隐对象时物体上的边，消除的是物体上不可见的边<br><strong>（2）面消隐</strong><br>消隐对象是物体上的面，消除的是物体上不可见的面，通常做真实感图形消隐时用面消隐</p>
+<h3 id="按消隐空间分类"><a href="#按消隐空间分类" class="headerlink" title="按消隐空间分类"></a>按消隐空间分类</h3><h4 id="物体空间的消隐算法"><a href="#物体空间的消隐算法" class="headerlink" title="物体空间的消隐算法"></a>物体空间的消隐算法</h4><p>以场景中的物体为处理单元。假设场景中有k 个物体，将其中一个物体与其余k-1个物体逐一比较，仅显示它空间表面以达到消隐的目的。</p>
+<blockquote>
+<p>(场景中的每一个物体)将该物体与场景中的其它物体进行比较，确定其表面的可见部分；显示该物体表面的可见部分；</p>
+</blockquote>
+<p>在物体空间里典型的消隐算法有两个：<strong>Roberts算法</strong>和<strong>光线投射法</strong><br>Roberts算法数学吃力严谨，计算量甚大。算法要求所有被显示的物体都是凸的，对于凹体要先分割成多个凸体的组合<br><strong>Roberts算法基本步骤：</strong></p>
+<ul>
+<li>逐个的独立考虑每个物体自身，找出为其自身所遮挡的边和面（自消隐）；</li>
+<li>将每一个物体上留下的边再与其它物体逐个的进行比较，以确定是完全可见还是部分或全部遮挡（两两物体消隐）；</li>
+<li>确定由于物体之间的相互贯穿等原因，是否要形成新的显示边等，从而使被显示各物体更接近现实。</li>
+</ul>
+<p><strong>光纤投射</strong>是求光纤与场景的交点，该光纤就是所谓的视线（如视点与像素连成的线）<br>一条视线与场景中的物体可能有许多交点，求出这些交点后需要排序，在前面的才能被看到。人的眼睛可以一目了然，但计算机做需要大量的运算。</p>
+<h4 id="图像空间的消隐算法"><a href="#图像空间的消隐算法" class="headerlink" title="图像空间的消隐算法"></a>图像空间的消隐算法</h4><p>以屏幕窗口内的每个像素为处理单元。确定在每一个像素处，场景中的k个物体哪一个距离观察点最近，从而用它的颜色来显示该像素。</p>
+<blockquote>
+<p>（窗口中每一个像素）确定距视点最近的物体，以该物体表面的颜色来显示像素；</p>
+</blockquote>
+<p>因为最后看到的图像是在屏幕上的，所以就拿屏幕作为处理对象。针对屏幕上的像素来进行处理，算法的思想是围绕着屏幕的。对屏幕上每个象素进行判断，决定哪个多边形在象素可见。</p>
+<h2 id="Z缓冲区（Z-Buffer）算法"><a href="#Z缓冲区（Z-Buffer）算法" class="headerlink" title="Z缓冲区（Z-Buffer）算法"></a>Z缓冲区（Z-Buffer）算法</h2><p>&emsp;&emsp;Z缓冲区算法也叫深度缓冲器算法，属于图像空间消隐算法。改算法有帧缓冲器和深度缓冲器。对应两个数组：</p>
+<blockquote>
+<p>intensity(x,y)——属性数组（帧缓冲器）<br>存储图像空间每个可见像素的光强或颜色<br>depth(x,y)——深度数组（z-buffer）<br>存放图像空间每个可见像素的z坐标</p>
+</blockquote>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170727211144489?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170727211144489?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170727211156860?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170727211156860?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>假定xoy面为投影面，z轴为观察方向，过屏幕上任意像素点（x,y）作平行于z轴的射线R，与物体表面相交于p1和p2点，p1和p2点的z值称为该点的深度值。<br>将最大的z值存入z缓冲器中，显然，p1在p2前面，屏幕上（x,y）这一点将显示p1点的颜色<br>** 算法思想：** 先将Z缓冲器中各单元的初始值置为最小值。当要改变某个像素的颜色值时，首先检查当前多边形的深度值是否大于该像素原来的深度值（保存在该像素所对应的Z缓冲器的单元中）<br>如果大于原来的Z值，说明当前多边形更靠近观察点，用它的颜色替换像素原来的颜色。</p>
+<h3 id="Z-Buffer算法的优点"><a href="#Z-Buffer算法的优点" class="headerlink" title="Z-Buffer算法的优点"></a>Z-Buffer算法的优点</h3><p>（1）Z-Buffer算法比较简单，也很直观<br>（2）在象素级上以近物取代远物。与物体在屏幕上的出现顺序是无关紧要的，有利于硬件实现</p>
+<h3 id="Z-Buffer算法的缺点"><a href="#Z-Buffer算法的缺点" class="headerlink" title="Z-Buffer算法的缺点"></a>Z-Buffer算法的缺点</h3><p>（1）占用空间大<br>（2）没有利用图形的相关性和连续性，这是z-buffer算法的严重缺陷<br>（3）该算法是在像素级上的消隐算法</p>
+<h3 id="只用一个深度缓存变量zb的改进算法"><a href="#只用一个深度缓存变量zb的改进算法" class="headerlink" title="只用一个深度缓存变量zb的改进算法"></a>只用一个深度缓存变量zb的改进算法</h3><p>一般认为，z-buffer算法需要开一个与图象大小相等的缓存数组ZB，实际上，可以改进算法，只用一个深度缓存变量zb<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170727211210538?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170727211210538?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br><strong>关键问题：</strong>判断象素点（i,j）是否在pk的投影多边形之内，不是一件容易的事。节省了空间但牺牲了时间。计算机的很多问题就是在时间和空间上找平衡。<br>另一个问题计算多边形Pk在点（i,j）处的深度。设多边形Pk的平面方程为：<br>图7</p>
+<h4 id="点与多边形的包含性检测："><a href="#点与多边形的包含性检测：" class="headerlink" title="点与多边形的包含性检测："></a>点与多边形的包含性检测：</h4><p>（1）射线法<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170727211223392?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170727211223392?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>由被测点P处向y等于负无穷方向作射线，交点个数是奇数，则被测点在多边形内部；交点个数是偶数表示被测点在多边形外部。</p>
+<p>若射线正好经过多边形的顶点，则采用“左开右边”的原则来实现。即：当射线与某条边的顶点相交时，若边在射线的左侧，交点有效。计数；若边在射线的右侧，交点无效，不计数。<br><em>用射线法来判断一个点是否在多边形内的弊端</em><br>a、计算量大<br>b、不稳定<br>（2）弧长法<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170727211235681?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170727211235681?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>以p点为圆心，作单位圆，把边投影到单位圆上，对应一段段弧长，规定逆时针为正，顺时针为负，计算弧长代数和。<br>代数和为0，点在多边形外部<br>代数和为2pi,点在多边形内部<br>代数和为pi，点在多边形上</p>
+<p>这个算法为什么是稳定的？假如算出来后代数和不是0，而是0.2或0.1，那么基本上可以断定这个点在外部，可以认为是计算误差引起的，实际上是0。</p>
+<blockquote>
+<p>但这个算法效率也不高，问题是算弧长并不容易，因此又派生出一个新的方法——以顶点符号为基础的弧长累加方法。</p>
+</blockquote>
+<h3 id="以顶点符合为基础的弧长累加方法"><a href="#以顶点符合为基础的弧长累加方法" class="headerlink" title="以顶点符合为基础的弧长累加方法"></a>以顶点符合为基础的弧长累加方法</h3><p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170727211256084?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170727211256084?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>P是被测点，按照弧长法，p点的代数和为2pi，不要计算角度，做一个规定来取代原来的弧长计算。<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170727211308217?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170727211308217?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>同一个象限认为是0，跨过一个象限是pi/2，跨过二个象限是pi。这样当药计算代数和的时候，就不要去投影了，只要根据点所在的象限一下了就判断出多少度，这样几乎没有什么计算量，只有一些简单的判断，效率非常高。</p>
+<p>Z-buffer算法是非常经典和重要的，在图形加速卡和固件里都有。只用一个深度缓存变量zb的改进算法虽然减少了空间，但仍然没考虑相关性和连贯性。</p>
+<h3 id="区间扫描线算法"><a href="#区间扫描线算法" class="headerlink" title="区间扫描线算法"></a>区间扫描线算法</h3><p>图12<br>有三个区间，分别为不同的颜色。一根红色的扫描线，扫描线的交点把这条扫描线分成了若干个区间，每个区间上必然是同样一种颜色<br>对于有重合的区间，如a6a7这个区间，要么显示F2的颜色，要显示F3的颜色，不会出现颜色的<strong>跳跃</strong><br>如果把扫描线和多边形的这些交点都求出来，对每个区间只要判断一个像素的要画什么颜色，那么整个区间的颜色都解决了，这就是区间扫描线算法的主要思想<br><strong>算法的优点：</strong> 将象素计算改为逐段计算，效率大大提高！<br><strong>算法的实现</strong><br>首先要有多边形，然后求交点，然后交点进行排序<br>排序的结果就分成了一个个区间，然后在每个区间找当中的一个像素（i,j），在(i,j)处计算每个相关面的Z值，对相关深度值z进行比较，其中最大的一个就表示是可见的。整个这段区间就画这个z值最大面的颜色。</p>
+<p><strong>小区间颜色的确定</strong><br>(1)小区间上没有任何多边形，如[a4,a5]，用背景色显示<br>(2)小区间只有一个多边形，如[a1,a2]，显示该多边形的颜色<br>(3)小区间上存在两个或两个以上的多边，比如[a6,a7],必须通过深度测试判断哪个多边形可见</p>
+<h3 id="Warnock算法"><a href="#Warnock算法" class="headerlink" title="Warnock算法"></a>Warnock算法</h3><p>Warnock算法是图形空间中非常经典的一个算法<br>Warnock算法的重要性不在于它的效率比别的算法高，而在于采用了分而治之的思想，利用了堆栈的数据结构。<br>把物体投影到全屏幕窗口上，然后递归分割窗口，知道窗口内目标足够简单，可以显示为止。</p>
+<p><strong>什么情况下，画面足够简单可以立即显示？</strong><br>（1）窗口中仅包含一个多边形<br>（2）窗口与一个多边形相交，且窗口内无其它多边形<br>（3）窗口为一个多边形多包围<br>（4）窗口与一个多边形相分离</p>
+<p><strong>如何判别一个多边形和窗口是分离的？</strong><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170731210828118?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170731210828118?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>当满足下列条件是，多边形和窗口分离：<br>X<sub>min</sub>&gt;x<sub>R</sub>  or x<sub>max</sub>&gt;x<sub>L</sub><br>y<sub>min</sub>&gt;y<sub>T</sub>   or y<sub>max</sub>&gt;y<sub>B</sub></p>
+<p><strong>如何判断一个多边形在窗口内？</strong><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170731210840907?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170731210840907?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>当满足下列条件时，多边形被窗口包含：<br>X<sub>min</sub>&gt;=x<sub>L</sub>  &amp; x<sub>max</sub>&lt;=x<sub>R</sub><br>y<sub>min</sub>&gt;=y<sub>B</sub>  &amp; y<sub>max</sub>&lt;=y<sub>T</sub><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170731210859312?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170731210859312?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>多边形与窗口相交的判别，可以采用直线方程作为判别函数来判定一个多边形是否与窗口相交</p>
+<p><strong>窗口有多个多边形投影面，如何显示？</strong><br>Warnock算法的重要性不在于它的效率比别的算法高，而在于采用了分而治之的思想，利用了堆栈的数据结构<br>把物体投影到全屏幕窗口上，然后递归分割窗口，知道窗口内目标足够简单，可以显示为止</p>
+<h4 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h4><p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170731210914845?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170731210914845?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>(1)如果窗口内没有物体则按背景色显示<br>(2)若窗口内只有一个面，则把该面显示出来<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170731210929853?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170731210929853?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>(3)窗口内含有两个以上的面，则把窗口等分为四个子窗口。对每个小窗口再做上述同样的处理。这样反复进行下去<br>把四个子窗口压在一个堆栈里（先进后出）</p>
+<blockquote>
+<p>最近发现在markdown不会编辑数学公式，所以有些地方采用了截图</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/WechatIMG28.jpg" alt="embed_cxf 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/WechatIMG29.jpg" alt="embed_cxf 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>embed_cxf
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2017/07/27/%E5%85%89%E6%A0%85%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AE%97%E6%B3%95-%E6%B6%88%E9%9A%90%E7%AE%97%E6%B3%95/" title="光栅图形学算法--消隐算法">http://example.com/2017/07/27/光栅图形学算法-消隐算法/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%89%E6%A0%85%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"><i class="fa fa-tag"></i> 光栅图形学</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E6%B6%88%E9%9A%90%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 消隐算法</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"><i class="fa fa-tag"></i> 计算机图形学</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/07/16/%E6%A0%91%E8%8E%93%E6%B4%BE3%E5%88%9B%E5%BB%BAftp%E6%9C%8D%E5%8A%A1%E5%8F%8A%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E9%85%8D%E7%BD%AE/" rel="prev" title="树莓派3创建ftp服务及远程桌面配置">
+      <i class="fa fa-chevron-left"></i> 树莓派3创建ftp服务及远程桌面配置
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/10/07/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E4%BA%A4%E6%8D%A2%E4%BC%A0%E8%BE%93%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/" rel="next" title="通信工程交换传输实习报告">
+      通信工程交换传输实习报告 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+      
+  </div>
+ 
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=25889901&auto=1&height=66"></iframe>
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="embed_cxf"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">embed_cxf</p>
+  <div class="site-description" itemprop="description">一个迷茫的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">107</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lengmo714@qq.com" title="E-Mail → mailto:lengmo714@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3124723200/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;3124723200&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/Silent_F" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://apps.apple.com/cn/app/%E5%BF%AB%E9%80%9F%E6%89%93%E5%9C%B0%E9%BC%A0/id1530515717" title="game1 → https:&#x2F;&#x2F;apps.apple.com&#x2F;cn&#x2F;app&#x2F;%E5%BF%AB%E9%80%9F%E6%89%93%E5%9C%B0%E9%BC%A0&#x2F;id1530515717" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>game1</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider"></span>
+</span>
+</div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cxf</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">559k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">8:29</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '80d60V4tSVpFn1patE5mwyA5-gzGzoHsz',
+      appKey     : '6d1cXy06aaBYYsxyBjrNIUdL',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-CN' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

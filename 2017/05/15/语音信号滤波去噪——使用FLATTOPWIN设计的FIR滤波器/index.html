@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="摘  要  本课程设计主要内容是设计利用窗口设计法选择FLATTOPWIN窗设计一个FIR滤波器，对一段含噪语音信号进行滤波去噪处理并根据滤波前后的波形和频谱分析滤波性能。本课程设计仿真平台为MATLAB7.0，开发工具是M语言编程，通过课程设计了解FIR滤波器设计的原理和步骤，掌握用MATLAB语言设计滤波器的方法，了解FLATTOPWIN对FIR滤波器的设计及编程方法。首先利用windows自">
+<meta property="og:type" content="article">
+<meta property="og:title" content="语音信号滤波去噪——使用FLATTOPWIN设计的FIR滤波器">
+<meta property="og:url" content="http://example.com/2017/05/15/%E8%AF%AD%E9%9F%B3%E4%BF%A1%E5%8F%B7%E6%BB%A4%E6%B3%A2%E5%8E%BB%E5%99%AA%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8FLATTOPWIN%E8%AE%BE%E8%AE%A1%E7%9A%84FIR%E6%BB%A4%E6%B3%A2%E5%99%A8/index.html">
+<meta property="og:site_name" content="曾经的梦想">
+<meta property="og:description" content="摘  要  本课程设计主要内容是设计利用窗口设计法选择FLATTOPWIN窗设计一个FIR滤波器，对一段含噪语音信号进行滤波去噪处理并根据滤波前后的波形和频谱分析滤波性能。本课程设计仿真平台为MATLAB7.0，开发工具是M语言编程，通过课程设计了解FIR滤波器设计的原理和步骤，掌握用MATLAB语言设计滤波器的方法，了解FLATTOPWIN对FIR滤波器的设计及编程方法。首先利用windows自">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTU1NjQ4NzIy?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYwMDUxNzM1?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYwMTQ0NDM5?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYwMjQxODUw?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYwOTA2MzU1?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYxMDU3OTUx?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYxMjExNzYx?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYxMzM4NzQ3?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYxNDA3NzM3?x-oss-process=image/format,png">
+<meta property="article:published_time" content="2017-05-15T03:27:14.000Z">
+<meta property="article:modified_time" content="2020-09-13T03:34:22.269Z">
+<meta property="article:author" content="embed_cxf">
+<meta property="article:tag" content="课程设计">
+<meta property="article:tag" content="MATLAB">
+<meta property="article:tag" content="FLATTOPWIN">
+<meta property="article:tag" content="语音信号滤波去噪">
+<meta property="article:tag" content="FIR滤波器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTU1NjQ4NzIy?x-oss-process=image/format,png">
+
+<link rel="canonical" href="http://example.com/2017/05/15/%E8%AF%AD%E9%9F%B3%E4%BF%A1%E5%8F%B7%E6%BB%A4%E6%B3%A2%E5%8E%BB%E5%99%AA%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8FLATTOPWIN%E8%AE%BE%E8%AE%A1%E7%9A%84FIR%E6%BB%A4%E6%B3%A2%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>语音信号滤波去噪——使用FLATTOPWIN设计的FIR滤波器 | 曾经的梦想</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="曾经的梦想" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">曾经的梦想</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">曾梦想仗剑走天涯</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/05/15/%E8%AF%AD%E9%9F%B3%E4%BF%A1%E5%8F%B7%E6%BB%A4%E6%B3%A2%E5%8E%BB%E5%99%AA%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8FLATTOPWIN%E8%AE%BE%E8%AE%A1%E7%9A%84FIR%E6%BB%A4%E6%B3%A2%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="embed_cxf">
+      <meta itemprop="description" content="一个迷茫的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曾经的梦想">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          语音信号滤波去噪——使用FLATTOPWIN设计的FIR滤波器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-05-15 11:27:14" itemprop="dateCreated datePublished" datetime="2017-05-15T11:27:14+08:00">2017-05-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-13 11:34:22" itemprop="dateModified" datetime="2020-09-13T11:34:22+08:00">2020-09-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">课程设计</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2017/05/15/%E8%AF%AD%E9%9F%B3%E4%BF%A1%E5%8F%B7%E6%BB%A4%E6%B3%A2%E5%8E%BB%E5%99%AA%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8FLATTOPWIN%E8%AE%BE%E8%AE%A1%E7%9A%84FIR%E6%BB%A4%E6%B3%A2%E5%99%A8/" class="post-meta-item leancloud_visitors" data-flag-title="语音信号滤波去噪——使用FLATTOPWIN设计的FIR滤波器" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2017/05/15/%E8%AF%AD%E9%9F%B3%E4%BF%A1%E5%8F%B7%E6%BB%A4%E6%B3%A2%E5%8E%BB%E5%99%AA%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8FLATTOPWIN%E8%AE%BE%E8%AE%A1%E7%9A%84FIR%E6%BB%A4%E6%B3%A2%E5%99%A8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/05/15/%E8%AF%AD%E9%9F%B3%E4%BF%A1%E5%8F%B7%E6%BB%A4%E6%B3%A2%E5%8E%BB%E5%99%AA%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8FLATTOPWIN%E8%AE%BE%E8%AE%A1%E7%9A%84FIR%E6%BB%A4%E6%B3%A2%E5%99%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>摘  要</strong>  本课程设计主要内容是设计利用窗口设计法选择FLATTOPWIN窗设计一个FIR<br>滤波器，对一段含噪语音信号进行滤波去噪处理并根据滤波前后的波形和频谱分析滤波性能。本课程设计仿真平台为MATLAB7.0，开发工具是M语言编程，通过课程设计了解FIR滤波器设计的原理和步骤，掌握用MATLAB语言设计滤波器的方法，了解FLATTOPWIN对FIR滤波器的设计及编程方法。首先利用windows自带的录音机录制一段语音信号，加入一单频噪声，对信号进行频谱分析以确定所加噪声频率，设计滤波器进行滤波去噪处理，比较滤波前后的波形和频谱并进行分析。由分析结果可知，滤波<br>后的语音信号与原始信号基本一致，即设计的FIR滤波器能够去除信号中所加单频噪声，达到了设计目的。</p>
+<a id="more"></a>
+<p><strong>关键词</strong>  滤波去噪；FIR滤波器；FLATTOPWIN窗；MATLAB</p>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>&emsp;&emsp;本课程设计主要解决在含噪情况下对语音信号的滤波去噪处理，处理时采用的是利用窗口设计法选择FLATTOPWIN窗设计的FIR滤波器[1]。通过对比滤波前后波形图和滤波前后语音信号的对比 ，可以看出滤波器对有用信号无失真放大具有重大意义。</p>
+<h2 id="课程设计目的"><a href="#课程设计目的" class="headerlink" title="课程设计目的"></a>课程设计目的</h2><p>&emsp;&emsp;熟悉Matlab语言环境，掌握Matlab语言的编程规则，利用Flattopwin窗函数设计法来设计符合要求的FIR滤波器来实现语音信号的滤波去噪。并绘制滤波前后的时域波形和频谱图。根据图形分析判断滤波器设计的正确性。通过本次课程设计熟悉利用<br>flattopwin窗函数法设计FIR滤波器的过程[2]。增强自己独立解决问题的能力，提高自己的动手能力。加深对理论知识联系实际问题的理解。为以后的工作奠定坚实的基础。</p>
+<h2 id="课程设计要求"><a href="#课程设计要求" class="headerlink" title="课程设计要求"></a>课程设计要求</h2><p>&emsp;&emsp;录制一段语音，绘制波形并观察其频谱特点，加入一个带外单频噪声，设计一个满足指标的滤波器，对该含噪语音信号进行滤波去噪处理，比较滤波前后的波形和频谱并进行分析，根据结果和学过的理论得出合理的结论[3]。</p>
+<h2 id="课程设计平台"><a href="#课程设计平台" class="headerlink" title="课程设计平台"></a>课程设计平台</h2><p>&emsp;&emsp;MATLB是美国MathWorks公司出品的商业教学软件，用于算法开发。数据可视化、数据分析以及数值计算的高级技术计算语言和交互式环境，主要包括MATLAB和Simulink两大部分。<br>MATLAB由一系列工具组成。这些工具方便用户使用MATLAB的函数和文件，其中许多工具采用的是图形用户界面。包括MATLAB桌面和命令窗口、历史命令窗口、编辑器和调试器、路径搜索和用于用户浏览帮助、工作空间、文件的浏览器。随着MATLAB的商业化以及软件本身的不断升级，MATLAB的用户界面也越来越精致，更加接近Windows的标准界面，人机交互性更强，操作更简单。而且新版本的MATLAB提供了完整的联机查询、帮助系统，极大的方便了用户的使用。简单的编程环境提供了比较完备的调试系统，程序不必经过编译就可以直接运行，而且能够及时地报告出现的错误及进行出错原因分析。<br>MATLAB是一个高级的矩阵/阵列语言，它包含控制语句、函数、数据结构、输入和输出和面向对象编程特点。用户可以在命令窗口中将输入语句与执行命令同步，也可以先编写好一个较大的复杂的应用程序（M文件）后再一起运行。新版本的MATLAB语言是基于最为流行的C++语言基础上的，因此语法特征与C++语言极为相似，而且更加简单，更加符合科技人员对数学表达式的书写格式。使之更利于非计算机专业的科技人员使用。而且这种语言可移植性好、可拓展性极强，这也是MATLAB能够深入到科学研究及工程计算各个领域的重要原因[4]。<br>MATLAB是一个包含大量计算算法的集合。其拥有600多个工程中要用到的数学运算函数，可以方便的实现用户所需的各种计算功能。函数中所使用的算法都是科研和工程<br>计算中的最新研究成果，而且经过了各种优化和容错处理。在通常情况下，可以用它来代替底层编程语言，如C和C++ 。在计算要求相同的情况下，使用MATLAB的编程工作量会大大减少。MATLAB的这些函数集包括从最简单最基本的函数到诸如矩阵，特征向量、快速傅立叶变换的复杂函数。函数所能解决的问题其大致包括矩阵运算和线性方程组的求解、微分方程及偏微分方程的组的求解、符号运算、傅立叶变换和数据的统计分析、工程中的优化问题、稀疏矩阵运算、复数的各种运算、三角函数和其他初等数学运算、多维数组操作以及建模动态仿真等。</p>
+<h1 id="基本理论"><a href="#基本理论" class="headerlink" title="基本理论"></a>基本理论</h1><h2 id="FIR滤波器"><a href="#FIR滤波器" class="headerlink" title="FIR滤波器"></a>FIR滤波器</h2><p>&emsp;&emsp;FIR(Finite Impulse Response)滤波器：有限长单位冲激响应滤波器，又称为非递归型滤波器，是数字信号处理系统中最基本的元件，它可以在保证任意幅频特性的同时具有严格的线性相频特性，同时其单位抽样响应是有限长的，因而滤波器是稳定的系统。因此，FIR滤波器在通信、图像处理、模式识别等领域都有着广泛的应用。<br>    工作原理：在进入FIR滤波器前，首先要将信号通过A/D器件进行模数转换，把模拟信号转化为数字信号；为了使信号处理能够不发生失真，信号的采样速度必须满足奈奎斯特定理，一般取信号频率上限的4-5倍做为采样频率；一般可用速度较高的逐次逼进式A/D转换器，不论采用乘累加方法还是分布式算法设计FIR滤波器，滤波器输出的数据都是一串序列，要使它能直观地反应出来，还需经过数模转换，因此由FPGA构成的FIR滤波器的输出须外接D/A模块。FPGA有着规整的内部逻辑阵列和丰富的连线资源，特别适合于数字信号处理任务，相对于串行运算为主导的通用DSP芯片来说，其并行性和可扩展性更好，利用FPGA乘累加的快速算法，可以设计出高速的FIR数字滤波器[5]。工作原理图如图1<br>    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170515134905380?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170515134905380?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图一，FIR滤波器工作原理图</p>
+<h2 id="窗口设计法"><a href="#窗口设计法" class="headerlink" title="窗口设计法"></a>窗口设计法</h2><p>&emsp;&emsp;窗口设计法是一种通过截断和计权的方法使无限长非因果序列成为有限长脉冲响应序列的设计方法。通常在设计滤波器之前，应该先根据具体的工程应用确定滤波器的技术指标。在大多数实际应用中，数字滤波器常常被用来实现选频操作，所以指标的形式一般为在频域中以分贝值给出的相对幅度响应和相位响应。<br>&emsp;&emsp;窗口设计法步骤如下：<br>&emsp;&emsp;<strong>（1）</strong>根据过渡带宽及阻带衰减要求，选择窗函数的类型并估计窗口长度N。窗函数的类型可根据最小阻带衰减AS独立选择[6]。<br>&emsp;&emsp;<strong>（2）</strong>根据待求滤波器的理想频率响应求出理想单位脉冲响应hd(n)。<br>&emsp;&emsp;<strong>（3）</strong>由性能指标确定窗函数W(n)和长度N。<br>&emsp;&emsp;<strong>（4）</strong>求得实际滤波器的单位脉冲响应h(n)， h(n)即为所设计FIR滤波器系数向量b(n)。<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTU1NjQ4NzIy?x-oss-process=image/format,png" alt="这里写图片描述">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;（2.1）</p>
+<p>常见的窗函数性能表如下表2.1所示：<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;表2.1 常见窗函数性能表<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170515155940077?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170515155940077?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;</p>
+<h2 id="FLATTOPWIN窗"><a href="#FLATTOPWIN窗" class="headerlink" title="FLATTOPWIN窗"></a>FLATTOPWIN窗</h2><p>&emsp;&emsp;w=Flattopwin (L) 返回L-点Flattopwin窗口中列向量。Flattopwin窗的滤波器的过渡带宽为19.6π/M，最小阻带衰减108db。<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYwMDUxNzM1?x-oss-process=image/format,png" alt="这里写图片描述"><br>时间波形和幅度谱如下图2.2、图2.3：<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYwMTQ0NDM5?x-oss-process=image/format,png" alt="这里写图片描述">&emsp;&emsp;&emsp;&emsp;图2.2 时间波形<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYwMjQxODUw?x-oss-process=image/format,png" alt="这里写图片描述">&emsp;&emsp;&emsp;&emsp;图2.3 幅度谱</p>
+<h1 id="设计步骤"><a href="#设计步骤" class="headerlink" title="设计步骤"></a>设计步骤</h1><h2 id="设计流程图"><a href="#设计流程图" class="headerlink" title="设计流程图"></a>设计流程图</h2><p>&emsp;&emsp;根据设计的要求，首先自己录制一段语音信号，修改语音文件格式，对语音信号加入噪声干扰，再利用Flattopwin窗设计合理的FIR滤波器。最后用滤波器对干扰后的语音信号进行滤波去噪。具体设计流程图如下图3.1所示：<br>;![这里写图片描述]&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170515160449133?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20170515160449133?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>图3.1设计流程图     </p>
+<h2 id="录制语音信号"><a href="#录制语音信号" class="headerlink" title="录制语音信号"></a>录制语音信号</h2><p>&emsp;&emsp;从电脑上录制一段语音信号，并命名为“cf.wav”，修改语音文件的格式，并放在E盘目录下。在MATLAB软件中调用wavread函数可采集到语音信号。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[x,fs,bits]&#x3D;wavread(&#39;e:\cf.wav&#39;); </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>%fs是生成该波形文件的采样频率，bits是波形文件没样本的编码位数</p>
+</blockquote>
+<p>得到原始语音信号时域波形图如图3.2<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYwOTA2MzU1?x-oss-process=image/format,png" alt="这里写图片描述">&emsp;&emsp;&emsp;&emsp;图3.2 原始语音信号时域波形图</p>
+<p>&emsp;&emsp;然后对语音号进行快速傅里叶变换，得到信号的频谱特性，并将原始音乐信号的波形图与加干扰后的波形图进行比较。部分代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">y&#x3D;x+0.1*sin(fn*2*pi*t);    %给原始信号加噪声</span><br><span class="line">X&#x3D;abs(fft(x));             %对原始信号进行傅里叶变换</span><br><span class="line">Y&#x3D;abs(fft(y));             %对加噪声后信号进行傅里叶变换</span><br></pre></td></tr></table></figure>
+<p>加噪声前后的时域与频谱图如图3.3<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYxMDU3OTUx?x-oss-process=image/format,png" alt="这里写图片描述"><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图3.3 加噪声前后的时域图与频谱图比较</p>
+<h2 id="滤波器设计"><a href="#滤波器设计" class="headerlink" title="滤波器设计"></a>滤波器设计</h2><p>&emsp;&emsp;在本次的课程设计中我所采用的是利用Flattopwin窗函数来设计FIR滤波器。其中主要用了freqz_m.m和ideal_lp.m两个自编函数。<br>&emsp;&emsp;设计的滤波器图如图3.4<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYxMjExNzYx?x-oss-process=image/format,png" alt="这里写图片描述"><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图3.4 滤波器图形</p>
+<h2 id="信号滤波处理"><a href="#信号滤波处理" class="headerlink" title="信号滤波处理"></a>信号滤波处理</h2><p>滤波器设计完成后，在MATLAB平台上用函数fftfilt实现滤波。<br>得到的滤波前后语音信号的时域波形图和频谱图对比图如图3.5、3.6<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYxMzM4NzQ3?x-oss-process=image/format,png" alt="这里写图片描述"><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图3.5 滤波前后语音信号的时域波形图和频谱图<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYxNDA3NzM3?x-oss-process=image/format,png" alt="这里写图片描述"><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图3.6 滤波前后语音信号的比较</p>
+<h2 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h2><p>&emsp;&emsp;在MATLAB中，对原始的语音信号加噪音，利用FLATTOPWIN窗口设计FIR滤波器，通过所设计的滤波器对加噪声后的信号进行处理。再通过sound(x,fs,bits)函数对滤波后的语音信号进行回放，可以听到滤波之后的信号和原始信号一样清晰。具体代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sound(x,fs,bits);        %播放原始语音信号</span><br><span class="line">sound (y_fil,fs,bits);   % 播放滤波后的音乐信号</span><br></pre></td></tr></table></figure>
+<p>所得结果证明了用Flattopwin窗设计的FIR滤波器和音乐信号去噪设计是成功的。</p>
+<h1 id="出现的问题及解决方法"><a href="#出现的问题及解决方法" class="headerlink" title="出现的问题及解决方法"></a>出现的问题及解决方法</h1><p>在本次课程设计中我遇到的问题如下：<br>1、对Flattopwin窗不是很了解，对用Flattopwin窗函数设计FIR滤波器的设计步骤很生疏。<br>2、 语音文件的格式有问题，不知道如何修改。<br>3、不知道如何调用函数，对MATLAB的使用不熟悉。<br>4、对滤波器一些参数以及通带阻带等概念不是很清楚。<br>5、在采用Flattopwin窗函数设计的FIR滤波器时得不到理想的滤波器，因而信号的恢<br>复不是特别理想。</p>
+<pre><code>针对以上问题，相应的解决方案如下：</code></pre>
+<p>1、自己上网查阅资料，以及查看之前《数字信号处理》教材和向图书馆借阅资料，掌<br>握利用Flattopwin窗函数设计FIR滤波器的方法和步骤。<br>2、询问同学，找同学帮忙。<br>3、利用MATLAB这款软件自带的help功能，以及查看老师所给提供的课设资料和上<br>网看阅资料。<br>4、请教值班老师以及在网上查阅资料。<br>5、通过不断设置参数的值，最终达到最理想的值，设计出理想的滤波器，使信号得到理想恢复。</p>
+<h1 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h1><p>&emsp;&emsp;本次的课程设计，我的题目是《语音信号滤波去噪——使用Flattopwin设计的FIR滤波》。在本次课程设计之前，我对Flattopwin窗函数完全没有了解，因此在看到这个题目时，我是一头雾水。但是通过自己翻阅资料和询问同学，我掌握了用Flattopwin窗函数设计FIR滤波器的方法步骤，了解了窗函数的基本设计流程。经过这三周的课程设计，我学会了很多东西，不仅仅是技术，更多的是自学能力的提高以及处理问题的方法。<br>&emsp;&emsp;我们通信工程专业是个实践性很强的专业，而我们在校大部分的学习时间都是花在理论学习上面，实践的机会很少。因而我对很多所学的理论知识如何跟实践联系的概念很模糊，这次的课程设计给了我这个机会，加深了我对理论联系实际的理解，增强了自己独立分析问题和解决问题的能力，开阔了自己的思维。<br>还有让我看到了自己的不足，自己对本专业的相关知识掌握的还很少，还有很多知识都没掌握，还让我认识到解决问题的方法、途径很多，做事要开阔自己的思维，看待问题要从多个角度看。<br>&emsp;&emsp;在此我要感谢学校为我们提供这次课程设计的机会，感谢老师对我的悉心指导，也感谢同学对我的帮助。这次的课程设计让我理论联系实际，不仅巩固了我们的理论知识，还提高了我的动手能力，在这次课程设计中我所学到的知识是我的财富，让我终身受益。</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="语音信号滤波去噪设计源程序清单"><a href="#语音信号滤波去噪设计源程序清单" class="headerlink" title="语音信号滤波去噪设计源程序清单"></a>语音信号滤波去噪设计源程序清单</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">% 程序名称：c.m</span><br><span class="line">% 程序功能：利用FLATTOPWIN设计的FIR滤波对语音信号进行滤波去噪</span><br><span class="line">% 程序作者： </span><br><span class="line">% 最后修改日期：2017年3月8日</span><br><span class="line">[x,fs,bits]&#x3D;wavread(&#39;e:\cf.wav&#39;);  % 输了参数为文件的全路径和文件名，输出的第一个参数是每个样本的值，fs是生成该波形文件时的采样率，bits是波形文件每样本的编码位数。</span><br><span class="line">sound(x,fs,bits);      % 按指定的采样率和每样本编码位数回放</span><br><span class="line">N&#x3D;length(x);       % 计算信号X的长度</span><br><span class="line">fn&#x3D;2200;            % 单频噪声频率</span><br><span class="line">t&#x3D;0:1&#x2F;fs:(N-1)&#x2F;fs;         % 计算时间范围，样本数除以采样频率</span><br><span class="line">x&#x3D;x(:,1)&#39;;               % 将双声道转为单声道</span><br><span class="line">y&#x3D;x+0.1*sin(fn*2*pi*t);     % 加噪声</span><br><span class="line">sound(y,fs,bits);         % 应该可以明显听出有尖锐的单品啸叫声</span><br><span class="line">X&#x3D;abs(fft(x));  Y&#x3D;abs(fft(y));    % 对原始信号和加噪声信号进行fft变换，取幅度值</span><br><span class="line">X&#x3D;X(1:N&#x2F;2); Y&#x3D;Y(1:N&#x2F;2);       % 截取前半部分</span><br><span class="line">deltaf&#x3D;fs&#x2F;N;            % 计算频谱的谱线间隔</span><br><span class="line">f&#x3D;0:deltaf:fs&#x2F;2-deltaf;     % 计算频谱频率范围</span><br><span class="line">figure(1)</span><br><span class="line">subplot(2,2,1);plot(t,x);xlabel(&#39;时间t&#39;);</span><br><span class="line">ylabel(&#39;幅度&#39;);title(&#39;原始语音信号&#39;);</span><br><span class="line">axis([0,4,-1.5,1.5]);</span><br><span class="line"></span><br><span class="line">subplot(2,2,2);plot(f,X);xlabel(&#39;频率f&#39;);ylabel(&#39;幅度谱&#39;);</span><br><span class="line">title(&#39;原始语音信号幅度谱&#39;);</span><br><span class="line">axis([-10,6000,0,700]);</span><br><span class="line">subplot(2,2,3);plot(t,y);xlabel(&#39;时间&#39;);ylabel(&#39;幅度&#39;);</span><br><span class="line">title(&#39;加干扰后的语音信号&#39;);</span><br><span class="line">axis([0,4,-1.5,1.5]);</span><br><span class="line">subplot(2,2,4);plot(f,Y);xlabel(&#39;频率 f&#39;);ylabel(&#39;幅度谱&#39;);</span><br><span class="line">title(&#39;加干扰后的语音信号幅度谱&#39;);</span><br><span class="line">axis([-10,6000,0,700]);</span><br><span class="line"> </span><br><span class="line">fpd&#x3D;2100;fsd&#x3D;2150;fsu&#x3D;2250;fpu&#x3D;2300;Rp&#x3D;1;As&#x3D;30;      % 阻带滤波器设计指标</span><br><span class="line">fcd&#x3D;(fpd+fsd)&#x2F;2;fcu&#x3D;(fpu+fsu)&#x2F;2;df&#x3D;min((fsd-fpd),(fpu-fsu));  % 计算上下边带中心频率和频率间隔</span><br><span class="line">wcd&#x3D;fcd&#x2F;fs*2*pi;wcu&#x3D;fcu&#x2F;fs*2*pi;dw&#x3D;df&#x2F;fs*2*pi;    %将Hz为单位的模拟频率换算为rad为单位的数字频率 </span><br><span class="line">wsd&#x3D;fsd&#x2F;fs*2*pi;wsu&#x3D;fsu&#x2F;fs*2*pi;</span><br><span class="line">M&#x3D;ceil(6.2*pi&#x2F;dw)+1;      %计算flattopwin窗设计滤波器时需要的阶数</span><br><span class="line">n&#x3D;0:M-1;         % 定义时间范围</span><br><span class="line">w_fla&#x3D;(Flattopwin(M));    % 产生M阶的flattopwin窗</span><br><span class="line">hd_bs&#x3D;ideal_lp(wcd,M)+ideal_lp(pi,M)-ideal_lp(wcu,M); </span><br><span class="line">% 调用自编函数计算理想阻带滤波器的脉冲响应</span><br><span class="line">h_bs&#x3D;w_fla&#39;.*hd_bs;       % 用窗口法计算实际滤波器脉冲响应</span><br><span class="line">[db,mag,pha,grd,w]&#x3D;freqz_m(h_bs,1);  % 调用自编函数计算滤波器的频率特征</span><br><span class="line"> </span><br><span class="line">figure(2)</span><br><span class="line">subplot(2,2,1);plot(w,db);title(&#39;滤波器幅度响应图&#39;);</span><br><span class="line">xlabel(&#39;w&#x2F;pi&#39;);ylabel(&#39;db&#39;);</span><br><span class="line">axis([0,0.8,-60,10]);</span><br><span class="line">line([0,2],[-As,-As],&#39;color&#39;,&#39;y&#39;,&#39;linestyle&#39;,&#39;--&#39;,&#39;LineWidth&#39;,2);</span><br><span class="line">line([0,2],[-Rp,-Rp],&#39;color&#39;,&#39;g&#39;,&#39;linestyle&#39;,&#39;--&#39;,&#39;LineWidth&#39;,2);</span><br><span class="line">line([wsd,wsd],[-30,10],&#39;color&#39;,&#39;r&#39;,&#39;linestyle&#39;,&#39;--&#39;,&#39;LineWidth&#39;,2);</span><br><span class="line">line([wsu,wsu],[-30,10],&#39;color&#39;,&#39;r&#39;,&#39;linestyle&#39;,&#39;--&#39;,&#39;LineWidth&#39;,2);</span><br><span class="line">subplot(2,2,2);plot(w,mag);title(&#39;滤波器幅度响应图&#39;);</span><br><span class="line">xlabel(&#39;w&#x2F;pi&#39;);ylabel(&#39;幅度mag&#39;);</span><br><span class="line">axis([0,1,-0.5,1.5]);</span><br><span class="line">subplot(2,2,3);plot(w,pha);title(&#39;滤波器幅度响应图&#39;);</span><br><span class="line">xlabel(&#39;w&#x2F;pi&#39;);ylabel(&#39;相位pha&#39;);</span><br><span class="line">axis([0,1,-4,4]);</span><br><span class="line">subplot(2,2,4);stem(n,h_bs);title(&#39;滤波器幅度响应图&#39;);</span><br><span class="line">xlabel(&#39;w&#x2F;pi&#39;);ylabel(&#39;db&#39;);</span><br><span class="line">axis([0,1500,0,1]);</span><br><span class="line"> </span><br><span class="line">y_fil&#x3D;fftfilt(h_bs,y);  %用设计好的滤波器对y进行滤波</span><br><span class="line">Y_fil&#x3D;fft(y_fil);Y_fil&#x3D;Y_fil(1:N&#x2F;2);  %计算频谱取前一半</span><br><span class="line">figure(3)</span><br><span class="line">subplot(3,2,1);plot(t,x);xlabel(&#39;时间t&#39;);ylabel(&#39;幅度&#39;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">title(&#39;原始语音信号&#39;);</span><br><span class="line">subplot(3,2,2);plot(f,X);xlabel(&#39;频率f&#39;);ylabel(&#39;幅度谱&#39;);</span><br><span class="line">title(&#39;原始语音信号幅度谱&#39;);</span><br><span class="line">axis([0,4000,0,600]);</span><br><span class="line">subplot(3,2,3);plot(t,y);xlabel(&#39;时间t&#39;);ylabel(&#39;·幅度&#39;);</span><br><span class="line">title(&#39;加干扰后语音信号&#39;);</span><br><span class="line">subplot(3,2,4);plot(f,Y);xlabel(&#39;频率f&#39;);ylabel(&#39;幅度谱&#39;);</span><br><span class="line">title(&#39;加干扰后语音信号幅度谱&#39;);</span><br><span class="line">axis([0,4000,0,600]);</span><br><span class="line">subplot(3,2,5);plot(t,y_fil);xlabel(&#39;时间t&#39;);ylabel(&#39;幅度&#39;);</span><br><span class="line">title(&#39;滤波后语音信号&#39;);</span><br><span class="line">subplot(3,2,6);plot(f,Y_fil);xlabel(&#39;频率f&#39;);ylabel(&#39;幅度谱&#39;);</span><br><span class="line">title(&#39;滤波后语音信号幅度谱&#39;);</span><br><span class="line">axis([0,4000,0,600]);</span><br><span class="line">figure(4)</span><br><span class="line">subplot(2,1,1);plot(f,20*log10(Y));grid on; </span><br><span class="line">subplot(2,1,2);plot(f,20*log10(Y_fil));grid on; </span><br><span class="line">sound(x,fs,bits);   % 播放原始信号</span><br><span class="line">sound (y_fil,fs,bits);  %播放滤波后的信号</span><br><span class="line"> </span><br><span class="line">[C,B,A]&#x3D;dir2fs(h_bs);</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数FREQZ-M-M定义："><a href="#函数FREQZ-M-M定义：" class="headerlink" title="函数FREQZ_M.M定义："></a>函数FREQZ_M.M定义：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function [db,mag,pha,grd,w] &#x3D; freqz_m(b,a);</span><br><span class="line">% Modified version of freqz subroutine</span><br><span class="line">% ------------------------------------</span><br><span class="line">% [db,mag,pha,grd,w] &#x3D; freqz_m(b,a);</span><br><span class="line">%  db &#x3D; Relative magnitude in dB computed over 0 to pi radians</span><br><span class="line">% mag &#x3D; absolute magnitude computed over 0 to pi radians </span><br><span class="line">% pha &#x3D; Phase response in radians over 0 to pi radians</span><br><span class="line">% grd &#x3D; Group delay over 0 to pi radians</span><br><span class="line">%   w &#x3D; 501 frequency samples between 0 to pi radians</span><br><span class="line">%   b &#x3D; numerator polynomial of H(z)   (for FIR: b&#x3D;h)</span><br><span class="line">%   a &#x3D; denominator polynomial of H(z) (for FIR: a&#x3D;[1])</span><br><span class="line">%</span><br><span class="line">[H,w] &#x3D; freqz(b,a,1000,&#39;whole&#39;);</span><br><span class="line">    H &#x3D; (H(1:1:501))&#39;; w &#x3D; (w(1:1:501))&#39;;</span><br><span class="line">  mag &#x3D; abs(H);</span><br><span class="line">   db &#x3D; 20*log10((mag+eps)&#x2F;max(mag));</span><br><span class="line">  pha &#x3D; angle(H);</span><br><span class="line">%  pha &#x3D; unwrap(angle(H));</span><br><span class="line">  grd &#x3D; grpdelay(b,a,w);</span><br><span class="line">%  grd &#x3D; diff(pha);</span><br><span class="line">%  grd &#x3D; [grd(1) grd];</span><br><span class="line">%  grd &#x3D; [0 grd(1:1:500); grd; grd(2:1:501) 0];</span><br><span class="line">%  grd &#x3D; median(grd)*500&#x2F;pi;</span><br></pre></td></tr></table></figure>
+<h2 id="函数IDEAL-LP-M定义："><a href="#函数IDEAL-LP-M定义：" class="headerlink" title="函数IDEAL_LP.M定义："></a>函数IDEAL_LP.M定义：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function hd &#x3D; ideal_lp(wc,M);</span><br><span class="line">% Ideal LowPass filter computation</span><br><span class="line">% --------------------------------</span><br><span class="line">% [hd] &#x3D; ideal_lp(wc,M)</span><br><span class="line">%  hd &#x3D; ideal impulse response between 0 to M-1</span><br><span class="line">%  wc &#x3D; cutoff frequency in radians</span><br><span class="line">%   M &#x3D; length of the ideal filter</span><br><span class="line">%</span><br><span class="line">alpha &#x3D; (M-1)&#x2F;2;</span><br><span class="line">n &#x3D; [0:1:(M-1)];</span><br><span class="line">m &#x3D; n - alpha + eps;</span><br><span class="line">hd &#x3D; sin(wc*m) .&#x2F; (pi*m);</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>该文为笔者课程设计论文，如有不妥，还请指出</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/WechatIMG28.jpg" alt="embed_cxf 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/WechatIMG29.jpg" alt="embed_cxf 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>embed_cxf
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2017/05/15/%E8%AF%AD%E9%9F%B3%E4%BF%A1%E5%8F%B7%E6%BB%A4%E6%B3%A2%E5%8E%BB%E5%99%AA%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8FLATTOPWIN%E8%AE%BE%E8%AE%A1%E7%9A%84FIR%E6%BB%A4%E6%B3%A2%E5%99%A8/" title="语音信号滤波去噪——使用FLATTOPWIN设计的FIR滤波器">http://example.com/2017/05/15/语音信号滤波去噪——使用FLATTOPWIN设计的FIR滤波器/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> 课程设计</a>
+              <a href="/tags/MATLAB/" rel="tag"><i class="fa fa-tag"></i> MATLAB</a>
+              <a href="/tags/FLATTOPWIN/" rel="tag"><i class="fa fa-tag"></i> FLATTOPWIN</a>
+              <a href="/tags/%E8%AF%AD%E9%9F%B3%E4%BF%A1%E5%8F%B7%E6%BB%A4%E6%B3%A2%E5%8E%BB%E5%99%AA/" rel="tag"><i class="fa fa-tag"></i> 语音信号滤波去噪</a>
+              <a href="/tags/FIR%E6%BB%A4%E6%B3%A2%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> FIR滤波器</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/05/10/C%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/" rel="prev" title="C语言指针">
+      <i class="fa fa-chevron-left"></i> C语言指针
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/05/17/STM32%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%92%9F%E6%A0%91%E5%88%86%E6%9E%90/" rel="next" title="STM32系统时钟树分析">
+      STM32系统时钟树分析 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+      
+  </div>
+ 
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=25889901&auto=1&height=66"></iframe>
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="embed_cxf"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">embed_cxf</p>
+  <div class="site-description" itemprop="description">一个迷茫的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">107</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lengmo714@qq.com" title="E-Mail → mailto:lengmo714@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3124723200/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;3124723200&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/Silent_F" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://apps.apple.com/cn/app/%E5%BF%AB%E9%80%9F%E6%89%93%E5%9C%B0%E9%BC%A0/id1530515717" title="game1 → https:&#x2F;&#x2F;apps.apple.com&#x2F;cn&#x2F;app&#x2F;%E5%BF%AB%E9%80%9F%E6%89%93%E5%9C%B0%E9%BC%A0&#x2F;id1530515717" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>game1</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider"></span>
+</span>
+</div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cxf</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">559k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">8:29</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '80d60V4tSVpFn1patE5mwyA5-gzGzoHsz',
+      appKey     : '6d1cXy06aaBYYsxyBjrNIUdL',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-CN' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

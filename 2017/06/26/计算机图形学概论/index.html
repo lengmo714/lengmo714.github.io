@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="什么是计算机图形学&amp;emsp;&amp;emsp;    “图形”是人类最早的文明体现。它和文字、声音等一样是承载信息进行交流的重要媒体">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机图形学概论">
+<meta property="og:url" content="http://example.com/2017/06/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%A6%82%E8%AE%BA/index.html">
+<meta property="og:site_name" content="曾经的梦想">
+<meta property="og:description" content="什么是计算机图形学&amp;emsp;&amp;emsp;    “图形”是人类最早的文明体现。它和文字、声音等一样是承载信息进行交流的重要媒体">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-service.csdnimg.cn/img_convert/7edd312902c4d1ca50e517bd416a52eb.png">
+<meta property="article:published_time" content="2017-06-26T03:44:21.000Z">
+<meta property="article:modified_time" content="2020-09-13T03:45:23.576Z">
+<meta property="article:author" content="embed_cxf">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="计算机图形学">
+<meta property="article:tag" content="计算机">
+<meta property="article:tag" content="图形">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-service.csdnimg.cn/img_convert/7edd312902c4d1ca50e517bd416a52eb.png">
+
+<link rel="canonical" href="http://example.com/2017/06/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%A6%82%E8%AE%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>计算机图形学概论 | 曾经的梦想</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="曾经的梦想" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">曾经的梦想</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">曾梦想仗剑走天涯</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/06/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%A6%82%E8%AE%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="embed_cxf">
+      <meta itemprop="description" content="一个迷茫的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曾经的梦想">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机图形学概论
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-26 11:44:21" itemprop="dateCreated datePublished" datetime="2017-06-26T11:44:21+08:00">2017-06-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-13 11:45:23" itemprop="dateModified" datetime="2020-09-13T11:45:23+08:00">2020-09-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">计算机图形学</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2017/06/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%A6%82%E8%AE%BA/" class="post-meta-item leancloud_visitors" data-flag-title="计算机图形学概论" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2017/06/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%A6%82%E8%AE%BA/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2017/06/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%A6%82%E8%AE%BA/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="什么是计算机图形学"><a href="#什么是计算机图形学" class="headerlink" title="什么是计算机图形学"></a>什么是计算机图形学</h2><p>&emsp;&emsp;    “图形”是人类最早的文明体现。它和文字、声音等一样是承载信息进行交流的重要媒体</p>
+<a id="more"></a>
+<p><strong>什么是据算计图形学？</strong><br>“计算机图形学”这个术语，在不同的背景下具有不同的含义。简单来说，计算机图形是计算机产生的图像。</p>
+<p><strong>定义：</strong>计算机图形学就是研究如何在计算机中表示图形、以及利用计算机进行图形的计算、处理和显示的相关原理与算法。</p>
+<p><strong>IEEE定义:</strong> Computer graphics is the art or science of producing graphical images with the aid of computer</p>
+<p>##计算机图形学的研究内容<br>&emsp;&emsp;如何在计算机中表示图形、已经利用计算机进行图形的计算、处理和显示的相关原理与算法，构成了计算机图形学的主要研究内容</p>
+<p>一般来说，要在计算机上生成一幅表示五题的图形，有<strong>三个步骤：</strong></p>
+<p><strong>（１）造型技术</strong><br>    &emsp;&emsp;在计算机中建立所要生成图像的物体的模型，即给出表示该物体的集合数据和拓扑关系。<br><strong>（2）光照模型</strong><br>&emsp;&emsp;    自然光照现象是由一些物理定律所决定的，而这些物理学定律又非常复杂。所以希望用一些简单的数学模型来近似、代替那些物理学的模型，为模拟物理表面的光照物理现象的数学模型叫光照模型。<br><strong>（3）绘制（渲染）技术</strong><br>    &emsp;&emsp;选择适当的绘制算法来把场景画（渲染）出来。就是将模型真是性（或艺术性）的显示在屏幕上。</p>
+<p>##计算机图形学的发展历史<br>有兴趣的看<a target="_blank" rel="noopener" href="http://www.icourse163.org/learn/CAU-45006?edusave=1#/learn/content?type=detail&id=1002868252&cid=1003270437&replay=true">中国慕课大学</a></p>
+<h2 id="应用领域"><a href="#应用领域" class="headerlink" title="应用领域"></a>应用领域</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">人际交互和用户接口</span><br><span class="line">计算机辅助设计与制造（CAD&#x2F;CAM）</span><br><span class="line">真实感图形绘制与自然景物仿真</span><br><span class="line">计算机游戏、电影、动漫</span><br><span class="line">计算机艺术</span><br><span class="line">计算机仿真</span><br><span class="line">科学计算可视化</span><br><span class="line">虚拟现实</span><br><span class="line">地理信息系统</span><br><span class="line">业领域的应用</span><br></pre></td></tr></table></figure>
+
+<p>##计算机图形系统组成<br><img src="https://img-service.csdnimg.cn/img_convert/7edd312902c4d1ca50e517bd416a52eb.png" alt="这里写图片描述"><br>&emsp;&emsp;一个交互式计算机图形系统具有<strong>计算</strong>、<strong>存储</strong>、<strong>对话</strong>、<strong>输入</strong>和<strong>输出</strong>等5个方面的功能。这五种功能是一个图形系统所具备的最基本功能，至于每一功能中具有哪些能力，则因不同的系统和应用而异。</p>
+<p>###图形软件<br><strong>图形软件</strong>又分为<strong>图形应用数据结构</strong>、<strong>图形应用软件</strong>和<strong>图形支撑软件</strong>三部分<br><strong>图形应用数据结构：</strong>实际上对应一组图形数据文件，其中存放着欲生成的图形对象的全部描述信息。</p>
+<p><strong>图形应用软件：</strong>是解决某种应用问题的图形软件，是图形系统中的核心部分，包括了各种图形生成和处理技术，是图形技术在各种不同应用中的抽象。</p>
+<p><strong>图形支撑软件：</strong>大多数图形应用程序是建立在一定的图形支撑软件上。图形支撑软件需要具有规范接口<br>###图形软件的发展<br>###图形软件标准</p>
+<h3 id="图形硬件"><a href="#图形硬件" class="headerlink" title="图形硬件"></a>图形硬件</h3><p>图形硬件包括图形计算机系统和图形设备两类。图形计算机系统的硬件性能与一般计算机系统相比，要求主机性能更高、速度更快、存储容量更大，外设种类更齐全。</p>
+<p>##交互式计算机图形处理系统<br><code>交互式=Computer + 人</code><br>主要是通过各种输出输入设备来进行</p>
+<p>##分辨率<br>图形显示技术中的分辨率概念有三种，即<strong>屏幕分辨率</strong>、<strong>显示分辨率</strong>和<strong>显卡分辨率</strong>。它们既有区别又有着密切的联系，对图形显示的处理有极大的影响<br>####屏幕分辨率<br>屏幕显示分辨率就是屏幕上显示的像素个数</p>
+<p>####显示分辨率<br>是计算机显示控制器所能够提供的显示模式分辨率，简称显示模式<br>对于<strong>文本显示</strong>方式，显示分辨率用水平和垂直方向上所能显示的字符总数的乘积来表示<br>对于<strong>图形显示</strong>方式，则用水平和垂直方向上所能显示的像素点总数的乘积来表示</p>
+<p>####显卡分辨率<br>显卡分辨率就是表示显卡输出给显示器，并能在显示器上描绘像素点的数量<br>显卡能输出的最大显示分辨率并不代表自己的电脑就能达到这么高的分辨率，还必须有足够强大的显示器配套才可以实现</p>
+<p>一台电脑的<strong>最高</strong>分辨率是由显卡和显示器共同决定的。显示器最高分辨率是可以显示出来的最大分辨率。显卡的最大分辨率是最大能支持多少分辨率<br>电脑的最高分辨率取决于显卡和显示器<strong>最低</strong>的一个</p>
+<p>###显示器的点距<br>点距是显示器的一个很重要的指标，是指相邻像素点之间的距离。两点之间的距离越小越好</p>
+<p>###显示卡的作用与性能指标<br>显示卡的基本作用就是显示图文，显示卡和显示器构成了计算机的显示系统。可以说除了CPU和内存外，显卡对计算机的显示性能决定性的作用</p>
+<p>##图形图像的区别</p>
+<h3 id="图形图像的区别"><a href="#图形图像的区别" class="headerlink" title="图形图像的区别"></a>图形图像的区别</h3><p><strong>一种说法：</strong>图形是由计算机绘制而成的，而图像则是人为的外部设备所捕捉到的外部的景象<br><strong>另一种说法：</strong>图形是矢量图，而图像是位图（点阵图）</p>
+<h3 id="图形（像）的构成属性"><a href="#图形（像）的构成属性" class="headerlink" title="图形（像）的构成属性"></a>图形（像）的构成属性</h3><p>从广义的概念，一般分为几何属性和非几何属性<br><strong>（1）几何属性：</strong>刻画对象的轮廓、形状，也称几何要素。包括点、线、面、体等。<br><strong>（2）非几何属性：</strong>视觉属性，刻画对象的颜色、材质等。比如明暗、色彩、纹理、透明度、线型、线宽</p>
+<h3 id="位图和矢量图的定义"><a href="#位图和矢量图的定义" class="headerlink" title="位图和矢量图的定义"></a>位图和矢量图的定义</h3><p>计算机能以位图(bitmap)或矢量图(vector)格式显示图像<br><strong>1、位图（点阵图）</strong><br>位图又叫点阵图或像素图，计算机屏幕上的图是由屏幕上的像素构成的，每个点用二进制数据来描述其颜色与亮度等信息<br><strong>2、矢量图</strong><br>矢量图，也称为面向对象的图形或绘图图形，是用数学方式描述的曲线及曲线围成的色块制作的图形<br>图型的转换如下图：<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20170626231640313?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;50%25&quot;">http://img.blog.csdn.net/20170626231640313?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;50%&quot;</a> alt=””/&gt;<br>###位图和矢量图的区别<br><strong>存储方式的区别</strong><br>点阵文件是存储图的各个像素点的位置信息、颜色信息以及灰度信息<br>矢量文件是用数学方程、数学形式对图形进行描述，通常是用图形的形状参数和属性参数来表示图形<br>显然，位图（点阵）文件存储空间比矢量文件大</p>
+<p><strong>缩放的区别</strong><br>位图（点阵图）是与分辨率有关的，即在一定面积的图像上包含有固定数量的像素<br>矢量图图形与分辨率无关，可以将它缩放到任意大小和一任意分辨率在输出设备上打印出来，都不会影响清晰度</p>
+<p><strong>存储格式的区别</strong><br>位图（点阵图）存储格式：BMP、TIFF、GIF、JPEG、PNG<br>矢量图存储格式：DXF、SVG、EPS、WMF、EMF</p>
+<blockquote>
+<p>以上内容是笔者的学习笔记，如有不妥，请多指出</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/WechatIMG28.jpg" alt="embed_cxf 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/WechatIMG29.jpg" alt="embed_cxf 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>embed_cxf
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2017/06/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%A6%82%E8%AE%BA/" title="计算机图形学概论">http://example.com/2017/06/26/计算机图形学概论/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"><i class="fa fa-tag"></i> 计算机图形学</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag"><i class="fa fa-tag"></i> 计算机</a>
+              <a href="/tags/%E5%9B%BE%E5%BD%A2/" rel="tag"><i class="fa fa-tag"></i> 图形</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/06/21/%E4%B8%A4%E4%B8%AAHC05%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97%E7%9B%B8%E4%BA%92%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/" rel="prev" title="两个HC05蓝牙模块相互之间的通信">
+      <i class="fa fa-chevron-left"></i> 两个HC05蓝牙模块相互之间的通信
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/06/30/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/" rel="next" title="移动通信实习报告">
+      移动通信实习报告 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+      
+  </div>
+ 
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=25889901&auto=1&height=66"></iframe>
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="embed_cxf"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">embed_cxf</p>
+  <div class="site-description" itemprop="description">一个迷茫的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">107</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lengmo714@qq.com" title="E-Mail → mailto:lengmo714@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/3124723200/profile?topnav=1&wvr=6&is_all=1" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;3124723200&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/Silent_F" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://apps.apple.com/cn/app/%E5%BF%AB%E9%80%9F%E6%89%93%E5%9C%B0%E9%BC%A0/id1530515717" title="game1 → https:&#x2F;&#x2F;apps.apple.com&#x2F;cn&#x2F;app&#x2F;%E5%BF%AB%E9%80%9F%E6%89%93%E5%9C%B0%E9%BC%A0&#x2F;id1530515717" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>game1</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider"></span>
+</span>
+</div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cxf</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">559k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">8:29</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '80d60V4tSVpFn1patE5mwyA5-gzGzoHsz',
+      appKey     : '6d1cXy06aaBYYsxyBjrNIUdL',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-CN' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
