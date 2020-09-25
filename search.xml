@@ -156,22 +156,6 @@
       </tags>
   </entry>
   <entry>
-    <title>IOS 上架</title>
-    <url>/2020/09/13/IOS-%E4%B8%8A%E6%9E%B6/</url>
-    <content><![CDATA[<p>本人长期承接苹果App store各种应用上架（原生套壳都可以），量大、自己出账号价格从优。<br>细节私聊。</p>
-<a id="more"></a>
-<p>有意者私聊：QQ：842673413</p>
-]]></content>
-      <categories>
-        <category>IOS上架</category>
-      </categories>
-      <tags>
-        <tag>IOS上架</tag>
-        <tag>APP store上架</tag>
-        <tag>IOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git入门命令及一些常见问题</title>
     <url>/2018/11/10/Git%E5%85%A5%E9%97%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>Git 是一个开源的分布版本控制系统，可以有效，高速的处理从很小到非常大的项目版本管理。现在最常见的有github，码云等，看自己使用的平台，但是Git的基本命令还是一样。这里笔者总结了一些平时Git的命令供大家参考，如有问题还请多多指出，本文多处参加<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/">廖雪峰的官方网站</a>，更多关于命令的解释说明也请看该网站，这里笔者只是简单的总结了一些命令。</p>
@@ -635,6 +619,22 @@
       </tags>
   </entry>
   <entry>
+    <title>IOS 上架</title>
+    <url>/2020/09/13/IOS-%E4%B8%8A%E6%9E%B6/</url>
+    <content><![CDATA[<p>本人长期承接苹果App store各种应用上架（原生套壳都可以），量大、自己出账号价格从优。<br>细节私聊。</p>
+<a id="more"></a>
+<p>有意者私聊：QQ：842673413</p>
+]]></content>
+      <categories>
+        <category>IOS上架</category>
+      </categories>
+      <tags>
+        <tag>IOS上架</tag>
+        <tag>APP store上架</tag>
+        <tag>IOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux不同版本在服务器领域的区别</title>
     <url>/2018/08/15/Linux%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%A2%86%E5%9F%9F%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<p>Linux内核官网：<a href="https://www.kernel.org/">www.kernel.org</a><br><strong>内核版本说明</strong><br>2.6.18</p>
@@ -1027,6 +1027,21 @@
       </tags>
   </entry>
   <entry>
+    <title>Lua打乱数组排序</title>
+    <url>/2020/04/27/Lua%E6%89%93%E4%B9%B1%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<p>打乱有序数组，生成随机数组</p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local function randomTable(_table, _num) </span><br><span class="line">    local _result = &#123;&#125;</span><br><span class="line">    local _index = <span class="number">1</span></span><br><span class="line">    local _num = _num <span class="keyword">or</span> <span class="comment">#_table</span></span><br><span class="line">    <span class="keyword">while</span> <span class="comment">#_table ~= 0 do</span></span><br><span class="line">        local ran = math.random(<span class="number">0</span>, <span class="comment">#_table)</span></span><br><span class="line">        <span class="keyword">if</span> _table[ran] ~= nil then</span><br><span class="line">            _result[_index] = _table[ran]</span><br><span class="line">            table.remove(_table,ran)</span><br><span class="line">            _index = _index + <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> _index &gt; _num then </span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            end </span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">    <span class="keyword">return</span> _result</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/qiuwen_521/article/details/104274659">参考链接点这里</a></p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Lua数据文件和序列化</title>
     <url>/2020/04/18/Lua%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E5%92%8C%E5%BA%8F%E5%88%97%E5%8C%96/</url>
     <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;在处理数据文件时，写数据通常比读数据简单很多。当向一个文件中写时，我们拥有绝对的控制权；但是，当从一个文件中读时，我们并不知道会读什么东西。一个健壮的程序除了能够处理一个合法文件中所包含的所有类型的数据外，还应该能够优雅地处理错误的文件。因此，编写一个健壮的处理输入的程序总是比较困难的。</p>
@@ -1095,21 +1110,6 @@
 <p>如果以独立的方式保存这些表，那么结果中不会有共同的部分。不过，如果调用save函数时使用同一个表saved，那么结果就会共享共同的部分：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local t = &#123;&#125;</span><br><span class="line">save(<span class="string">&quot;a&quot;</span>,a,t)</span><br><span class="line">save(<span class="string">&quot;b&quot;</span>,b,t)</span><br><span class="line"></span><br><span class="line">-- a = &#123;&#125;</span><br><span class="line">-- a[<span class="number">1</span>] = &#123;&#125;</span><br><span class="line">-- a[<span class="number">1</span>][<span class="number">1</span>] = <span class="string">&quot;one&quot;</span></span><br><span class="line">-- a[<span class="number">1</span>][<span class="number">2</span>] = <span class="string">&quot;two&quot;</span></span><br><span class="line">-- a[<span class="number">2</span>] = <span class="number">3</span></span><br><span class="line">-- b = &#123;&#125;</span><br><span class="line">-- b[<span class="string">&quot;k&quot;</span>] = a[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
 <p>&ensp;&ensp;&ensp;&ensp;在Lua语言中，还有其他一些比较常见的方法。例如，我们可以保存一个值时不指定全局名称而是通过一段代码来创建一个局部值并将其返回，也可以在可能的时候使用列表的语法等等。Lua预压给我们提供了构建这些机制的工具。</p>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lua打乱数组排序</title>
-    <url>/2020/04/27/Lua%E6%89%93%E4%B9%B1%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/</url>
-    <content><![CDATA[<p>打乱有序数组，生成随机数组</p>
-<a id="more"></a>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local function randomTable(_table, _num) </span><br><span class="line">    local _result = &#123;&#125;</span><br><span class="line">    local _index = <span class="number">1</span></span><br><span class="line">    local _num = _num <span class="keyword">or</span> <span class="comment">#_table</span></span><br><span class="line">    <span class="keyword">while</span> <span class="comment">#_table ~= 0 do</span></span><br><span class="line">        local ran = math.random(<span class="number">0</span>, <span class="comment">#_table)</span></span><br><span class="line">        <span class="keyword">if</span> _table[ran] ~= nil then</span><br><span class="line">            _result[_index] = _table[ran]</span><br><span class="line">            table.remove(_table,ran)</span><br><span class="line">            _index = _index + <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> _index &gt; _num then </span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            end </span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">    <span class="keyword">return</span> _result</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p><a href="https://blog.csdn.net/qiuwen_521/article/details/104274659">参考链接点这里</a></p>
 ]]></content>
       <categories>
         <category>编程语言</category>
@@ -1513,6 +1513,30 @@
       </tags>
   </entry>
   <entry>
+    <title>Python实现微信自动聊天</title>
+    <url>/2019/07/16/Python%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E8%87%AA%E5%8A%A8%E8%81%8A%E5%A4%A9/</url>
+    <content><![CDATA[<p>闲着无聊，在网上找了一些好玩的代码，比如用Python实现微信自动回消息<br>之前弄了一个定时自动给好友发天气或者发心灵鸡汤的脚本，下载链接：<a href="https://download.csdn.net/download/silent_f/11162951">https://download.csdn.net/download/silent_f/11162951</a></p>
+<a id="more"></a>
+<p>今天这里就介绍微信接入图灵机器人，自动和好友聊天的脚本</p>
+<h3 id="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"><a href="#1、自动和所有好友聊天，只要好友发消息来，就会给好友回复" class="headerlink" title="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"></a>1、自动和所有好友聊天，只要好友发消息来，就会给好友回复</h3><p>这里笔者用的是3.6版本python ,安装itchat,<br>用下面命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip3 install itchat </span><br></pre></td></tr></table></figure>
+<p>然后去图灵机器人官网注册账号，获取一个key</p>
+<p>具体代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> itchat</span><br><span class="line"><span class="keyword">import</span> importlib,sys </span><br><span class="line">importlib.reload(sys)</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_response</span>(<span class="params">_info</span>):</span></span><br><span class="line">    print(_info)                                       <span class="comment"># 从好友发过来的消息</span></span><br><span class="line">    api_url = <span class="string">&#x27;http://www.tuling123.com/openapi/api&#x27;</span>   <span class="comment"># 图灵机器人网址</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;key&#x27;</span>: <span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>,     <span class="comment"># 如果这个 apiKey 如不能用，那就注册一次</span></span><br><span class="line">        <span class="string">&#x27;info&#x27;</span>: _info,                                 <span class="comment"># 这是我们从好友接收到的消息 然后转发给图灵机器人</span></span><br><span class="line">        <span class="string">&#x27;userid&#x27;</span>: <span class="string">&#x27;wechat-robot&#x27;</span>,                      <span class="comment"># 这里你想改什么都可以</span></span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(api_url, data=data).json()       <span class="comment"># 把data数据发</span></span><br><span class="line">    print(r.get(<span class="string">&#x27;text&#x27;</span>))                               <span class="comment"># 机器人回复给好友的消息</span></span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line"><span class="meta">@itchat.msg_register(itchat.content.TEXT)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">text_reply</span>(<span class="params">msg</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span> + get_response(msg[<span class="string">&quot;Text&quot;</span>])[<span class="string">&quot;text&quot;</span>]</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    itchat.auto_login()                  <span class="comment"># hotReload = True, 保持在线，下次运行代码可自动登录  hotReload=True</span></span><br><span class="line">    itchat.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、和指定好友聊天"><a href="#2、和指定好友聊天" class="headerlink" title="2、和指定好友聊天"></a>2、和指定好友聊天</h3><p>代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> wxpy <span class="keyword">import</span> Bot,Tuling,embed,ensure_one</span><br><span class="line">bot = Bot()</span><br><span class="line">my_friend = ensure_one(bot.search(<span class="string">&#x27;张三&#x27;</span>))  <span class="comment">#想和机器人聊天的好友的备注</span></span><br><span class="line">tuling = Tuling(api_key=<span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>)     <span class="comment">#这里是图灵机器人申请后的api</span></span><br><span class="line"><span class="meta">@bot.register(my_friend)  # 使用图灵机器人自动与指定好友聊天</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reply_my_friend</span>(<span class="params">msg</span>):</span></span><br><span class="line">    tuling.do_reply(msg)</span><br><span class="line">embed()</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、在指定微信群里聊天"><a href="#3、在指定微信群里聊天" class="headerlink" title="3、在指定微信群里聊天"></a>3、在指定微信群里聊天</h3><p>代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> wxpy <span class="keyword">import</span> Bot,Tuling,embed</span><br><span class="line">bot = Bot(cache_path=<span class="literal">True</span>)</span><br><span class="line">my_group = bot.groups().search(<span class="string">&#x27;8个人儿? ? ? ? ?&#x27;</span>)[<span class="number">0</span>]  <span class="comment"># 更改为自己的群聊名称</span></span><br><span class="line">tuling = Tuling(api_key=<span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>)  <span class="comment"># 图灵机器人申请的apikey</span></span><br><span class="line"><span class="meta">@bot.register(my_group, except_self=False)  # 使用图灵机器人自动在指定群聊天</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reply_my_friend</span>(<span class="params">msg</span>):</span></span><br><span class="line">    print(tuling.do_reply(msg))</span><br><span class="line">embed()</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>STM32GPIO部分介绍</title>
     <url>/2017/04/24/STM32GPIO%E9%83%A8%E5%88%86%E4%BB%8B%E7%BB%8D/</url>
     <content><![CDATA[<p>&emsp;&emsp;最近在老师交给了一个项目，需要用到STM32单片机，这里就在学习的过程中所注意到的一些地方或细节部分记录了下来，笔者所使用的是STM32F407ZGT6芯片（探索者）。</p>
@@ -1541,30 +1565,6 @@
       <tags>
         <tag>stm32</tag>
         <tag>GPIO</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python实现微信自动聊天</title>
-    <url>/2019/07/16/Python%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E8%87%AA%E5%8A%A8%E8%81%8A%E5%A4%A9/</url>
-    <content><![CDATA[<p>闲着无聊，在网上找了一些好玩的代码，比如用Python实现微信自动回消息<br>之前弄了一个定时自动给好友发天气或者发心灵鸡汤的脚本，下载链接：<a href="https://download.csdn.net/download/silent_f/11162951">https://download.csdn.net/download/silent_f/11162951</a></p>
-<a id="more"></a>
-<p>今天这里就介绍微信接入图灵机器人，自动和好友聊天的脚本</p>
-<h3 id="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"><a href="#1、自动和所有好友聊天，只要好友发消息来，就会给好友回复" class="headerlink" title="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"></a>1、自动和所有好友聊天，只要好友发消息来，就会给好友回复</h3><p>这里笔者用的是3.6版本python ,安装itchat,<br>用下面命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip3 install itchat </span><br></pre></td></tr></table></figure>
-<p>然后去图灵机器人官网注册账号，获取一个key</p>
-<p>具体代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> itchat</span><br><span class="line"><span class="keyword">import</span> importlib,sys </span><br><span class="line">importlib.reload(sys)</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_response</span>(<span class="params">_info</span>):</span></span><br><span class="line">    print(_info)                                       <span class="comment"># 从好友发过来的消息</span></span><br><span class="line">    api_url = <span class="string">&#x27;http://www.tuling123.com/openapi/api&#x27;</span>   <span class="comment"># 图灵机器人网址</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;key&#x27;</span>: <span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>,     <span class="comment"># 如果这个 apiKey 如不能用，那就注册一次</span></span><br><span class="line">        <span class="string">&#x27;info&#x27;</span>: _info,                                 <span class="comment"># 这是我们从好友接收到的消息 然后转发给图灵机器人</span></span><br><span class="line">        <span class="string">&#x27;userid&#x27;</span>: <span class="string">&#x27;wechat-robot&#x27;</span>,                      <span class="comment"># 这里你想改什么都可以</span></span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(api_url, data=data).json()       <span class="comment"># 把data数据发</span></span><br><span class="line">    print(r.get(<span class="string">&#x27;text&#x27;</span>))                               <span class="comment"># 机器人回复给好友的消息</span></span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line"><span class="meta">@itchat.msg_register(itchat.content.TEXT)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">text_reply</span>(<span class="params">msg</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span> + get_response(msg[<span class="string">&quot;Text&quot;</span>])[<span class="string">&quot;text&quot;</span>]</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    itchat.auto_login()                  <span class="comment"># hotReload = True, 保持在线，下次运行代码可自动登录  hotReload=True</span></span><br><span class="line">    itchat.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="2、和指定好友聊天"><a href="#2、和指定好友聊天" class="headerlink" title="2、和指定好友聊天"></a>2、和指定好友聊天</h3><p>代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> wxpy <span class="keyword">import</span> Bot,Tuling,embed,ensure_one</span><br><span class="line">bot = Bot()</span><br><span class="line">my_friend = ensure_one(bot.search(<span class="string">&#x27;张三&#x27;</span>))  <span class="comment">#想和机器人聊天的好友的备注</span></span><br><span class="line">tuling = Tuling(api_key=<span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>)     <span class="comment">#这里是图灵机器人申请后的api</span></span><br><span class="line"><span class="meta">@bot.register(my_friend)  # 使用图灵机器人自动与指定好友聊天</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reply_my_friend</span>(<span class="params">msg</span>):</span></span><br><span class="line">    tuling.do_reply(msg)</span><br><span class="line">embed()</span><br></pre></td></tr></table></figure>
-
-<h3 id="3、在指定微信群里聊天"><a href="#3、在指定微信群里聊天" class="headerlink" title="3、在指定微信群里聊天"></a>3、在指定微信群里聊天</h3><p>代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> wxpy <span class="keyword">import</span> Bot,Tuling,embed</span><br><span class="line">bot = Bot(cache_path=<span class="literal">True</span>)</span><br><span class="line">my_group = bot.groups().search(<span class="string">&#x27;8个人儿? ? ? ? ?&#x27;</span>)[<span class="number">0</span>]  <span class="comment"># 更改为自己的群聊名称</span></span><br><span class="line">tuling = Tuling(api_key=<span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>)  <span class="comment"># 图灵机器人申请的apikey</span></span><br><span class="line"><span class="meta">@bot.register(my_group, except_self=False)  # 使用图灵机器人自动在指定群聊天</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reply_my_friend</span>(<span class="params">msg</span>):</span></span><br><span class="line">    print(tuling.do_reply(msg))</span><br><span class="line">embed()</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -1648,25 +1648,6 @@
       </tags>
   </entry>
   <entry>
-    <title>cocos 2dx使用webView</title>
-    <url>/2019/03/18/cocos-2dx%E4%BD%BF%E7%94%A8webView/</url>
-    <content><![CDATA[<p>废话不多说，直接上代码<br>注意：只能在真机跑，不能进行模拟器调试<br>代码：</p>
-<a id="more"></a>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local webView1 = ccexp.WebView:create()</span><br><span class="line">   webView1:setContentSize(cc.size(<span class="number">1280</span>,<span class="number">720</span>))</span><br><span class="line">   webView1:setScalesPageToFit(<span class="keyword">true</span>)</span><br><span class="line">   -- webView1:loadHTMLString(<span class="keyword">true</span>)</span><br><span class="line">   webView1:setPosition(cc.p(<span class="number">640</span>,<span class="number">360</span>))</span><br><span class="line">   webView1:loadURL(<span class="string">&quot;http://www.baidu.com&quot;</span>)</span><br><span class="line">   self:addChild(webView1)</span><br><span class="line">   webView1:setOnShouldStartLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1ShouldStartLoading,url is &quot;</span>, url)</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">   end)</span><br><span class="line">   webView1:setOnDidFinishLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1DidFinishLoading url is &quot;</span> , url)</span><br><span class="line">   end)</span><br><span class="line">   webView1:setOnDidFailLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1DidFailLoading url is &quot;</span> , url)</span><br><span class="line">   end)  </span><br><span class="line">   webView1:reload()</span><br></pre></td></tr></table></figure>
-
-<p>因为苹果不支持http协议，所以在真机运行时需要稍微修改xcode设置<br>添加下面设置<br><img src="https://img-blog.csdnimg.cn/20190318133012896.jpg" alt="在这里插入图片描述"></p>
-<p>如果是加载本地的html文件，用下面代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local webView1 = ccexp.WebView:create()</span><br><span class="line">    webView1:setContentSize(cc.size(<span class="number">1280</span>,<span class="number">720</span>))</span><br><span class="line">    webView1:setScalesPageToFit(<span class="keyword">true</span>)</span><br><span class="line">    -- webView1:loadHTMLString(<span class="keyword">true</span>)</span><br><span class="line">    webView1:setPosition(cc.p(<span class="number">640</span>,<span class="number">360</span>))</span><br><span class="line"></span><br><span class="line">    local url = <span class="string">&quot;8/8.html&quot;</span></span><br><span class="line">    url = cc.FileUtils:getInstance():fullPathForFilename(url)</span><br><span class="line">    webView1:loadURL(url)</span><br><span class="line"></span><br><span class="line">    self:addChild(webView1)</span><br><span class="line">    webView1:setOnShouldStartLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1ShouldStartLoading,url is &quot;</span>, url)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">    end)</span><br><span class="line">    webView1:setOnDidFinishLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1DidFinishLoading url is &quot;</span> , url)</span><br><span class="line">    end)</span><br><span class="line">    webView1:setOnDidFailLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1DidFailLoading url is &quot;</span> , url)</span><br><span class="line">    end)  </span><br><span class="line">    webView1:reload()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-        <tag>cocos 2d</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>cocos 2dx_lua键盘监听</title>
     <url>/2020/06/08/cocos-2dx-lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/</url>
     <content><![CDATA[<a id="more"></a>
@@ -1690,16 +1671,15 @@
       </tags>
   </entry>
   <entry>
-    <title>cocos2dx lua webView禁止屏幕滚动</title>
-    <url>/2019/03/19/cocos2dx-lua-webView%E7%A6%81%E6%AD%A2%E5%B1%8F%E5%B9%95%E6%BB%9A%E5%8A%A8/</url>
-    <content><![CDATA[<p>直接上截图</p>
+    <title>cocos 2dx使用webView</title>
+    <url>/2019/03/18/cocos-2dx%E4%BD%BF%E7%94%A8webView/</url>
+    <content><![CDATA[<p>废话不多说，直接上代码<br>注意：只能在真机跑，不能进行模拟器调试<br>代码：</p>
 <a id="more"></a>
-<p><img src="https://img-blog.csdnimg.cn/2019031909062268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<pre><code class="java">    UIScrollView *first_tempView = (UIScrollView *)[self.uiWebView.subviews
-                                                    objectAtIndex:0];
-    first_tempView.scrollEnabled = NO;
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local webView1 = ccexp.WebView:create()</span><br><span class="line">   webView1:setContentSize(cc.size(<span class="number">1280</span>,<span class="number">720</span>))</span><br><span class="line">   webView1:setScalesPageToFit(<span class="keyword">true</span>)</span><br><span class="line">   -- webView1:loadHTMLString(<span class="keyword">true</span>)</span><br><span class="line">   webView1:setPosition(cc.p(<span class="number">640</span>,<span class="number">360</span>))</span><br><span class="line">   webView1:loadURL(<span class="string">&quot;http://www.baidu.com&quot;</span>)</span><br><span class="line">   self:addChild(webView1)</span><br><span class="line">   webView1:setOnShouldStartLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1ShouldStartLoading,url is &quot;</span>, url)</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">   end)</span><br><span class="line">   webView1:setOnDidFinishLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1DidFinishLoading url is &quot;</span> , url)</span><br><span class="line">   end)</span><br><span class="line">   webView1:setOnDidFailLoading(function(sender,url)</span><br><span class="line">       print(<span class="string">&quot;onWebView1DidFailLoading url is &quot;</span> , url)</span><br><span class="line">   end)  </span><br><span class="line">   webView1:reload()</span><br></pre></td></tr></table></figure>
 
-</code></pre>
+<p>因为苹果不支持http协议，所以在真机运行时需要稍微修改xcode设置<br>添加下面设置<br><img src="https://img-blog.csdnimg.cn/20190318133012896.jpg" alt="在这里插入图片描述"></p>
+<p>如果是加载本地的html文件，用下面代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local webView1 = ccexp.WebView:create()</span><br><span class="line">    webView1:setContentSize(cc.size(<span class="number">1280</span>,<span class="number">720</span>))</span><br><span class="line">    webView1:setScalesPageToFit(<span class="keyword">true</span>)</span><br><span class="line">    -- webView1:loadHTMLString(<span class="keyword">true</span>)</span><br><span class="line">    webView1:setPosition(cc.p(<span class="number">640</span>,<span class="number">360</span>))</span><br><span class="line"></span><br><span class="line">    local url = <span class="string">&quot;8/8.html&quot;</span></span><br><span class="line">    url = cc.FileUtils:getInstance():fullPathForFilename(url)</span><br><span class="line">    webView1:loadURL(url)</span><br><span class="line"></span><br><span class="line">    self:addChild(webView1)</span><br><span class="line">    webView1:setOnShouldStartLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1ShouldStartLoading,url is &quot;</span>, url)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span></span><br><span class="line">    end)</span><br><span class="line">    webView1:setOnDidFinishLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1DidFinishLoading url is &quot;</span> , url)</span><br><span class="line">    end)</span><br><span class="line">    webView1:setOnDidFailLoading(function(sender,url)</span><br><span class="line">        print(<span class="string">&quot;onWebView1DidFailLoading url is &quot;</span> , url)</span><br><span class="line">    end)  </span><br><span class="line">    webView1:reload()</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>游戏开发</category>
@@ -1796,6 +1776,39 @@
       </tags>
   </entry>
   <entry>
+    <title>cocos2dx lua webView禁止屏幕滚动</title>
+    <url>/2019/03/19/cocos2dx-lua-webView%E7%A6%81%E6%AD%A2%E5%B1%8F%E5%B9%95%E6%BB%9A%E5%8A%A8/</url>
+    <content><![CDATA[<p>直接上截图</p>
+<a id="more"></a>
+<p><img src="https://img-blog.csdnimg.cn/2019031909062268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<pre><code class="java">    UIScrollView *first_tempView = (UIScrollView *)[self.uiWebView.subviews
+                                                    objectAtIndex:0];
+    first_tempView.scrollEnabled = NO;
+
+</code></pre>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+        <tag>cocos 2d</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cocos2dx_lua 游戏暂停与继续</title>
+    <url>/2019/03/05/cocos2dx-lua-%E6%B8%B8%E6%88%8F%E6%9A%82%E5%81%9C%E4%B8%8E%E7%BB%A7%E7%BB%AD/</url>
+    <content><![CDATA[<p>直接上代码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">CCDirector.sharedDirector():pause()  --游戏暂停</span><br><span class="line">CCDirector.sharedDirector():resume() --游戏继续</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>游戏开发</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+        <tag>cocos 2d</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>cocos2dx lua 热更新</title>
     <url>/2018/12/21/cocos2dx-lua-%E7%83%AD%E6%9B%B4%E6%96%B0/</url>
     <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>&emsp;&emsp;每次登陆游戏利用cocos的assetManager从服务器拉去当前最新的两个文件。 </p>
@@ -1825,19 +1838,6 @@
 <p>AssetsManagerEx是AssetsManager的加强版，不同的是不再使用升级包的方式，而是采用单个文件拉取的方式。首先获取本地更新配置，之后与服务器的更新配置比对，得出差异文件，之后单个拉取差异文件。当本地版本大于服务器版本时，会清理掉本地更新缓存。AssetsManagerEx也有尚未解决的问题，例如多个更新序列无法并行，只能顺序启动。另外版本后期随着项目庞大配置文件几乎包含了所有的文件信息，对比文件时间的耗时会越来越长。</p>
 <p>参考：<a href="https://blog.csdn.net/u012278016/article/details/84298942">https://blog.csdn.net/u012278016/article/details/84298942</a></p>
 ]]></content>
-      <categories>
-        <category>游戏开发</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-        <tag>cocos 2d</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cocos2dx_lua 游戏暂停与继续</title>
-    <url>/2019/03/05/cocos2dx-lua-%E6%B8%B8%E6%88%8F%E6%9A%82%E5%81%9C%E4%B8%8E%E7%BB%A7%E7%BB%AD/</url>
-    <content><![CDATA[<p>直接上代码</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">CCDirector.sharedDirector():pause()  --游戏暂停</span><br><span class="line">CCDirector.sharedDirector():resume() --游戏继续</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>游戏开发</category>
       </categories>
@@ -2081,6 +2081,21 @@
       </tags>
   </entry>
   <entry>
+    <title>python画素描画</title>
+    <url>/2020/04/23/python%E7%94%BB%E7%B4%A0%E6%8F%8F%E7%94%BB/</url>
+    <content><![CDATA[<p>废话不多说，直接上代码</p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageFilter, ImageOps</span><br><span class="line">img = Image.open(<span class="string">&#x27;/Users/demo/Desktop/b.png&#x27;</span>)  <span class="comment"># 原图路径</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dodge</span>(<span class="params">a,b,alpha</span>):</span></span><br><span class="line">	<span class="keyword">return</span> min(int(a*<span class="number">255</span>/(<span class="number">256</span>-b*alpha)),<span class="number">255</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">draw</span>(<span class="params">img,blur=<span class="number">25</span>,alpha=<span class="number">1.0</span></span>):</span></span><br><span class="line">	img1 = img.convert(<span class="string">&#x27;L&#x27;</span>)</span><br><span class="line">	img2 = img1.copy()</span><br><span class="line">	img2 = ImageOps.invert(img2)</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(blur):</span><br><span class="line">		img2 = img2.filter(ImageFilter.BLUR)</span><br><span class="line">	width,height = img1.size</span><br><span class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> range(width):</span><br><span class="line">		<span class="keyword">for</span> y <span class="keyword">in</span> range(height):</span><br><span class="line">			a = img1.getpixel((x,y))</span><br><span class="line">			b = img2.getpixel((x,y))</span><br><span class="line">			img1.putpixel((x,y),dodge(a,b,alpha))</span><br><span class="line">	img1.show()</span><br><span class="line">	img1.save(<span class="string">&quot;/Users/demo/Desktop/a1.png&quot;</span>)   <span class="comment"># 生成后的图片</span></span><br><span class="line">draw(img)</span><br></pre></td></tr></table></figure>
+<p>效果图<br>原图：<br><img src="https://img-blog.csdnimg.cn/20200423160506821.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>转换后的图：<br><img src="https://img-blog.csdnimg.cn/20200423160517371.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ubuntu 18.04安装codeblocks</title>
     <url>/2018/09/15/ubuntu-18-04%E5%AE%89%E8%A3%85codeblocks/</url>
     <content><![CDATA[<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><p><strong>1</strong> 可以直接安装，打开终端输入先面命令</p>
@@ -2215,21 +2230,6 @@
       </tags>
   </entry>
   <entry>
-    <title>python画素描画</title>
-    <url>/2020/04/23/python%E7%94%BB%E7%B4%A0%E6%8F%8F%E7%94%BB/</url>
-    <content><![CDATA[<p>废话不多说，直接上代码</p>
-<a id="more"></a>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageFilter, ImageOps</span><br><span class="line">img = Image.open(<span class="string">&#x27;/Users/demo/Desktop/b.png&#x27;</span>)  <span class="comment"># 原图路径</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dodge</span>(<span class="params">a,b,alpha</span>):</span></span><br><span class="line">	<span class="keyword">return</span> min(int(a*<span class="number">255</span>/(<span class="number">256</span>-b*alpha)),<span class="number">255</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">draw</span>(<span class="params">img,blur=<span class="number">25</span>,alpha=<span class="number">1.0</span></span>):</span></span><br><span class="line">	img1 = img.convert(<span class="string">&#x27;L&#x27;</span>)</span><br><span class="line">	img2 = img1.copy()</span><br><span class="line">	img2 = ImageOps.invert(img2)</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(blur):</span><br><span class="line">		img2 = img2.filter(ImageFilter.BLUR)</span><br><span class="line">	width,height = img1.size</span><br><span class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> range(width):</span><br><span class="line">		<span class="keyword">for</span> y <span class="keyword">in</span> range(height):</span><br><span class="line">			a = img1.getpixel((x,y))</span><br><span class="line">			b = img2.getpixel((x,y))</span><br><span class="line">			img1.putpixel((x,y),dodge(a,b,alpha))</span><br><span class="line">	img1.show()</span><br><span class="line">	img1.save(<span class="string">&quot;/Users/demo/Desktop/a1.png&quot;</span>)   <span class="comment"># 生成后的图片</span></span><br><span class="line">draw(img)</span><br></pre></td></tr></table></figure>
-<p>效果图<br>原图：<br><img src="https://img-blog.csdnimg.cn/20200423160506821.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>转换后的图：<br><img src="https://img-blog.csdnimg.cn/20200423160517371.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NpbGVudF9G,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>不同编程语言的区别</title>
     <url>/2018/10/05/%E4%B8%8D%E5%90%8C%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<hr>
@@ -2251,6 +2251,41 @@
       <categories>
         <category>编程语言</category>
       </categories>
+  </entry>
+  <entry>
+    <title>两个HC05蓝牙模块相互之间的通信</title>
+    <url>/2017/06/21/%E4%B8%A4%E4%B8%AAHC05%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97%E7%9B%B8%E4%BA%92%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/</url>
+    <content><![CDATA[<h2 id="蓝牙通信"><a href="#蓝牙通信" class="headerlink" title="蓝牙通信"></a>蓝牙通信</h2><p>具有两种工作模式：命令响应工作模式和自动连接工作模式<br>具体的资料看这里：链接：链接：<a href="https://pan.baidu.com/s/1YB1QLrWcKV19XYg9yY7smg">https://pan.baidu.com/s/1YB1QLrWcKV19XYg9yY7smg</a> 密码：q9mf</p>
+<a id="more"></a>
+<h2 id="两个蓝牙模块通信"><a href="#两个蓝牙模块通信" class="headerlink" title="两个蓝牙模块通信"></a>两个蓝牙模块通信</h2><p>两个蓝牙模块通信，首先是要让两个蓝牙模块进入命令响应工作模式即五下面说说的AT模式（EN接上USB转TTL的VCC或者3.3V，再长按蓝牙模块上的那个键，上电，红灯一秒钟闪一下即进入了AT模式）</p>
+<p>###　配置步骤</p>
+<p><strong>1、</strong> [AT模式]两个蓝牙模块的PIO11接VCC，上电后即进入AT指令模式，都用USB转TTL模块连接到电脑的USB接口。(笔者这里是蓝牙模块的EN连接3.3V)</p>
+<p><strong>2、</strong>[打开串口调试助手]开启2个串口调试窗口，一个打开蓝牙A的COM15口，一个打开蓝牙B的COM14口。(默认波特率一般为38400，数据位为8，停止位为1)</p>
+<p><strong>3、</strong>[恢复A默认设置]串口调试助手A，端口为com15,将蓝牙A恢复默认设置：AT+ORGL\r\n (\r\n即回车、换行，或者在串口调试助手上输入AT+ORGL再按下回车即可)</p>
+<p><strong>4、</strong>[设置A配对码]串口调试助手A，配置蓝牙A的配对码：AT+PSWD=1234\r\n,(蓝牙A与蓝牙B的配对码相同，这样才能成功配对)</p>
+<p><strong>5、</strong>[设置A主模式]串口调试助手A，将蓝牙A配置为主机模式：AT+ROLE=1\r\n</p>
+<p><strong>6、</strong>[恢复B默认设置]串口调试助手B,将蓝牙B恢复默认设置：AT+ORGL\r\n</p>
+<p><strong>7、</strong>[设置B配对码]串口调试助手B，配置蓝牙B的配对码与蓝牙A一致：AT+PSWD=1234\r\n</p>
+<p><strong>8、</strong>[设置B从模式]串口调试助手B，将蓝牙B配置为从机模式：AT+ROLE=0\r\n</p>
+<p><strong>9、</strong>[查询B地址]串口调试助手B，查询蓝牙B的地址：AT+ADDR?\r\n (如：+ADDR:98d3:37:90efca)</p>
+<p><strong>10、</strong>[蓝牙A绑定蓝牙B]串口调试助手A，蓝牙A绑定蓝牙B地址：<br>AT+BIND=98d3，37，90efca\r\n（注意把地址的冒号换成逗号）</p>
+<p><strong>11、</strong>[常规工作模式]2个模块的PIO11引脚都接地，重新上电后进入常规工作模式，自动完成配对。之后，串口调试助手A和串口调试助手B就能互传数据了。（笔者这里是直接将EN脚置空）</p>
+<p><strong>注意</strong>：确保2个蓝牙模块的配对码（PSWD）相同，都上电后两个模块会自动相连。<br>（蓝牙的连接模式默认是：0——指定蓝牙地址连接模式，这样蓝牙A才能自动连接绑定的地址，如果不是模式0，设置为模式0：AT+CMODE=0 [查询指令：<code>AT+CMODE？</code>]）</p>
+<blockquote>
+<p>如果连接失败，重新配置一次。连接成功是每秒闪一次，一次闪两下</p>
+</blockquote>
+<p>注意：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">两个模块波特率及格式相同</span><br><span class="line">密码相同</span><br><span class="line">一个为主机模式，一个为从机模式</span><br><span class="line">连接方式都设置为地址连接</span><br><span class="line">绑定对方地址</span><br></pre></td></tr></table></figure>
+<p>下面是笔者用笔记本用两个串口直接测试的图：<br><img src="https://img-service.csdnimg.cn/img_convert/7c6fe18c0e09acaa7c3faf0bad08e8b5.png" alt="这里写图片描述"><br>（左边是A，右边是B，右边发送命令框所发送的内容显示在左边框中）</p>
+<p>此文多处参考<a href="https://wenku.baidu.com/view/97d363d2b04e852458fb770bf78a6529647d3556.html">这篇文章</a>，若有不妥，还请指出。</p>
+]]></content>
+      <categories>
+        <category>模块使用</category>
+      </categories>
+      <tags>
+        <tag>蓝牙模块</tag>
+        <tag>HC05</tag>
+      </tags>
   </entry>
   <entry>
     <title>光栅图形学算法--消隐算法</title>
@@ -2594,41 +2629,6 @@
       </categories>
       <tags>
         <tag>ios上架</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>两个HC05蓝牙模块相互之间的通信</title>
-    <url>/2017/06/21/%E4%B8%A4%E4%B8%AAHC05%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97%E7%9B%B8%E4%BA%92%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/</url>
-    <content><![CDATA[<h2 id="蓝牙通信"><a href="#蓝牙通信" class="headerlink" title="蓝牙通信"></a>蓝牙通信</h2><p>具有两种工作模式：命令响应工作模式和自动连接工作模式<br>具体的资料看这里：链接：链接：<a href="https://pan.baidu.com/s/1YB1QLrWcKV19XYg9yY7smg">https://pan.baidu.com/s/1YB1QLrWcKV19XYg9yY7smg</a> 密码：q9mf</p>
-<a id="more"></a>
-<h2 id="两个蓝牙模块通信"><a href="#两个蓝牙模块通信" class="headerlink" title="两个蓝牙模块通信"></a>两个蓝牙模块通信</h2><p>两个蓝牙模块通信，首先是要让两个蓝牙模块进入命令响应工作模式即五下面说说的AT模式（EN接上USB转TTL的VCC或者3.3V，再长按蓝牙模块上的那个键，上电，红灯一秒钟闪一下即进入了AT模式）</p>
-<p>###　配置步骤</p>
-<p><strong>1、</strong> [AT模式]两个蓝牙模块的PIO11接VCC，上电后即进入AT指令模式，都用USB转TTL模块连接到电脑的USB接口。(笔者这里是蓝牙模块的EN连接3.3V)</p>
-<p><strong>2、</strong>[打开串口调试助手]开启2个串口调试窗口，一个打开蓝牙A的COM15口，一个打开蓝牙B的COM14口。(默认波特率一般为38400，数据位为8，停止位为1)</p>
-<p><strong>3、</strong>[恢复A默认设置]串口调试助手A，端口为com15,将蓝牙A恢复默认设置：AT+ORGL\r\n (\r\n即回车、换行，或者在串口调试助手上输入AT+ORGL再按下回车即可)</p>
-<p><strong>4、</strong>[设置A配对码]串口调试助手A，配置蓝牙A的配对码：AT+PSWD=1234\r\n,(蓝牙A与蓝牙B的配对码相同，这样才能成功配对)</p>
-<p><strong>5、</strong>[设置A主模式]串口调试助手A，将蓝牙A配置为主机模式：AT+ROLE=1\r\n</p>
-<p><strong>6、</strong>[恢复B默认设置]串口调试助手B,将蓝牙B恢复默认设置：AT+ORGL\r\n</p>
-<p><strong>7、</strong>[设置B配对码]串口调试助手B，配置蓝牙B的配对码与蓝牙A一致：AT+PSWD=1234\r\n</p>
-<p><strong>8、</strong>[设置B从模式]串口调试助手B，将蓝牙B配置为从机模式：AT+ROLE=0\r\n</p>
-<p><strong>9、</strong>[查询B地址]串口调试助手B，查询蓝牙B的地址：AT+ADDR?\r\n (如：+ADDR:98d3:37:90efca)</p>
-<p><strong>10、</strong>[蓝牙A绑定蓝牙B]串口调试助手A，蓝牙A绑定蓝牙B地址：<br>AT+BIND=98d3，37，90efca\r\n（注意把地址的冒号换成逗号）</p>
-<p><strong>11、</strong>[常规工作模式]2个模块的PIO11引脚都接地，重新上电后进入常规工作模式，自动完成配对。之后，串口调试助手A和串口调试助手B就能互传数据了。（笔者这里是直接将EN脚置空）</p>
-<p><strong>注意</strong>：确保2个蓝牙模块的配对码（PSWD）相同，都上电后两个模块会自动相连。<br>（蓝牙的连接模式默认是：0——指定蓝牙地址连接模式，这样蓝牙A才能自动连接绑定的地址，如果不是模式0，设置为模式0：AT+CMODE=0 [查询指令：<code>AT+CMODE？</code>]）</p>
-<blockquote>
-<p>如果连接失败，重新配置一次。连接成功是每秒闪一次，一次闪两下</p>
-</blockquote>
-<p>注意：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">两个模块波特率及格式相同</span><br><span class="line">密码相同</span><br><span class="line">一个为主机模式，一个为从机模式</span><br><span class="line">连接方式都设置为地址连接</span><br><span class="line">绑定对方地址</span><br></pre></td></tr></table></figure>
-<p>下面是笔者用笔记本用两个串口直接测试的图：<br><img src="https://img-service.csdnimg.cn/img_convert/7c6fe18c0e09acaa7c3faf0bad08e8b5.png" alt="这里写图片描述"><br>（左边是A，右边是B，右边发送命令框所发送的内容显示在左边框中）</p>
-<p>此文多处参考<a href="https://wenku.baidu.com/view/97d363d2b04e852458fb770bf78a6529647d3556.html">这篇文章</a>，若有不妥，还请指出。</p>
-]]></content>
-      <categories>
-        <category>模块使用</category>
-      </categories>
-      <tags>
-        <tag>蓝牙模块</tag>
-        <tag>HC05</tag>
       </tags>
   </entry>
   <entry>
@@ -4082,91 +4082,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Lua闭包详解</title>
-    <url>/2020/04/14/Lua%E9%97%AD%E5%8C%85%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;在Lua语言中，函数是严格遵循词法定界的第一类值。</p>
-<a id="more"></a>
-<p>&ensp;&ensp;&ensp;&ensp;“第一类值”以为这Lua语言中的函数与其他常见类型的值具有同等权限：一个程序可以将某个函数保存到变量中或表中，也可以将某个函数作为参数传递给其他函数，还可以将某个函数作为其他函数的返回值返回。<br>&ensp;&ensp;&ensp;&ensp;“词法定界”意味着Lua语言中的函数可以访问包含其自身的外部函数中的变量。<br>&ensp;&ensp;&ensp;&ensp;上述两个特行联合起来为Lua语言带来了极大的灵活性。例如，一个程序可以通过重新定义函数来增加新功能，也可以通过擦除函数来为不受信任的代码创建一个安全的运行时环境。更重要的是，上述两个特行允许我们在Lua语言中使用很多函数式语言的强大编程技巧。即使对函数式编程毫无兴趣，也不妨学习下如何使用这些技巧。因为这些技巧可以使程序变得更加小巧和简单。</p>
-<h2 id="函数是第一类值"><a href="#函数是第一类值" class="headerlink" title="函数是第一类值"></a>函数是第一类值</h2><p>如前所述，Lua语言中的函数是第一类值。以下的示例演示了第一类值的含义：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = &#123;p = <span class="keyword">print</span>&#125;				-- <span class="string">&#x27;a.p&#x27;</span>指向<span class="string">&#x27;print&#x27;</span>函数</span><br><span class="line">a.p(<span class="string">&quot;Hello World&quot;</span>)			-- HEllo World</span><br><span class="line"><span class="keyword">print</span> = math.sin			-- <span class="string">&#x27;print&#x27;</span>现在指向sine函数</span><br><span class="line">a.p(print(<span class="number">1</span>))				-- <span class="number">0.8414709848079</span></span><br><span class="line">math.sin = a.p 				-- <span class="string">&#x27;sin&#x27;</span>现在指向<span class="keyword">print</span>函数</span><br><span class="line">math.sin(<span class="number">10</span>,<span class="number">20</span>)				-- <span class="number">10</span>	<span class="number">20</span></span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;如果函数也是值的话，那么是否有创建函数的表达式呢？答案是肯定的。事实上，Lua语言中常见的函数定义方式如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo(x) <span class="keyword">return</span> <span class="number">2</span>*x end</span><br></pre></td></tr></table></figure>
-<p>就是所谓的语法糖的例子，它只是下面这种写法的一种美化形式：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">foo = function(x) <span class="keyword">return</span> <span class="number">2</span>*x end</span><br></pre></td></tr></table></figure>
-<p>赋值语句右边的表达式(function(x) body end)就是函数构造器，与表构造器{}相似。因此，函数定义实际上就是创建类型为”function”的值并把她赋值给一个变量的语句。<br>&ensp;&ensp;&ensp;&ensp;请注意，在Lua语言中，所有的函数都是匿名的。像其他所有的值一样，函数并没有名字。当讨论函数时，比如print，实际上指的是保存函数的变量。虽然我们通常会把函数赋值给全局变量，从而看似给函数起了一个名字，但在很多场景下仍然会保留函数的匿名性。<br>&ensp;&ensp;&ensp;&ensp;表标准库提供了函数table.sort，该函数以一个表为参数并对其中的元素排序。这种函数必须支持各种各样的排序方式：升序或降序、按数值顺序或按字母顺序、按表中的键等。函数sort并没有试图穷尽所有的排序方式，而是提供了一个可选的参数，也就是所谓的排序函数，排序函数接收两个参数并根据第一个元素是否应排在第二个元素之前返回不同的值。<br>假如，有一个如下所示的表：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">network = &#123;</span><br><span class="line">	&#123;name = <span class="string">&quot;grauna&quot;</span> , IP = <span class="string">&quot;210,26.30.34&quot;</span>&#125;,</span><br><span class="line">	&#123;name = <span class="string">&quot;arraial&quot;</span>, IP = <span class="string">&quot;210,26,30,23&quot;</span>&#125;,</span><br><span class="line">	&#123;name = <span class="string">&quot;lua&quot;</span>,	   IP = <span class="string">&quot;210,26,23,12&quot;</span>&#125;,</span><br><span class="line">	&#123;name = <span class="string">&quot;derain&quot;</span>,  IP = <span class="string">&quot;210,26,23,20&quot;</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果想针对name字段、按字母顺序逆序对这个表排序，只需使用下面语句：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">talbe.sort(network,function (a,b) <span class="keyword">return</span> (a.name &gt; b.name) end)</span><br></pre></td></tr></table></figure>
-<p>可见，匿名函数在这条语句中显示出了很好的便利性。<br>&ensp;&ensp;&ensp;&ensp;像函数sort这样以另一个函数为参数的函数，我们称之为高阶函数。高阶函数是一种强大的编程机制，而利用匿名函数作为参数正式其灵活性的主要来源。不过尽管如此，请记住高阶函数也并没有什么特殊的，它们只是Lua语言将函数作为第一类值处理所带来的直接体现。<br>&ensp;&ensp;&ensp;&ensp;为了进一步演示高阶函数的用法，让我们再来实现一个常见的高阶函数，即导数。按照通常的定义，函数f的导数为$f’(x) = (f(x + d) - f(x))/d$,其中d趋向于无穷小。根据这个定义，可以赢如下方式近似第计算导数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function derivative (f,delta)</span><br><span class="line">	delta = delta <span class="keyword">or</span> <span class="number">1e-4</span></span><br><span class="line">	<span class="keyword">return</span> function (x)</span><br><span class="line">		<span class="keyword">return</span> (f(x + delta) - f(x))/delta</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>对于指定的函数f，调用derivative(f)将返回其导数，也就是另一个函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c = derivative(math.sin)</span><br><span class="line">&gt; print(math.cos(<span class="number">5.2</span>),c(<span class="number">5.2</span>))</span><br><span class="line">print(math.cos(<span class="number">10</span>),c(<span class="number">10</span>)) 		</span><br></pre></td></tr></table></figure>
-<h2 id="非全局函数"><a href="#非全局函数" class="headerlink" title="非全局函数"></a>非全局函数</h2><p>&ensp;&ensp;&ensp;&ensp;由于函数是一种“第一类值”，因此一个显而易见的结果就是：函数不仅可以被存储在全局变量中，还可以被存储在表字段和局部变量中。<br>&ensp;&ensp;&ensp;&ensp;创建函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Lib = &#123;&#125;</span><br><span class="line">Lib.foo = function(x,y) <span class="keyword">return</span> x + y end</span><br><span class="line">Lib.goo = function(x,y) <span class="keyword">return</span> x - y end</span><br><span class="line">print(Lib.foo(<span class="number">2</span>,<span class="number">3</span>),Lib.goo(<span class="number">2</span>,<span class="number">3</span>))		-- <span class="number">5</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
-<p>当然，也可使用表构造器：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Lib = &#123;</span><br><span class="line">	foo = function(x,y) <span class="keyword">return</span> x + y end</span><br><span class="line">	goo = function(X,y) <span class="keyword">return</span> x - y end</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>除此以外，Lua语言还提供了另一种特殊的语言来定义这类函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Lib = &#123;&#125;</span><br><span class="line">function Lib.foo(x,y) <span class="keyword">return</span> x + y end</span><br><span class="line">function Lib.goo(x,y) <span class="keyword">return</span> x - y end</span><br></pre></td></tr></table></figure>
-<p>在表字段中存储函数是Lua语言中实现面向对象编程的关键要素。<br>&ensp;&ensp;&ensp;&ensp;当把一个函数存储到局部变量时，就得到一个局部函数，即一个被限定在指定作用域中使用的函数。局部函数对于包而言尤其有用：由于Lua语言将每个程序段作为一个函数处理，所以在一段程序中声明的函数就是局部函数，这些局部函数只在该程序段中可见。词法定界保证了程序段中的其他函数可以使用这些局部函数。<br>对于这种局部函数的使用，Lua语言提供了一种语法他那个：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local function f (params)</span><br><span class="line">	body</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;在定义局部递归函数时，由于原来的方法不使用，所有有一点是极易出错的。考虑如下代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local fact = function(n)</span><br><span class="line">	<span class="keyword">if</span> n == <span class="number">0</span> then <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> n * fact(n<span class="number">-1</span>)   --有问题</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>当Lua语言编译函数体中的fact(n-1)调用时，局部的fact尚未定义。因此，这个表达式会尝试调用全局的fact而非局部的fact。我们可以通过先定义局部变量再定义函数的方式来解决这个问题：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local fact</span><br><span class="line">fact = function(n)</span><br><span class="line">	<span class="keyword">if</span> n == <span class="number">0</span> then <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> n * fact(n<span class="number">-1</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>这样，函数内的fact指向的是局部变量。尽管在定义函数时，这个局部变量的值尚未确定，但到了执行函数时，fact肯定有了正确的赋值。<br>&ensp;&ensp;&ensp;&ensp;当Lua语言展开局部函数的语法糖时，使用的并不是之前的基本函数定义。相反，形如</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local function foo(params) body end</span><br></pre></td></tr></table></figure>
-<p>的定义会被展开成</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local foo; foo = function(params) body end</span><br></pre></td></tr></table></figure>
-<p>因此，使用这个语法来定义递归函数不会有问题。<br>&ensp;&ensp;&ensp;&ensp;当然，这个技巧对于简介递归函数是无效的。在间接递归的情况下，必须使用与明确的前向声明等价的形式：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local f </span><br><span class="line"></span><br><span class="line"><span class="function">local function <span class="title">g</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	some code <span class="title">f</span><span class="params">()</span> some code</span></span><br><span class="line"><span class="function">end</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">function <span class="title">f</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	some code <span class="title">g</span><span class="params">()</span> some code</span></span><br><span class="line"><span class="function">end</span></span><br></pre></td></tr></table></figure>
-<p>请注意，不能在最后一个函数定义前加上local。否则，Lua语言会创建一个全新的局部变量f，从而使得先前声明的f变为未定义状态。</p>
-<h2 id="词法定界"><a href="#词法定界" class="headerlink" title="词法定界"></a>词法定界</h2><p>&ensp;&ensp;&ensp;&ensp;当编写一个被其他函数B包含的函数A时，被包含的函数A可以访问包含其的函数B的所有局部变量，我们将这种特行称为词法定界。虽然这种可见性规则听上去很明确，但实际上并非如此。词法定界外加嵌套的第一类值函数可以为编程语言提供强大的功能，但很多编程语言并不支持将这两者组合使用。<br>&ensp;&ensp;&ensp;&ensp;先看一个例子。假设有一个表，其中包含了学生的姓名和对应的成绩，如果我们想基于分数对学生姓名排序，分数高者在前，那么可以使用如下的代码完成上述需求：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">name = &#123;<span class="string">&quot;Peter&quot;</span>,<span class="string">&quot;Paul&quot;</span>,<span class="string">&quot;MAry&quot;</span>&#125;</span><br><span class="line">grades = &#123;Mary = <span class="number">10</span>, Paul = <span class="number">7</span>, Peter = <span class="number">8</span>&#125;</span><br><span class="line">table.sort(names,function(n1,n2)</span><br><span class="line">	<span class="keyword">return</span> grades[n1] &gt; grades[n2]</span><br><span class="line">end)</span><br></pre></td></tr></table></figure>
-<p>现在，假设我们想创建一个函数来完成这个需求：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function sortbygrade(names,grades)</span><br><span class="line">	table.sort( names, function(n1,n2)</span><br><span class="line">		<span class="keyword">return</span> grades[n1] &gt; grades[n2]</span><br><span class="line">	end)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>在后一个示例中，有趣的一点就在于传给函数sort的匿名函数可以访问grades,而grades是包含匿名函数的外层函数sortbygrade的形参。在该匿名函数中，grades既不是全局变量也不是局部变量，而是我们所说的非局部变量。<br>&ensp;&ensp;&ensp;&ensp;这一点之所有如此有趣是因为函数作为第一类值，能够逃逸出它们变量的原始定界范围。考虑如下代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function newCounter()</span><br><span class="line">	local count = <span class="number">0</span></span><br><span class="line">	<span class="keyword">return</span> function ()</span><br><span class="line">		count = count + <span class="number">1</span></span><br><span class="line">		<span class="keyword">return</span> count</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">c1 = newCounter()</span><br><span class="line">print(c1())			-- <span class="number">1</span></span><br><span class="line">pirnt(c2())			-- <span class="number">2</span></span><br></pre></td></tr></table></figure>
-<p>在上述代码中，匿名函数访问了一个非局部变量并将其当作计数器。然而，游艺创建变量的函数已经返回，因此当我们调用匿名函数时，变量count似乎已经超出了作用范围。但其实不然，由于闭包概念的存在，Lua语言能够正确地应对这种情况。简单地说，一个闭包就是一个函数外加能够使该函数正确访问非局部变量所需的其他机制。如果我们再次调用newCounter，那么一个新的局部变量count和一个新的闭包会被创建出来，这个新的闭包针对的是这个新变量：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c2 = newCounter()</span><br><span class="line">print(c2())			-- <span class="number">1</span></span><br><span class="line">print(c1())			-- <span class="number">3</span></span><br><span class="line">print(c3())			-- <span class="number">2</span></span><br></pre></td></tr></table></figure>
-<p>因此，c1和c2是不同的闭包。它们建立在相同的函数之上，但是各自拥有局部变量count的独立实例。<br>&ensp;&ensp;&ensp;&ensp;从技术上讲，Lua语言中只有闭包而没有函数。函数本身只是闭包的一种原型。不过尽管如此，只要不会引起混淆，我们就仍将使用术语“函数”来指代闭包。<br>&ensp;&ensp;&ensp;&ensp;闭包在许多场合中均是一种有价值的工具。闭包在作为诸如sort这样的高阶函数的参数时就非常有用。同样，闭包对于那些创建了其他函数的函数也很有用。这种机制使得Lua程序能够综合运用函数式编程世界中多种精妙的编程技巧。另外，闭包对于回调函数来说也很有用。对于回调函数而言，一个典型的例子就是在传统GUI工具箱中创建按钮。每个按钮通常都对应一个回调函数，当用户按下按钮时，完成不同的处理动作的回调函数就会被调用。<br>&ensp;&ensp;&ensp;&ensp;例如，假设有一个具有10个类似按钮的数字计算器，我们就可以使用如下的函数来创建这些按钮：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function digitButton(digit)</span><br><span class="line">	<span class="keyword">return</span> Button&#123; label = tostring(digit),</span><br><span class="line">		action = function()</span><br><span class="line">			add_to_display(digit)</span><br><span class="line">		end</span><br><span class="line">	&#125;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>在上述示例中，假设Button是一个创建新按钮的工具箱函数，label是按钮的标签，action是当按钮按下时被调用的回调函数。回调可能发生在函数digitButton早已执行完后，那时变量digit已经超出了作用范围，但闭包仍可以访问它。<br>&ensp;&ensp;&ensp;&ensp;闭包在另一种很不一样的场景下也非常有用。由于函数可以保存在普通变量中，因此在Lua语言中可以轻松地重新定义函数，甚至是预定义函数。这种机制也正是Lua语言灵活的原因之一。通常，当重新定义一个函数的时候，我们需要在新的实现中调用原来的那个函数。例如，假设要重新定义函数sin以使其参数以角度为单位而不是以弧度为单位。那么这个新函数就可以先对参数进行转换，然后再调用原来的sin函数进行真正的计算。代码可能形如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local oldSin - math.sin </span><br><span class="line">math.sin = function(x)</span><br><span class="line">	<span class="keyword">return</span> oldSin(x * (math.pi/<span class="number">180</span>))</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>另一种更清晰一点的完成重新定义的写法是：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">do </span><br><span class="line">	local oldSin = math.sin </span><br><span class="line">	local k = math.pi/<span class="number">180</span></span><br><span class="line">	math.sin = function(x)</span><br><span class="line">		<span class="keyword">return</span> oldSin(x * k)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>上述代码使用了do代码段来限制局部变量oldSin的作用范围；根据可见性规则，局部变量oldSin只在这部分代码段中有效。因此，只有新版本的函数sin才能访问原来的sin函数，其他部分的代码则访问不了。<br>&ensp;&ensp;&ensp;&ensp;我们可以使用同样的技巧来创建安全的运行时环境，即所谓的沙盒。当执行一些诸如从远程服务器上下载到的未受信任代码时，安全的运行时环境非常重要。例如，我们可以通过使用闭包重定义函数io.open来限制一个程序能够访问的文件：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">do </span><br><span class="line">	local oldOpen = io.open</span><br><span class="line">	local access_OK - function (filename, mode)</span><br><span class="line">		check access </span><br><span class="line">	end</span><br><span class="line">	io.open = function (filename ,mode)</span><br><span class="line">		<span class="keyword">if</span> access_OK(filename, mode) then</span><br><span class="line">			<span class="keyword">return</span> oldOpen(filename,mode)</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> nil, <span class="string">&quot;access denied&quot;</span></span><br><span class="line">		end</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>上述示例的巧妙之处在于，在经过重新定义后，一个程序就只能通过新的受限版本来调用原来未受限版本的io.open函数。示例代码将原来不安全的版本保存为闭包的一个私有变量，该变量无法从外部访问。通过这一技巧，就可以在保证简洁性和灵活性的前提下在Lua语言本身上构建Lua沙盒。相对于提供一套大而全的解决方案，Lua语言提供的是一套“元机制”，借助这种机制可以根据特定的安全需求来裁剪具体的运行时环境。</p>
-<h2 id="小试函数式编程"><a href="#小试函数式编程" class="headerlink" title="小试函数式编程"></a>小试函数式编程</h2><p>&ensp;&ensp;&ensp;&ensp;这里，我们的目标就是开发一个用来表示几何区域的系统，其中区域即为点的几何。我们希望能够利用该系统表示各种各样的图形，同时可以通过多种方式组合和修改这些图形。<br>&ensp;&ensp;&ensp;&ensp;为了实现这样的一个系统，首先需要找到表示这些图形的合理数据结构。我们可以尝试着使用面向对象的方案，利用继承来抽象某些图形；或者，也可以直接利用特征函数来进行更高层次的抽象。鉴于一个几何区域就是点的集合，因此可以通过特征函数来表示一个区域，即可以提供一个点并根据点是否属于指定区域而返回真或假的函数来表示一个区域。<br>&ensp;&ensp;&ensp;&ensp;举例来说，下面的函数表示一个点(1.0,3.0)为圆心、半径4.5的圆盘：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function disk1(x,y)</span><br><span class="line">	<span class="keyword">return</span> (x - <span class="number">1.0</span>)^<span class="number">2</span> + (y - <span class="number">3.0</span>)^<span class="number">2</span> &lt;= <span class="number">4.5</span>^<span class="number">2</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>利用高阶函数和词法定界，可以很容易地定义一个根据指定的圆心和半径创建圆盘的工厂：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function disk(cx,cy,r)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> (x - cx)^<span class="number">2</span> + (y - cy)^<span class="number">2</span> &lt;= r^<span class="number">2</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>形如disk(1.0,3.0,4.5)的调用会创建一个与disk1等价的圆盘。<br>下面的函数创建了一个指定边界的轴对称矩形：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function rect(left,right,bottom,up)</span><br><span class="line">	<span class="keyword">return</span> function(x,y)</span><br><span class="line">		<span class="keyword">return</span> left &lt;= x <span class="keyword">and</span> x &lt;= right <span class="keyword">and</span> bottom &lt;= y <span class="keyword">and</span> y &lt;= up</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>按照类似的方式，可以定义函数以创建诸如三角形或非轴承矩形等其他基本图形。每一种图形都具有完全独立的实现，所需的仅仅是一个正确的特征函数。<br>&ensp;&ensp;&ensp;&ensp;接下来让我们考虑一下如何改变和组合区域。我们可以很容易地创建任何区域的补集：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function complement(r)</span><br><span class="line">	<span class="keyword">return</span> function(x,y)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">not</span> r(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>并集、交集和差集也很简单。</p>
-<blockquote>
-<p>示例 区域的并集、交集和差集</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function union (r1,r2)</span><br><span class="line">	<span class="keyword">return</span> function(x,y)</span><br><span class="line">		<span class="keyword">return</span> r1(x,y) <span class="keyword">or</span> r2(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">function intersection (r1,r2)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> r1(x,y) <span class="keyword">and</span> r2(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">function difference (r1,r2)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> r1(x,y) <span class="keyword">and</span> <span class="keyword">not</span> r2(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>以下函数按照指定的增量平移指定的区域：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function translate(r,dx,dy)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> r(x - dx, y -dy)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;为了使一个区域可视化，我们可以遍历每个像素进行视口测试；位于区域内的像素被绘制成黑色，而位于区域外的像素被绘制成白色。为了用简单的方式演示这个过程，我们接下来写一个函数来生成一个PBM格式的文件来绘制指定的区域。<br>&ensp;&ensp;&ensp;&ensp;PBM文件的结构很简单。PBM文件的文本形式以字符串”P1”开头，接下来的一行是图片的宽和高，然后是对应每一个像素、由1和0组成的数字序列，最后是EOF。</p>
-<blockquote>
-<p>示例 在PBM文件中绘制区域</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function plot(r,M,N)</span><br><span class="line">	io.write(<span class="string">&quot;P1\n&quot;</span>,M,<span class="string">&quot; &quot;</span>,N,<span class="string">&quot;\n&quot;</span>)		-- 文件头</span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>, N do</span><br><span class="line">		local y = (N - i*<span class="number">2</span>)/N</span><br><span class="line">		<span class="keyword">for</span> j = <span class="number">1</span>, M do</span><br><span class="line">			local x = (j*<span class="number">2</span> - M)/M</span><br><span class="line">			io.write(r(x,y) <span class="keyword">and</span> <span class="string">&quot;1&quot;</span> <span class="keyword">or</span> <span class="string">&quot;0&quot;</span>)</span><br><span class="line">		end</span><br><span class="line">		io.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>&ensp;&ensp;&ensp;&ensp;为了让示例更加完整，一下的代码绘制了一个南半球所能看到的娥眉月：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c1 = disk(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">plot(difference(c1,translate(c1,<span class="number">0.3</span>,<span class="number">0</span>)),<span class="number">500</span>,<span class="number">500</span>)</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Lua面向对象编程</title>
     <url>/2020/04/24/Lua%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</url>
     <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;从很多意义上讲，Lua语言中的一张表就是一个对象。首先，表与对象一样，可以拥有状态。其次，表与对象一样，拥有一个与其无关的标识(self)；特别地，两个具有相同值的对象（表）是两个不同的对象，而一个对象可以具有多个不同的值；最后，表与对象一样，具有创建者和被创建位置无关的声明周期。</p>
@@ -4261,6 +4176,91 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = Account:new&#123;&#125;</span><br><span class="line">a:deposit(<span class="number">100.00</span>)</span><br><span class="line">print(a:balance())</span><br></pre></td></tr></table></figure>
 <p>不过，我们不能恶意修改账户余额。这种实现通过让表balance为模块所私有，保证了它的安全性。<br>&ensp;&ensp;&ensp;&ensp;对偶表示无须修改即可实现继承。这种实现方式与标准实现方式在内存和时间开销方面基本相同。新对象需要一个新表，而且再每一个被使用的私有表中需要一个新的元素。访问balance[self]会比访问self.balance稍慢，这是因为后者使用了局部变量而前者使用了外部变量。通常，这种区别是可以忽略的。</p>
 ]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lua闭包详解</title>
+    <url>/2020/04/14/Lua%E9%97%AD%E5%8C%85%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<p>&ensp;&ensp;&ensp;&ensp;在Lua语言中，函数是严格遵循词法定界的第一类值。</p>
+<a id="more"></a>
+<p>&ensp;&ensp;&ensp;&ensp;“第一类值”以为这Lua语言中的函数与其他常见类型的值具有同等权限：一个程序可以将某个函数保存到变量中或表中，也可以将某个函数作为参数传递给其他函数，还可以将某个函数作为其他函数的返回值返回。<br>&ensp;&ensp;&ensp;&ensp;“词法定界”意味着Lua语言中的函数可以访问包含其自身的外部函数中的变量。<br>&ensp;&ensp;&ensp;&ensp;上述两个特行联合起来为Lua语言带来了极大的灵活性。例如，一个程序可以通过重新定义函数来增加新功能，也可以通过擦除函数来为不受信任的代码创建一个安全的运行时环境。更重要的是，上述两个特行允许我们在Lua语言中使用很多函数式语言的强大编程技巧。即使对函数式编程毫无兴趣，也不妨学习下如何使用这些技巧。因为这些技巧可以使程序变得更加小巧和简单。</p>
+<h2 id="函数是第一类值"><a href="#函数是第一类值" class="headerlink" title="函数是第一类值"></a>函数是第一类值</h2><p>如前所述，Lua语言中的函数是第一类值。以下的示例演示了第一类值的含义：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = &#123;p = <span class="keyword">print</span>&#125;				-- <span class="string">&#x27;a.p&#x27;</span>指向<span class="string">&#x27;print&#x27;</span>函数</span><br><span class="line">a.p(<span class="string">&quot;Hello World&quot;</span>)			-- HEllo World</span><br><span class="line"><span class="keyword">print</span> = math.sin			-- <span class="string">&#x27;print&#x27;</span>现在指向sine函数</span><br><span class="line">a.p(print(<span class="number">1</span>))				-- <span class="number">0.8414709848079</span></span><br><span class="line">math.sin = a.p 				-- <span class="string">&#x27;sin&#x27;</span>现在指向<span class="keyword">print</span>函数</span><br><span class="line">math.sin(<span class="number">10</span>,<span class="number">20</span>)				-- <span class="number">10</span>	<span class="number">20</span></span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;如果函数也是值的话，那么是否有创建函数的表达式呢？答案是肯定的。事实上，Lua语言中常见的函数定义方式如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function foo(x) <span class="keyword">return</span> <span class="number">2</span>*x end</span><br></pre></td></tr></table></figure>
+<p>就是所谓的语法糖的例子，它只是下面这种写法的一种美化形式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">foo = function(x) <span class="keyword">return</span> <span class="number">2</span>*x end</span><br></pre></td></tr></table></figure>
+<p>赋值语句右边的表达式(function(x) body end)就是函数构造器，与表构造器{}相似。因此，函数定义实际上就是创建类型为”function”的值并把她赋值给一个变量的语句。<br>&ensp;&ensp;&ensp;&ensp;请注意，在Lua语言中，所有的函数都是匿名的。像其他所有的值一样，函数并没有名字。当讨论函数时，比如print，实际上指的是保存函数的变量。虽然我们通常会把函数赋值给全局变量，从而看似给函数起了一个名字，但在很多场景下仍然会保留函数的匿名性。<br>&ensp;&ensp;&ensp;&ensp;表标准库提供了函数table.sort，该函数以一个表为参数并对其中的元素排序。这种函数必须支持各种各样的排序方式：升序或降序、按数值顺序或按字母顺序、按表中的键等。函数sort并没有试图穷尽所有的排序方式，而是提供了一个可选的参数，也就是所谓的排序函数，排序函数接收两个参数并根据第一个元素是否应排在第二个元素之前返回不同的值。<br>假如，有一个如下所示的表：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">network = &#123;</span><br><span class="line">	&#123;name = <span class="string">&quot;grauna&quot;</span> , IP = <span class="string">&quot;210,26.30.34&quot;</span>&#125;,</span><br><span class="line">	&#123;name = <span class="string">&quot;arraial&quot;</span>, IP = <span class="string">&quot;210,26,30,23&quot;</span>&#125;,</span><br><span class="line">	&#123;name = <span class="string">&quot;lua&quot;</span>,	   IP = <span class="string">&quot;210,26,23,12&quot;</span>&#125;,</span><br><span class="line">	&#123;name = <span class="string">&quot;derain&quot;</span>,  IP = <span class="string">&quot;210,26,23,20&quot;</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果想针对name字段、按字母顺序逆序对这个表排序，只需使用下面语句：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">talbe.sort(network,function (a,b) <span class="keyword">return</span> (a.name &gt; b.name) end)</span><br></pre></td></tr></table></figure>
+<p>可见，匿名函数在这条语句中显示出了很好的便利性。<br>&ensp;&ensp;&ensp;&ensp;像函数sort这样以另一个函数为参数的函数，我们称之为高阶函数。高阶函数是一种强大的编程机制，而利用匿名函数作为参数正式其灵活性的主要来源。不过尽管如此，请记住高阶函数也并没有什么特殊的，它们只是Lua语言将函数作为第一类值处理所带来的直接体现。<br>&ensp;&ensp;&ensp;&ensp;为了进一步演示高阶函数的用法，让我们再来实现一个常见的高阶函数，即导数。按照通常的定义，函数f的导数为$f’(x) = (f(x + d) - f(x))/d$,其中d趋向于无穷小。根据这个定义，可以赢如下方式近似第计算导数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function derivative (f,delta)</span><br><span class="line">	delta = delta <span class="keyword">or</span> <span class="number">1e-4</span></span><br><span class="line">	<span class="keyword">return</span> function (x)</span><br><span class="line">		<span class="keyword">return</span> (f(x + delta) - f(x))/delta</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>对于指定的函数f，调用derivative(f)将返回其导数，也就是另一个函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c = derivative(math.sin)</span><br><span class="line">&gt; print(math.cos(<span class="number">5.2</span>),c(<span class="number">5.2</span>))</span><br><span class="line">print(math.cos(<span class="number">10</span>),c(<span class="number">10</span>)) 		</span><br></pre></td></tr></table></figure>
+<h2 id="非全局函数"><a href="#非全局函数" class="headerlink" title="非全局函数"></a>非全局函数</h2><p>&ensp;&ensp;&ensp;&ensp;由于函数是一种“第一类值”，因此一个显而易见的结果就是：函数不仅可以被存储在全局变量中，还可以被存储在表字段和局部变量中。<br>&ensp;&ensp;&ensp;&ensp;创建函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Lib = &#123;&#125;</span><br><span class="line">Lib.foo = function(x,y) <span class="keyword">return</span> x + y end</span><br><span class="line">Lib.goo = function(x,y) <span class="keyword">return</span> x - y end</span><br><span class="line">print(Lib.foo(<span class="number">2</span>,<span class="number">3</span>),Lib.goo(<span class="number">2</span>,<span class="number">3</span>))		-- <span class="number">5</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<p>当然，也可使用表构造器：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Lib = &#123;</span><br><span class="line">	foo = function(x,y) <span class="keyword">return</span> x + y end</span><br><span class="line">	goo = function(X,y) <span class="keyword">return</span> x - y end</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除此以外，Lua语言还提供了另一种特殊的语言来定义这类函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Lib = &#123;&#125;</span><br><span class="line">function Lib.foo(x,y) <span class="keyword">return</span> x + y end</span><br><span class="line">function Lib.goo(x,y) <span class="keyword">return</span> x - y end</span><br></pre></td></tr></table></figure>
+<p>在表字段中存储函数是Lua语言中实现面向对象编程的关键要素。<br>&ensp;&ensp;&ensp;&ensp;当把一个函数存储到局部变量时，就得到一个局部函数，即一个被限定在指定作用域中使用的函数。局部函数对于包而言尤其有用：由于Lua语言将每个程序段作为一个函数处理，所以在一段程序中声明的函数就是局部函数，这些局部函数只在该程序段中可见。词法定界保证了程序段中的其他函数可以使用这些局部函数。<br>对于这种局部函数的使用，Lua语言提供了一种语法他那个：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local function f (params)</span><br><span class="line">	body</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;在定义局部递归函数时，由于原来的方法不使用，所有有一点是极易出错的。考虑如下代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local fact = function(n)</span><br><span class="line">	<span class="keyword">if</span> n == <span class="number">0</span> then <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> n * fact(n<span class="number">-1</span>)   --有问题</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>当Lua语言编译函数体中的fact(n-1)调用时，局部的fact尚未定义。因此，这个表达式会尝试调用全局的fact而非局部的fact。我们可以通过先定义局部变量再定义函数的方式来解决这个问题：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local fact</span><br><span class="line">fact = function(n)</span><br><span class="line">	<span class="keyword">if</span> n == <span class="number">0</span> then <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> n * fact(n<span class="number">-1</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>这样，函数内的fact指向的是局部变量。尽管在定义函数时，这个局部变量的值尚未确定，但到了执行函数时，fact肯定有了正确的赋值。<br>&ensp;&ensp;&ensp;&ensp;当Lua语言展开局部函数的语法糖时，使用的并不是之前的基本函数定义。相反，形如</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local function foo(params) body end</span><br></pre></td></tr></table></figure>
+<p>的定义会被展开成</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local foo; foo = function(params) body end</span><br></pre></td></tr></table></figure>
+<p>因此，使用这个语法来定义递归函数不会有问题。<br>&ensp;&ensp;&ensp;&ensp;当然，这个技巧对于简介递归函数是无效的。在间接递归的情况下，必须使用与明确的前向声明等价的形式：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">local f </span><br><span class="line"></span><br><span class="line"><span class="function">local function <span class="title">g</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	some code <span class="title">f</span><span class="params">()</span> some code</span></span><br><span class="line"><span class="function">end</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">function <span class="title">f</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	some code <span class="title">g</span><span class="params">()</span> some code</span></span><br><span class="line"><span class="function">end</span></span><br></pre></td></tr></table></figure>
+<p>请注意，不能在最后一个函数定义前加上local。否则，Lua语言会创建一个全新的局部变量f，从而使得先前声明的f变为未定义状态。</p>
+<h2 id="词法定界"><a href="#词法定界" class="headerlink" title="词法定界"></a>词法定界</h2><p>&ensp;&ensp;&ensp;&ensp;当编写一个被其他函数B包含的函数A时，被包含的函数A可以访问包含其的函数B的所有局部变量，我们将这种特行称为词法定界。虽然这种可见性规则听上去很明确，但实际上并非如此。词法定界外加嵌套的第一类值函数可以为编程语言提供强大的功能，但很多编程语言并不支持将这两者组合使用。<br>&ensp;&ensp;&ensp;&ensp;先看一个例子。假设有一个表，其中包含了学生的姓名和对应的成绩，如果我们想基于分数对学生姓名排序，分数高者在前，那么可以使用如下的代码完成上述需求：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">name = &#123;<span class="string">&quot;Peter&quot;</span>,<span class="string">&quot;Paul&quot;</span>,<span class="string">&quot;MAry&quot;</span>&#125;</span><br><span class="line">grades = &#123;Mary = <span class="number">10</span>, Paul = <span class="number">7</span>, Peter = <span class="number">8</span>&#125;</span><br><span class="line">table.sort(names,function(n1,n2)</span><br><span class="line">	<span class="keyword">return</span> grades[n1] &gt; grades[n2]</span><br><span class="line">end)</span><br></pre></td></tr></table></figure>
+<p>现在，假设我们想创建一个函数来完成这个需求：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function sortbygrade(names,grades)</span><br><span class="line">	table.sort( names, function(n1,n2)</span><br><span class="line">		<span class="keyword">return</span> grades[n1] &gt; grades[n2]</span><br><span class="line">	end)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>在后一个示例中，有趣的一点就在于传给函数sort的匿名函数可以访问grades,而grades是包含匿名函数的外层函数sortbygrade的形参。在该匿名函数中，grades既不是全局变量也不是局部变量，而是我们所说的非局部变量。<br>&ensp;&ensp;&ensp;&ensp;这一点之所有如此有趣是因为函数作为第一类值，能够逃逸出它们变量的原始定界范围。考虑如下代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function newCounter()</span><br><span class="line">	local count = <span class="number">0</span></span><br><span class="line">	<span class="keyword">return</span> function ()</span><br><span class="line">		count = count + <span class="number">1</span></span><br><span class="line">		<span class="keyword">return</span> count</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">c1 = newCounter()</span><br><span class="line">print(c1())			-- <span class="number">1</span></span><br><span class="line">pirnt(c2())			-- <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>在上述代码中，匿名函数访问了一个非局部变量并将其当作计数器。然而，游艺创建变量的函数已经返回，因此当我们调用匿名函数时，变量count似乎已经超出了作用范围。但其实不然，由于闭包概念的存在，Lua语言能够正确地应对这种情况。简单地说，一个闭包就是一个函数外加能够使该函数正确访问非局部变量所需的其他机制。如果我们再次调用newCounter，那么一个新的局部变量count和一个新的闭包会被创建出来，这个新的闭包针对的是这个新变量：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c2 = newCounter()</span><br><span class="line">print(c2())			-- <span class="number">1</span></span><br><span class="line">print(c1())			-- <span class="number">3</span></span><br><span class="line">print(c3())			-- <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>因此，c1和c2是不同的闭包。它们建立在相同的函数之上，但是各自拥有局部变量count的独立实例。<br>&ensp;&ensp;&ensp;&ensp;从技术上讲，Lua语言中只有闭包而没有函数。函数本身只是闭包的一种原型。不过尽管如此，只要不会引起混淆，我们就仍将使用术语“函数”来指代闭包。<br>&ensp;&ensp;&ensp;&ensp;闭包在许多场合中均是一种有价值的工具。闭包在作为诸如sort这样的高阶函数的参数时就非常有用。同样，闭包对于那些创建了其他函数的函数也很有用。这种机制使得Lua程序能够综合运用函数式编程世界中多种精妙的编程技巧。另外，闭包对于回调函数来说也很有用。对于回调函数而言，一个典型的例子就是在传统GUI工具箱中创建按钮。每个按钮通常都对应一个回调函数，当用户按下按钮时，完成不同的处理动作的回调函数就会被调用。<br>&ensp;&ensp;&ensp;&ensp;例如，假设有一个具有10个类似按钮的数字计算器，我们就可以使用如下的函数来创建这些按钮：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function digitButton(digit)</span><br><span class="line">	<span class="keyword">return</span> Button&#123; label = tostring(digit),</span><br><span class="line">		action = function()</span><br><span class="line">			add_to_display(digit)</span><br><span class="line">		end</span><br><span class="line">	&#125;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>在上述示例中，假设Button是一个创建新按钮的工具箱函数，label是按钮的标签，action是当按钮按下时被调用的回调函数。回调可能发生在函数digitButton早已执行完后，那时变量digit已经超出了作用范围，但闭包仍可以访问它。<br>&ensp;&ensp;&ensp;&ensp;闭包在另一种很不一样的场景下也非常有用。由于函数可以保存在普通变量中，因此在Lua语言中可以轻松地重新定义函数，甚至是预定义函数。这种机制也正是Lua语言灵活的原因之一。通常，当重新定义一个函数的时候，我们需要在新的实现中调用原来的那个函数。例如，假设要重新定义函数sin以使其参数以角度为单位而不是以弧度为单位。那么这个新函数就可以先对参数进行转换，然后再调用原来的sin函数进行真正的计算。代码可能形如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">local oldSin - math.sin </span><br><span class="line">math.sin = function(x)</span><br><span class="line">	<span class="keyword">return</span> oldSin(x * (math.pi/<span class="number">180</span>))</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>另一种更清晰一点的完成重新定义的写法是：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">do </span><br><span class="line">	local oldSin = math.sin </span><br><span class="line">	local k = math.pi/<span class="number">180</span></span><br><span class="line">	math.sin = function(x)</span><br><span class="line">		<span class="keyword">return</span> oldSin(x * k)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>上述代码使用了do代码段来限制局部变量oldSin的作用范围；根据可见性规则，局部变量oldSin只在这部分代码段中有效。因此，只有新版本的函数sin才能访问原来的sin函数，其他部分的代码则访问不了。<br>&ensp;&ensp;&ensp;&ensp;我们可以使用同样的技巧来创建安全的运行时环境，即所谓的沙盒。当执行一些诸如从远程服务器上下载到的未受信任代码时，安全的运行时环境非常重要。例如，我们可以通过使用闭包重定义函数io.open来限制一个程序能够访问的文件：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">do </span><br><span class="line">	local oldOpen = io.open</span><br><span class="line">	local access_OK - function (filename, mode)</span><br><span class="line">		check access </span><br><span class="line">	end</span><br><span class="line">	io.open = function (filename ,mode)</span><br><span class="line">		<span class="keyword">if</span> access_OK(filename, mode) then</span><br><span class="line">			<span class="keyword">return</span> oldOpen(filename,mode)</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> nil, <span class="string">&quot;access denied&quot;</span></span><br><span class="line">		end</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>上述示例的巧妙之处在于，在经过重新定义后，一个程序就只能通过新的受限版本来调用原来未受限版本的io.open函数。示例代码将原来不安全的版本保存为闭包的一个私有变量，该变量无法从外部访问。通过这一技巧，就可以在保证简洁性和灵活性的前提下在Lua语言本身上构建Lua沙盒。相对于提供一套大而全的解决方案，Lua语言提供的是一套“元机制”，借助这种机制可以根据特定的安全需求来裁剪具体的运行时环境。</p>
+<h2 id="小试函数式编程"><a href="#小试函数式编程" class="headerlink" title="小试函数式编程"></a>小试函数式编程</h2><p>&ensp;&ensp;&ensp;&ensp;这里，我们的目标就是开发一个用来表示几何区域的系统，其中区域即为点的几何。我们希望能够利用该系统表示各种各样的图形，同时可以通过多种方式组合和修改这些图形。<br>&ensp;&ensp;&ensp;&ensp;为了实现这样的一个系统，首先需要找到表示这些图形的合理数据结构。我们可以尝试着使用面向对象的方案，利用继承来抽象某些图形；或者，也可以直接利用特征函数来进行更高层次的抽象。鉴于一个几何区域就是点的集合，因此可以通过特征函数来表示一个区域，即可以提供一个点并根据点是否属于指定区域而返回真或假的函数来表示一个区域。<br>&ensp;&ensp;&ensp;&ensp;举例来说，下面的函数表示一个点(1.0,3.0)为圆心、半径4.5的圆盘：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function disk1(x,y)</span><br><span class="line">	<span class="keyword">return</span> (x - <span class="number">1.0</span>)^<span class="number">2</span> + (y - <span class="number">3.0</span>)^<span class="number">2</span> &lt;= <span class="number">4.5</span>^<span class="number">2</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>利用高阶函数和词法定界，可以很容易地定义一个根据指定的圆心和半径创建圆盘的工厂：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function disk(cx,cy,r)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> (x - cx)^<span class="number">2</span> + (y - cy)^<span class="number">2</span> &lt;= r^<span class="number">2</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>形如disk(1.0,3.0,4.5)的调用会创建一个与disk1等价的圆盘。<br>下面的函数创建了一个指定边界的轴对称矩形：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function rect(left,right,bottom,up)</span><br><span class="line">	<span class="keyword">return</span> function(x,y)</span><br><span class="line">		<span class="keyword">return</span> left &lt;= x <span class="keyword">and</span> x &lt;= right <span class="keyword">and</span> bottom &lt;= y <span class="keyword">and</span> y &lt;= up</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>按照类似的方式，可以定义函数以创建诸如三角形或非轴承矩形等其他基本图形。每一种图形都具有完全独立的实现，所需的仅仅是一个正确的特征函数。<br>&ensp;&ensp;&ensp;&ensp;接下来让我们考虑一下如何改变和组合区域。我们可以很容易地创建任何区域的补集：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function complement(r)</span><br><span class="line">	<span class="keyword">return</span> function(x,y)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">not</span> r(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>并集、交集和差集也很简单。</p>
+<blockquote>
+<p>示例 区域的并集、交集和差集</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function union (r1,r2)</span><br><span class="line">	<span class="keyword">return</span> function(x,y)</span><br><span class="line">		<span class="keyword">return</span> r1(x,y) <span class="keyword">or</span> r2(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">function intersection (r1,r2)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> r1(x,y) <span class="keyword">and</span> r2(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">function difference (r1,r2)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> r1(x,y) <span class="keyword">and</span> <span class="keyword">not</span> r2(x,y)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>以下函数按照指定的增量平移指定的区域：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function translate(r,dx,dy)</span><br><span class="line">	<span class="keyword">return</span> function (x,y)</span><br><span class="line">		<span class="keyword">return</span> r(x - dx, y -dy)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;为了使一个区域可视化，我们可以遍历每个像素进行视口测试；位于区域内的像素被绘制成黑色，而位于区域外的像素被绘制成白色。为了用简单的方式演示这个过程，我们接下来写一个函数来生成一个PBM格式的文件来绘制指定的区域。<br>&ensp;&ensp;&ensp;&ensp;PBM文件的结构很简单。PBM文件的文本形式以字符串”P1”开头，接下来的一行是图片的宽和高，然后是对应每一个像素、由1和0组成的数字序列，最后是EOF。</p>
+<blockquote>
+<p>示例 在PBM文件中绘制区域</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">function plot(r,M,N)</span><br><span class="line">	io.write(<span class="string">&quot;P1\n&quot;</span>,M,<span class="string">&quot; &quot;</span>,N,<span class="string">&quot;\n&quot;</span>)		-- 文件头</span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>, N do</span><br><span class="line">		local y = (N - i*<span class="number">2</span>)/N</span><br><span class="line">		<span class="keyword">for</span> j = <span class="number">1</span>, M do</span><br><span class="line">			local x = (j*<span class="number">2</span> - M)/M</span><br><span class="line">			io.write(r(x,y) <span class="keyword">and</span> <span class="string">&quot;1&quot;</span> <span class="keyword">or</span> <span class="string">&quot;0&quot;</span>)</span><br><span class="line">		end</span><br><span class="line">		io.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>&ensp;&ensp;&ensp;&ensp;为了让示例更加完整，一下的代码绘制了一个南半球所能看到的娥眉月：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c1 = disk(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">plot(difference(c1,translate(c1,<span class="number">0.3</span>,<span class="number">0</span>)),<span class="number">500</span>,<span class="number">500</span>)</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>编程语言</category>
       </categories>
