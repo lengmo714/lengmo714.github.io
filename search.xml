@@ -156,22 +156,6 @@
       </tags>
   </entry>
   <entry>
-    <title>IOS 上架</title>
-    <url>/2020/09/13/IOS-%E4%B8%8A%E6%9E%B6/</url>
-    <content><![CDATA[<p>本人长期承接苹果App store各种应用上架（原生套壳都可以），量大、自己出账号价格从优。<br>细节私聊。</p>
-<a id="more"></a>
-<p>有意者私聊：QQ：842673413</p>
-]]></content>
-      <categories>
-        <category>IOS上架</category>
-      </categories>
-      <tags>
-        <tag>IOS上架</tag>
-        <tag>APP store上架</tag>
-        <tag>IOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git入门命令及一些常见问题</title>
     <url>/2018/11/10/Git%E5%85%A5%E9%97%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>Git 是一个开源的分布版本控制系统，可以有效，高速的处理从很小到非常大的项目版本管理。现在最常见的有github，码云等，看自己使用的平台，但是Git的基本命令还是一样。这里笔者总结了一些平时Git的命令供大家参考，如有问题还请多多指出，本文多处参加<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/">廖雪峰的官方网站</a>，更多关于命令的解释说明也请看该网站，这里笔者只是简单的总结了一些命令。</p>
@@ -632,6 +616,22 @@
       </categories>
       <tags>
         <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IOS 上架</title>
+    <url>/2020/09/13/IOS-%E4%B8%8A%E6%9E%B6/</url>
+    <content><![CDATA[<p>本人长期承接苹果App store各种应用上架（原生套壳都可以），量大、自己出账号价格从优。<br>细节私聊。</p>
+<a id="more"></a>
+<p>有意者私聊：QQ：842673413</p>
+]]></content>
+      <categories>
+        <category>IOS上架</category>
+      </categories>
+      <tags>
+        <tag>IOS上架</tag>
+        <tag>APP store上架</tag>
+        <tag>IOS</tag>
       </tags>
   </entry>
   <entry>
@@ -1622,6 +1622,29 @@
       </tags>
   </entry>
   <entry>
+    <title>cocos 2dx_lua键盘监听</title>
+    <url>/2020/06/08/cocos-2dx-lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/</url>
+    <content><![CDATA[<a id="more"></a>
+<pre><code class="python">local function keyboardPressed(KeyCode,event)
+        print(KeyCode)
+    end
+    local function keyboardReleased(KeyCode,event)
+    end
+    local listener = cc.EventListenerKeyboard:create()  
+    listener:registerScriptHandler(keyboardPressed, cc.Handler.EVENT_KEYBOARD_PRESSED)  
+    listener:registerScriptHandler(keyboardReleased, cc.Handler.EVENT_KEYBOARD_RELEASED)  
+    local eventDispatcher = self:getEventDispatcher()  
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener,self)</code></pre>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+      </categories>
+      <tags>
+        <tag>lua</tag>
+        <tag>cocos 2d</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>break、return和goto</title>
     <url>/2020/04/13/break%E3%80%81return%E5%92%8Cgoto/</url>
     <content><![CDATA[<h2 id="break、return-和-goto"><a href="#break、return-和-goto" class="headerlink" title="break、return 和 goto"></a>break、return 和 goto</h2><p>&ensp;&ensp;&ensp;&ensp;break和return语句用于从当前的循环结构中跳出，goto语句则允许跳转到函数中的几乎任何地方。</p>
@@ -1645,29 +1668,6 @@
       </categories>
       <tags>
         <tag>lua</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cocos 2dx_lua键盘监听</title>
-    <url>/2020/06/08/cocos-2dx-lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/</url>
-    <content><![CDATA[<a id="more"></a>
-<pre><code class="python">local function keyboardPressed(KeyCode,event)
-        print(KeyCode)
-    end
-    local function keyboardReleased(KeyCode,event)
-    end
-    local listener = cc.EventListenerKeyboard:create()  
-    listener:registerScriptHandler(keyboardPressed, cc.Handler.EVENT_KEYBOARD_PRESSED)  
-    listener:registerScriptHandler(keyboardReleased, cc.Handler.EVENT_KEYBOARD_RELEASED)  
-    local eventDispatcher = self:getEventDispatcher()  
-    eventDispatcher:addEventListenerWithSceneGraphPriority(listener,self)</code></pre>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-      </categories>
-      <tags>
-        <tag>lua</tag>
-        <tag>cocos 2d</tag>
       </tags>
   </entry>
   <entry>
@@ -2921,6 +2921,33 @@
       </tags>
   </entry>
   <entry>
+    <title>蓝牙技术</title>
+    <url>/2018/01/09/%E8%93%9D%E7%89%99%E6%8A%80%E6%9C%AF/</url>
+    <content><![CDATA[<h1 id="蓝牙技术"><a href="#蓝牙技术" class="headerlink" title="蓝牙技术"></a>蓝牙技术</h1><h2 id="蓝牙协议体系结构"><a href="#蓝牙协议体系结构" class="headerlink" title="蓝牙协议体系结构"></a>蓝牙协议体系结构</h2><p>&emsp;&emsp;蓝牙协议体系的目的是是符合该规范的各种应用之间能够互通，本地设备与远端设备需要使用相同的协议，不同的应用需要不同的协议。但是，所有的应用都要使用协议体系中的数据链路层和物理层，完整蓝牙的协议栈如图</p>
+<a id="more"></a>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="http://img.blog.csdn.net/20180109225546750?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20180109225546750?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>&emsp;&emsp;蓝牙的协议体系分为核心协议、电缆替代协议、电话传送控制协议和可选协议四层。除了上述协议层外，规范还定义了主机控制器接口（HCI），它为基带控制器、连接管理器、硬件状态和控制寄存器提供命令接口。</p>
+<h3 id="核心协议"><a href="#核心协议" class="headerlink" title="核心协议"></a>核心协议</h3><p>&emsp;&emsp;蓝牙的核心协议包括BaseBand、LMP、L2CAP、SDP。绝大部分蓝牙设备都需要核心协议，而其他协议根据应用而定。</p>
+<h4 id="基带协议"><a href="#基带协议" class="headerlink" title="基带协议"></a>基带协议</h4><p>&emsp;&emsp;基带协议确保微微网内各蓝牙设备的物理连接。蓝牙的射频系统是一个调频系统，其任一分组在指定时隙、指定频率上发送，它使用查询和寻呼进程同步不同设备间的发送频率和时钟，可为基带数据分组提供面向同步链接（SCO）和异步无连接（ACL）两种物理连接方式，而且在同一射频上是吸纳多路数据传送。<br>&emsp;&emsp;ACL使用与数据分组，SCO适用于话音以及话音与数据的组合，所以的话音和数据分组都会有不同级别的前向纠错（FEC）或循环冗余校验（CRC），而且可进行加密。此外，不同数据类型都分配一个特殊通道。</p>
+<h4 id="链路管理协议"><a href="#链路管理协议" class="headerlink" title="链路管理协议"></a>链路管理协议</h4><p>&emsp;&emsp;链路管理协议（LMP）负责蓝牙各设备间建立连接。LMP通过连接的发起、交换、核实，进行身份认证和加密，通过协商确定基带数据分组大小。LMP控制无线设备的电源模式和工作周期，以及微微网内设备单元的连接状态。<br>####逻辑链路控制和适配协议<br>&emsp;&emsp; 逻辑链路控制和适配协议（L2CAP）是基带的上层协议。L2CAP向上层提供面向连接的和无连接的数据服务，它采用了多路复用技术、分割和重组技术、群提取技术。L2CAP允许高层协议以64KB收据分组。虽然基带协议提供了SCO和ACL两种连接类型，但L2CAP只支持ACL。</p>
+<h4 id="服务发现协议（DSP）"><a href="#服务发现协议（DSP）" class="headerlink" title="服务发现协议（DSP）"></a>服务发现协议（DSP）</h4><p>&emsp;&emsp;SDP协议在蓝牙技术框架中起到至关重要的作用，它是所有用户模式的基础。使用SDP协议可以查询到设备信息和服务类型，从而在蓝牙设备间建立相应的连接。</p>
+<h3 id="电缆替代协议"><a href="#电缆替代协议" class="headerlink" title="电缆替代协议"></a>电缆替代协议</h3><p>&emsp;&emsp;RFCOMM是基于ETSI 07110 规范的串行线路仿真协议。电缆替代协议在蓝牙基带协议上仿真RS232控制和数据信号，为使用串行线路传送机制的上层协议提供服务。</p>
+<h3 id="电话控制协议"><a href="#电话控制协议" class="headerlink" title="电话控制协议"></a>电话控制协议</h3><h4 id="二元电话控制协议"><a href="#二元电话控制协议" class="headerlink" title="二元电话控制协议"></a>二元电话控制协议</h4><p>&emsp;&emsp;二元电话控制（TCB Binary 或TCS BIN）协议是面向比特的协议，它定义了蓝牙设备间建立语音和数据呼叫的控制命令，定义了处理蓝牙设备簇的移动管理进程。基于ITU-T Q1931建议的TCSBinary被指定为蓝牙的二元电话控制协议规范。</p>
+<h4 id="AT命令集"><a href="#AT命令集" class="headerlink" title="AT命令集"></a>AT命令集</h4><p>&emsp;&emsp; SIG根据ITU-T V1250建议和GSM7107定义了控制多用户模式下移动电话、调制解调器和可用于传真业务的AT指令集。</p>
+<h3 id="选用协议"><a href="#选用协议" class="headerlink" title="选用协议"></a>选用协议</h3><ul>
+<li>1 点对点协议（PPP）<br>&emsp;&emsp;在蓝牙技术中，PPP位于RFCOMM上层，完成点对点的连接。</li>
+<li>2 TCP/UDP/IP<br>&emsp;&emsp; TCP/UDP/IP协议是由IETF制定的，广泛应用于Internet通信的协议，在蓝牙设备中使用这些协议是为了与Internet相连接的设备进行通信。</li>
+<li>3  对象交换（OBEX）协议<br>&emsp;&emsp;OBEX是由红外数据协议制定的会话层协议，它采用简单和自发的方式交换目标。OBEX是一种类似于HTTP的协议，它假设运输层是可靠的，采用客户机/服务器（Client/Server）模式，独立与传输机制和传输应用程序接口（API）。电子名片交换格式、电子日历及日程交换格式都是开放性规范，它们都没有定义传输机制，而只是定义了数据传输格式。SIG采用vCard/vCal规范，市委了进一步促进个人信息交换。</li>
+<li>4 无线应用协议（WAP）<br>&emsp;&emsp;WAP是由无线应用协议论坛制定的协议，它融合了各种广域无线网络技术，其目的是将Internet内容和电话传送的业务传送到数字蜂窝电话和其他无线终端上。选用WAP，可愿意充分利用为无线应用环境（WAE）开发的高层应用软件。<h2 id="蓝牙网络的拓扑结构"><a href="#蓝牙网络的拓扑结构" class="headerlink" title="蓝牙网络的拓扑结构"></a>蓝牙网络的拓扑结构</h2>&emsp;&emsp; 蓝牙采用一种灵活的无基站组网方式，是的一个蓝牙设备可与其他7个蓝牙设备相连接。蓝牙系统的网络结构的拓扑结构有微微网和散射网2种形式。<h3 id="微微网"><a href="#微微网" class="headerlink" title="微微网"></a>微微网</h3>&emsp;&emsp;微微网是通过蓝牙技术以特定方式连接起来的一种微型网络。微微网由一个主设备和若干个从设备组成，且从设备最多为7台。在一个微微网中，所有设备的级别是相同的，具有相同的权限。蓝牙采用Ad Hoc组网方式，如图<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="http://img.blog.csdn.net/20180109233401699?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20180109233401699?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>其中主设备单元负责提供时钟同步信号和调频序列，从设备单元一般式受控同步的设备单元，受主设备单元控制。<br>&emsp;&emsp;在每个微微网中，用一组伪随机调频序列来确定79个调频信道，这个调频序列对于每个微微网来说是唯一的，由主设备的地址和时钟决定。蓝牙无线信道使用调频/时分复用（FH/TDD）方案，信道以625us时间长度划分时隙，根据微微网住设备的时钟对时隙进行编号，号码为0~266，以227为一个循环长度。每个时隙对应一个调频频率，通常调频速度为1600跳/秒。主设备只在偶数时隙开始传送信息，从设备只在奇数时隙开始传送，信息包的开始于时隙的开始相对应。<br>&emsp;&emsp;微微网中信道的特性完全由主设备决定，主设备的蓝牙地址决定调频序列和信道接入码，主设备的系统时钟决定调频序列的相位和时间。根据蓝牙结点的平等性，任何一个设备都可以成为网络中的主设备，而且主、从设备可转换角色。<br>&emsp;&emsp;主设备通过轮询从设备实现两者之间的通信。从设备只有收到主设备的信息包方可发送数据。<h3 id="散射网"><a href="#散射网" class="headerlink" title="散射网"></a>散射网</h3>&emsp;&emsp;一个微微网最多能有7个从设备同时处于通信状态。为了能容纳更多的装置，并且扩大网络通信范围，将多个微微网互联在一起，就构成了蓝牙自组织网，即散射网，如图<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="http://img.blog.csdn.net/20180109234155555?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20180109234155555?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>&emsp;&emsp;在散射网中，不同微微网间使用不同的调频序列，因此，只要彼此没有同时跳跃到同一频道上，即便有多组数据流同时传送也不会造成干扰。连接微微网之间的设备成为网桥。网桥可以是所有所属微微网中的从设备，这种网桥的类别为（Slave/Slave）。网桥也可以是在其中某一属性的微微网中当主设备，在其他微微网中当从设备，这样的网桥类别为（Master/Slave）。<br>&emsp;&emsp;网桥通过不同时隙在不同的微微网之间转换，实现了跨微微网之间的数据传输。蓝牙散射网是自组网的一种特例。其最大特点是可以无基站支持，每个移动终端的地位是平等的，并可以进行分组转发的决策，其建网灵活性、多跳性、拓扑结构动态变化和分布式控制等特点是构建散射网的基础。<h2 id="蓝牙的工作模式"><a href="#蓝牙的工作模式" class="headerlink" title="蓝牙的工作模式"></a>蓝牙的工作模式</h2><h3 id="文件传输模式"><a href="#文件传输模式" class="headerlink" title="文件传输模式"></a>文件传输模式</h3>&emsp;&emsp;文件传输模式提供两个终端之间的数据通信功能，可传输多种文件格式以及完整的文件夹或目录多媒体数据流等并提供远端文件夹浏览功能。<h3 id="网桥模式"><a href="#网桥模式" class="headerlink" title="网桥模式"></a>网桥模式</h3>&emsp;&emsp;在这种模式下，由手机或无线调制解调器向PC提供拨号入网和收发传真的功能，而不必与PC建立物理连接，拨号上网需要RFCOMM和AT命令集两个协议。AT命令集用来控制移动电话或调制解调器以及传送其他业务数据的协议栈。传真采用类似协议栈，由应用软件利用RFCOMM直接发送。<h3 id="局域网访问模式"><a href="#局域网访问模式" class="headerlink" title="局域网访问模式"></a>局域网访问模式</h3>&emsp;&emsp;在此模式下，多功能数据终端经局域网访问点无线接入局域网，介入后数据终端的操作与通过拨号方式接入局域网设备的操作一样。<h3 id="同步模式"><a href="#同步模式" class="headerlink" title="同步模式"></a>同步模式</h3>&emsp;&emsp;同步模式提供设备到设备的个人资料管理（PIM）的同步更新功能，其典型应用如电话薄、日历、通知和记录等，他要求危机、蜂窝电话和个人数字助理（PDA）在传输和处理名片、日历及任务通知时，使用通用的协议和格式。<h3 id="蓝牙电话模式"><a href="#蓝牙电话模式" class="headerlink" title="蓝牙电话模式"></a>蓝牙电话模式</h3>&emsp;&emsp;这种工作模式中，近距离内支持两个蓝牙手持终端直接实现语音通信功能。另外支持将一个固定的电话连接到移动手机的功能，实现在整个小范围内移动的功能。<h3 id="头戴式设备模式"><a href="#头戴式设备模式" class="headerlink" title="头戴式设备模式"></a>头戴式设备模式</h3>&emsp;&emsp;使用该模式，用户打电话时可自由移动。通过无线连接，头戴式设备通常作为蜂窝电话，无线电话或个人微机的音频输入输出设备。头戴式设备必须能收发并处理AT命令。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>模块使用</category>
+      </categories>
+      <tags>
+        <tag>蓝牙</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>苹果审核机制</title>
     <url>/2020/05/31/%E8%8B%B9%E6%9E%9C%E5%AE%A1%E6%A0%B8%E6%9C%BA%E5%88%B6/</url>
     <content><![CDATA[<p>这篇文章为大家揭秘苹果的审核机制，希望对你有所帮助。</p>
@@ -2959,70 +2986,6 @@
       </categories>
       <tags>
         <tag>ios上架</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>蓝牙技术</title>
-    <url>/2018/01/09/%E8%93%9D%E7%89%99%E6%8A%80%E6%9C%AF/</url>
-    <content><![CDATA[<h1 id="蓝牙技术"><a href="#蓝牙技术" class="headerlink" title="蓝牙技术"></a>蓝牙技术</h1><h2 id="蓝牙协议体系结构"><a href="#蓝牙协议体系结构" class="headerlink" title="蓝牙协议体系结构"></a>蓝牙协议体系结构</h2><p>&emsp;&emsp;蓝牙协议体系的目的是是符合该规范的各种应用之间能够互通，本地设备与远端设备需要使用相同的协议，不同的应用需要不同的协议。但是，所有的应用都要使用协议体系中的数据链路层和物理层，完整蓝牙的协议栈如图</p>
-<a id="more"></a>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="http://img.blog.csdn.net/20180109225546750?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20180109225546750?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>&emsp;&emsp;蓝牙的协议体系分为核心协议、电缆替代协议、电话传送控制协议和可选协议四层。除了上述协议层外，规范还定义了主机控制器接口（HCI），它为基带控制器、连接管理器、硬件状态和控制寄存器提供命令接口。</p>
-<h3 id="核心协议"><a href="#核心协议" class="headerlink" title="核心协议"></a>核心协议</h3><p>&emsp;&emsp;蓝牙的核心协议包括BaseBand、LMP、L2CAP、SDP。绝大部分蓝牙设备都需要核心协议，而其他协议根据应用而定。</p>
-<h4 id="基带协议"><a href="#基带协议" class="headerlink" title="基带协议"></a>基带协议</h4><p>&emsp;&emsp;基带协议确保微微网内各蓝牙设备的物理连接。蓝牙的射频系统是一个调频系统，其任一分组在指定时隙、指定频率上发送，它使用查询和寻呼进程同步不同设备间的发送频率和时钟，可为基带数据分组提供面向同步链接（SCO）和异步无连接（ACL）两种物理连接方式，而且在同一射频上是吸纳多路数据传送。<br>&emsp;&emsp;ACL使用与数据分组，SCO适用于话音以及话音与数据的组合，所以的话音和数据分组都会有不同级别的前向纠错（FEC）或循环冗余校验（CRC），而且可进行加密。此外，不同数据类型都分配一个特殊通道。</p>
-<h4 id="链路管理协议"><a href="#链路管理协议" class="headerlink" title="链路管理协议"></a>链路管理协议</h4><p>&emsp;&emsp;链路管理协议（LMP）负责蓝牙各设备间建立连接。LMP通过连接的发起、交换、核实，进行身份认证和加密，通过协商确定基带数据分组大小。LMP控制无线设备的电源模式和工作周期，以及微微网内设备单元的连接状态。<br>####逻辑链路控制和适配协议<br>&emsp;&emsp; 逻辑链路控制和适配协议（L2CAP）是基带的上层协议。L2CAP向上层提供面向连接的和无连接的数据服务，它采用了多路复用技术、分割和重组技术、群提取技术。L2CAP允许高层协议以64KB收据分组。虽然基带协议提供了SCO和ACL两种连接类型，但L2CAP只支持ACL。</p>
-<h4 id="服务发现协议（DSP）"><a href="#服务发现协议（DSP）" class="headerlink" title="服务发现协议（DSP）"></a>服务发现协议（DSP）</h4><p>&emsp;&emsp;SDP协议在蓝牙技术框架中起到至关重要的作用，它是所有用户模式的基础。使用SDP协议可以查询到设备信息和服务类型，从而在蓝牙设备间建立相应的连接。</p>
-<h3 id="电缆替代协议"><a href="#电缆替代协议" class="headerlink" title="电缆替代协议"></a>电缆替代协议</h3><p>&emsp;&emsp;RFCOMM是基于ETSI 07110 规范的串行线路仿真协议。电缆替代协议在蓝牙基带协议上仿真RS232控制和数据信号，为使用串行线路传送机制的上层协议提供服务。</p>
-<h3 id="电话控制协议"><a href="#电话控制协议" class="headerlink" title="电话控制协议"></a>电话控制协议</h3><h4 id="二元电话控制协议"><a href="#二元电话控制协议" class="headerlink" title="二元电话控制协议"></a>二元电话控制协议</h4><p>&emsp;&emsp;二元电话控制（TCB Binary 或TCS BIN）协议是面向比特的协议，它定义了蓝牙设备间建立语音和数据呼叫的控制命令，定义了处理蓝牙设备簇的移动管理进程。基于ITU-T Q1931建议的TCSBinary被指定为蓝牙的二元电话控制协议规范。</p>
-<h4 id="AT命令集"><a href="#AT命令集" class="headerlink" title="AT命令集"></a>AT命令集</h4><p>&emsp;&emsp; SIG根据ITU-T V1250建议和GSM7107定义了控制多用户模式下移动电话、调制解调器和可用于传真业务的AT指令集。</p>
-<h3 id="选用协议"><a href="#选用协议" class="headerlink" title="选用协议"></a>选用协议</h3><ul>
-<li>1 点对点协议（PPP）<br>&emsp;&emsp;在蓝牙技术中，PPP位于RFCOMM上层，完成点对点的连接。</li>
-<li>2 TCP/UDP/IP<br>&emsp;&emsp; TCP/UDP/IP协议是由IETF制定的，广泛应用于Internet通信的协议，在蓝牙设备中使用这些协议是为了与Internet相连接的设备进行通信。</li>
-<li>3  对象交换（OBEX）协议<br>&emsp;&emsp;OBEX是由红外数据协议制定的会话层协议，它采用简单和自发的方式交换目标。OBEX是一种类似于HTTP的协议，它假设运输层是可靠的，采用客户机/服务器（Client/Server）模式，独立与传输机制和传输应用程序接口（API）。电子名片交换格式、电子日历及日程交换格式都是开放性规范，它们都没有定义传输机制，而只是定义了数据传输格式。SIG采用vCard/vCal规范，市委了进一步促进个人信息交换。</li>
-<li>4 无线应用协议（WAP）<br>&emsp;&emsp;WAP是由无线应用协议论坛制定的协议，它融合了各种广域无线网络技术，其目的是将Internet内容和电话传送的业务传送到数字蜂窝电话和其他无线终端上。选用WAP，可愿意充分利用为无线应用环境（WAE）开发的高层应用软件。<h2 id="蓝牙网络的拓扑结构"><a href="#蓝牙网络的拓扑结构" class="headerlink" title="蓝牙网络的拓扑结构"></a>蓝牙网络的拓扑结构</h2>&emsp;&emsp; 蓝牙采用一种灵活的无基站组网方式，是的一个蓝牙设备可与其他7个蓝牙设备相连接。蓝牙系统的网络结构的拓扑结构有微微网和散射网2种形式。<h3 id="微微网"><a href="#微微网" class="headerlink" title="微微网"></a>微微网</h3>&emsp;&emsp;微微网是通过蓝牙技术以特定方式连接起来的一种微型网络。微微网由一个主设备和若干个从设备组成，且从设备最多为7台。在一个微微网中，所有设备的级别是相同的，具有相同的权限。蓝牙采用Ad Hoc组网方式，如图<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="http://img.blog.csdn.net/20180109233401699?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20180109233401699?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>其中主设备单元负责提供时钟同步信号和调频序列，从设备单元一般式受控同步的设备单元，受主设备单元控制。<br>&emsp;&emsp;在每个微微网中，用一组伪随机调频序列来确定79个调频信道，这个调频序列对于每个微微网来说是唯一的，由主设备的地址和时钟决定。蓝牙无线信道使用调频/时分复用（FH/TDD）方案，信道以625us时间长度划分时隙，根据微微网住设备的时钟对时隙进行编号，号码为0~266，以227为一个循环长度。每个时隙对应一个调频频率，通常调频速度为1600跳/秒。主设备只在偶数时隙开始传送信息，从设备只在奇数时隙开始传送，信息包的开始于时隙的开始相对应。<br>&emsp;&emsp;微微网中信道的特性完全由主设备决定，主设备的蓝牙地址决定调频序列和信道接入码，主设备的系统时钟决定调频序列的相位和时间。根据蓝牙结点的平等性，任何一个设备都可以成为网络中的主设备，而且主、从设备可转换角色。<br>&emsp;&emsp;主设备通过轮询从设备实现两者之间的通信。从设备只有收到主设备的信息包方可发送数据。<h3 id="散射网"><a href="#散射网" class="headerlink" title="散射网"></a>散射网</h3>&emsp;&emsp;一个微微网最多能有7个从设备同时处于通信状态。为了能容纳更多的装置，并且扩大网络通信范围，将多个微微网互联在一起，就构成了蓝牙自组织网，即散射网，如图<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;img src=”<a href="http://img.blog.csdn.net/20180109234155555?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%25&quot;">http://img.blog.csdn.net/20180109234155555?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU2lsZW50X0Y=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&quot;width=&quot;60%&quot;</a> alt=””/&gt;<br>&emsp;&emsp;在散射网中，不同微微网间使用不同的调频序列，因此，只要彼此没有同时跳跃到同一频道上，即便有多组数据流同时传送也不会造成干扰。连接微微网之间的设备成为网桥。网桥可以是所有所属微微网中的从设备，这种网桥的类别为（Slave/Slave）。网桥也可以是在其中某一属性的微微网中当主设备，在其他微微网中当从设备，这样的网桥类别为（Master/Slave）。<br>&emsp;&emsp;网桥通过不同时隙在不同的微微网之间转换，实现了跨微微网之间的数据传输。蓝牙散射网是自组网的一种特例。其最大特点是可以无基站支持，每个移动终端的地位是平等的，并可以进行分组转发的决策，其建网灵活性、多跳性、拓扑结构动态变化和分布式控制等特点是构建散射网的基础。<h2 id="蓝牙的工作模式"><a href="#蓝牙的工作模式" class="headerlink" title="蓝牙的工作模式"></a>蓝牙的工作模式</h2><h3 id="文件传输模式"><a href="#文件传输模式" class="headerlink" title="文件传输模式"></a>文件传输模式</h3>&emsp;&emsp;文件传输模式提供两个终端之间的数据通信功能，可传输多种文件格式以及完整的文件夹或目录多媒体数据流等并提供远端文件夹浏览功能。<h3 id="网桥模式"><a href="#网桥模式" class="headerlink" title="网桥模式"></a>网桥模式</h3>&emsp;&emsp;在这种模式下，由手机或无线调制解调器向PC提供拨号入网和收发传真的功能，而不必与PC建立物理连接，拨号上网需要RFCOMM和AT命令集两个协议。AT命令集用来控制移动电话或调制解调器以及传送其他业务数据的协议栈。传真采用类似协议栈，由应用软件利用RFCOMM直接发送。<h3 id="局域网访问模式"><a href="#局域网访问模式" class="headerlink" title="局域网访问模式"></a>局域网访问模式</h3>&emsp;&emsp;在此模式下，多功能数据终端经局域网访问点无线接入局域网，介入后数据终端的操作与通过拨号方式接入局域网设备的操作一样。<h3 id="同步模式"><a href="#同步模式" class="headerlink" title="同步模式"></a>同步模式</h3>&emsp;&emsp;同步模式提供设备到设备的个人资料管理（PIM）的同步更新功能，其典型应用如电话薄、日历、通知和记录等，他要求危机、蜂窝电话和个人数字助理（PDA）在传输和处理名片、日历及任务通知时，使用通用的协议和格式。<h3 id="蓝牙电话模式"><a href="#蓝牙电话模式" class="headerlink" title="蓝牙电话模式"></a>蓝牙电话模式</h3>&emsp;&emsp;这种工作模式中，近距离内支持两个蓝牙手持终端直接实现语音通信功能。另外支持将一个固定的电话连接到移动手机的功能，实现在整个小范围内移动的功能。<h3 id="头戴式设备模式"><a href="#头戴式设备模式" class="headerlink" title="头戴式设备模式"></a>头戴式设备模式</h3>&emsp;&emsp;使用该模式，用户打电话时可自由移动。通过无线连接，头戴式设备通常作为蜂窝电话，无线电话或个人微机的音频输入输出设备。头戴式设备必须能收发并处理AT命令。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>模块使用</category>
-      </categories>
-      <tags>
-        <tag>蓝牙</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>试飞报告</title>
-    <url>/2016/11/05/%E8%AF%95%E9%A3%9E%E6%8A%A5%E5%91%8A/</url>
-    <content><![CDATA[<h2 id="组装飞行器"><a href="#组装飞行器" class="headerlink" title="组装飞行器"></a>组装飞行器</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>虽然自己现在是从头开始学习飞行器，但是自己之前有接触过飞行器，所以对飞行器有一点点了解。</p>
-<a id="more"></a>
-<hr>
-<h3 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h3><p>在这里，我使用的是DJI F450机架、好盈乐天20A电调、1045正反桨、银燕电机2216、天地飞6通道遥控器。详情见淘宝链接里的<a href="https://item.taobao.com/item.htm?spm=a1z10.5-c.w4002-8717792970.38.rv3aHa&id=41190426449">套餐方案</a>。<br>我的飞控是用的一个叫“梦创”团队的飞控。</p>
-<blockquote>
-<p>有了这些，您的飞行器基本就可以起飞了。</p>
-</blockquote>
-<hr>
-<h3 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h3><p>我自己用linux系统，飞行器开发环境在暑假的时候就已经搭建完毕，这里就不多说。我搭建环境时是参考的<a href="http://www.nephen.com/2015/12/env-build-of-px4">来风的官方网站</a>，大家也可以参加Pixhawk的<a href="http://px4.io/">官方网站</a>。</p>
-<hr>
-<h3 id="装机"><a href="#装机" class="headerlink" title="装机"></a>装机</h3><p>前期的准备完成后就可以开始装机了。<br>这里有超详细的图文<a href="http://pan.baidu.com/s/1gdnUmZ5">教程</a>。一步一步教您装机，用师兄的话讲就是想学不会都难。<br>更多查询EXUAV-mini测评报告<a href="http://www.moz8.com/forum.php?mod=viewthread&tid=43424&extra=p">产品介绍</a>,<a href="http://www.moz8.com/forum.php?mod=viewthread&tid=43476&ex">产品开箱</a>,<a href="http://www.moz8.com/forum.php?mod=viewthread&tid=43479&extra=page=1">飞控接线与安装</a>。<br>这里是<a href="https://item.taobao.com/item.htm?spm=a1z10.5-c.w4002-8717792970.38.rv3aHa&id=41190426449">装机视频</a>，比较详细，您可以跟着一步一步的来。</p>
-<h4 id="部分装机图片"><a href="#部分装机图片" class="headerlink" title="部分装机图片"></a>部分装机图片</h4><p><a href="http://img.blog.csdn.net/20161106122310695">前排插针</a>   &#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122501181">后排插针</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122603082">蜂鸣器</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122631614">PM电源电流电压计</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122725075">PPM转接板</a><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122817209">安全开关</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122850717">迷你OSD</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122925803">GPS和罗盘</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106123001390">数传</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106123030531">平衡充</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106123056538">电机转向</a></p>
-<blockquote>
-<p>注：1、飞行器组装好后再细心检查一次。<br> &#160;&#160;&#160;&#160;&#160;&#160;&#160;2、仔细看教程，<a href="http://pan.baidu.com/s/1o8Q1plo">pixhawk教程</a>（密码：7xxq）问题直接百度，网上还是有很多资料的。<br>  &#160;&#160;&#160;&#160;&#160;&#160;&#160;3、组装完成后进行各种测试校准之后再试飞。我的用的地面站是QGC。<br>   &#160;&#160;&#160;&#160;&#160;&#160;&#160;4、确保没问题后再试飞，一定要细心检查，玩飞行器还是有点危险的。</p>
-</blockquote>
-<hr>
-<h3 id="装机后的测试与飞行"><a href="#装机后的测试与飞行" class="headerlink" title="装机后的测试与飞行"></a>装机后的测试与飞行</h3><blockquote>
-<p>待所有的元件组装完成后（没装机翼），上电进行测试。</p>
-</blockquote>
-<h4 id="测试时遇到的问题以及解决方案"><a href="#测试时遇到的问题以及解决方案" class="headerlink" title="测试时遇到的问题以及解决方案"></a>测试时遇到的问题以及解决方案</h4><p><strong>问题：</strong><br>1.飞行器拒绝解锁。<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;还没开始飞，飞行器就拒绝解锁，重启了很多次还是一样。一开始我以为是程序的问题，于是我重上载了一次代码，结果没用。无奈我只有用地面站进行调试，结果发现遥控器和飞行器都没有校准，所以我按步骤进行校准，校准后，该问题也就自然而然的没有了。<br>2、只有1和2号电机转动，3和4号电机没有任何反应。<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;我这下有点懵了，突然有点手足无措。无奈尝试用一种非常低级的方法还调试。刚开始我将1和2号电机的电调与电调分别与3、4号对换，发现电机和电调都没有问题。然后我将1、2号电机与3、4号电机接在飞控板的线对换，就是将原来的1号电机接在3号电机的接口上，2号电机接在4号电机的接口上，2号电机接在4号电机的接口上.发现3和4号电机转动，1和2号电机没有任何反应，于是便可以猜想得到飞控板原来3和4号电机接口没有信号输出。不知所措的我重新下了一次代码，果然问题就在飞控板接3和4号电机的接口没有信号输出。</p>
-<hr>
-<h4 id="装机后的第一次飞行"><a href="#装机后的第一次飞行" class="headerlink" title="装机后的第一次飞行"></a>装机后的第一次飞行</h4><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;所有的测试完成后，将飞行器拿到学校废弃的一个田径场去进行试飞。<br>第一次飞行，总体感觉还不错，飞行器还算平稳。<br><a href="http://img.blog.csdn.net/20161106120818528">室外试飞图1</a><br><a href="http://img.blog.csdn.net/20161106120911802">室外试飞图2</a></p>
-<blockquote>
-<p>注：一般飞行器有两道安全保障，第一个是安全开关，第二个是需要遥控器解锁。我自己第一次飞的时候就忘记遥控器解锁直接推油门，结果没有飞起来。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>无人机</category>
-      </categories>
-      <tags>
-        <tag>无人机</tag>
-        <tag>试飞</tag>
       </tags>
   </entry>
   <entry>
@@ -3069,6 +3032,43 @@
         <tag>计算机图形学</tag>
         <tag>计算机</tag>
         <tag>图形</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>试飞报告</title>
+    <url>/2016/11/05/%E8%AF%95%E9%A3%9E%E6%8A%A5%E5%91%8A/</url>
+    <content><![CDATA[<h2 id="组装飞行器"><a href="#组装飞行器" class="headerlink" title="组装飞行器"></a>组装飞行器</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>虽然自己现在是从头开始学习飞行器，但是自己之前有接触过飞行器，所以对飞行器有一点点了解。</p>
+<a id="more"></a>
+<hr>
+<h3 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h3><p>在这里，我使用的是DJI F450机架、好盈乐天20A电调、1045正反桨、银燕电机2216、天地飞6通道遥控器。详情见淘宝链接里的<a href="https://item.taobao.com/item.htm?spm=a1z10.5-c.w4002-8717792970.38.rv3aHa&id=41190426449">套餐方案</a>。<br>我的飞控是用的一个叫“梦创”团队的飞控。</p>
+<blockquote>
+<p>有了这些，您的飞行器基本就可以起飞了。</p>
+</blockquote>
+<hr>
+<h3 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h3><p>我自己用linux系统，飞行器开发环境在暑假的时候就已经搭建完毕，这里就不多说。我搭建环境时是参考的<a href="http://www.nephen.com/2015/12/env-build-of-px4">来风的官方网站</a>，大家也可以参加Pixhawk的<a href="http://px4.io/">官方网站</a>。</p>
+<hr>
+<h3 id="装机"><a href="#装机" class="headerlink" title="装机"></a>装机</h3><p>前期的准备完成后就可以开始装机了。<br>这里有超详细的图文<a href="http://pan.baidu.com/s/1gdnUmZ5">教程</a>。一步一步教您装机，用师兄的话讲就是想学不会都难。<br>更多查询EXUAV-mini测评报告<a href="http://www.moz8.com/forum.php?mod=viewthread&tid=43424&extra=p">产品介绍</a>,<a href="http://www.moz8.com/forum.php?mod=viewthread&tid=43476&ex">产品开箱</a>,<a href="http://www.moz8.com/forum.php?mod=viewthread&tid=43479&extra=page=1">飞控接线与安装</a>。<br>这里是<a href="https://item.taobao.com/item.htm?spm=a1z10.5-c.w4002-8717792970.38.rv3aHa&id=41190426449">装机视频</a>，比较详细，您可以跟着一步一步的来。</p>
+<h4 id="部分装机图片"><a href="#部分装机图片" class="headerlink" title="部分装机图片"></a>部分装机图片</h4><p><a href="http://img.blog.csdn.net/20161106122310695">前排插针</a>   &#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122501181">后排插针</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122603082">蜂鸣器</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122631614">PM电源电流电压计</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122725075">PPM转接板</a><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122817209">安全开关</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122850717">迷你OSD</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106122925803">GPS和罗盘</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106123001390">数传</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106123030531">平衡充</a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="http://img.blog.csdn.net/20161106123056538">电机转向</a></p>
+<blockquote>
+<p>注：1、飞行器组装好后再细心检查一次。<br> &#160;&#160;&#160;&#160;&#160;&#160;&#160;2、仔细看教程，<a href="http://pan.baidu.com/s/1o8Q1plo">pixhawk教程</a>（密码：7xxq）问题直接百度，网上还是有很多资料的。<br>  &#160;&#160;&#160;&#160;&#160;&#160;&#160;3、组装完成后进行各种测试校准之后再试飞。我的用的地面站是QGC。<br>   &#160;&#160;&#160;&#160;&#160;&#160;&#160;4、确保没问题后再试飞，一定要细心检查，玩飞行器还是有点危险的。</p>
+</blockquote>
+<hr>
+<h3 id="装机后的测试与飞行"><a href="#装机后的测试与飞行" class="headerlink" title="装机后的测试与飞行"></a>装机后的测试与飞行</h3><blockquote>
+<p>待所有的元件组装完成后（没装机翼），上电进行测试。</p>
+</blockquote>
+<h4 id="测试时遇到的问题以及解决方案"><a href="#测试时遇到的问题以及解决方案" class="headerlink" title="测试时遇到的问题以及解决方案"></a>测试时遇到的问题以及解决方案</h4><p><strong>问题：</strong><br>1.飞行器拒绝解锁。<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;还没开始飞，飞行器就拒绝解锁，重启了很多次还是一样。一开始我以为是程序的问题，于是我重上载了一次代码，结果没用。无奈我只有用地面站进行调试，结果发现遥控器和飞行器都没有校准，所以我按步骤进行校准，校准后，该问题也就自然而然的没有了。<br>2、只有1和2号电机转动，3和4号电机没有任何反应。<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;我这下有点懵了，突然有点手足无措。无奈尝试用一种非常低级的方法还调试。刚开始我将1和2号电机的电调与电调分别与3、4号对换，发现电机和电调都没有问题。然后我将1、2号电机与3、4号电机接在飞控板的线对换，就是将原来的1号电机接在3号电机的接口上，2号电机接在4号电机的接口上，2号电机接在4号电机的接口上.发现3和4号电机转动，1和2号电机没有任何反应，于是便可以猜想得到飞控板原来3和4号电机接口没有信号输出。不知所措的我重新下了一次代码，果然问题就在飞控板接3和4号电机的接口没有信号输出。</p>
+<hr>
+<h4 id="装机后的第一次飞行"><a href="#装机后的第一次飞行" class="headerlink" title="装机后的第一次飞行"></a>装机后的第一次飞行</h4><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;所有的测试完成后，将飞行器拿到学校废弃的一个田径场去进行试飞。<br>第一次飞行，总体感觉还不错，飞行器还算平稳。<br><a href="http://img.blog.csdn.net/20161106120818528">室外试飞图1</a><br><a href="http://img.blog.csdn.net/20161106120911802">室外试飞图2</a></p>
+<blockquote>
+<p>注：一般飞行器有两道安全保障，第一个是安全开关，第二个是需要遥控器解锁。我自己第一次飞的时候就忘记遥控器解锁直接推油门，结果没有飞起来。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>无人机</category>
+      </categories>
+      <tags>
+        <tag>无人机</tag>
+        <tag>试飞</tag>
       </tags>
   </entry>
   <entry>
