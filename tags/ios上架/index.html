@@ -342,9 +342,6 @@
       <span class="links-of-author-item">
         <a href="https://apps.apple.com/cn/app/%E8%BF%B7%E5%AE%AB%E9%97%AF%E5%85%B3-%E7%BB%8F%E5%85%B8%E7%83%A7%E8%84%91%E8%BF%B7%E5%AE%AB%E6%B8%B8%E6%88%8F/id1533227187" title="game3 → https:&#x2F;&#x2F;apps.apple.com&#x2F;cn&#x2F;app&#x2F;%E8%BF%B7%E5%AE%AB%E9%97%AF%E5%85%B3-%E7%BB%8F%E5%85%B8%E7%83%A7%E8%84%91%E8%BF%B7%E5%AE%AB%E6%B8%B8%E6%88%8F&#x2F;id1533227187" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>game3</a>
       </span>
-      <span class="links-of-author-item">
-        <a href="https://apps.apple.com/cn/app/%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86-%E8%BF%BD%E8%B8%AA%E5%92%8C%E5%85%BB%E6%88%90%E4%B8%AA%E4%BA%BA%E4%B9%A0%E6%83%AF/id1533036634" title="app1 → https:&#x2F;&#x2F;apps.apple.com&#x2F;cn&#x2F;app&#x2F;%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86-%E8%BF%BD%E8%B8%AA%E5%92%8C%E5%85%BB%E6%88%90%E4%B8%AA%E4%BA%BA%E4%B9%A0%E6%83%AF&#x2F;id1533036634" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>app1</a>
-      </span>
   </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
@@ -433,82 +430,6 @@
     (function(){
       var canonicalURL, curProtocol;
       //Get the <link> tag
-      var x=document.getElementsByTagName("link");
-		//Find the last canonical URL
-		if(x.length > 0){
-			for (i=0;i<x.length;i++){
-				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
-					canonicalURL=x[i].href;
-				}
-			}
-		}
-    //Get protocol
-	    if (!canonicalURL){
-	    	curProtocol = window.location.protocol.split(':')[0];
-	    }
-	    else{
-	    	curProtocol = canonicalURL.split(':')[0];
-	    }
-      //Get current URL if the canonical URL does not exist
-	    if (!canonicalURL) canonicalURL = window.location.href;
-	    //Assign script content. Replace current URL with the canonical URL
-      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
-  </script>
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
-      appId      : '80d60V4tSVpFn1patE5mwyA5-gzGzoHsz',
-      appKey     : '6d1cXy06aaBYYsxyBjrNIUdL',
-      placeholder: "Just go go",
-      avatar     : 'mm',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : true,
-      lang       : 'zh-CN' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : true,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
-</html>
-e <link> tag
       var x=document.getElementsByTagName("link");
 		//Find the last canonical URL
 		if(x.length > 0){
