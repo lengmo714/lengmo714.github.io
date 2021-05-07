@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-09-13T15:34:55.392Z</updated>
+  <updated>2020-09-13T05:56:58.026Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,31 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>IOS 上架</title>
-    <link href="http://example.com/2020/09/13/IOS-%E4%B8%8A%E6%9E%B6/"/>
-    <id>http://example.com/2020/09/13/IOS-%E4%B8%8A%E6%9E%B6/</id>
-    <published>2020-09-13T15:14:22.000Z</published>
-    <updated>2020-09-13T15:34:55.392Z</updated>
-    
-    <content type="html"><![CDATA[<p>本人长期承接苹果App store各种应用上架（原生套壳都可以），量大、自己出账号价格从优。<br>细节私聊。</p><a id="more"></a><p>有意者私聊：QQ：842673413</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;本人长期承接苹果App store各种应用上架（原生套壳都可以），量大、自己出账号价格从优。&lt;br&gt;细节私聊。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="IOS上架" scheme="http://example.com/categories/IOS%E4%B8%8A%E6%9E%B6/"/>
-    
-    
-    <category term="IOS上架" scheme="http://example.com/tags/IOS%E4%B8%8A%E6%9E%B6/"/>
-    
-    <category term="APP store上架" scheme="http://example.com/tags/APP-store%E4%B8%8A%E6%9E%B6/"/>
-    
-    <category term="IOS" scheme="http://example.com/tags/IOS/"/>
-    
-  </entry>
   
   <entry>
     <title>线程和状态</title>
@@ -452,6 +427,27 @@
     
     
     <summary type="html">&lt;p&gt;&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;马尔可夫链算法根据哪个单词能出现在基础文本中由n个前序列单词组成的序列之后，来生成伪随机文本。这里我们假设n为2。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="编程语言" scheme="http://example.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+    <category term="lua" scheme="http://example.com/tags/lua/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Lua模块引入import 和require的区别</title>
+    <link href="http://example.com/2020/04/23/Lua%E6%A8%A1%E5%9D%97%E5%BC%95%E5%85%A5import-%E5%92%8Crequire%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://example.com/2020/04/23/Lua%E6%A8%A1%E5%9D%97%E5%BC%95%E5%85%A5import-%E5%92%8Crequire%E7%9A%84%E5%8C%BA%E5%88%AB/</id>
+    <published>2020-04-23T12:23:11.000Z</published>
+    <updated>2020-09-13T05:40:46.704Z</updated>
+    
+    <content type="html"><![CDATA[<p>Lua 中引入一个模块，可以采用两种方式：<code>import </code>和<code>require</code>方式，具体的区别在于：</p><a id="more"></a><h3 id="载入一个模块"><a href="#载入一个模块" class="headerlink" title="载入一个模块"></a>载入一个模块</h3><p><code>import() </code>与 <code>require() </code>功能相同，但具有一定程度的自动化特性。</p><p>假设我们有如下的目录结构：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">app&#x2F;</span><br><span class="line">app&#x2F;classes&#x2F;</span><br><span class="line">app&#x2F;classes&#x2F;MyClass.lua</span><br><span class="line">app&#x2F;classes&#x2F;MyClassBase.lua</span><br><span class="line">app&#x2F;classes&#x2F;data&#x2F;Data1.lua</span><br><span class="line">app&#x2F;classes&#x2F;data&#x2F;Data2.lua</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>MyClass 中需要载入 MyClassBase 和 MyClassData。如果用 require()，MyClass 内的代码如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">local MyClassBase = require(<span class="string">&quot;app.classes.MyClassBase&quot;</span>)</span><br><span class="line">local MyClass = <span class="class"><span class="keyword">class</span>(<span class="params"><span class="string">&quot;MyClass&quot;</span>, MyClassBase</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">local Data1 = require(&quot;app.classes.data.Data1&quot;)</span><br><span class="line">local Data2 = require(<span class="string">&quot;app.classes.data.Data2&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>假如我们将 MyClass 及其相关文件换一个目录存放，那么就必须修改 MyClass 中的 require() 命令，否则将找不到模块文件。</p><p>而使用 import()，我们只需要如下写：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">local MyClassBase = <span class="keyword">import</span>(<span class="string">&quot;.MyClassBase&quot;</span>)</span><br><span class="line">local MyClass = <span class="class"><span class="keyword">class</span>(<span class="params"><span class="string">&quot;MyClass&quot;</span>, MyClassBase</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line">local Data1 = import(&quot;.data.Data1&quot;)</span><br><span class="line">local Data2 = <span class="keyword">import</span>(<span class="string">&quot;.data.Data2&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>当在模块名前面有一个”.” 时，import() 会从当前模块所在目录中查找其他模块。因此 MyClass 及其相关文件不管存放到什么目录里，我们都不再需要修改 MyClass 中的 import() 命令。这在开发一些重复使用的功能组件时，会非常方便。</p><p>我们可以在模块名前添加多个”.” ，这样 import() 会从更上层的目录开始查找模块。</p><p>不过 import() 只有在模块级别调用（也就是没有将 import() 写在任何函数中）时，才能够自动得到当前模块名。</p><p><a href="https://www.cnblogs.com/Alex1991/p/8708768.html">本文参考链接</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;Lua 中引入一个模块，可以采用两种方式：&lt;code&gt;import &lt;/code&gt;和&lt;code&gt;require&lt;/code&gt;方式，具体的区别在于：&lt;/p&gt;</summary>
     
     
     
