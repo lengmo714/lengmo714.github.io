@@ -14,10 +14,12 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -99,6 +101,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -148,16 +151,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -202,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -295,7 +326,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -384,7 +415,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
 
           
@@ -398,19 +429,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>hosts文件所在目录:</p>
+          <p>hosts文件所在目录:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/private/etc/</span><br></pre></td></tr></table></figure>
 
 <p>xcode插件目录:</p>
@@ -486,7 +505,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -510,18 +529,6 @@
 
       
           <p>函数dir会遍历目录并返回一张包含指定目录下所有内容的表。这里对dir新的实现会返回一个迭代器，每次调用这个迭代器时它都会返回一个新元素。通过这种实现，我们就能使用如下的循环来遍历目录：</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> fname <span class="keyword">in</span> <span class="built_in">dir</span>.<span class="built_in">open</span>(<span class="string">&quot;.&quot;</span>)do</span><br><span class="line">	<span class="built_in">print</span>(fname)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
 <p>要在C语言中遍历一个目录，我们需要用到DIR结构体。DIR的实例由opendir创建，且必须通过调用closedir显示地释放。在之前的实现中，我们将DIR的示例当做局部变量，并在或获取最后一个文件名后释放了它。而在新的实现中，由于必须通过多次调用来查询该值，因此不能把DIR的实例保存到局部变量中。此外，不能在获取最后一个文件名后再释放DIR的示例，因为如果程序从循环中跳出，那么迭代器永远不会获取最后一个文件名。因此，为了确保DIR的实例能被正确释放，需要把该实例的地址存入一个用户数据中，并且用这个用户数据的远方__gc来释放该结构体。<br>尽管用户数据在我们实现中处于核心地位，但这个表示目录数据并不一定需要对Lua可见。函数dir.open会返回一个Lua可见的迭代函数，而目录可以作为迭代函数的一个上值。这样，迭代函数能直接访问这个结构体，而Lua代码则不能。<br>总之，我们需要三个C语言函数。首先，我们需要函数dir.open，该函数是一个工厂函数，Lua调用该函数来创建迭代器；它必须打开一个DIR结构体，并将这个结构体作为上值创建一个迭代函数的闭包。其次，我们需要迭代函数。最后，我们需要__gc元方法，该元方法用于释放DIR结构体。通常情况下，我们还需要一个额外的函数进行一些初始化工作，例如为目录创建和初始化元表。<br>先来看函数dir.open，参加下面示例</p>
 <blockquote>
@@ -641,7 +648,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
 
           
@@ -656,18 +663,6 @@
 
       
           <p>下面这个示例实现了一种很简单的类型，即布尔类型。选用这个示例的只要动机在于它不涉及复杂的算法，便于我们专注于API的问题。不过尽管如此，这个示例本身还是很有用的。当然，我们可以在Lua中用来表示实现布尔数组。但是，在C语言实现中，可以将每个布尔值存储在一个比特中，所使用的内存量不到使用表方法的3%。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>这个示例需要以下定义：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;limits.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BITS_PER_WORD (CHAR_BIT * sizeof(unsigned int))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> I_WORD(i)     ((unsigned int)(i) / BITS_PER_WORD)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> I_BIT(i)	  (1 &lt;&lt; ((unsigned int)(i) % BITS_PER_WORD))</span></span><br></pre></td></tr></table></figure>
 <p>BITS_PER_WORD表示一个无符号整型数的位数，宏I_WORD用于根据指定的索引来计算存放相应比特位的字，I_BIT用于计算访问这个字中相应比特位要用的掩码。<br>我们可以使用一下的结构体来表示布尔数组：</p>
@@ -937,7 +932,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -961,18 +956,6 @@
 
       
           <p>我们说用Lua可以调用C语言函数，但这并不意味着Lua可以调用所有的C函数。当C语言调用Lua函数时，该函数必须遵循一个简单的规则来传递参数和获取结果。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>同样，当Lua调用C函数时，这个C函数也必须遵循某种规则来获取参数和返回结果。此外，当Lua调用C函数时，我们必须注册该函数，即必须以一种恰当的方式为Lua提供该C函数的地址。<br>Lua调用C函数时，也使用一个与C语言调用Lua函数时相同类型的栈，C函数从栈中获取参数，并将结果压入栈中。<br>此处的重点在于，这个栈不是一个全局结构；每个函数都有其私有的局部栈。当Lua调用一个C函数时，第一个参数总是位于这个局部栈中索引为1的位置。即使一个C函数调用了Lua代码，而且Lua代码又再次调用了同一个C函数，这些调用每一次都只会看到本次调用自己的私有栈，其中索引为1的位置上就是一个参数。</p>
 <h2 id="C函数"><a href="#C函数" class="headerlink" title="C函数"></a>C函数</h2><p>先举一个例子，让我们实现一个简化版本的正弦函数，该函数返回某个给定数的正弦值：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">l_sin</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	<span class="type">double</span> d = lua_tonumber(L,<span class="number">1</span>);</span><br><span class="line">	lua_pushnumber(L,<span class="built_in">sin</span>(d));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1059,7 +1042,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:45" itemprop="dateModified" datetime="2024-05-15T19:52:45+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1083,18 +1066,6 @@
 
       
           <p>Lua是一种嵌入式语言，这就意味着Lua并不是一个独立运行的应用，而是一个库，它可以链接到其他应用程序，将Lua的功能融入这些应用。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>因为能够当作库来扩展某个应用程序，所以Lua是一种嵌入式语言。同时，使用了Lua语言的程序也可以在Lua环境中注册新的函数，比如用C语言实现函数，从而增加一些无法直接用Lua语言编写的功能。因此Lua也是一种可扩展的语言。<br>上述两种对Lua语言的定位分别对应C语言和Lua语言之间的两种交互形式。在第一种形式中，C语言拥有控制权，而Lua语言被用作库，这种交互形式中的C代码被称为应用代码。在第二种形式中，Lua语言拥有控制权，而C语言被用作库，此时的C代码被称为库代码。应用代码和库代码都适用相同的API与Lua语言通信，这些API被称为C API。<br>C API是一个函数、常量和类型组成的集合，有了它，C语言代码就能与Lua语言交互。C API包括读写Lua全局变量的函数、调用Lua函数的函数、运行Lua代码段的函数，以及注册C函数的函数等。通过调用CAPI，C代码几乎可以做Lua代码能够做的所有事情。<br>CAPI遵循C语言的操作模式，与Lua的操作模式由很大的区别。在使用C语言编程时，我们必须注意类型检查、错误恢复、内存分配错误和其他一些复杂的概念。CAPI中的大多数函数都不会检查其参数的正确性，我们必须在调用函数前确保参数的合法性，一旦出错，程序会直接崩溃而不会收到规范的错误信息。此外，CAPI强调的是灵活性和简洁性，某些情况下会以牺牲易用性为代价，即便是常见的需求，也可能需要调用好几个API。这么做虽然有些繁琐，但我们却可以完全控制所有细节。</p>
 <h2 id="第一个示例"><a href="#第一个示例" class="headerlink" title="第一个示例"></a>第一个示例</h2><p>首先来学习一个简单的应用程序的例子：一个独立的解释器。</p>
 <blockquote>
@@ -1214,7 +1185,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1238,18 +1209,6 @@
 
       
           <p>协程能够实现一种协作式多线程。每个协程都等价于一个线程。一对yield-resume可以将执行权在不同线程之间切换。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>不过，与普通的多线程的不同，协程是非抢占的。当一个协程正在运作时，是无法从外部停止它的。只有当协程显式地要求时它才会挂起执行。对于有些应用而言，这并没有问题，而对于另外一些应用则不行。当不存在抢占时，编程简单得多。由于在程序中所有的线程间同步都是显式的，所以我们无须为线程同步问题抓狂，只需要确保一个协程只在它的临界区之外调用yield即可。</p>
 <p>不过，对于非抢占式多线程来说，只要有一个线程调用了阻塞操作，整个程序在该操作完成前都会阻塞。对于很多应用来说，这种行为是无法接受的，而这也正是导致许多程序员不把协程看作传统多线程的一种实现的原因。<br>让我们假设一个典型的多线程的场景：我们希望通过HTTP下载多个远程文件。为了下载多个远程文件，我们必须先知道如何下载一个远程文件。要下载一个文件，必须先打开一个到对应站点的连接，然后发送下载文件的请求，接收文件，最后关闭连接。在Lua语言中，可以按以下步骤来完成这项任务。首先，加载LuaSocket库：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> socket = <span class="built_in">require</span> <span class="string">&quot;socket&quot;</span></span><br></pre></td></tr></table></figure>
@@ -1335,7 +1294,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1359,18 +1318,6 @@
 
       
           <p>反射是程序用来检查和修改其自身某些部分的能力。像Lua语言这样的动态语言支持几种反射机制：环境允许运行时观察全局变量；</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>诸如type和pairs这样的函数允许运行时检查和遍历未知数据结构；诸如load和require这样的函数允许程序在自身中追加代码或更新代码。不过，还有很多方面仍然是缺失的：程序不能检查局部变量，开发人员不能跟踪代码的执行，函数也不知道是被谁调用的，等等。调试库填补了上述缺陷。<br>调试库是由两类函数组成：自省函数和钩子。自省函数允许我们检查一个正在运行中的程序的几个方面，例如活动函数的额栈、当前正在执行的代码行、局部变量的名称和值。钩子则允许我们跟踪一个程序的执行。<br>虽然名字里带有”调试“的字眼，但调试库提供的并不是Lua语言的调试器。不过，调试库提供了编写我们自己的调试器所需要的不同层次的所有底层机制。<br>调试库与其他库不同，必须被慎重地使用。首先，调试库中的某些功能的性能不高。其次，调试库会打破语言的一些固有规则，例如不能从一个局部变量的词法定界范围外访问这个局部变量。虽然调试库作为标准库直接可用，但笔者建议在使用调试库的代码段中显示地加载调试库。</p>
 <h2 id="自省机制"><a href="#自省机制" class="headerlink" title="自省机制"></a>自省机制</h2><p>调试库中主要的自省函数是getinfo，该函数的第一个参数可以是一个函数或一个栈层次。当为某个函数foo调用debug.getinfo(foo)时，该函数会返回一个包含与该函数有关的一些数据的表。这个表可能具有以下字段：<br>  <strong>source:</strong>  该字段用于说明函数定义的位置。如果函数定义在一个字符串中（通过调用load），那么source就是这个字符串；如果函数定义在一个文件中，那么source就是使用@作为前缀的文件名。<br> <strong>short_src:</strong> 该字段是source的精简版本，对于错误信息十分有用。<br> <strong>linedefined:</strong> 该字段是该函数定义在源代码中第一行的行号。<br>  <strong>lastlinedefined:</strong> 该字段是该函数定义在源代码中最后一行的行号。<br> <strong>what:</strong> 该字段用于说明函数的类型。如果foo是一个普通的Lua函数，则为“Lua”；如果是一个C函数，则为“C”;如果是一个Lua语言代码段的主要部分，则为“main”。<br> <strong>name:</strong> 该字段是该函数的一个适当的名称，例如保存该函数的全局变量的名称。<br> <strong>namewhat:</strong> 该字段用于说明上一个子弹的含义，可能是”global”、”local”、”method”、”filed”或””(空字符串)。空字符串表示Lua原因找不到该函数的名称。<br> <strong>nups:</strong> 该字段是该函数的上值的个数。<br> <strong>nparams:</strong> 该字段是该函数的参数个数。<br> <strong>isvararg:</strong> 该字段表明该函数是否为可变长参数函数。<br> <strong>activelines:</strong> 该字段是一个包含该函数所有活跃行的集合。活跃行时指除空行和只包含注释的外行的其他行。<br> <strong>func:</strong> 该字段是该函数本身。<br> 当foo是一个C函数时，Lua语言没有多少关于该函数的信息。对于这种函数，只有字段what、name、namewhat、nups和func是有意义的。<br>当使用给一个数字n作为参数调用函数debug.getinfo(n)时，可以得到有关相应栈层次上活跃函数的数据。栈层次是一个数字，代表某个时刻上活跃的特定函数。调用getinfo的函数A的层次是1，而调用A的函数的层次是2，以此类推。如果n大于栈中活跃函数的数量，那么函数debug.getinfo返回nil。当通过带有栈层次的debug.getinfo查询一个活跃函数时，返回的表中海油两个额外字段：currentline，表示当前该函数正在执行的代码所在的行；istailcall，如果为真则表示函数是被尾调用所调起。<br>字段name有些特殊。请注意，由于函数在Lua语言中是第一类值，因此函数既可以没有名称也可以有多个名称。Lua语言会通过检查调用该函数的代码来看函数是如何被调用的，进而尝试找到该函数的名称。这种方法只有在以一个数字为参数调用getinfo时才会起作用，即我们只能获取关于某一具体调用的信息。<br>函数getinfo的效率不高。Lua语言以一种不影响程序执行的形式来保存调试信息，至于获取这些调试信息的效率则是次要的。为了实现更好的性能，函数getinfo有一个可选的第二参数，该参数用于指定希望获取哪些信息。通过这个参数，函数getinfo就不会浪费时间去收集用户不需要的数据。这个参数是一个字符串，其中每个字母代表选择一组字段，如下表所示：</p>
 <hr>
@@ -1526,6 +1473,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -1548,11 +1497,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -1623,6 +1590,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

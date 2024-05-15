@@ -14,10 +14,12 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="学习如何将Markdown文本转换为格式漂亮的Word文档，让你的内容更加专业和易读。">
@@ -28,7 +30,7 @@
 <meta property="og:description" content="学习如何将Markdown文本转换为格式漂亮的Word文档，让你的内容更加专业和易读。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-19T04:39:00.000Z">
-<meta property="article:modified_time" content="2023-12-25T02:23:36.342Z">
+<meta property="article:modified_time" content="2024-05-15T11:52:46.222Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Markdown">
 <meta property="article:tag" content="Word">
@@ -105,6 +107,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -154,16 +157,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -208,7 +239,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-25 10:23:36" itemprop="dateModified" datetime="2023-12-25T10:23:36+08:00">2023-12-25</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -233,18 +264,6 @@
 
       
         <p>在日常写作和文档编辑中，Markdown是一个非常方便的工具，但有时候我们可能需要将Markdown文本转换为Word文档，以便更好地与他人共享、编辑或打印。在本文中，我们将介绍一些简单而高效的方法来实现这一目标。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <h3 id="使用脚本"><a href="#使用脚本" class="headerlink" title="使用脚本"></a>使用脚本</h3><p>使用Python脚本将Markdown文本转换为Word文本的方法。你需要安装<code>pypandoc</code>库，它是一个与Pandoc文档转换器交互的Python库。<br>示例代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pypandoc</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">markdown_to_word</span>(<span class="params">markdown_text, output_path</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># Convert Markdown to Word</span></span><br><span class="line">        output = pypandoc.convert_text(markdown_text, <span class="string">&#x27;docx&#x27;</span>, <span class="built_in">format</span>=<span class="string">&#x27;md&#x27;</span>, outputfile=output_path)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Conversion successful. Word document saved at: <span class="subst">&#123;output_path&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Error during conversion: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 输入Markdown文本</span></span><br><span class="line">    markdown_text = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    # Markdown to Word</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    This is a sample Markdown text.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    - Item 1</span></span><br><span class="line"><span class="string">    - Item 2</span></span><br><span class="line"><span class="string">    - Item 3</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置输出Word文档路径</span></span><br><span class="line">    output_path = <span class="string">&quot;output.docx&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用函数进行转换</span></span><br><span class="line">    markdown_to_word(markdown_text, output_path)</span><br></pre></td></tr></table></figure>
 <p>将上述脚本中的<code>markdown_text</code>替换为你的Markdown文本，然后运行脚本。转换后的Word文档将保存在指定的输出路径中。请注意，这个方法依赖于Pandoc，因此你需要安装Pandoc并确保它在系统路径中。</p>
@@ -258,6 +277,26 @@
     
     
     
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
         
 
 <div>
@@ -277,9 +316,10 @@
 
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/Markdown/" rel="tag"># Markdown</a>
-              <a href="/tags/Word/" rel="tag"># Word</a>
+              <a href="/tags/Markdown/" rel="tag"><i class="fa fa-tag"></i> Markdown</a>
+              <a href="/tags/Word/" rel="tag"><i class="fa fa-tag"></i> Word</a>
           </div>
 
         
@@ -359,6 +399,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -381,11 +423,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -456,6 +516,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

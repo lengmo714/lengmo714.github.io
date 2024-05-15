@@ -14,21 +14,23 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="(adsbygoogle &#x3D; window.adsbygoogle || []).push({});   要将方形图片显示成圆形，你可以使用Cocos Creator和TypeScript来创建一个自定义的圆形遮罩（mask）。以下是实现这个效果的步骤：  在Cocos Creator中创建一个新的Canvas节点，然后在Canvas节点下创建一个Sprite节点，将你的方形图片（">
+  <meta name="description" content="要将方形图片显示成圆形，你可以使用Cocos Creator和TypeScript来创建一个自定义的圆形遮罩（mask）。以下是实现这个效果的步骤：  在Cocos Creator中创建一个新的Canvas节点，然后在Canvas节点下创建一个Sprite节点，将你的方形图片（或任何你想要显示成圆形的图片）添加到Sprite组件中。 在Canvas节点下创建一个新的Node节点，用于作为遮罩。你可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cocosCreator创建圆形遮罩Mask">
 <meta property="og:url" content="http://example.com/2023/09/12/cocosCreator%E5%88%9B%E5%BB%BA%E5%9C%86%E5%BD%A2%E9%81%AE%E7%BD%A9Mask/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="(adsbygoogle &#x3D; window.adsbygoogle || []).push({});   要将方形图片显示成圆形，你可以使用Cocos Creator和TypeScript来创建一个自定义的圆形遮罩（mask）。以下是实现这个效果的步骤：  在Cocos Creator中创建一个新的Canvas节点，然后在Canvas节点下创建一个Sprite节点，将你的方形图片（">
+<meta property="og:description" content="要将方形图片显示成圆形，你可以使用Cocos Creator和TypeScript来创建一个自定义的圆形遮罩（mask）。以下是实现这个效果的步骤：  在Cocos Creator中创建一个新的Canvas节点，然后在Canvas节点下创建一个Sprite节点，将你的方形图片（或任何你想要显示成圆形的图片）添加到Sprite组件中。 在Canvas节点下创建一个新的Node节点，用于作为遮罩。你可">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-11T16:19:13.000Z">
-<meta property="article:modified_time" content="2024-03-12T01:53:40.533Z">
+<meta property="article:modified_time" content="2024-05-15T11:52:45.992Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="cocos Creator">
 <meta name="twitter:card" content="summary">
@@ -104,6 +106,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -153,16 +156,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -207,7 +238,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:45" itemprop="dateModified" datetime="2024-05-15T19:52:45+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -230,19 +261,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>要将方形图片显示成圆形，你可以使用Cocos Creator和TypeScript来创建一个自定义的圆形遮罩（mask）。以下是实现这个效果的步骤：</p>
+        <p>要将方形图片显示成圆形，你可以使用Cocos Creator和TypeScript来创建一个自定义的圆形遮罩（mask）。以下是实现这个效果的步骤：</p>
 <ol>
 <li>在Cocos Creator中创建一个新的Canvas节点，然后在Canvas节点下创建一个Sprite节点，将你的方形图片（或任何你想要显示成圆形的图片）添加到Sprite组件中。</li>
 <li>在Canvas节点下创建一个新的Node节点，用于作为遮罩。你可以将这个节点命名为”Mask”。</li>
@@ -264,6 +283,26 @@
     
     
     
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
         
 
 <div>
@@ -283,8 +322,9 @@
 
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/cocos-Creator/" rel="tag"># cocos Creator</a>
+              <a href="/tags/cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> cocos Creator</a>
           </div>
 
         
@@ -363,6 +403,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -385,11 +427,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -460,6 +520,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

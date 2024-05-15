@@ -14,10 +14,12 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -99,6 +101,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -148,16 +151,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -202,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 17:00:46" itemprop="dateModified" datetime="2024-05-14T17:00:46+08:00">2024-05-14</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -225,19 +256,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>今天把项目打安卓包，运行的时候看日志，发现报了一个错，如下图：<br><img src="https://pic.imgdb.cn/item/664328220ea9cb140391bed7.png" alt="" /></p>
+          <p>今天把项目打安卓包，运行的时候看日志，发现报了一个错，如下图：<br><img src="https://pic.imgdb.cn/item/664328220ea9cb140391bed7.png" alt="" /></p>
 <p><code>timeRecords is at its maximum size[64]. Ignore this when unittesting.</code>意思就是time Records 已达到最大大小[64]。 单元测试时忽略这一点。</p>
 <p>因为我是在本地测试，所以这个错也没有对项目产生什么影响，项目还是能够正常运行。虽然报错说测试的时候可以忽略，但是还是有点担心上线后会不会有什么问题。</p>
 <p>如果哪位大佬遇到过这个问题，还请多多请教。</p>
@@ -291,7 +310,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 17:02:19" itemprop="dateModified" datetime="2024-05-14T17:02:19+08:00">2024-05-14</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -372,7 +391,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 17:08:24" itemprop="dateModified" datetime="2024-05-14T17:08:24+08:00">2024-05-14</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -453,7 +472,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
 
           
@@ -525,7 +544,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-06 14:51:13" itemprop="dateModified" datetime="2024-05-06T14:51:13+08:00">2024-05-06</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
 
           
@@ -597,7 +616,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 17:17:12" itemprop="dateModified" datetime="2024-05-14T17:17:12+08:00">2024-05-14</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -755,7 +774,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 17:24:49" itemprop="dateModified" datetime="2024-05-14T17:24:49+08:00">2024-05-14</time>
+                <time title="修改时间：2024-05-15 19:52:45" itemprop="dateModified" datetime="2024-05-15T19:52:45+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -836,7 +855,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 17:35:19" itemprop="dateModified" datetime="2024-05-14T17:35:19+08:00">2024-05-14</time>
+                <time title="修改时间：2024-05-15 19:52:45" itemprop="dateModified" datetime="2024-05-15T19:52:45+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -917,7 +936,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-25 10:23:36" itemprop="dateModified" datetime="2023-12-25T10:23:36+08:00">2023-12-25</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1024,6 +1043,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -1046,11 +1067,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -1121,6 +1160,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

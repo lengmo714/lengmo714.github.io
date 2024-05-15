@@ -14,21 +14,23 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="通常，Lua语言中的每种类型的值都有一套可预见的操作集合。例如，我们可以将数字相加，可以连接字符，还可以在表中插入键值对等。但是，我们无法将两个表相加，无法对函数做比较，也琺调用一个字符串，除非使用元表。         (adsbygoogle &#x3D; window.adsbygoogle || []).push({});   元表可以修改一个值在面对一个未知操作时的行为。例如，假设a和b都是表，那">
+  <meta name="description" content="通常，Lua语言中的每种类型的值都有一套可预见的操作集合。例如，我们可以将数字相加，可以连接字符，还可以在表中插入键值对等。但是，我们无法将两个表相加，无法对函数做比较，也琺调用一个字符串，除非使用元表。 元表可以修改一个值在面对一个未知操作时的行为。例如，假设a和b都是表，那么可以通过元表定义Lua语言如何计算表达式a+b。当Lua语言试图将两个表相加时，它会先检查两者之一是否有元表且该元表中是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lua的元表和元方法">
 <meta property="og:url" content="http://example.com/2020/04/24/Lua%E7%9A%84%E5%85%83%E8%A1%A8%E5%92%8C%E5%85%83%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="通常，Lua语言中的每种类型的值都有一套可预见的操作集合。例如，我们可以将数字相加，可以连接字符，还可以在表中插入键值对等。但是，我们无法将两个表相加，无法对函数做比较，也琺调用一个字符串，除非使用元表。         (adsbygoogle &#x3D; window.adsbygoogle || []).push({});   元表可以修改一个值在面对一个未知操作时的行为。例如，假设a和b都是表，那">
+<meta property="og:description" content="通常，Lua语言中的每种类型的值都有一套可预见的操作集合。例如，我们可以将数字相加，可以连接字符，还可以在表中插入键值对等。但是，我们无法将两个表相加，无法对函数做比较，也琺调用一个字符串，除非使用元表。 元表可以修改一个值在面对一个未知操作时的行为。例如，假设a和b都是表，那么可以通过元表定义Lua语言如何计算表达式a+b。当Lua语言试图将两个表相加时，它会先检查两者之一是否有元表且该元表中是">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-24T06:23:09.000Z">
-<meta property="article:modified_time" content="2024-03-12T01:53:40.416Z">
+<meta property="article:modified_time" content="2024-05-15T11:52:46.073Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta name="twitter:card" content="summary">
@@ -104,6 +106,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -153,16 +156,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -207,7 +238,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -231,18 +262,6 @@
 
       
         <p>通常，Lua语言中的每种类型的值都有一套可预见的操作集合。例如，我们可以将数字相加，可以连接字符，还可以在表中插入键值对等。但是，我们无法将两个表相加，无法对函数做比较，也琺调用一个字符串，除非使用元表。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>元表可以修改一个值在面对一个未知操作时的行为。例如，假设a和b都是表，那么可以通过元表定义Lua语言如何计算表达式a+b。当Lua语言试图将两个表相加时，它会先检查两者之一是否有元表且该元表中是否有<code>__add</code>字段。如果Lua语言找到了该字段，就调用该字段对应的值，即所谓的元方法，在本例中就是用于计算表的和的函数。<br>可以认为，元表是面向对象领域中的受限制类。像类一样，元表定义的是实例的行为。不过，由于元表只能给出预先定义的操作集合的行为，所以元表被类更受限；同时，元表也不支持继承。<br>Lua语言中的每一个值都可以有元表。每一个表和用户数据类型都具有各自独立的元表，而其他类型的值则共享对应类型所属的同一个元表。Lua语言在创建新表时不带元表：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t = &#123;&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">getmetatable</span>(t))   <span class="comment">-- nil</span></span><br></pre></td></tr></table></figure>
 <p>可以使用函数setmetatable来设置或修改任意表的元表：</p>
@@ -336,6 +355,26 @@
     
     
     
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
         
 
 <div>
@@ -355,8 +394,9 @@
 
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/Lua/" rel="tag"># Lua</a>
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
           </div>
 
         
@@ -436,6 +476,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -458,11 +500,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -533,6 +593,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

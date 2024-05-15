@@ -14,10 +14,12 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -99,6 +101,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -148,16 +151,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -202,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -225,19 +256,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<img src="https://s1.ax1x.com/2023/04/12/ppjAScq.png" style="width:600px;height:200px" alt="" />
+          <img src="https://s1.ax1x.com/2023/04/12/ppjAScq.png" style="width:600px;height:200px" alt="" />
 
 <p>在cocos creator中运行一个python脚本，出现了上面那个问题。查看python脚本也没有问题，郁闷了好久。<br>这个时候想起来一句话：关机重启解决80%的问题，于是乎重启cocos creator，没想到真的解决了这个问题。<br>复盘了一下，猜测原因：安装 Python3 时, cocos 是打开的状态, 导致安装后的 py 环境变量不生效, 重启编辑器就可以。</p>
 
@@ -290,7 +309,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -313,19 +332,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>给文字添加下划线，其实也就是画一条直线，只是直线放在了文字下方而已</p>
+          <p>给文字添加下划线，其实也就是画一条直线，只是直线放在了文字下方而已</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建并返回一个 DrawNode （线性）对象。</span></span><br><span class="line"><span class="comment">-- @function [parent=#display] newLine</span></span><br><span class="line"><span class="comment">-- @param table point table</span></span><br><span class="line"><span class="comment">-- @param table params 有参数，边线色 borderColor 及边线宽度 borderWidth</span></span><br><span class="line"><span class="comment">-- @return DrawNode#DrawNode ret (return value: cc.DrawNode) </span></span><br><span class="line"><span class="comment">-- @see ShapeNode</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">--[[--</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">创建并返回一个 DrawNode （线性）对象。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">格式：</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">shape = display.newLine(point表, [参数])</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">-- 创建一个线宽为2，颜色为红色，从(10,10)到(100,100)的线段</span></span><br><span class="line"><span class="comment">local shape3 = display.newLine(&#123;&#123;10, 10&#125;, &#123;100,100&#125;&#125;,</span></span><br><span class="line"><span class="comment">    &#123;borderColor = cc.c4f(1.0, 0.0, 0.0, 1.0),</span></span><br><span class="line"><span class="comment">    borderWidth = 1&#125;)</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">display.newLine</span><span class="params">(points, params)</span></span></span><br><span class="line">    <span class="keyword">local</span> radius</span><br><span class="line">    <span class="keyword">local</span> borderColor</span><br><span class="line">    <span class="keyword">local</span> scale</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> params <span class="keyword">then</span></span><br><span class="line">        borderColor = cc.c4f(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">        radius = <span class="number">0.5</span></span><br><span class="line">        scale = <span class="number">1.0</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        borderColor = params.borderColor <span class="keyword">or</span> cc.c4f(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">        radius = (params.borderWidth <span class="keyword">and</span> params.borderWidth/<span class="number">2</span>) <span class="keyword">or</span> <span class="number">0.5</span></span><br><span class="line">        scale = checknumber(params.scale <span class="keyword">or</span> <span class="number">1.0</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i, p <span class="keyword">in</span> <span class="built_in">ipairs</span>(points) <span class="keyword">do</span></span><br><span class="line">        p = cc.p(p[<span class="number">1</span>] * scale, p[<span class="number">2</span>] * scale)</span><br><span class="line">        points[i] = p</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> drawNode = cc.DrawNode:<span class="built_in">create</span>()</span><br><span class="line">    drawNode:drawSegment(points[<span class="number">1</span>], points[<span class="number">2</span>], radius, borderColor)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> drawNode</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
@@ -376,7 +383,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -399,19 +406,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>Lua中计算表格包含的字段数量，也可以理解为计算表的长度,很多人平时都习惯用<code>#</code>,但是<code>#</code>和<code>table.nums()</code>还是有区别的。<br><code>Lua table</code> 的 <code>&quot;#&quot;</code> 操作只对依次排序的数值下标数组有效，<code>table.nums()</code> 则计算 <code>table</code> 中所有不为 <code>nil</code> 的值的个数。</p>
+          <p>Lua中计算表格包含的字段数量，也可以理解为计算表的长度,很多人平时都习惯用<code>#</code>,但是<code>#</code>和<code>table.nums()</code>还是有区别的。<br><code>Lua table</code> 的 <code>&quot;#&quot;</code> 操作只对依次排序的数值下标数组有效，<code>table.nums()</code> 则计算 <code>table</code> 中所有不为 <code>nil</code> 的值的个数。</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- @function [parent=#table] nums</span></span><br><span class="line"><span class="comment">-- @param table t 要检查的表格</span></span><br><span class="line"><span class="comment">-- @return integer#integer</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">table.nums</span><span class="params">(t)</span></span></span><br><span class="line">    <span class="keyword">local</span> count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(t) <span class="keyword">do</span></span><br><span class="line">        count = count + <span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
       
     </div>
@@ -462,7 +457,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -485,19 +480,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>返回指定文件的大小，如果失败返回 false</p>
+          <p>返回指定文件的大小，如果失败返回 false</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- @function [parent=#io] filesize</span></span><br><span class="line"><span class="comment">-- @param string path 文件完全路径</span></span><br><span class="line"><span class="comment">-- @return integer#integer</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">io.filesize</span><span class="params">(path)</span></span></span><br><span class="line">    <span class="keyword">local</span> size = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">local</span> file = <span class="built_in">io</span>.<span class="built_in">open</span>(<span class="built_in">path</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> file <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">local</span> current = file:seek()</span><br><span class="line">        size = file:seek(<span class="string">&quot;end&quot;</span>)</span><br><span class="line">        file:seek(<span class="string">&quot;set&quot;</span>, current)</span><br><span class="line">        <span class="built_in">io</span>.<span class="built_in">close</span>(file)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> size</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
       
     </div>
@@ -548,7 +531,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -571,19 +554,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>在游戏开发过程中，很多地方都需要用到一个角度和弧度的计算，见代码</p>
+          <p>在游戏开发过程中，很多地方都需要用到一个角度和弧度的计算，见代码</p>
 <h3 id="角度转弧度"><a href="#角度转弧度" class="headerlink" title="角度转弧度"></a>角度转弧度</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- @function [parent=#math] angle2radian</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">math.angle2radian</span><span class="params">(angle)</span></span></span><br><span class="line">    <span class="keyword">return</span> angle * <span class="built_in">math</span>.<span class="built_in">pi</span> / <span class="number">180</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="弧度转角度"><a href="#弧度转角度" class="headerlink" title="弧度转角度"></a>弧度转角度</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- @function [parent=#math] radian2angle</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">math.radian2angle</span><span class="params">(radian)</span></span></span><br><span class="line">    <span class="keyword">return</span> radian / <span class="built_in">math</span>.<span class="built_in">pi</span> * <span class="number">180</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
@@ -637,7 +608,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -660,19 +631,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>我们在使用cocos2dx开发过程中经常会使用指定分隔符来分割字符串，并返回包含分割结果的数组，这里就介绍一种比较常用的方法</p>
+          <p>我们在使用cocos2dx开发过程中经常会使用指定分隔符来分割字符串，并返回包含分割结果的数组，这里就介绍一种比较常用的方法</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--------------------------------</span></span><br><span class="line"><span class="comment">-- 用指定字符或字符串分割输入字符串，返回包含分割结果的数组</span></span><br><span class="line"><span class="comment">-- @function [parent=#string] split</span></span><br><span class="line"><span class="comment">-- @param string input 输入字符串</span></span><br><span class="line"><span class="comment">-- @param string delimiter 分割标记字符或字符串</span></span><br><span class="line"><span class="comment">-- @return array#array  包含分割结果的数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--[[--</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">用指定字符或字符串分割输入字符串，返回包含分割结果的数组</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">local input = &quot;Hello,World&quot;</span></span><br><span class="line"><span class="comment">local res = string.split(input, &quot;,&quot;)</span></span><br><span class="line"><span class="comment">-- res = &#123;&quot;Hello&quot;, &quot;World&quot;&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">local input = &quot;Hello-+-World-+-Quick&quot;</span></span><br><span class="line"><span class="comment">local res = string.split(input, &quot;-+-&quot;)</span></span><br><span class="line"><span class="comment">-- res = &#123;&quot;Hello&quot;, &quot;World&quot;, &quot;Quick&quot;&#125;</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">string.split</span><span class="params">(input, delimiter)</span></span></span><br><span class="line">    <span class="built_in">input</span> = <span class="built_in">tostring</span>(<span class="built_in">input</span>)</span><br><span class="line">    delimiter = <span class="built_in">tostring</span>(delimiter)</span><br><span class="line">    <span class="keyword">if</span> (delimiter == <span class="string">&#x27;&#x27;</span>) <span class="keyword">then</span> <span class="keyword">return</span> <span class="literal">false</span> <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> pos, arr = <span class="number">0</span>, &#123;&#125;</span><br><span class="line">    <span class="comment">-- for each divider found</span></span><br><span class="line">    <span class="keyword">for</span> st, sp <span class="keyword">in</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="keyword">return</span> <span class="built_in">string</span>.<span class="built_in">find</span>(<span class="built_in">input</span>, delimiter, pos, <span class="literal">true</span>) <span class="keyword">end</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">table</span>.<span class="built_in">insert</span>(arr, <span class="built_in">string</span>.<span class="built_in">sub</span>(<span class="built_in">input</span>, pos, st - <span class="number">1</span>))</span><br><span class="line">        pos = sp + <span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="built_in">table</span>.<span class="built_in">insert</span>(arr, <span class="built_in">string</span>.<span class="built_in">sub</span>(<span class="built_in">input</span>, pos))</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
@@ -723,7 +682,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -746,19 +705,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>最近产品提出一个需求，需要在游戏中能够跳转到<code>facebook</code>中打开我们的游戏主页。当时也没有多想，直接就用<code>device.openURL()</code>来打开产品发过来的链接。</p>
+          <p>最近产品提出一个需求，需要在游戏中能够跳转到<code>facebook</code>中打开我们的游戏主页。当时也没有多想，直接就用<code>device.openURL()</code>来打开产品发过来的链接。</p>
 <p>然后今天测试的时候就发现了问题，点击<code>facebook</code>按钮无法跳转到facebook 应用，只能打开网页。在网上查了好久的资料，才发现是因为facebook的SDK升级后导致的。</p>
 <p>下面说下我的做法，是能够完成产品要求的。当然，涉及到<code>Lua</code>和<code>Java</code>的交互<br>Lua代码：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">AppInfo.openFacebook</span><span class="params">(name)</span></span></span><br><span class="line">    <span class="keyword">local</span> <span class="built_in">os</span> = device.platform</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">os</span> == <span class="string">&quot;android&quot;</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">local</span> sig = <span class="string">&quot;(Ljava/lang/String;)V&quot;</span></span><br><span class="line">        <span class="keyword">local</span> args = &#123;name&#125;</span><br><span class="line">        luaj.callStaticMethod(AppInfo.JAVA_CLASSNAME, <span class="string">&quot;openFacebook&quot;</span>, args, sig)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
@@ -815,7 +762,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -838,19 +785,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<h1 id="if-语句"><a href="#if-语句" class="headerlink" title="if 语句"></a>if 语句</h1><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>当我们需要根据给定的条件来决定是否执行一段代码时，<code>if</code> 语句就派上用场了。<code>if</code> 块仅在与其关联的布尔表达式为 <code>true</code> 时执行。<code>if</code> 块的结构如下：</p>
+          <h1 id="if-语句"><a href="#if-语句" class="headerlink" title="if 语句"></a>if 语句</h1><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>当我们需要根据给定的条件来决定是否执行一段代码时，<code>if</code> 语句就派上用场了。<code>if</code> 块仅在与其关联的布尔表达式为 <code>true</code> 时执行。<code>if</code> 块的结构如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (条件) &#123;</span><br><span class="line">    <span class="comment">// 当条件成立时执行此处代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>大括号中包含的内容就称为语句块。</p>
 <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>我们来看一个 <code>if</code> 语句的实例：</p>
@@ -966,7 +901,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -989,19 +924,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<h2 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><blockquote>
+          <h2 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><blockquote>
 <p>表达式，是由数字、运算符、数字分组符号（括号）、自由变量和约束变量等以能求得数值的有意义排列方法所得的组合。约束变量是在表达式中已被指定数值，而自由变量则可以在表达式之外另行指定数值。</p>
 </blockquote>
 <p>在 <code>Java </code>中，表达式是根据 Java 语法由<strong>变量、运算符</strong>和<strong>方法</strong>调用组成的结构，表达式的结算结果为<strong>单个值</strong>。<br>表达式实例：</p>
@@ -1111,7 +1034,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1134,19 +1057,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<h1 id="Java-运算符"><a href="#Java-运算符" class="headerlink" title="Java 运算符"></a>Java 运算符</h1><p>运算符是一些特殊的符号，它们对一个，两个或多个操作数执行特定的运算，然后返回一个结果。这里的操作数指的就是运算符操作的实体。</p>
+          <h1 id="Java-运算符"><a href="#Java-运算符" class="headerlink" title="Java 运算符"></a>Java 运算符</h1><p>运算符是一些特殊的符号，它们对一个，两个或多个操作数执行特定的运算，然后返回一个结果。这里的操作数指的就是运算符操作的实体。</p>
 <p><code>Java</code>提供了一组丰富的运算符来操作变量。 我们可以将所有Java运算符分为以下几类：</p>
 <ul>
 <li>算术运算符</li>
@@ -1316,6 +1227,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -1338,11 +1251,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -1413,6 +1344,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

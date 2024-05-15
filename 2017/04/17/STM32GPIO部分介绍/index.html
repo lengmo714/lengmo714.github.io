@@ -14,10 +14,12 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="最近在老师交给了一个项目，需要用到STM32单片机，这里就在学习的过程中所注意到的一些地方或细节部分记录了下来，笔者所使用的是STM32F407ZGT6芯片（探索者）。">
@@ -33,7 +35,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/66434a6c0ea9cb1403ceb86e.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/66434a6c0ea9cb1403ceb886.png">
 <meta property="article:published_time" content="2017-04-16T22:33:57.000Z">
-<meta property="article:modified_time" content="2024-05-14T11:29:34.973Z">
+<meta property="article:modified_time" content="2024-05-15T11:52:45.915Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="硬件">
 <meta name="twitter:card" content="summary">
@@ -110,6 +112,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -159,16 +162,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -213,7 +244,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 19:29:34" itemprop="dateModified" datetime="2024-05-14T19:29:34+08:00">2024-05-14</time>
+                <time title="修改时间：2024-05-15 19:52:45" itemprop="dateModified" datetime="2024-05-15T19:52:45+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,18 +271,6 @@
 <span id="more"></span>
 <p><strong>查看芯片的数据手册</strong></p>
 <p><img src="https://pic.imgdb.cn/item/66434a6c0ea9cb1403ceb8c0.png" alt="这里写图片描述"><br>这个表格对每个I&#x2F;O口的功能进行了很详细的介绍。每个I&#x2F;O除了作为I&#x2F;O使用外，还可以作为其他的复用。已以PE2口为例，“Alternate functions”所展示就是其可以复用的功能。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p> <strong>芯片结构</strong><br>F3系列和F4系列芯片的芯片结构大体相似，区别在于F4将F3芯片的上下拉结构配置由内部转到了外部。如下图所示。<br><img src="https://pic.imgdb.cn/item/66434b080ea9cb1403cf85ba.png" /><br><img src="https://pic.imgdb.cn/item/66434b090ea9cb1403cf8655.png"/><br>同时大家注意到在第二张图的右边有一个“TF:5V容忍”，F4芯片I&#x2F;O口大部分也支持5V容忍，5V容忍就是说STM32的输出电压是3.3V，但是也容忍输出5V。<br>那么哪些I&#x2F;O口支持5V容忍了，这个得看最上面的芯片手册，如果芯片后面有一栏写有“TF”标示，即说明支持5V容忍。</p>
 <p><strong>GPIO相关配置寄存器</strong><br>每组GPIO口包含１０组寄存器。</p>
 <p><code>一个端口模式寄存器（GPIOx_MODER） 一个端口输出类型寄存器(GPIOx_OTYPER) 一个端口输出速度寄存器（GPIOx_OSPEEDR) 一个端口上拉下拉寄存器（GPIOx_PUPDR)　　前４个为３２位配置寄存器 一个端口输入数据寄存器（GPIOx_IDR） 一个端口输出数据寄存器（GPIOx_ODR)　　中间２个为３２位数据寄存器 一个端口置位/复位寄存器（GPIOx_BSRR) 一个端口配置锁存寄存器（GPIOx_LCKR) 两个复位功能寄存器（低位GPIOx_AFRL &amp; GPIOx_AFRH) </code> </p>
@@ -273,6 +292,26 @@
     
     
     
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
         
 
 <div>
@@ -292,8 +331,9 @@
 
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag"># 硬件</a>
+              <a href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 硬件</a>
           </div>
 
         
@@ -372,6 +412,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -394,11 +436,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -469,6 +529,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

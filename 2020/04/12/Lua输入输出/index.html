@@ -14,21 +14,23 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="由于Lua语言强调可移植性和嵌入性，所以Lua语言本身并没有提供太多与外部交互的机制。在真实的Lua程序中，从图形、数据库到网络的网络的访问等大多数I&#x2F;O操作，要么游宿主程序实现，要么通过不包括在发行版中的外部库实现。单就Lua语言而言，只提供IOS C语言标准支持的功能，即基本的文件操作等。         (adsbygoogle &#x3D; window.adsbygoogle || []">
+  <meta name="description" content="由于Lua语言强调可移植性和嵌入性，所以Lua语言本身并没有提供太多与外部交互的机制。在真实的Lua程序中，从图形、数据库到网络的网络的访问等大多数I&#x2F;O操作，要么游宿主程序实现，要么通过不包括在发行版中的外部库实现。单就Lua语言而言，只提供IOS C语言标准支持的功能，即基本的文件操作等。 简单I&#x2F;O模型对于文件操作来说，I&#x2F;O库提供了两种不同的模型。简单模型虚拟">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lua输入输出">
 <meta property="og:url" content="http://example.com/2020/04/12/Lua%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="由于Lua语言强调可移植性和嵌入性，所以Lua语言本身并没有提供太多与外部交互的机制。在真实的Lua程序中，从图形、数据库到网络的网络的访问等大多数I&#x2F;O操作，要么游宿主程序实现，要么通过不包括在发行版中的外部库实现。单就Lua语言而言，只提供IOS C语言标准支持的功能，即基本的文件操作等。         (adsbygoogle &#x3D; window.adsbygoogle || []">
+<meta property="og:description" content="由于Lua语言强调可移植性和嵌入性，所以Lua语言本身并没有提供太多与外部交互的机制。在真实的Lua程序中，从图形、数据库到网络的网络的访问等大多数I&#x2F;O操作，要么游宿主程序实现，要么通过不包括在发行版中的外部库实现。单就Lua语言而言，只提供IOS C语言标准支持的功能，即基本的文件操作等。 简单I&#x2F;O模型对于文件操作来说，I&#x2F;O库提供了两种不同的模型。简单模型虚拟">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-12T13:18:32.000Z">
-<meta property="article:modified_time" content="2024-03-12T01:53:40.418Z">
+<meta property="article:modified_time" content="2024-05-15T11:52:46.075Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta name="twitter:card" content="summary">
@@ -104,6 +106,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -153,16 +156,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -207,7 +238,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -231,18 +262,6 @@
 
       
         <p>由于Lua语言强调可移植性和嵌入性，所以Lua语言本身并没有提供太多与外部交互的机制。在真实的Lua程序中，从图形、数据库到网络的网络的访问等大多数I&#x2F;O操作，要么游宿主程序实现，要么通过不包括在发行版中的外部库实现。单就Lua语言而言，只提供IOS C语言标准支持的功能，即基本的文件操作等。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <h2 id="简单I-O模型"><a href="#简单I-O模型" class="headerlink" title="简单I&#x2F;O模型"></a>简单I&#x2F;O模型</h2><p>对于文件操作来说，I&#x2F;O库提供了两种不同的模型。简单模型虚拟了一个当前输入流和一个当前输出流，其I&#x2F;O操作时通过这些流实现的。I&#x2F;O库把当前输入流初始化为进程的标准输入，将当前输出流初始化为进程的标准输出。因此，当执行类似于io.read()这样的语句时，就可以从标准输入中读取一行。<br>函数io.input可以用于改变当前的输入输出流。调用io.input(file-name)会以只读模式打开指定文件，并将文件设置为当前输入流。之后，所有的输入都将来自该文件，除非再次调用io.input。对于输出流而言，函数io.output的逻辑与之类似。如果出现错误，这两个函数都会抛出异常。如果想直接处理这些异常，则必须使用完整I&#x2F;O模型。<br>由于函数write比函数read简单，我们首先来看函数write。函数io.write可以读取任意数量的字符串并将其写入当前输入流。由于调用该函数时可以使用多个参数，因此应该避免使用io.write(a..b..c)，应该调用io.write(a,b,c)，后者可以用更少的资源达到同样的效果，并且可以避免更多的连接动作。<br>作为原则，应该只在“用后即弃”的代码或调试代码中使用函数print；当需要完全控制输出时，应该使用函数io.write。与函数print不同，函数io.wirte不会在最终的输出结果中添加诸如制表符或换行符这样的额外内容。此外，函数io.write允许对输出进行重定向，而函数print只能使用标准输出。最后，函数print可以自动为其参数调用tostring，这一点对于调试而言非常便利，但这也容易导致一些诡异的Bug。<br>函数io.write在将数值转为字符串时遵循一般的转换规则；如果想要完全地控制这种转换，则应该使用函数string.format:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">io</span>.<span class="built_in">write</span>(<span class="string">&quot;sin(3) = &quot;</span>,<span class="built_in">math</span>.<span class="built_in">sin</span>(<span class="number">3</span>),<span class="string">&quot;\n&quot;</span>)		<span class="comment">-- sin(3) = 0.14112000805987</span></span><br><span class="line">&gt; <span class="built_in">io</span>.<span class="built_in">write</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;sin(3) = %0.4f\n&quot;</span>,<span class="built_in">math</span>.<span class="built_in">sin</span>(<span class="number">3</span>))) 			<span class="comment">-- sin(3) = 0.1411</span></span><br></pre></td></tr></table></figure>
 <p>函数io.read可以从当前输入流中读取字符串，其参数决定了要读取的数据：</p>
@@ -296,6 +315,26 @@
     
     
     
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
         
 
 <div>
@@ -315,8 +354,9 @@
 
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/Lua/" rel="tag"># Lua</a>
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
           </div>
 
         
@@ -396,6 +436,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -418,11 +460,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -493,6 +553,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

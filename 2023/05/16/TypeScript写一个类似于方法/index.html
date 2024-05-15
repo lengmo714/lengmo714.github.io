@@ -14,21 +14,23 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="(adsbygoogle &#x3D; window.adsbygoogle || []).push({});   代码： 12345678910function formatString(str: string, ...args: any[]): string &#123;  return str.replace(&#x2F;\&#123;(\d+)\&#125;&#x2F;g, (match, index)">
+  <meta name="description" content="代码： 12345678910function formatString(str: string, ...args: any[]): string &#123;  return str.replace(&#x2F;\&#123;(\d+)\&#125;&#x2F;g, (match, index) &#x3D;&gt; &#123;    return typeof args[index] !&#x3D;&#x3D; &quot;undefine">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TypeScript写一个类似于&#96;format.string&#96;方法">
 <meta property="og:url" content="http://example.com/2023/05/16/TypeScript%E5%86%99%E4%B8%80%E4%B8%AA%E7%B1%BB%E4%BC%BC%E4%BA%8E%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="(adsbygoogle &#x3D; window.adsbygoogle || []).push({});   代码： 12345678910function formatString(str: string, ...args: any[]): string &#123;  return str.replace(&#x2F;\&#123;(\d+)\&#125;&#x2F;g, (match, index)">
+<meta property="og:description" content="代码： 12345678910function formatString(str: string, ...args: any[]): string &#123;  return str.replace(&#x2F;\&#123;(\d+)\&#125;&#x2F;g, (match, index) &#x3D;&gt; &#123;    return typeof args[index] !&#x3D;&#x3D; &quot;undefine">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-16T13:30:21.000Z">
-<meta property="article:modified_time" content="2024-03-12T01:53:40.428Z">
+<meta property="article:modified_time" content="2024-05-15T11:52:46.075Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="TypeScript">
 <meta name="twitter:card" content="summary">
@@ -104,6 +106,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -153,16 +156,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -207,7 +238,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -230,19 +261,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>代码：</p>
+        <p>代码：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">formatString</span>(<span class="params">str: <span class="built_in">string</span>, ...args: <span class="built_in">any</span>[]</span>): <span class="built_in">string</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> str.<span class="title function_">replace</span>(<span class="regexp">/\&#123;(\d+)\&#125;/g</span>, <span class="function">(<span class="params">match, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> args[index] !== <span class="string">&quot;undefined&quot;</span> ? args[index] : match;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">name</span>: <span class="built_in">string</span> = <span class="string">&quot;Alice&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">age</span>: <span class="built_in">number</span> = <span class="number">25</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">message</span>: <span class="built_in">string</span> = <span class="title function_">formatString</span>(<span class="string">&quot;My name is &#123;0&#125; and I am &#123;1&#125; years old.&quot;</span>, name, age);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(message); <span class="comment">// Output: &quot;My name is Alice and I am 25 years old.&quot;</span></span><br></pre></td></tr></table></figure>
 <p>在上面的示例中，我们定义了一个名为 <code>formatString</code> 的函数，它接受一个字符串和任意数量的参数。在函数体内，我们使用正则表达式 <code>/\\&#123;\\d+\\&#125;/g</code> 来匹配字符串中的占位符 <code>&#123;&#125;</code>，并在每个匹配项上调用一个回调函数来进行替换。</p>
 <p>在回调函数中，我们使用 <code>args</code> 数组来获取与占位符 <code>&#123;&#125;</code> 中的索引对应的参数。如果参数存在，则将其用于替换占位符。否则，我们返回匹配项本身。最后，我们返回替换后的字符串。</p>
@@ -253,6 +272,26 @@
     
     
     
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
         
 
 <div>
@@ -272,8 +311,9 @@
 
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/TypeScript/" rel="tag"># TypeScript</a>
+              <a href="/tags/TypeScript/" rel="tag"><i class="fa fa-tag"></i> TypeScript</a>
           </div>
 
         
@@ -352,6 +392,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -374,11 +416,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -449,6 +509,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

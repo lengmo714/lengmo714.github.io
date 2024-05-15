@@ -14,10 +14,12 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -99,6 +101,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -148,16 +151,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -202,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -226,18 +257,6 @@
 
       
           <p>协程可以颠倒调用者和被调用者的关系，而且这种灵活性解决了软件架构中被称为“谁是老大”或者”谁拥有主循环“的问题。这正是对诸如事件驱动编程、通过构造器构建迭代器和协作式多线程等几个看上去并不相关的问题的泛化，而协程以简单和高效的方式解决了这些问题。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>从多线程的角度看，协程与线程类似：协程是一系列的可执行语句，拥有自己的栈、局部变量和指令指针，同时协程又与其他协程共享了全局变量和其他几乎一切资源。线程与协程的主要区别在于，一个多线程程序可以并行运行多个线程，而协程却需要彼此协作地运行，即在任意指定的时刻只能有一个协程运行。且只有当正在运行的协程显式地要求被挂起时其执行才会暂停。</p>
 <h2 id="协程基础"><a href="#协程基础" class="headerlink" title="协程基础"></a>协程基础</h2><p>Lua语言中协程相关的所有函数都被放在表coroutine中。函数create用于创建新协程，该函数只有一个参数，即协程要执行的代码的函数。函数create返回一个”thread”类型的值，即新协程。通常，函数create的参数是一个匿名函数，例如：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">co = <span class="built_in">coroutine</span>.<span class="built_in">create</span>(<span class="function"><span class="keyword">function</span><span class="params">()</span></span><span class="built_in">print</span>(<span class="string">&quot;hi&quot;</span>)<span class="keyword">end</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(co))			<span class="comment">-- thread</span></span><br></pre></td></tr></table></figure>
@@ -362,7 +381,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -386,18 +405,6 @@
 
       
           <p>Lua语言使用自动内存管理。程序可以创建对象，但却没有函数来删除对象。Lua语言通过垃圾收集自动删除称为垃圾的对象，从而将程序员从内存管理的绝大部分负担中解放出来。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>更重要的是，将程序员从与内存管理相关的大多数Bug中解放出来。例如无效指针和内存泄露等问题。<br>在一个理想的环境中，垃圾收集器对程序员来说是不可见的，就像一个好的清洁工不会和其他工人打交道一样。不过，有时即使是智能的垃圾收集器也会需要我们的辅助。在某些关键的性能阶段，我们可能需要将其停止，或者让只在特定的时间运行。另外，一个垃圾收集器只能收集它确定是垃圾的内容，而不能猜测我们把什么当作垃圾。没有垃圾收集器能够做到让我们完全不用操心资源管理的问题，比如驻留内存和外部资源。<br>弱引用表、析构器和函数collectgarbage是在Lua语言中用来辅助垃圾收集器的主要机制。弱引用表允许收集Lua语言中还可以被程序访问的对象；析构器允许收集不在垃圾收集器直接控制下的外部对象；函数collectgarbage则允许我们控制垃圾收集器的步长。</p>
 <h2 id="弱引用表"><a href="#弱引用表" class="headerlink" title="弱引用表"></a>弱引用表</h2><p>我们知道，数组的有效部分总是向顶部扩展的，但Lua语言却不知道。如果弹出一个元素时只是简单地递减顶部索引，那么这个仍然留在数组中的对象对于Lua语言来说并不是垃圾。同理，即使是程序不会再用到的、存储在全局变量中的对象，对于Lua语言来说也不是垃圾。在这两种情况下，都需要我们将这些对象所在的位置赋值为nil，以便这些位置不会锁定可释放的对象。<br>不过，简单地清除引用可能还不够。在有些情况下，还需要程序和垃圾收集器之间的协作。一个典型的例子是，当我们要保存某些类型的活跃对象的列表时。这个需要看上去简单，我们只需要把每个新对象插入数组即可；但是，一旦一个对象成为了数组的一部分，它就再也无法被回收！虽然已经没有其他任何地方在引用它，但数组依然在引用它。除非我们告诉Lua语言数组对该对象的引用不应该阻碍对此对象的回收，否则Lua语言本身是无从知晓的。<br>弱引用表就是这样一个用来告知Lua语言一个引用不应阻止一个对象回收的机制。所谓所引用是一种不在垃圾收集器考虑范围内的对象引用。如果一个对象的所有引用都是弱引用，弱引用表就是元素均为弱引用的表，这意味着如果一个对象只被一个弱引用持有，那么Lua语言最终会回收这个对象。<br>表由键值对组成，其两者都可以容纳任何类型的对象。在正常情况下，垃圾收集器不会回收一个在可访问的表中作为键或值的对象。也就是说，键和值都是强引用，它们会阻止对其所指向对象的回收。在一个弱引用表中，键和值都可以是弱引用的。这就意味着有三种类型的弱引用表，即具有弱引用键的表、具有弱引用值的表及同时具有弱引用键和值的表。不论是哪种类型的弱引用表，只要有一个键或值被回收了，那么对应的整个键值对都会被从表中删除。<br>一个表是否为弱引用表是由其元表中的__mode字段决定的。当这个字段存在时，其值应为一个字符串：如果这个字符串是”k”，那么这个表的键是弱引用的；如果这个字符串是”v”，那么这个表的值是弱引用的；如果这个字符串是”kv”，那么这个表的键和值都是弱引用的。下面的示例虽然有些可以，但演示了弱引用表的基本行为：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;&#125;</span><br><span class="line">mt = &#123;<span class="built_in">__mode</span> = <span class="string">&quot;k&quot;</span>&#125;</span><br><span class="line"><span class="built_in">setmetatable</span>(a,mt)		<span class="comment">-- 现在&#x27;a&#x27;的键是弱引用的了</span></span><br><span class="line">key = &#123;&#125;</span><br><span class="line">a[key] = <span class="number">1</span>				<span class="comment">-- 创建第一个键</span></span><br><span class="line">key = &#123;&#125;</span><br><span class="line">a[key] = <span class="number">2</span>				<span class="comment">-- 创建第二个键</span></span><br><span class="line"><span class="built_in">collectgarbage</span>()		<span class="comment">-- 强制进行垃圾回收</span></span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(a) <span class="keyword">do</span> <span class="built_in">print</span>(v) <span class="keyword">end</span>		<span class="comment">-- 2</span></span><br></pre></td></tr></table></figure>
@@ -498,7 +505,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -522,18 +529,6 @@
 
       
           <p>全局变量在大多数变成语言中是让人爱恨交织又不可或缺的。一方面，使用管全局变量会明显地使无关的代码部分纠缠在一起，容易导致代码复杂。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>另一方面，谨慎地使用全局变量又能更好地表达程序中真正的全局概念；此外，虽然全局常量看似无害，但像Lua语言这样的动态语言是无法区分常量和变量的。像Lua这样的嵌入式语言更复杂：虽然全局变量时再整个程序中均可见的变量，但由于Lua语言是由宿主应用调用代码段的，因此“程序”的概念不明确。<br>Lua语言通过不使用全局变量的方法来解决这个难题，但又不遗余力地在Lua语言汇总对全局变量进行模拟。在第一种近似的模拟中，我们可以认为Lua语言把所有的全局变量保存在一个称为全局环境的普通表中。<br>由于不需要再为全局变量创造一种新的数据结构，因此使用一个表来保存全局变量的一个优点是简化了Lua 语言的内部实现。另一个优点是，可以像操作其他表一样操作这个表。为了便于实现这种操作方式，Lua语言将全局环境自身保存在全局变量_G中。例如，如下代码输出了全局环境中所有全局变量的名称：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">pairs</span>(<span class="built_in">_G</span>) <span class="keyword">do</span> <span class="built_in">print</span>(n) <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <h2 id="具有动态名称的全局变量"><a href="#具有动态名称的全局变量" class="headerlink" title="具有动态名称的全局变量"></a>具有动态名称的全局变量</h2><p>通常，赋值操作对于访问和设置全局变量已经足够了。<br>通常，赋值操作对于访问和设置全局变量已经足够了。然而，有时我们也需要某些形式的元变成。例如，我们需要操作一个全局变量，而这个全局变量的名称却存储在另一个变量中或者经由运行时计算得到。为了获取这个变量的值，许多程序员会写出下面的代码：</p>
@@ -678,7 +673,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -759,7 +754,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -783,18 +778,6 @@
 
       
           <p>从很多意义上讲，Lua语言中的一张表就是一个对象。首先，表与对象一样，可以拥有状态。其次，表与对象一样，拥有一个与其无关的标识(self)；</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>特别地，两个具有相同值的对象（表）是两个不同的对象，而一个对象可以具有多个不同的值；最后，表与对象一样，具有创建者和被创建位置无关的声明周期。</p>
           <!--noindex-->
             <div class="post-button">
@@ -853,7 +836,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -877,18 +860,6 @@
 
       
           <p>通常，Lua语言中的每种类型的值都有一套可预见的操作集合。例如，我们可以将数字相加，可以连接字符，还可以在表中插入键值对等。但是，我们无法将两个表相加，无法对函数做比较，也琺调用一个字符串，除非使用元表。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>元表可以修改一个值在面对一个未知操作时的行为。例如，假设a和b都是表，那么可以通过元表定义Lua语言如何计算表达式a+b。当Lua语言试图将两个表相加时，它会先检查两者之一是否有元表且该元表中是否有<code>__add</code>字段。如果Lua语言找到了该字段，就调用该字段对应的值，即所谓的元方法，在本例中就是用于计算表的和的函数。<br>可以认为，元表是面向对象领域中的受限制类。像类一样，元表定义的是实例的行为。不过，由于元表只能给出预先定义的操作集合的行为，所以元表被类更受限；同时，元表也不支持继承。<br>Lua语言中的每一个值都可以有元表。每一个表和用户数据类型都具有各自独立的元表，而其他类型的值则共享对应类型所属的同一个元表。Lua语言在创建新表时不带元表：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t = &#123;&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">getmetatable</span>(t))   <span class="comment">-- nil</span></span><br></pre></td></tr></table></figure>
 <p>可以使用函数setmetatable来设置或修改任意表的元表：</p>
@@ -1026,7 +997,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1050,18 +1021,6 @@
 
       
           <p>Lua 中引入一个模块，可以采用两种方式：<code>import </code>和<code>require</code>方式，具体的区别在于：</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <h3 id="载入一个模块"><a href="#载入一个模块" class="headerlink" title="载入一个模块"></a>载入一个模块</h3><p><code>import() </code>与 <code>require() </code>功能相同，但具有一定程度的自动化特性。</p>
 <p>假设我们有如下的目录结构：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app/</span><br><span class="line">app/classes/</span><br><span class="line">app/classes/MyClass.lua</span><br><span class="line">app/classes/MyClassBase.lua</span><br><span class="line">app/classes/data/Data1.lua</span><br><span class="line">app/classes/data/Data2.lua</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -1125,7 +1084,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 18:35:00" itemprop="dateModified" datetime="2024-05-14T18:35:00+08:00">2024-05-14</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1206,7 +1165,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
 
           
@@ -1221,18 +1180,6 @@
 
       
           <p>迭代器是一种可以让我们遍历一个集合中所有元素的代码结构。在Lua语言中，通常使用函数表示迭代器：每一次调用函数时，函数会返回集合中的”下一个“元素。一个典型的例子是io.read，每次调用该函数时它都会返回标准输入中的下一行，在没有读取的行时返回nil。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>所有的迭代器都需要在连续的调用之间保存一些状态，这样才能知道当前迭代所处的位置及如何从当前位置步进到下一位置。对于函数io.read而言，C语言会将状态保存在流的结构体中。对于我们自己的迭代器而言，闭包则为保存状态提供了一种良好的机制。庆祝，一个闭包就是一个可以访问其自身的环境中一个或多个局部变量的函数。这些变量将连续调用过程中的值并将其保存在闭包中，从而使得闭包能够记住迭代所处的位置。当然，要创建一个新的闭包，我们还必须创建非局部变量。因此，一个闭包结构通常涉及两个函数；闭包本身和一个用于创建该闭包及其封装变量的工程。<br>作为示例，让我们来为列表编写一个简单的迭代器。与ipairs不同的是，该迭代器并不是返回每个元素的索引而是返回元素的值：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">values</span><span class="params">(t)</span></span></span><br><span class="line">	<span class="keyword">local</span> i = <span class="number">0</span></span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span></span> i = i +<span class="number">1</span> ；<span class="keyword">return</span> t[i] <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>在这个例子中，values就是工厂。每当调用这个工厂时，它就会创建一个新的闭包（既迭代器本身）。这个闭包将它的状态保存在其外部的变量t和i中，这两个变量也是由values创建的。每次调用这个迭代器时，它就从列表t中返回下一个值。在遍历完最后一个元素后，迭代器返回nil，表示迭代结束。<br>我们可以在一个while循环中使用这个迭代器：</p>
@@ -1337,7 +1284,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1361,18 +1308,6 @@
 
       
           <p>通常，Lua语言不会设置规则。相反，Lua语言提供的是足够强大的机制供不同的开发者实现最适合自己的规则。然而，这种方法对于模块而言并不是特别适用。模块系统的主要目标之一就是允许不同的人共享代码，缺乏公共规则就无法实现这样的分享。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>Lua语言从5.1版本开始为模块和包定义了一系列的规则。这些规则不需要从语言中引入额外的功能，程序猿可以使用目前为止我们学习到的机制实现这些规则。程序员也可以自由地使用不同的策略。当然，不同的实现可能会导致程序不能使用外部模块，或者模块不能被外部程序使用。<br>从用户观点来看，一个模块就是一些代码，这些代码可以通过函数require加载，然后创建和返回一个表。这个表就像是某种命名空间，其中定义的内容是模块中导出的东西，比如函数和常量。<br>例如，所有的标准库都是模块。我们可以按照如下的方式使用数学库：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> m = <span class="built_in">require</span> <span class="string">&quot;math&quot;</span></span><br><span class="line"><span class="built_in">print</span>(m.<span class="built_in">sin</span>(<span class="number">3.14</span>))				<span class="comment">-- 0.0015926529164868</span></span><br></pre></td></tr></table></figure>
 <p>独立解释器会使用跟如下代码等价的方式提前加载所有标准库：</p>
@@ -1511,6 +1446,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -1533,11 +1470,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -1608,6 +1563,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

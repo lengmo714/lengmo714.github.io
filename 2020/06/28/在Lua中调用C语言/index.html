@@ -14,21 +14,23 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="我们说用Lua可以调用C语言函数，但这并不意味着Lua可以调用所有的C函数。当C语言调用Lua函数时，该函数必须遵循一个简单的规则来传递参数和获取结果。         (adsbygoogle &#x3D; window.adsbygoogle || []).push({});   同样，当Lua调用C函数时，这个C函数也必须遵循某种规则来获取参数和返回结果。此外，当Lua调用C函数时，我们必须注册该函数">
+  <meta name="description" content="我们说用Lua可以调用C语言函数，但这并不意味着Lua可以调用所有的C函数。当C语言调用Lua函数时，该函数必须遵循一个简单的规则来传递参数和获取结果。 同样，当Lua调用C函数时，这个C函数也必须遵循某种规则来获取参数和返回结果。此外，当Lua调用C函数时，我们必须注册该函数，即必须以一种恰当的方式为Lua提供该C函数的地址。Lua调用C函数时，也使用一个与C语言调用Lua函数时相同类型的栈，C">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在Lua中调用C语言">
 <meta property="og:url" content="http://example.com/2020/06/28/%E5%9C%A8Lua%E4%B8%AD%E8%B0%83%E7%94%A8C%E8%AF%AD%E8%A8%80/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="我们说用Lua可以调用C语言函数，但这并不意味着Lua可以调用所有的C函数。当C语言调用Lua函数时，该函数必须遵循一个简单的规则来传递参数和获取结果。         (adsbygoogle &#x3D; window.adsbygoogle || []).push({});   同样，当Lua调用C函数时，这个C函数也必须遵循某种规则来获取参数和返回结果。此外，当Lua调用C函数时，我们必须注册该函数">
+<meta property="og:description" content="我们说用Lua可以调用C语言函数，但这并不意味着Lua可以调用所有的C函数。当C语言调用Lua函数时，该函数必须遵循一个简单的规则来传递参数和获取结果。 同样，当Lua调用C函数时，这个C函数也必须遵循某种规则来获取参数和返回结果。此外，当Lua调用C函数时，我们必须注册该函数，即必须以一种恰当的方式为Lua提供该C函数的地址。Lua调用C函数时，也使用一个与C语言调用Lua函数时相同类型的栈，C">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-27T17:00:51.000Z">
-<meta property="article:modified_time" content="2024-03-12T01:53:40.585Z">
+<meta property="article:modified_time" content="2024-05-15T11:52:46.075Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="C">
 <meta property="article:tag" content="Lua">
@@ -105,6 +107,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -154,16 +157,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -208,7 +239,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -232,18 +263,6 @@
 
       
         <p>我们说用Lua可以调用C语言函数，但这并不意味着Lua可以调用所有的C函数。当C语言调用Lua函数时，该函数必须遵循一个简单的规则来传递参数和获取结果。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>同样，当Lua调用C函数时，这个C函数也必须遵循某种规则来获取参数和返回结果。此外，当Lua调用C函数时，我们必须注册该函数，即必须以一种恰当的方式为Lua提供该C函数的地址。<br>Lua调用C函数时，也使用一个与C语言调用Lua函数时相同类型的栈，C函数从栈中获取参数，并将结果压入栈中。<br>此处的重点在于，这个栈不是一个全局结构；每个函数都有其私有的局部栈。当Lua调用一个C函数时，第一个参数总是位于这个局部栈中索引为1的位置。即使一个C函数调用了Lua代码，而且Lua代码又再次调用了同一个C函数，这些调用每一次都只会看到本次调用自己的私有栈，其中索引为1的位置上就是一个参数。</p>
 <h2 id="C函数"><a href="#C函数" class="headerlink" title="C函数"></a>C函数</h2><p>先举一个例子，让我们实现一个简化版本的正弦函数，该函数返回某个给定数的正弦值：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">l_sin</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	<span class="type">double</span> d = lua_tonumber(L,<span class="number">1</span>);</span><br><span class="line">	lua_pushnumber(L,<span class="built_in">sin</span>(d));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -286,6 +305,26 @@
     
     
     
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
         
 
 <div>
@@ -305,9 +344,10 @@
 
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/C/" rel="tag"># C</a>
-              <a href="/tags/Lua/" rel="tag"># Lua</a>
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
           </div>
 
         
@@ -387,6 +427,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -409,11 +451,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -484,6 +544,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

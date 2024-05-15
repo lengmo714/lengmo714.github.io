@@ -14,21 +14,23 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="通常，Lua语言不会设置规则。相反，Lua语言提供的是足够强大的机制供不同的开发者实现最适合自己的规则。然而，这种方法对于模块而言并不是特别适用。模块系统的主要目标之一就是允许不同的人共享代码，缺乏公共规则就无法实现这样的分享。         (adsbygoogle &#x3D; window.adsbygoogle || []).push({});   Lua语言从5.1版本开始为模块和包定义了一系列">
+  <meta name="description" content="通常，Lua语言不会设置规则。相反，Lua语言提供的是足够强大的机制供不同的开发者实现最适合自己的规则。然而，这种方法对于模块而言并不是特别适用。模块系统的主要目标之一就是允许不同的人共享代码，缺乏公共规则就无法实现这样的分享。 Lua语言从5.1版本开始为模块和包定义了一系列的规则。这些规则不需要从语言中引入额外的功能，程序猿可以使用目前为止我们学习到的机制实现这些规则。程序员也可以自由地使用不">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lua中模块和包">
 <meta property="og:url" content="http://example.com/2020/04/21/Lua%E4%B8%AD%E6%A8%A1%E5%9D%97%E5%92%8C%E5%8C%85/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="通常，Lua语言不会设置规则。相反，Lua语言提供的是足够强大的机制供不同的开发者实现最适合自己的规则。然而，这种方法对于模块而言并不是特别适用。模块系统的主要目标之一就是允许不同的人共享代码，缺乏公共规则就无法实现这样的分享。         (adsbygoogle &#x3D; window.adsbygoogle || []).push({});   Lua语言从5.1版本开始为模块和包定义了一系列">
+<meta property="og:description" content="通常，Lua语言不会设置规则。相反，Lua语言提供的是足够强大的机制供不同的开发者实现最适合自己的规则。然而，这种方法对于模块而言并不是特别适用。模块系统的主要目标之一就是允许不同的人共享代码，缺乏公共规则就无法实现这样的分享。 Lua语言从5.1版本开始为模块和包定义了一系列的规则。这些规则不需要从语言中引入额外的功能，程序猿可以使用目前为止我们学习到的机制实现这些规则。程序员也可以自由地使用不">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-21T12:41:58.000Z">
-<meta property="article:modified_time" content="2024-03-12T01:53:40.408Z">
+<meta property="article:modified_time" content="2024-05-15T11:52:46.072Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta name="twitter:card" content="summary">
@@ -104,6 +106,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -153,16 +156,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -207,7 +238,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -231,18 +262,6 @@
 
       
         <p>通常，Lua语言不会设置规则。相反，Lua语言提供的是足够强大的机制供不同的开发者实现最适合自己的规则。然而，这种方法对于模块而言并不是特别适用。模块系统的主要目标之一就是允许不同的人共享代码，缺乏公共规则就无法实现这样的分享。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>Lua语言从5.1版本开始为模块和包定义了一系列的规则。这些规则不需要从语言中引入额外的功能，程序猿可以使用目前为止我们学习到的机制实现这些规则。程序员也可以自由地使用不同的策略。当然，不同的实现可能会导致程序不能使用外部模块，或者模块不能被外部程序使用。<br>从用户观点来看，一个模块就是一些代码，这些代码可以通过函数require加载，然后创建和返回一个表。这个表就像是某种命名空间，其中定义的内容是模块中导出的东西，比如函数和常量。<br>例如，所有的标准库都是模块。我们可以按照如下的方式使用数学库：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> m = <span class="built_in">require</span> <span class="string">&quot;math&quot;</span></span><br><span class="line"><span class="built_in">print</span>(m.<span class="built_in">sin</span>(<span class="number">3.14</span>))				<span class="comment">-- 0.0015926529164868</span></span><br></pre></td></tr></table></figure>
 <p>独立解释器会使用跟如下代码等价的方式提前加载所有标准库：</p>
@@ -311,6 +330,26 @@
     
     
     
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
         
 
 <div>
@@ -330,8 +369,9 @@
 
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/Lua/" rel="tag"># Lua</a>
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
           </div>
 
         
@@ -411,6 +451,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -433,11 +475,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -508,6 +568,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

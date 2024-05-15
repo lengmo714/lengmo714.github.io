@@ -14,21 +14,23 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="下面这个示例实现了一种很简单的类型，即布尔类型。选用这个示例的只要动机在于它不涉及复杂的算法，便于我们专注于API的问题。不过尽管如此，这个示例本身还是很有用的。当然，我们可以在Lua中用来表示实现布尔数组。但是，在C语言实现中，可以将每个布尔值存储在一个比特中，所使用的内存量不到使用表方法的3%。         (adsbygoogle &#x3D; window.adsbygoogle || []).">
+  <meta name="description" content="下面这个示例实现了一种很简单的类型，即布尔类型。选用这个示例的只要动机在于它不涉及复杂的算法，便于我们专注于API的问题。不过尽管如此，这个示例本身还是很有用的。当然，我们可以在Lua中用来表示实现布尔数组。但是，在C语言实现中，可以将每个布尔值存储在一个比特中，所使用的内存量不到使用表方法的3%。 这个示例需要以下定义： 1234#include &lt;limits.h&gt;#define">
 <meta property="og:type" content="article">
 <meta property="og:title" content="c语言中的用户自定义类型">
 <meta property="og:url" content="http://example.com/2020/07/16/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="下面这个示例实现了一种很简单的类型，即布尔类型。选用这个示例的只要动机在于它不涉及复杂的算法，便于我们专注于API的问题。不过尽管如此，这个示例本身还是很有用的。当然，我们可以在Lua中用来表示实现布尔数组。但是，在C语言实现中，可以将每个布尔值存储在一个比特中，所使用的内存量不到使用表方法的3%。         (adsbygoogle &#x3D; window.adsbygoogle || []).">
+<meta property="og:description" content="下面这个示例实现了一种很简单的类型，即布尔类型。选用这个示例的只要动机在于它不涉及复杂的算法，便于我们专注于API的问题。不过尽管如此，这个示例本身还是很有用的。当然，我们可以在Lua中用来表示实现布尔数组。但是，在C语言实现中，可以将每个布尔值存储在一个比特中，所使用的内存量不到使用表方法的3%。 这个示例需要以下定义： 1234#include &lt;limits.h&gt;#define">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-16T15:01:47.000Z">
-<meta property="article:modified_time" content="2024-03-12T01:53:40.572Z">
+<meta property="article:modified_time" content="2024-05-15T11:52:46.661Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="C">
 <meta property="article:tag" content="Lua">
@@ -105,6 +107,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -154,16 +157,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -208,7 +239,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
 
           
@@ -223,18 +254,6 @@
 
       
         <p>下面这个示例实现了一种很简单的类型，即布尔类型。选用这个示例的只要动机在于它不涉及复杂的算法，便于我们专注于API的问题。不过尽管如此，这个示例本身还是很有用的。当然，我们可以在Lua中用来表示实现布尔数组。但是，在C语言实现中，可以将每个布尔值存储在一个比特中，所使用的内存量不到使用表方法的3%。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>这个示例需要以下定义：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;limits.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BITS_PER_WORD (CHAR_BIT * sizeof(unsigned int))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> I_WORD(i)     ((unsigned int)(i) / BITS_PER_WORD)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> I_BIT(i)	  (1 &lt;&lt; ((unsigned int)(i) % BITS_PER_WORD))</span></span><br></pre></td></tr></table></figure>
 <p>BITS_PER_WORD表示一个无符号整型数的位数，宏I_WORD用于根据指定的索引来计算存放相应比特位的字，I_BIT用于计算访问这个字中相应比特位要用的掩码。<br>我们可以使用一下的结构体来表示布尔数组：</p>
@@ -309,6 +328,26 @@
     
     
     
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
         
 
 <div>
@@ -328,9 +367,10 @@
 
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/C/" rel="tag"># C</a>
-              <a href="/tags/Lua/" rel="tag"># Lua</a>
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
           </div>
 
         
@@ -410,6 +450,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -432,11 +474,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -507,6 +567,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

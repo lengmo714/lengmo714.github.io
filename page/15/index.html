@@ -14,10 +14,12 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -99,6 +101,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -148,16 +151,44 @@
     <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -202,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -226,18 +257,6 @@
 
       
           <p>由于Lua语言强调可移植性和嵌入性，所以Lua语言本身并没有提供太多与外部交互的机制。在真实的Lua程序中，从图形、数据库到网络的网络的访问等大多数I&#x2F;O操作，要么游宿主程序实现，要么通过不包括在发行版中的外部库实现。单就Lua语言而言，只提供IOS C语言标准支持的功能，即基本的文件操作等。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <h2 id="简单I-O模型"><a href="#简单I-O模型" class="headerlink" title="简单I&#x2F;O模型"></a>简单I&#x2F;O模型</h2><p>对于文件操作来说，I&#x2F;O库提供了两种不同的模型。简单模型虚拟了一个当前输入流和一个当前输出流，其I&#x2F;O操作时通过这些流实现的。I&#x2F;O库把当前输入流初始化为进程的标准输入，将当前输出流初始化为进程的标准输出。因此，当执行类似于io.read()这样的语句时，就可以从标准输入中读取一行。<br>函数io.input可以用于改变当前的输入输出流。调用io.input(file-name)会以只读模式打开指定文件，并将文件设置为当前输入流。之后，所有的输入都将来自该文件，除非再次调用io.input。对于输出流而言，函数io.output的逻辑与之类似。如果出现错误，这两个函数都会抛出异常。如果想直接处理这些异常，则必须使用完整I&#x2F;O模型。<br>由于函数write比函数read简单，我们首先来看函数write。函数io.write可以读取任意数量的字符串并将其写入当前输入流。由于调用该函数时可以使用多个参数，因此应该避免使用io.write(a..b..c)，应该调用io.write(a,b,c)，后者可以用更少的资源达到同样的效果，并且可以避免更多的连接动作。<br>作为原则，应该只在“用后即弃”的代码或调试代码中使用函数print；当需要完全控制输出时，应该使用函数io.write。与函数print不同，函数io.wirte不会在最终的输出结果中添加诸如制表符或换行符这样的额外内容。此外，函数io.write允许对输出进行重定向，而函数print只能使用标准输出。最后，函数print可以自动为其参数调用tostring，这一点对于调试而言非常便利，但这也容易导致一些诡异的Bug。<br>函数io.write在将数值转为字符串时遵循一般的转换规则；如果想要完全地控制这种转换，则应该使用函数string.format:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">io</span>.<span class="built_in">write</span>(<span class="string">&quot;sin(3) = &quot;</span>,<span class="built_in">math</span>.<span class="built_in">sin</span>(<span class="number">3</span>),<span class="string">&quot;\n&quot;</span>)		<span class="comment">-- sin(3) = 0.14112000805987</span></span><br><span class="line">&gt; <span class="built_in">io</span>.<span class="built_in">write</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;sin(3) = %0.4f\n&quot;</span>,<span class="built_in">math</span>.<span class="built_in">sin</span>(<span class="number">3</span>))) 			<span class="comment">-- sin(3) = 0.1411</span></span><br></pre></td></tr></table></figure>
 <p>函数io.read可以从当前输入流中读取字符串，其参数决定了要读取的数据：</p>
@@ -335,7 +354,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -359,18 +378,6 @@
 
       
           <p>在Lua语言中，函数是对语句和表达式进行抽象的主要方式。函数既可以用于完成某种特定任务，也可以只是进行一些计算然后返回计算结果。在前一种情况下，我们将一句函数调用视为一条语句；而在后一种情况下，我们则将函数调用视为表达式：</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="number">8</span>*<span class="number">9</span> , <span class="number">9</span>/<span class="number">8</span>)</span><br><span class="line">a = <span class="built_in">math</span>.<span class="built_in">sin</span>(<span class="number">3</span>) + <span class="built_in">math</span>.<span class="built_in">cos</span>(<span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">os</span>.<span class="built_in">date</span>())</span><br></pre></td></tr></table></figure>
 <p>无论哪种情况，函数调用时都需要使用一对圆括号把参数列表括起来。即使被调用的函数不需要参数，也需要一对空括号()。对于这个规则，唯一的例外就是，当函数只有一个参数且该参数是字符串常量或表构造器时:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="string">&quot;Hello World&quot;</span>    &lt;<span class="comment">--&gt; print(&quot;Hello World&quot;)</span></span><br><span class="line"><span class="built_in">dofile</span> <span class="string">&quot;a.lua&quot;</span>		   &lt;<span class="comment">--&gt; dofile(&#x27;a.lua&#x27;)</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">[[a multi-line message]]</span> &lt;<span class="comment">--&gt; print([[a multi-line message]])</span></span><br><span class="line">f&#123;x = <span class="number">10</span> , y = <span class="number">20</span>&#125;		&lt;<span class="comment">--&gt; f(&#123;x = 10 , y = 20&#125;)</span></span><br><span class="line"><span class="built_in">type</span>&#123;&#125;	</span><br></pre></td></tr></table></figure>
@@ -497,7 +504,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -521,18 +528,6 @@
 
       
           <p>表是Lua中最主要和强大的数据结果。使用表，Lua语言可以以一种简单、统一且高效的方式表示数组、集合、记录和其他很多数据结果。Lua语言也使用表来表示包和其他对象。当调用函数math.sin时，我们可能认为是“调用了math库中函数sin”；而对于Lua语言来说，其实际含义是“以字符串sin”为键检索表math。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>Lua语言中的表本质上是一种辅助数组。这种数组不仅可以使用数值作为索引，也可以使用字符串或其他任意类型的值作为索引（nil除外）。<br>我们使用构造器表达式创建表，其最简单的形式是{}:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; a = &#123;&#125;			<span class="comment">--创建一个表然后用表的引用赋值</span></span><br><span class="line">&gt; k = <span class="string">&quot;x&quot;</span></span><br><span class="line">&gt; a[k] = <span class="number">10</span> 		<span class="comment">-- 新元素，键是&quot;x&quot;,值是10</span></span><br><span class="line">&gt; a[<span class="number">20</span>] = <span class="string">&quot;great&quot;</span>	<span class="comment">-- 新元素，键是20，值是&quot;great&quot;</span></span><br><span class="line">&gt; a[<span class="string">&quot;x&quot;</span>]			<span class="comment">-- 10</span></span><br><span class="line">&gt; k = <span class="number">20</span></span><br><span class="line">&gt; a[k]				<span class="comment">-- &quot;great&quot;</span></span><br><span class="line">&gt; a[<span class="string">&quot;x&quot;</span>] = a[<span class="string">&quot;x&quot;</span>] + <span class="number">1</span> <span class="comment">-- 增加元素&quot;x&quot;的值</span></span><br><span class="line">&gt; a[<span class="string">&quot;x&quot;</span>]</span><br></pre></td></tr></table></figure>
 <p>表永远是匿名的，表本身和保存表的变量之间没有固定的关系：</p>
@@ -647,7 +642,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -671,18 +666,6 @@
 
       
           <p>字符串用于文本。Lua语言中的字符串即可以表示单个字符，也可以表示一整本书籍。在Lua语言中，操作100K或者1M个字母组成的字符串的程序也很常见。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>Lua语言中的字符串是不可变值。我们不能像在C语言中那样直接改变某个字符串中的某个字符，但是我们可以通过创建一个新的字符串的方式来达到修改的目的。例如：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;one string&quot;</span></span><br><span class="line">b = <span class="built_in">string</span>.<span class="built_in">gsub</span>(a,<span class="string">&quot;one&quot;</span>,<span class="string">&quot;another&quot;</span>) <span class="comment">--改变字符串中的某些部分</span></span><br><span class="line"><span class="built_in">print</span>(a)				<span class="comment">--one string</span></span><br><span class="line"><span class="built_in">print</span>(b)				<span class="comment">--another string</span></span><br></pre></td></tr></table></figure>
 <p>像Lua语言中的其他对象一样，Lua语言中的字符串也是自动内存管理的对象之一。这意味着Lua语言会负责字符串的分配和释放，开发人员无须关注。<br>可以使用长度操作符(#)获取字符串的长度：</p>
@@ -785,7 +768,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -808,19 +791,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>我们可以使用科学计数法（一个可选的十进制部分外加一个可选的十进制指数部分）书写数值常量，例如：</p>
+          <p>我们可以使用科学计数法（一个可选的十进制部分外加一个可选的十进制指数部分）书写数值常量，例如：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">4</span>             <span class="comment">--4</span></span><br><span class="line">&gt; <span class="number">0.4</span>			<span class="comment">--0.4</span></span><br><span class="line">&gt; <span class="number">4.57e-3</span>		<span class="comment">--0.00457</span></span><br><span class="line">&gt; <span class="number">0.3e12</span>		<span class="comment">--3.0000000000.0</span></span><br><span class="line">&gt; <span class="number">5E+20</span>			<span class="comment">--5e+20</span></span><br></pre></td></tr></table></figure>
 <p>具有十进制小数或者指数的数值会被当做浮点型值，否则会被当做整数值。<br>整型数和浮点数的类型都是<code>number</code>：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">type</span>(<span class="number">3</span>)			<span class="comment">--number</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="number">3.5</span>)			<span class="comment">--number</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="number">3.0</span>)			<span class="comment">--number</span></span><br></pre></td></tr></table></figure>
@@ -946,7 +917,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -970,18 +941,6 @@
 
       
           <p>遵照惯例，我们的第一个Lua程序时通过标准输出打印字符串”Hello World”:<br><code>print(&quot;Hello World&quot;)</code></p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>如果读者使用的是Lua语言独立解释器(stand-alone interpreter)，要运行这第一个程序的话，直接调用解释器运行包含程序代码的文本文件就可以了。例如，如果把上述代码保存为名hello.lua的文件，那么可以通过以下命令运行：<br><code>% lua hello.lua</code></p>
 <p>再来看一个稍微复杂点的例子，以下代码定义了一个计算阶乘的函数，该函数先让用户输入一个数，然后打印出这个数的阶乘结果：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--定义一个计算阶乘的函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fact</span><span class="params">(n)</span></span></span><br><span class="line">	<span class="keyword">if</span> n  == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> n * fact(n<span class="number">-1</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;enter a number:&quot;</span>)</span><br><span class="line"></span><br><span class="line">a = <span class="built_in">io</span>.<span class="built_in">read</span>(<span class="string">&quot;*n&quot;</span>)  <span class="comment">--读取一个数字</span></span><br><span class="line"><span class="built_in">print</span>(fact(a))</span><br></pre></td></tr></table></figure>
@@ -1083,7 +1042,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1107,18 +1066,6 @@
 
       
           <p>今天在写游戏的时候，遇到了一个数据问题，就开始查资料</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>代码如下</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- Deep copies a table into a new table.</span></span><br><span class="line"><span class="comment">-- Tables used as keys are also deep copied, as are metatables</span></span><br><span class="line"><span class="comment">-- @param orig The table to copy</span></span><br><span class="line"><span class="comment">-- @return Returns a copy of the input table</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">deep_copy</span><span class="params">(orig)</span></span></span><br><span class="line">  <span class="keyword">local</span> copy</span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">type</span>(orig) == <span class="string">&quot;table&quot;</span> <span class="keyword">then</span></span><br><span class="line">    copy = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> orig_key, orig_value <span class="keyword">in</span> <span class="built_in">next</span>, orig, <span class="literal">nil</span> <span class="keyword">do</span></span><br><span class="line">      copy[deep_copy(orig_key)] = deep_copy(orig_value)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="built_in">setmetatable</span>(copy, deep_copy(<span class="built_in">getmetatable</span>(orig)))</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    copy = orig</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">return</span> copy</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--- Copies a table into a new table.</span></span><br><span class="line"><span class="comment">-- neither sub tables nor metatables will be copied.</span></span><br><span class="line"><span class="comment">-- @param orig The table to copy</span></span><br><span class="line"><span class="comment">-- @return Returns a copy of the input table</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">shallow_copy</span><span class="params">(orig)</span></span></span><br><span class="line">  <span class="keyword">local</span> copy</span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">type</span>(orig) == <span class="string">&quot;table&quot;</span> <span class="keyword">then</span></span><br><span class="line">    copy = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> orig_key, orig_value <span class="keyword">in</span> <span class="built_in">pairs</span>(orig) <span class="keyword">do</span></span><br><span class="line">      copy[orig_key] = orig_value</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">else</span> <span class="comment">-- number, string, boolean, etc</span></span><br><span class="line">    copy = orig</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">return</span> copy</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>例子如下：<br>深拷贝</p>
@@ -1177,7 +1124,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1201,18 +1148,6 @@
 
       
           <p>最近在工作中经常需要从git拉取到一些项目到本地，但是因为本地项目被我自己修改，所以无法用传统的方式将远程仓库的项目拉取下来。下面介绍一种远程仓库强制拉取项目到本地的方法。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <blockquote>
 <p>除非必须强制，不要轻易使用。</p>
 </blockquote>
@@ -1274,7 +1209,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1298,19 +1233,6 @@
 
       
           <p>闲着无聊，在网上找了一些好玩的代码，比如用Python实现微信自动回消息<br>之前弄了一个定时自动给好友发天气或者发心灵鸡汤的脚本，下载链接：<a target="_blank" rel="noopener" href="https://download.csdn.net/download/silent_f/11162951">https://download.csdn.net/download/silent_f/11162951</a></p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-
 <p>今天这里就介绍几个微信接入图灵机器人，自动和好友聊天的脚本</p>
 <h3 id="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"><a href="#1、自动和所有好友聊天，只要好友发消息来，就会给好友回复" class="headerlink" title="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"></a>1、自动和所有好友聊天，只要好友发消息来，就会给好友回复</h3><p>这里笔者用的是3.6版本python ,安装itchat,<br>用下面命令</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install itchat </span><br></pre></td></tr></table></figure>
@@ -1372,7 +1294,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1396,18 +1318,6 @@
 
       
           <p>初学lua，可能会对<code>.</code>和<code>:</code>这两个符号的用法产生疑问，很多时候都会因为这个出错，这里笔者简单介绍下笔者在使用cocos2dx游戏开发中对这两者的认识</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <p>冒号的作用：定义函数时，给函数添加隐藏的第一个参数<code>self</code>，调用函数时，默认把当前调用者作为第一个参数传递进去。<br>使用冒号后，就相当于我们使用了点号，只是我们不再需要显示的定义<code>self</code>参数以及主动低传递参数。</p>
 <p>在cocos2dx 开发过程中，大部分时候都是使用的冒号</p>
 <p>一般我们在定义函数时会用下面写法</p>
@@ -1495,6 +1405,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">南锋</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -1517,11 +1429,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -1592,6 +1522,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
