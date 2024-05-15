@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Lua连续教程之Lua位和字节 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Lua语言处理二进制数据的方式与处理文本的方式类似。Lua语言中的字符串可以包含热议字节，并且几乎所有能够处理字符串的库函数也能处理任意字节。我们甚至可以对二进制数据进行模式匹配。以此为基础，Lua5.3中引入了用于操作二进制数据的额外机制：除了整型数外，该版本还引入了位操作及用于打包&#x2F;解包二进制数据的函数。         (adsbygoogle &#x3D; window.adsbygoog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua连续教程之Lua位和字节">
+<meta property="og:url" content="http://example.com/2020/04/18/Lua%E4%BD%8D%E5%92%8C%E5%AD%97%E8%8A%82/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Lua语言处理二进制数据的方式与处理文本的方式类似。Lua语言中的字符串可以包含热议字节，并且几乎所有能够处理字符串的库函数也能处理任意字节。我们甚至可以对二进制数据进行模式匹配。以此为基础，Lua5.3中引入了用于操作二进制数据的额外机制：除了整型数外，该版本还引入了位操作及用于打包&#x2F;解包二进制数据的函数。         (adsbygoogle &#x3D; window.adsbygoog">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-18T03:51:18.000Z">
+<meta property="article:modified_time" content="2024-03-12T01:53:40.410Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Lua位和字节" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/04/18/Lua%E4%BD%8D%E5%92%8C%E5%AD%97%E8%8A%82/" class="article-date">
+  <time class="dt-published" datetime="2020-04-18T03:51:18.000Z" itemprop="datePublished">2020-04-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Lua连续教程之Lua位和字节
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Lua语言处理二进制数据的方式与处理文本的方式类似。Lua语言中的字符串可以包含热议字节，并且几乎所有能够处理字符串的库函数也能处理任意字节。我们甚至可以对二进制数据进行模式匹配。以此为基础，Lua5.3中引入了用于操作二进制数据的额外机制：除了整型数外，该版本还引入了位操作及用于打包&#x2F;解包二进制数据的函数。</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><p>Lua语言从5.3版本开始提供了针对数值类型的一组标准位运算符与算术运算符不同的是，位运算符只能用于整型数。位运算符包括<code>&amp;</code>(按位与)、<code>|</code>(按位或)、<code>~</code>(按位异或)、<code>&gt;&gt;</code>(逻辑右移)、<code>&lt;&lt;</code>(逻辑左移)和一元运算符<code>~</code>(按位取反)。<br>所有的位运算都针对构成一个整型数的所有位。在标准Lua中，也就是64位。这对于用32位整型数的算法可能会成问题。不过，要操作32位整型数也不难。除了右移操作外，只要忽略高32位，那么所有针对64位整型数的操作与针对32位整型数的操作都一样。这对于加法、减法和乘法都有效。因此，在操作32位整型数时，只需要在进行右移前抹去高32位即可。<br>两个移位操作都会用0填充空出的位，这种行为通常被称为逻辑移位。Lua语言没有提供算术右移，即使用符号位填充空出的位。我们可以通过向下取整除法，除以合适的2的整数次幂实现算术右移。<br>移位数是负数表示向相反的方向移位，即a&gt;&gt;n与a&lt;&lt;-n等价：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%x&quot;</span>,<span class="number">0xff</span> &lt;&lt; <span class="number">12</span>) 			<span class="comment">-- ff000</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%x&quot;</span>,<span class="number">0xff</span> &gt;&gt; <span class="number">-12</span>)			<span class="comment">-- ff000</span></span><br></pre></td></tr></table></figure>
+<p>如果移位数等于或大于整型表示的位数，由于所有的位都被从结果中移出了，所有结果是0：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%x&quot;</span>,<span class="number">-1</span> &lt;&lt; <span class="number">80</span>)		<span class="comment">-- 0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="无符号整型数"><a href="#无符号整型数" class="headerlink" title="无符号整型数"></a>无符号整型数</h2><p>整型表示中使用一个比特来存储符号位。因此，64位整型数最大可以表示2^63^ - 1 而不是2^64^ -1。通常，这点区别是无关紧要的。因为2^63^ - 1 已经相当大了。不过，由于我们可能需要处理使用无符号整型表示的外部数据或实现一些需要64位整型数的算法，因而有时也不能浪费这个符号位。因此，在精简Lua中，这种区别可能会很重要。例如，如果用一个32位有符号整型数表示文件中的位置，那么能够操作的最大文件大小就是2GB；而一个无符号整型数能操作的最大文件大小则是有符号整型数的2倍，即4GB。<br>Lua语言不显示支持无符号整型数。不过尽管如此，只要稍加注意，在Lua语言中处理无符号整型数并不难。<br>虽然看上去不太友好，但可以直接写出比2^63^-1大的常量：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">13835058055282163712</span>		<span class="comment">-- 3 &lt;&lt; 62</span></span><br><span class="line">x 	<span class="comment">-- -4611686018427387904</span></span><br></pre></td></tr></table></figure>
+<p>这里的问题并不在于常量本身，而在于Lua语言输出常量的方式：默认情况下，打印数值时是将其作为有符号整型数进行处理的。我们可以使用选项%u或%x在函数string.format中指定以无符号整型数进行输出：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%u&quot;</span>,x)			<span class="comment">-- 1383505855282163712</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;0x%X&quot;</span>,x)			<span class="comment">-- 0xC000000000000000</span></span><br></pre></td></tr></table></figure>
+<p>根据有符号整型数的表示方式，加法、减法和乘法操作对于有符号整型数和无符号整型数是一样的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%u&quot;</span>,x)			<span class="comment">-- 1383505855282163712</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%u&quot;</span>,x+<span class="number">1</span>)			<span class="comment">-- 1383505855282163713</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%u&quot;</span>,x<span class="number">-1</span>)			<span class="comment">-- 1383505855282163711</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>对于这么大的数，即便x乘以2也会溢出，所以示例中没有演示乘法</p>
+</blockquote>
+<p>关系运算对于有符号整型数和无符号整型数是不一样的，当比较具有不同符号位的整型数时就会出现问题。对于有符号整型数而言，符号位被置位的整数更小，因为它代表的是负数：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0x7fffffffffffffff</span> &lt; <span class="number">0x8000000000000000</span>  <span class="comment">-- false</span></span><br></pre></td></tr></table></figure>
+<p>如果把两个整型数当作无符号的，那么结果显然是不正确的。因此，我们需要使用一种不同的操作来比较无符号整型数。Lua5.3提供了函数math.ult来完成这个需求：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">math</span>.ult(<span class="number">0x7fffffffffffffff</span>,<span class="number">0x8000000000000000</span>)  <span class="comment">-- true</span></span><br></pre></td></tr></table></figure>
+<p>另一种方法是在进行有符号比较前先用掩码掩去两个操作数的符号位：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mask = <span class="number">0x8000000000000000</span></span><br><span class="line">(<span class="number">0x7fffffffffffffff</span> ~mask)&lt;(<span class="number">0x8000000000000000</span> ~mask)		<span class="comment">--true</span></span><br></pre></td></tr></table></figure>
+<p>无符号除法和有符号除法也不一样</p>
+<blockquote>
+<p>无符号除法</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">udiv</span><span class="params">(n,d)</span></span></span><br><span class="line">	<span class="keyword">if</span> d &lt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">math</span>.ult(n,d) <span class="keyword">then</span> <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">local</span> q = ((n &gt;&gt; <span class="number">1</span>)//d) &lt;&lt; <span class="number">1</span></span><br><span class="line">	<span class="keyword">local</span> r = n - q * d</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">math</span>.ult(r,d) <span class="keyword">then</span> q = q + <span class="number">1</span> <span class="keyword">end</span></span><br><span class="line">	<span class="keyword">return</span> q</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>第一个比较（d&lt;0）等价于比较d是否大于2^63^。如果大于，那么商只能是1（如果n等于或大于d）或0。否则，我们使被除数除以2，然后除以除数，再把结果乘以2。右移1位等价于除以2的无符号除法，其结果是一个非负的有符号整型数。后续的左移纠正了商，还原了之前的除法。<br>总体上说，floor(floor(n&#x2F;2)&#x2F;d)*2(算法进行的计算)与floor(((n&#x2F;2)&#x2F;d)*2)(正确的结果）并不等价，不过，要证明它们之间最多相差1并不困难。因此，算计计算了余数（变量r），然后判断余数是否比除数大，如果余数比除数大则纠正商即可。<br>无符号整型数和浮点型数之间的转换需要进行一些调整。要把一个无符号整型数转换为浮点型数，可以先将其转换成有符号整型数，然后通过取模运算纠正救过：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">u = <span class="number">11529215046068469760</span></span><br><span class="line">f = (u + <span class="number">0.0</span>) % <span class="number">2</span>^<span class="number">64</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%.0f&quot;</span>,f)			<span class="comment">-- 11529215046068469760</span></span><br></pre></td></tr></table></figure>
+<p>由于标准转换把u当做有符号整型数，因此表达式u+0.0的值是-6917529027641081856，而之后的取模操作会把这个值限制在有符号整型数的表示范围内。<br>要把一个浮点型数转换为无符号整型数，可以使用如下代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="number">0xA000000000000000</span><span class="number">.0</span>		</span><br><span class="line">u = <span class="built_in">math</span>.tointerger(((f + <span class="number">2</span>^<span class="number">63</span>)%<span class="number">2</span>^<span class="number">64</span>) - <span class="number">2</span>^<span class="number">63</span>)</span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%x&quot;</span>,u)			<span class="comment">-- a000000000000000</span></span><br></pre></td></tr></table></figure>
+<p>加法把一个大于2^63^的数转换为一个大于2^64^的数，取模运算把这个数限制到[0,2^63^)范围内，然后通过减法把结果变成一个“负”值。对于小于2^63^的值，加法结果小于2^64^，所以取模运算没有任何效果，之后的减法则把它恢复到了之前的值。</p>
+<h2 id="打包和解包二进制数据"><a href="#打包和解包二进制数据" class="headerlink" title="打包和解包二进制数据"></a>打包和解包二进制数据</h2><p>Lua5.3还引入了一个在二进制数和基本类型值之间进行转换的函数。函数string.pack会把值“打包”为二进制字符串，而函数string.unpack则从字符串中提取这些值。<br>函数string.pack和函数string.unpack的第1个参数是格式化字符串，用于描述如何打包数据。格式化字符串中的每个字母都描述了如何打包&#x2F;解包一个值，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="built_in">string</span>.pack(<span class="string">&quot;iii&quot;</span>,<span class="number">3</span>,<span class="number">-27</span>,<span class="number">450</span>)</span><br><span class="line">#s</span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;iii&quot;</span>,s)		<span class="comment">-- 3	-27	450	13</span></span><br></pre></td></tr></table></figure>
+<p>调用函数string.pack将创建一个字符串，其中为3个整型数的二进制代码。每一个”i”编码对与之对应的参数进行了编码，而字符串的长度则是一个整型数本身大小的3倍。调用函数string.unpack对给定字符串中的3个整型数进行了解码并返回解码后的结果。<br>为了便于迭代，函数string.unpack还会返回最后一个读取的元素在字符串中的位置。相应地，该函数还有一个可选的第3个参数，这个参数用于指定开始读取的位置。例如，下例输出了一个指定字符串中所有被打包的字符串：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;hello\0Lua\0world\0&quot;</span></span><br><span class="line"><span class="keyword">local</span> i = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> i &lt;= #s <span class="keyword">do</span></span><br><span class="line">	<span class="keyword">local</span> res</span><br><span class="line">	res, i = <span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;z&quot;</span>,s,i)</span><br><span class="line">	<span class="built_in">print</span>(res)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- hello</span></span><br><span class="line"><span class="comment">-- Lua</span></span><br><span class="line"><span class="comment">-- world</span></span><br></pre></td></tr></table></figure>
+<p>对于编码一个整型数而言有几种选项，每一种对应了一种整型大小：b(char)、h(short)、i(int)、l(long)和j(代表Lua语言中整型数的大小)。要是使用固定的、与机器无关的大小，可以在选项i后加上一个1~16的数。例如，i7会产生7个字节的整型数。所有的大小都会被检查是否存在一处的情况：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="built_in">string</span>.pack(<span class="string">&quot;i7&quot;</span>, i &lt;&lt; <span class="number">54</span>)</span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;i7&quot;</span>,x)				<span class="comment">-- 18014398509481984	8</span></span><br><span class="line">x = <span class="built_in">string</span>.pack(<span class="string">&quot;i7&quot;</span>,-(<span class="number">1</span> &lt;&lt; <span class="number">54</span>))</span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;i7&quot;</span>,x)				<span class="comment">-- -1801439850948		8</span></span><br><span class="line">x = <span class="built_in">string</span>.pack(<span class="string">&quot;i7&quot;</span>,<span class="number">1</span> &lt;&lt; <span class="number">55</span>)</span><br><span class="line"><span class="built_in">stdin</span>:<span class="number">1</span>:bad argument #<span class="number">2</span> to <span class="string">&#x27;pack&#x27;</span>(interger overflow)</span><br></pre></td></tr></table></figure>
+<p>我们可以打包和解包比Lua语言原生整型数更大的整型数，但是在解包的时候它们的实际值必须能够被Lua语言的整型数容纳：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="built_in">string</span>.pack(<span class="string">&quot;i12&quot;</span>,<span class="number">2</span>^<span class="number">61</span>)</span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;i12&quot;</span>,x)				<span class="comment">-- 23058443009213693952		13</span></span><br><span class="line">x = <span class="string">&quot;aaaaaaaaaaaa&quot;</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;i12&quot;</span>,x)</span><br><span class="line"><span class="built_in">stdin</span>:<span class="number">1</span>: <span class="number">12</span>-<span class="built_in">byte</span> integer does <span class="keyword">not</span> fit into Lua integer</span><br></pre></td></tr></table></figure>
+<p>每一个针对整型数的选项都有一个对应的大写版本，对应相应大小的无符号整型数：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="string">&quot;\xFF&quot;</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;b&quot;</span>,s)		<span class="comment">-- -1 2</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;B&quot;</span>,s)		<span class="comment">-- 255 2</span></span><br></pre></td></tr></table></figure>
+<p>同时，无符号整型数对于size_t而言还有一个额外的选项T。<br>我们可以用3中表示形式打包自付出：\0结尾的字符串、定长字符串和使用显示长度的字符串。\0结尾的字符串使用选项z；定长字符串使用选项cn，其中n是被打包字符串的字节数。显示长度的字符串在存储时会在字符串前加上该字符串的长度。在这种情况下，选项格式形如sn，其中n是用于保存字符串长度的无符号整型数的大小。例如，选项s1表示把字符串长度保存在一个字节中：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="built_in">string</span>.pack(<span class="string">&quot;s1&quot;</span>,<span class="string">&quot;hello&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, #s <span class="keyword">do</span> <span class="built_in">print</span>((<span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;B&quot;</span>,s,i))) <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 5	(length)</span></span><br><span class="line"><span class="comment">-- 104	(&#x27;h&#x27;)</span></span><br><span class="line"><span class="comment">-- 101	(&#x27;e&#x27;)</span></span><br><span class="line"><span class="comment">-- 108	(&#x27;l&#x27;)</span></span><br><span class="line"><span class="comment">-- 108	(&#x27;l&#x27;)</span></span><br><span class="line"><span class="comment">-- 111	(&#x27;o&#x27;)</span></span><br></pre></td></tr></table></figure>
+<p>如果用于保存长度的字节容纳不了字符串长度，那么Lua语言会抛出异常。我们也可以单纯使用选项s，在这种情况下，字符串长度会被以足够容纳任何字符串长度的size_t类型保存。<br>对于浮点型数，有3中选项：f用于单精度浮点数、d用于双精度浮点数、n用于Lua语言浮点数。<br>格式字符串也有用来控制大小端模式和二进制数据对齐的选项。在默认情况下，格式使用的是机器原生的大小端模式。选项&gt;把所有后续的编码转换改为大端模式或网络字节序：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="built_in">string</span>.pack(<span class="string">&quot;&gt;i4&quot;</span>,<span class="number">1000000</span>)</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, #s <span class="keyword">do</span> <span class="built_in">print</span>((<span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;B&quot;</span>,s,i))) <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 00</span></span><br><span class="line"><span class="comment">-- 15</span></span><br><span class="line"><span class="comment">-- 66</span></span><br><span class="line"><span class="comment">-- 64</span></span><br></pre></td></tr></table></figure>
+<p>选项&lt;则改为小端模式：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="built_in">string</span>.pack(<span class="string">&quot;&lt;i2 i2&quot;</span>,<span class="number">500</span>,<span class="number">24</span>)</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, #s <span class="keyword">do</span> <span class="built_in">print</span>((<span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;B&quot;</span>,s,i))) <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 244</span></span><br><span class="line"><span class="comment">-- 1</span></span><br><span class="line"><span class="comment">-- 24</span></span><br><span class="line"><span class="comment">-- 0</span></span><br></pre></td></tr></table></figure>
+<p>最后，选项&#x3D;改回机器默认的原生大小端模式。<br> 对于对齐而言，选项!n强制数据对齐到以n为倍数的索引上。更准确地说，如果数据比n小，那么对齐到其自身大小上；否则，对齐到n上。例如，假设格式化字符串为!4，那么1字节整型数会被写入以1为倍数的索引位置上，2字节的整型数会被写入以2为倍数的索引位置上，而4字节或更大的整型数则会被写入以4为倍数的索引位置上，而选项!(不带数字)则把对齐设为机器默认的对齐方式。<br> 函数string.pack通过在结果字符串到达合适索引值前增加0的方式实现对齐，函数string.unpack在读取字符串时会简单地跳过这些补位。对齐只对2的整数次幂有效，如果把对齐设为4但视图操作3字节的整型数，那么Lua语言会抛出异常。<br> 所有的格式化字符串默认带有前缀”&#x3D;!1”，即表示使用默认大小端模式且不对齐。我们可以在程序执行过程中的任意时点改变大小端模式和对齐方式。<br> 如果需要，可以手工添加补位。选项x代表1字节的补位，函数string.pack会在结果字符串中增加一个0字节，而函数string.unpack则从目标字符串中跳过1字节。</p>
+<h2 id="二进制文件"><a href="#二进制文件" class="headerlink" title="二进制文件"></a>二进制文件</h2><p>函数io.input和io.output总是以文本方式打开文件。在POSIX操作系统中，二进制文件和文本文件是没有差别的。然后，在其他一些像Windows之类的操作系统中，必须用特殊方式打开二进制文件，即在io.open的模式字符串中使用字母b。<br>通常，在读取二进制数据时，要么使用模式”a”开读取整个文件，要么使用模式n来读取n个字节。下面是一个简单的示例，它会把Windows格式的文本文件转换为POSIX格式，即把\r\n转换为\n:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> inp = <span class="built_in">assert</span>(<span class="built_in">io</span>.<span class="built_in">open</span>(<span class="built_in">arg</span>[<span class="number">1</span>],<span class="string">&quot;rb&quot;</span>))</span><br><span class="line"><span class="keyword">local</span> out = <span class="built_in">assert</span>(<span class="built_in">io</span>.<span class="built_in">open</span>(<span class="built_in">arg</span>[<span class="number">2</span>],<span class="string">&quot;wb&quot;</span>))</span><br><span class="line"><span class="keyword">local</span> data = inp:<span class="built_in">read</span>(<span class="string">&quot;a&quot;</span>)</span><br><span class="line">data = <span class="built_in">string</span>.<span class="built_in">gsub</span>(data,<span class="string">&quot;\r\n&quot;</span>,<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">out:<span class="built_in">write</span>(data)</span><br><span class="line"><span class="built_in">assert</span>(out:<span class="built_in">close</span>())</span><br></pre></td></tr></table></figure>
+<p>由于标准I&#x2F;O流是以文本模式打开的，所以上例不能使用标准I&#x2F;O流。相反，该程序假设输入和输出文件的名称是由程序的参数指定的。可以使用如下的命令调用该程序：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua prog.lua file.dos file.unix</span><br></pre></td></tr></table></figure>
+<p>再举一个例子，一下的程序输出了一个二进制文件中的所有字符：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">io</span>.<span class="built_in">open</span>[<span class="number">1</span>],<span class="string">&quot;rb&quot;</span>))</span><br><span class="line"><span class="keyword">local</span> data = f:<span class="built_in">read</span>(<span class="string">&quot;a&quot;</span>)</span><br><span class="line"><span class="keyword">local</span> validchars = <span class="string">&quot;[%g%s]&quot;</span></span><br><span class="line"><span class="keyword">local</span> pattern = <span class="string">&quot;(&quot;</span> .. <span class="built_in">string</span>.<span class="built_in">rep</span>(validchars,<span class="number">6</span>) .. <span class="string">&quot;+)\0&quot;</span></span><br><span class="line"><span class="keyword">for</span> w <span class="keyword">in</span> <span class="built_in">string</span>.<span class="built_in">gmatch</span>(data,pattern) <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(w)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>这个程序假定字符串是一个以\0结尾的、包含6个或6个以上有效字符的序列，其中有效字符是指能与模式validchars匹配的任意字符。在这个示例中，这个模式由可打印字符组成。我们使用函数string.rep和字符串连接创建用于捕获以\0结尾的、包含6个或6个以上有效字符validchars的模式，这个模式中的括号用于捕获不带\0的字符串。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/04/18/Lua%E4%BD%8D%E5%92%8C%E5%AD%97%E8%8A%82/" data-id="clw7ne0x5001r4sadfb0a8kgw" data-title="Lua连续教程之Lua位和字节" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/18/Lua%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Lua数据结构
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/17/Lua%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Lua日期和时间</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Autodesk3dMax/">Autodesk3dMax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/algolia/">algolia</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web-Development/">Web Development</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/Visual-Studio/">Visual Studio</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-ndk/">android ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/">cocos Creator</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/">json</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/">js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/">node</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/TypeScript/">TypeScript</a></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-creator/">cocos creator</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">小程序开发</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/https/">https</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ssh/">ssh</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97/">蓝牙模块</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E8%84%9A%E6%9C%AC/">工具脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B8%B8%E8%A7%81bug/">常见bug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B9%BF%E5%91%8A/">广告</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/">开发工具的使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/">日常代码</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/">微信</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/%E6%95%B0%E6%8D%AE%E6%8A%93%E5%8F%96/">数据抓取</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97/">俄罗斯方块</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/">Python绘图</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/%E6%8A%96%E9%9F%B3%E7%83%AD%E9%97%A8/">抖音热门</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/">工作生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/">实用工具</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">服务器搭建</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C/">虚拟专用网络</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">电脑使用技巧</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A0%B4%E8%A7%A3%E8%BD%AF%E4%BB%B6/">破解软件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/">Lua编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1/">网页设计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%8A%82%E6%97%A5%E7%A5%9D%E7%A6%8F/">节日祝福</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/">通信工程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/">实习报告</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1%E7%A7%91%E6%8A%80%E4%BA%BA%E5%91%98%E8%81%8C%E4%B8%9A%E9%81%93%E5%BE%B7/">通信科技人员职业道德</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" rel="tag">1024程序员节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/404/" rel="tag">404</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autodesk3dMax/" rel="tag">Autodesk3dMax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos-Creator/" rel="tag">Cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/" rel="tag">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/" rel="tag">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sprite/" rel="tag">Sprite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinter/" rel="tag">Thinter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Word/" rel="tag">Word</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ndk/" rel="tag">android ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos/" rel="tag">cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-Creator/" rel="tag">cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-creator/" rel="tag">cocos creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos2dx/" rel="tag">cocos2dx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/facebook/" rel="tag">facebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lua/" rel="tag">lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ndkr10e/" rel="tag">ndkr10e</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quick-Cocos/" rel="tag">quick Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shader/" rel="tag">shader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tolua/" rel="tag">tolua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/" rel="tag">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeScript/" rel="tag">typeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vsCode/" rel="tag">vsCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" rel="tag">创意编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" rel="tag">游戏开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" rel="tag">游戏性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" rel="tag">电脑使用技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" rel="tag">粒子特效</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86/" rel="tag">纹理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" rel="tag">纹理优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A0%81/" rel="tag">编码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%B4%E6%95%AC/" rel="tag">致敬</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8A%82%E6%97%A5/" rel="tag">节日</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82/" rel="tag">请求</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" style="font-size: 10px;">1024程序员节</a> <a href="/tags/404/" style="font-size: 10px;">404</a> <a href="/tags/Android/" style="font-size: 12.22px;">Android</a> <a href="/tags/Autodesk3dMax/" style="font-size: 10px;">Autodesk3dMax</a> <a href="/tags/C/" style="font-size: 14.44px;">C</a> <a href="/tags/Cocos-Creator/" style="font-size: 12.22px;">Cocos Creator</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 14.44px;">Java</a> <a href="/tags/Lua/" style="font-size: 20px;">Lua</a> <a href="/tags/Mac/" style="font-size: 11.11px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Sprite/" style="font-size: 10px;">Sprite</a> <a href="/tags/Thinter/" style="font-size: 10px;">Thinter</a> <a href="/tags/TypeScript/" style="font-size: 16.67px;">TypeScript</a> <a href="/tags/Word/" style="font-size: 10px;">Word</a> <a href="/tags/Xcode/" style="font-size: 11.11px;">Xcode</a> <a href="/tags/android/" style="font-size: 11.11px;">android</a> <a href="/tags/android-ndk/" style="font-size: 10px;">android ndk</a> <a href="/tags/cocos/" style="font-size: 10px;">cocos</a> <a href="/tags/cocos-Creator/" style="font-size: 18.89px;">cocos Creator</a> <a href="/tags/cocos-creator/" style="font-size: 10px;">cocos creator</a> <a href="/tags/cocos2dx/" style="font-size: 17.78px;">cocos2dx</a> <a href="/tags/facebook/" style="font-size: 10px;">facebook</a> <a href="/tags/git/" style="font-size: 11.11px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/java/" style="font-size: 11.11px;">java</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/mac/" style="font-size: 11.11px;">mac</a> <a href="/tags/ndkr10e/" style="font-size: 10px;">ndkr10e</a> <a href="/tags/python/" style="font-size: 15.56px;">python</a> <a href="/tags/quick-Cocos/" style="font-size: 11.11px;">quick Cocos</a> <a href="/tags/shader/" style="font-size: 11.11px;">shader</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tolua/" style="font-size: 10px;">tolua</a> <a href="/tags/ts/" style="font-size: 10px;">ts</a> <a href="/tags/typeScript/" style="font-size: 10px;">typeScript</a> <a href="/tags/vsCode/" style="font-size: 11.11px;">vsCode</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">创意编程</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">服务器</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" style="font-size: 10px;">游戏开发</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" style="font-size: 10px;">游戏性能</a> <a href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" style="font-size: 11.11px;">电脑使用技巧</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.33px;">硬件</a> <a href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" style="font-size: 10px;">粒子特效</a> <a href="/tags/%E7%BA%B9%E7%90%86/" style="font-size: 10px;">纹理</a> <a href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" style="font-size: 10px;">纹理优化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E8%87%B4%E6%95%AC/" style="font-size: 10px;">致敬</a> <a href="/tags/%E8%8A%82%E6%97%A5/" style="font-size: 10px;">节日</a> <a href="/tags/%E8%AF%B7%E6%B1%82/" style="font-size: 10px;">请求</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx%E4%BD%BF%E7%94%A8%E5%B8%A7%E5%8A%A8%E7%94%BB/">cocos2dx使用帧动画</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx_lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/">cocos2dx_lua键盘监听</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-lua%E8%AE%BE%E7%BD%AE%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7/">cocos2dx-lua设置节点层级</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-lua%E5%AF%B9%E5%9B%BE%E7%89%87%E8%BF%9B%E8%A1%8C%E4%B9%9D%E5%AE%AB%E6%A0%BC%E7%BC%A9%E6%94%BE/">cocos2dx-lua对图片进行九宫格缩放</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-Lua%E4%B8%ADLabel%E6%96%87%E6%9C%AC%E8%B6%85%E8%BF%87%E7%89%B9%E5%AE%9A%E9%95%BF%E5%BA%A6%E4%BD%BF%E7%94%A8...%E4%BB%A3%E6%9B%BF/">cocos2dx-Lua中Label文本超过特定长度使用...代替</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Lua中模块和包 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="通常，Lua语言不会设置规则。相反，Lua语言提供的是足够强大的机制供不同的开发者实现最适合自己的规则。然而，这种方法对于模块而言并不是特别适用。模块系统的主要目标之一就是允许不同的人共享代码，缺乏公共规则就无法实现这样的分享。         (adsbygoogle &#x3D; window.adsbygoogle || []).push({});   Lua语言从5.1版本开始为模块和包定义了一系列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua中模块和包">
+<meta property="og:url" content="http://example.com/2020/04/21/Lua%E4%B8%AD%E6%A8%A1%E5%9D%97%E5%92%8C%E5%8C%85/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="通常，Lua语言不会设置规则。相反，Lua语言提供的是足够强大的机制供不同的开发者实现最适合自己的规则。然而，这种方法对于模块而言并不是特别适用。模块系统的主要目标之一就是允许不同的人共享代码，缺乏公共规则就无法实现这样的分享。         (adsbygoogle &#x3D; window.adsbygoogle || []).push({});   Lua语言从5.1版本开始为模块和包定义了一系列">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-21T12:41:58.000Z">
+<meta property="article:modified_time" content="2024-03-12T01:53:40.408Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Lua中模块和包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/04/21/Lua%E4%B8%AD%E6%A8%A1%E5%9D%97%E5%92%8C%E5%8C%85/" class="article-date">
+  <time class="dt-published" datetime="2020-04-21T12:41:58.000Z" itemprop="datePublished">2020-04-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Lua中模块和包
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>通常，Lua语言不会设置规则。相反，Lua语言提供的是足够强大的机制供不同的开发者实现最适合自己的规则。然而，这种方法对于模块而言并不是特别适用。模块系统的主要目标之一就是允许不同的人共享代码，缺乏公共规则就无法实现这样的分享。</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>Lua语言从5.1版本开始为模块和包定义了一系列的规则。这些规则不需要从语言中引入额外的功能，程序猿可以使用目前为止我们学习到的机制实现这些规则。程序员也可以自由地使用不同的策略。当然，不同的实现可能会导致程序不能使用外部模块，或者模块不能被外部程序使用。<br>从用户观点来看，一个模块就是一些代码，这些代码可以通过函数require加载，然后创建和返回一个表。这个表就像是某种命名空间，其中定义的内容是模块中导出的东西，比如函数和常量。<br>例如，所有的标准库都是模块。我们可以按照如下的方式使用数学库：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> m = <span class="built_in">require</span> <span class="string">&quot;math&quot;</span></span><br><span class="line"><span class="built_in">print</span>(m.<span class="built_in">sin</span>(<span class="number">3.14</span>))				<span class="comment">-- 0.0015926529164868</span></span><br></pre></td></tr></table></figure>
+<p>独立解释器会使用跟如下代码等价的方式提前加载所有标准库：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">math</span> = <span class="built_in">require</span> <span class="string">&quot;math&quot;</span></span><br><span class="line"><span class="built_in">string</span> = <span class="built_in">require</span> <span class="string">&quot;string&quot;</span></span><br></pre></td></tr></table></figure>
+<p>这种提前加载使得我们可以不用费劲地编写代码来加载模块math就可以直接使用函数math.sin。<br>使用表来实现模块的显著优点之一是，让我们可以像操作普通表那样操作模块，并且能利用Lua语言的所有功能实现额外的功能。在大多数语言中，模块不是第一类值（即它们不能被保存在变量中，也不能被当作参数传递给函数等），所以那些语言需要为模块实现一套专门的机制。而在Lua语言中，我们则可以轻易地实现这些功能。<br>例如，用户调用模块中的函数就有几种方法。其中常见的方法是：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">mod</span> = <span class="built_in">require</span> <span class="string">&quot;mod&quot;</span></span><br><span class="line"><span class="built_in">mod</span>.foo()</span><br></pre></td></tr></table></figure>
+<p>用户可以为模块设置一个局部名称：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> m = <span class="built_in">require</span> <span class="string">&quot;mod&quot;</span></span><br><span class="line">m.foo()</span><br></pre></td></tr></table></figure>
+<p>也可以为个别函数提供不同的名称：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> m = <span class="built_in">require</span> <span class="string">&quot;mod&quot;</span></span><br><span class="line"><span class="keyword">local</span> f = m.foo</span><br><span class="line">f()</span><br></pre></td></tr></table></figure>
+<p>还可以只引入特定的函数：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> f = <span class="built_in">require</span> <span class="string">&quot;mod&quot;</span>.foo 			<span class="comment">-- (require(&quot;mod&quot;)).foo</span></span><br><span class="line">f()</span><br></pre></td></tr></table></figure>
+<p>上述这些方法的好处是无须语言的特别支持，它们使用的都是语言已经提供的功能。</p>
+<h2 id="函数-require"><a href="#函数-require" class="headerlink" title="函数 require"></a>函数 require</h2><p>尽管函数require也只是一个没什么特殊之处的普通函数，但在Lua语言的模块实现中扮演者核心角色。要加载模块时，只需要简单地调用这个函数，然后传入模块作为参数。请记住，当函数的参数只有一个字符串常量时括号是可以省略的，而且一般在使用require时按照惯例也会省括号。不过尽管如此，下面这些用法也是正确的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> m = <span class="built_in">require</span>(<span class="string">&#x27;math&#x27;</span>)</span><br><span class="line"><span class="keyword">local</span> modname = <span class="string">&#x27;math&#x27;</span></span><br><span class="line"><span class="keyword">local</span> m = <span class="built_in">require</span>(modname)</span><br></pre></td></tr></table></figure>
+<p>函数require尝试对模块的定义做最小的假设。对于函数来说，一个模块可以是定义了一些变量的代码。典型地，这些代码返回一个由模块中函数组成的表。不过，由于这个动作是由模块代码而不是由函数require完成的，所以某些模块可能会选择返回其他的值或者甚至引发副作用。<br>首先，函数require在表package.loaded中检查模块是否已被加载。如果模块已经被加载，函数require就返回相应的值。因此，一旦一个模块被加载过，后续的对于同一模块的所有require调用都将返回同一个值，而不会再运行任何代码。<br>如果模块尚未加载，那么函数require则搜索具有指定模块名的Lua文件（搜索路径有变量package.path指定）。如果函数require找到了相应的文件，那么就用函数loadfile将其进行加载，结果是一个我们称之为加载器的函数。<br>如果函数require找不到指定模块名的Lua文件，那么它就搜索相应名称的C标准库。如果找到了一个C标准库，则使用底层函数package.loadlib进行加载，这个底层函数会查找名为luaopen_modname的函数。在这种情况下，加载函数就是loadlib的执行结果，也就是一个被表示为Lua函数的C语言函数luaopen_modname。<br>不管模块是Lua文件还是C标准库中找到的，函数require此时都具有了用于加载它的加载函数。为了最终加载模块，函数require带着两个参数调用加载函数：模块名和加载函数所在文件名称。如果加载函数有返回值，那么函数require会返回这个值，然后将其保存在表package.loaded中，以便于将来在加载同一个模块时返回相同的值。如果加载函数么有返回值且表中的package.loaded【@rep{modname}]为空，函数require就假设模块的返回值是true。如果没有这种补偿，那么后续调用函数require时将会重复加载模块。<br>要强制函数require加载同一模块两次，可以先将模块从package.loaded中删除：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">package</span>.<span class="built_in">loaded</span>.modname = <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+<p>下一次在加载这个模块时，函数require就会重新加载模块。<br>对于函数require来说，一个常见的抱怨是它不能给待加载的模块传递参数。例如，数学模块可以对角度和弧度的选择增加一个选项：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 错误的代码</span></span><br><span class="line"><span class="keyword">local</span> <span class="built_in">math</span> = <span class="built_in">require</span>(<span class="string">&quot;math&quot;</span>,<span class="string">&quot;degree&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>这里的问题在于，函数require的主要目的之一就是避免重复加载模块，一旦一个模块被加载，该模块就会在后续所有调用require的程序部分被复用。这样，不同参数的同名模块之间就会产生冲突。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">mod</span> = <span class="built_in">require</span> <span class="string">&quot;mod&quot;</span></span><br><span class="line"><span class="built_in">mod</span>.init(<span class="number">0</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>如果加载函数返回的是模块本身，那么还可以写成：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">mod</span> = <span class="built_in">require</span> <span class="string">&quot;mod&quot;</span>.init(<span class="number">0</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>请记住，模块在任何情况下只加载一次；至于如何处理冲突的加载，取决于模块自己。</p>
+<h3 id="模块重命名"><a href="#模块重命名" class="headerlink" title="模块重命名"></a>模块重命名</h3><p>通常，我们通过模块本来的名称来使用它们，但有时，我们也需要将一个模块改名以避免命名冲突。一点典型的情况就是，处于测试的目的而需要加载同一模块的不同版本。对于一个Lua语言模块来说，其内部的名称并不要求是固定的，因此通常修改.lua文件的文件名就够了。不过，我们却无法修改C标准库的二进制目标代码中<code>luaopen_*</code>函数的名称。为了进行这种重命名，函数require运用了一个连字符的技巧：如果一个模块名中包含连字符，那么函数require就会用连字符之前的内容创建<code>luaopen_*</code>函数的名称。例如，如果一个模块的名称为mod-v3.4，那么函数require会认为该模块的加载函数应该是<code>luaopen_mod</code>而不是luaopen_mod-v3.4（这也不是有效的C语言函数名）。因此，如果需要使用两个名称均为mod的模块（或相同模块的两个不同版本），那么可以对其中的一个进行重命名，如mod-v1.当调用m1&#x3D;require “mod-v1”时，函数require会找到改名后的文件mod-v1并将其中原名为luaopen_mod的函数作为加载函数。</p>
+<h3 id="搜索路径"><a href="#搜索路径" class="headerlink" title="搜索路径"></a>搜索路径</h3><p>在搜索一个Lua文件时，函数require使用的路径与典型的路径略有不同。典型的路径是很多目录组成的列表，并在其中搜索指定的文件。不过，IOS C（Lua语言依赖的抽象平台）并没有目录的概念。所以，函数require使用的路径是一组模块，其中的每项都指定了蒋模块名(函数require的参数)转换为文件名的方式。更准确地说，这种路径中的每一个模块都是一个包含可选问号的文件名。对于每个模板，函数require会用模块名来替换每一个问号，然后检查结果是否存在对应的文件；如果不存在，则尝试下一个模板。路径中模板以在大所述操作系统中很少被用于文件名的分号隔开。例如，考虑如下路径：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?;?.lua;c:\windows\?;/usr/<span class="keyword">local</span>/lua/?/?.lua</span><br></pre></td></tr></table></figure>
+<p>在使用这个路径时，调用require “sql”将尝试打开如下的Lua文件：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sql</span><br><span class="line">sql.lua</span><br><span class="line">c:\windows\sql</span><br><span class="line">/usr/<span class="keyword">local</span>/lua/sql/sql.lua</span><br></pre></td></tr></table></figure>
+<p>函数require只处理分号（作为分隔号）和问号，所有其他的部分（包括目录分隔符合文件扩展名）则由路径自有定义。<br>函数require用于搜索Lua文件的路径是变量package.path的当前值。当package模块被初始化后，它就把变量package.path设置成环境变量LUA_PATH_5_3的值。如果这个环境变量没有被定义，那么Lua语言则尝试另一个环境变量LUA_PATH。如果这两个环境变量都没有被定义，那么Lua语言则使用一个编译是定义的默认路径。在使用一个环境变量的值时，Lua语言会将其中所有的”;;”替换成默认路径。例如，如果LUA_PATH_5_3设为”mydir&#x2F;r.lua;;”,那么最终路径就会是模板”mydir&#x2F;?.lua”后跟默认路径。<br>搜索C标准库的路径的逻辑与此相同，只不过C标准库的路径来自变量package.cpath而不是package.path。类似地，这个变量的初始值也来自环境变量LUA_CPATH_5_3或LUA_CPATH。在POSIX系统中这个路径的典型值形如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./?.so;/usr/<span class="keyword">local</span>/lib/lua/<span class="number">5.2</span>/?.so</span><br></pre></td></tr></table></figure>
+<p>请注意定义文件扩展名的路径。在上例中，所有模块使用的都是.so，而在Windows操作系统中此典型路径通常形如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\&gt;.dll;C:\Program Files\Lua502\dll\?.dll</span><br></pre></td></tr></table></figure>
+<p>函数package.searchpath中实现了搜索库的所有规则，该函数的参数包括模块名和路径，然后遵循上述规则来搜索文件。函数package.searchpath要么返回第一个存在的文件的文件名，要么返回nil外加描述所有文件都无法成功打开的错误信息，如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">path</span> = <span class="string">&quot;.\\?.dll;C:\\Programe Files\\Lua502\\dll\\?.dll&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">package</span>.searchpath(<span class="string">&quot;X&quot;</span>,<span class="built_in">path</span>))</span><br><span class="line"><span class="literal">nil</span></span><br><span class="line">			no file <span class="string">&#x27;.\X.dll&#x27;</span></span><br><span class="line">			no file <span class="string">&#x27;C:\Program Files\Lua502\dll\X.dll&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>作为一个有趣的练习，我们在示例中实现了与函数package.searchpath类似的函数。</p>
+<blockquote>
+<p>示例，实验班的package.searchpath</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">search</span><span class="params">(modname,path)</span></span></span><br><span class="line">	modname = <span class="built_in">string</span>.<span class="built_in">gsub</span>(modname,<span class="string">&quot;%.&quot;</span>,<span class="string">&quot;/&quot;</span>)</span><br><span class="line">	<span class="keyword">local</span> msg = &#123;&#125;</span><br><span class="line">	<span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">string</span>.<span class="built_in">gmatch</span>(<span class="built_in">path</span>, <span class="string">&quot;[^;]+&quot;</span>) <span class="keyword">do</span></span><br><span class="line">		<span class="keyword">local</span> fname = <span class="built_in">string</span>.<span class="built_in">gsub</span>(c,<span class="string">&quot;?&quot;</span>,modname)</span><br><span class="line">		<span class="keyword">local</span> f = <span class="built_in">io</span>.<span class="built_in">open</span>(fname)</span><br><span class="line">		<span class="keyword">if</span> f <span class="keyword">then</span></span><br><span class="line">			f:<span class="built_in">close</span>()</span><br><span class="line">			<span class="keyword">return</span> fname</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			msg[#msg + <span class="number">1</span>] = <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;\n\tno file &#x27;%s&#x27;&quot;</span>,fname);</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span> , <span class="built_in">table</span>.<span class="built_in">concat</span>(msg)			<span class="comment">-- 没找到</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>上述函数首先替换目录分隔符，在本例中即把所有的点换成斜杠。之后，该函数遍历路径中的所有组成部分，也就是每一个不含分号的最长匹配。对于每一个组成部分，该函数使用模块名来替换问号得到最终的文件名，然后检查相应的文件是否存在。如果存在，该函数关闭这个文件，然后返回文件的名称；否则，该函数保存失败的文件名用于可能的错误提示（请注意字符串缓冲区在避免创建无用的长字符串时的作用）。如果一个文件都找不到，该函数则返回nil及最终的错误信息。</p>
+<h3 id="搜索器"><a href="#搜索器" class="headerlink" title="搜索器"></a>搜索器</h3><p>在现实中，函数require比此前描述过的稍微复杂一点。搜索Lua文件和C标准库的方式只是更加通用的搜索器的两个实例。一个搜索器是一个以模块名为参数，以对应模块的加载器或nil为返回值的简单函数。<br>数组package.searchers列出了函数require使用的所有搜索器。在寻找模块时，函数require传入模块名并调用列表中的每一个搜索器知道它们其中的一个找到了指定模块的加载器。如果所有所搜器都被调用完后还找不到，那么函数require就抛出一个异常。<br>用一个列表来驱动对一个模块的搜索给函数require提供了极大的灵活性。例如，如果想保存被压缩在zip文件中的模块，只需要提供一个合适的搜索器，然后把它增加到该列表中。在默认配置中，我们此前学习过的用于搜索Lua文件和C标准库的搜索器排在列表的第二、三位，在它们之前是预加载搜索器。<br>预加载搜索器使得我们能够为要记载的模块定义任意的加载函数。预加载搜索器使用一个名为package.preload的表来映射模块名称和加载函数。当搜索指定的模块名时，该搜索器只是简单地在表中搜索指定的名称。如果它找到了对应的函数，那么就将该函数作为相应模块的加载函数返回；否则，则返回nil。预加载搜索器为处理非标场景提供了一种通用的方式。例如，一个静态链接到Lua中的C标准库可以将其luaopen_函数注册到表preload中，这样luaopen_函数只有当用户加载这个模块时才会被调用。用这种方式，程序不会为没有用到的模块浪费资源。</p>
+<h2 id="Lua语言中编写模块的基本方法"><a href="#Lua语言中编写模块的基本方法" class="headerlink" title="Lua语言中编写模块的基本方法"></a>Lua语言中编写模块的基本方法</h2><p>在lua语言中创建模块的最简单方法是，创建一个表并将所有需要导出的函数放入其中，最后返回个表。示例就是这个方法：</p>
+<blockquote>
+<p>一个用于复数的简单模块</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = &#123;&#125;   <span class="comment">-- 模块</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建一个新的复数</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">new</span><span class="params">(r,i)</span></span></span><br><span class="line">	<span class="keyword">return</span>&#123;r = r , i = i&#125;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">M.new = new 		<span class="comment">-- 把&#x27;new&#x27;加到模块中</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- constant &#x27;i&#x27;</span></span><br><span class="line">M.i = new(<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.add</span><span class="params">(c1,c2)</span></span></span><br><span class="line">	<span class="keyword">return</span> new(c1.r + c2.r,c1.i + c2.i)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.sub</span><span class="params">(c1,c2)</span></span></span><br><span class="line">	<span class="keyword">return</span> new(c1.r - c2.r,c1.i - c2.i)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.mul</span><span class="params">(c1,c2)</span></span></span><br><span class="line">	<span class="keyword">return</span> new(c1.r*c2.r - c1.i*c2.i,c1.r*c2.i + c1.i*c2.r)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">inv</span><span class="params">(c)</span></span></span><br><span class="line">	<span class="keyword">local</span> n = c.r^<span class="number">2</span> + c.i^<span class="number">2</span></span><br><span class="line">	<span class="keyword">return</span> new(c.r/n,-c.i/n)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.div</span><span class="params">(c1,c2)</span></span></span><br><span class="line">	<span class="keyword">return</span> M.mul(c1,inv(c2))</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.tostring</span><span class="params">(c)</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;(%g,%g)&quot;</span>,c.r,c.i)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> M</span><br></pre></td></tr></table></figure>
+<p>请注意我们是如何通过简单地把new和inv声明为局部变量而使它们称为代码段的私有函数的。<br>有些人不喜欢最后的返回语句。一种将其省略的方式是直接把模块对应的表放在package.loaded中：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = &#123;&#125;</span><br><span class="line"><span class="built_in">package</span>.<span class="built_in">loaded</span>[...] = M</span><br></pre></td></tr></table></figure>
+<p>请注意，函数require会把模块的名称作为第一个参数传给加载函数。因此，表索引中的可变长参数表达式…其实就是模块名。在这一赋值语句后，我们就不再需要在模块的最后返回M了：如果一个模块没有返回值，那么函数require会返回package.loaded[modname]的当前值。不过，笔者认为在模块的最后加上return语句更清晰。如果我们忘了return语句，那么在测试模块的时候就很容易就会发现问题。<br>另一种编写模块的方法是把所有的函数定义为局部变量，然后在最后构造返回的表，参考示例</p>
+<blockquote>
+<p>示例：使用导出表的模块</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">new</span><span class="params">(r,i)</span></span> <span class="keyword">return</span> &#123;r = r, i = i&#125; <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> i = complex.new(<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">	new  = new,</span><br><span class="line">	i    = i,</span><br><span class="line">	add  = add,</span><br><span class="line">	<span class="built_in">sub</span>  = <span class="built_in">sub</span>,</span><br><span class="line">	mul  = mul,</span><br><span class="line">	div  = div,</span><br><span class="line">	<span class="built_in">tostring</span> = <span class="built_in">tostring</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方式的有点在于，无须在每一个标识符前增加前缀M.或类似的东西。通过显式的导出表，我们能够以与在模块中相同的方式定义和使用导出和内部函数。这种方式的缺点在于，导出表位于最后不是最前面（把前面的话当作简略文档的话更有用），而且由于必须把每个名字都写两遍，所以导出表有点冗余（这一点其实可能会变成优点，因为这允许函数在模块内和模块外具有不同的名称，不过程序很少会用到）。<br>不管怎样，无论怎样定义模块，用户都能用标准的方法使用模块：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> cpx = <span class="built_in">require</span> <span class="string">&quot;complex&quot;</span></span><br><span class="line"><span class="built_in">print</span>(cpx.<span class="built_in">tostring</span>(cpx.add(cpx.new(<span class="number">3</span>,<span class="number">4</span>),cpx.i)))				<span class="comment">-- (3,5)</span></span><br></pre></td></tr></table></figure>
+<p>后续，我们会看到如何使用诸如元表和环境之类的高级Lua语言功能来编写模块。 不过，除了发现由于失误而定义的全局变量时又一个技巧外，笔者编写模块时都是用基本功能。</p>
+<h2 id="子模块和包"><a href="#子模块和包" class="headerlink" title="子模块和包"></a>子模块和包</h2><p>Lua支持具有层次结构的模块名，通过点来分隔名称中的层次。例如，一个名为mod.sub的模块是模块魔的一个子模块。一个包是一棵由模块组成的完整的树，它是Lua语言中用于发行程序的单位。<br>当加载一个名为mod.sub的模块时，函数require一次使用原始的模块名”mod.sub”作为键来查询表package.loaded和表package.preload。这里，模块名中的点像模块名中的其他字符一样，没有特殊含义。<br>然而，当搜索一个定义子模块的文件时，函数require会将点转换为另一个字符，通常就是操作系统的目录分隔符（例如，POSIX操作系统的斜杠或Windows操作系统的反斜杠）。转换之后，函数require会像搜索其他名称一样搜索这个名称。例如，假设目录分隔符是斜杠并且有如下路径：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./?.lua;/usr/<span class="keyword">local</span>/lua/?.lua;/usr/<span class="keyword">local</span>/lua/?/init.lua</span><br></pre></td></tr></table></figure>
+<p>调用require “a.b”会尝试打开以下文件：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./a/b.lua</span><br><span class="line">/usr/<span class="keyword">local</span>/lua/a/b.lua</span><br><span class="line">/usr/<span class="keyword">local</span>/lua/a/b/init.lua </span><br></pre></td></tr></table></figure>
+<p>这种行为使得一个包中的所有模块能够放到一个目录中。例如，一个具有模块p、p.a和p.b的包对应的文件可以分贝是p&#x2F;init.lua、p&#x2F;a.lua和p&#x2F;b.lua，目录p又位于其他合适的目录中。<br>Lua语言使用的目录分隔符是编译时配置的，可以是任意的字符串（请记住，Lua并不知道目录的存在）。例如，没有目录层次的系统可以使用下画线作为”目录分隔符“，因此调用require “a,b”会搜索文件a_b.lua。<br>作为一种额外的机制，函数require在加载C语言编写的子模块时还有另外一个搜索器。当该函数找不到子模块对应的Lua文件或C文件时，它会再次搜索C文件所在的路径，不过这次将搜索包的名称。例如，如果一个程序要加载子模块a.b.c，搜索器会搜索文件a。如果找到了C标准库a，那么函数require就会在该库中搜索对应的加载函数luaopen_a_b_c。这种机制允许一个发行包将几个子模块组织为一个C标准库，每个子模块有各自的加载函数。<br>从Lua语言的视角看，同一个包中的子模块没有显式的关联。加载一个模块并不会自动加载它的任何子模块。同样，加载子模块也不会自动地加载其父模块。当然，只要包的实现者愿意，也可以创造这种关联。例如，一个特定的模块可能一开始就显式地加载它的一个或全部子模块。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/04/21/Lua%E4%B8%AD%E6%A8%A1%E5%9D%97%E5%92%8C%E5%8C%85/" data-id="clw7ne0x3001g4sad49b77ya2" data-title="Lua中模块和包" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/22/Lua%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E6%B3%9B%E5%9E%8Bfor/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Lua迭代器和泛型for
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/20/Lua%E7%BC%96%E8%AF%91%E6%89%A7%E8%A1%8C%E5%92%8C%E9%94%99%E8%AF%AF/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Lua编译执行和错误</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Autodesk3dMax/">Autodesk3dMax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/algolia/">algolia</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web-Development/">Web Development</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/Visual-Studio/">Visual Studio</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-ndk/">android ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/">cocos Creator</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/">json</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/">js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/">node</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/TypeScript/">TypeScript</a></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-creator/">cocos creator</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">小程序开发</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/https/">https</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ssh/">ssh</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97/">蓝牙模块</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E8%84%9A%E6%9C%AC/">工具脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B8%B8%E8%A7%81bug/">常见bug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B9%BF%E5%91%8A/">广告</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/">开发工具的使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/">日常代码</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/">微信</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/%E6%95%B0%E6%8D%AE%E6%8A%93%E5%8F%96/">数据抓取</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97/">俄罗斯方块</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/">Python绘图</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/%E6%8A%96%E9%9F%B3%E7%83%AD%E9%97%A8/">抖音热门</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/">工作生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/">实用工具</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">服务器搭建</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C/">虚拟专用网络</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">电脑使用技巧</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A0%B4%E8%A7%A3%E8%BD%AF%E4%BB%B6/">破解软件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/">Lua编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1/">网页设计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%8A%82%E6%97%A5%E7%A5%9D%E7%A6%8F/">节日祝福</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/">通信工程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/">实习报告</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1%E7%A7%91%E6%8A%80%E4%BA%BA%E5%91%98%E8%81%8C%E4%B8%9A%E9%81%93%E5%BE%B7/">通信科技人员职业道德</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" rel="tag">1024程序员节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/404/" rel="tag">404</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autodesk3dMax/" rel="tag">Autodesk3dMax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos-Creator/" rel="tag">Cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/" rel="tag">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/" rel="tag">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sprite/" rel="tag">Sprite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinter/" rel="tag">Thinter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Word/" rel="tag">Word</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ndk/" rel="tag">android ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos/" rel="tag">cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-Creator/" rel="tag">cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-creator/" rel="tag">cocos creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos2dx/" rel="tag">cocos2dx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/facebook/" rel="tag">facebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lua/" rel="tag">lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ndkr10e/" rel="tag">ndkr10e</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quick-Cocos/" rel="tag">quick Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shader/" rel="tag">shader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tolua/" rel="tag">tolua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/" rel="tag">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeScript/" rel="tag">typeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vsCode/" rel="tag">vsCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" rel="tag">创意编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" rel="tag">游戏开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" rel="tag">游戏性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" rel="tag">电脑使用技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" rel="tag">粒子特效</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86/" rel="tag">纹理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" rel="tag">纹理优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A0%81/" rel="tag">编码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%B4%E6%95%AC/" rel="tag">致敬</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8A%82%E6%97%A5/" rel="tag">节日</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82/" rel="tag">请求</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" style="font-size: 10px;">1024程序员节</a> <a href="/tags/404/" style="font-size: 10px;">404</a> <a href="/tags/Android/" style="font-size: 12.22px;">Android</a> <a href="/tags/Autodesk3dMax/" style="font-size: 10px;">Autodesk3dMax</a> <a href="/tags/C/" style="font-size: 14.44px;">C</a> <a href="/tags/Cocos-Creator/" style="font-size: 12.22px;">Cocos Creator</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 14.44px;">Java</a> <a href="/tags/Lua/" style="font-size: 20px;">Lua</a> <a href="/tags/Mac/" style="font-size: 11.11px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Sprite/" style="font-size: 10px;">Sprite</a> <a href="/tags/Thinter/" style="font-size: 10px;">Thinter</a> <a href="/tags/TypeScript/" style="font-size: 16.67px;">TypeScript</a> <a href="/tags/Word/" style="font-size: 10px;">Word</a> <a href="/tags/Xcode/" style="font-size: 11.11px;">Xcode</a> <a href="/tags/android/" style="font-size: 11.11px;">android</a> <a href="/tags/android-ndk/" style="font-size: 10px;">android ndk</a> <a href="/tags/cocos/" style="font-size: 10px;">cocos</a> <a href="/tags/cocos-Creator/" style="font-size: 18.89px;">cocos Creator</a> <a href="/tags/cocos-creator/" style="font-size: 10px;">cocos creator</a> <a href="/tags/cocos2dx/" style="font-size: 17.78px;">cocos2dx</a> <a href="/tags/facebook/" style="font-size: 10px;">facebook</a> <a href="/tags/git/" style="font-size: 11.11px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/java/" style="font-size: 11.11px;">java</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/mac/" style="font-size: 11.11px;">mac</a> <a href="/tags/ndkr10e/" style="font-size: 10px;">ndkr10e</a> <a href="/tags/python/" style="font-size: 15.56px;">python</a> <a href="/tags/quick-Cocos/" style="font-size: 11.11px;">quick Cocos</a> <a href="/tags/shader/" style="font-size: 11.11px;">shader</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tolua/" style="font-size: 10px;">tolua</a> <a href="/tags/ts/" style="font-size: 10px;">ts</a> <a href="/tags/typeScript/" style="font-size: 10px;">typeScript</a> <a href="/tags/vsCode/" style="font-size: 11.11px;">vsCode</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">创意编程</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">服务器</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" style="font-size: 10px;">游戏开发</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" style="font-size: 10px;">游戏性能</a> <a href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" style="font-size: 11.11px;">电脑使用技巧</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.33px;">硬件</a> <a href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" style="font-size: 10px;">粒子特效</a> <a href="/tags/%E7%BA%B9%E7%90%86/" style="font-size: 10px;">纹理</a> <a href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" style="font-size: 10px;">纹理优化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E8%87%B4%E6%95%AC/" style="font-size: 10px;">致敬</a> <a href="/tags/%E8%8A%82%E6%97%A5/" style="font-size: 10px;">节日</a> <a href="/tags/%E8%AF%B7%E6%B1%82/" style="font-size: 10px;">请求</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx%E4%BD%BF%E7%94%A8%E5%B8%A7%E5%8A%A8%E7%94%BB/">cocos2dx使用帧动画</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx_lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/">cocos2dx_lua键盘监听</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-lua%E8%AE%BE%E7%BD%AE%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7/">cocos2dx-lua设置节点层级</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-lua%E5%AF%B9%E5%9B%BE%E7%89%87%E8%BF%9B%E8%A1%8C%E4%B9%9D%E5%AE%AB%E6%A0%BC%E7%BC%A9%E6%94%BE/">cocos2dx-lua对图片进行九宫格缩放</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-Lua%E4%B8%ADLabel%E6%96%87%E6%9C%AC%E8%B6%85%E8%BF%87%E7%89%B9%E5%AE%9A%E9%95%BF%E5%BA%A6%E4%BD%BF%E7%94%A8...%E4%BB%A3%E6%9B%BF/">cocos2dx-Lua中Label文本超过特定长度使用...代替</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>数据手套的设计与实现 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="数据手套在人机交互中提供了一种有效的人机交互手段，从数据手套的理论出发，本论文利用一些硬件设备以及软件开发环境，设计了一款可以与机械臂、虚拟手等终端交互的数据手套。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据手套的设计与实现">
+<meta property="og:url" content="http://example.com/2017/06/15/%E6%95%B0%E6%8D%AE%E6%89%8B%E5%A5%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数据手套在人机交互中提供了一种有效的人机交互手段，从数据手套的理论出发，本论文利用一些硬件设备以及软件开发环境，设计了一款可以与机械臂、虚拟手等终端交互的数据手套。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqy9DP.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqyuD0.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqyk4g.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqyput.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqyiE8.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqyECQ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqyV3j.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqynuq.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqyZgs.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqyevn.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqyQET.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqyKbV.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqylUU.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqy15F.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqy8C4.png">
+<meta property="article:published_time" content="2017-06-14T22:27:28.000Z">
+<meta property="article:modified_time" content="2024-03-12T01:53:40.587Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2022/11/03/xqy9DP.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-数据手套的设计与实现" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/06/15/%E6%95%B0%E6%8D%AE%E6%89%8B%E5%A5%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" class="article-date">
+  <time class="dt-published" datetime="2017-06-14T22:27:28.000Z" itemprop="datePublished">2017-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      数据手套的设计与实现
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>摘要 :</strong> 数据手套在人机交互中提供了一种有效的人机交互手段，从数据手套的理论出发，本论文利用一些硬件设备以及软件开发环境，设计了一款可以与机械臂、虚拟手等终端交互的数据手套。硬件设备包括弯曲度传感器、MPU6050六轴传感器、HC-05蓝牙串口通信模块、TFT显示屏、STM32F103最小系统开发板，数据手套软件开发平台为Keil uVision5，所用的开发语言为C语言，在系统调试的时候用到了匿名四轴上位机和串口调试助手，用来对MPU6050六轴传感器和弯曲度传感器进行调试，此外在整个系统中移植了UCOS-II嵌入式实时操作系统，保证了数据在传输时的实时性和高效性。实现了数据手套对五轴机械臂的控制以及人手到虚拟手的动作映射。</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>人机交互是研究系统与用户之间的交互关系[1]。随着社会的不断发展和科学技术水平的提高，传统的计算机输入设备（鼠标、键盘）已不再唯一。越来越多的场合出现了各种不同的人机交互的应用场景，比如人脸识别、人体感应游戏、VR（虚拟现实）[2]。数据手套作为一种新型的人机交互工具，目前在越来越多的领域得到了广泛的应用。其目的在于能够通过内置的传感器，实时获取手部包括手掌、手指等有效部位的弯曲等角度的数据[3]。而且手部某一个关节的运动，不仅会作用于对应的传感器的数据变化，而且通过软组织的相互作用，使得其他的传感器数据也发生变化，这就要求为保证一定的数据精度，必须对求得的数据进行一定的处理[4]。本课题所研究的数据手套硬件部分主要包括嵌入式控制器、TFT显示屏、弯曲度传感器、蓝牙串口通信模块、MPU6050六轴传感器等，具有可穿戴，无线连接，使用灵活等特点。目的在于做出一款可用于控制机械臂、与虚拟手交互映射等娱乐交互的数据手套。</p>
+<h2 id="系统硬件设计"><a href="#系统硬件设计" class="headerlink" title="系统硬件设计"></a>系统硬件设计</h2><p>本论文所研究的数据手套在功能上要求能够实时的检测到使用者手指的弯曲以及整个手姿态变化的数据信息[5]，并对检测到的数据信息做出判断后发送相应的指令给与之交互的终端。根据数据手套在功能上的要求，本课题设计出了以下解决方案：<br>（1）采用弯曲度传感器采集手指弯曲的数据信息，弯曲度传感器具有柔韧性好，可折叠，测量范围广等特点，比较适合用来收集弯曲即手指的数据信息。<br>（2）MPU6050传感器是全球首例9轴运动处理传感器。它集成了3MEMS陀螺仪，3轴MEMS加速度计，以及一个可扩展的数字运动处理器DMP（Digital  Motion Processor），可以使用I2C接口连接一个第三方的数字传感器。MPU6050传感器还免除了组合陀螺仪与加速度器时之轴间差的问题，减少了大量的封装空间，而且MPU6050支持mpu的dmp官方解算库，可以直接输出四元数，欧拉角格式的数据。<br>（3）在通信方式的选择上，考虑到本课题需要无线通信、功耗低，能快速连接且组网简单的通信特点，最终选择了蓝牙无线通信方式，使用的是HC-05蓝牙通信模块，HC-05蓝牙通信模块是一款高性能主从一体蓝牙串口模块，可以不用知道太多蓝牙相关知识就可以很好的上手。<br>（4）电源可以使用USB数据线接PC机供电，也可以使用大容量锂电池供电。锂电池具有续航时间长、可循环充电、绿色环保且重量轻等特点。<br>数据手套硬件系统主要包括以下几个功能模块：主控芯片模块、弯曲度传感器模块、MPU6050传感器模块、电源模块、蓝牙通信模块、数据显示模块，硬件系统图、硬件实物图分别如图2.1、图2.2所示</p>
+<!-- [![图2.1数据手套硬件系统图](https://s1.ax1x.com/2022/11/03/xqy9DP.png)](https://imgse.com/i/xqy9DP) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqy9DP.png" alt="图2.1数据手套硬件系统图" />
+<!-- [![图2.2硬件实物图](https://s1.ax1x.com/2022/11/03/xqyuD0.png)](https://imgse.com/i/xqyuD0) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyuD0.png" alt="图2.2硬件实物图" />
+## 系统软件设计及调试
+数据手套软件开发平台为Keil uVision5，所用的开发语言为C语言，在系统调试的时候用到了匿名四轴上位机和串口调试助手，用来对MPU6050六轴传感器和弯曲度传感器进行调试，此外在整个系统中移植了UCOS-II嵌入式实时操作系统，保证了数据在传输时的实时性和高效性。
+UCOS-II嵌入式实时操作系统是一个可移植、可固化的、可裁剪的、占先式多任务实时内核，它适用于多种微处理器，微控制器和数字处理芯片[6]。本系统软件主流程图如图3.1所示：
+<!-- [![xqyk4g.png](https://s1.ax1x.com/2022/11/03/xqyk4g.png)](https://imgse.com/i/xqyk4g) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyk4g.png" alt="" />
+
+<p>UCOS的原理就是当一个任务A正在执行的时候，如果它释放了CPU的控制权，先对任务A进行现场保护，然后从任务就绪表中查找其他就绪任务去执行，等到任务A的等待时间到了，它可能重新获得CPU控制权，这个时候恢复任务A的现场，从而继续执行任务A，这样看起来就好像是两个任务同时执行了。实际上，任何时候都只有一个任务可以获得CPU控制权。所谓的任务，其实就是一个死循环函数，该函数实现一定的工程，一个工程可以有很多这样的任务，UCOS-II对这些任务进行调度管理，让这些任务可以并发工作。本课题中创建了五个用户任务，分别是led_task，led闪烁提示系统工作状态；gui_task，显示屏实时显示姿态数据；adc_task弯曲度传感器采集手指弯曲信息；mpu6050_task，mpu6050传感器采集姿态信息；hc05_task蓝牙发送数据。<br>弯曲度传感器数据是利用STM32F103单片机接收经过电阻——电压转换电路转换过的弯曲度传感器的电压信号，每只手有五根手指，在单片机上设置五个ADC规则通道，用自带的AD转换电路进行AD转换得到手指的弯曲程度，ADC通道0~4分别代表大拇指、食指、中指、无名指、小指弯曲度的值。通过PC上串口调试助手读出其经过AD转换过后不同弯曲程度时的数值[7]，并对其进行分别量化和判断处理，的到最后的手指弯曲数据。<br>MPU6050传感器的数据可以通过对MPU6050传感器的软件设置可以直接读出传感器采集到的加速度和角速度原始数据，不过这些原始数据，在本课题研究中用处不大，我们期望得到的是姿态数据，也就是欧拉角。首先我们在PC端上通过匿名四轴上位机对MPU6050传感器的原始数据输出波形进行分析并对其进行滤波处理，在此原始数据的基础上还需要通过对加速度计和陀螺仪进行融合计算得出的欧拉角，得到三个轴上的欧拉角，以度为单位。MPU6050搭载有一个运动处理器（DMP），可以将采集到的原始数据直接转换输出四元数，再根据输出的四元数计算出对应的欧拉角。<br>欧拉角到姿态矩阵的转换关系为：</p>
+<!-- [![xqyput.png](https://s1.ax1x.com/2022/11/03/xqyput.png)](https://imgse.com/i/xqyput) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyput.png" alt=""/>
+<!-- [![xqyiE8.png](https://s1.ax1x.com/2022/11/03/xqyiE8.png)](https://imgse.com/i/xqyiE8) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyiE8.png" alt=""/>
+
+<!-- [![姿态矩阵T解算得到欧拉角：](https://s1.ax1x.com/2022/11/03/xqyECQ.png)](https://imgse.com/i/xqyECQ) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyECQ.png" alt="姿态矩阵T解算得到欧拉角" />
+可以直接使用欧拉角微分方程进行姿态解算：
+<!-- [![欧拉角微分方程](https://s1.ax1x.com/2022/11/03/xqyV3j.png)](https://imgse.com/i/xqyV3j) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyV3j.png" alt="欧拉角微分方程" />
+上式中，等式左边是输出的欧拉角，分别对应三个旋转轴，等式右边是根据上一个周期测算出来的角度，每个旋转轴上的角度都是根据陀螺仪传感器实际测量的角速度和时间间隔周期计算出来的，单位为弧度。所以，根据以上微分方程即可解算出当前传感器在每个旋转轴上的欧拉角。
+HC-05蓝牙模块式一款高性能的主从一体蓝牙串口模块，可以同各种带蓝牙功能的电脑、蓝牙主机、手机等职能终端配对，该模块支持非常宽的波特率范围：4800~1382400，并且模块兼容5V或3.3V单片机系统，使用非常灵活、方便。在使用的时候，首先将蓝牙模块处于AT指令模式，在PC上通过串口调试助手进行AT指令配置。蓝牙配置好后， 主控芯片将获取到的弯曲度传感器的数据和MPU6050的数据信息用特定的数据包格式通过蓝牙发送。
+显示模块的主要功能是在一块TFT显示屏上显示当前手部在空间中x,y,z轴的一个姿态,分别用欧拉角pitch（俯仰角）、yaw（偏航角）、roll（翻滚角）表示。
+## 应用场景展示
+数据手套作为一种人机交互设备，可应用与多个领域多个行业，理论上与本设备交互设备能具备蓝牙通信功能，在通信协议一致的情况下便都能与本设备进行交互。在本课题中只要应用于与五轴机械臂交互和与虚拟手的交互映射。
+###4.1 与五轴机械臂交互
+数据手套与之交互的五轴机械臂为安诺五轴机械臂，这款机械臂的主控芯片为arduino，控制方式是使用现在数字程序中常使用的指令——G代码，机械臂的五个轴从下到上分别是A轴、B轴、C轴、D轴和X轴，每个轴分为正向转动和反向转动，所以控制机械臂只需要十个控制指令即可。本课题在控制的时，五根手指分别控制五个轴，当pitch的值小于20时手指控制机械臂的五个轴正向转动，当pitch的值大于20时，手指控制机械臂的五个轴反向转动。手部首先分别读取五个弯曲传感器的初始值（即五个手指没有弯曲时的值），再给定一个触发条件，当达到这个触发条件时，数据手套发送控制指令。如：pitch的值为15，ADC通道0的初始值为200，触发条件为ADC通道0的值大于300，当ADC通道0的值大于300时，数据手套控制五轴机械臂A轴的正向转动。交互图如图4.1所示。
+
+<!-- [![xqynuq.png](https://s1.ax1x.com/2022/11/03/xqynuq.png)](https://imgse.com/i/xqynuq) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqynuq.png" alt=""/>
+###4.2 与虚拟手的交互映射
+虚拟手的开发平台为Unity3D，所用的开发语言为C#。数据手套与之交互时所用到的通信协议为：
+0x55+0x53+aacx_t+pitch_s+aacy_t+roll_s+aacz_t+yaw_s+0xaa+finger0+finger1+finger2 +finger3 +finger4 +0xbb共15（byte）,虚拟手接收到数据包后对数据包进行解析，首先是对MPU6050的数据进行解析。MPU6050的数据有16位，其中aacx、aacy、aacz代表高八位，pitch_s、roll_s、yaw_s代表低八位，要得到一个MPU6050的数据，需要将高八位左移八位，然后与第八位进行或运算，具体的计算方法如下：
+
+<!-- [![xqyZgs.png](https://s1.ax1x.com/2022/11/03/xqyZgs.png)](https://imgse.com/i/xqyZgs) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyZgs.png"  alt=""/>
+然后对五跟手指即五个弯曲度传感器的值进行解析。假设接口上所读取到的X，用X来除以0.06，即X/0.06即(a1~a5)为弯曲传感器上的电压值的量化`Vx*3.3/4096（Vx为传感器上的电压）`
+
+<!-- [![xqyevn.png](https://s1.ax1x.com/2022/11/03/xqyevn.png)](https://imgse.com/i/xqyevn) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyevn.png" alt="" />
+根据以上方程便可求出R的阻值。
+R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度成正相关。当手做出某个手势时，主控芯片获取当前五根手指的弯曲数据及手部在空间中的姿态数据，通过蓝牙发送给虚拟手，虚拟手接收到数据后进行解析，然后做出相应的手势。交互图如图4.2、图4.3、图4.4、图4.5、图4.6所示。
+
+<!-- [![xqyQET.png](https://s1.ax1x.com/2022/11/03/xqyQET.png)](https://imgse.com/i/xqyQET) -->
+<!-- [![xqyKbV.png](https://s1.ax1x.com/2022/11/03/xqyKbV.png)](https://imgse.com/i/xqyKbV) -->
+<!-- [![xqylUU.png](https://s1.ax1x.com/2022/11/03/xqylUU.png)](https://imgse.com/i/xqylUU) -->
+<!-- [![xqy15F.png](https://s1.ax1x.com/2022/11/03/xqy15F.png)](https://imgse.com/i/xqy15F) -->
+<!-- [![xqy8C4.png](https://s1.ax1x.com/2022/11/03/xqy8C4.png)](https://imgse.com/i/xqy8C4) -->
+<table>
+<thead>
+<tr>
+<th><img src="https://s1.ax1x.com/2022/11/03/xqyQET.png" style="width:300px;height:200px" alt=""/></th>
+<th><img src="https://s1.ax1x.com/2022/11/03/xqyKbV.png" style="width:300px;height:200px" alt=""/></th>
+<th><img src="https://s1.ax1x.com/2022/11/03/xqylUU.png" style="width:300px;height:200px" alt=""/></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://s1.ax1x.com/2022/11/03/xqy15F.png" style="width:300px;height:200px" alt=""/></td>
+<td><img src="https://s1.ax1x.com/2022/11/03/xqy8C4.png" style="width:300px;height:200px" alt=""/></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>本课题从理论出发，完成了UCOS嵌入式操作系统在ARM平台上的移植，提高了系统稳定性，一步步的设计到实现，通过获取手指的弯曲度数据、手部在空间中姿态数据，进行了数据的分析及处理，给出了与五轴机械臂的交互及与虚拟手交互映射的方法，以实际的应用测试了数据采集和手势识别的准确性和实时性，基本达到了本课题的目的。</p>
+<blockquote>
+<p>手套代码去我的下载查看<br><a target="_blank" rel="noopener" href="https://download.csdn.net/download/silent_f/10612775">数据手套上位机代码</a><br><a target="_blank" rel="noopener" href="https://download.csdn.net/download/silent_f/10612768">数据手套控制虚拟手代码</a><br><a target="_blank" rel="noopener" href="https://download.csdn.net/download/silent_f/10612762">数据手套控制机械臂代码</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2017/06/15/%E6%95%B0%E6%8D%AE%E6%89%8B%E5%A5%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" data-id="clw7ne0z700ei4sadh4os4ggz" data-title="数据手套的设计与实现" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/07/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E4%BA%A4%E6%8D%A2%E4%BC%A0%E8%BE%93%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          通信工程交换传输实习报告
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/15/%E4%B8%A4%E4%B8%AAHC05%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97%E7%9B%B8%E4%BA%92%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">两个HC05蓝牙模块相互之间的通信</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Autodesk3dMax/">Autodesk3dMax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/algolia/">algolia</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web-Development/">Web Development</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/Visual-Studio/">Visual Studio</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-ndk/">android ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/">cocos Creator</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/">json</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/">js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/">node</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/TypeScript/">TypeScript</a></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-creator/">cocos creator</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">小程序开发</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/https/">https</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ssh/">ssh</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97/">蓝牙模块</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E8%84%9A%E6%9C%AC/">工具脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B8%B8%E8%A7%81bug/">常见bug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B9%BF%E5%91%8A/">广告</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/">开发工具的使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/">日常代码</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/">微信</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/%E6%95%B0%E6%8D%AE%E6%8A%93%E5%8F%96/">数据抓取</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97/">俄罗斯方块</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/">Python绘图</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/%E6%8A%96%E9%9F%B3%E7%83%AD%E9%97%A8/">抖音热门</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/">工作生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/">实用工具</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">服务器搭建</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C/">虚拟专用网络</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">电脑使用技巧</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A0%B4%E8%A7%A3%E8%BD%AF%E4%BB%B6/">破解软件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/">Lua编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1/">网页设计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%8A%82%E6%97%A5%E7%A5%9D%E7%A6%8F/">节日祝福</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/">通信工程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/">实习报告</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1%E7%A7%91%E6%8A%80%E4%BA%BA%E5%91%98%E8%81%8C%E4%B8%9A%E9%81%93%E5%BE%B7/">通信科技人员职业道德</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" rel="tag">1024程序员节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/404/" rel="tag">404</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autodesk3dMax/" rel="tag">Autodesk3dMax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos-Creator/" rel="tag">Cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/" rel="tag">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/" rel="tag">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sprite/" rel="tag">Sprite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinter/" rel="tag">Thinter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Word/" rel="tag">Word</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ndk/" rel="tag">android ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos/" rel="tag">cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-Creator/" rel="tag">cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-creator/" rel="tag">cocos creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos2dx/" rel="tag">cocos2dx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/facebook/" rel="tag">facebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lua/" rel="tag">lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ndkr10e/" rel="tag">ndkr10e</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quick-Cocos/" rel="tag">quick Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shader/" rel="tag">shader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tolua/" rel="tag">tolua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/" rel="tag">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeScript/" rel="tag">typeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vsCode/" rel="tag">vsCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" rel="tag">创意编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" rel="tag">游戏开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" rel="tag">游戏性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" rel="tag">电脑使用技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" rel="tag">粒子特效</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86/" rel="tag">纹理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" rel="tag">纹理优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A0%81/" rel="tag">编码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%B4%E6%95%AC/" rel="tag">致敬</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8A%82%E6%97%A5/" rel="tag">节日</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82/" rel="tag">请求</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" style="font-size: 10px;">1024程序员节</a> <a href="/tags/404/" style="font-size: 10px;">404</a> <a href="/tags/Android/" style="font-size: 12.22px;">Android</a> <a href="/tags/Autodesk3dMax/" style="font-size: 10px;">Autodesk3dMax</a> <a href="/tags/C/" style="font-size: 14.44px;">C</a> <a href="/tags/Cocos-Creator/" style="font-size: 12.22px;">Cocos Creator</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 14.44px;">Java</a> <a href="/tags/Lua/" style="font-size: 20px;">Lua</a> <a href="/tags/Mac/" style="font-size: 11.11px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Sprite/" style="font-size: 10px;">Sprite</a> <a href="/tags/Thinter/" style="font-size: 10px;">Thinter</a> <a href="/tags/TypeScript/" style="font-size: 16.67px;">TypeScript</a> <a href="/tags/Word/" style="font-size: 10px;">Word</a> <a href="/tags/Xcode/" style="font-size: 11.11px;">Xcode</a> <a href="/tags/android/" style="font-size: 11.11px;">android</a> <a href="/tags/android-ndk/" style="font-size: 10px;">android ndk</a> <a href="/tags/cocos/" style="font-size: 10px;">cocos</a> <a href="/tags/cocos-Creator/" style="font-size: 18.89px;">cocos Creator</a> <a href="/tags/cocos-creator/" style="font-size: 10px;">cocos creator</a> <a href="/tags/cocos2dx/" style="font-size: 17.78px;">cocos2dx</a> <a href="/tags/facebook/" style="font-size: 10px;">facebook</a> <a href="/tags/git/" style="font-size: 11.11px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/java/" style="font-size: 11.11px;">java</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/mac/" style="font-size: 11.11px;">mac</a> <a href="/tags/ndkr10e/" style="font-size: 10px;">ndkr10e</a> <a href="/tags/python/" style="font-size: 15.56px;">python</a> <a href="/tags/quick-Cocos/" style="font-size: 11.11px;">quick Cocos</a> <a href="/tags/shader/" style="font-size: 11.11px;">shader</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tolua/" style="font-size: 10px;">tolua</a> <a href="/tags/ts/" style="font-size: 10px;">ts</a> <a href="/tags/typeScript/" style="font-size: 10px;">typeScript</a> <a href="/tags/vsCode/" style="font-size: 11.11px;">vsCode</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">创意编程</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">服务器</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" style="font-size: 10px;">游戏开发</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" style="font-size: 10px;">游戏性能</a> <a href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" style="font-size: 11.11px;">电脑使用技巧</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.33px;">硬件</a> <a href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" style="font-size: 10px;">粒子特效</a> <a href="/tags/%E7%BA%B9%E7%90%86/" style="font-size: 10px;">纹理</a> <a href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" style="font-size: 10px;">纹理优化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E8%87%B4%E6%95%AC/" style="font-size: 10px;">致敬</a> <a href="/tags/%E8%8A%82%E6%97%A5/" style="font-size: 10px;">节日</a> <a href="/tags/%E8%AF%B7%E6%B1%82/" style="font-size: 10px;">请求</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx%E4%BD%BF%E7%94%A8%E5%B8%A7%E5%8A%A8%E7%94%BB/">cocos2dx使用帧动画</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx_lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/">cocos2dx_lua键盘监听</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-lua%E8%AE%BE%E7%BD%AE%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7/">cocos2dx-lua设置节点层级</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-lua%E5%AF%B9%E5%9B%BE%E7%89%87%E8%BF%9B%E8%A1%8C%E4%B9%9D%E5%AE%AB%E6%A0%BC%E7%BC%A9%E6%94%BE/">cocos2dx-lua对图片进行九宫格缩放</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-Lua%E4%B8%ADLabel%E6%96%87%E6%9C%AC%E8%B6%85%E8%BF%87%E7%89%B9%E5%AE%9A%E9%95%BF%E5%BA%A6%E4%BD%BF%E7%94%A8...%E4%BB%A3%E6%9B%BF/">cocos2dx-Lua中Label文本超过特定长度使用...代替</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

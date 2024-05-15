@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/17/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-数据手套的设计与实现" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/06/15/%E6%95%B0%E6%8D%AE%E6%89%8B%E5%A5%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" class="article-date">
+  <time class="dt-published" datetime="2017-06-14T22:27:28.000Z" itemprop="datePublished">2017-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/06/15/%E6%95%B0%E6%8D%AE%E6%89%8B%E5%A5%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">数据手套的设计与实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>摘要 :</strong> 数据手套在人机交互中提供了一种有效的人机交互手段，从数据手套的理论出发，本论文利用一些硬件设备以及软件开发环境，设计了一款可以与机械臂、虚拟手等终端交互的数据手套。硬件设备包括弯曲度传感器、MPU6050六轴传感器、HC-05蓝牙串口通信模块、TFT显示屏、STM32F103最小系统开发板，数据手套软件开发平台为Keil uVision5，所用的开发语言为C语言，在系统调试的时候用到了匿名四轴上位机和串口调试助手，用来对MPU6050六轴传感器和弯曲度传感器进行调试，此外在整个系统中移植了UCOS-II嵌入式实时操作系统，保证了数据在传输时的实时性和高效性。实现了数据手套对五轴机械臂的控制以及人手到虚拟手的动作映射。</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>人机交互是研究系统与用户之间的交互关系[1]。随着社会的不断发展和科学技术水平的提高，传统的计算机输入设备（鼠标、键盘）已不再唯一。越来越多的场合出现了各种不同的人机交互的应用场景，比如人脸识别、人体感应游戏、VR（虚拟现实）[2]。数据手套作为一种新型的人机交互工具，目前在越来越多的领域得到了广泛的应用。其目的在于能够通过内置的传感器，实时获取手部包括手掌、手指等有效部位的弯曲等角度的数据[3]。而且手部某一个关节的运动，不仅会作用于对应的传感器的数据变化，而且通过软组织的相互作用，使得其他的传感器数据也发生变化，这就要求为保证一定的数据精度，必须对求得的数据进行一定的处理[4]。本课题所研究的数据手套硬件部分主要包括嵌入式控制器、TFT显示屏、弯曲度传感器、蓝牙串口通信模块、MPU6050六轴传感器等，具有可穿戴，无线连接，使用灵活等特点。目的在于做出一款可用于控制机械臂、与虚拟手交互映射等娱乐交互的数据手套。</p>
+<h2 id="系统硬件设计"><a href="#系统硬件设计" class="headerlink" title="系统硬件设计"></a>系统硬件设计</h2><p>本论文所研究的数据手套在功能上要求能够实时的检测到使用者手指的弯曲以及整个手姿态变化的数据信息[5]，并对检测到的数据信息做出判断后发送相应的指令给与之交互的终端。根据数据手套在功能上的要求，本课题设计出了以下解决方案：<br>（1）采用弯曲度传感器采集手指弯曲的数据信息，弯曲度传感器具有柔韧性好，可折叠，测量范围广等特点，比较适合用来收集弯曲即手指的数据信息。<br>（2）MPU6050传感器是全球首例9轴运动处理传感器。它集成了3MEMS陀螺仪，3轴MEMS加速度计，以及一个可扩展的数字运动处理器DMP（Digital  Motion Processor），可以使用I2C接口连接一个第三方的数字传感器。MPU6050传感器还免除了组合陀螺仪与加速度器时之轴间差的问题，减少了大量的封装空间，而且MPU6050支持mpu的dmp官方解算库，可以直接输出四元数，欧拉角格式的数据。<br>（3）在通信方式的选择上，考虑到本课题需要无线通信、功耗低，能快速连接且组网简单的通信特点，最终选择了蓝牙无线通信方式，使用的是HC-05蓝牙通信模块，HC-05蓝牙通信模块是一款高性能主从一体蓝牙串口模块，可以不用知道太多蓝牙相关知识就可以很好的上手。<br>（4）电源可以使用USB数据线接PC机供电，也可以使用大容量锂电池供电。锂电池具有续航时间长、可循环充电、绿色环保且重量轻等特点。<br>数据手套硬件系统主要包括以下几个功能模块：主控芯片模块、弯曲度传感器模块、MPU6050传感器模块、电源模块、蓝牙通信模块、数据显示模块，硬件系统图、硬件实物图分别如图2.1、图2.2所示</p>
+<!-- [![图2.1数据手套硬件系统图](https://s1.ax1x.com/2022/11/03/xqy9DP.png)](https://imgse.com/i/xqy9DP) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqy9DP.png" alt="图2.1数据手套硬件系统图" />
+<!-- [![图2.2硬件实物图](https://s1.ax1x.com/2022/11/03/xqyuD0.png)](https://imgse.com/i/xqyuD0) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyuD0.png" alt="图2.2硬件实物图" />
+## 系统软件设计及调试
+数据手套软件开发平台为Keil uVision5，所用的开发语言为C语言，在系统调试的时候用到了匿名四轴上位机和串口调试助手，用来对MPU6050六轴传感器和弯曲度传感器进行调试，此外在整个系统中移植了UCOS-II嵌入式实时操作系统，保证了数据在传输时的实时性和高效性。
+UCOS-II嵌入式实时操作系统是一个可移植、可固化的、可裁剪的、占先式多任务实时内核，它适用于多种微处理器，微控制器和数字处理芯片[6]。本系统软件主流程图如图3.1所示：
+<!-- [![xqyk4g.png](https://s1.ax1x.com/2022/11/03/xqyk4g.png)](https://imgse.com/i/xqyk4g) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyk4g.png" alt="" />
+
+<p>UCOS的原理就是当一个任务A正在执行的时候，如果它释放了CPU的控制权，先对任务A进行现场保护，然后从任务就绪表中查找其他就绪任务去执行，等到任务A的等待时间到了，它可能重新获得CPU控制权，这个时候恢复任务A的现场，从而继续执行任务A，这样看起来就好像是两个任务同时执行了。实际上，任何时候都只有一个任务可以获得CPU控制权。所谓的任务，其实就是一个死循环函数，该函数实现一定的工程，一个工程可以有很多这样的任务，UCOS-II对这些任务进行调度管理，让这些任务可以并发工作。本课题中创建了五个用户任务，分别是led_task，led闪烁提示系统工作状态；gui_task，显示屏实时显示姿态数据；adc_task弯曲度传感器采集手指弯曲信息；mpu6050_task，mpu6050传感器采集姿态信息；hc05_task蓝牙发送数据。<br>弯曲度传感器数据是利用STM32F103单片机接收经过电阻——电压转换电路转换过的弯曲度传感器的电压信号，每只手有五根手指，在单片机上设置五个ADC规则通道，用自带的AD转换电路进行AD转换得到手指的弯曲程度，ADC通道0~4分别代表大拇指、食指、中指、无名指、小指弯曲度的值。通过PC上串口调试助手读出其经过AD转换过后不同弯曲程度时的数值[7]，并对其进行分别量化和判断处理，的到最后的手指弯曲数据。<br>MPU6050传感器的数据可以通过对MPU6050传感器的软件设置可以直接读出传感器采集到的加速度和角速度原始数据，不过这些原始数据，在本课题研究中用处不大，我们期望得到的是姿态数据，也就是欧拉角。首先我们在PC端上通过匿名四轴上位机对MPU6050传感器的原始数据输出波形进行分析并对其进行滤波处理，在此原始数据的基础上还需要通过对加速度计和陀螺仪进行融合计算得出的欧拉角，得到三个轴上的欧拉角，以度为单位。MPU6050搭载有一个运动处理器（DMP），可以将采集到的原始数据直接转换输出四元数，再根据输出的四元数计算出对应的欧拉角。<br>欧拉角到姿态矩阵的转换关系为：</p>
+<!-- [![xqyput.png](https://s1.ax1x.com/2022/11/03/xqyput.png)](https://imgse.com/i/xqyput) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyput.png" alt=""/>
+<!-- [![xqyiE8.png](https://s1.ax1x.com/2022/11/03/xqyiE8.png)](https://imgse.com/i/xqyiE8) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyiE8.png" alt=""/>
+
+<!-- [![姿态矩阵T解算得到欧拉角：](https://s1.ax1x.com/2022/11/03/xqyECQ.png)](https://imgse.com/i/xqyECQ) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyECQ.png" alt="姿态矩阵T解算得到欧拉角" />
+可以直接使用欧拉角微分方程进行姿态解算：
+<!-- [![欧拉角微分方程](https://s1.ax1x.com/2022/11/03/xqyV3j.png)](https://imgse.com/i/xqyV3j) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyV3j.png" alt="欧拉角微分方程" />
+上式中，等式左边是输出的欧拉角，分别对应三个旋转轴，等式右边是根据上一个周期测算出来的角度，每个旋转轴上的角度都是根据陀螺仪传感器实际测量的角速度和时间间隔周期计算出来的，单位为弧度。所以，根据以上微分方程即可解算出当前传感器在每个旋转轴上的欧拉角。
+HC-05蓝牙模块式一款高性能的主从一体蓝牙串口模块，可以同各种带蓝牙功能的电脑、蓝牙主机、手机等职能终端配对，该模块支持非常宽的波特率范围：4800~1382400，并且模块兼容5V或3.3V单片机系统，使用非常灵活、方便。在使用的时候，首先将蓝牙模块处于AT指令模式，在PC上通过串口调试助手进行AT指令配置。蓝牙配置好后， 主控芯片将获取到的弯曲度传感器的数据和MPU6050的数据信息用特定的数据包格式通过蓝牙发送。
+显示模块的主要功能是在一块TFT显示屏上显示当前手部在空间中x,y,z轴的一个姿态,分别用欧拉角pitch（俯仰角）、yaw（偏航角）、roll（翻滚角）表示。
+## 应用场景展示
+数据手套作为一种人机交互设备，可应用与多个领域多个行业，理论上与本设备交互设备能具备蓝牙通信功能，在通信协议一致的情况下便都能与本设备进行交互。在本课题中只要应用于与五轴机械臂交互和与虚拟手的交互映射。
+###4.1 与五轴机械臂交互
+数据手套与之交互的五轴机械臂为安诺五轴机械臂，这款机械臂的主控芯片为arduino，控制方式是使用现在数字程序中常使用的指令——G代码，机械臂的五个轴从下到上分别是A轴、B轴、C轴、D轴和X轴，每个轴分为正向转动和反向转动，所以控制机械臂只需要十个控制指令即可。本课题在控制的时，五根手指分别控制五个轴，当pitch的值小于20时手指控制机械臂的五个轴正向转动，当pitch的值大于20时，手指控制机械臂的五个轴反向转动。手部首先分别读取五个弯曲传感器的初始值（即五个手指没有弯曲时的值），再给定一个触发条件，当达到这个触发条件时，数据手套发送控制指令。如：pitch的值为15，ADC通道0的初始值为200，触发条件为ADC通道0的值大于300，当ADC通道0的值大于300时，数据手套控制五轴机械臂A轴的正向转动。交互图如图4.1所示。
+
+<!-- [![xqynuq.png](https://s1.ax1x.com/2022/11/03/xqynuq.png)](https://imgse.com/i/xqynuq) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqynuq.png" alt=""/>
+###4.2 与虚拟手的交互映射
+虚拟手的开发平台为Unity3D，所用的开发语言为C#。数据手套与之交互时所用到的通信协议为：
+0x55+0x53+aacx_t+pitch_s+aacy_t+roll_s+aacz_t+yaw_s+0xaa+finger0+finger1+finger2 +finger3 +finger4 +0xbb共15（byte）,虚拟手接收到数据包后对数据包进行解析，首先是对MPU6050的数据进行解析。MPU6050的数据有16位，其中aacx、aacy、aacz代表高八位，pitch_s、roll_s、yaw_s代表低八位，要得到一个MPU6050的数据，需要将高八位左移八位，然后与第八位进行或运算，具体的计算方法如下：
+
+<!-- [![xqyZgs.png](https://s1.ax1x.com/2022/11/03/xqyZgs.png)](https://imgse.com/i/xqyZgs) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyZgs.png"  alt=""/>
+然后对五跟手指即五个弯曲度传感器的值进行解析。假设接口上所读取到的X，用X来除以0.06，即X/0.06即(a1~a5)为弯曲传感器上的电压值的量化`Vx*3.3/4096（Vx为传感器上的电压）`
+
+<!-- [![xqyevn.png](https://s1.ax1x.com/2022/11/03/xqyevn.png)](https://imgse.com/i/xqyevn) -->
+<img src="https://s1.ax1x.com/2022/11/03/xqyevn.png" alt="" />
+根据以上方程便可求出R的阻值。
+R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度成正相关。当手做出某个手势时，主控芯片获取当前五根手指的弯曲数据及手部在空间中的姿态数据，通过蓝牙发送给虚拟手，虚拟手接收到数据后进行解析，然后做出相应的手势。交互图如图4.2、图4.3、图4.4、图4.5、图4.6所示。
+
+<!-- [![xqyQET.png](https://s1.ax1x.com/2022/11/03/xqyQET.png)](https://imgse.com/i/xqyQET) -->
+<!-- [![xqyKbV.png](https://s1.ax1x.com/2022/11/03/xqyKbV.png)](https://imgse.com/i/xqyKbV) -->
+<!-- [![xqylUU.png](https://s1.ax1x.com/2022/11/03/xqylUU.png)](https://imgse.com/i/xqylUU) -->
+<!-- [![xqy15F.png](https://s1.ax1x.com/2022/11/03/xqy15F.png)](https://imgse.com/i/xqy15F) -->
+<!-- [![xqy8C4.png](https://s1.ax1x.com/2022/11/03/xqy8C4.png)](https://imgse.com/i/xqy8C4) -->
+<table>
+<thead>
+<tr>
+<th><img src="https://s1.ax1x.com/2022/11/03/xqyQET.png" style="width:300px;height:200px" alt=""/></th>
+<th><img src="https://s1.ax1x.com/2022/11/03/xqyKbV.png" style="width:300px;height:200px" alt=""/></th>
+<th><img src="https://s1.ax1x.com/2022/11/03/xqylUU.png" style="width:300px;height:200px" alt=""/></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://s1.ax1x.com/2022/11/03/xqy15F.png" style="width:300px;height:200px" alt=""/></td>
+<td><img src="https://s1.ax1x.com/2022/11/03/xqy8C4.png" style="width:300px;height:200px" alt=""/></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>本课题从理论出发，完成了UCOS嵌入式操作系统在ARM平台上的移植，提高了系统稳定性，一步步的设计到实现，通过获取手指的弯曲度数据、手部在空间中姿态数据，进行了数据的分析及处理，给出了与五轴机械臂的交互及与虚拟手交互映射的方法，以实际的应用测试了数据采集和手势识别的准确性和实时性，基本达到了本课题的目的。</p>
+<blockquote>
+<p>手套代码去我的下载查看<br><a target="_blank" rel="noopener" href="https://download.csdn.net/download/silent_f/10612775">数据手套上位机代码</a><br><a target="_blank" rel="noopener" href="https://download.csdn.net/download/silent_f/10612768">数据手套控制虚拟手代码</a><br><a target="_blank" rel="noopener" href="https://download.csdn.net/download/silent_f/10612762">数据手套控制机械臂代码</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2017/06/15/%E6%95%B0%E6%8D%AE%E6%89%8B%E5%A5%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" data-id="clw7ne0z700ei4sadh4os4ggz" data-title="数据手套的设计与实现" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-两个HC05蓝牙模块相互之间的通信" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/06/15/%E4%B8%A4%E4%B8%AAHC05%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97%E7%9B%B8%E4%BA%92%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/" class="article-date">
+  <time class="dt-published" datetime="2017-06-14T22:25:28.000Z" itemprop="datePublished">2017-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a>►<a class="article-category-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97/">蓝牙模块</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/06/15/%E4%B8%A4%E4%B8%AAHC05%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97%E7%9B%B8%E4%BA%92%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/">两个HC05蓝牙模块相互之间的通信</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>蓝牙模块具有两种工作模式：命令响应工作模式和自动连接工作模式<br>具体的资料看这里：链接：链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1YB1QLrWcKV19XYg9yY7smg">https://pan.baidu.com/s/1YB1QLrWcKV19XYg9yY7smg</a> 密码：q9mf</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h2 id="两个蓝牙模块通信"><a href="#两个蓝牙模块通信" class="headerlink" title="两个蓝牙模块通信"></a>两个蓝牙模块通信</h2><p>两个蓝牙模块通信，首先是要让两个蓝牙模块进入命令响应工作模式即五下面说说的AT模式（EN接上USB转TTL的VCC或者3.3V，再长按蓝牙模块上的那个键，上电，红灯一秒钟闪一下即进入了AT模式）</p>
+<h3 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h3><p><strong>1、</strong> [AT模式]两个蓝牙模块的PIO11接VCC，上电后即进入AT指令模式，都用USB转TTL模块连接到电脑的USB接口。(笔者这里是蓝牙模块的EN连接3.3V)</p>
+<p><strong>2、</strong>[打开串口调试助手]开启2个串口调试窗口，一个打开蓝牙A的COM15口，一个打开蓝牙B的COM14口。(默认波特率一般为38400，数据位为8，停止位为1)</p>
+<p><strong>3、</strong>[恢复A默认设置]串口调试助手A，端口为com15,将蓝牙A恢复默认设置：AT+ORGL\r\n (\r\n即回车、换行，或者在串口调试助手上输入AT+ORGL再按下回车即可)</p>
+<p><strong>4、</strong>[设置A配对码]串口调试助手A，配置蓝牙A的配对码：AT+PSWD&#x3D;1234\r\n,(蓝牙A与蓝牙B的配对码相同，这样才能成功配对)</p>
+<p><strong>5、</strong>[设置A主模式]串口调试助手A，将蓝牙A配置为主机模式：AT+ROLE&#x3D;1\r\n</p>
+<p><strong>6、</strong>[恢复B默认设置]串口调试助手B,将蓝牙B恢复默认设置：AT+ORGL\r\n</p>
+<p><strong>7、</strong>[设置B配对码]串口调试助手B，配置蓝牙B的配对码与蓝牙A一致：AT+PSWD&#x3D;1234\r\n</p>
+<p><strong>8、</strong>[设置B从模式]串口调试助手B，将蓝牙B配置为从机模式：AT+ROLE&#x3D;0\r\n</p>
+<p><strong>9、</strong>[查询B地址]串口调试助手B，查询蓝牙B的地址：AT+ADDR?\r\n (如：+ADDR:98d3:37:90efca)</p>
+<p><strong>10、</strong>[蓝牙A绑定蓝牙B]串口调试助手A，蓝牙A绑定蓝牙B地址：<br>AT+BIND&#x3D;98d3，37，90efca\r\n（注意把地址的冒号换成逗号）</p>
+<p><strong>11、</strong>[常规工作模式]2个模块的PIO11引脚都接地，重新上电后进入常规工作模式，自动完成配对。之后，串口调试助手A和串口调试助手B就能互传数据了。（笔者这里是直接将EN脚置空）</p>
+<p><strong>注意</strong>：确保2个蓝牙模块的配对码（PSWD）相同，都上电后两个模块会自动相连。<br>（蓝牙的连接模式默认是：0——指定蓝牙地址连接模式，这样蓝牙A才能自动连接绑定的地址，如果不是模式0，设置为模式0：AT+CMODE&#x3D;0 [查询指令：<code>AT+CMODE？</code>]）</p>
+<blockquote>
+<p>如果连接失败，重新配置一次。连接成功是每秒闪一次，一次闪两下</p>
+</blockquote>
+<p>注意：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">两个模块波特率及格式相同</span><br><span class="line">密码相同</span><br><span class="line">一个为主机模式，一个为从机模式</span><br><span class="line">连接方式都设置为地址连接</span><br><span class="line">绑定对方地址</span><br></pre></td></tr></table></figure>
+<p>下面是笔者用笔记本用两个串口直接测试的图：<br><img src="https://pic.imgdb.cn/item/664347ce0ea9cb1403ca6fdc.png" alt="这里写图片描述"><br>（左边是A，右边是B，右边发送命令框所发送的内容显示在左边框中）</p>
+<p>此文多处参考<a target="_blank" rel="noopener" href="https://wenku.baidu.com/view/97d363d2b04e852458fb770bf78a6529647d3556.html">这篇文章</a>，若有不妥，还请指出。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2017/06/15/%E4%B8%A4%E4%B8%AAHC05%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97%E7%9B%B8%E4%BA%92%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/" data-id="clw7ne0z100d34sad09jgb5tb" data-title="两个HC05蓝牙模块相互之间的通信" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-语音信号滤波去噪——使用FLATTOPWIN设计的FIR滤波器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/05/15/%E8%AF%AD%E9%9F%B3%E4%BF%A1%E5%8F%B7%E6%BB%A4%E6%B3%A2%E5%8E%BB%E5%99%AA%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8FLATTOPWIN%E8%AE%BE%E8%AE%A1%E7%9A%84FIR%E6%BB%A4%E6%B3%A2%E5%99%A8/" class="article-date">
+  <time class="dt-published" datetime="2017-05-15T03:01:00.000Z" itemprop="datePublished">2017-05-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/05/15/%E8%AF%AD%E9%9F%B3%E4%BF%A1%E5%8F%B7%E6%BB%A4%E6%B3%A2%E5%8E%BB%E5%99%AA%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8FLATTOPWIN%E8%AE%BE%E8%AE%A1%E7%9A%84FIR%E6%BB%A4%E6%B3%A2%E5%99%A8/">语音信号滤波去噪——使用FLATTOPWIN设计的FIR滤波器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>摘  要</strong>  本课程设计主要内容是设计利用窗口设计法选择FLATTOPWIN窗设计一个FIR滤波器，对一段含噪语音信号进行滤波去噪处理并根据滤波前后的波形和频谱分析滤波性能。本课程设计仿真平台为MATLAB7.0，开发工具是M语言编程，通过课程设计了解FIR滤波器设计的原理和步骤，掌握用MATLAB语言设计滤波器的方法，了解FLATTOPWIN对FIR滤波器的设计及编程方法。首先利用windows自带的录音机录制一段语音信号，加入一单频噪声，对信号进行频谱分析以确定所加噪声频率，设计滤波器进行滤波去噪处理，比较滤波前后的波形和频谱并进行分析。由分析结果可知，滤波<br>后的语音信号与原始信号基本一致，即设计的FIR滤波器能够去除信号中所加单频噪声，达到了设计目的。<br><strong>关键词</strong>  滤波去噪；FIR滤波器；FLATTOPWIN窗；MATLAB</p>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>本课程设计主要解决在含噪情况下对语音信号的滤波去噪处理，处理时采用的是利用窗口设计法选择FLATTOPWIN窗设计的FIR滤波器[1]。通过对比滤波前后波形图和滤波前后语音信号的对比 ，可以看出滤波器对有用信号无失真放大具有重大意义。</p>
+<h2 id="课程设计目的"><a href="#课程设计目的" class="headerlink" title="课程设计目的"></a>课程设计目的</h2><p>熟悉Matlab语言环境，掌握Matlab语言的编程规则，利用Flattopwin窗函数设计法来设计符合要求的FIR滤波器来实现语音信号的滤波去噪。并绘制滤波前后的时域波形和频谱图。根据图形分析判断滤波器设计的正确性。通过本次课程设计熟悉利用<br>flattopwin窗函数法设计FIR滤波器的过程[2]。增强自己独立解决问题的能力，提高自己的动手能力。加深对理论知识联系实际问题的理解。为以后的工作奠定坚实的基础。</p>
+<h2 id="课程设计要求"><a href="#课程设计要求" class="headerlink" title="课程设计要求"></a>课程设计要求</h2><p>录制一段语音，绘制波形并观察其频谱特点，加入一个带外单频噪声，设计一个满足指标的滤波器，对该含噪语音信号进行滤波去噪处理，比较滤波前后的波形和频谱并进行分析，根据结果和学过的理论得出合理的结论[3]。</p>
+<h2 id="课程设计平台"><a href="#课程设计平台" class="headerlink" title="课程设计平台"></a>课程设计平台</h2><p>MATLB是美国MathWorks公司出品的商业教学软件，用于算法开发。数据可视化、数据分析以及数值计算的高级技术计算语言和交互式环境，主要包括MATLAB和Simulink两大部分。<br>MATLAB由一系列工具组成。这些工具方便用户使用MATLAB的函数和文件，其中许多工具采用的是图形用户界面。包括MATLAB桌面和命令窗口、历史命令窗口、编辑器和调试器、路径搜索和用于用户浏览帮助、工作空间、文件的浏览器。随着MATLAB的商业化以及软件本身的不断升级，MATLAB的用户界面也越来越精致，更加接近Windows的标准界面，人机交互性更强，操作更简单。而且新版本的MATLAB提供了完整的联机查询、帮助系统，极大的方便了用户的使用。简单的编程环境提供了比较完备的调试系统，程序不必经过编译就可以直接运行，而且能够及时地报告出现的错误及进行出错原因分析。<br>MATLAB是一个高级的矩阵&#x2F;阵列语言，它包含控制语句、函数、数据结构、输入和输出和面向对象编程特点。用户可以在命令窗口中将输入语句与执行命令同步，也可以先编写好一个较大的复杂的应用程序（M文件）后再一起运行。新版本的MATLAB语言是基于最为流行的C++语言基础上的，因此语法特征与C++语言极为相似，而且更加简单，更加符合科技人员对数学表达式的书写格式。使之更利于非计算机专业的科技人员使用。而且这种语言可移植性好、可拓展性极强，这也是MATLAB能够深入到科学研究及工程计算各个领域的重要原因[4]。<br>MATLAB是一个包含大量计算算法的集合。其拥有600多个工程中要用到的数学运算函数，可以方便的实现用户所需的各种计算功能。函数中所使用的算法都是科研和工程<br>计算中的最新研究成果，而且经过了各种优化和容错处理。在通常情况下，可以用它来代替底层编程语言，如C和C++ 。在计算要求相同的情况下，使用MATLAB的编程工作量会大大减少。MATLAB的这些函数集包括从最简单最基本的函数到诸如矩阵，特征向量、快速傅立叶变换的复杂函数。函数所能解决的问题其大致包括矩阵运算和线性方程组的求解、微分方程及偏微分方程的组的求解、符号运算、傅立叶变换和数据的统计分析、工程中的优化问题、稀疏矩阵运算、复数的各种运算、三角函数和其他初等数学运算、多维数组操作以及建模动态仿真等。</p>
+<h1 id="基本理论"><a href="#基本理论" class="headerlink" title="基本理论"></a>基本理论</h1><h2 id="FIR滤波器"><a href="#FIR滤波器" class="headerlink" title="FIR滤波器"></a>FIR滤波器</h2><p>FIR(Finite Impulse Response)滤波器：有限长单位冲激响应滤波器，又称为非递归型滤波器，是数字信号处理系统中最基本的元件，它可以在保证任意幅频特性的同时具有严格的线性相频特性，同时其单位抽样响应是有限长的，因而滤波器是稳定的系统。因此，FIR滤波器在通信、图像处理、模式识别等领域都有着广泛的应用。<br>工作原理：在进入FIR滤波器前，首先要将信号通过A&#x2F;D器件进行模数转换，把模拟信号转化为数字信号；为了使信号处理能够不发生失真，信号的采样速度必须满足奈奎斯特定理，一般取信号频率上限的4-5倍做为采样频率；一般可用速度较高的逐次逼进式A&#x2F;D转换器，不论采用乘累加方法还是分布式算法设计FIR滤波器，滤波器输出的数据都是一串序列，要使它能直观地反应出来，还需经过数模转换，因此由FPGA构成的FIR滤波器的输出须外接D&#x2F;A模块。FPGA有着规整的内部逻辑阵列和丰富的连线资源，特别适合于数字信号处理任务，相对于串行运算为主导的通用DSP芯片来说，其并行性和可扩展性更好，利用FPGA乘累加的快速算法，可以设计出高速的FIR数字滤波器[5]。</p>
+<img src="https://pic.imgdb.cn/item/664348550ea9cb1403cb2ed2.png"/>
+    
+<h2 id="窗口设计法"><a href="#窗口设计法" class="headerlink" title="窗口设计法"></a>窗口设计法</h2><p>窗口设计法是一种通过截断和计权的方法使无限长非因果序列成为有限长脉冲响应序列的设计方法。通常在设计滤波器之前，应该先根据具体的工程应用确定滤波器的技术指标。在大多数实际应用中，数字滤波器常常被用来实现选频操作，所以指标的形式一般为在频域中以分贝值给出的相对幅度响应和相位响应。<br>窗口设计法步骤如下：<br><strong>（1）</strong>根据过渡带宽及阻带衰减要求，选择窗函数的类型并估计窗口长度N。窗函数的类型可根据最小阻带衰减AS独立选择[6]。<br><strong>（2）</strong>根据待求滤波器的理想频率响应求出理想单位脉冲响应hd(n)。<br><strong>（3）</strong>由性能指标确定窗函数W(n)和长度N。<br><strong>（4）</strong>求得实际滤波器的单位脉冲响应h(n)， h(n)即为所设计FIR滤波器系数向量b(n)。	<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTU1NjQ4NzIy?x-oss-process=image/format,png" alt="这里写图片描述">（2.1）</p>
+<p>常见的窗函数性能表如下表2.1所示：<br>表2.1 常见窗函数性能表<br><img src="https://s21.ax1x.com/2024/03/16/pF20N6A.png"/></p>
+<h2 id="FLATTOPWIN窗"><a href="#FLATTOPWIN窗" class="headerlink" title="FLATTOPWIN窗"></a>FLATTOPWIN窗</h2><p>w&#x3D;Flattopwin (L) 返回L-点Flattopwin窗口中列向量。Flattopwin窗的滤波器的过渡带宽为19.6π&#x2F;M，最小阻带衰减108db。<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYwMDUxNzM1?x-oss-process=image/format,png" alt="这里写图片描述"><br>时间波形和幅度谱如下图2.2、图2.3：<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYwMTQ0NDM5?x-oss-process=image/format,png" alt="这里写图片描述">图2.2 时间波形<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYwMjQxODUw?x-oss-process=image/format,png" alt="这里写图片描述">图2.3 幅度谱</p>
+<h1 id="设计步骤"><a href="#设计步骤" class="headerlink" title="设计步骤"></a>设计步骤</h1><h2 id="设计流程图"><a href="#设计流程图" class="headerlink" title="设计流程图"></a>设计流程图</h2><p>根据设计的要求，首先自己录制一段语音信号，修改语音文件格式，对语音信号加入噪声干扰，再利用Flattopwin窗设计合理的FIR滤波器。最后用滤波器对干扰后的语音信号进行滤波去噪。具体设计流程图如下图3.1所示：<br><img src="https://pic.imgdb.cn/item/664348a10ea9cb1403cb8fdf.png" width="60%" alt="图3.1设计流程图"/></p>
+<h2 id="录制语音信号"><a href="#录制语音信号" class="headerlink" title="录制语音信号"></a>录制语音信号</h2><p>从电脑上录制一段语音信号，并命名为“cf.wav”，修改语音文件的格式，并放在E盘目录下。在MATLAB软件中调用wavread函数可采集到语音信号。代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[x,fs,bits]=wavread(&#x27;e:\cf.wav&#x27;); </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>%fs是生成该波形文件的采样频率，bits是波形文件没样本的编码位数</p>
+</blockquote>
+<p>得到原始语音信号时域波形图如图3.2<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYwOTA2MzU1?x-oss-process=image/format,png" alt="这里写图片描述">图3.2 原始语音信号时域波形图</p>
+<p>然后对语音号进行快速傅里叶变换，得到信号的频谱特性，并将原始音乐信号的波形图与加干扰后的波形图进行比较。部分代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">y=x+0.1*sin(fn*2*pi*t);    %给原始信号加噪声</span><br><span class="line">X=abs(fft(x));             %对原始信号进行傅里叶变换</span><br><span class="line">Y=abs(fft(y));             %对加噪声后信号进行傅里叶变换</span><br></pre></td></tr></table></figure>
+<p>加噪声前后的时域与频谱图如图3.3<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYxMDU3OTUx?x-oss-process=image/format,png" alt="这里写图片描述"><br>图3.3 加噪声前后的时域图与频谱图比较</p>
+<h2 id="滤波器设计"><a href="#滤波器设计" class="headerlink" title="滤波器设计"></a>滤波器设计</h2><p>在本次的课程设计中我所采用的是利用Flattopwin窗函数来设计FIR滤波器。其中主要用了freqz_m.m和ideal_lp.m两个自编函数。<br>设计的滤波器图如图3.4<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYxMjExNzYx?x-oss-process=image/format,png" alt="这里写图片描述"><br>图3.4 滤波器图形</p>
+<h2 id="信号滤波处理"><a href="#信号滤波处理" class="headerlink" title="信号滤波处理"></a>信号滤波处理</h2><p>滤波器设计完成后，在MATLAB平台上用函数fftfilt实现滤波。<br>得到的滤波前后语音信号的时域波形图和频谱图对比图如图3.5、3.6<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYxMzM4NzQ3?x-oss-process=image/format,png" alt="这里写图片描述"><br>图3.5 滤波前后语音信号的时域波形图和频谱图<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTE1MTYxNDA3NzM3?x-oss-process=image/format,png" alt="这里写图片描述"><br>图3.6 滤波前后语音信号的比较</p>
+<h2 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h2><p>在MATLAB中，对原始的语音信号加噪音，利用FLATTOPWIN窗口设计FIR滤波器，通过所设计的滤波器对加噪声后的信号进行处理。再通过sound(x,fs,bits)函数对滤波后的语音信号进行回放，可以听到滤波之后的信号和原始信号一样清晰。具体代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sound(x,fs,bits);        %播放原始语音信号</span><br><span class="line">sound (y_fil,fs,bits);   % 播放滤波后的音乐信号</span><br></pre></td></tr></table></figure>
+<p>所得结果证明了用Flattopwin窗设计的FIR滤波器和音乐信号去噪设计是成功的。</p>
+<h1 id="出现的问题及解决方法"><a href="#出现的问题及解决方法" class="headerlink" title="出现的问题及解决方法"></a>出现的问题及解决方法</h1><p>在本次课程设计中我遇到的问题如下：<br>1、对Flattopwin窗不是很了解，对用Flattopwin窗函数设计FIR滤波器的设计步骤很生疏。<br>2、 语音文件的格式有问题，不知道如何修改。<br>3、不知道如何调用函数，对MATLAB的使用不熟悉。<br>4、对滤波器一些参数以及通带阻带等概念不是很清楚。<br>5、在采用Flattopwin窗函数设计的FIR滤波器时得不到理想的滤波器，因而信号的恢<br>复不是特别理想。</p>
+<pre><code>针对以上问题，相应的解决方案如下：
+</code></pre>
+<p>1、自己上网查阅资料，以及查看之前《数字信号处理》教材和向图书馆借阅资料，掌<br>握利用Flattopwin窗函数设计FIR滤波器的方法和步骤。<br>2、询问同学，找同学帮忙。<br>3、利用MATLAB这款软件自带的help功能，以及查看老师所给提供的课设资料和上<br>网看阅资料。<br>4、请教值班老师以及在网上查阅资料。<br>5、通过不断设置参数的值，最终达到最理想的值，设计出理想的滤波器，使信号得到理想恢复。</p>
+<h1 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h1><p>本次的课程设计，我的题目是《语音信号滤波去噪——使用Flattopwin设计的FIR滤波》。在本次课程设计之前，我对Flattopwin窗函数完全没有了解，因此在看到这个题目时，我是一头雾水。但是通过自己翻阅资料和询问同学，我掌握了用Flattopwin窗函数设计FIR滤波器的方法步骤，了解了窗函数的基本设计流程。经过这三周的课程设计，我学会了很多东西，不仅仅是技术，更多的是自学能力的提高以及处理问题的方法。<br>我们通信工程专业是个实践性很强的专业，而我们在校大部分的学习时间都是花在理论学习上面，实践的机会很少。因而我对很多所学的理论知识如何跟实践联系的概念很模糊，这次的课程设计给了我这个机会，加深了我对理论联系实际的理解，增强了自己独立分析问题和解决问题的能力，开阔了自己的思维。<br>还有让我看到了自己的不足，自己对本专业的相关知识掌握的还很少，还有很多知识都没掌握，还让我认识到解决问题的方法、途径很多，做事要开阔自己的思维，看待问题要从多个角度看。<br>在此我要感谢学校为我们提供这次课程设计的机会，感谢老师对我的悉心指导，也感谢同学对我的帮助。这次的课程设计让我理论联系实际，不仅巩固了我们的理论知识，还提高了我的动手能力，在这次课程设计中我所学到的知识是我的财富，让我终身受益。</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="语音信号滤波去噪设计源程序清单"><a href="#语音信号滤波去噪设计源程序清单" class="headerlink" title="语音信号滤波去噪设计源程序清单"></a>语音信号滤波去噪设计源程序清单</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">% 程序名称：c.m</span><br><span class="line">% 程序功能：利用FLATTOPWIN设计的FIR滤波对语音信号进行滤波去噪</span><br><span class="line">% 程序作者： </span><br><span class="line">% 最后修改日期：2017年3月8日</span><br><span class="line">[x,fs,bits]=wavread(&#x27;e:\cf.wav&#x27;);  % 输了参数为文件的全路径和文件名，输出的第一个参数是每个样本的值，fs是生成该波形文件时的采样率，bits是波形文件每样本的编码位数。</span><br><span class="line">sound(x,fs,bits);      % 按指定的采样率和每样本编码位数回放</span><br><span class="line">N=length(x);       % 计算信号X的长度</span><br><span class="line">fn=2200;            % 单频噪声频率</span><br><span class="line">t=0:1/fs:(N-1)/fs;         % 计算时间范围，样本数除以采样频率</span><br><span class="line">x=x(:,1)&#x27;;               % 将双声道转为单声道</span><br><span class="line">y=x+0.1*sin(fn*2*pi*t);     % 加噪声</span><br><span class="line">sound(y,fs,bits);         % 应该可以明显听出有尖锐的单品啸叫声</span><br><span class="line">X=abs(fft(x));  Y=abs(fft(y));    % 对原始信号和加噪声信号进行fft变换，取幅度值</span><br><span class="line">X=X(1:N/2); Y=Y(1:N/2);       % 截取前半部分</span><br><span class="line">deltaf=fs/N;            % 计算频谱的谱线间隔</span><br><span class="line">f=0:deltaf:fs/2-deltaf;     % 计算频谱频率范围</span><br><span class="line">figure(1)</span><br><span class="line">subplot(2,2,1);plot(t,x);xlabel(&#x27;时间t&#x27;);</span><br><span class="line">ylabel(&#x27;幅度&#x27;);title(&#x27;原始语音信号&#x27;);</span><br><span class="line">axis([0,4,-1.5,1.5]);</span><br><span class="line"></span><br><span class="line">subplot(2,2,2);plot(f,X);xlabel(&#x27;频率f&#x27;);ylabel(&#x27;幅度谱&#x27;);</span><br><span class="line">title(&#x27;原始语音信号幅度谱&#x27;);</span><br><span class="line">axis([-10,6000,0,700]);</span><br><span class="line">subplot(2,2,3);plot(t,y);xlabel(&#x27;时间&#x27;);ylabel(&#x27;幅度&#x27;);</span><br><span class="line">title(&#x27;加干扰后的语音信号&#x27;);</span><br><span class="line">axis([0,4,-1.5,1.5]);</span><br><span class="line">subplot(2,2,4);plot(f,Y);xlabel(&#x27;频率 f&#x27;);ylabel(&#x27;幅度谱&#x27;);</span><br><span class="line">title(&#x27;加干扰后的语音信号幅度谱&#x27;);</span><br><span class="line">axis([-10,6000,0,700]);</span><br><span class="line"> </span><br><span class="line">fpd=2100;fsd=2150;fsu=2250;fpu=2300;Rp=1;As=30;      % 阻带滤波器设计指标</span><br><span class="line">fcd=(fpd+fsd)/2;fcu=(fpu+fsu)/2;df=min((fsd-fpd),(fpu-fsu));  % 计算上下边带中心频率和频率间隔</span><br><span class="line">wcd=fcd/fs*2*pi;wcu=fcu/fs*2*pi;dw=df/fs*2*pi;    %将Hz为单位的模拟频率换算为rad为单位的数字频率 </span><br><span class="line">wsd=fsd/fs*2*pi;wsu=fsu/fs*2*pi;</span><br><span class="line">M=ceil(6.2*pi/dw)+1;      %计算flattopwin窗设计滤波器时需要的阶数</span><br><span class="line">n=0:M-1;         % 定义时间范围</span><br><span class="line">w_fla=(Flattopwin(M));    % 产生M阶的flattopwin窗</span><br><span class="line">hd_bs=ideal_lp(wcd,M)+ideal_lp(pi,M)-ideal_lp(wcu,M); </span><br><span class="line">% 调用自编函数计算理想阻带滤波器的脉冲响应</span><br><span class="line">h_bs=w_fla&#x27;.*hd_bs;       % 用窗口法计算实际滤波器脉冲响应</span><br><span class="line">[db,mag,pha,grd,w]=freqz_m(h_bs,1);  % 调用自编函数计算滤波器的频率特征</span><br><span class="line"> </span><br><span class="line">figure(2)</span><br><span class="line">subplot(2,2,1);plot(w,db);title(&#x27;滤波器幅度响应图&#x27;);</span><br><span class="line">xlabel(&#x27;w/pi&#x27;);ylabel(&#x27;db&#x27;);</span><br><span class="line">axis([0,0.8,-60,10]);</span><br><span class="line">line([0,2],[-As,-As],&#x27;color&#x27;,&#x27;y&#x27;,&#x27;linestyle&#x27;,&#x27;--&#x27;,&#x27;LineWidth&#x27;,2);</span><br><span class="line">line([0,2],[-Rp,-Rp],&#x27;color&#x27;,&#x27;g&#x27;,&#x27;linestyle&#x27;,&#x27;--&#x27;,&#x27;LineWidth&#x27;,2);</span><br><span class="line">line([wsd,wsd],[-30,10],&#x27;color&#x27;,&#x27;r&#x27;,&#x27;linestyle&#x27;,&#x27;--&#x27;,&#x27;LineWidth&#x27;,2);</span><br><span class="line">line([wsu,wsu],[-30,10],&#x27;color&#x27;,&#x27;r&#x27;,&#x27;linestyle&#x27;,&#x27;--&#x27;,&#x27;LineWidth&#x27;,2);</span><br><span class="line">subplot(2,2,2);plot(w,mag);title(&#x27;滤波器幅度响应图&#x27;);</span><br><span class="line">xlabel(&#x27;w/pi&#x27;);ylabel(&#x27;幅度mag&#x27;);</span><br><span class="line">axis([0,1,-0.5,1.5]);</span><br><span class="line">subplot(2,2,3);plot(w,pha);title(&#x27;滤波器幅度响应图&#x27;);</span><br><span class="line">xlabel(&#x27;w/pi&#x27;);ylabel(&#x27;相位pha&#x27;);</span><br><span class="line">axis([0,1,-4,4]);</span><br><span class="line">subplot(2,2,4);stem(n,h_bs);title(&#x27;滤波器幅度响应图&#x27;);</span><br><span class="line">xlabel(&#x27;w/pi&#x27;);ylabel(&#x27;db&#x27;);</span><br><span class="line">axis([0,1500,0,1]);</span><br><span class="line"> </span><br><span class="line">y_fil=fftfilt(h_bs,y);  %用设计好的滤波器对y进行滤波</span><br><span class="line">Y_fil=fft(y_fil);Y_fil=Y_fil(1:N/2);  %计算频谱取前一半</span><br><span class="line">figure(3)</span><br><span class="line">subplot(3,2,1);plot(t,x);xlabel(&#x27;时间t&#x27;);ylabel(&#x27;幅度&#x27;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">title(&#x27;原始语音信号&#x27;);</span><br><span class="line">subplot(3,2,2);plot(f,X);xlabel(&#x27;频率f&#x27;);ylabel(&#x27;幅度谱&#x27;);</span><br><span class="line">title(&#x27;原始语音信号幅度谱&#x27;);</span><br><span class="line">axis([0,4000,0,600]);</span><br><span class="line">subplot(3,2,3);plot(t,y);xlabel(&#x27;时间t&#x27;);ylabel(&#x27;·幅度&#x27;);</span><br><span class="line">title(&#x27;加干扰后语音信号&#x27;);</span><br><span class="line">subplot(3,2,4);plot(f,Y);xlabel(&#x27;频率f&#x27;);ylabel(&#x27;幅度谱&#x27;);</span><br><span class="line">title(&#x27;加干扰后语音信号幅度谱&#x27;);</span><br><span class="line">axis([0,4000,0,600]);</span><br><span class="line">subplot(3,2,5);plot(t,y_fil);xlabel(&#x27;时间t&#x27;);ylabel(&#x27;幅度&#x27;);</span><br><span class="line">title(&#x27;滤波后语音信号&#x27;);</span><br><span class="line">subplot(3,2,6);plot(f,Y_fil);xlabel(&#x27;频率f&#x27;);ylabel(&#x27;幅度谱&#x27;);</span><br><span class="line">title(&#x27;滤波后语音信号幅度谱&#x27;);</span><br><span class="line">axis([0,4000,0,600]);</span><br><span class="line">figure(4)</span><br><span class="line">subplot(2,1,1);plot(f,20*log10(Y));grid on; </span><br><span class="line">subplot(2,1,2);plot(f,20*log10(Y_fil));grid on; </span><br><span class="line">sound(x,fs,bits);   % 播放原始信号</span><br><span class="line">sound (y_fil,fs,bits);  %播放滤波后的信号</span><br><span class="line"> </span><br><span class="line">[C,B,A]=dir2fs(h_bs);</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数FREQZ-M-M定义："><a href="#函数FREQZ-M-M定义：" class="headerlink" title="函数FREQZ_M.M定义："></a>函数FREQZ_M.M定义：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function [db,mag,pha,grd,w] = freqz_m(b,a);</span><br><span class="line">% Modified version of freqz subroutine</span><br><span class="line">% ------------------------------------</span><br><span class="line">% [db,mag,pha,grd,w] = freqz_m(b,a);</span><br><span class="line">%  db = Relative magnitude in dB computed over 0 to pi radians</span><br><span class="line">% mag = absolute magnitude computed over 0 to pi radians </span><br><span class="line">% pha = Phase response in radians over 0 to pi radians</span><br><span class="line">% grd = Group delay over 0 to pi radians</span><br><span class="line">%   w = 501 frequency samples between 0 to pi radians</span><br><span class="line">%   b = numerator polynomial of H(z)   (for FIR: b=h)</span><br><span class="line">%   a = denominator polynomial of H(z) (for FIR: a=[1])</span><br><span class="line">%</span><br><span class="line">[H,w] = freqz(b,a,1000,&#x27;whole&#x27;);</span><br><span class="line">    H = (H(1:1:501))&#x27;; w = (w(1:1:501))&#x27;;</span><br><span class="line">  mag = abs(H);</span><br><span class="line">   db = 20*log10((mag+eps)/max(mag));</span><br><span class="line">  pha = angle(H);</span><br><span class="line">%  pha = unwrap(angle(H));</span><br><span class="line">  grd = grpdelay(b,a,w);</span><br><span class="line">%  grd = diff(pha);</span><br><span class="line">%  grd = [grd(1) grd];</span><br><span class="line">%  grd = [0 grd(1:1:500); grd; grd(2:1:501) 0];</span><br><span class="line">%  grd = median(grd)*500/pi;</span><br></pre></td></tr></table></figure>
+<h2 id="函数IDEAL-LP-M定义："><a href="#函数IDEAL-LP-M定义：" class="headerlink" title="函数IDEAL_LP.M定义："></a>函数IDEAL_LP.M定义：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function hd = ideal_lp(wc,M);</span><br><span class="line">% Ideal LowPass filter computation</span><br><span class="line">% --------------------------------</span><br><span class="line">% [hd] = ideal_lp(wc,M)</span><br><span class="line">%  hd = ideal impulse response between 0 to M-1</span><br><span class="line">%  wc = cutoff frequency in radians</span><br><span class="line">%   M = length of the ideal filter</span><br><span class="line">%</span><br><span class="line">alpha = (M-1)/2;</span><br><span class="line">n = [0:1:(M-1)];</span><br><span class="line">m = n - alpha + eps;</span><br><span class="line">hd = sin(wc*m) ./ (pi*m);</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>该文为笔者课程设计论文，如有不妥，还请指出</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2017/05/15/%E8%AF%AD%E9%9F%B3%E4%BF%A1%E5%8F%B7%E6%BB%A4%E6%B3%A2%E5%8E%BB%E5%99%AA%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8FLATTOPWIN%E8%AE%BE%E8%AE%A1%E7%9A%84FIR%E6%BB%A4%E6%B3%A2%E5%99%A8/" data-id="clw7ne0zh00gj4sadefbmea08" data-title="语音信号滤波去噪——使用FLATTOPWIN设计的FIR滤波器" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-原理图解读" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/05/07/%E5%8E%9F%E7%90%86%E5%9B%BE%E8%A7%A3%E8%AF%BB/" class="article-date">
+  <time class="dt-published" datetime="2017-05-06T22:31:50.000Z" itemprop="datePublished">2017-05-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/05/07/%E5%8E%9F%E7%90%86%E5%9B%BE%E8%A7%A3%E8%AF%BB/">Arduino Mega 2560 Reference Design原理图解读</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Arduino是一款便捷灵活、方便上手的开源电子原型平台。包含硬件（各种型号的Arduino板）和软件（ArduinoIDE）</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<ul>
+<li>电源模块<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTA2MjMxMTA4NTU3?x-oss-process=image/format,png" alt="这里写图片描述"><br>‘IC1’和’IC2’是两个低压差三路稳压器，起着降压以及稳压的作用。图中的输出是+5V，但我们实测输入电压为9V左右，输出电压为4.7V。<br>&emsp;&emsp;这里为什么要进行降压处理了？原因很简单，我们都知道功耗和电压成正比，即电压越大，电子产品的功耗越大（P&#x3D;UI）。但是采用低电压供电在技术和硬件方面的要求更高。<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTA2MjMyMjM2NTc2?x-oss-process=image/format,png" alt="这里写图片描述"><br>在正常情况下，电压应该是不随时间的改变而改变，但在某些时刻，因为外界的干扰或者电路本身设计的问题会造成电压的衰减。电压衰减造成信号在传输过程的衰减，就可能影响到电路之间的通信。<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTA2MjMzMDAwMDk4?x-oss-process=image/format,png" alt="这里写图片描述"><br>在理想情况下，电路电压的输入为9V，且不为时间的改变而改变，如上图的虚线所示。但实际项目中，电压往往是不稳定的，如上图波浪线所示。所以我们用一个降压稳压电路来稳定其电压，如上图直线所示。<br><strong>降压电路：</strong>稳定电压，消耗多余功率。（根据公式P&#x3D;UI，电压降低了，其功率也会降低。而降低的功率主要由降压电路所消耗，主要方式为散热，所以这也是为什么一般电路的电源模块温度比其他模块高的原因）。<br><strong>期望</strong> 因为多余的功率通过散热的形式消耗难免让人觉得可惜，所以就<a target="_blank" rel="noopener" href="http://baike.baidu.com/link?url=93ZMHJTSc1RxI2RNYP67bV3MIh9wbncsAmpkr9HBIRmJjsfkoWBBmNaRClCC5KrAwx-iwVOhTECsbdYBEdCh4oOAu--9jK7OM0zkW2o2k5EHFc5ewUPZQlikY_Kjrcf0">开关电源</a>就诞生了。</li>
+</ul>
+<p>同时我们也看到电源模块有几个电容，电容的主要作用是滤波和储能。一般电容为47uF或者470uF。通常使用小电容滤除高频干扰，大电容消除低频干扰。</p>
+<p><img src="https://pic.imgdb.cn/item/6643490e0ea9cb1403cc1be4.png" alt="这里写图片描述"><br>因为电容的存在，所以高低电平的转换也由左图变成了右图。</p>
+<ul>
+<li>复位</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/6643490d0ea9cb1403cc1b99.png" alt="这里写图片描述"></p>
+<p><img src="https://pic.imgdb.cn/item/6643490d0ea9cb1403cc1b76.png" alt="这里写图片描述"><br>当按下复位键后，GND和RESET短接，拉低了电平（注意，芯片上的RESET脚和服务模块的RESERT脚是连在一起的，只要中间没有其它电容电阻这些器件，电压是相等的）。用示波器观察，按下复位键时，电平会拉低，当松开时，电平又升高。<br>大家可能注意到30号管脚和其他管脚不一样，在最右边有一个圆圈。这个表示该管脚只对低电平有效。</p>
+<ul>
+<li>晶振<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTA3MDAxMjM0MDAx?x-oss-process=image/format,png" alt="这里写图片描述"></li>
+</ul>
+<p>用郑BOSS的话讲，作为专业人士，看到XTAL就要本能的反应是“晶振”，这里是使用的一个16MHz的晶振，晶振在电路中起着非常重要的作用（具体作用还请读者自行百度），相当于人的心脏。<br>如果用示波器看晶振的波形，你可以看到一个很漂亮的正弦波（这里省略照片，因为在笔者准备拍照的时候电路板被小伙伴给弄冒烟了），感兴趣的同志可以自己试一下。</p>
+<ul>
+<li><p>运算电路<br><img src="https://pic.imgdb.cn/item/6643497b0ea9cb1403ccbd6d.png" alt="这里写图片描述"><br>这个电路实现反馈。如果5脚电压大于+3V3，即7脚翻转为高平。</p>
+</li>
+<li><p>PWM(Pulse-Width Modulation 脉冲宽度调制)<br><img src="https://pic.imgdb.cn/item/6643497b0ea9cb1403ccbd1f.png" alt="这里写图片描述"></p>
+</li>
+</ul>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTA3MDAyMzU0MzEy?x-oss-process=image/format,png" alt="这里写图片描述"><br>通过改变脉冲列的周期可以调频，改变脉冲的宽度或占空比可以调压，采用适当控制方法即可使电压与频率协调变化。可以通过调整PWM的周期、PWM的占空比而达到控制充电电流的目的。进而来控制步进电机，来一个脉冲步进电机动一下。</p>
+<p>最后还有一些关于万用表、示波器、学生电源等仪器的使用，感兴趣的同学自行百度。</p>
+<blockquote>
+<p>本篇文章对大家看电路原理图有所帮助，如有不妥的地方也请各位老司机多多指出。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2017/05/07/%E5%8E%9F%E7%90%86%E5%9B%BE%E8%A7%A3%E8%AF%BB/" data-id="clw7ne0z200df4sad9zm35r94" data-title="Arduino Mega 2560 Reference Design原理图解读" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-STM32系统时钟树分析" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/05/07/STM32%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%92%9F%E6%A0%91%E5%88%86%E6%9E%90/" class="article-date">
+  <time class="dt-published" datetime="2017-05-06T22:29:45.000Z" itemprop="datePublished">2017-05-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/05/07/STM32%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%92%9F%E6%A0%91%E5%88%86%E6%9E%90/">STM32系统时钟树分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>下面是一个STM32芯片的时钟树图<br><img src="https://pic.imgdb.cn/item/664349da0ea9cb1403cde7b8.png" alt="这里写图片描述"><br>1、LSI是低速内部时钟，RC振荡器，频率为32kHz左右。供独立看门狗和自动唤醒单元使用。<br>2、LSE是低速外部时钟，接频率为32.768kHz的石英晶体。这个主要是RTC的时钟源。<br>3、HSE是高速外部时钟，课接石英&#x2F;陶瓷谐振器，或者接外部时钟源，频率范围为4MHz~26MHz。我们开发板接的是8M的晶振。HSE也可以直接作为系统时钟或者PLL输入。</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>4、HSI是高速内部时钟，RC振荡器，频率为16MHz。可以直接作为系统时钟或者用作PLL输入。<br>5、PLL为锁相环倍频输出。STM32F4有两个PLL：<br>（1）主PLL由HSE或者HSI提供时钟信号，并具有两个不同的输出时钟。<br>    第一个输出PLLP用于生成高速的系统时钟（最高168MHz）<br>    第二个输出PLLQ用于生成USB　OTG FS的时钟（48MHz）,随机数发生器的时钟和SDIO时钟。<br>（2）专用PLL（PLLI2S）用于生成精确时钟，从而在I2S借口实现高品质音频性能。<br><img src="https://pic.imgdb.cn/item/664349d90ea9cb1403cde6f4.png" alt="这里写图片描述">                                               <img src="https://pic.imgdb.cn/item/664349d90ea9cb1403cde6dc.png" alt="这里写图片描述"><br>大家在图中可以看到一些梯形，这些梯形为选择器。左边为选择器，右边为分频器</p>
+<h3 id="LSI，低速内部时钟"><a href="#LSI，低速内部时钟" class="headerlink" title="LSI，低速内部时钟"></a>LSI，低速内部时钟</h3><p>LSI低速内部时钟，频率为32kHz。RC振荡器产生，因为是RC振荡器产生，所以频率不是很稳定。主要对右边的独立看门狗做时钟。因为独立看门狗对时钟的精度要求不是很高，所以可以使用LSI。LSI比较简单，简单的理解就是一个电阻一个电容。<br>    LSI还可以作为RTC模块的时钟来源。在RTC模块左边有一个选择器，那么它不仅可以选择LSI作为时钟来源，还可以选择LSE作为时钟来源。</p>
+<h3 id="LSE，低速外部时钟"><a href="#LSE，低速外部时钟" class="headerlink" title="LSE，低速外部时钟"></a>LSE，低速外部时钟</h3><p>LSE一般是由外接的一个精确的32.768k的晶振产生，比较稳定，一般情况下RTC选择LSE作为时钟源。RTC的时钟来源还可以来自HSE（图上有线连着，顺着线找）。</p>
+<h4 id="MCO1-MCO2"><a href="#MCO1-MCO2" class="headerlink" title="MCO1&#x2F;MCO2"></a>MCO1&#x2F;MCO2</h4><p>在LSE下面有MCO1和MCO2两个引脚，这两个引脚就是把芯片内部的时钟输出到引脚。MCO1对应的是PA8，MCO2对应的是PC9（笔者这里使用的STM32F407芯片），MCO1和MCO2都有一个选择器，可以选择四个时钟来源，选择好时钟来源后经过一个分频器，分频就是对时钟进行除法运算，然后再输出到对应的引脚。</p>
+<h3 id="HSE，高速外部时钟"><a href="#HSE，高速外部时钟" class="headerlink" title="HSE，高速外部时钟"></a>HSE，高速外部时钟</h3><p>HSE是由外接的晶振产生的，是4MHz<del>26MHz。HSE产生时钟后会先经过一个分频器，这个分频系数是2</del>31，分频后的时钟才可以作为RTC时钟的一个选择。</p>
+<h3 id="HSI，高速内部时钟"><a href="#HSI，高速内部时钟" class="headerlink" title="HSI，高速内部时钟"></a>HSI，高速内部时钟</h3><p><img src="https://pic.imgdb.cn/item/664349d90ea9cb1403cde6ce.png" alt="这里写图片描述"><br>由RC振荡器产生，精度不高。首先，可以作为MCO1的一个时钟来源，其次可以作为系统时钟的一个来源。向下会将时钟信号送给一个选择器，这个选择器可以选择来自HSE和HSI的信号。左边一个“&#x2F;M”的分频器，会把选择的时钟&#x2F;M之后产生一个频率，产生一个频率后就到了PLL。</p>
+<h3 id="PLL，锁相环倍频输出"><a href="#PLL，锁相环倍频输出" class="headerlink" title="PLL，锁相环倍频输出"></a>PLL，锁相环倍频输出</h3><p><img src="https://pic.imgdb.cn/item/664349d90ea9cb1403cde6b3.png" alt="这里写图片描述"><br>上面的叫主PLL，下面的叫专用PLL。主PLL产生两种时钟，一种作为系统时钟；一种叫作PLL48CK的时钟，用于USB OTG的时钟。专用PLL时钟主要是给I2S模块使用，因为I2S主要处理音频问题，对于频率的要求比较高，所以就有一个专用PLL。时钟信号从“&#x2F;M”分频器出来后，进入“xN”的倍频器，然后在“&#x2F;P”、“&#x2F;Q”或者“&#x2F;R”，“&#x2F;P”出来后作为系统时钟；“&#x2F;Q”出来后作为PLL48CK时钟；“&#x2F;Q”出来后作为I2S时钟。从这里我们就能计算出从PLL出来的时钟频率，假设从选择器进去的时钟频率为f，PLL&#x3D;(f&#x2F;M)<em>(N&#x2F;P)或者PLL&#x3D;(f&#x2F;M)</em>(N&#x2F;Q)或者PLL&#x3D;(f&#x2F;M)*(N&#x2F;R)。</p>
+<p>图中A<del>G表示的地方：<br><strong>A：</strong> 这里是看门狗时钟输入。从图中可以看出，看门狗时钟源之恩给你是低速的LSI时钟。<br><strong>B：</strong>  这里是RTC时钟源，从图上可以看出，RTC的时钟源可以选择LSI，LSE，以及HSE分频后的时钟，HSE分频系数为2</del>31。<br><strong>C：</strong>  这里是STM32F4输出时钟MCO1和MCO2。MCO1是芯片的。PA8引脚输出时钟。它有四个时钟来源分别为：HSI,LSE,HSE和PLL时钟。MCO2是向芯片的PC9输出时钟，它同样有四个时钟来源分别为：HSE,PLL,SYSCLK以及PLLI2S时钟MCO输出时钟频率最大不超过100MHz。<br><strong>D：</strong> 这里我们值得是以太网PTP时钟，AHB时钟，APB2高速时钟，APB1低速时钟。这些时钟都是来源与SYSCLK系统时钟。其中以太网PTP时钟是使用系统时钟。最大时钟为168MHz，APB2高速时钟最大频率为84MHz,而APB1低速时钟最大频率为42MHz。<br><strong>F：</strong> 这里是指I2S时钟源。从图可以看出，I2S的时钟源来源于PLLI2S或者映射到I2S_CKIN引脚的外部时钟。I2S出于音质的考虑，对时钟精度要求很高。<br><strong>G:</strong> 这是STM32F4内部以太网MAC时钟的来源。对于MII接口来说，必须向外部PHY芯片提供25MHz的时钟，这个时钟，可以由PHY芯片外接晶振，或者使用STM32F4的MCO输出来提供。然后，PHY芯片再给STM32F4提供ETH_MII_TX_CLK和ETH_MII_RX_CLK时钟。对于RMII接口来说，外部必须提供50MHz的时钟驱动PHY和STM32F4的ETH_RMII_REF_CLK,这个50MHz时钟可以来自PHY、有源晶振或者STM32F4的MCO。我们的开发板使用的是RMII接口，使用PHY芯片提供50MHz时钟驱动STM32F4的ETH_RMII_REF_CLK.<br><strong>H：</strong> 这里是指外部PHY提供的USB OTG HS (60MHz)时钟。</p>
+<blockquote>
+<p>本文图片来STM32F4开发指南，部分内容参考STM32F4开发指南。如有不妥，还请各位多多指出。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2017/05/07/STM32%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%92%9F%E6%A0%91%E5%88%86%E6%9E%90/" data-id="clw7ne0xo004s4sadahmmc1pr" data-title="STM32系统时钟树分析" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-STM32GPIO部分介绍" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/04/17/STM32GPIO%E9%83%A8%E5%88%86%E4%BB%8B%E7%BB%8D/" class="article-date">
+  <time class="dt-published" datetime="2017-04-16T22:33:57.000Z" itemprop="datePublished">2017-04-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/04/17/STM32GPIO%E9%83%A8%E5%88%86%E4%BB%8B%E7%BB%8D/">STM32GPIO部分介绍</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>最近在老师交给了一个项目，需要用到STM32单片机，这里就在学习的过程中所注意到的一些地方或细节部分记录了下来，笔者所使用的是STM32F407ZGT6芯片（探索者）。</p>
+        
+          <p class="article-more-link">
+            <a href="/2017/04/17/STM32GPIO%E9%83%A8%E5%88%86%E4%BB%8B%E7%BB%8D/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2017/04/17/STM32GPIO%E9%83%A8%E5%88%86%E4%BB%8B%E7%BB%8D/" data-id="clw7ne0xo004o4sad7lhwbmez" data-title="STM32GPIO部分介绍" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-基于MATLAB的AM调制解调" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/01/13/%E5%9F%BA%E4%BA%8EMATLAB%E7%9A%84AM%E8%B0%83%E5%88%B6%E8%A7%A3%E8%B0%83/" class="article-date">
+  <time class="dt-published" datetime="2017-01-12T22:35:37.000Z" itemprop="datePublished">2017-01-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/01/13/%E5%9F%BA%E4%BA%8EMATLAB%E7%9A%84AM%E8%B0%83%E5%88%B6%E8%A7%A3%E8%B0%83/">基于MATLAB的AM调制解调</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>现在的社会越来越发达，科学技术不断的在更新，在信号和模拟电路里面经常要用到调制与解调，而AM的调制与解调是最基本的，也是经常用到的。用AM调制与解调可以在电路里面实现很多功能，制造出很多有用又实惠的电子产品，为我们的生活带来便利。在我们日常生活中用的收音机就是采用了AM调制的方式，而且在军事和民用领域都有十分重要的研究课题。现用MATLAB中M文件实现本课程设计内容“基于MATLAB的AM调制解调实现”。在课程设计中，系统开发平台为Windows XP，MTALAB 2007，程序设计语言采用MATLAB 2007，程序运行平台为MATLAB 2007。通过MATLAB编写程序并加以调试能够实现AM的调制与调解，完成了课程设计的目标，并经过适当完善后，将可以在实际中应用。</p>
+<p><strong>关键词</strong> MATLAB；AM；调制解调</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p> 模拟调制技术在20世纪中曾有较大的应用，如军事通信、短波通信、模拟移动通信、模拟调频广播和模拟调幅广播等。虽然现在通信的发展趋势为数字化，但数字技术并不能完全替代模拟技术，而且模拟调制技术是通信理论的基本知识。模拟信号的载波调制电路里面经常要用到调制与解调，而AM的调制与解调是最基本的，也是经常用到的，为了进一步了解模拟调幅，展现MATLAB中M文件程序设计优势，本课程设计将在MATLAB中用M文件实现AM调制解调的程序设计。</p>
+<h3 id="课程设计目的"><a href="#课程设计目的" class="headerlink" title="课程设计目的"></a>课程设计目的</h3><p>本课程设计课题主要研究基于MATLAB的AM调制解调实现的理论设计和软件仿真方法。掌握模拟系统AM调制解调的原理；掌握AM调制解调模拟系统的理论设计方法；掌握应用MATLAB分析系统时域、频域特性的方法，进一步锻炼应用MATLAB进行编程仿真的能力。</p>
+<h3 id="课程设计要求"><a href="#课程设计要求" class="headerlink" title="课程设计要求"></a>课程设计要求</h3><p>熟悉MATLAB中M文件的使用方法，并在掌握AM调制解调原理的基础上，编写AM<br>调制解调程序。绘制出AM信号解调前后在时域和频域中的波形，并观察解调前后频谱有何变化以加深对AM信号解调原理的理解。对信号叠加噪声，并进行解调，绘制出解调前后信号的时频波形，改变噪声功率进行解调，分析噪声对信号传输造成的影响。</p>
+<h3 id="课程设计步骤"><a href="#课程设计步骤" class="headerlink" title="课程设计步骤"></a>课程设计步骤</h3><p>(1)给定一个调制信号mes，载波信号Uc，并设计AM调制解调相关参数。<br>(2)分别绘制出调制信号和载波信号的波形图和频谱图。<br>(3)使用modulate()函数对mes信号进行调制。<br>(4)使用demod()函数解调已调信号Uam。<br>(5)使用awgn()函数对已调信号Uam加入噪声，观察加入噪声后对信号的影响。</p>
+<h2 id="AM调制解调原理"><a href="#AM调制解调原理" class="headerlink" title="AM调制解调原理"></a>AM调制解调原理</h2><h3 id="AM调制原理"><a href="#AM调制原理" class="headerlink" title="AM调制原理"></a>AM调制原理</h3><p>AM是调幅，用AM调制与解调可以在电路里面实现很多功能，制造出很多有用又实惠的电子产品，为我们的生活带来便利。在我们日常生活中用的收音机就是采用了AM调制方式，而且在军事和民用领域都有十分重要的研究课题。<br>AM是指对信号进行幅度调制。在传送信号的一方将所要传送的信号附加在高频上，再由天线发射出去。高频震荡波就是携带信号的运载工具，也叫载波。振幅调制，就是由调制信号去控制高频载波的振幅，直至随调制信号做线性变化。仿真图如下：<br><img src="https://s11.ax1x.com/2024/02/26/pFd9wJs.png" alt="仿真原理图"></p>
+<h3 id="AM解调原理"><a href="#AM解调原理" class="headerlink" title="AM解调原理"></a>AM解调原理</h3><p>调制的逆过程叫解调，调制是一个频谱搬移过程，它是将低频信号的频谱搬到载频位置。从已调信号的频谱中，将位于载频的信号频谱搬移回来。调制和解调都完成频谱搬移，各种调幅都是利用乘法器实现的。</p>
+<h2 id="仿真过程实现"><a href="#仿真过程实现" class="headerlink" title="仿真过程实现"></a>仿真过程实现</h2><h3 id="AM-信号的产生"><a href="#AM-信号的产生" class="headerlink" title="AM 信号的产生"></a>AM 信号的产生</h3><p>为了产生AM信号，我写了下面部分的代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fc=<span class="number">120</span>;            %载波信号频率</span><br><span class="line">fm=<span class="number">30</span>;             %调制信号频率</span><br><span class="line">Fs=<span class="number">960</span>;             %采样频率</span><br><span class="line">w0=<span class="number">2</span>*fc*pi;</span><br><span class="line">w1=<span class="number">2</span>*fm*pi;</span><br><span class="line">Uc=A0*<span class="built_in">cos</span>(w0*t);            %载波信号  </span><br><span class="line">mes=<span class="number">1</span>+A1*<span class="built_in">cos</span>(w1*t);          %调制信号</span><br><span class="line">Uam=modulate(mes,fc,Fs,<span class="string">&#x27;am&#x27;</span>); 			 %AM已调信号</span><br><span class="line">C3=fft(Uam);			 %对已调信号进行傅里叶变换</span><br><span class="line">asd=<span class="built_in">abs</span>(C3);			 % 求模</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>fm为调制信号频率、A0为载波信号振幅、A1为调制信号振幅、mes是调制信号、fc为载波信号频率。Uam为已调信号。</p>
+</blockquote>
+<p>调制信号是来自信源的调制信号，这些信号是模拟的。高频振荡信号又称载波，是正弦信号。载波由高频信号源直接产生，然后经过高频功率放大器进行放大，作为调幅波的载波，调制信号有低频信号源直接产生，给出以上参数后，在MATLAB中通过modulate()函数得到AM信号Uam。再通过fft()函数和abs()函数对AM信号进行傅里叶变换及求模，得到AM信号的频谱。<br><em>载波信号的波形与频谱图，调制信号的波形与频谱图，已调信号的波形与频谱图如下。</em><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMxMDU3OTY3?x-oss-process=image/format,png" alt="载波信号的波形与频谱图"><br>上图显示了载波信号的时域波形图和频谱图。图中横坐标表示载波持续时间，纵坐标表示载波幅值。从图中可知本次调制使用的载波幅度为1。<br>上图还显示了载波信号的频谱图。图中横坐标表示频率，纵坐标表示信号频谱幅值。从图中可以明显看出载波频谱的频率为120Hz。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMxMjU2Mzk5?x-oss-process=image/format,png" alt="调制信号的波形与频谱图"><br>上图显示了调制信号的时域波形图和频谱图。图中的横坐标和纵坐标分别对应表示时间和信号幅度值。从图中可以明显看出调制信号为余弦信号。<br>上图还显示了调制信号的频谱图。图中的横坐标和纵坐标分别对应表示频率和频谱幅值。从图中可以明显看出调制信号的频谱为30Hz。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMxNDE3MTEz?x-oss-process=image/format,png" alt="已调信号的波形与频谱图"><br>上图显示了系统中经过AM调制后信号的时域波形图和频谱图。图中横坐标和纵坐标分别对应表示时间和信号幅值。<br>上图还显示了经历调制后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。从图中可知原发送信号经过调制后，频谱明显从原来的低频部分搬移到载波部分。</p>
+<h3 id="AM解调实现"><a href="#AM解调实现" class="headerlink" title="AM解调实现"></a>AM解调实现</h3><p>给为对信号进行解调，我写了下面部分的代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Dam=demod(Uam,fc,Fs,<span class="string">&#x27;am&#x27;</span>);  % 对信号进行解调</span><br><span class="line">C4=fft(Dam);              %  对解调信号进行傅里叶变换</span><br><span class="line">wqe=<span class="built_in">abs</span>(C4);           % 求模</span><br></pre></td></tr></table></figure>
+<p>fc为载波信号频率，Fs为采样频率，Uam为已调信号，在MATLAB中通过demod()函数对已调信号进行解调，得到Dam。并对Dam解调信号进行傅里叶变换和求模，再绘制出相应的波形图。解调信号的波形与频谱图如下：<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMxNzEyNjAx?x-oss-process=image/format,png" alt="解调信号的波形与频谱图"><br>上图显示了系统中经过AM解调信号的时域波形图和频谱图。图中横坐标和纵坐标分别对应表示时间和信号幅值。解调将已调信号复原了，信号波形与调制信号波形完全吻合，没有出现失真。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。可以看出解调后信号频谱回到了原始频率，没有失真。</p>
+<h3 id="叠加噪声的AM解调"><a href="#叠加噪声的AM解调" class="headerlink" title="叠加噪声的AM解调"></a>叠加噪声的AM解调</h3><p>在实际信号传输过程中，通信系统不可能避免的会遇到噪声。这次设计使用的加性高斯白噪声。加性高斯白噪声是最基本的噪声和干扰模型。加性噪声是叠加在信号上的一种噪声，而且无论有无信号，噪声都始终存在，因此通常称它为加性噪声或者加性干扰。白噪声的噪声功率谱密度在所有的频率上均为一常数。如果白噪声取值的概念服从高斯分布，则称这样的噪声为高斯白噪声。通过在信道中叠加噪声，并绘制出相应的波形与频谱图，并与原始信号进行比较，分析噪声对信号的影响。<br>下面程序是在AM信号叠加噪声，并对叠加后的信号进行解调：<br><strong>加大噪声，信噪比为1：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">k=awgn(Uam,<span class="number">1</span>);    %加大噪声，信噪比为<span class="number">1</span></span><br><span class="line">pp=fft(k,<span class="number">300</span>);     %进行傅里叶变换</span><br><span class="line">zs=<span class="built_in">abs</span>(pp);       %求模</span><br><span class="line">qaz=demod(k,fc,Fs,<span class="string">&#x27;am&#x27;</span>); %加大噪声后解调</span><br><span class="line">wsx=fft(qaz,<span class="number">300</span>);    %进行傅里叶变换</span><br><span class="line">edc=<span class="built_in">abs</span>(wsx);         %求模</span><br></pre></td></tr></table></figure>
+<p><strong>加小噪声，信噪比为20：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">d=awgn(Uam,<span class="number">20</span>);  %加小噪声，信噪比为<span class="number">20</span></span><br><span class="line">op=fft(d,<span class="number">300</span>);       %进行傅里叶变换</span><br><span class="line">mm=<span class="built_in">abs</span>(op);           %求模</span><br><span class="line">vb=demod(d,fc,Fs,<span class="string">&#x27;am&#x27;</span>); %加小噪声后解调</span><br><span class="line">fg=fft(vb,<span class="number">300</span>);         %进行傅里叶变换</span><br><span class="line">ty=<span class="built_in">abs</span>(fg);            %求模</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic.imgdb.cn/item/66434b600ea9cb1403cfffce.png" alt="加大噪声后AM信号波形与频谱图"><br>上图是加大噪声后AM信号波形图与频谱图，图中横坐标和纵坐标分别对应表示时间和信号幅值。可以看出加噪声后对信号有很大的影响，最原始的波形表现的不是很明显。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。虽然噪声对频率有明显的影响，但是中心频率还是没有变，出现了失真。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMyNDAxNzQ4?x-oss-process=image/format,png" alt="加大噪声解调后的信号波形及频谱图"><br>上图是加大噪声后解调信号波形图与频谱图，图中横坐标和纵坐标分别对应表示时间和信号幅值。可以看出解调后噪声依然对信号有影响，也出现了失真。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。噪声对频率的影响很大，出现了失真，但是中心频率还是没有变。</p>
+<p><img src="https://pic.imgdb.cn/item/66434b9b0ea9cb1403d041db.png" alt="加小噪声后AM信号波形与频谱图"><br>上图是加小噪声后AM信号波形图与频谱图，图中横坐标和纵坐标分别对应表示时间和信号幅值。可以看出加噪声后对信号有一定的影响，但影响不大，基本可以看出原始波形。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。噪声对频率的影响很小，而且中心频率也没有变，失真很小。</p>
+<p><img src="https://pic.imgdb.cn/item/66434c030ea9cb1403d14669.png" alt="加小噪声解调后的信号波形及频谱图"><br>上图是加小噪声后解调信号波形图与频谱图，图中横坐标和纵坐标分别对应表示时间和信号幅值。可以看出解调后噪声依然对信号有影响，也出现了一些失真，但基本可以看出原波形。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。解调将频率搬回到原频率，噪声对频率的影响很小，出现了一些失真，但是中心频率还是没有变。<br>从加入噪声的几幅图可以看出不同功率的噪声对信号的影响不同，噪声功率越大，对信号的影响也越大。</p>
+<h2 id="遇到的问题及解决办法"><a href="#遇到的问题及解决办法" class="headerlink" title="遇到的问题及解决办法"></a>遇到的问题及解决办法</h2><p>开始对MATLAB这款软件的使用不是很熟悉，连.m文件不会建，弄不清楚fft(),abs()函数是干什么用的，不知道figure(),subplot()是怎么实现图形输出，自己便把以前MATLAB的教材拿出来看，以及上网查和问老师和同学才弄明白。自己在进行AM调制与解调时是用的乘法，这样做容易出错，而且导致程序特别长，将简单问题复杂化了。老师提示可以用modulate()函数进行调制，于是自己去看老师发在网络教学平台的资料以及在MATLAB中输入help modulate()才解决，并通过调用函数demod()函数实现了信号的解调。调制信号开始没有加直流分量，导致调制时频谱不对，缺少原信号的频率。后面给调制信号加上一个直流分量，得到正确结果。在进行调制时是用的Uam&#x3D;modulate(mes,fc,Fs,’am’)，解调时用的Dam&#x3D;demod(Uam,fc,Fs,’amssb’); 这行语句，这样解调波形可以出来，但是有错误，发现是调制与解调设置的参数不对，把解调时的语句改为Dam&#x3D;demod(Uam,fc,Fs,’am’);后能出现正常波形。在加噪声是d&#x3D;Uam+awgn(Uam,20);没有正确的使用awgn()函数，将表达式改为d&#x3D;awgn(Uam,20);，这样得到的波形图才是正确的。</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>本设计的主题是基于MATLAB的AM调制解调实现，第二章中队AM调制解调原理进行了理论分析。第三章中根据第二章的理论以及MATLAB的特点，对调制信号进行了调制与解调，最后通过程序得出的仿真结果和理论结果进行比较与分析。<br>本设计开始给定30Hz的调制信号和120Hz的载波，对AM波进行调制与解调。并在已调AM信号上叠加噪声，对信号进行解调。再将之与原始信号进行比较，了解AM信号的抗噪声性能。<br>在开始的时候，自己毫无头绪，不知道该怎么做，在网上找了很多资料，找一份相似的代码就试一下，一心只想着早点做出来交差，但是越想早点做出来，越是做不好，在网上也没有找到合适的代码。老师要检查我们的任务进度的时候就找了一份最相似的代码给老师看，自己也没有认真的去理解，结果犯了一些很低级的错误，在一个模拟信号的仿真中居然还出现了数字信号。老师给我讲解了一下我这个课题该怎么去做，于是自己顺着老师讲解的思路去做。自己先运行网上找的几个相似的代码，对着代码、仿真图去理解代码，有不懂的地方就看以前MATLAB的书以及上网查和向已经完成的同学寻求帮助。发现自己的课题没有想象中的那么难，只是自己没有用心去做。自己开始尝试写代码，其实也就是MATLAB中几个函数就能解决问题。沉下心来自己做，最后将课程设计做了出来。虽然效果不是很好，但也是自己用做的。本次课程设计，自己对AM信号调制解调有很更深刻的理解，能更熟练的使用MATLAB这款软件。也认识到学习要脚踏实地，自己认真去对待，沉下心来做，有些困难并不没有那么难。也感谢老师和同学的帮助。</p>
+<h2 id="AM解调程序清单"><a href="#AM解调程序清单" class="headerlink" title="AM解调程序清单"></a>AM解调程序清单</h2><p><a target="_blank" rel="noopener" href="https://download.csdn.net/download/Silent_F/85041123">完整代码下载链接</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2017/01/13/%E5%9F%BA%E4%BA%8EMATLAB%E7%9A%84AM%E8%B0%83%E5%88%B6%E8%A7%A3%E8%B0%83/" data-id="clw7ne0z400dr4sadbi04gksw" data-title="基于MATLAB的AM调制解调" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-自动售货机控制系统" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2016/11/11/%E8%87%AA%E5%8A%A8%E5%94%AE%E8%B4%A7%E6%9C%BA%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="article-date">
+  <time class="dt-published" datetime="2016-11-10T22:37:06.000Z" itemprop="datePublished">2016-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2016/11/11/%E8%87%AA%E5%8A%A8%E5%94%AE%E8%B4%A7%E6%9C%BA%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/">自动售货机控制系统(VHDL开发)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这周完成一个课程任务，用VHDL语言写一个自动售货机的控制系统。使用的仿真器是MAX+plus。</p>
+</blockquote>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h2 id="设计说明"><a href="#设计说明" class="headerlink" title="设计说明"></a>设计说明</h2><p>根据要求可自动出售两种货物，这里的自动售货机可销售cola和pepsi两种饮料：售货机可识别1元和0.5元两种货币，在一次购买过程中，可购买一个或者多个商品，系统会自动计算所需钱数和找零的钱数并自动找零。另外有3个发光二极管、6个LCD数码管：两个用来显示所需金额，两个用来显示已付金额，两个用来显示找零数。</p>
+<hr>
+<h3 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h3><p>这里设计的自动售货机当通电时，表示一次销售的开始。顾客选择一种商品或多种商品后就进入投币状态。若不投币，则自动返回初始状态。投币后，系统自动计算所投钱数。若投币够，则出货并找零。若投币不够，如果顾客没有继续投币，则退币并回到初始状态。本系统的投币销售流程图如图所示：<br><img src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24021.png" alt="流程图"></p>
+<hr>
+<h3 id="各模块说明"><a href="#各模块说明" class="headerlink" title="各模块说明"></a>各模块说明</h3><p>本文设计的自动售货机总体分四个模块：总控模块、二进制译码模块、BCD码译码模块和顶层模块。</p>
+<p><strong>总控模块：</strong>总控模块是本系统最重要的模块，该模块大体有5个输入端口和6个输出端口。其输入端口包括clk、coin1（投入一元货币）、coin5（投入0.5元货币）、cola（选择cola）、pepsi(选择pepsi)，输出端口有paid（已投入多少钱）、needed（还需多少钱）moneyout（找零）、success（灯亮表示交易成功）、failure（灯亮表示交易失败）、showmoneyout（灯亮表示正在找零）。该模块实现了本系统最重要的交易过程，包括选择商品、投入货币，计算剩余金额，找零出货等。</p>
+<p><strong>二进制译码模块：</strong>该模块有一个输入端口和两个输出端口。输入端口是一个8位的二进制数输出端口bcd0、bcd1是两个4位的BCD码。该模块的主要的功能是实现将主控模块输出的二进制数（paid、needed、moneyout）转换成BCD码，以便输出到七段数码管上显示出来。该模块的原理是将一个8位的二进制转换成2个4位的BCD码，分为高四位和低四位。</p>
+<p><strong>BCD码译码模块：</strong>该模块有一个输入端口和一个输出端口</p>
+<p><strong>顶层模块：</strong>该模块有五个输入和九个输出端口。其输入口包括clk1、P2（选择pepsi）、P1_5（选择cola）、C5（投入5毛）、C1（投入1块），输出端口有shuwout(退币指示灯)、s（交易成功指示灯）、f（交易失败指示灯）、paid_lcd0、paid_lcd1（已付金额）、needed_lcd0、needed_lcd1（需付金额）、mout__lcd0、mout_lcd1（退币金额）。</p>
+<hr>
+<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><strong>主控模块完整程序</strong><br><strong>BCD译码模块完整程序</strong><br><strong>顶层模块完整程序</strong><br>具体的代码见我的<a target="_blank" rel="noopener" href="https://github.com/lengmo714/Vending-machine-system">github网站</a>（1自动售货机文档）.</p>
+<h3 id="各模块连接"><a href="#各模块连接" class="headerlink" title="各模块连接"></a>各模块连接</h3><blockquote>
+<p>售货机主控系统和译码器模块图：<br><img src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24035.png" alt="售货机主控系统和译码器模块图"></p>
+</blockquote>
+<blockquote>
+<p>售货机顶层模块：<br><img src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24042.png" alt="顶层模块"></p>
+</blockquote>
+<h2 id="波形仿真"><a href="#波形仿真" class="headerlink" title="波形仿真"></a>波形仿真</h2><h3 id="主控模块的波形方真"><a href="#主控模块的波形方真" class="headerlink" title="主控模块的波形方真"></a>主控模块的波形方真</h3><blockquote>
+<p><img src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24069.png" alt="这里写图片描述"><br>上图表示顾客选择了pepsi饮料后，且投了2个一元的硬币。Success为高电平，代表售货机有饮料售出。且余额为0.</p>
+<p><img src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24081.png" alt="这里写图片描述"><br>上图表示顾客选择了cola饮料后，且投2个一元的硬币。Success为高电平，代表有饮料售出，且找回顾客0.5元。</p>
+</blockquote>
+<h3 id="BCD译码仿真"><a href="#BCD译码仿真" class="headerlink" title="BCD译码仿真"></a>BCD译码仿真</h3><blockquote>
+<p><img src="https://pic.imgdb.cn/item/66434cbe0ea9cb1403d284c4.png" alt="这里写图片描述"><br>上图表示自动售货机的译码系统，上图表示将8位数字转换成４位BCD码。</p>
+</blockquote>
+<h3 id="TOP文件的仿真"><a href="#TOP文件的仿真" class="headerlink" title="TOP文件的仿真"></a>TOP文件的仿真</h3><blockquote>
+<p><img src="https://pic.imgdb.cn/item/66434cbe0ea9cb1403d284da.png" alt="这里写图片描述"><br>上图表示顾客选择了pepsi饮料后，且投了2个一元的硬币。Success为高电平，代表售货机有饮料售出。且余额为0。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实这个自动售货机控制系统老师很早之前就要我弄了，我自己一直拖，直到老师要考核才重视起来。<br>这个项目很多都是在网上找资料借鉴的别人的东西，自己就是把别人的代码读懂了，再将整个的流程走了一遍。收货还是很多的。自己为了第二天老师考核（答辩）的时候能够顺利通过，前一天晚上熬夜到三点。也算是体会到了做项目的艰辛。<br>在答辩的过程中，老师的一些问题，一些话语也是让我受益匪浅。做项目真的是让我收益很多。这里也希望这篇博客能给大家带来帮助，但是希望只是作为一个参考，更多的部分还是要自己去做，这才您才能真正学习到知识。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2016/11/11/%E8%87%AA%E5%8A%A8%E5%94%AE%E8%B4%A7%E6%9C%BA%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" data-id="clw7ne0zg00g94sad352zh0pg" data-title="自动售货机控制系统(VHDL开发)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/16/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Autodesk3dMax/">Autodesk3dMax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/algolia/">algolia</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web-Development/">Web Development</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/Visual-Studio/">Visual Studio</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-ndk/">android ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/">cocos Creator</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/">json</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/">js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/">node</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/TypeScript/">TypeScript</a></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-creator/">cocos creator</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">小程序开发</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/https/">https</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ssh/">ssh</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97/">蓝牙模块</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E8%84%9A%E6%9C%AC/">工具脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B8%B8%E8%A7%81bug/">常见bug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B9%BF%E5%91%8A/">广告</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/">开发工具的使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/">日常代码</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/">微信</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/%E6%95%B0%E6%8D%AE%E6%8A%93%E5%8F%96/">数据抓取</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97/">俄罗斯方块</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/">Python绘图</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/%E6%8A%96%E9%9F%B3%E7%83%AD%E9%97%A8/">抖音热门</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/">工作生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/">实用工具</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">服务器搭建</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C/">虚拟专用网络</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">电脑使用技巧</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A0%B4%E8%A7%A3%E8%BD%AF%E4%BB%B6/">破解软件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/">Lua编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1/">网页设计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%8A%82%E6%97%A5%E7%A5%9D%E7%A6%8F/">节日祝福</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/">通信工程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/">实习报告</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1%E7%A7%91%E6%8A%80%E4%BA%BA%E5%91%98%E8%81%8C%E4%B8%9A%E9%81%93%E5%BE%B7/">通信科技人员职业道德</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" rel="tag">1024程序员节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/404/" rel="tag">404</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autodesk3dMax/" rel="tag">Autodesk3dMax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos-Creator/" rel="tag">Cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/" rel="tag">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/" rel="tag">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sprite/" rel="tag">Sprite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinter/" rel="tag">Thinter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Word/" rel="tag">Word</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ndk/" rel="tag">android ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos/" rel="tag">cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-Creator/" rel="tag">cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-creator/" rel="tag">cocos creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos2dx/" rel="tag">cocos2dx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/facebook/" rel="tag">facebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lua/" rel="tag">lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ndkr10e/" rel="tag">ndkr10e</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quick-Cocos/" rel="tag">quick Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shader/" rel="tag">shader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tolua/" rel="tag">tolua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/" rel="tag">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeScript/" rel="tag">typeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vsCode/" rel="tag">vsCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" rel="tag">创意编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" rel="tag">游戏开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" rel="tag">游戏性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" rel="tag">电脑使用技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" rel="tag">粒子特效</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86/" rel="tag">纹理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" rel="tag">纹理优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A0%81/" rel="tag">编码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%B4%E6%95%AC/" rel="tag">致敬</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8A%82%E6%97%A5/" rel="tag">节日</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82/" rel="tag">请求</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" style="font-size: 10px;">1024程序员节</a> <a href="/tags/404/" style="font-size: 10px;">404</a> <a href="/tags/Android/" style="font-size: 12.22px;">Android</a> <a href="/tags/Autodesk3dMax/" style="font-size: 10px;">Autodesk3dMax</a> <a href="/tags/C/" style="font-size: 14.44px;">C</a> <a href="/tags/Cocos-Creator/" style="font-size: 12.22px;">Cocos Creator</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 14.44px;">Java</a> <a href="/tags/Lua/" style="font-size: 20px;">Lua</a> <a href="/tags/Mac/" style="font-size: 11.11px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Sprite/" style="font-size: 10px;">Sprite</a> <a href="/tags/Thinter/" style="font-size: 10px;">Thinter</a> <a href="/tags/TypeScript/" style="font-size: 16.67px;">TypeScript</a> <a href="/tags/Word/" style="font-size: 10px;">Word</a> <a href="/tags/Xcode/" style="font-size: 11.11px;">Xcode</a> <a href="/tags/android/" style="font-size: 11.11px;">android</a> <a href="/tags/android-ndk/" style="font-size: 10px;">android ndk</a> <a href="/tags/cocos/" style="font-size: 10px;">cocos</a> <a href="/tags/cocos-Creator/" style="font-size: 18.89px;">cocos Creator</a> <a href="/tags/cocos-creator/" style="font-size: 10px;">cocos creator</a> <a href="/tags/cocos2dx/" style="font-size: 17.78px;">cocos2dx</a> <a href="/tags/facebook/" style="font-size: 10px;">facebook</a> <a href="/tags/git/" style="font-size: 11.11px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/java/" style="font-size: 11.11px;">java</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/mac/" style="font-size: 11.11px;">mac</a> <a href="/tags/ndkr10e/" style="font-size: 10px;">ndkr10e</a> <a href="/tags/python/" style="font-size: 15.56px;">python</a> <a href="/tags/quick-Cocos/" style="font-size: 11.11px;">quick Cocos</a> <a href="/tags/shader/" style="font-size: 11.11px;">shader</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tolua/" style="font-size: 10px;">tolua</a> <a href="/tags/ts/" style="font-size: 10px;">ts</a> <a href="/tags/typeScript/" style="font-size: 10px;">typeScript</a> <a href="/tags/vsCode/" style="font-size: 11.11px;">vsCode</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">创意编程</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">服务器</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" style="font-size: 10px;">游戏开发</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" style="font-size: 10px;">游戏性能</a> <a href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" style="font-size: 11.11px;">电脑使用技巧</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.33px;">硬件</a> <a href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" style="font-size: 10px;">粒子特效</a> <a href="/tags/%E7%BA%B9%E7%90%86/" style="font-size: 10px;">纹理</a> <a href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" style="font-size: 10px;">纹理优化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E8%87%B4%E6%95%AC/" style="font-size: 10px;">致敬</a> <a href="/tags/%E8%8A%82%E6%97%A5/" style="font-size: 10px;">节日</a> <a href="/tags/%E8%AF%B7%E6%B1%82/" style="font-size: 10px;">请求</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx%E4%BD%BF%E7%94%A8%E5%B8%A7%E5%8A%A8%E7%94%BB/">cocos2dx使用帧动画</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx_lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/">cocos2dx_lua键盘监听</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-lua%E8%AE%BE%E7%BD%AE%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7/">cocos2dx-lua设置节点层级</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-lua%E5%AF%B9%E5%9B%BE%E7%89%87%E8%BF%9B%E8%A1%8C%E4%B9%9D%E5%AE%AB%E6%A0%BC%E7%BC%A9%E6%94%BE/">cocos2dx-lua对图片进行九宫格缩放</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-Lua%E4%B8%ADLabel%E6%96%87%E6%9C%AC%E8%B6%85%E8%BF%87%E7%89%B9%E5%AE%9A%E9%95%BF%E5%BA%A6%E4%BD%BF%E7%94%A8...%E4%BB%A3%E6%9B%BF/">cocos2dx-Lua中Label文本超过特定长度使用...代替</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

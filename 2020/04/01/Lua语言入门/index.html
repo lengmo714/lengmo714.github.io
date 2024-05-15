@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Lua语言入门 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="遵照惯例，我们的第一个Lua程序时通过标准输出打印字符串”Hello World”:print(&quot;Hello World&quot;)         (adsbygoogle &#x3D; window.adsbygoogle || []).push({});   如果读者使用的是Lua语言独立解释器(stand-alone interpreter)，要运行这第一个程序的话，直接调用解释器运行包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua语言入门">
+<meta property="og:url" content="http://example.com/2020/04/01/Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="遵照惯例，我们的第一个Lua程序时通过标准输出打印字符串”Hello World”:print(&quot;Hello World&quot;)         (adsbygoogle &#x3D; window.adsbygoogle || []).push({});   如果读者使用的是Lua语言独立解释器(stand-alone interpreter)，要运行这第一个程序的话，直接调用解释器运行包">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-31T16:22:31.000Z">
+<meta property="article:modified_time" content="2024-03-12T01:53:40.418Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Lua语言入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/04/01/Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" class="article-date">
+  <time class="dt-published" datetime="2020-03-31T16:22:31.000Z" itemprop="datePublished">2020-04-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Lua语言入门
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>遵照惯例，我们的第一个Lua程序时通过标准输出打印字符串”Hello World”:<br><code>print(&quot;Hello World&quot;)</code></p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>如果读者使用的是Lua语言独立解释器(stand-alone interpreter)，要运行这第一个程序的话，直接调用解释器运行包含程序代码的文本文件就可以了。例如，如果把上述代码保存为名hello.lua的文件，那么可以通过以下命令运行：<br><code>% lua hello.lua</code></p>
+<p>再来看一个稍微复杂点的例子，以下代码定义了一个计算阶乘的函数，该函数先让用户输入一个数，然后打印出这个数的阶乘结果：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--定义一个计算阶乘的函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fact</span><span class="params">(n)</span></span></span><br><span class="line">	<span class="keyword">if</span> n  == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> n * fact(n<span class="number">-1</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;enter a number:&quot;</span>)</span><br><span class="line"></span><br><span class="line">a = <span class="built_in">io</span>.<span class="built_in">read</span>(<span class="string">&quot;*n&quot;</span>)  <span class="comment">--读取一个数字</span></span><br><span class="line"><span class="built_in">print</span>(fact(a))</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-1-程序段"><a href="#1-1-程序段" class="headerlink" title="1.1 程序段"></a>1.1 程序段</h2><p>我们将Lua语言执行的每一段代码称为一个*程序段(Chunk)*，即一组命令或表达式组成的序列。<br>程序段既可以简单到只由一句表达式构成，也可以由多句表达式和函数定义（实际是复制表达式，后面会详细介绍）组成（例如计算阶乘的示例）。程序段在大小上并没有限制，事实上，由于Lua语言也可以被用作数据定义语言，所以几MB的程序段也很常见。Lua语言的解释器可以支持非常大的程序段。<br>除了将源码保存成文件外，我们有也可以直接在交互式模式(interactive mode)下运行独立解释器。当不带参数第调用lua时，可以看到如下的输出:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">% lua</span><br><span class="line">Lua <span class="number">5.3</span> Copyright(C)<span class="number">1994</span><span class="number">-2016</span> Lua.org, PUC-Rio</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>此后，输入的每一条命令都会在按下回车键后立即执行。我们可以通过输入<code>EPF</code>控制字符，或调用操作系统库的<code>exit</code>函数（执行<code>os.exit()</code>）退出交互模式。<br>从Lua5.3版本开始，可以直接在交互模式下输入表达式，Lua语言会输出表达式的值，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">% lua</span><br><span class="line">Lua <span class="number">5.3</span> Copyright(C)<span class="number">1994</span><span class="number">-2016</span> Lua.org, PUC-Rio</span><br><span class="line">&gt; <span class="built_in">math</span>.<span class="built_in">pi</span> / <span class="number">4</span>         <span class="comment">--0.78539816339745</span></span><br><span class="line">&gt; a = <span class="number">15</span></span><br><span class="line">&gt; a^<span class="number">2</span>                 <span class="comment">--225</span></span><br><span class="line">&gt; a + <span class="number">2</span>               <span class="comment">--7</span></span><br></pre></td></tr></table></figure>
+<p>要以代码段的方式运行代码（不在交互模式下），那么必须把表达式包在函数<code>print</code>的调用中：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">math</span>.<span class="built_in">pi</span>/<span class="number">4</span>)</span><br><span class="line">a = <span class="number">15</span></span><br><span class="line"><span class="built_in">print</span>(a^<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(a + <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>在交互模式下，Lua语言解释器一般会把我们输入的每一行当做完整的程序块或表达式解释执行。但是，如果Lua语言解释器发现我们输入的某一行不完成，那么它会等待直到程序块或表达式被输入完整后再进行解释执行。这样，我们也可以直接在交互模式下输入一个像阶乘函数示例那样的由多行组成的多行定义。不过，对于这种较长的函数定义而言，将其保存文件然后再调用独立解释器来执行通常更方便。<br>我们可以使用<code>-i</code>参数让Lua语言解释器在执行完制定的程序段后进入交互模式：<br><code>% lua -i prog</code><br>上述命令会在执行完文件prog中的程序后进入交互模式，这对于调试和手工测试很有用。在本章的最后，我们会学习有关独立解释器的更多参数。<br>另一种运行程序段的方式调用函数<code>dofile</code>，该函数会立即执行一个文件。例如，假设我们有一个如下所示的文件lib1.lua:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">norm</span><span class="params">( x,y )</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">math</span>.<span class="built_in">sqrt</span>(x^<span class="number">2</span> + y^<span class="number">2</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">twice</span> <span class="params">(x)</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">2.0</span> * x</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>然后，在交互模式下运行：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">dofile</span>(<span class="string">&#x27;lib1.lua&#x27;</span>)   <span class="comment">--加载文件</span></span><br><span class="line">&gt;n = norm(<span class="number">3.4</span>,<span class="number">1.0</span>)</span><br><span class="line">&gt;twice(n)             <span class="comment">--7.088018058677</span></span><br></pre></td></tr></table></figure>
+<p>函数dofile在开发阶段也非常有用。我们可以同时打开两个窗口，一个窗口中使用文件编辑器编辑代码，另一个窗口中使用交互模式运行Lua语言解释器。当修改完代码并保存后，只要在Lua语言交互模式的提示符下执行dofile(“prog.lua”)就可以加载新代码，然后就可以观察新代码的函数调用和执行结果了。</p>
+<h2 id="1-2-一些语法规范"><a href="#1-2-一些语法规范" class="headerlink" title="1.2 一些语法规范"></a>1.2 一些语法规范</h2><p>Lua语言中的标识符是由任意字母、数字和下划线组成的字符串（注意不能用数字开头），例如：<br><code>i</code>,<code>j</code>,<code>i1</code>,<code>j1</code>,<code>_i</code>,<code>abc</code><br>“下划线 + 大写字母”组成的标识符通过被Lua语言用作特殊用途，应避免将其用作其他用途。我们通常将“下划线 + 小写字母”用作哑变量。<br>以下是Lua语言的保留字，它们不能被用作标识符：<br><code>and</code>,<code>brask</code>,<code>do</code>,<code>else</code>,<code>elseif</code>,<code>end</code>,<code>false</code>,<code>goto</code>,<code>for</code>,<code>function</code>,<code>if</code>,<code>in</code>,<code>local</code>,<code>nil</code>,<code>not</code>,<code>or</code>,<code>repeat</code>,<code>return</code>,<code>then</code>,<code>true</code>,<code>until</code>,<code>while</code><br>Lua语言是对大小写敏感的，因而<code>and</code>是保留字，但是<code>And</code>和<code>AND</code>就是两个不同的标识符。<br>Lua语言中使用两个连续的连字符（–）表示单行注释，使用两个连续的连字符加两对左方括号表示长注释或多行注释的开始，指导两个连续的右括号为止，中间都是注释，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--[[多行</span></span><br><span class="line"><span class="comment">长注释</span></span><br><span class="line"><span class="comment">]]</span></span><br></pre></td></tr></table></figure>
+<p>在注释一段代码时，一个常见的技巧是将这些代码放入–[[和–]]之间，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">print(10)   --无动作，被注释掉了</span></span><br><span class="line"><span class="comment">--]]</span></span><br></pre></td></tr></table></figure>
+<p>当我们需要重新启用这段代码时，只需要在第一行行首添加一个连字符即可：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">---[[</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">10</span>)      <span class="comment">--10</span></span><br><span class="line"><span class="comment">--]]</span></span><br></pre></td></tr></table></figure>
+<p>在第一个示例中，第一行的–[[表示一段多行注释的开始，直到两个连续的右括号这段多行注释才会结束，因而尽管最后一行有两个连续的连字符，但由于这两个连字符在最后两个右括号之前，所以仍然被注释掉了。在第二个示例中，由于第一行的–[[实际是单行注释，因此最后一行实际上也是一条独立的单行注释（最后的两个连续右方括号没有与之匹配的–[[），print并没有被注释掉。<br>在Lua语言中，连续语句之间的分隔符并不是必需的，如果有需要的话可以使用分号来进行分割。在Lua语言中，表达式之间的换行也不起任何作用。例如，以下4个程序段都是合法且等价的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span> </span><br><span class="line">b = a * <span class="number">2</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span>;</span><br><span class="line">b = a * <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span>; b = a * <span class="number">2</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span> b = a * <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>这个根据个人习惯来。</p>
+<h2 id="1-3-全局变量"><a href="#1-3-全局变量" class="headerlink" title="1.3 全局变量"></a>1.3 全局变量</h2><p>在Lua语言中，全局变量无须声明即可使用，使用未经初始化的全局变量也不会导致错误。当使用未经初始化的全局变量时，得到的结果是<code>nil</code>：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; b      <span class="comment">-- nil</span></span><br><span class="line">&gt; b = <span class="number">10</span> </span><br><span class="line">&gt; b      <span class="comment">--10</span></span><br></pre></td></tr></table></figure>
+<p>当把<code>nil</code>赋值给全局变量时，Lua会回收改全局变量（就像该全局变量从来没有出现过一样），例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; b = <span class="literal">nil</span></span><br><span class="line">&gt; b         			<span class="comment">--nil</span></span><br></pre></td></tr></table></figure>
+<p>Lua语言不区分为初始化变量和被赋值为nil的变量。在上述赋值语句执行后，Lua语言会最终回收该变量占用的内存。</p>
+<h2 id="1-4类型和值"><a href="#1-4类型和值" class="headerlink" title="1.4类型和值"></a>1.4类型和值</h2><p>Lua语言是一种动态类型的语言，在这种语言中没有类型定义，每个值都带有其自身的类型信息。<br>Lua语言中有8个基本类型：nil（空）、bloolean（布尔）、number（数值）、string（字符串）、userdata（用户数据）、function（函数）、thread（线程）和table（表）。使用函数type可获取一个值对应的类型名称：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">type</span>(<span class="literal">nil</span>)			<span class="comment">-- nil</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="literal">true</span>)			<span class="comment">-- boolean</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="number">10.4</span>*<span class="number">3</span>)		<span class="comment">--number</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="string">&quot;Hello World&quot;</span>)<span class="comment">--string</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="built_in">io</span>.<span class="built_in">stdin</span>)		<span class="comment">--userdata</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="built_in">print</span>)		<span class="comment">--function</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="built_in">type</span>)			<span class="comment">--thread</span></span><br><span class="line">&gt;<span class="built_in">type</span>(&#123;&#125;)			<span class="comment">--table</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="built_in">type</span>(X))		<span class="comment">--string</span></span><br></pre></td></tr></table></figure>
+<p>不管X是什么，最后一行返回的永远是“string”。这是因为函数type的返回值永远是一个字符串。<br>userdata类型允许把任意的C语言数据保存在Lua语言变量中。在Lua语言中，用户数据类型除了赋值和相等性测试外，没有其他预定义的操作。用户数据被用来表示由应用或C语言编写的库所创建的新类型。例如，标准I&#x2F;O库使用用户数据来表示打开的文件。我们会在后面设计C API时再讨论更多的相关内容。<br>变量没有预定义的类型，任何变量都可以包含任何类型的值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">type</span>(a)		<span class="comment">-- nil(a没有初始化)</span></span><br><span class="line">&gt;a = <span class="number">10</span></span><br><span class="line">&gt;<span class="built_in">type</span>(a)		<span class="comment">--number</span></span><br><span class="line">&gt;a = <span class="string">&quot;a string!&quot;</span></span><br><span class="line">&gt;<span class="built_in">type</span>(a)		<span class="comment">--string</span></span><br><span class="line">&gt;a = <span class="literal">nil</span> </span><br><span class="line">&gt;<span class="built_in">type</span>(a)		<span class="comment">--nil</span></span><br></pre></td></tr></table></figure>
+<p>一般情况下，将一个变量用作不同类型时会导致代码的可读性不佳；但是，在某些情况下谨慎地使用这个特行可能会带来一定程度的便利。例如，当代码发生异常时可以返回一个nil以区别于其他正常情况下的返回值。</p>
+<h3 id="1-4-1-nil"><a href="#1-4-1-nil" class="headerlink" title="1.4.1 nil"></a>1.4.1 nil</h3><p>nil是一种只有一个nil值的类型，它的主要作用就是与其他所有值进行区分。Lua语言使用nil来表示无效值的情况。像我们所学习的其他语言，一个全局变量在第一次被赋值前的默认值就是nil，而将nil赋值给全局变量则相当于将其删除。</p>
+<h3 id="1-4-2-boolean"><a href="#1-4-2-boolean" class="headerlink" title="1.4.2 boolean"></a>1.4.2 boolean</h3><p>boolean类型具有两个值，<em>true</em>和<em>false</em>，它们分别代表了传统布尔值。不过，在Lua语言中，Boolean值并非是用于条件测试的唯一方式，任何值都可以表示条件。在Lua语言中，条件测试将除Boolean值false和nil外的所有其他值视为真。特别的是，在条件检测中Lua语言把零和空字符串也都视为真。<br>Lua语言支持常见的逻辑运算符：<code>and</code>,<code>or</code>和<code>not</code>。和条检测试一样，所有的逻辑运算将Boolean类型的false和nil当做假，而把其他值当作真。</p>
+<h2 id="1-5-独立解释器"><a href="#1-5-独立解释器" class="headerlink" title="1.5 独立解释器"></a>1.5 独立解释器</h2><p>独立解释器是一个可以直接使用Lua语言的小程序。<br>如果源代码文件第一行以井号（#）开头，那么解释器在加载该文件时会忽略这一行。这个特征主要是为了方便在POSIX系统中将Lua作为一种脚本解释器来使用。假设独立解释器位于&#x2F;usr&#x2F;local&#x2F;bin下，当使用下列脚本:<br><code>#!/usr/local/bin/lua</code><br>或<br><code>#!/usr/bin/env lua</code><br>时，不需要显式地调用Lua语言解释器也可以直接运行Lua脚本。<br>lua命令的完整参数如：<br><code>lua [options] [script [args]]</code><br>其中，所有的参数都是可选的。如前所述，当不使用任何参数调用lua时，就会直接进入交互模式。<br> -e参数允许我们直接在命令行中输入代码，例如</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% lua -e <span class="string">&quot;print(math.sin(12))&quot;</span> </span><br></pre></td></tr></table></figure>
+<p>请注意，在POSIX系统下需要使用双引号，以防止Shell错误第解析括号。<br>-l参数用于加载库。正如之前提到的那样，-i参数用于在运行完其他命令行参数后进入交互模式。因此，下面的命令会首先加载lib库，然后执行x&#x3D;10的赋值语句，并最终进入交互模式：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% lua -i -llib -e <span class="string">&quot;x = 10&quot;</span></span><br></pre></td></tr></table></figure>
+<p>如果在交互模式下输入表达式，那么解释器会输出表达式求值后的结果：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">math</span>.<span class="built_in">sin</span>(<span class="number">3</span>)</span><br><span class="line">&gt; a = <span class="number">30</span> </span><br><span class="line">&gt; a 			<span class="comment">--30</span></span><br></pre></td></tr></table></figure>
+<p>请记住，这个特征只在Lua5.3及之后的版本中才有效。在之前的版本中，必须在表达式前加上一个等号。如果不想输出结果，那么可以在行末加上一个分号：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">io</span>.<span class="built_in">flush</span>()	<span class="comment">--true</span></span><br><span class="line">&gt; <span class="built_in">io</span>.<span class="built_in">flush</span>();</span><br></pre></td></tr></table></figure>
+<p>分号使得最后一行在语法上变成了无效的表达式，但可以被当作有效命令执行。<br>解释器在处理参数前，会查找名为<code>LUA_INIT_5_3</code>的环境变量，如果找不到，就会再查找名为<code>LUA_INIT</code>的环境变量。如果这两个环境变量中的任意一个存在，并且其内容为<code>@filename</code>，那么解释器就会运行相应的文件；如果这两个环境变量存在，但是不以@开头，那么解释器就会认为其包含Lua代码，并会对其进行解释执行。由于可以通过上面的方法完整地配置Lua，因而LUA_INIT使得我们可以灵活地配置独立解释器。例如，我们可以预先加载程序包、修改路径、定义自定义函数、对函数进行重命名或删除函数，等等。<br>我们可以通过预先定义的全局变量arg来获取解释器传入的参数。例如，当执行如下命令时：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% lua script a b c</span><br></pre></td></tr></table></figure>
+<p>编辑器在运行代码前或创建一个名为arg的表，其中存储了所有的命令行参数。索引0中保存的内容为脚本名，索引1中保存的内容为第一个参数，以此类推；而在脚本之前的所有选项则位于负数索引上，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% lua -e <span class="string">&quot;sin = math.sin&quot;</span> script a b</span><br></pre></td></tr></table></figure>
+<p>解释器按照如下的方式获取参数:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">arg</span>[<span class="number">-3</span>] = <span class="string">&quot;lua&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">-2</span>] = <span class="string">&quot;-e&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">-1</span>] = <span class="string">&quot;sin = math.sin&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">0</span>]  = <span class="string">&quot;script&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">1</span>]  = <span class="string">&quot;a&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">2</span>]  = <span class="string">&quot;b&quot;</span></span><br></pre></td></tr></table></figure>
+<p>一般情况下，脚本只会用到索引为证书的参数。<br>Lua语言也支持可变长参数，可以通过可变长参数表达式来获取。在脚本文件中，表达式…（3个点）表示传递给脚本的所有参数。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/04/01/Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-id="clw7ne0xi003o4saddbo4hgyh" data-title="Lua语言入门" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/06/Lua%E4%B8%AD%E7%9A%84%E6%95%B0%E5%80%BC/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Lua连续教程之Lua中的数值
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/27/Lua%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Lua的深拷贝和浅拷贝</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Autodesk3dMax/">Autodesk3dMax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/algolia/">algolia</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web-Development/">Web Development</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/Visual-Studio/">Visual Studio</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-ndk/">android ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/">cocos Creator</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/">json</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/">js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/">node</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/TypeScript/">TypeScript</a></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-creator/">cocos creator</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">小程序开发</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/https/">https</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ssh/">ssh</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97/">蓝牙模块</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E8%84%9A%E6%9C%AC/">工具脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B8%B8%E8%A7%81bug/">常见bug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B9%BF%E5%91%8A/">广告</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/">开发工具的使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/">日常代码</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/">微信</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/%E6%95%B0%E6%8D%AE%E6%8A%93%E5%8F%96/">数据抓取</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97/">俄罗斯方块</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/">Python绘图</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/%E6%8A%96%E9%9F%B3%E7%83%AD%E9%97%A8/">抖音热门</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/">工作生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/">实用工具</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">服务器搭建</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C/">虚拟专用网络</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">电脑使用技巧</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A0%B4%E8%A7%A3%E8%BD%AF%E4%BB%B6/">破解软件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/">Lua编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1/">网页设计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%8A%82%E6%97%A5%E7%A5%9D%E7%A6%8F/">节日祝福</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/">通信工程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/">实习报告</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1%E7%A7%91%E6%8A%80%E4%BA%BA%E5%91%98%E8%81%8C%E4%B8%9A%E9%81%93%E5%BE%B7/">通信科技人员职业道德</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" rel="tag">1024程序员节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/404/" rel="tag">404</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autodesk3dMax/" rel="tag">Autodesk3dMax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos-Creator/" rel="tag">Cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/" rel="tag">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/" rel="tag">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sprite/" rel="tag">Sprite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinter/" rel="tag">Thinter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Word/" rel="tag">Word</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ndk/" rel="tag">android ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos/" rel="tag">cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-Creator/" rel="tag">cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-creator/" rel="tag">cocos creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos2dx/" rel="tag">cocos2dx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/facebook/" rel="tag">facebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lua/" rel="tag">lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ndkr10e/" rel="tag">ndkr10e</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quick-Cocos/" rel="tag">quick Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shader/" rel="tag">shader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tolua/" rel="tag">tolua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/" rel="tag">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeScript/" rel="tag">typeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vsCode/" rel="tag">vsCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" rel="tag">创意编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" rel="tag">游戏开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" rel="tag">游戏性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" rel="tag">电脑使用技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" rel="tag">粒子特效</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86/" rel="tag">纹理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" rel="tag">纹理优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A0%81/" rel="tag">编码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%B4%E6%95%AC/" rel="tag">致敬</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8A%82%E6%97%A5/" rel="tag">节日</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82/" rel="tag">请求</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" style="font-size: 10px;">1024程序员节</a> <a href="/tags/404/" style="font-size: 10px;">404</a> <a href="/tags/Android/" style="font-size: 12.22px;">Android</a> <a href="/tags/Autodesk3dMax/" style="font-size: 10px;">Autodesk3dMax</a> <a href="/tags/C/" style="font-size: 14.44px;">C</a> <a href="/tags/Cocos-Creator/" style="font-size: 12.22px;">Cocos Creator</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 14.44px;">Java</a> <a href="/tags/Lua/" style="font-size: 20px;">Lua</a> <a href="/tags/Mac/" style="font-size: 11.11px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Sprite/" style="font-size: 10px;">Sprite</a> <a href="/tags/Thinter/" style="font-size: 10px;">Thinter</a> <a href="/tags/TypeScript/" style="font-size: 16.67px;">TypeScript</a> <a href="/tags/Word/" style="font-size: 10px;">Word</a> <a href="/tags/Xcode/" style="font-size: 11.11px;">Xcode</a> <a href="/tags/android/" style="font-size: 11.11px;">android</a> <a href="/tags/android-ndk/" style="font-size: 10px;">android ndk</a> <a href="/tags/cocos/" style="font-size: 10px;">cocos</a> <a href="/tags/cocos-Creator/" style="font-size: 18.89px;">cocos Creator</a> <a href="/tags/cocos-creator/" style="font-size: 10px;">cocos creator</a> <a href="/tags/cocos2dx/" style="font-size: 17.78px;">cocos2dx</a> <a href="/tags/facebook/" style="font-size: 10px;">facebook</a> <a href="/tags/git/" style="font-size: 11.11px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/java/" style="font-size: 11.11px;">java</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/mac/" style="font-size: 11.11px;">mac</a> <a href="/tags/ndkr10e/" style="font-size: 10px;">ndkr10e</a> <a href="/tags/python/" style="font-size: 15.56px;">python</a> <a href="/tags/quick-Cocos/" style="font-size: 11.11px;">quick Cocos</a> <a href="/tags/shader/" style="font-size: 11.11px;">shader</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tolua/" style="font-size: 10px;">tolua</a> <a href="/tags/ts/" style="font-size: 10px;">ts</a> <a href="/tags/typeScript/" style="font-size: 10px;">typeScript</a> <a href="/tags/vsCode/" style="font-size: 11.11px;">vsCode</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">创意编程</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">服务器</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" style="font-size: 10px;">游戏开发</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" style="font-size: 10px;">游戏性能</a> <a href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" style="font-size: 11.11px;">电脑使用技巧</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.33px;">硬件</a> <a href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" style="font-size: 10px;">粒子特效</a> <a href="/tags/%E7%BA%B9%E7%90%86/" style="font-size: 10px;">纹理</a> <a href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" style="font-size: 10px;">纹理优化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E8%87%B4%E6%95%AC/" style="font-size: 10px;">致敬</a> <a href="/tags/%E8%8A%82%E6%97%A5/" style="font-size: 10px;">节日</a> <a href="/tags/%E8%AF%B7%E6%B1%82/" style="font-size: 10px;">请求</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx%E4%BD%BF%E7%94%A8%E5%B8%A7%E5%8A%A8%E7%94%BB/">cocos2dx使用帧动画</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx_lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/">cocos2dx_lua键盘监听</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-lua%E8%AE%BE%E7%BD%AE%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7/">cocos2dx-lua设置节点层级</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-lua%E5%AF%B9%E5%9B%BE%E7%89%87%E8%BF%9B%E8%A1%8C%E4%B9%9D%E5%AE%AB%E6%A0%BC%E7%BC%A9%E6%94%BE/">cocos2dx-lua对图片进行九宫格缩放</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-Lua%E4%B8%ADLabel%E6%96%87%E6%9C%AC%E8%B6%85%E8%BF%87%E7%89%B9%E5%AE%9A%E9%95%BF%E5%BA%A6%E4%BD%BF%E7%94%A8...%E4%BB%A3%E6%9B%BF/">cocos2dx-Lua中Label文本超过特定长度使用...代替</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

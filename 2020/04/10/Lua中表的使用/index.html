@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Lua连续教程之Lua中表的使用 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="表是Lua中最主要和强大的数据结果。使用表，Lua语言可以以一种简单、统一且高效的方式表示数组、集合、记录和其他很多数据结果。Lua语言也使用表来表示包和其他对象。当调用函数math.sin时，我们可能认为是“调用了math库中函数sin”；而对于Lua语言来说，其实际含义是“以字符串sin”为键检索表math。         (adsbygoogle &#x3D; window.adsbygoogle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua连续教程之Lua中表的使用">
+<meta property="og:url" content="http://example.com/2020/04/10/Lua%E4%B8%AD%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="表是Lua中最主要和强大的数据结果。使用表，Lua语言可以以一种简单、统一且高效的方式表示数组、集合、记录和其他很多数据结果。Lua语言也使用表来表示包和其他对象。当调用函数math.sin时，我们可能认为是“调用了math库中函数sin”；而对于Lua语言来说，其实际含义是“以字符串sin”为键检索表math。         (adsbygoogle &#x3D; window.adsbygoogle">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-09T17:12:41.000Z">
+<meta property="article:modified_time" content="2024-03-12T01:53:40.410Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Lua中表的使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/04/10/Lua%E4%B8%AD%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time class="dt-published" datetime="2020-04-09T17:12:41.000Z" itemprop="datePublished">2020-04-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Lua连续教程之Lua中表的使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>表是Lua中最主要和强大的数据结果。使用表，Lua语言可以以一种简单、统一且高效的方式表示数组、集合、记录和其他很多数据结果。Lua语言也使用表来表示包和其他对象。当调用函数math.sin时，我们可能认为是“调用了math库中函数sin”；而对于Lua语言来说，其实际含义是“以字符串sin”为键检索表math。</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>Lua语言中的表本质上是一种辅助数组。这种数组不仅可以使用数值作为索引，也可以使用字符串或其他任意类型的值作为索引（nil除外）。<br>我们使用构造器表达式创建表，其最简单的形式是{}:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; a = &#123;&#125;			<span class="comment">--创建一个表然后用表的引用赋值</span></span><br><span class="line">&gt; k = <span class="string">&quot;x&quot;</span></span><br><span class="line">&gt; a[k] = <span class="number">10</span> 		<span class="comment">-- 新元素，键是&quot;x&quot;,值是10</span></span><br><span class="line">&gt; a[<span class="number">20</span>] = <span class="string">&quot;great&quot;</span>	<span class="comment">-- 新元素，键是20，值是&quot;great&quot;</span></span><br><span class="line">&gt; a[<span class="string">&quot;x&quot;</span>]			<span class="comment">-- 10</span></span><br><span class="line">&gt; k = <span class="number">20</span></span><br><span class="line">&gt; a[k]				<span class="comment">-- &quot;great&quot;</span></span><br><span class="line">&gt; a[<span class="string">&quot;x&quot;</span>] = a[<span class="string">&quot;x&quot;</span>] + <span class="number">1</span> <span class="comment">-- 增加元素&quot;x&quot;的值</span></span><br><span class="line">&gt; a[<span class="string">&quot;x&quot;</span>]</span><br></pre></td></tr></table></figure>
+<p>表永远是匿名的，表本身和保存表的变量之间没有固定的关系：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; a = &#123;&#125;</span><br><span class="line">&gt; a[<span class="string">&quot;x&quot;</span>] = <span class="number">10</span></span><br><span class="line">&gt; b = a					<span class="comment">-- &#x27;b&#x27;和&#x27;a&#x27;引用同一张表</span></span><br><span class="line">&gt; b[<span class="string">&quot;x&quot;</span>] = <span class="number">20</span></span><br><span class="line">&gt; a[<span class="string">&quot;x&quot;</span>]				<span class="comment">-- 20</span></span><br><span class="line">&gt; a = <span class="literal">nil</span> 				<span class="comment">-- 只有&#x27;b&#x27;仍然指向表</span></span><br><span class="line">&gt; b = <span class="literal">nil</span>				<span class="comment">-- 没有指向表的引用了</span></span><br></pre></td></tr></table></figure>
+<p>对于一个表而言，当程序中不再有指向它的引用时，垃圾收集器会最终删除这个表并重用其占用的内存。</p>
+<h2 id="表索引"><a href="#表索引" class="headerlink" title="表索引"></a>表索引</h2><p>同一个表中存储的值可以具有不同的类型索引，并可以按需增长以容纳新的元素：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; a = &#123;&#125;		<span class="comment">-- 空的表</span></span><br><span class="line">&gt; <span class="comment">-- 创建1000个新元素</span></span><br><span class="line">&gt; <span class="keyword">for</span> i = <span class="number">1</span> , <span class="number">1000</span> <span class="keyword">do</span> a[i] = <span class="number">1</span> * <span class="number">2</span> <span class="keyword">end</span></span><br><span class="line">&gt; a[<span class="number">9</span>]			<span class="comment">-- 18</span></span><br><span class="line">&gt; a[<span class="string">&quot;x&quot;</span>] = <span class="number">10</span> 	</span><br><span class="line">&gt; a[<span class="string">&quot;x&quot;</span>]		<span class="comment">-- 10</span></span><br><span class="line">&gt; a[<span class="string">&quot;y&quot;</span>]		<span class="comment">-- nil</span></span><br></pre></td></tr></table></figure>
+<p>请注意上述代码的最后一行：如同全局变量一样，未经初始化的表元素为nil，将nil赋值给表元素可以将其删除。<br>当把表当做结构体使用时，可以把索引当作成员名称使用。因此，可以使用这种更加易读的方式改写前述示例的最后几行：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; a = &#123;&#125;</span><br><span class="line">&gt; x = <span class="string">&quot;y&quot;</span></span><br><span class="line">&gt; a[x] = <span class="number">10</span> 		<span class="comment">-- 把10放在字段&quot;y&quot;中</span></span><br><span class="line">&gt; a[x]				<span class="comment">-- 10  字段&quot;y&quot;的值</span></span><br><span class="line">&gt; a.x 				<span class="comment">-- nil  字段&quot;x&quot;的值（未定义）</span></span><br><span class="line">&gt; a.y				<span class="comment">-- 10 字段&quot;y&quot;的值</span></span><br></pre></td></tr></table></figure>
+<p>由于可以使用任意类型索引表，所以在索引表时会遇到相等性比较方面的微妙问题。虽然确实都能使用数字0和字符串”0”对同一个表进行索引，但这两个索引的值及其所对应的元素是不同的。同样，字符串”+1”、”01”和”1”指向的也是不同的元素。当不能确定表索引的真实数据类型时，可以使用显式的类型转换：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; i = <span class="number">10</span>; j = <span class="string">&quot;10&quot;</span>; k = <span class="string">&quot;+10&quot;</span></span><br><span class="line">&gt; a = &#123;&#125;</span><br><span class="line">&gt; a[i] = <span class="string">&quot;nubmer key&quot;</span></span><br><span class="line">&gt; a[j] = <span class="string">&quot;string key&quot;</span></span><br><span class="line">&gt; a[k] = <span class="string">&quot;another string key&quot;</span></span><br><span class="line">&gt; a[i]			<span class="comment">-- 数值类型的键</span></span><br><span class="line">&gt; a[j]			<span class="comment">-- 字符串类型的键</span></span><br><span class="line">&gt; a[k]			<span class="comment">-- 另一个字符串类型的键</span></span><br><span class="line">&gt; a[<span class="built_in">tonumber</span>(j)] <span class="comment">-- 数值类型的键</span></span><br><span class="line">&gt; a[<span class="built_in">tonumber</span>(k)] <span class="comment">-- 数值类型的键</span></span><br></pre></td></tr></table></figure>
+<p>如果不注意这一点，就会很容易在程序中引入诡异的Bug。<br>整型和浮点型类型的表索引则不存在上述问题。由于2和2.0的值相等，所以当它们被当作表索引使用时指向的是同一个表元素：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; a = &#123;&#125;</span><br><span class="line">&gt; a[<span class="number">2.0</span>] = <span class="number">10</span></span><br><span class="line">&gt; a[<span class="number">2.1</span>] = <span class="number">20</span></span><br><span class="line">&gt; a[<span class="number">2</span>]		<span class="comment">-- 10 </span></span><br><span class="line">&gt; a[<span class="number">2.1</span>]	<span class="comment">-- 20 </span></span><br></pre></td></tr></table></figure>
+<p>更准确地说，当被用作表索引时，任何能够被转换为整型的浮点数都会被转换为整型数。</p>
+<h2 id="表构造器"><a href="#表构造器" class="headerlink" title="表构造器"></a>表构造器</h2><p>表构造器是用来创建和初始化表的表达式，也是Lua语言中独有的也是最有用、最灵活的机制之一。<br>正如我们此前已经提到的，最简单的构造器是空构造器{}。表构造器也可以被用来初始化列表，例如，下例中使用字符串”Sunday”初始化了day[1]、使用字符串”Monday”初始化了day[2]，依次类推：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">days = &#123;<span class="string">&quot;Sunday&quot;</span>,<span class="string">&quot;Monday&quot;</span>,<span class="string">&quot;Tuesday&quot;</span>,<span class="string">&quot;Wndnesday&quot;</span>,<span class="string">&quot;Thursday&quot;</span>,<span class="string">&quot;Friday&quot;</span>,<span class="string">&quot;Saturday&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(days[<span class="number">4</span>])			<span class="comment">-- Wednesday</span></span><br></pre></td></tr></table></figure>
+<p>Lua语言还提供一种初始化记录式表的特殊语法：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;x = <span class="number">10</span>, y = <span class="number">20</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码等价于：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;&#125;;</span><br><span class="line">a.x = <span class="number">10</span>;</span><br><span class="line">a.y = <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+<p>不过在第一种写法中，由于能够提前判断表的大小，所以运行速度更快。<br>无论哪种方式创建，都可以随时增加或删除元素：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">w = &#123;x = <span class="number">0</span> ,y = <span class="number">0</span>, label = <span class="string">&quot;console&quot;</span>&#125;</span><br><span class="line">x = &#123;<span class="built_in">math</span>.<span class="built_in">sin</span>(<span class="number">0</span>),<span class="built_in">math</span>.<span class="built_in">sin</span>(<span class="number">1</span>),<span class="built_in">math</span>.<span class="built_in">sin</span>(<span class="number">2</span>)&#125;</span><br><span class="line">w[<span class="number">1</span>] = <span class="string">&quot;another field&quot;</span>			<span class="comment">-- 把键1增加到表&quot;w&quot;中</span></span><br><span class="line">x.f = w							<span class="comment">-- 把键&quot;f&quot;增加到表&quot;w&quot;中</span></span><br><span class="line"><span class="built_in">print</span>(w[<span class="string">&quot;x&quot;</span>])					<span class="comment">-- 0</span></span><br><span class="line"><span class="built_in">print</span>(w[<span class="number">1</span>])						<span class="comment">-- another field</span></span><br><span class="line"><span class="built_in">print</span>(x.f[<span class="number">1</span>])					<span class="comment">-- another field</span></span><br><span class="line">w.x = <span class="literal">nil</span> 						<span class="comment">-- 删除字段&quot;x&quot;</span></span><br></pre></td></tr></table></figure>
+<p>不过，正如此前所提到的，使用合适的构造器来创建表会更加高效和易读。<br>在同一个构造器中，可以混用记录式和列表式写法：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">polyline = &#123;color = <span class="string">&quot;blue&quot;</span>,</span><br><span class="line">			thickness = <span class="number">2</span>,</span><br><span class="line">			npoints   = <span class="number">4</span>,</span><br><span class="line">			&#123;x = <span class="number">0</span> ,y = <span class="number">0</span> &#125;,		<span class="comment">-- polyline[1]</span></span><br><span class="line">			&#123;x = <span class="number">-10</span>, y = <span class="number">0</span>&#125;,		<span class="comment">-- polyline[2]</span></span><br><span class="line">			&#123;x = <span class="number">-10</span>, y = <span class="number">1</span>&#125;,		<span class="comment">-- polyline[3]</span></span><br><span class="line">			&#123;x = <span class="number">0</span> , y = <span class="number">1</span>&#125;			<span class="comment">-- polyline[4]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述的示例也同时展示了如何创建嵌套表以表达更加复杂的数据结构。每一个元素polyline[i]都是代表一条记录的表：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(polyline[<span class="number">2</span>].x)			<span class="comment">-- -10</span></span><br><span class="line"><span class="built_in">print</span>(polyline[<span class="number">4</span>].y)			<span class="comment">-- 1</span></span><br></pre></td></tr></table></figure>
+<p>不过，这两种构造器都有各自的局限。例如，使用这两种构造器时，不能使用负数索引舒适化表元素，不能使用不符合规范的标识符作为索引。对于这类需求，可以使用另一种更加通用的构造器，即通过方括号括起来的表达式显式地指定每一个索引：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">opnames = &#123;[<span class="string">&quot;+&quot;</span>] = <span class="string">&quot;add&quot;</span>, [<span class="string">&quot;-&quot;</span>] = <span class="string">&quot;sub&quot;</span> ,</span><br><span class="line">		   [<span class="string">&quot;*&quot;</span>] = <span class="string">&quot;mul&quot;</span>, [<span class="string">&quot;/&quot;</span>] = <span class="string">&quot;div&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">i = <span class="number">20</span></span><br><span class="line">s = <span class="string">&quot;-&quot;</span></span><br><span class="line">a = &#123;[i + <span class="number">0</span>] = s, [i + <span class="number">1</span>] = s..s, [i + <span class="number">2</span>] = s..s..s&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(opnames[s])		<span class="comment">-- sub</span></span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">22</span>])			<span class="comment">-- ---</span></span><br></pre></td></tr></table></figure>
+<p>这种构造器虽然冗长，但非常灵活，不管是记录式构造器还是列表式构造器军师其特殊形选的。例如，下面的几种表达式就相互等价：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;x = <span class="number">0</span>, y = <span class="number">0</span>&#125;			<span class="comment">-- &#123;[&quot;x”] = 0, [&quot;y&quot;] = 0&#125;</span></span><br><span class="line">&#123;<span class="string">&quot;r&quot;</span>, <span class="string">&quot;g&quot;</span>, <span class="string">&quot;b&quot;</span>&#125;			<span class="comment">-- &#123;[1] = &quot;r&quot;, [2] = &quot;g&quot;, [3] = &quot;b&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+<p>在最后一个元素后总是可以紧跟一个逗号。虽然总是有效，但是否加最后一个逗号是可选的。<br>这种灵活性使得开发人员在编写表构造器时不需要对最后一个元素进行特殊处理。<br>最后，表构造器中的逗号也可以使用分号代替，这主要是为了兼容Lua语言的旧版本。</p>
+<h2 id="数组、列表和序列"><a href="#数组、列表和序列" class="headerlink" title="数组、列表和序列"></a>数组、列表和序列</h2><p>如果想表示常见的数组或列表，那么只需要使用整型作为索引的表即可。同时，也不需要预先声明表的大小，只需要直接初始化我们需要的元素即可：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a  = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">10</span> <span class="keyword">do</span> </span><br><span class="line">	a [i] = <span class="built_in">io</span>.<span class="built_in">read</span>()</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>鉴于能够使用任意值对表进行索引，我们也可以使用任意数字作为第一个元素的索引。不过，在Lua语言中，数组索引按照惯例是从1开始的（不像C语言从0开始），Lua语言中的其他很多机制也遵循这个惯例。<br>在操作表时，往往必须事先获取列表的长度。列表的长度可以存放在常量中，也可以存放在其他变量或数据结构中。通常，我们把列表的长度保持在表中某个非数值类型的字段中。当然，列表的长度经常也是隐形的。请注意，由于为初始化的元素均为nil，所以可以利用nil值来标记列表的结束。例如，当向一个列表中写入了10行数据后，由于该列表的数值类型的索引为1,2,…,10，所以可以很容易地知道列表的长度就是10.这种技巧只有在列表中不存在空洞时才有效，此时我们把这种所有元素都不为nil的数组称为序列。<br>Lua语言提供了获取序列长度的操作符#。正如我们之前所看到的，对于字符串而言，该操作符返回字符串的字节数；对于表而言，该操作符返回表对应序列的长度。例如，可以使用如下代码输出上例中读入的内容：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i = <span class="number">1</span> ,<span class="number">10</span> <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(a[i])</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>长度操作符也操作序列提供了几种有用的写法：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(a[#a])			<span class="comment">-- 输出序列&#x27;a&#x27;的最后一个值</span></span><br><span class="line">a[#a] = <span class="literal">nil</span>				<span class="comment">-- 移除最后一个值</span></span><br><span class="line">a[#a + <span class="number">1</span>] = v			<span class="comment">-- 把&#x27;v&#x27;加到序列的最后</span></span><br></pre></td></tr></table></figure>
+<p>对于中间存在空洞的列表而言，序列长度操作符是不可靠的，它只能用于序列。更准确地说，序列是由指定的n个正数数值类型的键所组成集合[1,…,n]形成的表。特别地，不包含数值类型键的表就是长度为零的序列。<br>将长度操作符用于存在空洞的列表的行为是Lua语言中具有争议的内容之一。在过去几年中，很多人建议在操作存在空洞的列表时直接抛出异常，也有人建议扩展长度操作符的语义。然而，这些建议都是说起来容易做起来难。其根源在于列表实际上是一个表，而对于表来说，“长度”的概念在一定程度上是不容易理解的。例如，考虑如下的代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;&#125;</span><br><span class="line">a[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">a[<span class="number">2</span>] = <span class="literal">nil</span>    <span class="comment">--什么也没有做</span></span><br><span class="line">a[<span class="number">3</span>] = <span class="number">1</span></span><br><span class="line">a[<span class="number">4</span>] = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>我们这里可以很容易确定这是一个长度为4、在索引2的位置上存在空洞的列表。不过，对于下面这个类似的示例是否也如此呢？</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;&#125;</span><br><span class="line">a[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">a[<span class="number">1000</span>] = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>是否应该认为a 是一个具有10000个元素，9998个空洞的列表？如果代码进行了如下的操作：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[<span class="number">10000</span>] = <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+<p>那么该列表的长度会变成多少？由于代码删除了最后一个元素，该列表的长度是不是变成了9999？或者由于代码只是将最后一个元素变成了nil，该列表的长度仍然是10000？又或者该列表的长度缩成了1？<br>另一种常见的建议是让#操作符返回表中全部元素的数量。虽然这种语义听起来清晰且定义明确，但并非特别有用和符合直觉。请考虑下我们在此讨论过的所有例子，然后思考一下这些例子而言，为什么让#操作符返回表中全部元素的数量并非特备有用。<br>更复杂的列表是以nil结尾的情况。请问如下的列表的长度是多少：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="literal">nil</span>,<span class="literal">nil</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>请注意，对于Lua语言而言，一个为nil的字段和一个不存在的元素没有区别。因此，上述列表与{10,20,30}是等价的，其长度为3，而不是5.<br>可以将以nil结尾的列表当作一种非常特殊的情况。不过，很多列表时通过逐个添加各个元素创建出来的。任何按照这种方式构造出来的带有空洞的列表，其最后一定存在为nil的值。<br>尽管讨论了这么多，程序中的大多数列表其实都是序列。正因如此，在多数情况下使用长度操作符是安全的。在确实需要处理存在空洞的列表时，应该将列表的长度显式地保存起来。</p>
+<h2 id="遍历表"><a href="#遍历表" class="headerlink" title="遍历表"></a>遍历表</h2><p>我们可以用是pairs迭代器遍历表中的键值对：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">t = &#123;<span class="number">10</span>, <span class="built_in">print</span>, x = <span class="number">12</span>, k = <span class="string">&quot;hi&quot;</span>&#125;</span><br><span class="line"><span class="keyword">for</span> k ,v <span class="keyword">in</span> <span class="built_in">pairs</span>(t) <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(k,v)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 1	10</span></span><br><span class="line"><span class="comment">-- k	hi</span></span><br><span class="line"><span class="comment">-- 2	function:0x420610</span></span><br><span class="line"><span class="comment">-- x 	12</span></span><br></pre></td></tr></table></figure>
+<p>受限于表在Lua中的底层实现机制，遍历过程中元素的出现顺序可能是随机的，相同的程序在每次运行时也可能产生不同的顺序。唯一可以确定的是，在遍历的过程中每个元素会且只会出现一次。<br>对于列表而言，可以使用ipairs迭代器：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">t = &#123;<span class="number">10</span>, <span class="built_in">print</span>, x = <span class="number">12</span>, k = <span class="string">&quot;hi&quot;</span>&#125;</span><br><span class="line"><span class="keyword">for</span> k ,v <span class="keyword">in</span> <span class="built_in">pairs</span>(t) <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(k,v)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 1	10</span></span><br><span class="line"><span class="comment">-- 2	hi</span></span><br><span class="line"><span class="comment">-- 3	function:0x420610</span></span><br><span class="line"><span class="comment">-- 4 	12</span></span><br></pre></td></tr></table></figure>
+<p>此时，Lua会确保遍历是按照顺序进行的。<br>另一种遍历序列的方法是使用数值型for循环：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">t = &#123;<span class="number">10</span>, <span class="built_in">print</span>, x = <span class="number">12</span>, k = <span class="string">&quot;hi&quot;</span>&#125;</span><br><span class="line"><span class="keyword">for</span> k = <span class="number">1</span> , #t <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(k , t[k])</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 1	10</span></span><br><span class="line"><span class="comment">-- 2	hi</span></span><br><span class="line"><span class="comment">-- 3	function:0x420610</span></span><br><span class="line"><span class="comment">-- 4 	12</span></span><br></pre></td></tr></table></figure>
+<h2 id="安全访问"><a href="#安全访问" class="headerlink" title="安全访问"></a>安全访问</h2><p>考虑如下的情景：我们想确认在指定的库中是否存在某个函数。如果我们确定这个库确实存在，那么可以直接使用<code>if lib.foo then ...;</code>否则，就得使用形如<code>if lib and lib.foo then ...</code>的表达式。<br>当表的嵌套深度变得比较深时，这种写法就会很容易出错，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zip = company <span class="keyword">and</span> company.director <span class="keyword">and</span> company.director.address <span class="keyword">and</span> company.director.address.zipcode</span><br></pre></td></tr></table></figure>
+<p>这种写法不仅冗长而且低效，该写法在一次成功的访问中对表进行了6次访问而非3词访问。<br>对于这种情景，诸如C#的一些编程语言提供了一种安全访问操作符。在C#中，这种安全访问操作符被记为<code>?.</code>。例如，对于表达式<code>a?.b</code>，当a为nil时，其结果是nil而不会产生异常。使用这种操作符，可以将上例改为：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zip = company?.director?.address?.zipcode</span><br></pre></td></tr></table></figure>
+<p>如果上述的成员访问过程中出现nil，安全访问操作符会正确地处理nil并最终返回nil。<br>Lua语言并没有提供安全访问操作符，并且认为也不应该提供这种操作符。一方面，Lua语言在设计上力求简单；另一方面，这种操作符也是非常有争议的，很多人就无理由认为该操作符容易导致无意的编程错误。不过，我们可以使用其他语句在Lua语言中模拟安全访问操作符。<br>对于表达式 <code>a or &#123;&#125;</code>，当a为nil时其结果是一个空表。因此，对于表达式<code>(a or &#123;&#125;).b</code>，当a为nil时其结果也同样是nil。这样，我们就可以将之前的例子重写为：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zip = (((company <span class="keyword">or</span> &#123;&#125;).director <span class="keyword">or</span> &#123;&#125;).address <span class="keyword">or</span> &#123;&#125;).zipcode</span><br></pre></td></tr></table></figure>
+<p>再进一步，我们还可以写得更短更高效：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">E = &#123;&#125;</span><br><span class="line">...</span><br><span class="line">zip = (((company <span class="keyword">or</span> E).director <span class="keyword">or</span> E).address <span class="keyword">or</span> E).zipcode</span><br></pre></td></tr></table></figure>
+<p>确实，上述的语法比安全访问操作符更加复杂。不过尽管如此，表中的每一个字段名都只被使用了一次，从而保证了尽可能少地对表进行访问；同时，还避免了向语言中引入新的操作符。</p>
+<h2 id="表标准库"><a href="#表标准库" class="headerlink" title="表标准库"></a>表标准库</h2><p>表标准库提供了操作列表和序列的一些常用函数。<br>函数<code>table.insert</code>向序列的指定位置插入一个元素，其他元素依次后移。例如，对于列表t &#x3D; {10,20,30}，在调用table.insert(t,1,15)后它会变成{15,10,20,30}，另一种特殊但常见的情况是调用insert时不指定位置，此时函数会在序列的最后插入指定的元素，不会移动任何元素。例如，下述代码从标准输入中安行读入内容并将其保存到一个序列中：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">t = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> <span class="built_in">io</span>.<span class="built_in">lines</span>() <span class="keyword">do</span> </span><br><span class="line">	<span class="built_in">table</span>.<span class="built_in">insert</span>(t,line)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(#t)</span><br></pre></td></tr></table></figure>
+<p>函数<code>table.remove</code>删除后并返回序列指定位置的元素，然后将其后的元素向前移动填充删除元素后造成的空洞。如果在调用该函数时不指定位置，该函数会删除序列的最后一个元素。<br>借助这个函数，可以很容易地实现栈、队列和双端队列。以栈的实现为例，我们可以使用t &#x3D; {}来表示栈，Push操作可以使用table.insert(t,x)实现，Pop操作可以使用table.remove(t)实现，调用table.insert(t,1,x)可以实现在栈的顶部进行插入，调用table.remove(t,1)可以从栈的顶部移除。由于后两个函数设计表中其他元素的移动，所以其运行效率并不是特别的高。当然，由于table标准库中的这些函数是使用C语言实现的，所以移动元素所涉及循环的性能开销也并不是太昂贵。因而，对于几百个元素组成的小数组来说这种实现已经够了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/04/10/Lua%E4%B8%AD%E8%A1%A8%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="clw7ne0x700254sad7psobtq5" data-title="Lua连续教程之Lua中表的使用" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/10/Lua%E4%B8%AD%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Lua中函数的使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/08/Lua%E5%AD%97%E7%AC%A6%E4%B8%B2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Lua连续教程之Lua字符串</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Autodesk3dMax/">Autodesk3dMax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/algolia/">algolia</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web-Development/">Web Development</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/Visual-Studio/">Visual Studio</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-ndk/">android ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/">cocos Creator</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/">json</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/">js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/">node</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/TypeScript/">TypeScript</a></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-creator/">cocos creator</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">小程序开发</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/https/">https</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ssh/">ssh</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97/">蓝牙模块</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E8%84%9A%E6%9C%AC/">工具脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B8%B8%E8%A7%81bug/">常见bug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B9%BF%E5%91%8A/">广告</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/">开发工具的使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/">日常代码</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/">微信</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/%E6%95%B0%E6%8D%AE%E6%8A%93%E5%8F%96/">数据抓取</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97/">俄罗斯方块</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/">Python绘图</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/%E6%8A%96%E9%9F%B3%E7%83%AD%E9%97%A8/">抖音热门</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/">工作生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/">实用工具</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">服务器搭建</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C/">虚拟专用网络</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">电脑使用技巧</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A0%B4%E8%A7%A3%E8%BD%AF%E4%BB%B6/">破解软件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/">Lua编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1/">网页设计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%8A%82%E6%97%A5%E7%A5%9D%E7%A6%8F/">节日祝福</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/">通信工程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/">实习报告</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1%E7%A7%91%E6%8A%80%E4%BA%BA%E5%91%98%E8%81%8C%E4%B8%9A%E9%81%93%E5%BE%B7/">通信科技人员职业道德</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" rel="tag">1024程序员节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/404/" rel="tag">404</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autodesk3dMax/" rel="tag">Autodesk3dMax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos-Creator/" rel="tag">Cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/" rel="tag">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/" rel="tag">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sprite/" rel="tag">Sprite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinter/" rel="tag">Thinter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Word/" rel="tag">Word</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ndk/" rel="tag">android ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos/" rel="tag">cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-Creator/" rel="tag">cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-creator/" rel="tag">cocos creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos2dx/" rel="tag">cocos2dx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/facebook/" rel="tag">facebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lua/" rel="tag">lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ndkr10e/" rel="tag">ndkr10e</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quick-Cocos/" rel="tag">quick Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shader/" rel="tag">shader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tolua/" rel="tag">tolua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/" rel="tag">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeScript/" rel="tag">typeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vsCode/" rel="tag">vsCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" rel="tag">创意编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" rel="tag">游戏开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" rel="tag">游戏性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" rel="tag">电脑使用技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" rel="tag">粒子特效</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86/" rel="tag">纹理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" rel="tag">纹理优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A0%81/" rel="tag">编码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%B4%E6%95%AC/" rel="tag">致敬</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8A%82%E6%97%A5/" rel="tag">节日</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82/" rel="tag">请求</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" style="font-size: 10px;">1024程序员节</a> <a href="/tags/404/" style="font-size: 10px;">404</a> <a href="/tags/Android/" style="font-size: 12.22px;">Android</a> <a href="/tags/Autodesk3dMax/" style="font-size: 10px;">Autodesk3dMax</a> <a href="/tags/C/" style="font-size: 14.44px;">C</a> <a href="/tags/Cocos-Creator/" style="font-size: 12.22px;">Cocos Creator</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 14.44px;">Java</a> <a href="/tags/Lua/" style="font-size: 20px;">Lua</a> <a href="/tags/Mac/" style="font-size: 11.11px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Sprite/" style="font-size: 10px;">Sprite</a> <a href="/tags/Thinter/" style="font-size: 10px;">Thinter</a> <a href="/tags/TypeScript/" style="font-size: 16.67px;">TypeScript</a> <a href="/tags/Word/" style="font-size: 10px;">Word</a> <a href="/tags/Xcode/" style="font-size: 11.11px;">Xcode</a> <a href="/tags/android/" style="font-size: 11.11px;">android</a> <a href="/tags/android-ndk/" style="font-size: 10px;">android ndk</a> <a href="/tags/cocos/" style="font-size: 10px;">cocos</a> <a href="/tags/cocos-Creator/" style="font-size: 18.89px;">cocos Creator</a> <a href="/tags/cocos-creator/" style="font-size: 10px;">cocos creator</a> <a href="/tags/cocos2dx/" style="font-size: 17.78px;">cocos2dx</a> <a href="/tags/facebook/" style="font-size: 10px;">facebook</a> <a href="/tags/git/" style="font-size: 11.11px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/java/" style="font-size: 11.11px;">java</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/mac/" style="font-size: 11.11px;">mac</a> <a href="/tags/ndkr10e/" style="font-size: 10px;">ndkr10e</a> <a href="/tags/python/" style="font-size: 15.56px;">python</a> <a href="/tags/quick-Cocos/" style="font-size: 11.11px;">quick Cocos</a> <a href="/tags/shader/" style="font-size: 11.11px;">shader</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tolua/" style="font-size: 10px;">tolua</a> <a href="/tags/ts/" style="font-size: 10px;">ts</a> <a href="/tags/typeScript/" style="font-size: 10px;">typeScript</a> <a href="/tags/vsCode/" style="font-size: 11.11px;">vsCode</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">创意编程</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">服务器</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" style="font-size: 10px;">游戏开发</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" style="font-size: 10px;">游戏性能</a> <a href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" style="font-size: 11.11px;">电脑使用技巧</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.33px;">硬件</a> <a href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" style="font-size: 10px;">粒子特效</a> <a href="/tags/%E7%BA%B9%E7%90%86/" style="font-size: 10px;">纹理</a> <a href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" style="font-size: 10px;">纹理优化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E8%87%B4%E6%95%AC/" style="font-size: 10px;">致敬</a> <a href="/tags/%E8%8A%82%E6%97%A5/" style="font-size: 10px;">节日</a> <a href="/tags/%E8%AF%B7%E6%B1%82/" style="font-size: 10px;">请求</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx%E4%BD%BF%E7%94%A8%E5%B8%A7%E5%8A%A8%E7%94%BB/">cocos2dx使用帧动画</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx_lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/">cocos2dx_lua键盘监听</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-lua%E8%AE%BE%E7%BD%AE%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7/">cocos2dx-lua设置节点层级</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-lua%E5%AF%B9%E5%9B%BE%E7%89%87%E8%BF%9B%E8%A1%8C%E4%B9%9D%E5%AE%AB%E6%A0%BC%E7%BC%A9%E6%94%BE/">cocos2dx-lua对图片进行九宫格缩放</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/15/cocos2dx-Lua%E4%B8%ADLabel%E6%96%87%E6%9C%AC%E8%B6%85%E8%BF%87%E7%89%B9%E5%AE%9A%E9%95%BF%E5%BA%A6%E4%BD%BF%E7%94%A8...%E4%BB%A3%E6%9B%BF/">cocos2dx-Lua中Label文本超过特定长度使用...代替</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
