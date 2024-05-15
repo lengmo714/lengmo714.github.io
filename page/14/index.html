@@ -1,341 +1,375 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/page/14/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="南锋">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="canonical" href="http://example.com/page/14/">
 
-  
-  
-<meta name="generator" content="Hexo 7.2.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-Lua编译执行和错误" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/20/Lua%E7%BC%96%E8%AF%91%E6%89%A7%E8%A1%8C%E5%92%8C%E9%94%99%E8%AF%AF/" class="article-date">
-  <time class="dt-published" datetime="2020-04-20T09:26:38.000Z" itemprop="datePublished">2020-04-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/20/Lua%E7%BC%96%E8%AF%91%E6%89%A7%E8%A1%8C%E5%92%8C%E9%94%99%E8%AF%AF/">Lua编译执行和错误</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>虽然我们把Lua语言成为解释型语言，但Lua语言总是在运行代码前先预编译源码为中间代码（这没什么大不了的，很多解释型语言也这样做）。编译阶段的存在听上去超出了解释型语言的范畴，但解释型语言的区分并不在与源码是否被编译，而在于是否有能力（且轻易地）执行动态生成的代码。可以认为，正是由于诸如dofile这样函数的的存在，才使得Lua语言能够被称为解释型语言。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
 </script>
 
-<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>此前，我们已经介绍过函数dofile，它是运行Lua代码段的主要方式之一。实际上，函数dofile是一个辅助函数，函数loadfile才完成了真正的核心工作。与函数dofile类似，函数loadfile也是从文件中加载Lua代码段，但它不会运行代码，而是只是编译代码，然后将编译后的代码段作为一个函数返回。此外，与函数dofile不同，函数loadfile只返回错误码而不抛出异常。可以认为，函数dofile就是：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dofile</span> <span class="params">(filename)</span></span></span><br><span class="line">	<span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">loadfile</span>(filename))</span><br><span class="line">	<span class="keyword">return</span> f()</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>请注意，如果函数loadfile执行失败，那么函数assert会引发一个错误。<br>对于简单的需求而言，由于函数dofile在一次调用中就做完了所有工作，所以改函数非常易用。不过，函数loadfile更灵活。在发生错误的情况中，函数loadfile会返回nil及错误信息，以允许我们按自定义的方式来处理错误。此外，如果需要多次运行一个文件，那么只需要调用一次loadfile函数后再多次调用它的返回结果即可。由于只编译一次文件，因此这种方式的开销要比多次调用函数dofile小得多（编译在某种程度上相比其他操作开销更大）。<br>函数load与函数loadfile类似，不同之处在于该函数从一个字符串或函数中读取代码段，而不是从文件中读取。例如，考虑如下的代码：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">load</span>(<span class="string">&quot;i = i + 1&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>在这句话代码执行后，变量f就会变成一个被调用时执行i &#x3D; i + 1的函数：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">0</span> </span><br><span class="line">f();<span class="built_in">print</span>(i)		<span class="comment">-- 1</span></span><br><span class="line">f();<span class="built_in">print</span>(i)		<span class="comment">-- 2</span></span><br></pre></td></tr></table></figure>
-<p>尽管函数load的功能很强大，但还是应该谨慎地使用。相当于其他可选的函数而言，该函数的开销较大并且可能会引起诡异的问题。请先确定当下已经找不到更简单的解决方式后再使用该函数。<br>如果要编写一个用后即弃的dostring函数（例如加载并运行一行代码），那么我们可以直接调用函数load的返回值：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">load</span>(s)()</span><br></pre></td></tr></table></figure>
-<p>不过，如果代码中有语法错误，函数load就会返回你来和形如”attempt to call a nil value”的错误信息。为了更清楚地展示错误信息，最好使用函数assert:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">assert</span>(<span class="built_in">load</span>(s))()</span><br></pre></td></tr></table></figure>
-<p>通常，用函数load来加载字符串常量是没有意义的。例如，如下的两行代码基本等价：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">load</span>(<span class="string">&quot;i = i + 1&quot;</span>)</span><br><span class="line"></span><br><span class="line">f = <span class="function"><span class="keyword">function</span><span class="params">()</span></span> i = i + <span class="number">1</span> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>但是，由于第2行代码会与其外层的函数一起被编译，所以其执行速度要快得多。与之对比，第一段代码在调用函数load时会进行一次独立的编译。</p>
-<p>由于函数load在编译时不涉及词法定界，所以上述示例的两段代码可能并不完全等价。为了清洗地展示它们之间的区别，让我们稍微修改一下上面的例子：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">32</span></span><br><span class="line"><span class="keyword">local</span> i = <span class="number">0</span></span><br><span class="line">f = <span class="built_in">load</span>(<span class="string">&quot;i = i +1;print(i)&quot;</span>)</span><br><span class="line">g = <span class="function"><span class="keyword">function</span><span class="params">()</span></span> i = i + <span class="number">1</span>; <span class="built_in">print</span>(i) <span class="keyword">end</span></span><br><span class="line">f()			<span class="comment">-- 33</span></span><br><span class="line">g()			<span class="comment">-- 1</span></span><br></pre></td></tr></table></figure>
-<p>函数g像我们所预期地那样操作局部变量i，但函数f操作的却是全局变量i，这是由于函数load总是在全局环境中编译代码段。<br>函数load最典型的用法是执行外部代码（即那些来自程序本身之外的代码段）或动态生成的代码。例如，我们可能想运行用户定义的函数，由用户输入函数的代码后调用函数load对其求值。请注意，函数load期望的输入是一段程序，也就是一系列的语句。如果需要对表达式求值，那么可以在表达式前添加return，这样才能构成一条返回指定表达式值的语句。例如：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="string">&quot;enter your expression:&quot;</span></span><br><span class="line"><span class="keyword">local</span> line = <span class="built_in">io</span>.<span class="built_in">read</span>()</span><br><span class="line"><span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">load</span>(<span class="string">&quot;return &quot;</span> .. line))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;the value of your expression is&quot;</span> .. fun())</span><br></pre></td></tr></table></figure>
-<p>由于函数load所返回的函数就是一个普通函数，因此可以反复对其进行调用：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="string">&quot;enter function to be plotted (with variable &#x27;x&#x27;):&quot;</span></span><br><span class="line"><span class="keyword">local</span> line = <span class="built_in">io</span>.<span class="built_in">read</span>()</span><br><span class="line"><span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">load</span>(<span class="string">&quot;return &quot;</span> .. line ))</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">20</span> <span class="keyword">do</span></span><br><span class="line">	x = i <span class="comment">-- 全局的&#x27;x&#x27;（当前代码段内可见）</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">rep</span>(<span class="string">&quot;*&quot;</span>,f()))</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>我们也可以使用读取函数作为函数load的第1个参数。读取函数时以分几次返回一段程序，函数load会不断地调用读取函数知道读取函数返回nil（表示程序段结束）。作为示例，以下的调用与函数loadfile等价：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">load</span>(<span class="built_in">io</span>.<span class="built_in">lines</span>(filename,<span class="string">&quot;*L&quot;</span>))</span><br></pre></td></tr></table></figure>
-<p>调用io.lines(filename.”*L”)返回一个函数，这个函数每次被调用时就从指定文件返回一行。因此，函数load会一行一行地从文件中读出一段程序。以下的版本与之相似但效率稍高：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">load</span>(<span class="built_in">io</span>.<span class="built_in">lines</span>(filename,<span class="number">1024</span>))</span><br></pre></td></tr></table></figure>
-<p>这里，函数io.lines返回的迭代器会以1024字节为块读取源文件。<br>Lua语言将所有独立的代码段当做匿名可变长参数函数的函数体。例如，load(“a &#x3D; 1”)的返回值与以下表达式等价：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span><span class="params">(...)</span></span> a = <span class="number">1</span> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>像其他任何函数一样，代码段中可以声明局部变量：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">load</span>(<span class="string">&quot;local a = 10;pirnt(a + 20&quot;</span>)</span><br><span class="line">f()			<span class="comment">-- 30</span></span><br></pre></td></tr></table></figure>
-<p>使用这个特行，可以在不使用全局变量x的情况下重写之前运行用户定义函数的示例：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="string">&quot;enter function to be plotted(with variable &#x27;x&#x27;):&quot;</span></span><br><span class="line"><span class="keyword">local</span> line = <span class="built_in">io</span>.<span class="built_in">read</span>()</span><br><span class="line"><span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">load</span>(<span class="string">&quot;local x = ...;return &quot;</span> .. line))</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">20</span> <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">rep</span>(<span class="string">&quot;*&quot;</span>,f(i)))</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>在上述代码中，在代码段开头增加了”local x &#x3D; …” 来将x声明为局部变量。之后使用参数i调用函数f，参数i就是可变长参数表达式的值(…)。<br>函数load和函数loadfile从来不引发错误。当有错误发生时，它们会返回nil及错误信息：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">load</span>(<span class="string">&quot;i i&quot;</span>))			<span class="comment">-- nil [string &quot;i i&quot;]:1: &#x27;=&#x27; expected near &#x27;i&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>另外，这些函数没有任何副作用，它们既不改变后创建变量，也不向文件写入等。这些函数只是将程序段编译为一种中间形式，然后将结果作为匿名函数返回。一种常见的误解是认为加载一段程序也就是定义了函数，但实际上在Lua语言中函数定义是在运行时而不是在编译时发生的一种赋值操作。例如，假设有一个文件foo.lua:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 文件foo.lua</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">(x)</span></span></span><br><span class="line">	<span class="built_in">print</span>(x)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>当执行</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">loadfile</span>(<span class="string">&quot;foo.lua&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>时，编译foo的命令并没有定义foo，只有运行代码才会定义它：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">loadfile</span>(<span class="string">&quot;foo.lua&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(foo)			<span class="comment">-- nil</span></span><br><span class="line">f()					<span class="comment">-- 运行代码</span></span><br><span class="line">foo(<span class="string">&quot;ok&quot;</span>)			<span class="comment">-- ok</span></span><br></pre></td></tr></table></figure>
-<p>这种行为可能看上去有些奇怪，但如果不使用语法糖对其进行重写则看上去会清晰很多：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 文件&#x27;foo.lua&#x27;</span></span><br><span class="line">foo = <span class="function"><span class="keyword">function</span><span class="params">(x)</span></span></span><br><span class="line">	<span class="built_in">print</span>(x)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>如果线上产品级别的程序需要执行外部代码，那么应该处理加载程序段时报告的所有错误。此外，为了避免不愉快的副作用发生，可能还应该在一个受保护的环境中执行这些代码。</p>
-<h2 id="预编译的代码"><a href="#预编译的代码" class="headerlink" title="预编译的代码"></a>预编译的代码</h2><p>生成预编译文件（也被称为二进制文件）最简单的方式是，使用标准发行版中附带的luac程序。例如，下列命令会创建文件prog.lua的预编译版本prog.lc:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ luac -o prog.lc prog.lua</span><br></pre></td></tr></table></figure>
-<p>Lua解析器会像执行普通Lua代码一样执行这个新文件，完成与原来代码完全一致的动作：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lua prog.lc</span><br></pre></td></tr></table></figure>
-<p>几乎在Lua语言中所有能够使用源码的地方都可以使用预编译代码。特别地，函数loadfile和函数load都可以接受预编译代码。<br>我们可以直接在Lua语言中实现一个最简单的Luac：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="built_in">loadfile</span>(<span class="built_in">arg</span>[<span class="number">1</span>])</span><br><span class="line">f = <span class="built_in">io</span>.<span class="built_in">open</span>(<span class="built_in">arg</span>[<span class="number">2</span>],<span class="string">&quot;wb&quot;</span>)</span><br><span class="line">f:<span class="built_in">write</span>(<span class="built_in">string</span>.<span class="built_in">dump</span>(p))</span><br><span class="line">f:<span class="built_in">close</span>()</span><br></pre></td></tr></table></figure>
-<p>这里关键函数是string.dump，该函数的入参是一个Lua函数，返回值是传入函数对应的字符串形式的预编译代码。<br>luac程序提供了一些有意思的选项。特别地，选项-l会列出编译器为指定代码段生成的操作码。</p>
-<blockquote>
-<p>示例 luac -l的输出示例</p>
-</blockquote>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">main&lt;<span class="built_in">stdin</span>:<span class="number">0</span>,o&gt; (<span class="number">7</span> instructions, <span class="number">28</span>bytes at <span class="number">0x988cb30</span>)</span><br><span class="line"><span class="number">0</span> + params, <span class="number">2</span> slots, <span class="number">0</span> upvalues, o locals, <span class="number">4</span> constants, <span class="number">0</span> functions</span><br><span class="line"><span class="number">1</span> [<span class="number">1</span>] GETGLOBAL	<span class="number">0</span> <span class="number">-2</span>	; x</span><br><span class="line"><span class="number">2</span> [<span class="number">1</span>] GETGLOBAL <span class="number">1</span> <span class="number">-3</span>	; y</span><br><span class="line"><span class="number">3</span> [<span class="number">1</span>] ADD	    <span class="number">0</span>  <span class="number">0</span>  <span class="number">1</span></span><br><span class="line"><span class="number">4</span> [<span class="number">1</span>] GETGLOBAL <span class="number">1</span> <span class="number">-4</span>	; x</span><br><span class="line"><span class="number">5</span> [<span class="number">1</span>] USB       <span class="number">0</span> <span class="number">0</span> <span class="number">1</span></span><br><span class="line"><span class="number">6</span> [<span class="number">1</span>] SETGLOBAL <span class="number">0</span> <span class="number">-1</span>	; a</span><br><span class="line"><span class="number">7</span> [<span class="number">1</span>] RETURN    <span class="number">0</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>预编译形式的代码不一定比源代码更小，但是却加载得更快。预编译形式的代码的另一个好处是，可以避免由于意外而修改源码。然而，与源代码不同，蓄意损坏或构造的二进制代码可能会让Lua解析器奔溃或甚至执行用户提供的机器码。当运行一般的代码时通常无须担心，但应该避免运行以预编译形式给出的非受信代码。这种需求，函数load正好有一个选项可以适用。<br>除了必需的第1个参数外，函数load还有3个可选参数。第2个参数是程序段的名称，只在错误信息中被用到。第4个参数是环境。第3个参数正是我们这里关心的，它控制了允许加载的代码段的类型。如果该参数存在，则只能是如下的字符串：字符串”t”允许加载文本类型的代码段，字符串”b”只允许加载二进制类型的代码段，字符串”bt”允许同时加载上述两种类型的代码段。</p>
-<h2 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h2><p>人人皆难免犯错误。因此，我们必须尽可能地处理错误。由于lua语言是一种经常被嵌入在应用程序中的扩展语言，所以当错误发生时并不能简单地奔溃或退出。相反，只要错误发生，Lua语言就必须提供处理错误的方式。<br>Lua语言会在遇到非预期的情况时引发错误。例如，当试图将两个非常值类型的值相加，对不是函数的值进行调用，对不是表类型的值进行索引等。我们也可以显示地通过调用函数error并传入一个错误信息来作为参数引发一个错误。通常，这个函数就是在代码中提示出错的合理方式：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pirnt <span class="string">&quot;enter a number :&quot;</span></span><br><span class="line">n = <span class="built_in">io</span>.<span class="built_in">read</span>(<span class="string">&quot;n&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> n <span class="keyword">then</span> <span class="built_in">error</span>(<span class="string">&quot;invalid input&quot;</span>) <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>由于“针对某些情况调用函数error”这样的代码结构太常见了，所以Lua语言提供了一个内建的函数assert来完成这类工作：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="string">&quot;enter a nubmer:&quot;</span></span><br><span class="line">n = <span class="built_in">assert</span>(<span class="built_in">io</span>.<span class="built_in">read</span>(<span class="string">&quot;*n&quot;</span>),<span class="string">&quot;invalid input&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>函数assert检查其第1个参数是否为真，如果该参数为真则返回该参数；如果该参数为假，则引发一个错误。该函数的第2个参数是一个可选的错误信息。不过，要注意函数assert只是一个普通函数，所以Lua语言会总是在调用该函数前先对参数进行求值。如果编写形如</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="built_in">io</span>.<span class="built_in">read</span>()</span><br><span class="line"><span class="built_in">assert</span>(tonumver(n),<span class="string">&quot;invalid input:&quot;</span> .. n .. <span class="string">&quot;is not a number&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>的代码，那么即使n是一个数值类型，Lua语言也总是会进行字符串连接。在这种情况下使用显示的测试可能更加明智。<br>当一个函数发现某种意外的情况发生时，在进行一场处理时可以采取两种基本方式：一种是返回错误代码（通常是nil或者false），另一种是通过调用函数error引发了一个错误。如何在这两种方式之间进行选择并没有固定的规则，但笔者通常遵循如下的知道原则：容易避免的异常应该引发错误，否则应该返回错误码。<br>以函数math.sin为例，当调用参数传入了一个表该如何反应呢？如果要检查错误，那么就不得不编写如下代码：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> res = <span class="built_in">math</span>.<span class="built_in">sin</span>(x)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> res <span class="keyword">then</span>			<span class="comment">-- 错误？</span></span><br><span class="line">	<span class="built_in">error</span>-handling code</span><br></pre></td></tr></table></figure>
-<p>当然，也可以在调用函数前轻松地检查出这种异常：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">tonumber</span>(x) <span class="keyword">then</span>			<span class="comment">-- x是否为数字</span></span><br><span class="line">	<span class="built_in">error</span>-handling code</span><br></pre></td></tr></table></figure>
-<p>通常，我们既不会检查参数也不会检查函数sin的返回值；如果sin的参数不是一个数值，那么就意味着我们的程序可能出现了问题。此时，处理异常最简单也是最实用的做法就是停止运行，然后输出一条错误信息。<br>另一方面，让我们再考虑一下用于打开文件的函数io.open。如果要打开的文件不存在，那么该函数应该有怎么样的行为呢？在这种情况下，没有什么简单的方法可以在调用函数前检测到这种异常。在很多系统中，判断一个文件是否存在的唯一方法就是试着去打开这个文件。因此，如果由于外部原因导致函数io.open无法打开一个文件，那么它应返回false及一条错误信息。通过这种方式，我们就有机会采取恰当的方式来处理这个异常情况，例如要求用户提供另外一个文件名：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> file, msg</span><br><span class="line"><span class="keyword">repeat</span></span><br><span class="line">	<span class="built_in">print</span> <span class="string">&quot;enter a file name:&quot;</span></span><br><span class="line">	<span class="keyword">local</span> name = <span class="built_in">io</span>.<span class="built_in">read</span>()</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> name <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span> 		<span class="comment">--没有输入</span></span><br><span class="line">	file, msg = <span class="built_in">io</span>.<span class="built_in">open</span>(name,<span class="string">&quot;r&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> file <span class="keyword">then</span> <span class="built_in">print</span>(msg) <span class="keyword">end</span></span><br><span class="line"><span class="keyword">until</span> file</span><br></pre></td></tr></table></figure>
-<p>如果不想处理这些情况，但又想安全地运行程序，那么只需要用assert：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file = <span class="built_in">assert</span>(<span class="built_in">io</span>.<span class="built_in">open</span>(name,<span class="string">&quot;r&quot;</span>))	<span class="comment">-- stdin:1:no-file: No such file or directory</span></span><br></pre></td></tr></table></figure>
-<p>这是Lua语言中一种典型的技巧：如果函数io.open执行失败，assert就引发一个错误。</p>
-<h2 id="错误处理和异常"><a href="#错误处理和异常" class="headerlink" title="错误处理和异常"></a>错误处理和异常</h2><p>对于大多数应用而言，我们无须在Lua代码中做任何错误处理，应用程序本身会负责处理这类问题。所以Lua语言的行为是由应用程序的第一次调用而触发的，这类调用通常是要求Lua语言执行一段代码。如果执行中发生了错误，那么调用会返回一个错误代码，以便应用程序采取适当的行为来处理错误。当独立解释器中发生错误时，主循环会打印错误信息，然后继续显示提示符，并等待执行指令的命令。<br>不过，如果要在Lua代码中处理错误，那么就应该使用函数pcall来封装代码。<br>假设要执行一段Lua代码并捕获执行中发生的所有错误，那么首先需要将这段代码封装到一个函数中，这个函数通常是一个匿名函数。之后通过pcall来调用这个函数：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> ok , msg = <span class="built_in">pcall</span> (<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">	some code</span><br><span class="line">	<span class="keyword">if</span> unexpected_condition <span class="keyword">then</span> <span class="built_in">error</span>() <span class="keyword">end</span></span><br><span class="line">	some code</span><br><span class="line">	<span class="built_in">print</span>(a[i])			<span class="comment">-- 潜在错误，&#x27;a&#x27;可能不是一个表</span></span><br><span class="line">	some code</span><br><span class="line"><span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ok <span class="keyword">then</span>			<span class="comment">-- 执行被保护的代码时没有发生错误</span></span><br><span class="line">	regular code</span><br><span class="line"><span class="keyword">else</span>				<span class="comment">-- 执行被保护的代码时有错误发生：进行恰当的处理</span></span><br><span class="line">	<span class="built_in">error</span>-handling code</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>函数pcall会以一种保护模式来调用它的第1个参数，以便捕获该函数执行中的错误。无论是否有错误发生，函数pcall都不会引发错误。如果没有错误发生，那么pcall返回true及调用函数的所有返回值；否则，则返回false及错误信息。<br>使用”错误信息”的命名方式可能会让人误解错误信息必须是一个字符串，因此称之为错误对象可能更好，这主要是因为函数pacll能够返回传递给error的任意语言类型的值。</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">status</span> , err = <span class="built_in">pcall</span>(<span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="built_in">error</span>(&#123;coude = <span class="number">121</span>&#125;) <span class="keyword">end</span>)</span><br><span class="line"><span class="built_in">print</span>(err.code)		<span class="comment">-- 121</span></span><br></pre></td></tr></table></figure>
-<p>这些机制为我们提供了在Lua语言中进行异常处理的全部。我们可以通过error来抛出异常，然后用函数pcall来捕获异常，而错误信息则用来表示错误的类型。</p>
-<h2 id="错误信息和栈回调"><a href="#错误信息和栈回调" class="headerlink" title="错误信息和栈回调"></a>错误信息和栈回调</h2><p>虽然能够使用任何类型的值作为错误对象，但错误对象通常是一个描述出错内容的字符串。当遇到内部错误出现时，Lua语言负责产生错误对象，如果错误对象是一个字符串，那么Lua语言会尝试把一些有关错误发生位置的信息附上：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">status</span> , err = <span class="built_in">pcall</span>(<span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="built_in">error</span>(<span class="string">&quot;my error&quot;</span>) <span class="keyword">end</span>)</span><br><span class="line"><span class="built_in">print</span>(err)		<span class="comment">-- stdin:1:my error</span></span><br></pre></td></tr></table></figure>
-<p>位置信息中给出了出错代码段的名称和行号。<br>函数error还有第2个可选参数level，用于指出向函数调用层次中的哪层函数报告错误，以说明谁应该为错误负责。例如，假设编写一个用来检查其自身是否被正确调用了的函数：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">(str)</span></span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">type</span>(str) ~= <span class="string">&quot;string&quot;</span> <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">error</span>(<span class="string">&quot;string expected&quot;</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	regular code</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>如果调用时被传递了错误的参数：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo(&#123;x = <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>由于函数foo调用的error，所以Lua语言会认为是函数foo发生了错误。然而，真正的肇事者其实是函数foo的调用者。为了纠正这个问题，我们需要告诉error函数错误实际发生在函数调用蹭的第2层中：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> <span class="params">(str)</span></span></span><br><span class="line">	<span class="keyword">if</span> typr(str) ~= <span class="string">&quot;string&quot;</span> <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">error</span>(<span class="string">&quot;string expected&quot;</span>,<span class="number">2</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	regular code</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>通常，除了发生错误的位置以外，我们还希望在错误发生时得到更多的调试信息。至少，我们希望得到具有发生错误时完整函数调用栈回溯。当函数pcall返回错误信息时，部分的调用栈已经被破坏了。因此，如果希望得到一个有意义的栈回溯，那么就必须在函数pcall返回前先将调用栈构造好。为了完成这个需求，Lua语言提供了函数xpcall。该函数与函数pcall蕾西，但它的第2个参数是一个消息处理函数。当发生凑无时，Lua会调用栈展开前调用这个消息处理函数，以便消息处理函数能够使用调试库来获取有关错误的更逗信息。两个常用的消息处理函数是debug.debug和debug.traceback，前者为用户提供一个Lua提示符来让用户检查错误发生的原因；后者则使用调用栈来构造详细的错误，Lua语言的独立解释器就是使用这个函数来构造错误信息的。</p>
+  <title>Hexo</title>
+  
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/20/Lua%E7%BC%96%E8%AF%91%E6%89%A7%E8%A1%8C%E5%92%8C%E9%94%99%E8%AF%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/20/Lua%E7%BC%96%E8%AF%91%E6%89%A7%E8%A1%8C%E5%92%8C%E9%94%99%E8%AF%AF/" class="post-title-link" itemprop="url">Lua编译执行和错误</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-20 17:26:38" itemprop="dateCreated datePublished" datetime="2020-04-20T17:26:38+08:00">2020-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>虽然我们把Lua语言成为解释型语言，但Lua语言总是在运行代码前先预编译源码为中间代码（这没什么大不了的，很多解释型语言也这样做）。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/20/Lua%E7%BC%96%E8%AF%91%E6%89%A7%E8%A1%8C%E5%92%8C%E9%94%99%E8%AF%AF/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/04/20/Lua%E7%BC%96%E8%AF%91%E6%89%A7%E8%A1%8C%E5%92%8C%E9%94%99%E8%AF%AF/" data-id="clw7ne0xg003h4sadeuekh9lm" data-title="Lua编译执行和错误" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-用树莓派搭建虚拟专用网络服务器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/20/%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BA%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="article-date">
-  <time class="dt-published" datetime="2020-04-20T06:07:31.000Z" itemprop="datePublished">2020-04-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>►<a class="article-category-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">服务器搭建</a>►<a class="article-category-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C/">虚拟专用网络</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/20/%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BA%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E5%99%A8/">用树莓派搭建虚拟专用网络服务器</a>
-    </h1>
+  
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/20/%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BA%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/20/%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BA%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-title-link" itemprop="url">用树莓派搭建虚拟专用网络服务器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-20 14:07:31" itemprop="dateCreated datePublished" datetime="2020-04-20T14:07:31+08:00">2020-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-14 18:38:11" itemprop="dateModified" datetime="2024-05-14T18:38:11+08:00">2024-05-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/" itemprop="url" rel="index"><span itemprop="name">树莓派</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">服务器搭建</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">虚拟专用网络</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>笔者这里是使用树莓派搭建虚拟专用网络服务器,树莓派是用的ubuntu系统,所以该方法使用于所有的ubuntu系统的服务器.</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>想要用服务器搭建虚拟专用网络服务器,你首先得上手一个树莓派,可以参考<a target="_blank" rel="noopener" href="http://www.fengpla.cn/2017/03/15/RaspberryPi/">这里</a>.或者你对虚拟专用网络不够了解,可以参考<a target="_blank" rel="noopener" href="http://baike.baidu.com/link?url=7C5A528WHc_Gn3TdgwgnkopwGa2wtHcKkV-n1bu2SX95OWgtCWvGd9JfU4duT1M4S9TiTN4VYICrMl_kTWH2CSqSH8zb7CpCWnVQgfwmL35yKjEsn-W5OnXrtsjz00CKRQncleqMuhQdX1csUP-0y7JNmlktQJP2OKTM6E4J2nuyW6GGrz8zN-hepNE8m65y">这里</a>.</p>
-<h3 id="安装pptp"><a href="#安装pptp" class="headerlink" title="安装pptp"></a>安装pptp</h3><p>在终端输入下面命令并回车.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install pptpd</span><br></pre></td></tr></table></figure>
-
-<h3 id="配置内网ip策略"><a href="#配置内网ip策略" class="headerlink" title="配置内网ip策略"></a>配置内网ip策略</h3><p>在终端输入下面命令并回车,进入vim编辑器.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/pptpd.<span class="property">conf</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>注释<code>logwtmp</code>,即在前面加一个<code>#</code>.</li>
-<li>在<code># TAG:localip</code>后面增加2行<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">localip <span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">remoteip <span class="number">192.168</span><span class="number">.0</span><span class="number">.234</span>-<span class="number">238</span>,<span class="number">192.168</span><span class="number">.0</span><span class="number">.245</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>上面配置的localip为服务器的ip地址,在搭建虚拟专用网络的时候要根据自己服务器的地址来设置.<br>remoteip为连接虚拟专用网络的客户端ip地址,一般情况下不需要更改.</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="配置dns"><a href="#配置dns" class="headerlink" title="配置dns"></a>配置dns</h3><p>在终端输入下面命令并回车,进入vim编辑器.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/ppp/pptpd-options</span><br></pre></td></tr></table></figure>
-<p>在<code>#ms-dns</code>后面增加2行,也可以配置其他dns</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ms-dns <span class="number">121.42</span><span class="number">.42</span><span class="number">.51</span></span><br><span class="line">ms-dns <span class="number">114.114</span><span class="number">.114</span><span class="number">.114</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="配置虚拟专用网络帐号"><a href="#配置虚拟专用网络帐号" class="headerlink" title="配置虚拟专用网络帐号"></a>配置虚拟专用网络帐号</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/ppp/chap-secrets</span><br></pre></td></tr></table></figure>
-<p>在其中依次添加帐号,服务器名,密码和IP限制,一个帐号一行,每个参数中间用<code>tab</code>或者空格间隔.如:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zhangsan pptpd <span class="number">123456</span> *</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>其中user,passwd为自己设置的账户名和密码.<br>**注意:**这里的<code>IP addresses</code> 不是设置为自己服务器的IP,而是设置为<code>*</code>,笔者之前在这里耽误了一点时间.</p>
-</blockquote>
-<h3 id="设置TCP-IP数据转发"><a href="#设置TCP-IP数据转发" class="headerlink" title="设置TCP&#x2F;IP数据转发"></a>设置TCP&#x2F;IP数据转发</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/sysctl.<span class="property">conf</span></span><br></pre></td></tr></table></figure>
-<p>插入一行,或者找到这行注释掉</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.<span class="property">ipv4</span>.<span class="property">ip_forward</span>=<span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>保存并退出vim<br>执行</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sysctl -p</span><br></pre></td></tr></table></figure>
-<p>提示<code>net.ipv4.ip_forward=1</code>说明配置生效<br><img src="https://pic.imgdb.cn/item/66433ef60ea9cb1403b8aa32.png" alt="这里写图片描述"></p>
-<h3 id="开放网络端口"><a href="#开放网络端口" class="headerlink" title="开放网络端口"></a>开放网络端口</h3><p>安装<code>iptables</code>(已经安装请忽略)</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install iptables</span><br></pre></td></tr></table></figure>
-<p>开放1723端口</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -l <span class="variable constant_">INPUT</span> -p tcp -dport <span class="number">1723</span> -j <span class="variable constant_">ACCEPT</span>  </span><br><span class="line">或者: sudo iptables -l <span class="variable constant_">INPUT</span> -p tcp -dport <span class="number">1723</span> -j <span class="variable constant_">ACCEPT</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="重启pptpd"><a href="#重启pptpd" class="headerlink" title="重启pptpd"></a>重启pptpd</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.<span class="property">d</span>/procps restart</span><br></pre></td></tr></table></figure>
-<p><img src="https://pic.imgdb.cn/item/66433ef60ea9cb1403b8aa21.png" alt="这里写图片描述"></p>
-<p>到这里就搭建完毕了.</p>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p><strong>1</strong> 如果虚拟专用网络 打不开浏览器</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -A <span class="variable constant_">FORWARD</span> -s <span class="number">192.168</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">24</span> -p tcp -m tcp --tcp-flags <span class="variable constant_">SYN</span>,<span class="variable constant_">RST</span> <span class="variable constant_">SYN</span> -j <span class="variable constant_">TCPMSS</span> --set-mss <span class="number">1200</span></span><br></pre></td></tr></table></figure>
-<p><strong>2</strong> 如果上不去网</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -t nat -A <span class="variable constant_">POSTROUTING</span> -s <span class="number">192.168</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">24</span> -o eth0 -jMASQUERADE</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>如有不妥还请各位读者多多指出,这里多处参考网上资源</p>
-</blockquote>
-
+          <p>本文详细介绍了如何使用树莓派在Ubuntu系统上搭建虚拟专用网络服务器，包括安装pptp、配置内网IP策略、配置DNS、设置TCP/IP数据转发、开放网络端口等步骤。通过这个方法，你可以在树莓派上轻松搭建自己的VPN服务器。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/20/%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BA%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/04/20/%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BA%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-id="clw7ne0zd00fp4sadg0y7fkor" data-title="用树莓派搭建虚拟专用网络服务器" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
-
-
-  
-    <article id="post-Lua数据文件和序列化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/18/Lua%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E5%92%8C%E5%BA%8F%E5%88%97%E5%8C%96/" class="article-date">
-  <time class="dt-published" datetime="2020-04-18T15:56:16.000Z" itemprop="datePublished">2020-04-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/18/Lua%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E5%92%8C%E5%BA%8F%E5%88%97%E5%8C%96/">Lua数据文件和序列化</a>
-    </h1>
+  
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/18/Lua%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E5%92%8C%E5%BA%8F%E5%88%97%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/18/Lua%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E5%92%8C%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-title-link" itemprop="url">Lua数据文件和序列化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-18 23:56:16" itemprop="dateCreated datePublished" datetime="2020-04-18T23:56:16+08:00">2020-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>在处理数据文件时，写数据通常比读数据简单很多。当向一个文件中写时，我们拥有绝对的控制权；但是，当从一个文件中读时，我们并不知道会读什么东西。一个健壮的程序除了能够处理一个合法文件中所包含的所有类型的数据外，还应该能够优雅地处理错误的文件。因此，编写一个健壮的处理输入的程序总是比较困难的。</p>
+          <p>在处理数据文件时，写数据通常比读数据简单很多。当向一个文件中写时，我们拥有绝对的控制权；但是，当从一个文件中读时，我们并不知道会读什么东西。一个健壮的程序除了能够处理一个合法文件中所包含的所有类型的数据外，还应该能够优雅地处理错误的文件。因此，编写一个健壮的处理输入的程序总是比较困难的。</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle"
@@ -415,48 +449,77 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/04/18/Lua%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E5%92%8C%E5%BA%8F%E5%88%97%E5%8C%96/" data-id="clw7ne0xb002v4sadf12nd19g" data-title="Lua数据文件和序列化" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Lua数据结构" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/18/Lua%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="article-date">
-  <time class="dt-published" datetime="2020-04-18T10:44:36.000Z" itemprop="datePublished">2020-04-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/18/Lua%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">Lua数据结构</a>
-    </h1>
+  
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/18/Lua%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/18/Lua%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">Lua数据结构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-18 18:44:36" itemprop="dateCreated datePublished" datetime="2020-04-18T18:44:36+08:00">2020-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>Lua语言中的表并不是一种数据结构，它们是其他数据结构的基础。我们可以用Lua语言中的表来实现其他语言提供的数据结构，如数组、记录、列表、队列、集合等。而且，用Lua语言中的表实现这些数据结构还很高效。</p>
+          <p>Lua语言中的表并不是一种数据结构，它们是其他数据结构的基础。我们可以用Lua语言中的表来实现其他语言提供的数据结构，如数组、记录、列表、队列、集合等。而且，用Lua语言中的表实现这些数据结构还很高效。</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle"
@@ -551,48 +614,77 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/04/18/Lua%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" data-id="clw7ne0xa002n4sad4kchghiq" data-title="Lua数据结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Lua位和字节" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/18/Lua%E4%BD%8D%E5%92%8C%E5%AD%97%E8%8A%82/" class="article-date">
-  <time class="dt-published" datetime="2020-04-18T03:51:18.000Z" itemprop="datePublished">2020-04-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/18/Lua%E4%BD%8D%E5%92%8C%E5%AD%97%E8%8A%82/">Lua连续教程之Lua位和字节</a>
-    </h1>
+  
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/18/Lua%E4%BD%8D%E5%92%8C%E5%AD%97%E8%8A%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/18/Lua%E4%BD%8D%E5%92%8C%E5%AD%97%E8%8A%82/" class="post-title-link" itemprop="url">Lua连续教程之Lua位和字节</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-18 11:51:18" itemprop="dateCreated datePublished" datetime="2020-04-18T11:51:18+08:00">2020-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>Lua语言处理二进制数据的方式与处理文本的方式类似。Lua语言中的字符串可以包含热议字节，并且几乎所有能够处理字符串的库函数也能处理任意字节。我们甚至可以对二进制数据进行模式匹配。以此为基础，Lua5.3中引入了用于操作二进制数据的额外机制：除了整型数外，该版本还引入了位操作及用于打包&#x2F;解包二进制数据的函数。</p>
+          <p>Lua语言处理二进制数据的方式与处理文本的方式类似。Lua语言中的字符串可以包含热议字节，并且几乎所有能够处理字符串的库函数也能处理任意字节。我们甚至可以对二进制数据进行模式匹配。以此为基础，Lua5.3中引入了用于操作二进制数据的额外机制：除了整型数外，该版本还引入了位操作及用于打包&#x2F;解包二进制数据的函数。</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle"
@@ -662,48 +754,77 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/04/18/Lua%E4%BD%8D%E5%92%8C%E5%AD%97%E8%8A%82/" data-id="clw7ne0x5001r4sadfb0a8kgw" data-title="Lua连续教程之Lua位和字节" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Lua日期和时间" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/17/Lua%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/" class="article-date">
-  <time class="dt-published" datetime="2020-04-17T12:12:47.000Z" itemprop="datePublished">2020-04-17</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/17/Lua%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/">Lua日期和时间</a>
-    </h1>
+  
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/17/Lua%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/17/Lua%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/" class="post-title-link" itemprop="url">Lua日期和时间</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-17 20:12:47" itemprop="dateCreated datePublished" datetime="2020-04-17T20:12:47+08:00">2020-04-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>Lua语言的标准库提供了两个用于操作日期和时间的函数，这两个函数在C语言标准库中也存在，提供的是同样的功能。虽然这两个函数看上去很简单，但依旧可以基于这些简单的功能完成很多复杂的工作。</p>
+          <p>Lua语言的标准库提供了两个用于操作日期和时间的函数，这两个函数在C语言标准库中也存在，提供的是同样的功能。虽然这两个函数看上去很简单，但依旧可以基于这些简单的功能完成很多复杂的工作。</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle"
@@ -803,48 +924,77 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/04/17/Lua%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/" data-id="clw7ne0xb002s4sad13v702ul" data-title="Lua日期和时间" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Lua模式匹配" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/15/Lua%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/" class="article-date">
-  <time class="dt-published" datetime="2020-04-15T06:15:06.000Z" itemprop="datePublished">2020-04-15</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/15/Lua%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/">Lua模式匹配</a>
-    </h1>
+  
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/15/Lua%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/15/Lua%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/" class="post-title-link" itemprop="url">Lua模式匹配</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-15 14:15:06" itemprop="dateCreated datePublished" datetime="2020-04-15T14:15:06+08:00">2020-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>与其他几种脚本语言不通，Lua语言既没有使用POSIX正则表达式，也没有使用Perl正则表达式来进行模式匹配。之所以这样做的主要原因在于大小问题：一个典型的POSIX正则表达式实现需要超过4000行代码，这比所有Lua语言标准库总大小的一半还大。相比之下，Lua语言模式匹配的实现代码只有不到600行。尽管Lua语言的欧式匹配做不到完整POSIX实现的所有功能，但是Lua语言的模式匹配仍然非常强大，同时还具有一些与标准POSIX不同但又可与之媲美的功能。</p>
+          <p>与其他几种脚本语言不通，Lua语言既没有使用POSIX正则表达式，也没有使用Perl正则表达式来进行模式匹配。之所以这样做的主要原因在于大小问题：一个典型的POSIX正则表达式实现需要超过4000行代码，这比所有Lua语言标准库总大小的一半还大。相比之下，Lua语言模式匹配的实现代码只有不到600行。尽管Lua语言的欧式匹配做不到完整POSIX实现的所有功能，但是Lua语言的模式匹配仍然非常强大，同时还具有一些与标准POSIX不同但又可与之媲美的功能。</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle"
@@ -965,48 +1115,77 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/04/15/Lua%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/" data-id="clw7ne0xd00334sad0sl1g8gd" data-title="Lua模式匹配" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Lua闭包详解" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/14/Lua%E9%97%AD%E5%8C%85%E8%AF%A6%E8%A7%A3/" class="article-date">
-  <time class="dt-published" datetime="2020-04-14T03:28:38.000Z" itemprop="datePublished">2020-04-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/14/Lua%E9%97%AD%E5%8C%85%E8%AF%A6%E8%A7%A3/">Lua闭包详解</a>
-    </h1>
+  
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/14/Lua%E9%97%AD%E5%8C%85%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/14/Lua%E9%97%AD%E5%8C%85%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Lua闭包详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-14 11:28:38" itemprop="dateCreated datePublished" datetime="2020-04-14T11:28:38+08:00">2020-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>在Lua语言中，函数是严格遵循词法定界的第一类值。<br>“第一类值”以为这Lua语言中的函数与其他常见类型的值具有同等权限：一个程序可以将某个函数保存到变量中或表中，也可以将某个函数作为参数传递给其他函数，还可以将某个函数作为其他函数的返回值返回。</p>
+          <p>在Lua语言中，函数是严格遵循词法定界的第一类值。<br>“第一类值”以为这Lua语言中的函数与其他常见类型的值具有同等权限：一个程序可以将某个函数保存到变量中或表中，也可以将某个函数作为参数传递给其他函数，还可以将某个函数作为其他函数的返回值返回。</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle"
@@ -1095,48 +1274,77 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/04/14/Lua%E9%97%AD%E5%8C%85%E8%AF%A6%E8%A7%A3/" data-id="clw7ne0xl003z4sadeiuxcyqy" data-title="Lua闭包详解" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Lua的控制结构" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/13/Lua%E7%9A%84%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84/" class="article-date">
-  <time class="dt-published" datetime="2020-04-13T13:02:21.000Z" itemprop="datePublished">2020-04-13</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/13/Lua%E7%9A%84%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84/">Lua的控制结构</a>
-    </h1>
+  
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/13/Lua%E7%9A%84%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/13/Lua%E7%9A%84%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">Lua的控制结构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-13 21:02:21" itemprop="dateCreated datePublished" datetime="2020-04-13T21:02:21+08:00">2020-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>Lua语言提供了一组精简且常用的控制结构，包括用于条件执行的if以及用户循环的while、repeat和for。所有的控制结构语法上都有一个显示的终结符：end用于终结if、for及while结构，until用于终结repeat结构。</p>
+          <p>Lua语言提供了一组精简且常用的控制结构，包括用于条件执行的if以及用户循环的while、repeat和for。所有的控制结构语法上都有一个显示的终结符：end用于终结if、for及while结构，until用于终结repeat结构。</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle"
@@ -1177,48 +1385,77 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/04/13/Lua%E7%9A%84%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84/" data-id="clw7ne0xe003a4sadfqzr7fpg" data-title="Lua的控制结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Lua局部变量和代码块" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/13/Lua%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E4%BB%A3%E7%A0%81%E5%9D%97/" class="article-date">
-  <time class="dt-published" datetime="2020-04-13T05:15:27.000Z" itemprop="datePublished">2020-04-13</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/13/Lua%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E4%BB%A3%E7%A0%81%E5%9D%97/">Lua局部变量和代码块</a>
-    </h1>
+  
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/13/Lua%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E4%BB%A3%E7%A0%81%E5%9D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/13/Lua%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E4%BB%A3%E7%A0%81%E5%9D%97/" class="post-title-link" itemprop="url">Lua局部变量和代码块</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-13 13:15:27" itemprop="dateCreated datePublished" datetime="2020-04-13T13:15:27+08:00">2020-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="e-content article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>Lua语言中的变量在默认情况下是全局变量，所有的局部变量在使用前必须声明。与全局变量不同，局部变量的生效范围仅限于声明它的代码块。一个代码块是一个控制结构的主体，或是一个函数的主体，或是一个代码段：</p>
+          <p>Lua语言中的变量在默认情况下是全局变量，所有的局部变量在使用前必须声明。与全局变量不同，局部变量的生效范围仅限于声明它的代码块。一个代码块是一个控制结构的主体，或是一个函数的主体，或是一个代码段：</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle"
@@ -1240,143 +1477,182 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/04/13/Lua%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E4%BB%A3%E7%A0%81%E5%9D%97/" data-id="clw7ne0x9002g4sadhqdm6ga6" data-title="Lua局部变量和代码块" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/13/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/15/">Next &raquo;</a>
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
-</section>
-        
-          <aside id="sidebar">
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Autodesk3dMax/">Autodesk3dMax</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/algolia/">algolia</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web-Development/">Web Development</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/Visual-Studio/">Visual Studio</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-ndk/">android ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/">cocos Creator</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/TypeScript/">TypeScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/">json</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/">js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/">node</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-Creator/json/js/node/TypeScript/">TypeScript</a></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/cocos-creator/">cocos creator</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">小程序开发</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/https/">https</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ssh/">ssh</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97/">蓝牙模块</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E8%84%9A%E6%9C%AC/">工具脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B8%B8%E8%A7%81bug/">常见bug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B9%BF%E5%91%8A/">广告</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/">开发工具的使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/">日常代码</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/">微信</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E5%BE%AE%E4%BF%A1/%E6%95%B0%E6%8D%AE%E6%8A%93%E5%8F%96/">数据抓取</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97/">俄罗斯方块</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/">Python绘图</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/">创意编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E7%BB%98%E5%9B%BE/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/%E6%8A%96%E9%9F%B3%E7%83%AD%E9%97%A8/">抖音热门</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/">工作生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/">Python应用</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/Python%E5%BA%94%E7%94%A8/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/">实用工具</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">服务器搭建</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C/">虚拟专用网络</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">电脑使用技巧</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A0%B4%E8%A7%A3%E8%BD%AF%E4%BB%B6/">破解软件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/">Lua编程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1/">网页设计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%8A%82%E6%97%A5%E7%A5%9D%E7%A6%8F/">节日祝福</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/">通信工程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/">实习报告</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1%E7%A7%91%E6%8A%80%E4%BA%BA%E5%91%98%E8%81%8C%E4%B8%9A%E9%81%93%E5%BE%B7/">通信科技人员职业道德</a></li></ul>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" rel="tag">1024程序员节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/404/" rel="tag">404</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autodesk3dMax/" rel="tag">Autodesk3dMax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos-Creator/" rel="tag">Cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/" rel="tag">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/" rel="tag">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sprite/" rel="tag">Sprite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinter/" rel="tag">Thinter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Word/" rel="tag">Word</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ndk/" rel="tag">android ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos/" rel="tag">cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-Creator/" rel="tag">cocos Creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos-creator/" rel="tag">cocos creator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos2dx/" rel="tag">cocos2dx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/facebook/" rel="tag">facebook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/" rel="tag">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lua/" rel="tag">lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ndkr10e/" rel="tag">ndkr10e</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quick-Cocos/" rel="tag">quick Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shader/" rel="tag">shader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tolua/" rel="tag">tolua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/" rel="tag">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeScript/" rel="tag">typeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vsCode/" rel="tag">vsCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" rel="tag">创意编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" rel="tag">游戏开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" rel="tag">游戏性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" rel="tag">电脑使用技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" rel="tag">粒子特效</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86/" rel="tag">纹理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" rel="tag">纹理优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A0%81/" rel="tag">编码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%B4%E6%95%AC/" rel="tag">致敬</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8A%82%E6%97%A5/" rel="tag">节日</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%B7%E6%B1%82/" rel="tag">请求</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/1024%E7%A8%8B%E5%BA%8F%E5%91%98%E8%8A%82/" style="font-size: 10px;">1024程序员节</a> <a href="/tags/404/" style="font-size: 10px;">404</a> <a href="/tags/Android/" style="font-size: 12.22px;">Android</a> <a href="/tags/Autodesk3dMax/" style="font-size: 10px;">Autodesk3dMax</a> <a href="/tags/C/" style="font-size: 14.44px;">C</a> <a href="/tags/Cocos-Creator/" style="font-size: 12.22px;">Cocos Creator</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 14.44px;">Java</a> <a href="/tags/Lua/" style="font-size: 20px;">Lua</a> <a href="/tags/Mac/" style="font-size: 11.11px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Sprite/" style="font-size: 10px;">Sprite</a> <a href="/tags/Thinter/" style="font-size: 10px;">Thinter</a> <a href="/tags/TypeScript/" style="font-size: 16.67px;">TypeScript</a> <a href="/tags/Word/" style="font-size: 10px;">Word</a> <a href="/tags/Xcode/" style="font-size: 11.11px;">Xcode</a> <a href="/tags/android/" style="font-size: 11.11px;">android</a> <a href="/tags/android-ndk/" style="font-size: 10px;">android ndk</a> <a href="/tags/cocos/" style="font-size: 10px;">cocos</a> <a href="/tags/cocos-Creator/" style="font-size: 18.89px;">cocos Creator</a> <a href="/tags/cocos-creator/" style="font-size: 10px;">cocos creator</a> <a href="/tags/cocos2dx/" style="font-size: 17.78px;">cocos2dx</a> <a href="/tags/facebook/" style="font-size: 10px;">facebook</a> <a href="/tags/git/" style="font-size: 11.11px;">git</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/java/" style="font-size: 11.11px;">java</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/mac/" style="font-size: 11.11px;">mac</a> <a href="/tags/ndkr10e/" style="font-size: 10px;">ndkr10e</a> <a href="/tags/python/" style="font-size: 15.56px;">python</a> <a href="/tags/quick-Cocos/" style="font-size: 11.11px;">quick Cocos</a> <a href="/tags/shader/" style="font-size: 11.11px;">shader</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tolua/" style="font-size: 10px;">tolua</a> <a href="/tags/ts/" style="font-size: 10px;">ts</a> <a href="/tags/typeScript/" style="font-size: 10px;">typeScript</a> <a href="/tags/vsCode/" style="font-size: 11.11px;">vsCode</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/%E5%88%9B%E6%84%8F%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">创意编程</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">服务器</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" style="font-size: 10px;">游戏开发</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" style="font-size: 10px;">游戏性能</a> <a href="/tags/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" style="font-size: 11.11px;">电脑使用技巧</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.33px;">硬件</a> <a href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/" style="font-size: 10px;">粒子特效</a> <a href="/tags/%E7%BA%B9%E7%90%86/" style="font-size: 10px;">纹理</a> <a href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" style="font-size: 10px;">纹理优化</a> <a href="/tags/%E7%BB%98%E5%9B%BE/" style="font-size: 10px;">绘图</a> <a href="/tags/%E7%BC%96%E7%A0%81/" style="font-size: 10px;">编码</a> <a href="/tags/%E8%87%B4%E6%95%AC/" style="font-size: 10px;">致敬</a> <a href="/tags/%E8%8A%82%E6%97%A5/" style="font-size: 10px;">节日</a> <a href="/tags/%E8%AF%B7%E6%B1%82/" style="font-size: 10px;">请求</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2024/05/15/cocos2dx%E4%BD%BF%E7%94%A8%E5%B8%A7%E5%8A%A8%E7%94%BB/">cocos2dx使用帧动画</a>
-          </li>
-        
-          <li>
-            <a href="/2024/05/15/cocos2dx_lua%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/">cocos2dx_lua键盘监听</a>
-          </li>
-        
-          <li>
-            <a href="/2024/05/15/cocos2dx-lua%E8%AE%BE%E7%BD%AE%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7/">cocos2dx-lua设置节点层级</a>
-          </li>
-        
-          <li>
-            <a href="/2024/05/15/cocos2dx-lua%E5%AF%B9%E5%9B%BE%E7%89%87%E8%BF%9B%E8%A1%8C%E4%B9%9D%E5%AE%AB%E6%A0%BC%E7%BC%A9%E6%94%BE/">cocos2dx-lua对图片进行九宫格缩放</a>
-          </li>
-        
-          <li>
-            <a href="/2024/05/15/cocos2dx-Lua%E4%B8%ADLabel%E6%96%87%E6%9C%AC%E8%B6%85%E8%BF%87%E7%89%B9%E5%AE%9A%E9%95%BF%E5%BA%A6%E4%BD%BF%E7%94%A8...%E4%BB%A3%E6%9B%BF/">cocos2dx-Lua中Label文本超过特定长度使用...代替</a>
-          </li>
-        
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
       </ul>
-    </div>
-  </div>
 
-  
-</aside>
-        
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2024 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
 
     </div>
-    <nav id="mobile-nav">
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
   
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
 </html>
