@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Lua语言处理二进制数据的方式与处理文本的方式类似。Lua语言中的字符串可以包含热议字节，并且几乎所有能够处理字符串的库函数也能处理任意字节。我们甚至可以对二进制数据进行模式匹配。以此为基础，Lua5.3中引入了用于操作二进制数据的额外机制：除了整型数外，该版本还引入了位操作及用于打包&#x2F;解包二进制数据的函数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua连续教程之Lua位和字节">
+<meta property="og:url" content="https://lengmo714.top/43504.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="Lua语言处理二进制数据的方式与处理文本的方式类似。Lua语言中的字符串可以包含热议字节，并且几乎所有能够处理字符串的库函数也能处理任意字节。我们甚至可以对二进制数据进行模式匹配。以此为基础，Lua5.3中引入了用于操作二进制数据的额外机制：除了整型数外，该版本还引入了位操作及用于打包&#x2F;解包二进制数据的函数。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-18T03:51:18.000Z">
+<meta property="article:modified_time" content="2024-05-16T14:37:34.024Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lengmo714.top/43504.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <title>Lua连续教程之Lua位和字节 | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XDK58GP86Z');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f4330d59a83b2e7ec1a0e440353b8b42";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/43504.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lua连续教程之Lua位和字节
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-18 11:51:18" itemprop="dateCreated datePublished" datetime="2020-04-18T11:51:18+08:00">2020-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-16 22:37:34" itemprop="dateModified" datetime="2024-05-16T22:37:34+08:00">2024-05-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/43504.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/43504.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Lua语言处理二进制数据的方式与处理文本的方式类似。Lua语言中的字符串可以包含热议字节，并且几乎所有能够处理字符串的库函数也能处理任意字节。我们甚至可以对二进制数据进行模式匹配。以此为基础，Lua5.3中引入了用于操作二进制数据的额外机制：除了整型数外，该版本还引入了位操作及用于打包&#x2F;解包二进制数据的函数。</p>
+<span id="more"></span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><p>Lua语言从5.3版本开始提供了针对数值类型的一组标准位运算符与算术运算符不同的是，位运算符只能用于整型数。位运算符包括<code>&amp;</code>(按位与)、<code>|</code>(按位或)、<code>~</code>(按位异或)、<code>&gt;&gt;</code>(逻辑右移)、<code>&lt;&lt;</code>(逻辑左移)和一元运算符<code>~</code>(按位取反)。<br>所有的位运算都针对构成一个整型数的所有位。在标准Lua中，也就是64位。这对于用32位整型数的算法可能会成问题。不过，要操作32位整型数也不难。除了右移操作外，只要忽略高32位，那么所有针对64位整型数的操作与针对32位整型数的操作都一样。这对于加法、减法和乘法都有效。因此，在操作32位整型数时，只需要在进行右移前抹去高32位即可。<br>两个移位操作都会用0填充空出的位，这种行为通常被称为逻辑移位。Lua语言没有提供算术右移，即使用符号位填充空出的位。我们可以通过向下取整除法，除以合适的2的整数次幂实现算术右移。<br>移位数是负数表示向相反的方向移位，即a&gt;&gt;n与a&lt;&lt;-n等价：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%x&quot;</span>,<span class="number">0xff</span> &lt;&lt; <span class="number">12</span>) 			<span class="comment">-- ff000</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%x&quot;</span>,<span class="number">0xff</span> &gt;&gt; <span class="number">-12</span>)			<span class="comment">-- ff000</span></span><br></pre></td></tr></table></figure>
+<p>如果移位数等于或大于整型表示的位数，由于所有的位都被从结果中移出了，所有结果是0：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%x&quot;</span>,<span class="number">-1</span> &lt;&lt; <span class="number">80</span>)		<span class="comment">-- 0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="无符号整型数"><a href="#无符号整型数" class="headerlink" title="无符号整型数"></a>无符号整型数</h2><p>整型表示中使用一个比特来存储符号位。因此，64位整型数最大可以表示2^63^ - 1 而不是2^64^ -1。通常，这点区别是无关紧要的。因为2^63^ - 1 已经相当大了。不过，由于我们可能需要处理使用无符号整型表示的外部数据或实现一些需要64位整型数的算法，因而有时也不能浪费这个符号位。因此，在精简Lua中，这种区别可能会很重要。例如，如果用一个32位有符号整型数表示文件中的位置，那么能够操作的最大文件大小就是2GB；而一个无符号整型数能操作的最大文件大小则是有符号整型数的2倍，即4GB。<br>Lua语言不显示支持无符号整型数。不过尽管如此，只要稍加注意，在Lua语言中处理无符号整型数并不难。<br>虽然看上去不太友好，但可以直接写出比2^63^-1大的常量：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">13835058055282163712</span>		<span class="comment">-- 3 &lt;&lt; 62</span></span><br><span class="line">x 	<span class="comment">-- -4611686018427387904</span></span><br></pre></td></tr></table></figure>
+<p>这里的问题并不在于常量本身，而在于Lua语言输出常量的方式：默认情况下，打印数值时是将其作为有符号整型数进行处理的。我们可以使用选项%u或%x在函数string.format中指定以无符号整型数进行输出：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%u&quot;</span>,x)			<span class="comment">-- 1383505855282163712</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;0x%X&quot;</span>,x)			<span class="comment">-- 0xC000000000000000</span></span><br></pre></td></tr></table></figure>
+<p>根据有符号整型数的表示方式，加法、减法和乘法操作对于有符号整型数和无符号整型数是一样的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%u&quot;</span>,x)			<span class="comment">-- 1383505855282163712</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%u&quot;</span>,x+<span class="number">1</span>)			<span class="comment">-- 1383505855282163713</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%u&quot;</span>,x<span class="number">-1</span>)			<span class="comment">-- 1383505855282163711</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>对于这么大的数，即便x乘以2也会溢出，所以示例中没有演示乘法</p>
+</blockquote>
+<p>关系运算对于有符号整型数和无符号整型数是不一样的，当比较具有不同符号位的整型数时就会出现问题。对于有符号整型数而言，符号位被置位的整数更小，因为它代表的是负数：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0x7fffffffffffffff</span> &lt; <span class="number">0x8000000000000000</span>  <span class="comment">-- false</span></span><br></pre></td></tr></table></figure>
+<p>如果把两个整型数当作无符号的，那么结果显然是不正确的。因此，我们需要使用一种不同的操作来比较无符号整型数。Lua5.3提供了函数math.ult来完成这个需求：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">math</span>.ult(<span class="number">0x7fffffffffffffff</span>,<span class="number">0x8000000000000000</span>)  <span class="comment">-- true</span></span><br></pre></td></tr></table></figure>
+<p>另一种方法是在进行有符号比较前先用掩码掩去两个操作数的符号位：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mask = <span class="number">0x8000000000000000</span></span><br><span class="line">(<span class="number">0x7fffffffffffffff</span> ~mask)&lt;(<span class="number">0x8000000000000000</span> ~mask)		<span class="comment">--true</span></span><br></pre></td></tr></table></figure>
+<p>无符号除法和有符号除法也不一样</p>
+<blockquote>
+<p>无符号除法</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">udiv</span><span class="params">(n,d)</span></span></span><br><span class="line">	<span class="keyword">if</span> d &lt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">math</span>.ult(n,d) <span class="keyword">then</span> <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">local</span> q = ((n &gt;&gt; <span class="number">1</span>)//d) &lt;&lt; <span class="number">1</span></span><br><span class="line">	<span class="keyword">local</span> r = n - q * d</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">math</span>.ult(r,d) <span class="keyword">then</span> q = q + <span class="number">1</span> <span class="keyword">end</span></span><br><span class="line">	<span class="keyword">return</span> q</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>第一个比较（d&lt;0）等价于比较d是否大于2^63^。如果大于，那么商只能是1（如果n等于或大于d）或0。否则，我们使被除数除以2，然后除以除数，再把结果乘以2。右移1位等价于除以2的无符号除法，其结果是一个非负的有符号整型数。后续的左移纠正了商，还原了之前的除法。<br>总体上说，floor(floor(n&#x2F;2)&#x2F;d)*2(算法进行的计算)与floor(((n&#x2F;2)&#x2F;d)*2)(正确的结果）并不等价，不过，要证明它们之间最多相差1并不困难。因此，算计计算了余数（变量r），然后判断余数是否比除数大，如果余数比除数大则纠正商即可。<br>无符号整型数和浮点型数之间的转换需要进行一些调整。要把一个无符号整型数转换为浮点型数，可以先将其转换成有符号整型数，然后通过取模运算纠正救过：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">u = <span class="number">11529215046068469760</span></span><br><span class="line">f = (u + <span class="number">0.0</span>) % <span class="number">2</span>^<span class="number">64</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%.0f&quot;</span>,f)			<span class="comment">-- 11529215046068469760</span></span><br></pre></td></tr></table></figure>
+<p>由于标准转换把u当做有符号整型数，因此表达式u+0.0的值是-6917529027641081856，而之后的取模操作会把这个值限制在有符号整型数的表示范围内。<br>要把一个浮点型数转换为无符号整型数，可以使用如下代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="number">0xA000000000000000</span><span class="number">.0</span>		</span><br><span class="line">u = <span class="built_in">math</span>.tointerger(((f + <span class="number">2</span>^<span class="number">63</span>)%<span class="number">2</span>^<span class="number">64</span>) - <span class="number">2</span>^<span class="number">63</span>)</span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%x&quot;</span>,u)			<span class="comment">-- a000000000000000</span></span><br></pre></td></tr></table></figure>
+<p>加法把一个大于2^63^的数转换为一个大于2^64^的数，取模运算把这个数限制到[0,2^63^)范围内，然后通过减法把结果变成一个“负”值。对于小于2^63^的值，加法结果小于2^64^，所以取模运算没有任何效果，之后的减法则把它恢复到了之前的值。</p>
+<h2 id="打包和解包二进制数据"><a href="#打包和解包二进制数据" class="headerlink" title="打包和解包二进制数据"></a>打包和解包二进制数据</h2><p>Lua5.3还引入了一个在二进制数和基本类型值之间进行转换的函数。函数string.pack会把值“打包”为二进制字符串，而函数string.unpack则从字符串中提取这些值。<br>函数string.pack和函数string.unpack的第1个参数是格式化字符串，用于描述如何打包数据。格式化字符串中的每个字母都描述了如何打包&#x2F;解包一个值，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="built_in">string</span>.pack(<span class="string">&quot;iii&quot;</span>,<span class="number">3</span>,<span class="number">-27</span>,<span class="number">450</span>)</span><br><span class="line">#s</span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;iii&quot;</span>,s)		<span class="comment">-- 3	-27	450	13</span></span><br></pre></td></tr></table></figure>
+<p>调用函数string.pack将创建一个字符串，其中为3个整型数的二进制代码。每一个”i”编码对与之对应的参数进行了编码，而字符串的长度则是一个整型数本身大小的3倍。调用函数string.unpack对给定字符串中的3个整型数进行了解码并返回解码后的结果。<br>为了便于迭代，函数string.unpack还会返回最后一个读取的元素在字符串中的位置。相应地，该函数还有一个可选的第3个参数，这个参数用于指定开始读取的位置。例如，下例输出了一个指定字符串中所有被打包的字符串：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;hello\0Lua\0world\0&quot;</span></span><br><span class="line"><span class="keyword">local</span> i = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> i &lt;= #s <span class="keyword">do</span></span><br><span class="line">	<span class="keyword">local</span> res</span><br><span class="line">	res, i = <span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;z&quot;</span>,s,i)</span><br><span class="line">	<span class="built_in">print</span>(res)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- hello</span></span><br><span class="line"><span class="comment">-- Lua</span></span><br><span class="line"><span class="comment">-- world</span></span><br></pre></td></tr></table></figure>
+<p>对于编码一个整型数而言有几种选项，每一种对应了一种整型大小：b(char)、h(short)、i(int)、l(long)和j(代表Lua语言中整型数的大小)。要是使用固定的、与机器无关的大小，可以在选项i后加上一个1~16的数。例如，i7会产生7个字节的整型数。所有的大小都会被检查是否存在一处的情况：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="built_in">string</span>.pack(<span class="string">&quot;i7&quot;</span>, i &lt;&lt; <span class="number">54</span>)</span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;i7&quot;</span>,x)				<span class="comment">-- 18014398509481984	8</span></span><br><span class="line">x = <span class="built_in">string</span>.pack(<span class="string">&quot;i7&quot;</span>,-(<span class="number">1</span> &lt;&lt; <span class="number">54</span>))</span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;i7&quot;</span>,x)				<span class="comment">-- -1801439850948		8</span></span><br><span class="line">x = <span class="built_in">string</span>.pack(<span class="string">&quot;i7&quot;</span>,<span class="number">1</span> &lt;&lt; <span class="number">55</span>)</span><br><span class="line"><span class="built_in">stdin</span>:<span class="number">1</span>:bad argument #<span class="number">2</span> to <span class="string">&#x27;pack&#x27;</span>(interger overflow)</span><br></pre></td></tr></table></figure>
+<p>我们可以打包和解包比Lua语言原生整型数更大的整型数，但是在解包的时候它们的实际值必须能够被Lua语言的整型数容纳：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="built_in">string</span>.pack(<span class="string">&quot;i12&quot;</span>,<span class="number">2</span>^<span class="number">61</span>)</span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;i12&quot;</span>,x)				<span class="comment">-- 23058443009213693952		13</span></span><br><span class="line">x = <span class="string">&quot;aaaaaaaaaaaa&quot;</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;i12&quot;</span>,x)</span><br><span class="line"><span class="built_in">stdin</span>:<span class="number">1</span>: <span class="number">12</span>-<span class="built_in">byte</span> integer does <span class="keyword">not</span> fit into Lua integer</span><br></pre></td></tr></table></figure>
+<p>每一个针对整型数的选项都有一个对应的大写版本，对应相应大小的无符号整型数：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="string">&quot;\xFF&quot;</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;b&quot;</span>,s)		<span class="comment">-- -1 2</span></span><br><span class="line"><span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;B&quot;</span>,s)		<span class="comment">-- 255 2</span></span><br></pre></td></tr></table></figure>
+<p>同时，无符号整型数对于size_t而言还有一个额外的选项T。<br>我们可以用3中表示形式打包自付出：\0结尾的字符串、定长字符串和使用显示长度的字符串。\0结尾的字符串使用选项z；定长字符串使用选项cn，其中n是被打包字符串的字节数。显示长度的字符串在存储时会在字符串前加上该字符串的长度。在这种情况下，选项格式形如sn，其中n是用于保存字符串长度的无符号整型数的大小。例如，选项s1表示把字符串长度保存在一个字节中：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="built_in">string</span>.pack(<span class="string">&quot;s1&quot;</span>,<span class="string">&quot;hello&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, #s <span class="keyword">do</span> <span class="built_in">print</span>((<span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;B&quot;</span>,s,i))) <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 5	(length)</span></span><br><span class="line"><span class="comment">-- 104	(&#x27;h&#x27;)</span></span><br><span class="line"><span class="comment">-- 101	(&#x27;e&#x27;)</span></span><br><span class="line"><span class="comment">-- 108	(&#x27;l&#x27;)</span></span><br><span class="line"><span class="comment">-- 108	(&#x27;l&#x27;)</span></span><br><span class="line"><span class="comment">-- 111	(&#x27;o&#x27;)</span></span><br></pre></td></tr></table></figure>
+<p>如果用于保存长度的字节容纳不了字符串长度，那么Lua语言会抛出异常。我们也可以单纯使用选项s，在这种情况下，字符串长度会被以足够容纳任何字符串长度的size_t类型保存。<br>对于浮点型数，有3中选项：f用于单精度浮点数、d用于双精度浮点数、n用于Lua语言浮点数。<br>格式字符串也有用来控制大小端模式和二进制数据对齐的选项。在默认情况下，格式使用的是机器原生的大小端模式。选项&gt;把所有后续的编码转换改为大端模式或网络字节序：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="built_in">string</span>.pack(<span class="string">&quot;&gt;i4&quot;</span>,<span class="number">1000000</span>)</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, #s <span class="keyword">do</span> <span class="built_in">print</span>((<span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;B&quot;</span>,s,i))) <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 00</span></span><br><span class="line"><span class="comment">-- 15</span></span><br><span class="line"><span class="comment">-- 66</span></span><br><span class="line"><span class="comment">-- 64</span></span><br></pre></td></tr></table></figure>
+<p>选项&lt;则改为小端模式：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="built_in">string</span>.pack(<span class="string">&quot;&lt;i2 i2&quot;</span>,<span class="number">500</span>,<span class="number">24</span>)</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, #s <span class="keyword">do</span> <span class="built_in">print</span>((<span class="built_in">string</span>.<span class="built_in">unpack</span>(<span class="string">&quot;B&quot;</span>,s,i))) <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 244</span></span><br><span class="line"><span class="comment">-- 1</span></span><br><span class="line"><span class="comment">-- 24</span></span><br><span class="line"><span class="comment">-- 0</span></span><br></pre></td></tr></table></figure>
+<p>最后，选项&#x3D;改回机器默认的原生大小端模式。<br> 对于对齐而言，选项!n强制数据对齐到以n为倍数的索引上。更准确地说，如果数据比n小，那么对齐到其自身大小上；否则，对齐到n上。例如，假设格式化字符串为!4，那么1字节整型数会被写入以1为倍数的索引位置上，2字节的整型数会被写入以2为倍数的索引位置上，而4字节或更大的整型数则会被写入以4为倍数的索引位置上，而选项!(不带数字)则把对齐设为机器默认的对齐方式。<br> 函数string.pack通过在结果字符串到达合适索引值前增加0的方式实现对齐，函数string.unpack在读取字符串时会简单地跳过这些补位。对齐只对2的整数次幂有效，如果把对齐设为4但视图操作3字节的整型数，那么Lua语言会抛出异常。<br> 所有的格式化字符串默认带有前缀”&#x3D;!1”，即表示使用默认大小端模式且不对齐。我们可以在程序执行过程中的任意时点改变大小端模式和对齐方式。<br> 如果需要，可以手工添加补位。选项x代表1字节的补位，函数string.pack会在结果字符串中增加一个0字节，而函数string.unpack则从目标字符串中跳过1字节。</p>
+<h2 id="二进制文件"><a href="#二进制文件" class="headerlink" title="二进制文件"></a>二进制文件</h2><p>函数io.input和io.output总是以文本方式打开文件。在POSIX操作系统中，二进制文件和文本文件是没有差别的。然后，在其他一些像Windows之类的操作系统中，必须用特殊方式打开二进制文件，即在io.open的模式字符串中使用字母b。<br>通常，在读取二进制数据时，要么使用模式”a”开读取整个文件，要么使用模式n来读取n个字节。下面是一个简单的示例，它会把Windows格式的文本文件转换为POSIX格式，即把\r\n转换为\n:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> inp = <span class="built_in">assert</span>(<span class="built_in">io</span>.<span class="built_in">open</span>(<span class="built_in">arg</span>[<span class="number">1</span>],<span class="string">&quot;rb&quot;</span>))</span><br><span class="line"><span class="keyword">local</span> out = <span class="built_in">assert</span>(<span class="built_in">io</span>.<span class="built_in">open</span>(<span class="built_in">arg</span>[<span class="number">2</span>],<span class="string">&quot;wb&quot;</span>))</span><br><span class="line"><span class="keyword">local</span> data = inp:<span class="built_in">read</span>(<span class="string">&quot;a&quot;</span>)</span><br><span class="line">data = <span class="built_in">string</span>.<span class="built_in">gsub</span>(data,<span class="string">&quot;\r\n&quot;</span>,<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">out:<span class="built_in">write</span>(data)</span><br><span class="line"><span class="built_in">assert</span>(out:<span class="built_in">close</span>())</span><br></pre></td></tr></table></figure>
+<p>由于标准I&#x2F;O流是以文本模式打开的，所以上例不能使用标准I&#x2F;O流。相反，该程序假设输入和输出文件的名称是由程序的参数指定的。可以使用如下的命令调用该程序：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua prog.lua file.dos file.unix</span><br></pre></td></tr></table></figure>
+<p>再举一个例子，一下的程序输出了一个二进制文件中的所有字符：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">io</span>.<span class="built_in">open</span>[<span class="number">1</span>],<span class="string">&quot;rb&quot;</span>))</span><br><span class="line"><span class="keyword">local</span> data = f:<span class="built_in">read</span>(<span class="string">&quot;a&quot;</span>)</span><br><span class="line"><span class="keyword">local</span> validchars = <span class="string">&quot;[%g%s]&quot;</span></span><br><span class="line"><span class="keyword">local</span> pattern = <span class="string">&quot;(&quot;</span> .. <span class="built_in">string</span>.<span class="built_in">rep</span>(validchars,<span class="number">6</span>) .. <span class="string">&quot;+)\0&quot;</span></span><br><span class="line"><span class="keyword">for</span> w <span class="keyword">in</span> <span class="built_in">string</span>.<span class="built_in">gmatch</span>(data,pattern) <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(w)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>这个程序假定字符串是一个以\0结尾的、包含6个或6个以上有效字符的序列，其中有效字符是指能与模式validchars匹配的任意字符。在这个示例中，这个模式由可打印字符组成。我们使用函数string.rep和字符串连接创建用于捕获以\0结尾的、包含6个或6个以上有效字符validchars的模式，这个模式中的括号用于捕获不带\0的字符串。</p>
+
+    </div>
+
+    
+    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/43504.html" title="Lua连续教程之Lua位和字节">https://lengmo714.top/43504.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/11458.html" rel="prev" title="Lua日期和时间">
+      <i class="fa fa-chevron-left"></i> Lua日期和时间
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/42473.html" rel="next" title="Lua数据结构">
+      Lua数据结构 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">位运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E7%AC%A6%E5%8F%B7%E6%95%B4%E5%9E%8B%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">无符号整型数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0%E6%8D%AE"><span class="nav-number">3.</span> <span class="nav-text">打包和解包二进制数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">二进制文件</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">175</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a>
+      <img src="/images/1.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">720k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10:54</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'YsQGBgpvH7i6nSDWekzhTmIv',
+      appKey     : 'HZzy2We3Ks5LQmQ4TjXkKfHn',
+      placeholder: "填写QQ邮箱就会使用QQ头像喔~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : 'https://lean1.lengmo714.top'
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
