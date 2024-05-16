@@ -1,0 +1,126 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+
+	<!--引入jQuery框架-->
+	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	<!--引入jVectorMap库-->
+	<script type="text/javascript" src="js/jquery-jvectormap-1.2.2.min.js"></script>
+	<!--引入样式表-->
+	<link href="js/jquery-jvectormap-1.2.2.css" rel="stylesheet" media="screen">
+
+
+	<!--引入中国地图数据库-->
+	<script type="text/javascript" src="js/jquery-jvectormap-cn-merc-en.js"></script>
+
+	<!--引入美国地图数据库-->
+	<!--script type="text/javascript" src="js/jquery-jvectormap-us-aea.js"></script-->
+	<!--引入世界地图数据库-->
+	<!-- <script type="text/javascript" src="js/jquery-jvectormap-world-mill.js"></script -->
+
+</head>
+
+<body>
+	<!--background-color: 地图背景颜色-->
+	<div id="map" style="background-color:#353535"> </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+		crossorigin="anonymous"></script>
+	<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article"
+		data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8049675559"></ins>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+	<script>
+		$('#map').vectorMap({
+
+			// 此处更改地图
+			map: 'cn_merc_en',   // 中国地图
+			//map: 'us_aea',     // 美国地图
+			// map: 'world_mill', // 世界地图
+
+
+			backgroundColor: 'transparent',
+			zoomMin: 0.9, // 鼠标缩放时的最小比例
+			zoomMax: 2.4, // 鼠标缩放时的最大比例
+			focusOn: {
+				x: 0.55,
+				y: 2,
+				scale: 0.9
+			},
+			regionStyle: {
+				initial: {
+					fill: '#e5e5e5',   // 地图颜色
+					"fill-opacity": 1, // 省份（州）是否隐藏，鼠标滑动时显示; 1：显示，2：隐藏。
+					stroke: 'none',
+					"stroke-width": 0,
+					"stroke-opacity": 1
+				},
+				hover: {
+					fill: '#ccc',  // 鼠标滑动至某省份的高亮颜色。
+					"fill-opacity": 0.8
+				},
+				selected: {
+					fill: 'yellow'
+				},
+				selectedHover: {}
+			},
+			markerStyle: {
+				initial: {
+					fill: '#fd8888', // 足迹位置的填充颜色
+					stroke: '#fff'   // 足迹位置的描边颜色
+				},
+				hover: {
+					fill: '#fd2020', // 鼠标滑动至足迹位置后的填充颜色
+					stroke: '#fff',  // 鼠标滑动至足迹位置后的描边颜色
+					"fill-opacity": 0.8
+				},
+			},
+			markers: [ // 足迹位置
+
+				// {latLng: [经度（保留两位小数）, 纬度（保留两位小数）], name: '城市名称'},
+				// 推荐查询经纬度网站：http://www.gpsspg.com/maps.htm
+
+				{ latLng: [30.05, 101.96], name: '甘孜藏族自治州' },
+				{ latLng: [30.40, 104.04], name: '成都' },
+				{ latLng: [30.35, 112.19], name: '荆州' },
+				{ latLng: [29.56, 106.56], name: '重庆' },
+				{ latLng: [30.81, 108.41], name: '万州' },
+				{ latLng: [28.31, 109.74], name: '湘西' },
+				{ latLng: [27.73, 109.19], name: '铜仁' },
+				{ latLng: [27.57, 110.01], name: '怀化' },
+				{ latLng: [29.04, 111.70], name: '常德' },
+				{ latLng: [29.15, 113.12], name: '岳阳' },
+				{ latLng: [28.56, 112.36], name: '益阳' },
+				{ latLng: [27.7, 112], name: '娄底' },
+				{ latLng: [28.25, 113.08], name: '长沙' },
+				{ latLng: [26.97, 112.37], name: '衡阳' },
+				{ latLng: [27.83, 113.14], name: '株洲' },
+				{ latLng: [27.66, 113.89], name: '萍乡' },
+				{ latLng: [28.55, 115.95], name: '南昌' },
+				{ latLng: [22.54, 114.06], name: '深圳' },
+				{ latLng: [23.13, 113.27], name: '广州' },
+				{ latLng: [36.07, 120.38], name: '青岛' },
+				{ latLng: [27.78, 112.95], name: '湘潭' },
+				{ latLng: [27.82, 114.42], name: '宜春' },
+				{ latLng: [30.59, 114.31], name: '武汉' },
+				{ latLng: [30.05, 101.96], name: '康定' },
+				{ latLng: [29.04, 100.30], name: '稻城' },
+				{ latLng: [28.93, 99.8], name: '乡城' },
+				{ latLng: [31.47, 104.68], name: '绵阳' },
+				{ latLng: [23.02, 113.12], name: '佛山' },
+				{ latLng: [23.68, 113.06], name: '清远' },
+				{ latLng: [22.03, 113.75], name: '东莞' },
+				{ latLng: [23.11, 114.42], name: '惠州' },
+				{ latLng: [31.50, 112.50], name: '随州' },
+				{ latLng: [30.56, 113.54], name: '孝感' },
+				{ latLng: [24.8, 113.8], name: '韶关' },
+				{ latLng: [25.50, 113.8], name: '郴州' },
+				{ latLng: [27.07, 114.58], name: '吉安' },
+				{ latLng: [25.00, 113.54], name: '赣州' },
+				{ latLng: [23.50, 114.54], name: '河源' },
+			]
+		});
+	</script>
+
+</html>
