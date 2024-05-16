@@ -166,7 +166,22 @@
   </li>
         <li class="menu-item menu-item-足迹">
 
-    <a href="/https:/lengmo714.top/net/map/index.html/" rel="section"><i class="fa fa-map fa-fw"></i>足迹</a>
+    <a href="https://lengmo714.top/net/map/index.html" rel="section"><i class="fa fa-map fa-fw"></i>足迹</a>
+
+  </li>
+        <li class="menu-item menu-item-京东小店">
+
+    <a href="https://mall.jd.com/index-12955410.html" rel="noopener" target="_blank"><i class="fa fa-shopping-cart fa-fw"></i>京东小店</a>
+
+  </li>
+        <li class="menu-item menu-item-恋爱计时">
+
+    <a href="https://lengmo714.top/net/Love/baby.html" rel="section"><i class="fa fa-heart fa-fw"></i>恋爱计时</a>
+
+  </li>
+        <li class="menu-item menu-item-微信对话生成器">
+
+    <a href="https://lengmo714.top/net/wechat/index.html" rel="section"><i class="fa fa-calendar fa-fw"></i>微信对话生成器</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -364,6 +379,22 @@
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title1</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title2</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title3</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
         <div class="back-to-top motion-element">
@@ -465,6 +496,54 @@
   <script>
     (function(){
       var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
+, curProtocol;
       //Get the <link> tag
       var x=document.getElementsByTagName("link");
 		//Find the last canonical URL
