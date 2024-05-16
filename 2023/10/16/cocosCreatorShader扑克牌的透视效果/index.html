@@ -22,19 +22,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="我这里用的是cocos creator 3.7.2版本，不同版本可能存在差异 顶点着色器开始实现这个功能，对定点着色器应该有了基本的了解，这里不过多说明。这里我们先看下cocosCreator默认使用的着色器代码：builtin-sprite.effect,可以直接在资源管理器中搜索 想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标但是想要修改，最起码得知道现在的值，做个小测试看一下。让顶">
+  <meta name="description" content="(adsbygoogle &#x3D; window.adsbygoogle || []).push({});   我这里用的是cocos creator 3.7.2版本，不同版本可能存在差异 顶点着色器开始实现这个功能，对定点着色器应该有了基本的了解，这里不过多说明。这里我们先看下cocosCreator默认使用的着色器代码：builtin-sprite.effect,可以直接在资源管理器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cocosCreator Shader 扑克牌的透视效果">
 <meta property="og:url" content="http://example.com/2023/10/16/cocosCreatorShader%E6%89%91%E5%85%8B%E7%89%8C%E7%9A%84%E9%80%8F%E8%A7%86%E6%95%88%E6%9E%9C/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="我这里用的是cocos creator 3.7.2版本，不同版本可能存在差异 顶点着色器开始实现这个功能，对定点着色器应该有了基本的了解，这里不过多说明。这里我们先看下cocosCreator默认使用的着色器代码：builtin-sprite.effect,可以直接在资源管理器中搜索 想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标但是想要修改，最起码得知道现在的值，做个小测试看一下。让顶">
+<meta property="og:description" content="(adsbygoogle &#x3D; window.adsbygoogle || []).push({});   我这里用的是cocos creator 3.7.2版本，不同版本可能存在差异 顶点着色器开始实现这个功能，对定点着色器应该有了基本的了解，这里不过多说明。这里我们先看下cocosCreator默认使用的着色器代码：builtin-sprite.effect,可以直接在资源管理器">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://z1.ax1x.com/2023/10/16/piCfKbt.png">
 <meta property="article:published_time" content="2023-10-16T15:30:45.000Z">
-<meta property="article:modified_time" content="2024-05-15T11:52:46.664Z">
+<meta property="article:modified_time" content="2024-05-14T10:08:29.330Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="cocos Creator">
 <meta property="article:tag" content="TypeScript">
+<meta property="article:tag" content="cocos Creator">
 <meta property="article:tag" content="shader">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://z1.ax1x.com/2023/10/16/piCfKbt.png">
@@ -242,7 +242,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
+                <time title="修改时间：2024-05-14 18:08:29" itemprop="dateModified" datetime="2024-05-14T18:08:29+08:00">2024-05-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,7 +265,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>我这里用的是cocos creator 3.7.2版本，不同版本可能存在差异</p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>我这里用的是cocos creator 3.7.2版本，不同版本可能存在差异</p>
 <h2 id="顶点着色器"><a href="#顶点着色器" class="headerlink" title="顶点着色器"></a>顶点着色器</h2><p>开始实现这个功能，对定点着色器应该有了基本的了解，这里不过多说明。<br>这里我们先看下cocosCreator默认使用的着色器代码：<code>builtin-sprite.effect</code>,可以直接在资源管理器中搜索</p>
 <h3 id="想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标"><a href="#想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标" class="headerlink" title="想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标"></a>想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标</h3><p>但是想要修改，最起码得知道现在的值，做个小测试看一下。让顶点坐标的x值+&#x3D;y值，观察x坐标的变化规律.<br>复制粘贴<code>builtin-sprite.effect</code>文件(必须要复制粘贴，系统最开始的不能被修改)，在复制出来的文件中搜索<code>vec4 pos = vec4(a_position, 1)</code><br>并在该代码后面添加代码<code>pos.x += pos.y;</code>,如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vec4 pos = vec4(a_position, 1);</span><br><span class="line">pos.x += pos.y;</span><br></pre></td></tr></table></figure>
@@ -338,8 +350,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> cocos Creator</a>
               <a href="/tags/TypeScript/" rel="tag"><i class="fa fa-tag"></i> TypeScript</a>
+              <a href="/tags/cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> cocos Creator</a>
               <a href="/tags/shader/" rel="tag"><i class="fa fa-tag"></i> shader</a>
           </div>
 
@@ -430,16 +442,16 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-count">174</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

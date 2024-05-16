@@ -202,6 +202,96 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/16/TypeScript%E5%86%99%E4%B8%80%E4%B8%AA%E7%B1%BB%E4%BC%BC%E4%BA%8E%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/16/TypeScript%E5%86%99%E4%B8%80%E4%B8%AA%E7%B1%BB%E4%BC%BC%E4%BA%8E%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">TypeScript写一个类似于`format.string`方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-16 21:30:21" itemprop="dateCreated datePublished" datetime="2023-05-16T21:30:21+08:00">2023-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TypeScript/" itemprop="url" rel="index"><span itemprop="name">TypeScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>代码：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">formatString</span>(<span class="params">str: <span class="built_in">string</span>, ...args: <span class="built_in">any</span>[]</span>): <span class="built_in">string</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> str.<span class="title function_">replace</span>(<span class="regexp">/\&#123;(\d+)\&#125;/g</span>, <span class="function">(<span class="params">match, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> args[index] !== <span class="string">&quot;undefined&quot;</span> ? args[index] : match;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">name</span>: <span class="built_in">string</span> = <span class="string">&quot;Alice&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">age</span>: <span class="built_in">number</span> = <span class="number">25</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">message</span>: <span class="built_in">string</span> = <span class="title function_">formatString</span>(<span class="string">&quot;My name is &#123;0&#125; and I am &#123;1&#125; years old.&quot;</span>, name, age);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(message); <span class="comment">// Output: &quot;My name is Alice and I am 25 years old.&quot;</span></span><br></pre></td></tr></table></figure>
+<p>在上面的示例中，我们定义了一个名为 <code>formatString</code> 的函数，它接受一个字符串和任意数量的参数。在函数体内，我们使用正则表达式 <code>/\\&#123;\\d+\\&#125;/g</code> 来匹配字符串中的占位符 <code>&#123;&#125;</code>，并在每个匹配项上调用一个回调函数来进行替换。</p>
+<p>在回调函数中，我们使用 <code>args</code> 数组来获取与占位符 <code>&#123;&#125;</code> 中的索引对应的参数。如果参数存在，则将其用于替换占位符。否则，我们返回匹配项本身。最后，我们返回替换后的字符串。</p>
+<p>在示例中，我们还定义了两个变量 <code>name</code> 和 <code>age</code>，并使用 <code>formatString</code> 函数来将它们的值嵌入到字符串中。最后，我们输出格式化后的字符串 <code>message</code>，它的值是 <code>&quot;My name is Alice and I am 25 years old.&quot;</code>。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/11/%E8%BD%AF%E4%BB%B6%E7%A0%B4%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -233,7 +323,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,7 +346,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>首先关注下方公众号<br><img src="https://s1.ax1x.com/2023/05/08/p9wEfHJ.jpg" style="width:200px;height:250px" alt="" /></p>
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>首先关注下方公众号<br><img src="https://s1.ax1x.com/2023/05/08/p9wEfHJ.jpg" style="width:200px;height:250px" alt="" /></p>
 <h2 id="下载关键词"><a href="#下载关键词" class="headerlink" title="下载关键词"></a>下载关键词</h2><h3 id="腾讯视频"><a href="#腾讯视频" class="headerlink" title="腾讯视频"></a>腾讯视频</h3><p>公众号后台回复<code>腾讯视频</code>获取下载链接</p>
 <h3 id="网易云"><a href="#网易云" class="headerlink" title="网易云"></a>网易云</h3><p>公众号后台回复<code>网易云</code>获取下载链接</p>
 <h3 id="Autodesk-Inventor"><a href="#Autodesk-Inventor" class="headerlink" title="Autodesk Inventor"></a>Autodesk Inventor</h3><p>公众号后台回复<code>Autodesk Inventor</code>获取下载链接</p>
@@ -319,7 +421,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -342,7 +444,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><a target="_blank" rel="noopener" href="https://help.autodesk.com/view/3DSMAX/2024/CHS/?guid=GUID-2B24CF20-383F-48B7-955B-03D8AECCD3B9">Autodesk 3d Max 使用教程:</a><br>破解版下载，微信关注“历史回眸”，发送<code>3d建模</code>获取资源链接。<br><img src="https://s1.ax1x.com/2023/05/08/p9wEfHJ.jpg" style="width:200px;height:200px" alt="" /></p>
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p><a target="_blank" rel="noopener" href="https://help.autodesk.com/view/3DSMAX/2024/CHS/?guid=GUID-2B24CF20-383F-48B7-955B-03D8AECCD3B9">Autodesk 3d Max 使用教程:</a><br>破解版下载，微信关注“历史回眸”，发送<code>3d建模</code>获取资源链接。<br><img src="https://s1.ax1x.com/2023/05/08/p9wEfHJ.jpg" style="width:200px;height:200px" alt="" /></p>
 <p>安装的软件是英文的，但是这里的教程又是中文的，对于英文不是很好的我来说确实有点为难，于是乎就想着将软件汉化。<br>汉化的方法也比较简单<br>点电脑桌面软件快捷方式图标，进入“属性”界面，在“目标”后面加上<code>空格/Luanguage=CHS</code>即可。如下图：<br><img src="https://s1.ax1x.com/2023/05/08/p9wE4E9.png" style="width:200px;height:400px" alt="" /><br>设置完后再打开软件，软件上所有的显示就是中文的啦~<br>如下图：<br><img src="https://s1.ax1x.com/2023/05/08/p9wEI41.png" style="width:400px;height:350px" alt="" /></p>
 
       
@@ -394,7 +508,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -417,7 +531,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>大家在使用windows的时候，经常会发现用着用着C盘的容量越来越小，很多系统垃圾都不知道怎么删除。下面介绍一种方法：</p>
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>大家在使用windows的时候，经常会发现用着用着C盘的容量越来越小，很多系统垃圾都不知道怎么删除。下面介绍一种方法：</p>
 <ol>
 <li>将下面代码复制在一个文本文档中（任何一款代码编辑器都可以）</li>
 <li>保存，并将文件后缀改为<code>.bat</code>，双击运行即可<blockquote>
@@ -475,7 +601,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -498,7 +624,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="设计思路："><a href="#设计思路：" class="headerlink" title="设计思路："></a>设计思路：</h3><ol>
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h3 id="设计思路："><a href="#设计思路：" class="headerlink" title="设计思路："></a>设计思路：</h3><ol>
 <li>客户端与服务器建立一个长链接，用来接收服务器发过来的广播消息</li>
 <li>创建一个队列，将接收到的广播消息添加到队列中</li>
 <li>建立一个定时器，定期从队列中取出消息，并展示出来</li>
@@ -554,7 +692,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -577,7 +715,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在<code>setTimeOut()</code>或<code>setInterval()</code>这样的方法中，如果传入的函数包含<code>this</code>，那么，默认情况下，函数中的<code>this</code>会指向<code>window</code>对象。这是由于<code>setTimeout()</code>调用的代码运行在与所有函数完全分离的执行环境上。这回导致这些代码中包含的<code>this</code>关键字会指向<code>window</code>对象。如下图：<br><img src="https://s1.ax1x.com/2023/04/20/p9AajjP.png"  alt="" /><br>下面那个<code>this</code>就是<code>setInterval()</code>中<code>this</code>指向。</p>
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>在<code>setTimeOut()</code>或<code>setInterval()</code>这样的方法中，如果传入的函数包含<code>this</code>，那么，默认情况下，函数中的<code>this</code>会指向<code>window</code>对象。这是由于<code>setTimeout()</code>调用的代码运行在与所有函数完全分离的执行环境上。这回导致这些代码中包含的<code>this</code>关键字会指向<code>window</code>对象。如下图：<br><img src="https://s1.ax1x.com/2023/04/20/p9AajjP.png"  alt="" /><br>下面那个<code>this</code>就是<code>setInterval()</code>中<code>this</code>指向。</p>
 <h2 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h2><h3 id="将当前对象的this存为一个变量"><a href="#将当前对象的this存为一个变量" class="headerlink" title="将当前对象的this存为一个变量"></a>将当前对象的<code>this</code>存为一个变量</h3><p>定时器内部的函数来访问到这个变量，此时的<code>this</code>,就指向了当前对象</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">broadInter</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="variable language_">this</span>;</span><br><span class="line">    <span class="built_in">setInterval</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(that.<span class="property">msg</span>);</span><br><span class="line">    &#125;,<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="利用bind-方法"><a href="#利用bind-方法" class="headerlink" title="利用bind()方法"></a>利用bind()方法</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">broadInter</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="built_in">setInterval</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">msg</span>);   </span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -641,7 +791,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:45" itemprop="dateModified" datetime="2024-05-15T19:52:45+08:00">2024-05-15</time>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -664,7 +814,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>cocos creator <code>WebSocket</code>实例。</p>
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>cocos creator <code>WebSocket</code>实例。</p>
 <p>需要注意几个问题：</p>
 <p>1、<code>send()</code>发送的数据格式，这里是有要求的。</p>
 <p>2、接收到的数据需要进行一个反序列化。</p>
@@ -718,7 +880,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:45" itemprop="dateModified" datetime="2024-05-15T19:52:45+08:00">2024-05-15</time>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -799,7 +961,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -822,7 +984,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pageList = <span class="variable language_">this</span>.<span class="property">_view</span>.<span class="property">_PageC_List</span>;</span><br><span class="line"><span class="keyword">let</span> pageCount = pageList.<span class="title function_">getPages</span>().<span class="property">length</span>;   <span class="comment">// 获取翻页容器长度</span></span><br><span class="line"><span class="keyword">let</span> duration = <span class="number">3</span>;   <span class="comment">// 自动翻页时间,s</span></span><br><span class="line"><span class="keyword">let</span> currentPageIndex = <span class="number">0</span>;  <span class="comment">// 当前页数</span></span><br><span class="line"><span class="keyword">let</span> direction = <span class="number">1</span>;       <span class="comment">// 翻页方向</span></span><br><span class="line"><span class="keyword">let</span> scrollTiem = <span class="number">1</span>;      <span class="comment">//  翻页时间</span></span><br><span class="line">pageList.<span class="title function_">schedule</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(currentPageIndex === pageCount-<span class="number">1</span>)&#123;</span><br><span class="line">        direction = -<span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(currentPageIndex === <span class="number">0</span>)&#123;</span><br><span class="line">        direction = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    currentPageIndex += direction;</span><br><span class="line">    pageList.<span class="title function_">scrollToPage</span>(currentPageIndex,scrollTiem);</span><br><span class="line">&#125;,duration)</span><br></pre></td></tr></table></figure>
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pageList = <span class="variable language_">this</span>.<span class="property">_view</span>.<span class="property">_PageC_List</span>;</span><br><span class="line"><span class="keyword">let</span> pageCount = pageList.<span class="title function_">getPages</span>().<span class="property">length</span>;   <span class="comment">// 获取翻页容器长度</span></span><br><span class="line"><span class="keyword">let</span> duration = <span class="number">3</span>;   <span class="comment">// 自动翻页时间,s</span></span><br><span class="line"><span class="keyword">let</span> currentPageIndex = <span class="number">0</span>;  <span class="comment">// 当前页数</span></span><br><span class="line"><span class="keyword">let</span> direction = <span class="number">1</span>;       <span class="comment">// 翻页方向</span></span><br><span class="line"><span class="keyword">let</span> scrollTiem = <span class="number">1</span>;      <span class="comment">//  翻页时间</span></span><br><span class="line">pageList.<span class="title function_">schedule</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(currentPageIndex === pageCount-<span class="number">1</span>)&#123;</span><br><span class="line">        direction = -<span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(currentPageIndex === <span class="number">0</span>)&#123;</span><br><span class="line">        direction = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    currentPageIndex += direction;</span><br><span class="line">    pageList.<span class="title function_">scrollToPage</span>(currentPageIndex,scrollTiem);</span><br><span class="line">&#125;,duration)</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -841,7 +1015,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/13/cocosCreator%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9%E7%B2%BE%E7%81%B5%E5%9B%BE%E7%89%87/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/13/cocosCreator%E8%A7%A3%E5%86%B3Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -855,7 +1029,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/04/13/cocosCreator%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9%E7%B2%BE%E7%81%B5%E5%9B%BE%E7%89%87/" class="post-title-link" itemprop="url">cocosCreator动态修改精灵图片</a>
+            <a href="/2023/04/13/cocosCreator%E8%A7%A3%E5%86%B3Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">cocosCreator解决Chrome浏览器跨域问题</a>
         </h2>
 
         <div class="post-meta">
@@ -865,14 +1039,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-04-13 21:52:14" itemprop="dateCreated datePublished" datetime="2023-04-13T21:52:14+08:00">2023-04-13</time>
+              <time title="创建时间：2023-04-13 21:57:58" itemprop="dateCreated datePublished" datetime="2023-04-13T21:57:58+08:00">2023-04-13</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:45" itemprop="dateModified" datetime="2024-05-15T19:52:45+08:00">2024-05-15</time>
+                <time title="修改时间：2024-05-16 10:30:33" itemprop="dateModified" datetime="2024-05-16T10:30:33+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -895,91 +1069,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>今天在用cocos creator写代码过程中，需要给7个精灵动态修改图片。出现了下面错误。图片找不到</p>
-<img src="https://s1.ax1x.com/2023/04/13/ppx2mSP.png" alt="" />
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
-<p>自己就很郁闷，查看图片路径又是没有问题的<br><img src="https://s1.ax1x.com/2023/04/13/ppx2ZWt.png" alt="" /></p>
-<p>下面给出有bug和解决bug的代码<br>有bug</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> <span class="attr">i</span>:<span class="built_in">number</span> = <span class="number">0</span>;i&lt;<span class="number">7</span>;i++)&#123;</span><br><span class="line">    <span class="keyword">let</span> spriteFrame = <span class="keyword">new</span> <span class="title class_">SpriteFrame</span>();</span><br><span class="line">    <span class="keyword">let</span> imagePath = <span class="string">&quot;ui/Atlas/gameHall/game_type_btn_&quot;</span> + (i+<span class="number">1</span>) + <span class="string">&quot;.png&quot;</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;imagePath = &quot;</span>,imagePath);</span><br><span class="line">    resources.<span class="title function_">load</span>(imagePath,<span class="title class_">SpriteFrame</span>,<span class="function">(<span class="params">err,res</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;图片不存在&quot;</span>,err)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        spriteFrame = res;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">hallImage</span>[i].<span class="property">spriteFrame</span> = spriteFrame;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>没bug</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> <span class="attr">i</span>:<span class="built_in">number</span> = <span class="number">0</span>;i&lt;<span class="number">7</span>;i++)&#123;</span><br><span class="line">    <span class="keyword">let</span> spriteFrame = <span class="keyword">new</span> <span class="title class_">SpriteFrame</span>();</span><br><span class="line">    <span class="keyword">let</span> imagePath = <span class="string">&quot;ui/Atlas/gameHall/game_type_btn_&quot;</span> + (i+<span class="number">1</span>) + <span class="string">&quot;/spriteFrame&quot;</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;imagePath = &quot;</span>,imagePath);</span><br><span class="line">    resources.<span class="title function_">load</span>(imagePath,<span class="title class_">SpriteFrame</span>,<span class="function">(<span class="params">err,res</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;图片不存在&quot;</span>,err)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        spriteFrame = res;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">hallImage</span>[i].<span class="title function_">getComponent</span>(<span class="title class_">Sprite</span>).<span class="property">spriteFrame</span> = spriteFrame;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/12/vsCode%E4%B8%8D%E6%98%BE%E7%A4%BA-meta%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="南锋">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/04/12/vsCode%E4%B8%8D%E6%98%BE%E7%A4%BA-meta%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">vsCode不显示.meta文件的方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-04-12 21:00:30" itemprop="dateCreated datePublished" datetime="2023-04-12T21:00:30+08:00">2023-04-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>主要应用于vsCode编辑cocos creator工程时（不想展示其他格式文件方法一样）<br>点击左下角“设置”图标-&gt;“Setting”</p>
-<img src="https://s1.ax1x.com/2023/04/12/ppjAtgI.png" style="width:500px;height:500px" alt="" />
-
-<p>找到下图所示位置，添加<code>**/*.meta</code>即可<br><img src="https://s1.ax1x.com/2023/04/12/ppjANvt.png" style="width:500px;height:500px" alt="" /></p>
+<p>对于前端来说，本地开发很经常会遇到跨域问题。这种问题可以交给服务器去解决，但是有个更简单的方法就是讲浏览器设置为可跨域的。</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7019171779478290463">参考链接</a></p>
+<h2 id="windows平台"><a href="#windows平台" class="headerlink" title="windows平台"></a>windows平台</h2><p>右击打开属性，找到<code>目标</code>字段，并在目标字段后面加上参数：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">--disable-web-security</span> <span class="attr">--user-data-dir</span>=D:\ChromeData\MyChromeDevUserData</span><br></pre></td></tr></table></figure>
+<p>如下图所示：<br><img src="https://s1.ax1x.com/2023/04/13/ppxRCpq.png" style="width:300px;height:500px" alt="" /></p>
+<p>再打开Google chrome，如下图则表示Chrome浏览器设置跨域成功（出现红色框框的文字提示，可能是英文）<br><img src="https://s1.ax1x.com/2023/04/13/ppxRP10.png" style="width:500px;height:200px" alt="" /></p>
+<blockquote>
+<p>博主这里设置跨域后，桌面出现了2个google chrome浏览器的快捷方式图标，一个可以跨域，一个不可以跨域</p>
+</blockquote>
 
       
     </div>
@@ -998,7 +1109,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1066,16 +1177,16 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-count">174</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

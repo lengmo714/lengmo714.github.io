@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="函数dir会遍历目录并返回一张包含指定目录下所有内容的表。这里对dir新的实现会返回一个迭代器，每次调用这个迭代器时它都会返回一个新元素。通过这种实现，我们就能使用如下的循环来遍历目录： 123for fname in dir.open(&quot;.&quot;)do	print(fname)end 要在C语言中遍历一个目录，我们需要用到DIR结构体。DIR的实例由opendir创建，且必须通过">
+  <meta name="description" content="函数dir会遍历目录并返回一张包含指定目录下所有内容的表。这里对dir新的实现会返回一个迭代器，每次调用这个迭代器时它都会返回一个新元素。通过这种实现，我们就能使用如下的循环来遍历目录：         (adsbygoogle &#x3D; window.adsbygoogle || []).push({});   123for fname in dir.open(&quot;.&quot;)do	pri">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lua连续教程之Lua资源管理">
 <meta property="og:url" content="http://example.com/2020/07/22/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="函数dir会遍历目录并返回一张包含指定目录下所有内容的表。这里对dir新的实现会返回一个迭代器，每次调用这个迭代器时它都会返回一个新元素。通过这种实现，我们就能使用如下的循环来遍历目录： 123for fname in dir.open(&quot;.&quot;)do	print(fname)end 要在C语言中遍历一个目录，我们需要用到DIR结构体。DIR的实例由opendir创建，且必须通过">
+<meta property="og:description" content="函数dir会遍历目录并返回一张包含指定目录下所有内容的表。这里对dir新的实现会返回一个迭代器，每次调用这个迭代器时它都会返回一个新元素。通过这种实现，我们就能使用如下的循环来遍历目录：         (adsbygoogle &#x3D; window.adsbygoogle || []).push({});   123for fname in dir.open(&quot;.&quot;)do	pri">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-21T16:52:38.000Z">
-<meta property="article:modified_time" content="2024-05-15T11:52:46.077Z">
+<meta property="article:modified_time" content="2024-03-12T01:53:40.625Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta name="twitter:card" content="summary">
@@ -238,7 +238,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,6 +262,18 @@
 
       
         <p>函数dir会遍历目录并返回一张包含指定目录下所有内容的表。这里对dir新的实现会返回一个迭代器，每次调用这个迭代器时它都会返回一个新元素。通过这种实现，我们就能使用如下的循环来遍历目录：</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> fname <span class="keyword">in</span> <span class="built_in">dir</span>.<span class="built_in">open</span>(<span class="string">&quot;.&quot;</span>)do</span><br><span class="line">	<span class="built_in">print</span>(fname)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
 <p>要在C语言中遍历一个目录，我们需要用到DIR结构体。DIR的实例由opendir创建，且必须通过调用closedir显示地释放。在之前的实现中，我们将DIR的示例当做局部变量，并在或获取最后一个文件名后释放了它。而在新的实现中，由于必须通过多次调用来查询该值，因此不能把DIR的实例保存到局部变量中。此外，不能在获取最后一个文件名后再释放DIR的示例，因为如果程序从循环中跳出，那么迭代器永远不会获取最后一个文件名。因此，为了确保DIR的实例能被正确释放，需要把该实例的地址存入一个用户数据中，并且用这个用户数据的远方__gc来释放该结构体。<br>尽管用户数据在我们实现中处于核心地位，但这个表示目录数据并不一定需要对Lua可见。函数dir.open会返回一个Lua可见的迭代函数，而目录可以作为迭代函数的一个上值。这样，迭代函数能直接访问这个结构体，而Lua代码则不能。<br>总之，我们需要三个C语言函数。首先，我们需要函数dir.open，该函数是一个工厂函数，Lua调用该函数来创建迭代器；它必须打开一个DIR结构体，并将这个结构体作为上值创建一个迭代函数的闭包。其次，我们需要迭代函数。最后，我们需要__gc元方法，该元方法用于释放DIR结构体。通常情况下，我们还需要一个额外的函数进行一些初始化工作，例如为目录创建和初始化元表。<br>先来看函数dir.open，参加下面示例</p>
 <blockquote>
@@ -468,16 +480,16 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-count">174</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

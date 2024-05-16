@@ -202,6 +202,690 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/06/Lua%E4%B8%AD%E7%9A%84%E6%95%B0%E5%80%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/06/Lua%E4%B8%AD%E7%9A%84%E6%95%B0%E5%80%BC/" class="post-title-link" itemprop="url">Lua连续教程之Lua中的数值</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-06 23:56:01" itemprop="dateCreated datePublished" datetime="2020-04-06T23:56:01+08:00">2020-04-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>我们可以使用科学计数法（一个可选的十进制部分外加一个可选的十进制指数部分）书写数值常量，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">4</span>             <span class="comment">--4</span></span><br><span class="line">&gt; <span class="number">0.4</span>			<span class="comment">--0.4</span></span><br><span class="line">&gt; <span class="number">4.57e-3</span>		<span class="comment">--0.00457</span></span><br><span class="line">&gt; <span class="number">0.3e12</span>		<span class="comment">--3.0000000000.0</span></span><br><span class="line">&gt; <span class="number">5E+20</span>			<span class="comment">--5e+20</span></span><br></pre></td></tr></table></figure>
+<p>具有十进制小数或者指数的数值会被当做浮点型值，否则会被当做整数值。<br>整型数和浮点数的类型都是<code>number</code>：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">type</span>(<span class="number">3</span>)			<span class="comment">--number</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="number">3.5</span>)			<span class="comment">--number</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="number">3.0</span>)			<span class="comment">--number</span></span><br></pre></td></tr></table></figure>
+<p>由于整型值和浮点型值的类型都是”number”，所以它们是可以互相转换的。同时，具有相同算术值的整型值和浮点值在Lua语言中是相等的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">1</span> == <span class="number">1.0</span> 			<span class="comment">--true</span></span><br><span class="line">&gt;<span class="number">-3</span> == <span class="number">-3.0</span> 		<span class="comment">--ture</span></span><br><span class="line">&gt;<span class="number">0.2e3</span>	== <span class="number">200</span> 		<span class="comment">--ture</span></span><br></pre></td></tr></table></figure>
+<p>在少数情况下，当需要区分整型值和浮点型值时，可以使用函数math.type:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">type</span>(<span class="number">3</span>)			<span class="comment">--integer</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">type</span>(<span class="number">3.0</span>)			<span class="comment">--float</span></span><br></pre></td></tr></table></figure>
+<p>在Lua5.3中：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">3</span>			<span class="comment">--3</span></span><br><span class="line">&gt;<span class="number">3.0</span>		<span class="comment">--3.0</span></span><br><span class="line">&gt;<span class="number">1000</span>		<span class="comment">--1000</span></span><br><span class="line">&gt;<span class="number">1e3</span>		<span class="comment">--1000.0</span></span><br></pre></td></tr></table></figure>
+<p>Lua语言还像其他语言一样也支持0x开头的十六进制常量。与其他很多变成语言不通，Lua语言还支持十六进制的浮点数，这种十六进制浮点数部分由小数部分和以p或P开头的指数部分组成。例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">0xff</span>		<span class="comment">--255</span></span><br><span class="line">&gt;<span class="number">0x1A3</span>		<span class="comment">--419</span></span><br><span class="line">&gt;<span class="number">0x0</span><span class="number">.2</span>		<span class="comment">--0.125</span></span><br><span class="line">&gt;<span class="number">0x1</span>p<span class="number">-1</span>		<span class="comment">--0.5</span></span><br><span class="line">&gt;<span class="number">0</span>x.bp2		<span class="comment">--42.75</span></span><br></pre></td></tr></table></figure>
+<p>可以使用参数%a参数，通过函数string.format对这种格式进行格式化输出：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%a&quot;</span>,<span class="number">419</span>)		<span class="comment">--0x1.a3p+8</span></span><br><span class="line">&gt;<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%a&quot;</span>,<span class="number">0.1</span>)		<span class="comment">--0x1.999999999999ap-4</span></span><br></pre></td></tr></table></figure>
+<p>虽然这种格式很难阅读，但是这种格式可以保留所有浮点数的精度，并且比十进制的转换速度更快。</p>
+<h2 id="算术运算"><a href="#算术运算" class="headerlink" title="算术运算"></a>算术运算</h2><p>除了加减乘除、取负数等常见的算术运算外，Lua语言还支持取整除法、取模和指数运算。<br>两个整数型值进行加减乘除和取负操作的结果仍然是整型值。对于这些算术运算而言，操作数是用整型还暗示浮点型表示的整数都没有区别：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">13</span> + <span class="number">15</span> 		<span class="comment">--28</span></span><br><span class="line">&gt;<span class="number">13.0</span> + <span class="number">15.0</span> 	<span class="comment">--28.0</span></span><br></pre></td></tr></table></figure>
+<p>如果两个操作数都是整型值，那么结果也是整型值；否则，结果就是浮点型值。当操作数一个是整型值一个是浮点型值时，Lua语言会在进行算术运算前将整型值转换为浮点型值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">13.0</span> + <span class="number">25</span> 		<span class="comment">--38.0</span></span><br><span class="line">&gt;-(<span class="number">3</span> * <span class="number">6.0</span>)		<span class="comment">--18.0</span></span><br></pre></td></tr></table></figure>
+<p>由于两个整数相除的结果并不一定是整数，因此除法不遵循上述规则。为了避免两个整型值相除和两个浮点型值相除导致不一样的结果，除法运算操作永远是浮点数且产生浮点型值的结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;3.0 / 2.0				--1.5</span><br><span class="line">&gt;3 / 2					--1.5</span><br></pre></td></tr></table></figure>
+<p>Lua5.3针对整数除法引入了一个称为floor除法的新算术运算符&#x2F;&#x2F;。顾名思义，floor除法会对得到的商向负无穷取整，从而保证结果是一个整数。这样，floor除法就可以与其他算术运算一样遵循同样的规则：如果操作数都是整型值，那么结果就是整型值，否则就是浮点型值</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">3</span> // <span class="number">2</span>			<span class="comment">--1</span></span><br><span class="line">&gt;<span class="number">3.0</span> // <span class="number">2</span>		<span class="comment">--1.0</span></span><br><span class="line">&gt;<span class="number">6</span> // <span class="number">2</span>			<span class="comment">--3</span></span><br><span class="line">&gt;<span class="number">6.0</span> // <span class="number">2.0</span> 	<span class="comment">--3.0</span></span><br><span class="line">&gt;<span class="number">-9</span> // <span class="number">2</span>		<span class="comment">--5</span></span><br><span class="line">&gt;<span class="number">1.5</span> // <span class="number">0.5</span>		<span class="comment">--3.0</span></span><br></pre></td></tr></table></figure>
+<p>下面公式是取模运算的定义：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a % b == a - ((a // b ) * b )</span><br></pre></td></tr></table></figure>
+<p>如果操作数是整数，那么取模运算的结果也是整数。因此，取模运算也遵从与算术运算相同的规律，即如果两个操作数均是整型值，则结果为整型，否则为浮点型。<br>对于整型操作数而言，取模运算的含义没有什么特别的，其结果的符号永远与第二个操作数的符号保持一致。特别地，对于任意指定的正常数K，即使x是负数，表达式x%K的结果也永远在[0,K-1]之间。例如，对于任意整数值i，表达式i%2的结果均是0或1。<br>对于实数类型的操作数而言，取模运算有一些不同。例如，x-x%0.01恰好是x保留两位小数的结果，x-x%0.001恰好是x保留三位小数的结果：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;x = <span class="built_in">math</span>.<span class="built_in">pi</span></span><br><span class="line">&gt;x - x%<span class="number">0.01</span>			<span class="comment">--3.14</span></span><br><span class="line">&gt;x - x%<span class="number">0.001</span>		<span class="comment">--3.141</span></span><br></pre></td></tr></table></figure>
+<p>再比如，我们可以使用取模运算检查某辆车在拐过了指定的角度后是否能够原路返回。假设使用度作为角度的单位，那么我们可以使用如下的公式:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> tolerance = <span class="number">10</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isturnback</span><span class="params">( angle)</span></span></span><br><span class="line">	angle = angle % <span class="number">360</span></span><br><span class="line">	<span class="keyword">return</span> (<span class="built_in">math</span>.<span class="built_in">abs</span>(angle - <span class="number">180</span>) &lt; tolerance)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>该函数对负的角度而言也同样适用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(istrunback(-180))			--turn</span><br></pre></td></tr></table></figure>
+<p>假设使用弧度作为角度的单位，那么我们只需要简单地修改常量的定义即可：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> tolerance = <span class="number">0.17</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isturnback</span><span class="params">( angle)</span></span></span><br><span class="line">	angle = angle % (<span class="number">2</span> * <span class="built_in">math</span>.<span class="built_in">pi</span>)</span><br><span class="line">	<span class="keyword">return</span> (<span class="built_in">math</span>.<span class="built_in">abs</span>(angle - <span class="number">180</span>) &lt; tolerance)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>表达式angle%(2*math.pi)实现了将任意范围的角度归一化到[0,2pi]之间。</p>
+<p>Lua表达式同意支持幂运算，使用符号<code>^</code>表示，像除法一样，幂运算的操作数也永远是浮点类型（整型值在幂运算时不能整除，例如，$2^{-2}$的结果不是整型数）。我们可以使用$x^{0.5}$来计算x的平方根，使用$x^{1&#x2F;3}$来计算x的立方根。</p>
+<h2 id="关系运算"><a href="#关系运算" class="headerlink" title="关系运算"></a>关系运算</h2><p>Lua语言提供了下列关系运算：<br><code>&lt;</code>,<code>&gt;</code>,<code>&lt;=</code>,<code>&gt;=</code>,<code>==</code>,<code>~=</code><br>这些关系运算的结果都是Boolean类型。<br><code>==</code>用于相等性测试，<code>~=</code>用于不等性测试。这两个运算符可以应用于任意两个值，当这两个值的类型不同时，Lua语言认为它们是不相等的；否则，会根据它们的类型再对两者进行比较。<br>比较数值时应用户忽略数值的子类型，数值究竟是以整型还是浮点型类型表示并无区别，只娱算术有关。</p>
+<h2 id="数学库"><a href="#数学库" class="headerlink" title="数学库"></a>数学库</h2><p>Lua语言提供了标准数学库math。标准数学库由一组标准的数学函数组成，包括三角函数、指数函数、取证函数、最大和最小函数、用于生成伪随机数函数(random)以及常量pi和huge。<br>详情可见链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Silent_F/article/details/86547290">https://blog.csdn.net/Silent_F/article/details/86547290</a><br>所有的三角函数都以弧度为单位，并通过函数deg和rad进行角度和弧度的转换。</p>
+<h3 id="随机数发生器"><a href="#随机数发生器" class="headerlink" title="随机数发生器"></a>随机数发生器</h3><p>函数math.random用于生成随机数，共有三种调用方式。当不带参数调用时，该函数将返回一个在[0,1)范围内均匀分布的随机实数。当使用带有一个整型值n的参数调用时，该函数将返回一个在[1,n]范围内的随机整数。例如，我们可以通过调用random(6)来模拟掷骰子的结果。当使用带有两个整数值l和u的参数调用时，该函数返回在[l,u]范围内的随机整数。<br>函数randomseed用于设置随机数发生器的种子，该函数的唯一参数就是数值类型的种子。在一个程序启动时，系统固定使用1为种子初始化随机数发生器。如果不设置其他的种子，那么每次程序运行时都会生成相同的随机数序列。从调试的角度看，这是一个不错的特行，然而，对于一个游戏来说却会导致相同的场景重复地出现。为了解决这个问题，通常调用<code>math.randomsee(os.time())</code>来使当前系统时间作为种子初始化随机数发生器。</p>
+<h3 id="取证函数"><a href="#取证函数" class="headerlink" title="取证函数"></a>取证函数</h3><p>数学库提供了三个取证函数:floor、ceil和modf。其中，floor向负无穷取整，ceil向正无穷取整，modf向零取整。当取整结果能够用整型表示时，返回结果为整型值，否则返回浮点型值。处理返回取整后的值义务外，函数modf还会返回小数部分作为第二个结果。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">floor</span>(<span class="number">3.3</span>)		<span class="comment">--3</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">floor</span>(<span class="number">-3.3</span>)		<span class="comment">-- -4</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">ceil</span>(<span class="number">3.3</span>)			<span class="comment">-- 4</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">ceil</span>(<span class="number">-3.3</span>)		<span class="comment">-- -3</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">modf</span>(<span class="number">3.3</span>)			<span class="comment">-- 3 	0.3</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">modf</span>(<span class="number">-3.3</span>)		<span class="comment">-- -3 	-0.3</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">floor</span>(<span class="number">2</span>^<span class="number">70</span>)		<span class="comment">--1.1805916207174e+21</span></span><br></pre></td></tr></table></figure>
+<p>如果参数本身就是一个整型值，那么它将被原样返回。<br>如果想将数值x向最近的整数取整，可以对x+0.5调用floor函数。不过，当参数是一个很大的整数时，简单的加法可能会导致错误。例如，考虑如下代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = x^<span class="number">52</span> + <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%d %d&quot;</span> , x , <span class="built_in">math</span>.<span class="built_in">floor</span>(x + <span class="number">0.5</span>)))</span><br><span class="line">	<span class="comment">-- 4503599627370497   4503599627370498</span></span><br></pre></td></tr></table></figure>
+<p>$2^{52}$ + 1.5的浮点值表示是不精确的，因此内部会以我们不可控制的方式取整。为了避免这个问题，我们可以单独地处理整数值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">round</span><span class="params">(x)</span></span></span><br><span class="line">	<span class="keyword">local</span> f = <span class="built_in">math</span>.<span class="built_in">floor</span>(x)</span><br><span class="line">	<span class="keyword">if</span> x == f <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">return</span> f</span><br><span class="line">	<span class="keyword">else</span> </span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">math</span>.<span class="built_in">floor</span>(x + <span class="number">0.5</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>上例中的函数总是会向上取整半个整数。如果想进行无偏取整，即向距离最近的偶数取整半个整数，上述公式在x + 0.5是奇数的情况下产生不正确的结果：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">floor</span>(<span class="number">3.5</span> + <span class="number">0.5</span>) 		<span class="comment">--4 (ok)</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">floor</span>(<span class="number">2.5</span> + <span class="number">0.5</span>)		<span class="comment">--3 (wrong)</span></span><br></pre></td></tr></table></figure>
+<p>这时，还是可以利用取整操作来解决上面的问题：表达式<code>(x%2.0 == 0.5)</code>只有在x + 0.5为奇数时为真。基于这些情况，定义一个无偏取整函数就很简单了：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">round</span><span class="params">(x)</span></span></span><br><span class="line">	<span class="keyword">local</span> f = <span class="built_in">math</span>.<span class="built_in">floor</span>(x)</span><br><span class="line">	<span class="keyword">if</span> (x == f) <span class="keyword">or</span> (x % <span class="number">2.0</span> == <span class="number">0.5</span>) <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">return</span> f</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">math</span>.<span class="built_in">floor</span>(x + <span class="number">0.5</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(round(<span class="number">2.5</span>))		<span class="comment">-- 2</span></span><br><span class="line"><span class="built_in">print</span>(round(<span class="number">3.5</span>))		<span class="comment">-- 4</span></span><br><span class="line"><span class="built_in">print</span>(round(<span class="number">-2.5</span>))		<span class="comment">-- -2</span></span><br><span class="line"><span class="built_in">print</span>(round(<span class="number">-1.5</span>))		<span class="comment">-- -2</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="表示范围"><a href="#表示范围" class="headerlink" title="表示范围"></a>表示范围</h2><p>大多数编程语言使用某些固定长度的比特位来表达数值。因此，数值的表示在范围和精度上都是有限制的。<br>标准Lua使用64个比特位来存储整型值，其最大值为$2^{63}-1$，约等于$10^{19}$；精简Lua使用32个比特位存储整型值，其最大值约为20亿。数学库中的常量定义了整型值的最大值(math.maxinteger)和最小值(math.mininteger)。<br>64位整型值中的最大值是一个很大的数值：全球财富总和（按美分计算）的数千倍和全球人口总数的数十亿倍。尽管这个数值很大，但是仍然有可能发生溢出。当我们在整型数操作时出现比mininteger更小或者比maxinteger更大的数值时，结果就会回环。<br>在数学领域，回环的意思是结果只能在mininteger和maxinteger之间，也就是对$2^{64}$取模的算术结果。在计算机领域，回环的意思是丢弃最高进位。假设最高进位存在，其将是第65个比特位，代表$2^{64}$。因此，忽略第65个比特位不会改变值对$2^{64}$取模的结果。在Lua语言中，这种行为对所有涉及整型值的算术运算都是一致且可预测的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.maxinteger + <span class="number">1</span> == <span class="built_in">math</span>.mininteger			<span class="comment">--ture</span></span><br><span class="line">&gt;<span class="built_in">math</span>.mininteger - <span class="number">1</span> == <span class="built_in">math</span>.maxinteger			<span class="comment">--true</span></span><br><span class="line">&gt;-<span class="built_in">math</span>.mininteger == <span class="built_in">math</span>.mininteger			<span class="comment">--true</span></span><br><span class="line">&gt;<span class="built_in">math</span>.mininteger // <span class="number">-1</span> == <span class="built_in">math</span>.mininteger		<span class="comment">--true</span></span><br></pre></td></tr></table></figure>
+<p>最大可以表示的证书是0x7ff…fff，即除最高位（符号位，零为非负整数）外其余比特位均为1.当我们对0x7ff…fff加1时，其结果变为0x800…000，即最小可表示的整数。最小整数比最大整数的表示幅度大1：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.maxinteger		<span class="comment">--9223372036854775807</span></span><br><span class="line">&gt;<span class="number">0x7fffffffffffffff</span>		<span class="comment">--9223372036854775807</span></span><br><span class="line">&gt;<span class="built_in">math</span>.maxinteger		<span class="comment">--9223372036854775808</span></span><br><span class="line">&gt;<span class="number">0x8000000000000000</span>		<span class="comment">--9223372036854775808</span></span><br></pre></td></tr></table></figure>
+<p>对于浮点数而言，标准Lua使用双精度。标准Lua使用64个比特位表示所有数值，其中11位为指数。双精度浮点数可以表示具有大致16个有效十进制位的数，范围从$-10^{308}$到$10^{308}$。精简Lua使用32个比特位表示的单精度浮点数，大致具有7个有效十进制位，范围从$-10^{38}$到$10^{38}$。<br>双精度浮点数对于大多数实际应用而言是足够大的，但是我们必须了解精度的限制。如果我们使用十位表示一个数，那么1&#x2F;7会被取整到0.142857142。如果我们使用十位计算1&#x2F;7 * 7，结果会是0.999999994而不是1。此外，用十进制表示的有限小数在用二进制表示时可能是无线小数。例如，12.7 -20 + 7.3即便是用双精度表示也不是0，这是由于12.7和7.3的二进制表示不是有限小数。<br>由于整型值和浮点型值的表示范围不同，因此当超过它们的表示范围时，整型值和浮点型值的算术运算会产生不同的结果：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.maxinteger + <span class="number">2</span>		<span class="comment">-- -9223372036854775807</span></span><br><span class="line">&gt;<span class="built_in">math</span>.maxinteger + <span class="number">2.0</span>      <span class="comment">-- 9.2233720368548e + 18</span></span><br></pre></td></tr></table></figure>
+<p>在上例中，两个结果从数学的角度看都是错误的，而且它们错误的方式不同。第一行对最大可表示整数进行了整型求和，结果发生了回环。第二行对最大可表示整数进行了浮点型求和，结果被取整成了一个近似值，这可以通过如下的比较运算证明：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.maxinteger + <span class="number">2.0</span> == <span class="built_in">math</span>.maxinteger + <span class="number">1.0</span>   <span class="comment">-- true</span></span><br></pre></td></tr></table></figure>
+<p>尽管每一种表示方法都有其优势，但是只有浮点型才能表示小数。浮点数的值可以表示很大的范围，但是浮点型能够表示的整数范围被精确地限制[$-2^{53}$,$2^{53}$]之间。在这个范围内，我们基本可以忽略整型和浮点型的区别；超出这个范围后，我们则应该谨慎地思考所使用的表示方式。</p>
+<h2 id="惯例"><a href="#惯例" class="headerlink" title="惯例"></a>惯例</h2><p>我们可以简单地通过增加0.0的方法将整型值强制转换为浮点型值，一个整型值总是可以被转换成浮点型值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">-3</span> + <span class="number">0.0</span> 				<span class="comment">-- -3.0</span></span><br></pre></td></tr></table></figure>
+<p>小于$2^{53}$的所有整型值的表示与双精度浮点型值的表示一样，对于绝对值超过了这个值的整型值而言，在将其强制转换为浮点型值时可能导致精度损失：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">9007199254740991</span> + <span class="number">0.0</span> == <span class="number">90071992547440991</span>		<span class="comment">--true</span></span><br><span class="line">&gt; <span class="number">9007199254740992</span> + <span class="number">0.0</span> == <span class="number">90071992547440992</span>		<span class="comment">--true</span></span><br><span class="line">&gt; <span class="number">9007199254740993</span> + <span class="number">0.0</span> == <span class="number">90071992547440993</span>		<span class="comment">--false</span></span><br></pre></td></tr></table></figure>
+<p>在最后一行中，$2^{53} + 1$的结果被取整为$2^{53}$，打破了等式，表达式结果为false。<br>通过与零进行按位或运算，可以把浮点型值强制转换为整型值:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">2</span>^<span class="number">53</span>				<span class="comment">-- 9.007199254741e+15 (浮点型值)</span></span><br><span class="line">&gt; <span class="number">2</span>^<span class="number">53</span>|<span class="number">0</span>			<span class="comment">-- 9007199254730992	  (整型值)</span></span><br></pre></td></tr></table></figure>
+<p>在将浮点型值强制转换为整型值时，Lua语言会检查数值是否与整型值表示完全一致，即没有小数部分且其值在整型值的表示范围内，如果不满足条件则会抛出异常：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">3.2</span>|<span class="number">0</span>             <span class="comment">--小数部分</span></span><br><span class="line"><span class="built_in">stdin</span>:<span class="number">1</span>: number has no integer representation</span><br><span class="line">&gt; <span class="number">2</span>^<span class="number">64</span>|<span class="number">0</span>            <span class="comment">--超出范围</span></span><br><span class="line"><span class="built_in">stdin</span>:<span class="number">1</span>: number has no integer representation</span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">random</span>(<span class="number">1</span>,<span class="number">3.5</span>)</span><br><span class="line"><span class="built_in">stdin</span>:<span class="number">1</span>: bad argument #<span class="number">2</span> to <span class="string">&#x27;random&#x27;</span>（数值没有用整型表示）</span><br></pre></td></tr></table></figure>
+<p>对小数进行取整必须显示地调用取整函数。<br>另一种把数值强制转换为整型值的方式是使用函数math.tointeger，该函数会在输入参数无法转换为整型值时返回nil:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.tointeger(<span class="number">-258.0</span>)			<span class="comment">-- -258</span></span><br><span class="line">&gt;<span class="built_in">math</span>.tointeger(<span class="number">2</span>^<span class="number">30</span>)			<span class="comment">-- 1073741824</span></span><br><span class="line">&gt;<span class="built_in">math</span>.tointeger(<span class="number">5.01</span>)			<span class="comment">-- nil   (不是整数)</span></span><br><span class="line">&gt;<span class="built_in">math</span>.tointeger(<span class="number">2</span>^<span class="number">64</span>)			<span class="comment">-- nil	 (超出范围)</span></span><br></pre></td></tr></table></figure>
+<p>这个函数在需要检查一个数字能否被转换为整型值时尤为有用。例如，以下函数在可能时会将输入参数转换为整型值，否则将保持原来的值不变：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cond2int</span><span class="params">(x)</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">math</span>.tointerger(x) <span class="keyword">or</span> x</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h2><p>Lua语言中的运算符优先级如下（从高到低）</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">^</span><br><span class="line">一元运算符（-  #  ~  <span class="keyword">not</span> )</span><br><span class="line">*    /    //    %</span><br><span class="line">+    -</span><br><span class="line">..(连续)</span><br><span class="line">&lt;&lt;    &gt;&gt; （按位移位）</span><br><span class="line">&amp;（按位与）</span><br><span class="line">~（按位异或）</span><br><span class="line">|（按位或）</span><br><span class="line">&lt;    &gt;    &lt;=    &gt;=    ~=    ==</span><br><span class="line"><span class="keyword">and</span></span><br><span class="line"><span class="keyword">or</span></span><br></pre></td></tr></table></figure>
+<p>在二元运算符中，除了幂运算和链接操作符是右结合的外，其他运算符都是左结合的。因此，以下表达式的左右两边等价：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a + i &lt; b/<span class="number">2</span> + <span class="number">1</span>     &lt;<span class="comment">--&gt; (a + i) &lt; ((b/2) + 1)</span></span><br><span class="line"><span class="number">5</span> + x^<span class="number">2</span>*<span class="number">8</span>			&lt;<span class="comment">--&gt; 5 + ((x^2) * 8)</span></span><br><span class="line">a &lt; y <span class="keyword">and</span> y &lt;= z    &lt;<span class="comment">--&gt; (a &lt; y) and (y &lt;= z)</span></span><br><span class="line">-x^<span class="number">2</span>				&lt;<span class="comment">--&gt; -(x^2)</span></span><br><span class="line">x^y^z				&lt;<span class="comment">--&gt; x^(y^z)</span></span><br></pre></td></tr></table></figure>
+<p>当不能确定某些表达式的运算符优先级时，应该显示地用括号来指定所希望的运算次序。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/01/Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/01/Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">Lua语言入门</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-01 00:22:31" itemprop="dateCreated datePublished" datetime="2020-04-01T00:22:31+08:00">2020-04-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>遵照惯例，我们的第一个Lua程序时通过标准输出打印字符串”Hello World”:<br><code>print(&quot;Hello World&quot;)</code></p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>如果读者使用的是Lua语言独立解释器(stand-alone interpreter)，要运行这第一个程序的话，直接调用解释器运行包含程序代码的文本文件就可以了。例如，如果把上述代码保存为名hello.lua的文件，那么可以通过以下命令运行：<br><code>% lua hello.lua</code></p>
+<p>再来看一个稍微复杂点的例子，以下代码定义了一个计算阶乘的函数，该函数先让用户输入一个数，然后打印出这个数的阶乘结果：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--定义一个计算阶乘的函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fact</span><span class="params">(n)</span></span></span><br><span class="line">	<span class="keyword">if</span> n  == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> n * fact(n<span class="number">-1</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;enter a number:&quot;</span>)</span><br><span class="line"></span><br><span class="line">a = <span class="built_in">io</span>.<span class="built_in">read</span>(<span class="string">&quot;*n&quot;</span>)  <span class="comment">--读取一个数字</span></span><br><span class="line"><span class="built_in">print</span>(fact(a))</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-1-程序段"><a href="#1-1-程序段" class="headerlink" title="1.1 程序段"></a>1.1 程序段</h2><p>我们将Lua语言执行的每一段代码称为一个*程序段(Chunk)*，即一组命令或表达式组成的序列。<br>程序段既可以简单到只由一句表达式构成，也可以由多句表达式和函数定义（实际是复制表达式，后面会详细介绍）组成（例如计算阶乘的示例）。程序段在大小上并没有限制，事实上，由于Lua语言也可以被用作数据定义语言，所以几MB的程序段也很常见。Lua语言的解释器可以支持非常大的程序段。<br>除了将源码保存成文件外，我们有也可以直接在交互式模式(interactive mode)下运行独立解释器。当不带参数第调用lua时，可以看到如下的输出:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">% lua</span><br><span class="line">Lua <span class="number">5.3</span> Copyright(C)<span class="number">1994</span><span class="number">-2016</span> Lua.org, PUC-Rio</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>此后，输入的每一条命令都会在按下回车键后立即执行。我们可以通过输入<code>EPF</code>控制字符，或调用操作系统库的<code>exit</code>函数（执行<code>os.exit()</code>）退出交互模式。<br>从Lua5.3版本开始，可以直接在交互模式下输入表达式，Lua语言会输出表达式的值，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">% lua</span><br><span class="line">Lua <span class="number">5.3</span> Copyright(C)<span class="number">1994</span><span class="number">-2016</span> Lua.org, PUC-Rio</span><br><span class="line">&gt; <span class="built_in">math</span>.<span class="built_in">pi</span> / <span class="number">4</span>         <span class="comment">--0.78539816339745</span></span><br><span class="line">&gt; a = <span class="number">15</span></span><br><span class="line">&gt; a^<span class="number">2</span>                 <span class="comment">--225</span></span><br><span class="line">&gt; a + <span class="number">2</span>               <span class="comment">--7</span></span><br></pre></td></tr></table></figure>
+<p>要以代码段的方式运行代码（不在交互模式下），那么必须把表达式包在函数<code>print</code>的调用中：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">math</span>.<span class="built_in">pi</span>/<span class="number">4</span>)</span><br><span class="line">a = <span class="number">15</span></span><br><span class="line"><span class="built_in">print</span>(a^<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(a + <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>在交互模式下，Lua语言解释器一般会把我们输入的每一行当做完整的程序块或表达式解释执行。但是，如果Lua语言解释器发现我们输入的某一行不完成，那么它会等待直到程序块或表达式被输入完整后再进行解释执行。这样，我们也可以直接在交互模式下输入一个像阶乘函数示例那样的由多行组成的多行定义。不过，对于这种较长的函数定义而言，将其保存文件然后再调用独立解释器来执行通常更方便。<br>我们可以使用<code>-i</code>参数让Lua语言解释器在执行完制定的程序段后进入交互模式：<br><code>% lua -i prog</code><br>上述命令会在执行完文件prog中的程序后进入交互模式，这对于调试和手工测试很有用。在本章的最后，我们会学习有关独立解释器的更多参数。<br>另一种运行程序段的方式调用函数<code>dofile</code>，该函数会立即执行一个文件。例如，假设我们有一个如下所示的文件lib1.lua:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">norm</span><span class="params">( x,y )</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">math</span>.<span class="built_in">sqrt</span>(x^<span class="number">2</span> + y^<span class="number">2</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">twice</span> <span class="params">(x)</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">2.0</span> * x</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>然后，在交互模式下运行：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">dofile</span>(<span class="string">&#x27;lib1.lua&#x27;</span>)   <span class="comment">--加载文件</span></span><br><span class="line">&gt;n = norm(<span class="number">3.4</span>,<span class="number">1.0</span>)</span><br><span class="line">&gt;twice(n)             <span class="comment">--7.088018058677</span></span><br></pre></td></tr></table></figure>
+<p>函数dofile在开发阶段也非常有用。我们可以同时打开两个窗口，一个窗口中使用文件编辑器编辑代码，另一个窗口中使用交互模式运行Lua语言解释器。当修改完代码并保存后，只要在Lua语言交互模式的提示符下执行dofile(“prog.lua”)就可以加载新代码，然后就可以观察新代码的函数调用和执行结果了。</p>
+<h2 id="1-2-一些语法规范"><a href="#1-2-一些语法规范" class="headerlink" title="1.2 一些语法规范"></a>1.2 一些语法规范</h2><p>Lua语言中的标识符是由任意字母、数字和下划线组成的字符串（注意不能用数字开头），例如：<br><code>i</code>,<code>j</code>,<code>i1</code>,<code>j1</code>,<code>_i</code>,<code>abc</code><br>“下划线 + 大写字母”组成的标识符通过被Lua语言用作特殊用途，应避免将其用作其他用途。我们通常将“下划线 + 小写字母”用作哑变量。<br>以下是Lua语言的保留字，它们不能被用作标识符：<br><code>and</code>,<code>brask</code>,<code>do</code>,<code>else</code>,<code>elseif</code>,<code>end</code>,<code>false</code>,<code>goto</code>,<code>for</code>,<code>function</code>,<code>if</code>,<code>in</code>,<code>local</code>,<code>nil</code>,<code>not</code>,<code>or</code>,<code>repeat</code>,<code>return</code>,<code>then</code>,<code>true</code>,<code>until</code>,<code>while</code><br>Lua语言是对大小写敏感的，因而<code>and</code>是保留字，但是<code>And</code>和<code>AND</code>就是两个不同的标识符。<br>Lua语言中使用两个连续的连字符（–）表示单行注释，使用两个连续的连字符加两对左方括号表示长注释或多行注释的开始，指导两个连续的右括号为止，中间都是注释，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--[[多行</span></span><br><span class="line"><span class="comment">长注释</span></span><br><span class="line"><span class="comment">]]</span></span><br></pre></td></tr></table></figure>
+<p>在注释一段代码时，一个常见的技巧是将这些代码放入–[[和–]]之间，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">print(10)   --无动作，被注释掉了</span></span><br><span class="line"><span class="comment">--]]</span></span><br></pre></td></tr></table></figure>
+<p>当我们需要重新启用这段代码时，只需要在第一行行首添加一个连字符即可：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">---[[</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">10</span>)      <span class="comment">--10</span></span><br><span class="line"><span class="comment">--]]</span></span><br></pre></td></tr></table></figure>
+<p>在第一个示例中，第一行的–[[表示一段多行注释的开始，直到两个连续的右括号这段多行注释才会结束，因而尽管最后一行有两个连续的连字符，但由于这两个连字符在最后两个右括号之前，所以仍然被注释掉了。在第二个示例中，由于第一行的–[[实际是单行注释，因此最后一行实际上也是一条独立的单行注释（最后的两个连续右方括号没有与之匹配的–[[），print并没有被注释掉。<br>在Lua语言中，连续语句之间的分隔符并不是必需的，如果有需要的话可以使用分号来进行分割。在Lua语言中，表达式之间的换行也不起任何作用。例如，以下4个程序段都是合法且等价的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span> </span><br><span class="line">b = a * <span class="number">2</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span>;</span><br><span class="line">b = a * <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span>; b = a * <span class="number">2</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span> b = a * <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>这个根据个人习惯来。</p>
+<h2 id="1-3-全局变量"><a href="#1-3-全局变量" class="headerlink" title="1.3 全局变量"></a>1.3 全局变量</h2><p>在Lua语言中，全局变量无须声明即可使用，使用未经初始化的全局变量也不会导致错误。当使用未经初始化的全局变量时，得到的结果是<code>nil</code>：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; b      <span class="comment">-- nil</span></span><br><span class="line">&gt; b = <span class="number">10</span> </span><br><span class="line">&gt; b      <span class="comment">--10</span></span><br></pre></td></tr></table></figure>
+<p>当把<code>nil</code>赋值给全局变量时，Lua会回收改全局变量（就像该全局变量从来没有出现过一样），例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; b = <span class="literal">nil</span></span><br><span class="line">&gt; b         			<span class="comment">--nil</span></span><br></pre></td></tr></table></figure>
+<p>Lua语言不区分为初始化变量和被赋值为nil的变量。在上述赋值语句执行后，Lua语言会最终回收该变量占用的内存。</p>
+<h2 id="1-4类型和值"><a href="#1-4类型和值" class="headerlink" title="1.4类型和值"></a>1.4类型和值</h2><p>Lua语言是一种动态类型的语言，在这种语言中没有类型定义，每个值都带有其自身的类型信息。<br>Lua语言中有8个基本类型：nil（空）、bloolean（布尔）、number（数值）、string（字符串）、userdata（用户数据）、function（函数）、thread（线程）和table（表）。使用函数type可获取一个值对应的类型名称：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">type</span>(<span class="literal">nil</span>)			<span class="comment">-- nil</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="literal">true</span>)			<span class="comment">-- boolean</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="number">10.4</span>*<span class="number">3</span>)		<span class="comment">--number</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="string">&quot;Hello World&quot;</span>)<span class="comment">--string</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="built_in">io</span>.<span class="built_in">stdin</span>)		<span class="comment">--userdata</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="built_in">print</span>)		<span class="comment">--function</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="built_in">type</span>)			<span class="comment">--thread</span></span><br><span class="line">&gt;<span class="built_in">type</span>(&#123;&#125;)			<span class="comment">--table</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="built_in">type</span>(X))		<span class="comment">--string</span></span><br></pre></td></tr></table></figure>
+<p>不管X是什么，最后一行返回的永远是“string”。这是因为函数type的返回值永远是一个字符串。<br>userdata类型允许把任意的C语言数据保存在Lua语言变量中。在Lua语言中，用户数据类型除了赋值和相等性测试外，没有其他预定义的操作。用户数据被用来表示由应用或C语言编写的库所创建的新类型。例如，标准I&#x2F;O库使用用户数据来表示打开的文件。我们会在后面设计C API时再讨论更多的相关内容。<br>变量没有预定义的类型，任何变量都可以包含任何类型的值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">type</span>(a)		<span class="comment">-- nil(a没有初始化)</span></span><br><span class="line">&gt;a = <span class="number">10</span></span><br><span class="line">&gt;<span class="built_in">type</span>(a)		<span class="comment">--number</span></span><br><span class="line">&gt;a = <span class="string">&quot;a string!&quot;</span></span><br><span class="line">&gt;<span class="built_in">type</span>(a)		<span class="comment">--string</span></span><br><span class="line">&gt;a = <span class="literal">nil</span> </span><br><span class="line">&gt;<span class="built_in">type</span>(a)		<span class="comment">--nil</span></span><br></pre></td></tr></table></figure>
+<p>一般情况下，将一个变量用作不同类型时会导致代码的可读性不佳；但是，在某些情况下谨慎地使用这个特行可能会带来一定程度的便利。例如，当代码发生异常时可以返回一个nil以区别于其他正常情况下的返回值。</p>
+<h3 id="1-4-1-nil"><a href="#1-4-1-nil" class="headerlink" title="1.4.1 nil"></a>1.4.1 nil</h3><p>nil是一种只有一个nil值的类型，它的主要作用就是与其他所有值进行区分。Lua语言使用nil来表示无效值的情况。像我们所学习的其他语言，一个全局变量在第一次被赋值前的默认值就是nil，而将nil赋值给全局变量则相当于将其删除。</p>
+<h3 id="1-4-2-boolean"><a href="#1-4-2-boolean" class="headerlink" title="1.4.2 boolean"></a>1.4.2 boolean</h3><p>boolean类型具有两个值，<em>true</em>和<em>false</em>，它们分别代表了传统布尔值。不过，在Lua语言中，Boolean值并非是用于条件测试的唯一方式，任何值都可以表示条件。在Lua语言中，条件测试将除Boolean值false和nil外的所有其他值视为真。特别的是，在条件检测中Lua语言把零和空字符串也都视为真。<br>Lua语言支持常见的逻辑运算符：<code>and</code>,<code>or</code>和<code>not</code>。和条检测试一样，所有的逻辑运算将Boolean类型的false和nil当做假，而把其他值当作真。</p>
+<h2 id="1-5-独立解释器"><a href="#1-5-独立解释器" class="headerlink" title="1.5 独立解释器"></a>1.5 独立解释器</h2><p>独立解释器是一个可以直接使用Lua语言的小程序。<br>如果源代码文件第一行以井号（#）开头，那么解释器在加载该文件时会忽略这一行。这个特征主要是为了方便在POSIX系统中将Lua作为一种脚本解释器来使用。假设独立解释器位于&#x2F;usr&#x2F;local&#x2F;bin下，当使用下列脚本:<br><code>#!/usr/local/bin/lua</code><br>或<br><code>#!/usr/bin/env lua</code><br>时，不需要显式地调用Lua语言解释器也可以直接运行Lua脚本。<br>lua命令的完整参数如：<br><code>lua [options] [script [args]]</code><br>其中，所有的参数都是可选的。如前所述，当不使用任何参数调用lua时，就会直接进入交互模式。<br> -e参数允许我们直接在命令行中输入代码，例如</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% lua -e <span class="string">&quot;print(math.sin(12))&quot;</span> </span><br></pre></td></tr></table></figure>
+<p>请注意，在POSIX系统下需要使用双引号，以防止Shell错误第解析括号。<br>-l参数用于加载库。正如之前提到的那样，-i参数用于在运行完其他命令行参数后进入交互模式。因此，下面的命令会首先加载lib库，然后执行x&#x3D;10的赋值语句，并最终进入交互模式：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% lua -i -llib -e <span class="string">&quot;x = 10&quot;</span></span><br></pre></td></tr></table></figure>
+<p>如果在交互模式下输入表达式，那么解释器会输出表达式求值后的结果：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">math</span>.<span class="built_in">sin</span>(<span class="number">3</span>)</span><br><span class="line">&gt; a = <span class="number">30</span> </span><br><span class="line">&gt; a 			<span class="comment">--30</span></span><br></pre></td></tr></table></figure>
+<p>请记住，这个特征只在Lua5.3及之后的版本中才有效。在之前的版本中，必须在表达式前加上一个等号。如果不想输出结果，那么可以在行末加上一个分号：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">io</span>.<span class="built_in">flush</span>()	<span class="comment">--true</span></span><br><span class="line">&gt; <span class="built_in">io</span>.<span class="built_in">flush</span>();</span><br></pre></td></tr></table></figure>
+<p>分号使得最后一行在语法上变成了无效的表达式，但可以被当作有效命令执行。<br>解释器在处理参数前，会查找名为<code>LUA_INIT_5_3</code>的环境变量，如果找不到，就会再查找名为<code>LUA_INIT</code>的环境变量。如果这两个环境变量中的任意一个存在，并且其内容为<code>@filename</code>，那么解释器就会运行相应的文件；如果这两个环境变量存在，但是不以@开头，那么解释器就会认为其包含Lua代码，并会对其进行解释执行。由于可以通过上面的方法完整地配置Lua，因而LUA_INIT使得我们可以灵活地配置独立解释器。例如，我们可以预先加载程序包、修改路径、定义自定义函数、对函数进行重命名或删除函数，等等。<br>我们可以通过预先定义的全局变量arg来获取解释器传入的参数。例如，当执行如下命令时：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% lua script a b c</span><br></pre></td></tr></table></figure>
+<p>编辑器在运行代码前或创建一个名为arg的表，其中存储了所有的命令行参数。索引0中保存的内容为脚本名，索引1中保存的内容为第一个参数，以此类推；而在脚本之前的所有选项则位于负数索引上，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% lua -e <span class="string">&quot;sin = math.sin&quot;</span> script a b</span><br></pre></td></tr></table></figure>
+<p>解释器按照如下的方式获取参数:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">arg</span>[<span class="number">-3</span>] = <span class="string">&quot;lua&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">-2</span>] = <span class="string">&quot;-e&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">-1</span>] = <span class="string">&quot;sin = math.sin&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">0</span>]  = <span class="string">&quot;script&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">1</span>]  = <span class="string">&quot;a&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">2</span>]  = <span class="string">&quot;b&quot;</span></span><br></pre></td></tr></table></figure>
+<p>一般情况下，脚本只会用到索引为证书的参数。<br>Lua语言也支持可变长参数，可以通过可变长参数表达式来获取。在脚本文件中，表达式…（3个点）表示传递给脚本的所有参数。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/03/27/Lua%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/27/Lua%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D/" class="post-title-link" itemprop="url">Lua的深拷贝和浅拷贝</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-27 19:49:31" itemprop="dateCreated datePublished" datetime="2020-03-27T19:49:31+08:00">2020-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天在写游戏的时候，遇到了一个数据问题，就开始查资料</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>代码如下</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- Deep copies a table into a new table.</span></span><br><span class="line"><span class="comment">-- Tables used as keys are also deep copied, as are metatables</span></span><br><span class="line"><span class="comment">-- @param orig The table to copy</span></span><br><span class="line"><span class="comment">-- @return Returns a copy of the input table</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">deep_copy</span><span class="params">(orig)</span></span></span><br><span class="line">  <span class="keyword">local</span> copy</span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">type</span>(orig) == <span class="string">&quot;table&quot;</span> <span class="keyword">then</span></span><br><span class="line">    copy = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> orig_key, orig_value <span class="keyword">in</span> <span class="built_in">next</span>, orig, <span class="literal">nil</span> <span class="keyword">do</span></span><br><span class="line">      copy[deep_copy(orig_key)] = deep_copy(orig_value)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="built_in">setmetatable</span>(copy, deep_copy(<span class="built_in">getmetatable</span>(orig)))</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    copy = orig</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">return</span> copy</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--- Copies a table into a new table.</span></span><br><span class="line"><span class="comment">-- neither sub tables nor metatables will be copied.</span></span><br><span class="line"><span class="comment">-- @param orig The table to copy</span></span><br><span class="line"><span class="comment">-- @return Returns a copy of the input table</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">shallow_copy</span><span class="params">(orig)</span></span></span><br><span class="line">  <span class="keyword">local</span> copy</span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">type</span>(orig) == <span class="string">&quot;table&quot;</span> <span class="keyword">then</span></span><br><span class="line">    copy = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> orig_key, orig_value <span class="keyword">in</span> <span class="built_in">pairs</span>(orig) <span class="keyword">do</span></span><br><span class="line">      copy[orig_key] = orig_value</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">else</span> <span class="comment">-- number, string, boolean, etc</span></span><br><span class="line">    copy = orig</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">return</span> copy</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>例子如下：<br>深拷贝</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> a = &#123; aa = <span class="number">1</span>, bb = <span class="number">2</span>, cc = &#123; dd = &#123; ee = <span class="number">3</span> &#125; &#125; &#125;</span><br><span class="line"><span class="comment">--local b = deep_copy(a)</span></span><br><span class="line"><span class="keyword">local</span> b = shallow_copy(a)</span><br><span class="line">b.cc.dd.ee = <span class="number">111</span></span><br><span class="line">b.bb = <span class="number">111</span></span><br><span class="line">ngx.say(cjson.encode(a))</span><br><span class="line">ngx.say(cjson.encode(b))</span><br></pre></td></tr></table></figure>
+<p>结果：{“aa”:1,”bb”:2,”cc”:{“dd”:{“ee”:111}}}<br>{“aa”:1,”bb”:111,”cc”:{“dd”:{“ee”:111}}}</p>
+<p>浅拷贝</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> men = &#123; mkey = <span class="number">555</span> &#125;</span><br><span class="line"><span class="keyword">local</span> a = &#123; aa = <span class="number">1</span>, bb = <span class="number">2</span>, cc = &#123; dd = &#123; ee = &#123; ff = <span class="number">3</span> &#125; &#125; &#125; &#125;</span><br><span class="line"><span class="built_in">setmetatable</span>(a, &#123; <span class="built_in">__index</span> = men &#125;)</span><br><span class="line"><span class="keyword">local</span> b = deep_copy(a)</span><br><span class="line"></span><br><span class="line">ngx.say(a.cc.dd.ee.ff)</span><br><span class="line">ngx.say(a.mkey)</span><br><span class="line">ngx.say(b.mkey)</span><br></pre></td></tr></table></figure>
+<p>3<br>555<br>555</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/11/15/git%E5%BC%BA%E5%88%B6%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E9%A1%B9%E7%9B%AE%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/15/git%E5%BC%BA%E5%88%B6%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E9%A1%B9%E7%9B%AE%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE/" class="post-title-link" itemprop="url">git强制拉取远程项目覆盖本地项目</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-15 18:12:38" itemprop="dateCreated datePublished" datetime="2019-11-15T18:12:38+08:00">2019-11-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">开发工具的使用</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近在工作中经常需要从git拉取到一些项目到本地，但是因为本地项目被我自己修改，所以无法用传统的方式将远程仓库的项目拉取下来。下面介绍一种远程仓库强制拉取项目到本地的方法。</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<blockquote>
+<p>除非必须强制，不要轻易使用。</p>
+</blockquote>
+<p><strong>需要将这些更新取回本地，用命令<code>git fetch</code>.</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch --all</span><br></pre></td></tr></table></figure>
+<p><strong>撤销本地、暂存区、版本库(用远程服务器的origin&#x2F;master替换本地、暂存区、版本库)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard origin/master</span><br></pre></td></tr></table></figure>
+
+<p><strong>git pull来从远程仓库”同步”代码</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
+<p>或者用下面一行命令<br><strong>git强制覆盖本地命令（单条执行）：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch --all &amp;&amp; git reset --hard origin/master &amp;&amp; git pull</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/07/16/python%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E8%87%AA%E5%8A%A8%E8%81%8A%E5%A4%A9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/16/python%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E8%87%AA%E5%8A%A8%E8%81%8A%E5%A4%A9/" class="post-title-link" itemprop="url">python实现微信自动聊天</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-16 18:46:18" itemprop="dateCreated datePublished" datetime="2019-07-16T18:46:18+08:00">2019-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">日常代码</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>闲着无聊，在网上找了一些好玩的代码，比如用Python实现微信自动回消息<br>之前弄了一个定时自动给好友发天气或者发心灵鸡汤的脚本，下载链接：<a target="_blank" rel="noopener" href="https://download.csdn.net/download/silent_f/11162951">https://download.csdn.net/download/silent_f/11162951</a></p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+<p>今天这里就介绍几个微信接入图灵机器人，自动和好友聊天的脚本</p>
+<h3 id="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"><a href="#1、自动和所有好友聊天，只要好友发消息来，就会给好友回复" class="headerlink" title="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"></a>1、自动和所有好友聊天，只要好友发消息来，就会给好友回复</h3><p>这里笔者用的是3.6版本python ,安装itchat,<br>用下面命令</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install itchat </span><br></pre></td></tr></table></figure>
+<p>然后去图灵机器人官网注册账号，获取一个key</p>
+<p>具体代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> itchat</span><br><span class="line"><span class="keyword">import</span> importlib,sys </span><br><span class="line">importlib.reload(sys)</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_response</span>(<span class="params">_info</span>):</span><br><span class="line">    <span class="built_in">print</span>(_info)                                       <span class="comment"># 从好友发过来的消息</span></span><br><span class="line">    api_url = <span class="string">&#x27;http://www.tuling123.com/openapi/api&#x27;</span>   <span class="comment"># 图灵机器人网址</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;key&#x27;</span>: <span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>,     <span class="comment"># 如果这个 apiKey 如不能用，那就注册一次</span></span><br><span class="line">        <span class="string">&#x27;info&#x27;</span>: _info,                                 <span class="comment"># 这是我们从好友接收到的消息 然后转发给图灵机器人</span></span><br><span class="line">        <span class="string">&#x27;userid&#x27;</span>: <span class="string">&#x27;wechat-robot&#x27;</span>,                      <span class="comment"># 这里你想改什么都可以</span></span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(api_url, data=data).json()       <span class="comment"># 把data数据发</span></span><br><span class="line">    <span class="built_in">print</span>(r.get(<span class="string">&#x27;text&#x27;</span>))                               <span class="comment"># 机器人回复给好友的消息</span></span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line"><span class="meta">@itchat.msg_register(<span class="params">itchat.content.TEXT</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">text_reply</span>(<span class="params">msg</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span> + get_response(msg[<span class="string">&quot;Text&quot;</span>])[<span class="string">&quot;text&quot;</span>]</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    itchat.auto_login()                  <span class="comment"># hotReload = True, 保持在线，下次运行代码可自动登录  hotReload=True</span></span><br><span class="line">    itchat.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、和指定好友聊天"><a href="#2、和指定好友聊天" class="headerlink" title="2、和指定好友聊天"></a>2、和指定好友聊天</h3><p>代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> wxpy <span class="keyword">import</span> Bot,Tuling,embed,ensure_one</span><br><span class="line">bot = Bot()</span><br><span class="line">my_friend = ensure_one(bot.search(<span class="string">&#x27;张三&#x27;</span>))  <span class="comment">#想和机器人聊天的好友的备注</span></span><br><span class="line">tuling = Tuling(api_key=<span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>)     <span class="comment">#这里是图灵机器人申请后的api</span></span><br><span class="line"><span class="meta">@bot.register(<span class="params">my_friend</span>)  </span><span class="comment"># 使用图灵机器人自动与指定好友聊天</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">reply_my_friend</span>(<span class="params">msg</span>):</span><br><span class="line">    tuling.do_reply(msg)</span><br><span class="line">embed()</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、在指定微信群里聊天"><a href="#3、在指定微信群里聊天" class="headerlink" title="3、在指定微信群里聊天"></a>3、在指定微信群里聊天</h3><p>代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> wxpy <span class="keyword">import</span> Bot,Tuling,embed</span><br><span class="line">bot = Bot(cache_path=<span class="literal">True</span>)</span><br><span class="line">my_group = bot.groups().search(<span class="string">&#x27;8个人儿? ? ? ? ?&#x27;</span>)[<span class="number">0</span>]  <span class="comment"># 更改为自己的群聊名称</span></span><br><span class="line">tuling = Tuling(api_key=<span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>)  <span class="comment"># 图灵机器人申请的apikey</span></span><br><span class="line"><span class="meta">@bot.register(<span class="params">my_group, except_self=<span class="literal">False</span></span>)  </span><span class="comment"># 使用图灵机器人自动在指定群聊天</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">reply_my_friend</span>(<span class="params">msg</span>):</span><br><span class="line">    <span class="built_in">print</span>(tuling.do_reply(msg))</span><br><span class="line">embed()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/03/17/Lua%E4%B8%AD%E2%80%9C-%E2%80%9D%E5%92%8C%E2%80%9C-%E2%80%9D%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/17/Lua%E4%B8%AD%E2%80%9C-%E2%80%9D%E5%92%8C%E2%80%9C-%E2%80%9D%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">Lua中“.”和“:”区别</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-17 13:09:04" itemprop="dateCreated datePublished" datetime="2019-03-17T13:09:04+08:00">2019-03-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>初学lua，可能会对<code>.</code>和<code>:</code>这两个符号的用法产生疑问，很多时候都会因为这个出错，这里笔者简单介绍下笔者在使用cocos2dx游戏开发中对这两者的认识</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>冒号的作用：定义函数时，给函数添加隐藏的第一个参数<code>self</code>，调用函数时，默认把当前调用者作为第一个参数传递进去。<br>使用冒号后，就相当于我们使用了点号，只是我们不再需要显示的定义<code>self</code>参数以及主动低传递参数。</p>
+<p>在cocos2dx 开发过程中，大部分时候都是使用的冒号</p>
+<p>一般我们在定义函数时会用下面写法</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:onCreate</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p>等同于下面写法</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene.onCreate</span><span class="params">(self)</span></span></span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>笔者个人看法，欢迎大家更正</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2019/03/16/pip%E9%97%AE%E9%A2%981/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -233,7 +917,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
+                <time title="修改时间：2024-05-14 18:45:01" itemprop="dateModified" datetime="2024-05-14T18:45:01+08:00">2024-05-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,6 +941,18 @@
 
       
           <p>刚刚在用pip安装ipython时，遇到了下面这个错误</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <blockquote>
 <p>笔者这里用的是python3.7.2版本</p>
 </blockquote>
@@ -311,7 +1007,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
+                <time title="修改时间：2024-05-14 18:46:19" itemprop="dateModified" datetime="2024-05-14T18:46:19+08:00">2024-05-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -334,7 +1030,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>今天在使用python安装ipython时出现了下面错误</p>
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>今天在使用python安装ipython时出现了下面错误</p>
 <p><img src="https://pic.imgdb.cn/item/664340d90ea9cb1403bbdb61.png" alt="在这里插入图片描述"></p>
 <p>解决方法很简单，退出python命令行<br>重新输入命令：<code>pip3 install ipython</code> 即可</p>
 <p><img src="https://pic.imgdb.cn/item/664340d90ea9cb1403bbdb4e.png" alt="在这里插入图片描述"></p>
@@ -388,7 +1096,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
+                <time title="修改时间：2024-05-14 18:47:44" itemprop="dateModified" datetime="2024-05-14T18:47:44+08:00">2024-05-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -412,6 +1120,18 @@
 
       
           <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在游戏中模拟真实的物理世界是比较麻烦的，通常都会交给物理引擎来做，比较知名的物理引擎有Box2D和Chipmunk。</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <p>在Cocos2d-x 2.x中，游戏直接使用物理引擎，引擎提供一个简单的CCPhysicsSprite，处理了物理引擎的body与CCSprite的关系，而物理引擎的其他元素并没有和引擎对应起来，游戏需要选择直接调用Box2D或Chipmunk的API来处理逻辑。然而直接使用物理引擎是比较复杂的，物理引擎的接口参数繁多、复杂、需要开发人员对物理引擎和Coco2d-x都很了解，才能把两者融合得很好。<br>这种情况在Cocos2d-x 3.x中有了改变，全新的Physics Integration，把Chipmunk和Box2D封装到引擎内部，开发者不必关心底层具体用的是哪个物理引擎，也不用直接调用物理引擎的接口。<br>Cocos2d-x 3.x默认使用Chipmunk作为内部物理引擎。<br>Physics Integration 做了以下深度融合：<br>（1）物理世界被融入到Scene中，即当创建一个场景时，可以指定这个场景是否使用物理引擎。<br>（2）Node自带body属性，也就是Sprite自带body属性。<br>（3）对物理引擎的Body(cc.PhysicsBody),Shape(cc.PhysicsShape),Contact(cc.PhysicsContact),Joint(cc.PhysicsJoint),World(cc.PhysicsWold)进行封装抽象，使用更加简单。<br>（4）更简单的碰撞检测监听:EventListenerPhysicsContact.</p>
 <h3 id="创建带物理世界的scene"><a href="#创建带物理世界的scene" class="headerlink" title="创建带物理世界的scene"></a>创建带物理世界的scene</h3><p>使用下面方法创建带物理世界的scene:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> MainScene = class (<span class="string">&quot;MainScene&quot;</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> display.newScene(<span class="string">&quot;MainScene&quot;</span>,&#123;physics = <span class="number">2</span>&#125;)</span><br><span class="line"><span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
@@ -506,7 +1226,7 @@ collisionBitmask：
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
+                <time title="修改时间：2024-05-14 18:48:37" itemprop="dateModified" datetime="2024-05-14T18:48:37+08:00">2024-05-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -530,6 +1250,18 @@ collisionBitmask：
 
       
           <p>在游戏开发中，很多时候都需要控制游戏角色的移动，比如王者荣耀中对英雄的控制，我们可以做一个虚拟摇杆来实现</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">控制层</span></span><br><span class="line"><span class="comment">--]]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> CtrlLayer = class(<span class="string">&#x27;CtrlLayer&#x27;</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> display.newLayer(<span class="string">&#x27;CtrlLayer&#x27;</span>)</span><br><span class="line"><span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">--方向按钮的size</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_w = <span class="number">265</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_h = <span class="number">265</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--方向按钮位置</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_x = display.width - btn_dir_w - <span class="number">20</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_y = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--方向按钮的中心点</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_cx = btn_dir_x + btn_dir_w/<span class="number">2</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_cy = btn_dir_y + btn_dir_h/<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--方向按钮中心圆圈的半径</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_center_r = <span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">构造方法</span></span><br><span class="line"><span class="comment">@param linstener 需要接收事件通知的人，需要实现事件列表中的方法</span></span><br><span class="line"><span class="comment">事件列表为：</span></span><br><span class="line"><span class="comment">    setDir(dir) : 设置了方向</span></span><br><span class="line"><span class="comment">--]]</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CtrlLayer:ctor</span><span class="params">(linstener)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">self</span>.linstener = linstener</span><br><span class="line"></span><br><span class="line">    <span class="built_in">self</span>:pos(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="built_in">self</span>:size(display.width, display.height)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">--方向按钮图片 </span></span><br><span class="line">    <span class="keyword">local</span> dirSprite = display.newSprite(<span class="string">&#x27;dir_btn.jpg&#x27;</span>)</span><br><span class="line">    dirSprite:setAnchorPoint(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    dirSprite:pos(btn_dir_x, btn_dir_y)</span><br><span class="line">    dirSprite:addTo(<span class="built_in">self</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">--添加触屏单点事件</span></span><br><span class="line">    <span class="built_in">self</span>:setTouchEnabled(<span class="literal">true</span>)</span><br><span class="line">    <span class="comment">--多点触控</span></span><br><span class="line">    <span class="comment">--self:setTouchMode(cc.TOUCHES_ALL_AT_ONCE)</span></span><br><span class="line">    <span class="comment">--单点触控</span></span><br><span class="line">    <span class="built_in">self</span>:setTouchMode(cc.TOUCHES_ONE_BY_ONE)</span><br><span class="line">    <span class="built_in">self</span>:addNodeEventListener(cc.NODE_TOUCH_EVENT, <span class="function"><span class="keyword">function</span><span class="params">(event)</span></span></span><br><span class="line">        <span class="keyword">if</span> event.name == <span class="string">&#x27;began&#x27;</span> <span class="keyword">then</span></span><br><span class="line">            <span class="comment">--需要return true才能让事件继续到move/ended等</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span> </span><br><span class="line">        <span class="keyword">elseif</span> event.name == <span class="string">&#x27;ended&#x27;</span> <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">self</span>:onTouchEnded(event)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--计算某点是否在方向按钮范围</span></span><br><span class="line"><span class="comment">--规定在方向按钮外围构成的矩形为按钮的边界</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CtrlLayer:isInDirBtn</span><span class="params">(x, y)</span></span></span><br><span class="line">    <span class="keyword">if</span> x &gt;= btn_dir_x <span class="keyword">and</span> x &lt;= (btn_dir_x + btn_dir_w) <span class="keyword">and</span> y &gt;= btn_dir_y <span class="keyword">and</span> y &lt;= (btn_dir_y + btn_dir_h) <span class="keyword">then</span> </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span> </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span> </span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--计数某点是否在方向按钮的中心圆圈内</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CtrlLayer:isInDirBtnCenter</span><span class="params">(x, y)</span></span></span><br><span class="line">    <span class="keyword">local</span> tx = <span class="built_in">math</span>.<span class="built_in">abs</span>(x-btn_dir_cx)</span><br><span class="line">    <span class="keyword">local</span> ty = <span class="built_in">math</span>.<span class="built_in">abs</span>(y-btn_dir_cy)</span><br><span class="line">    <span class="keyword">local</span> tlen = <span class="built_in">math</span>.<span class="built_in">sqrt</span>( <span class="built_in">math</span>.<span class="built_in">pow</span>(tx, <span class="number">2</span>) + <span class="built_in">math</span>.<span class="built_in">pow</span>(ty, <span class="number">2</span>) )</span><br><span class="line">    <span class="keyword">return</span> tlen &lt;= btn_dir_center_r</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--计数某点相对于方向按钮的中心点的方向</span></span><br><span class="line"><span class="comment">--规定方向有up/right/down/left</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CtrlLayer:getDir</span><span class="params">(x, y)</span></span></span><br><span class="line">    <span class="keyword">local</span> dir = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">local</span> tx = <span class="built_in">math</span>.<span class="built_in">abs</span>(x - btn_dir_cx)</span><br><span class="line">    <span class="keyword">local</span> ty = <span class="built_in">math</span>.<span class="built_in">abs</span>(y - btn_dir_cy)</span><br><span class="line">    <span class="keyword">if</span> x &gt; btn_dir_cx <span class="keyword">then</span> </span><br><span class="line">        <span class="keyword">if</span> y &gt; btn_dir_cy <span class="keyword">then</span> </span><br><span class="line">            <span class="keyword">if</span> tx &gt; ty <span class="keyword">then</span> </span><br><span class="line">                dir = <span class="string">&#x27;right&#x27;</span></span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                dir = <span class="string">&#x27;up&#x27;</span></span><br><span class="line">            <span class="keyword">end</span> </span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            <span class="keyword">if</span> tx &gt; ty <span class="keyword">then</span> </span><br><span class="line">                dir = <span class="string">&#x27;right&#x27;</span></span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                dir = <span class="string">&#x27;down&#x27;</span></span><br><span class="line">            <span class="keyword">end</span> </span><br><span class="line">        <span class="keyword">end</span> </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="keyword">if</span> y &gt; btn_dir_cy <span class="keyword">then</span> </span><br><span class="line">            <span class="keyword">if</span> tx &gt; ty <span class="keyword">then</span> </span><br><span class="line">                dir = <span class="string">&#x27;left&#x27;</span></span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                dir = <span class="string">&#x27;up&#x27;</span></span><br><span class="line">            <span class="keyword">end</span> </span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            <span class="keyword">if</span> tx &gt; ty <span class="keyword">then</span> </span><br><span class="line">                dir = <span class="string">&#x27;left&#x27;</span></span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                dir = <span class="string">&#x27;down&#x27;</span></span><br><span class="line">            <span class="keyword">end</span> </span><br><span class="line">        <span class="keyword">end</span> </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line">    <span class="keyword">return</span> dir </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">--触屏结束</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CtrlLayer:onTouchEnded</span><span class="params">(event)</span></span></span><br><span class="line">    <span class="keyword">local</span> x, y = event.x, event.y </span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">self</span>:isInDirBtn(x, y) <span class="keyword">then</span> </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">self</span>:isInDirBtnCenter(x, y) <span class="keyword">then</span> </span><br><span class="line">            <span class="keyword">local</span> dir = <span class="built_in">self</span>:getDir(x, y)</span><br><span class="line">            <span class="built_in">self</span>.linstener:setDir(dir)</span><br><span class="line">        <span class="keyword">end</span> </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> CtrlLayer </span><br></pre></td></tr></table></figure>
 <p>效果图如下<br><img src="https://pic.imgdb.cn/item/6643416b0ea9cb1403bc72f0.png" alt="在这里插入图片描述"></p>
 
@@ -547,527 +1279,10 @@ collisionBitmask：
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/12/21/cocos2dx-lua%E7%83%AD%E6%9B%B4%E6%96%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="南锋">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/12/21/cocos2dx-lua%E7%83%AD%E6%9B%B4%E6%96%B0/" class="post-title-link" itemprop="url">cocos2dx-lua热更新</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-12-21 14:27:33" itemprop="dateCreated datePublished" datetime="2018-12-21T14:27:33+08:00">2018-12-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>每次登陆游戏利用cocos的assetManager从服务器拉去当前最新的两个文件。 一个是version.mainifest,一个project.mainifest. 这两个文件都是xml的描述文件。</p>
-<p>一个包含了版本信息，第二个包含了游戏所有资源的MD5码。首先通过version文件对比本地的版本是否相同，如果不相同，再通过跟本地的project文件对比MD5码来判断哪些文件需要重新下载，替换资源。 </p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤:"></a>步骤:</h2><ol>
-<li>有一个文件下载的热更新服务器，将最新项目资源(res&#x2F;  src&#x2F; 目录)放入热更新服务器中，添加版本信息母文件(version_info.json)和python脚本文件eneateManifest.py(生成project.manifest、version.manifest文件)。</li>
-</ol>
-<p>2.version_info.json文件: 主要用来配置信息</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;packageUrl&quot;</span> : <span class="string">&quot;http://ip:port/update/MyProj/assets/&quot;</span>,</span><br><span class="line">    <span class="string">&quot;remoteManifestUrl&quot;</span> : <span class="string">&quot;http://ip:port/update/MyProj/version/project.manifest&quot;</span>,</span><br><span class="line">    <span class="string">&quot;remoteVersionUrl&quot;</span> : <span class="string">&quot;http://ip:port/update/MyProj/version/version.manifest&quot;</span>,</span><br><span class="line">    <span class="string">&quot;engineVersion&quot;</span> : <span class="string">&quot;3.3&quot;</span>,</span><br><span class="line">	<span class="string">&quot;update_channel&quot;</span> : <span class="string">&quot;Android&quot;</span>,</span><br><span class="line">	<span class="string">&quot;bundle&quot;</span> : <span class="string">&quot;2018111701&quot;</span>,</span><br><span class="line">    <span class="string">&quot;version&quot;</span> : <span class="string">&quot;1.0.0&quot;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>3.eneateManifest.py文件: 这个文件是一个python。目的是生成对应的version和project文件。project文件可以帮你给每个资源生成独一无二的MD5码，相当于每个资源的标记。下面是一段python文件的代码。</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line">#coding:utf<span class="number">-8</span></span><br><span class="line"> </span><br><span class="line">import <span class="built_in">os</span></span><br><span class="line">import sys</span><br><span class="line">import json</span><br><span class="line">import hashlib</span><br><span class="line">import subprocess</span><br><span class="line">import getpass</span><br><span class="line"> </span><br><span class="line">username = getpass.getuser()</span><br><span class="line"># 改变当前工作目录</span><br><span class="line">#<span class="built_in">os</span>.chdir(<span class="string">&#x27;/Users/&#x27;</span> + username + <span class="string">&#x27;/Documents/client/MyProj/&#x27;</span>)</span><br><span class="line"> </span><br><span class="line">assetsDir = &#123;</span><br><span class="line">    #MyProj文件夹下需要进行热跟的文件夹</span><br><span class="line">    <span class="string">&quot;searchDir&quot;</span> : [<span class="string">&quot;src&quot;</span>, <span class="string">&quot;res&quot;</span>],</span><br><span class="line">    #需要忽略的文件夹</span><br><span class="line">    <span class="string">&quot;ignorDir&quot;</span> : [<span class="string">&quot;cocos&quot;</span>, <span class="string">&quot;framework&quot;</span>, <span class="string">&quot;.svn&quot;</span>],</span><br><span class="line">    #需要忽略的文件</span><br><span class="line">    <span class="string">&quot;ignorFile&quot;</span>:[<span class="string">&quot;.DS_Store&quot;</span>],</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">versionConfigFile   = <span class="string">&quot;version/version_info.json&quot;</span>  #版本信息的配置文件路径</span><br><span class="line">versionManifestPath = <span class="string">&quot;version/version.manifest&quot;</span>    #由此脚本生成的version.manifest文件路径</span><br><span class="line">projectManifestPath = <span class="string">&quot;version/project.manifest&quot;</span>    #由此脚本生成的project.manifest文件路径</span><br><span class="line"># projectManifestPath = <span class="string">&quot;/Users/ximi/Documents/client/MyProj/res/version/project.manifest&quot;</span>    #由此脚本生成的project.manifest文件路径(mac机)</span><br><span class="line"> </span><br><span class="line">class SearchFile:</span><br><span class="line">    def __init__(<span class="built_in">self</span>):</span><br><span class="line">        <span class="built_in">self</span>.fileList = []</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> assetsDir:</span><br><span class="line">            <span class="keyword">if</span> (k == <span class="string">&quot;searchDir&quot;</span>):</span><br><span class="line">                <span class="keyword">for</span> searchdire <span class="keyword">in</span> assetsDir[k]:                 </span><br><span class="line">                    <span class="built_in">self</span>.recursiveDir(searchdire)</span><br><span class="line"> </span><br><span class="line">    def recursiveDir(<span class="built_in">self</span>, srcPath):</span><br><span class="line">        <span class="string">&#x27;&#x27;</span><span class="string">&#x27; 递归指定目录下的所有文件&#x27;</span><span class="string">&#x27;&#x27;</span></span><br><span class="line">        dirList = []    #所有文件夹  </span><br><span class="line"> </span><br><span class="line">        files = <span class="built_in">os</span>.listdir(srcPath) #返回指定目录下的所有文件，及目录（不含子目录）</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> files:         </span><br><span class="line">            #目录的处理</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">os</span>.<span class="built_in">path</span>.isdir(srcPath + <span class="string">&#x27;/&#x27;</span> + f)):              </span><br><span class="line">                <span class="keyword">if</span> (f[<span class="number">0</span>] == <span class="string">&#x27;.&#x27;</span> <span class="keyword">or</span> (f <span class="keyword">in</span> assetsDir[<span class="string">&quot;ignorDir&quot;</span>])):</span><br><span class="line">                    #排除隐藏文件夹和忽略的目录</span><br><span class="line">                    pass</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    #添加非需要的文件夹                                  </span><br><span class="line">                    dirList.append(f)</span><br><span class="line"> </span><br><span class="line">            #文件的处理</span><br><span class="line">            elif (<span class="built_in">os</span>.<span class="built_in">path</span>.isfile(srcPath + <span class="string">&#x27;/&#x27;</span> + f)) <span class="keyword">and</span> (f <span class="keyword">not</span> <span class="keyword">in</span> assetsDir[<span class="string">&quot;ignorFile&quot;</span>]):               </span><br><span class="line">                <span class="built_in">self</span>.fileList.append(srcPath + <span class="string">&#x27;/&#x27;</span> + f) #添加文件</span><br><span class="line"> </span><br><span class="line">        #遍历所有子目录,并递归</span><br><span class="line">        <span class="keyword">for</span> dire <span class="keyword">in</span> dirList:        </span><br><span class="line">            #递归目录下的文件</span><br><span class="line">            <span class="built_in">self</span>.recursiveDir(srcPath + <span class="string">&#x27;/&#x27;</span> + dire)</span><br><span class="line"> </span><br><span class="line">    def getAllFile(<span class="built_in">self</span>):</span><br><span class="line">        <span class="string">&#x27;&#x27;</span><span class="string">&#x27; get all file path&#x27;</span><span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">return</span> tuple(<span class="built_in">self</span>.fileList)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">def CalcMD5(filepath):</span><br><span class="line">    <span class="string">&quot;&quot;</span><span class="string">&#x27;generate a md5 code by a file path&#x27;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">    with open(filepath,&#x27;rb&#x27;) as f:</span></span><br><span class="line"><span class="string">        md5obj = hashlib.md5()</span></span><br><span class="line"><span class="string">        md5obj.update(f.read())</span></span><br><span class="line"><span class="string">        return md5obj.hexdigest()</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">def getVersionInfo():</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;get version config data&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    configFile = open(versionConfigFile,&quot;</span>r<span class="string">&quot;)</span></span><br><span class="line"><span class="string">    json_data = json.load(configFile)</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">    configFile.close()</span></span><br><span class="line"><span class="string">    # json_data[&quot;</span>version<span class="string">&quot;] = json_data[&quot;</span>version<span class="string">&quot;] + &#x27;.&#x27; + str(GetSvnCurrentVersion())</span></span><br><span class="line"><span class="string">    json_data[&quot;</span>version<span class="string">&quot;] = json_data[&quot;</span>version<span class="string">&quot;]</span></span><br><span class="line"><span class="string">    return json_data</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">def GenerateVersionManifestFile():</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27; 生成大版本的version.manifest&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    json_str = json.dumps(getVersionInfo(), indent = 2)</span></span><br><span class="line"><span class="string">    fo = open(versionManifestPath,&quot;</span>w<span class="string">&quot;)  </span></span><br><span class="line"><span class="string">    fo.write(json_str)  </span></span><br><span class="line"><span class="string">    fo.close()</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">def GenerateProjectManifestFile():</span></span><br><span class="line"><span class="string">    searchfile = SearchFile()</span></span><br><span class="line"><span class="string">    fileList = list(searchfile.getAllFile())</span></span><br><span class="line"><span class="string">    project_str = &#123;&#125;</span></span><br><span class="line"><span class="string">    project_str.update(getVersionInfo())</span></span><br><span class="line"><span class="string">    dataDic = &#123;&#125;</span></span><br><span class="line"><span class="string">    for f in fileList:      </span></span><br><span class="line"><span class="string">        dataDic[f] = &#123;&quot;</span>md5<span class="string">&quot; : CalcMD5(f)&#125;</span></span><br><span class="line"><span class="string">        print f</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">    project_str.update(&#123;&quot;</span>assets<span class="string">&quot;:dataDic&#125;)</span></span><br><span class="line"><span class="string">    json_str = json.dumps(project_str, sort_keys = True, indent = 2)</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">    fo = open(projectManifestPath,&quot;</span>w<span class="string">&quot;)  </span></span><br><span class="line"><span class="string">    fo.write(json_str)  </span></span><br><span class="line"><span class="string">    fo.close()</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">if __name__ == &quot;</span>__main__<span class="string">&quot;:</span></span><br><span class="line"><span class="string">    GenerateVersionManifestFile()</span></span><br><span class="line"><span class="string">    GenerateProjectManifestFile()</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
-
-<p>生成version.manifest如下</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;packageUrl&quot;</span>: <span class="string">&quot;http://ip:port/update/MyProj/assets/&quot;</span>, </span><br><span class="line">  <span class="string">&quot;engineVersion&quot;</span>: <span class="string">&quot;3.3&quot;</span>, </span><br><span class="line">  <span class="string">&quot;version&quot;</span>: <span class="string">&quot;1.0.0&quot;</span>, </span><br><span class="line">  <span class="string">&quot;remoteVersionUrl&quot;</span>: <span class="string">&quot;http://ip:port/update/MyProj/version/version.manifest&quot;</span>, </span><br><span class="line">  <span class="string">&quot;remoteManifestUrl&quot;</span>: <span class="string">&quot;http://ip:port/update/MyProj/version/project.manifest&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>生成project.manifest如下</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;assets&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;src/packages/mvc/init.lua&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;md5&quot;</span>: <span class="string">&quot;6b9173481a1300c5e737ad5885ebef00&quot;</span></span><br><span class="line">        &#125;, </span><br><span class="line">        <span class="string">&quot;src/protobuf.lua&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;md5&quot;</span>: <span class="string">&quot;f790fe35eb179a4341ff41d94e488a5d&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    &#125;, </span><br><span class="line">    <span class="string">&quot;packageUrl&quot;</span>: <span class="string">&quot;http://ip:port/update/MyProj/assets/&quot;</span>, </span><br><span class="line">    <span class="string">&quot;engineVersion&quot;</span>: <span class="string">&quot;3.3&quot;</span>, </span><br><span class="line">    <span class="string">&quot;version&quot;</span>: <span class="string">&quot;1.0.0&quot;</span>, </span><br><span class="line">    <span class="string">&quot;remoteVersionUrl&quot;</span>: <span class="string">&quot;http://ip:port/update/MyProj/version/version.manifest&quot;</span>, </span><br><span class="line">    <span class="string">&quot;remoteManifestUrl&quot;</span>: <span class="string">&quot;http://ip:port/update/MyProj/version/project.manifest&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>4.游戏客户端: 利用cocos assetManager来从服务器获取文件并且进行资源的替换（这里所谓的替换并不是真正的替换，利用了Fileutils-&gt;searchPath() 设置资源文件读取的优先级。也就是老资源和代码并没有删除，而是舍弃不用。</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--region *.lua</span></span><br><span class="line"><span class="comment">--Date</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">local</span> AssetsManager = class(<span class="string">&quot;AssetsManager&quot;</span>,<span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> cc.LayerColor:<span class="built_in">create</span>(cc.c4b(<span class="number">20</span>, <span class="number">20</span>, <span class="number">20</span>, <span class="number">220</span>))</span><br><span class="line"><span class="keyword">end</span>)</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">AssetsManager:ctor</span><span class="params">()</span></span></span><br><span class="line">    <span class="built_in">self</span>:onNodeEvent(<span class="string">&quot;exit&quot;</span>, handler(<span class="built_in">self</span>, <span class="built_in">self</span>.onExitCallback))</span><br><span class="line">    <span class="built_in">self</span>:initUI()</span><br><span class="line">    <span class="built_in">self</span>:setAssetsManage()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">AssetsManager:onExitCallback</span><span class="params">()</span></span></span><br><span class="line">    <span class="built_in">self</span>.assetsManagerEx:release()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">AssetsManager:initUI</span><span class="params">()</span></span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> hintLabel = cc.Label:createWithTTF(<span class="string">&quot;正在更新...&quot;</span>, CONFIG.TTF_FONT_2, <span class="number">20</span>)</span><br><span class="line">        :addTo(<span class="built_in">self</span>)</span><br><span class="line">        :move(<span class="number">600</span>, <span class="number">80</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> progressBg = display.newSprite(<span class="string">&quot;sprites/hyd_progress_bg.png&quot;</span>)    </span><br><span class="line">        :addTo(<span class="built_in">self</span>)</span><br><span class="line">        :move(<span class="number">600</span>, <span class="number">40</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">self</span>.progress = cc.ProgressTimer:<span class="built_in">create</span>(display.newSprite(<span class="string">&quot;sprites/hyd_progress.png&quot;</span>))</span><br><span class="line">        :addTo(progressBg)</span><br><span class="line">        :move(<span class="number">380</span>, <span class="number">19</span>)</span><br><span class="line">    <span class="built_in">self</span>.progress:setType(cc.PROGRESS_TIMER_TYPE_BAR)</span><br><span class="line">    <span class="built_in">self</span>.progress:setBarChangeRate(cc.p(<span class="number">1</span>, <span class="number">0</span>))</span><br><span class="line">    <span class="built_in">self</span>.progress:setMidpoint(cc.p(<span class="number">0.0</span>, <span class="number">0.5</span>))</span><br><span class="line">    <span class="built_in">self</span>.progress:setPercentage(<span class="number">0</span>) </span><br><span class="line"> </span><br><span class="line">    <span class="comment">--触摸吞噬</span></span><br><span class="line">    <span class="built_in">self</span>.listener = cc.EventListenerTouchOneByOne:<span class="built_in">create</span>()</span><br><span class="line">    <span class="built_in">self</span>.listener:setSwallowTouches(<span class="literal">true</span>)</span><br><span class="line">    <span class="keyword">local</span> onTouchBegan = <span class="function"><span class="keyword">function</span> <span class="params">(touch, event)</span></span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line">    <span class="built_in">self</span>.listener:registerScriptHandler(onTouchBegan, cc.Handler.EVENT_TOUCH_BEGAN)</span><br><span class="line">    cc.Director:getInstance():getEventDispatcher():addEventListenerWithSceneGraphPriority(<span class="built_in">self</span>.listener, <span class="built_in">self</span>)   </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">AssetsManager:setAssetsManage</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">--创建可写目录与设置搜索路径</span></span><br><span class="line">    <span class="keyword">local</span> storagePath = cc.FileUtils:getInstance():getWritablePath() .. <span class="string">&quot;NewRes/&quot;</span> </span><br><span class="line">    <span class="keyword">local</span> resPath = storagePath.. <span class="string">&#x27;/res/&#x27;</span></span><br><span class="line">    <span class="keyword">local</span> srcPath = storagePath.. <span class="string">&#x27;/src/&#x27;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> (cc.FileUtils:getInstance():isDirectoryExist(storagePath)) <span class="keyword">then</span>         </span><br><span class="line">        cc.FileUtils:getInstance():createDirectory(storagePath)</span><br><span class="line">        cc.FileUtils:getInstance():createDirectory(resPath)</span><br><span class="line">        cc.FileUtils:getInstance():createDirectory(srcPath)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> searchPaths = cc.FileUtils:getInstance():getSearchPaths() </span><br><span class="line">    <span class="built_in">table</span>.<span class="built_in">insert</span>(searchPaths, <span class="number">1</span>, storagePath)  </span><br><span class="line">    <span class="built_in">table</span>.<span class="built_in">insert</span>(searchPaths, <span class="number">2</span>, resPath)</span><br><span class="line">    <span class="built_in">table</span>.<span class="built_in">insert</span>(searchPaths, <span class="number">3</span>, srcPath)</span><br><span class="line">    cc.FileUtils:getInstance():setSearchPaths(searchPaths)</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">self</span>.assetsManagerEx = cc.AssetsManagerEx:<span class="built_in">create</span>(<span class="string">&quot;version/project.manifest&quot;</span>, storagePath)    </span><br><span class="line">    <span class="built_in">self</span>.assetsManagerEx:retain()</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> eventListenerAssetsManagerEx = cc.EventListenerAssetsManagerEx:<span class="built_in">create</span>(<span class="built_in">self</span>.assetsManagerEx, </span><br><span class="line">       <span class="function"><span class="keyword">function</span> <span class="params">(event)</span></span></span><br><span class="line">           <span class="built_in">self</span>:handleAssetsManagerEvent(event)</span><br><span class="line">       <span class="keyword">end</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> dispatcher = cc.Director:getInstance():getEventDispatcher()</span><br><span class="line">    dispatcher:addEventListenerWithFixedPriority(eventListenerAssetsManagerEx, <span class="number">1</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="comment">--检查版本并升级</span></span><br><span class="line">    <span class="built_in">self</span>.assetsManagerEx:update()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">AssetsManager:handleAssetsManagerEvent</span><span class="params">(event)</span></span>    </span><br><span class="line">    <span class="keyword">local</span> eventCodeList = cc.EventAssetsManagerEx.EventCode    </span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> eventCodeHand = &#123;</span><br><span class="line"> </span><br><span class="line">        [eventCodeList.ERROR_NO_LOCAL_MANIFEST] = <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;发生错误:本地资源清单文件未找到&quot;</span>)</span><br><span class="line">        <span class="keyword">end</span>,</span><br><span class="line"> </span><br><span class="line">        [eventCodeList.ERROR_DOWNLOAD_MANIFEST] = <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;发生错误:远程资源清单文件下载失败&quot;</span>)  <span class="comment">--资源服务器没有打开，</span></span><br><span class="line">            <span class="built_in">self</span>:downloadManifestError()</span><br><span class="line">        <span class="keyword">end</span>,</span><br><span class="line"> </span><br><span class="line">        [eventCodeList.ERROR_PARSE_MANIFEST] = <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">             <span class="built_in">print</span>(<span class="string">&quot;发生错误:资源清单文件解析失败&quot;</span>)</span><br><span class="line">        <span class="keyword">end</span>,</span><br><span class="line"> </span><br><span class="line">        [eventCodeList.NEW_VERSION_FOUND] = <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;发现找到新版本&quot;</span>)</span><br><span class="line">        <span class="keyword">end</span>,</span><br><span class="line"> </span><br><span class="line">        [eventCodeList.ALREADY_UP_TO_DATE] = <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;已经更新到服务器最新版本&quot;</span>)            </span><br><span class="line">            <span class="built_in">self</span>:updateFinished()</span><br><span class="line">        <span class="keyword">end</span>,</span><br><span class="line"> </span><br><span class="line">        [eventCodeList.UPDATE_PROGRESSION]= <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;更新过程的进度事件&quot;</span>)</span><br><span class="line">            <span class="built_in">self</span>.progress:setPercentage(event:getPercentByFile())</span><br><span class="line">        <span class="keyword">end</span>,</span><br><span class="line"> </span><br><span class="line">        [eventCodeList.ASSET_UPDATED] = <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;单个资源被更新事件&quot;</span>)</span><br><span class="line">        <span class="keyword">end</span>,</span><br><span class="line"> </span><br><span class="line">        [eventCodeList.ERROR_UPDATING] = <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;发生错误:更新过程中遇到错误&quot;</span>)</span><br><span class="line">        <span class="keyword">end</span>,</span><br><span class="line"> </span><br><span class="line">        [eventCodeList.UPDATE_FINISHED] = <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;更新成功事件&quot;</span>)</span><br><span class="line">            <span class="built_in">self</span>:updateFinished()</span><br><span class="line">        <span class="keyword">end</span>,</span><br><span class="line"> </span><br><span class="line">        [eventCodeList.UPDATE_FAILED] = <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;更新失败事件&quot;</span>)</span><br><span class="line">        <span class="keyword">end</span>,</span><br><span class="line"> </span><br><span class="line">        [eventCodeList.ERROR_DECOMPRESS] = <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;解压缩失败&quot;</span>)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">local</span> eventCode = event:getEventCode()    </span><br><span class="line">    <span class="keyword">if</span> eventCodeHand[eventCode] ~= <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        eventCodeHand[eventCode]()</span><br><span class="line">    <span class="keyword">end</span>  </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">AssetsManager:updateFinished</span><span class="params">()</span></span></span><br><span class="line">    <span class="built_in">self</span>:setVisible(<span class="literal">false</span>)</span><br><span class="line">    <span class="built_in">self</span>.listener:setEnabled(<span class="literal">false</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">AssetsManager:downloadManifestError</span><span class="params">()</span></span></span><br><span class="line">    <span class="built_in">self</span>:setVisible(<span class="literal">false</span>)</span><br><span class="line">    <span class="built_in">self</span>.listener:setEnabled(<span class="literal">false</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">return</span> AssetsManager</span><br><span class="line"> </span><br><span class="line"><span class="comment">--endregion</span></span><br></pre></td></tr></table></figure>
-<p>Android apk 安装后在手机中还是以apk存在，apk 不可写入和删除，所以热更新下载的最新资源都存在缓存中，并添加缓存目录为最高优先级搜索目录，加载资源时从最高优先级目录中加载从而起到替换更新的作用。</p>
-<p>cocos2dx中有一个热更新类AssetsManagerEx，用这个类实现热更功能时需要有两个文件，project.manifest以及version.manifest。这里主要是project.manifest文件</p>
-<p>Cocos自身也封装了热更新的模块AssetsManager、AssetsManagerEx。</p>
-<p>AssetsManager采用的是升级包的管理方式，首先进行版本号对比，然后根据URL获取对应的升级包，解压升级包，设置资源加载路径，通过加载writepath目录下最新文件的方式来实现更新。问题是当涉及跳版本更新，或只有一个文件被改动时，用户就要下载前面全部的升级内容，升级包会越来越大。</p>
-<p>AssetsManagerEx是AssetsManager的加强版，不同的是不再使用升级包的方式，而是采用单个文件拉取的方式。首先获取本地更新配置，之后与服务器的更新配置比对，得出差异文件，之后单个拉取差异文件。当本地版本大于服务器版本时，会清理掉本地更新缓存。AssetsManagerEx也有尚未解决的问题，例如多个更新序列无法并行，只能顺序启动。另外版本后期随着项目庞大配置文件几乎包含了所有的文件信息，对比文件时间的耗时会越来越长。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/12/13/cocos2dx-lua%E5%90%84%E7%A7%8D%E5%AE%B9%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="南锋">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/12/13/cocos2dx-lua%E5%90%84%E7%A7%8D%E5%AE%B9%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">cocos2dx-lua各种容器的使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-12-13 13:47:13" itemprop="dateCreated datePublished" datetime="2018-12-13T13:47:13+08:00">2018-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在cocos2dx-lua开发中，经常用到容器。下面就介绍在开发中会用到的4种容器：ListView,scrollView,tableView,pageView</p>
-<h3 id="1-ListView-（列表容器）使用"><a href="#1-ListView-（列表容器）使用" class="headerlink" title="1. ListView （列表容器）使用"></a>1. ListView （列表容器）使用</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> MainScene = class(<span class="string">&quot;MainScene&quot;</span>, cc.<span class="built_in">load</span>(<span class="string">&quot;mvc&quot;</span>).ViewBase)</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:onCreate</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">-- 测试ListView</span></span><br><span class="line">    <span class="comment">--[[</span></span><br><span class="line"><span class="comment">    注: 1.子节点如果是RichText，或是文本信息。</span></span><br><span class="line"><span class="comment">      设置setVerticalSpace()，高度间隔。adjustToRealHeight(),自适应高度。</span></span><br><span class="line"><span class="comment">        2.设置子节点的锚点信息，否则 高度不对称</span></span><br><span class="line"><span class="comment">    ]]</span><span class="comment">--</span></span><br><span class="line"> </span><br><span class="line">    <span class="built_in">self</span>.listView = ccui.ListView:<span class="built_in">create</span>();  </span><br><span class="line">    <span class="built_in">self</span>.listView:setPosition(cc.p(<span class="number">10</span>, <span class="number">10</span>));  </span><br><span class="line">    <span class="built_in">self</span>.listView:setContentSize(cc.size(<span class="number">1116</span>, <span class="number">550</span>));  </span><br><span class="line">    <span class="built_in">self</span>.listView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);  </span><br><span class="line">    <span class="built_in">self</span>.listView:setBounceEnabled(<span class="literal">true</span>);  </span><br><span class="line">    <span class="built_in">self</span>.listView:setItemsMargin(<span class="number">20</span>)  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">4</span> <span class="keyword">do</span>  </span><br><span class="line">        <span class="keyword">local</span> layout = ccui.Layout:<span class="built_in">create</span>();  </span><br><span class="line">        layout:setContentSize(cc.size(<span class="number">1116</span>, <span class="number">209</span>));  </span><br><span class="line">        layout:setBackGroundColorType(ccui.LayoutBackGroundColorType.solid);  </span><br><span class="line">        layout:setBackGroundColor(cc.c3b(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>));  </span><br><span class="line">  </span><br><span class="line">        <span class="built_in">self</span>.listView:pushBackCustomItem(layout);  </span><br><span class="line">    <span class="keyword">end</span>  </span><br><span class="line">    <span class="built_in">self</span>:addChild(<span class="built_in">self</span>.listView); </span><br><span class="line"> </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">return</span> MainScene</span><br></pre></td></tr></table></figure>
-<h3 id="2-scrollView-（滚动容器）使用"><a href="#2-scrollView-（滚动容器）使用" class="headerlink" title="2. scrollView （滚动容器）使用"></a>2. scrollView （滚动容器）使用</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> MainScene = class(<span class="string">&quot;MainScene&quot;</span>, cc.<span class="built_in">load</span>(<span class="string">&quot;mvc&quot;</span>).ViewBase)</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:onCreate</span><span class="params">()</span></span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">-- 测试 scrollView</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> scrollView = cc.ScrollView:<span class="built_in">create</span>()</span><br><span class="line">    <span class="keyword">local</span> layerColor = cc.LayerColor:<span class="built_in">create</span>(cc.c4b(<span class="number">100</span>, <span class="number">100</span>,<span class="number">100</span>, <span class="number">100</span>), <span class="number">700</span>, <span class="number">600</span>)</span><br><span class="line">    scrollView:setViewSize(cc.size(<span class="number">700</span>, <span class="number">300</span>))</span><br><span class="line">    scrollView:setContainer(layerColor)</span><br><span class="line">    layerColor:setPosition(cc.p(<span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">    scrollView:setPosition(cc.p(<span class="number">50</span>, <span class="number">50</span>))</span><br><span class="line">    <span class="built_in">self</span>:addChild(scrollView)</span><br><span class="line">    scrollView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)<span class="comment">--垂直滚动</span></span><br><span class="line">    scrollView:setBounceEnabled(<span class="literal">true</span>)</span><br><span class="line">    scrollView:setDelegate()</span><br><span class="line">    scrollView:registerScriptHandler(handler(<span class="built_in">self</span>, <span class="built_in">self</span>.scrollViewDidZoom)  ,cc.SCROLLVIEW_SCRIPT_ZOOM)</span><br><span class="line">    scrollView:registerScriptHandler(handler(<span class="built_in">self</span>, <span class="built_in">self</span>.scrollViewDidScroll) ,cc.SCROLLVIEW_SCRIPT_SCROLL)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">6</span> <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">local</span> strFmt = <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;num %d&quot;</span>, i)</span><br><span class="line">        <span class="keyword">local</span> label = cc.Label:createWithSystemFont(strFmt, <span class="string">&quot;Arial&quot;</span>, <span class="number">32</span>)</span><br><span class="line">        label:setColor(cc.c3b(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">        label:setPosition(cc.p(<span class="number">350</span>, <span class="number">600</span>-i*<span class="number">100</span>+<span class="number">50</span>))</span><br><span class="line">        layerColor:addChild(label)</span><br><span class="line">    <span class="keyword">end</span>    </span><br><span class="line"> </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:scrollViewDidZoom</span><span class="params">()</span></span></span><br><span class="line">   <span class="built_in">print</span>(<span class="string">&quot;ScrollViewDidZoom&quot;</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:scrollViewDidScroll</span><span class="params">()</span></span></span><br><span class="line">   <span class="built_in">print</span>(<span class="string">&quot;ScrollViewDidScroll&quot;</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">return</span> MainScene</span><br></pre></td></tr></table></figure>
-<h3 id="tableView-使用"><a href="#tableView-使用" class="headerlink" title="tableView 使用"></a>tableView 使用</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">local</span> MainScene = class(<span class="string">&quot;MainScene&quot;</span>, cc.<span class="built_in">load</span>(<span class="string">&quot;mvc&quot;</span>).ViewBase)</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:onCreate</span><span class="params">()</span></span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">-- 测试tableView2</span></span><br><span class="line">    <span class="built_in">self</span>.tableView2 = cc.TableView:<span class="built_in">create</span>(cc.size(<span class="number">200</span>, <span class="number">200</span>))</span><br><span class="line">    <span class="built_in">self</span>.tableView2:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)</span><br><span class="line">    <span class="built_in">self</span>.tableView2:setPosition(cc.p(<span class="number">200</span>, <span class="number">200</span>))</span><br><span class="line">    <span class="built_in">self</span>.tableView2:setDelegate()</span><br><span class="line">    <span class="built_in">self</span>:addChild(<span class="built_in">self</span>.tableView2)</span><br><span class="line">    <span class="built_in">self</span>.tableView2:registerScriptHandler(handler(<span class="built_in">self</span>, <span class="built_in">self</span>.scrollViewDidScroll) , cc.SCROLLVIEW_SCRIPT_SCROLL)</span><br><span class="line">    <span class="built_in">self</span>.tableView2:registerScriptHandler(handler(<span class="built_in">self</span>, <span class="built_in">self</span>.scrollViewDidZoom) , cc.SCROLLVIEW_SCRIPT_ZOOM)</span><br><span class="line">    <span class="built_in">self</span>.tableView2:registerScriptHandler(handler(<span class="built_in">self</span>, <span class="built_in">self</span>.tableCellTouched) , cc.TABLECELL_TOUCHED)</span><br><span class="line">    <span class="built_in">self</span>.tableView2:registerScriptHandler(handler(<span class="built_in">self</span>, <span class="built_in">self</span>.cellSizeForTable) , cc.TABLECELL_SIZE_FOR_INDEX)</span><br><span class="line">    <span class="built_in">self</span>.tableView2:registerScriptHandler(handler(<span class="built_in">self</span>, <span class="built_in">self</span>.tableCellAtIndex) , cc.TABLECELL_SIZE_AT_INDEX)</span><br><span class="line">    <span class="built_in">self</span>.tableView2:registerScriptHandler(handler(<span class="built_in">self</span>, <span class="built_in">self</span>.numberOfCellsInTableView) , cc.NUMBER_OF_CELLS_IN_TABLEVIEW)</span><br><span class="line">    <span class="built_in">self</span>.tableView2:reloadData()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:scrollViewDidScroll</span><span class="params">(view)</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;ScrollViewDidScroll&quot;</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:scrollViewDidZoom</span><span class="params">(view)</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;ScrollViewDidZoom&quot;</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:tableCellTouched</span><span class="params">(table, cell)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="literal">nil</span> == cell <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;cell touched at index: &quot;</span>..cell:getIdx())</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:cellSizeForTable</span><span class="params">(table, idx)</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">60</span>, <span class="number">60</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:tableCellAtIndex</span><span class="params">(table, idx)</span></span></span><br><span class="line">    <span class="keyword">local</span> strValue = <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%d&quot;</span>, idx)</span><br><span class="line">    <span class="keyword">local</span> cell = <span class="built_in">table</span>:dequeueCell()</span><br><span class="line">    <span class="keyword">local</span> label = <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">if</span> <span class="literal">nil</span> == cell <span class="keyword">then</span></span><br><span class="line">        cell = cc.TableViewCell:<span class="built_in">create</span>()</span><br><span class="line">        label = cc.Label:createWithSystemFont(strValue, <span class="string">&quot;Arial&quot;</span>, <span class="number">32</span>)</span><br><span class="line">        label:setPosition(cc.p(<span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">        label:setAnchorPoint(cc.p(<span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">        cell:addChild(label)</span><br><span class="line">        label:setTag(<span class="number">123</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        label = cell:getChildByTag(<span class="number">123</span>)</span><br><span class="line">        <span class="keyword">if</span> label ~= <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">            label:setString(strValue)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> cell</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:numberOfCellsInTableView</span><span class="params">(table)</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">20</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">return</span> MainScene</span><br></pre></td></tr></table></figure>
-<h3 id="4-pageView（翻页容器）-使用"><a href="#4-pageView（翻页容器）-使用" class="headerlink" title="4. pageView（翻页容器） 使用"></a>4. pageView（翻页容器） 使用</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> MainScene = class(<span class="string">&quot;MainScene&quot;</span>, cc.<span class="built_in">load</span>(<span class="string">&quot;mvc&quot;</span>).ViewBase)</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:onCreate</span><span class="params">()</span></span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">-- 测试 pageView</span></span><br><span class="line">    <span class="keyword">local</span> pageView = ccui.PageView:<span class="built_in">create</span>()</span><br><span class="line">    <span class="comment">--设置pageView长宽</span></span><br><span class="line">    pageView:setContentSize(<span class="number">600</span>,<span class="number">600</span>)</span><br><span class="line">    <span class="comment">--设置是否响应触摸事件</span></span><br><span class="line">    pageView:setTouchEnabled(<span class="literal">true</span>)</span><br><span class="line">    <span class="comment">--设置锚点</span></span><br><span class="line">    pageView:setAnchorPoint(cc.p(<span class="number">0.5</span>,<span class="number">0.5</span>))</span><br><span class="line">    <span class="comment">--设置位置在中心位置</span></span><br><span class="line">    pageView:setPosition(display.center)</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,<span class="number">5</span> <span class="keyword">do</span></span><br><span class="line">        <span class="comment">---然后layout，每个layout保存一个page</span></span><br><span class="line">        <span class="keyword">local</span> layout = ccui.Layout:<span class="built_in">create</span>()</span><br><span class="line">        <span class="comment">--为了演示这里做个小图片</span></span><br><span class="line">        layout:setContentSize(<span class="number">600</span>,<span class="number">600</span>)</span><br><span class="line">        layout:setPosition(<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line">        <span class="comment">--创建一个button</span></span><br><span class="line">        <span class="keyword">local</span> btn= ccui.Button:<span class="built_in">create</span>(<span class="string">&quot;bt_qd.png&quot;</span>,<span class="string">&quot;bt_qd_h.png&quot;</span>,<span class="string">&quot;bt_qd.png&quot;</span>):setPosition(<span class="number">300</span>,<span class="number">300</span>)</span><br><span class="line">        layout:addChild(btn)</span><br><span class="line">        pageView:addChild(layout)<span class="comment">---一个layout 为一个page内容   page:addPage(layout)</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="comment">--添加pageView 到场景中</span></span><br><span class="line">    <span class="built_in">self</span>:addChild(pageView)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">--添加事件响应</span></span><br><span class="line">    pageView:addEventListener(handler(<span class="built_in">self</span>, <span class="built_in">self</span>.onEvent))</span><br><span class="line"> </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">--事件响应方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:onEvent</span><span class="params">(sender,event)</span></span></span><br><span class="line">    <span class="keyword">if</span> event == ccui.PageViewEventType.turning <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">local</span> pageNum = sender:getCurrentPageIndex()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;is turning,this PageNum:&quot;</span>..pageNum)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">return</span> MainScene</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>以上就是cocos2dx中用到的四种容器</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/08/20/c%E8%AF%AD%E8%A8%80%E9%A2%98%E5%BA%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="南锋">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/20/c%E8%AF%AD%E8%A8%80%E9%A2%98%E5%BA%93/" class="post-title-link" itemprop="url">C语言大学生考试全面题库</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-08-20 02:00:31" itemprop="dateCreated datePublished" datetime="2018-08-20T02:00:31+08:00">2018-08-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="计算A-B的值"><a href="#计算A-B的值" class="headerlink" title="计算A-B的值"></a>计算A-B的值</h3><p><strong>输入描述：</strong></p>
-<blockquote>
-<p>输入两个整数  a,b<br>输出描述描述：</p>
-</blockquote>
-<p>输出a-b的结果</p>
-<blockquote>
-<p>样式输入：7 4<br>样式输出：3</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/08/20/c%E8%AF%AD%E8%A8%80%E9%A2%98%E5%BA%93/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/08/08/%E9%80%9A%E4%BF%A1%E7%A7%91%E6%8A%80%E4%BA%BA%E5%91%98%E8%81%8C%E4%B8%9A%E9%81%93%E5%BE%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="南锋">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/08/%E9%80%9A%E4%BF%A1%E7%A7%91%E6%8A%80%E4%BA%BA%E5%91%98%E8%81%8C%E4%B8%9A%E9%81%93%E5%BE%B7/" class="post-title-link" itemprop="url">通信科技人员职业道德</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-08-08 23:18:11" itemprop="dateCreated datePublished" datetime="2018-08-08T23:18:11+08:00">2018-08-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%80%9A%E4%BF%A1%E7%A7%91%E6%8A%80%E4%BA%BA%E5%91%98%E8%81%8C%E4%B8%9A%E9%81%93%E5%BE%B7/" itemprop="url" rel="index"><span itemprop="name">通信科技人员职业道德</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>通信科技既是整个科学技术的重要组成部分，又是通信生产力中越来越突出和具有重要意义的因素。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/08/08/%E9%80%9A%E4%BF%A1%E7%A7%91%E6%8A%80%E4%BA%BA%E5%91%98%E8%81%8C%E4%B8%9A%E9%81%93%E5%BE%B7/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/05/21/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91%E4%B8%8D%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%BC%80wifi%E7%83%AD%E7%82%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="南锋">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/05/21/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91%E4%B8%8D%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%BC%80wifi%E7%83%AD%E7%82%B9/" class="post-title-link" itemprop="url">创建WiFi热点方法分享</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-05-21 22:11:19" itemprop="dateCreated datePublished" datetime="2018-05-21T22:11:19+08:00">2018-05-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 18:51:05" itemprop="dateModified" datetime="2024-05-14T18:51:05+08:00">2024-05-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">教程</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>分享在拥有无线网卡、有线网路连接的笔记本和台式电脑上创建WiFi热点的详细步骤，适用于方便在其他设备上共享网络连接的场景。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/05/21/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91%E4%B8%8D%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%BC%80wifi%E7%83%AD%E7%82%B9/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/10/07/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E4%BA%A4%E6%8D%A2%E4%BC%A0%E8%BE%93%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="南锋">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/10/07/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E4%BA%A4%E6%8D%A2%E4%BC%A0%E8%BE%93%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/" class="post-title-link" itemprop="url">通信工程交换传输实习报告</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-10-07 15:29:01" itemprop="dateCreated datePublished" datetime="2017-10-07T15:29:01+08:00">2017-10-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-15 19:52:46" itemprop="dateModified" datetime="2024-05-15T19:52:46+08:00">2024-05-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">课程设计</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">通信工程</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/" itemprop="url" rel="index"><span itemprop="name">实习报告</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本学期的3-5周，我们进行了为期3周的专业实习，本次实习的内容是程控交换和光纤传输，实习地点是云塘校区理科楼B304程控交换实验室。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/10/07/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E4%BA%A4%E6%8D%A2%E4%BC%A0%E8%BE%93%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1135,16 +1350,16 @@ collisionBitmask：
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-count">174</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
