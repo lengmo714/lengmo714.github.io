@@ -202,6 +202,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/13/cocosCreator%E8%A7%A3%E5%86%B3Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/04/13/cocosCreator%E8%A7%A3%E5%86%B3Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">cocosCreator解决Chrome浏览器跨域问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-04-13 21:57:58" itemprop="dateCreated datePublished" datetime="2023-04-13T21:57:58+08:00">2023-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-16 11:12:50" itemprop="dateModified" datetime="2024-05-16T11:12:50+08:00">2024-05-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cocos-Creator/" itemprop="url" rel="index"><span itemprop="name">cocos Creator</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>cocosCreator解决Chrome浏览器跨域问题</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/04/13/cocosCreator%E8%A7%A3%E5%86%B3Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/13/cocosCreator%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9%E7%B2%BE%E7%81%B5%E5%9B%BE%E7%89%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -233,7 +314,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-16 11:14:20" itemprop="dateModified" datetime="2024-05-16T11:14:20+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,27 +337,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>今天在用cocos creator写代码过程中，需要给7个精灵动态修改图片。出现了下面错误。图片找不到</p>
-<img src="https://s1.ax1x.com/2023/04/13/ppx2mSP.png" alt="" />
-
-<p>自己就很郁闷，查看图片路径又是没有问题的<br><img src="https://s1.ax1x.com/2023/04/13/ppx2ZWt.png" alt="" /></p>
-<p>下面给出有bug和解决bug的代码<br>有bug</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> <span class="attr">i</span>:<span class="built_in">number</span> = <span class="number">0</span>;i&lt;<span class="number">7</span>;i++)&#123;</span><br><span class="line">    <span class="keyword">let</span> spriteFrame = <span class="keyword">new</span> <span class="title class_">SpriteFrame</span>();</span><br><span class="line">    <span class="keyword">let</span> imagePath = <span class="string">&quot;ui/Atlas/gameHall/game_type_btn_&quot;</span> + (i+<span class="number">1</span>) + <span class="string">&quot;.png&quot;</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;imagePath = &quot;</span>,imagePath);</span><br><span class="line">    resources.<span class="title function_">load</span>(imagePath,<span class="title class_">SpriteFrame</span>,<span class="function">(<span class="params">err,res</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;图片不存在&quot;</span>,err)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        spriteFrame = res;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">hallImage</span>[i].<span class="property">spriteFrame</span> = spriteFrame;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>没bug</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> <span class="attr">i</span>:<span class="built_in">number</span> = <span class="number">0</span>;i&lt;<span class="number">7</span>;i++)&#123;</span><br><span class="line">    <span class="keyword">let</span> spriteFrame = <span class="keyword">new</span> <span class="title class_">SpriteFrame</span>();</span><br><span class="line">    <span class="keyword">let</span> imagePath = <span class="string">&quot;ui/Atlas/gameHall/game_type_btn_&quot;</span> + (i+<span class="number">1</span>) + <span class="string">&quot;/spriteFrame&quot;</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;imagePath = &quot;</span>,imagePath);</span><br><span class="line">    resources.<span class="title function_">load</span>(imagePath,<span class="title class_">SpriteFrame</span>,<span class="function">(<span class="params">err,res</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;图片不存在&quot;</span>,err)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        spriteFrame = res;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">hallImage</span>[i].<span class="title function_">getComponent</span>(<span class="title class_">Sprite</span>).<span class="property">spriteFrame</span> = spriteFrame;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>cocosCreator动态修改精灵图片</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/04/13/cocosCreator%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9%E7%B2%BE%E7%81%B5%E5%9B%BE%E7%89%87/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -326,7 +395,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-16 11:14:46" itemprop="dateModified" datetime="2024-05-16T11:14:46+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -349,23 +418,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>主要应用于vsCode编辑cocos creator工程时（不想展示其他格式文件方法一样）<br>点击左下角“设置”图标-&gt;“Setting”</p>
-<img src="https://s1.ax1x.com/2023/04/12/ppjAtgI.png" style="width:500px;height:500px" alt="" />
-
-<p>找到下图所示位置，添加<code>**/*.meta</code>即可<br><img src="https://s1.ax1x.com/2023/04/12/ppjANvt.png" style="width:500px;height:500px" alt="" /></p>
-
+          <p>vsCode不显示.meta文件的方法</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/04/12/vsCode%E4%B8%8D%E6%98%BE%E7%A4%BA-meta%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -415,7 +476,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-16 11:14:59" itemprop="dateModified" datetime="2024-05-16T11:14:59+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -438,22 +499,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<img src="https://s1.ax1x.com/2023/04/12/ppjAScq.png" style="width:600px;height:200px" alt="" />
-
-<p>在cocos creator中运行一个python脚本，出现了上面那个问题。查看python脚本也没有问题，郁闷了好久。<br>这个时候想起来一句话：关机重启解决80%的问题，于是乎重启cocos creator，没想到真的解决了这个问题。<br>复盘了一下，猜测原因：安装 Python3 时, cocos 是打开的状态, 导致安装后的 py 环境变量不生效, 重启编辑器就可以。</p>
-
+          <p>cocosCreator运行python脚本出错</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/04/12/cocosCreator%E8%BF%90%E8%A1%8Cpython%E8%84%9A%E6%9C%AC%E5%87%BA%E9%94%99/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -503,7 +557,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-16 10:35:06" itemprop="dateModified" datetime="2024-05-16T10:35:06+08:00">2024-05-16</time>
+                <time title="修改时间：2024-05-16 11:15:12" itemprop="dateModified" datetime="2024-05-16T11:15:12+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -526,21 +580,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在windows11系统上点击<code>.exe</code>安装包文件安装软件时，有时会弹出<code>要在Microsoft Store中搜索应用吗？</code>的弹窗，如下图：<br><img src="https://s1.ax1x.com/2023/04/10/ppqO1ln.png" style="width:600px;height:200px" alt="" /></p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>右键该<code>.exe</code>文件，选择<code>属性</code>-&gt;<code>常规</code>，在安全选项中将<code>解除锁定</code>前面勾上。默认是没有勾上的，点下框框，将选项勾上 ，最后点击应用即可。如下图：<br><img src="https://s1.ax1x.com/2023/04/10/ppqOlSs.png" style="width:484px;height:658px" alt="" /></p>
-
+          <p>要在Microsoft Store中搜索应用吗？</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/04/10/%E8%A6%81%E5%9C%A8MicrosoftStore%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%BA%94%E7%94%A8%E5%90%97/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -671,7 +719,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-16 11:15:25" itemprop="dateModified" datetime="2024-05-16T11:15:25+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -694,20 +742,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>给文字添加下划线，其实也就是画一条直线，只是直线放在了文字下方而已</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建并返回一个 DrawNode （线性）对象。</span></span><br><span class="line"><span class="comment">-- @function [parent=#display] newLine</span></span><br><span class="line"><span class="comment">-- @param table point table</span></span><br><span class="line"><span class="comment">-- @param table params 有参数，边线色 borderColor 及边线宽度 borderWidth</span></span><br><span class="line"><span class="comment">-- @return DrawNode#DrawNode ret (return value: cc.DrawNode) </span></span><br><span class="line"><span class="comment">-- @see ShapeNode</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">--[[--</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">创建并返回一个 DrawNode （线性）对象。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">格式：</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">shape = display.newLine(point表, [参数])</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">-- 创建一个线宽为2，颜色为红色，从(10,10)到(100,100)的线段</span></span><br><span class="line"><span class="comment">local shape3 = display.newLine(&#123;&#123;10, 10&#125;, &#123;100,100&#125;&#125;,</span></span><br><span class="line"><span class="comment">    &#123;borderColor = cc.c4f(1.0, 0.0, 0.0, 1.0),</span></span><br><span class="line"><span class="comment">    borderWidth = 1&#125;)</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">display.newLine</span><span class="params">(points, params)</span></span></span><br><span class="line">    <span class="keyword">local</span> radius</span><br><span class="line">    <span class="keyword">local</span> borderColor</span><br><span class="line">    <span class="keyword">local</span> scale</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> params <span class="keyword">then</span></span><br><span class="line">        borderColor = cc.c4f(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">        radius = <span class="number">0.5</span></span><br><span class="line">        scale = <span class="number">1.0</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        borderColor = params.borderColor <span class="keyword">or</span> cc.c4f(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">        radius = (params.borderWidth <span class="keyword">and</span> params.borderWidth/<span class="number">2</span>) <span class="keyword">or</span> <span class="number">0.5</span></span><br><span class="line">        scale = checknumber(params.scale <span class="keyword">or</span> <span class="number">1.0</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i, p <span class="keyword">in</span> <span class="built_in">ipairs</span>(points) <span class="keyword">do</span></span><br><span class="line">        p = cc.p(p[<span class="number">1</span>] * scale, p[<span class="number">2</span>] * scale)</span><br><span class="line">        points[i] = p</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> drawNode = cc.DrawNode:<span class="built_in">create</span>()</span><br><span class="line">    drawNode:drawSegment(points[<span class="number">1</span>], points[<span class="number">2</span>], radius, borderColor)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> drawNode</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <p>cocos2dx-lua给文字添加下划线</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/21/cocos2dx-lua%E7%BB%99%E6%96%87%E5%AD%97%E6%B7%BB%E5%8A%A0%E4%B8%8B%E5%88%92%E7%BA%BF/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -757,7 +800,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-16 11:15:36" itemprop="dateModified" datetime="2024-05-16T11:15:36+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -780,20 +823,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>Lua中计算表格包含的字段数量，也可以理解为计算表的长度,很多人平时都习惯用<code>#</code>,但是<code>#</code>和<code>table.nums()</code>还是有区别的。<br><code>Lua table</code> 的 <code>&quot;#&quot;</code> 操作只对依次排序的数值下标数组有效，<code>table.nums()</code> 则计算 <code>table</code> 中所有不为 <code>nil</code> 的值的个数。</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- @function [parent=#table] nums</span></span><br><span class="line"><span class="comment">-- @param table t 要检查的表格</span></span><br><span class="line"><span class="comment">-- @return integer#integer</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">table.nums</span><span class="params">(t)</span></span></span><br><span class="line">    <span class="keyword">local</span> count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(t) <span class="keyword">do</span></span><br><span class="line">        count = count + <span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+          <p>Lua计算表格包含的字段数量</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/21/Lua%E8%AE%A1%E7%AE%97%E8%A1%A8%E6%A0%BC%E5%8C%85%E5%90%AB%E7%9A%84%E5%AD%97%E6%AE%B5%E6%95%B0%E9%87%8F/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -843,7 +881,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-16 11:15:48" itemprop="dateModified" datetime="2024-05-16T11:15:48+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -866,20 +904,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>返回指定文件的大小，如果失败返回 false</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- @function [parent=#io] filesize</span></span><br><span class="line"><span class="comment">-- @param string path 文件完全路径</span></span><br><span class="line"><span class="comment">-- @return integer#integer</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">io.filesize</span><span class="params">(path)</span></span></span><br><span class="line">    <span class="keyword">local</span> size = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">local</span> file = <span class="built_in">io</span>.<span class="built_in">open</span>(<span class="built_in">path</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> file <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">local</span> current = file:seek()</span><br><span class="line">        size = file:seek(<span class="string">&quot;end&quot;</span>)</span><br><span class="line">        file:seek(<span class="string">&quot;set&quot;</span>, current)</span><br><span class="line">        <span class="built_in">io</span>.<span class="built_in">close</span>(file)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> size</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+          <p>cocos2dx-lua返回指定文件的大小</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/21/cocos2dx-lua%E8%BF%94%E5%9B%9E%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6%E7%9A%84%E5%A4%A7%E5%B0%8F/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -929,7 +962,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-16 11:15:58" itemprop="dateModified" datetime="2024-05-16T11:15:58+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -952,109 +985,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>在游戏开发过程中，很多地方都需要用到一个角度和弧度的计算，见代码</p>
-<h3 id="角度转弧度"><a href="#角度转弧度" class="headerlink" title="角度转弧度"></a>角度转弧度</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- @function [parent=#math] angle2radian</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">math.angle2radian</span><span class="params">(angle)</span></span></span><br><span class="line">    <span class="keyword">return</span> angle * <span class="built_in">math</span>.<span class="built_in">pi</span> / <span class="number">180</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="弧度转角度"><a href="#弧度转角度" class="headerlink" title="弧度转角度"></a>弧度转角度</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- @function [parent=#math] radian2angle</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">math.radian2angle</span><span class="params">(radian)</span></span></span><br><span class="line">    <span class="keyword">return</span> radian / <span class="built_in">math</span>.<span class="built_in">pi</span> * <span class="number">180</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/21/cocos2dx-Lua%E5%88%86%E5%89%B2%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="南锋">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/21/cocos2dx-Lua%E5%88%86%E5%89%B2%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">cocos2dx-Lua分割字符串</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-21 10:51:47" itemprop="dateCreated datePublished" datetime="2023-03-21T10:51:47+08:00">2023-03-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>我们在使用cocos2dx开发过程中经常会使用指定分隔符来分割字符串，并返回包含分割结果的数组，这里就介绍一种比较常用的方法</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--------------------------------</span></span><br><span class="line"><span class="comment">-- 用指定字符或字符串分割输入字符串，返回包含分割结果的数组</span></span><br><span class="line"><span class="comment">-- @function [parent=#string] split</span></span><br><span class="line"><span class="comment">-- @param string input 输入字符串</span></span><br><span class="line"><span class="comment">-- @param string delimiter 分割标记字符或字符串</span></span><br><span class="line"><span class="comment">-- @return array#array  包含分割结果的数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--[[--</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">用指定字符或字符串分割输入字符串，返回包含分割结果的数组</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">local input = &quot;Hello,World&quot;</span></span><br><span class="line"><span class="comment">local res = string.split(input, &quot;,&quot;)</span></span><br><span class="line"><span class="comment">-- res = &#123;&quot;Hello&quot;, &quot;World&quot;&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">local input = &quot;Hello-+-World-+-Quick&quot;</span></span><br><span class="line"><span class="comment">local res = string.split(input, &quot;-+-&quot;)</span></span><br><span class="line"><span class="comment">-- res = &#123;&quot;Hello&quot;, &quot;World&quot;, &quot;Quick&quot;&#125;</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">string.split</span><span class="params">(input, delimiter)</span></span></span><br><span class="line">    <span class="built_in">input</span> = <span class="built_in">tostring</span>(<span class="built_in">input</span>)</span><br><span class="line">    delimiter = <span class="built_in">tostring</span>(delimiter)</span><br><span class="line">    <span class="keyword">if</span> (delimiter == <span class="string">&#x27;&#x27;</span>) <span class="keyword">then</span> <span class="keyword">return</span> <span class="literal">false</span> <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> pos, arr = <span class="number">0</span>, &#123;&#125;</span><br><span class="line">    <span class="comment">-- for each divider found</span></span><br><span class="line">    <span class="keyword">for</span> st, sp <span class="keyword">in</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="keyword">return</span> <span class="built_in">string</span>.<span class="built_in">find</span>(<span class="built_in">input</span>, delimiter, pos, <span class="literal">true</span>) <span class="keyword">end</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">table</span>.<span class="built_in">insert</span>(arr, <span class="built_in">string</span>.<span class="built_in">sub</span>(<span class="built_in">input</span>, pos, st - <span class="number">1</span>))</span><br><span class="line">        pos = sp + <span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="built_in">table</span>.<span class="built_in">insert</span>(arr, <span class="built_in">string</span>.<span class="built_in">sub</span>(<span class="built_in">input</span>, pos))</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <p>cocos2dx-Lua角度与弧度的转换</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/21/cocos2dx-Lua%E8%A7%92%E5%BA%A6%E4%B8%8E%E5%BC%A7%E5%BA%A6%E7%9A%84%E8%BD%AC%E6%8D%A2/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1140,7 +1079,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-count">175</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1149,7 +1088,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

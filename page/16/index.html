@@ -202,6 +202,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/08/Lua%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/08/Lua%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">Lua连续教程之Lua字符串</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-08 00:42:19" itemprop="dateCreated datePublished" datetime="2020-04-08T00:42:19+08:00">2020-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-16 11:25:48" itemprop="dateModified" datetime="2024-05-16T11:25:48+08:00">2024-05-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>字符串用于文本。Lua语言中的字符串即可以表示单个字符，也可以表示一整本书籍。在Lua语言中，操作100K或者1M个字母组成的字符串的程序也很常见。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/08/Lua%E5%AD%97%E7%AC%A6%E4%B8%B2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/06/Lua%E4%B8%AD%E7%9A%84%E6%95%B0%E5%80%BC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -233,7 +314,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-16 11:24:52" itemprop="dateModified" datetime="2024-05-16T11:24:52+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,95 +337,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>我们可以使用科学计数法（一个可选的十进制部分外加一个可选的十进制指数部分）书写数值常量，例如：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">4</span>             <span class="comment">--4</span></span><br><span class="line">&gt; <span class="number">0.4</span>			<span class="comment">--0.4</span></span><br><span class="line">&gt; <span class="number">4.57e-3</span>		<span class="comment">--0.00457</span></span><br><span class="line">&gt; <span class="number">0.3e12</span>		<span class="comment">--3.0000000000.0</span></span><br><span class="line">&gt; <span class="number">5E+20</span>			<span class="comment">--5e+20</span></span><br></pre></td></tr></table></figure>
-<p>具有十进制小数或者指数的数值会被当做浮点型值，否则会被当做整数值。<br>整型数和浮点数的类型都是<code>number</code>：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">type</span>(<span class="number">3</span>)			<span class="comment">--number</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="number">3.5</span>)			<span class="comment">--number</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="number">3.0</span>)			<span class="comment">--number</span></span><br></pre></td></tr></table></figure>
-<p>由于整型值和浮点型值的类型都是”number”，所以它们是可以互相转换的。同时，具有相同算术值的整型值和浮点值在Lua语言中是相等的：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">1</span> == <span class="number">1.0</span> 			<span class="comment">--true</span></span><br><span class="line">&gt;<span class="number">-3</span> == <span class="number">-3.0</span> 		<span class="comment">--ture</span></span><br><span class="line">&gt;<span class="number">0.2e3</span>	== <span class="number">200</span> 		<span class="comment">--ture</span></span><br></pre></td></tr></table></figure>
-<p>在少数情况下，当需要区分整型值和浮点型值时，可以使用函数math.type:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">type</span>(<span class="number">3</span>)			<span class="comment">--integer</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">type</span>(<span class="number">3.0</span>)			<span class="comment">--float</span></span><br></pre></td></tr></table></figure>
-<p>在Lua5.3中：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">3</span>			<span class="comment">--3</span></span><br><span class="line">&gt;<span class="number">3.0</span>		<span class="comment">--3.0</span></span><br><span class="line">&gt;<span class="number">1000</span>		<span class="comment">--1000</span></span><br><span class="line">&gt;<span class="number">1e3</span>		<span class="comment">--1000.0</span></span><br></pre></td></tr></table></figure>
-<p>Lua语言还像其他语言一样也支持0x开头的十六进制常量。与其他很多变成语言不通，Lua语言还支持十六进制的浮点数，这种十六进制浮点数部分由小数部分和以p或P开头的指数部分组成。例如：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">0xff</span>		<span class="comment">--255</span></span><br><span class="line">&gt;<span class="number">0x1A3</span>		<span class="comment">--419</span></span><br><span class="line">&gt;<span class="number">0x0</span><span class="number">.2</span>		<span class="comment">--0.125</span></span><br><span class="line">&gt;<span class="number">0x1</span>p<span class="number">-1</span>		<span class="comment">--0.5</span></span><br><span class="line">&gt;<span class="number">0</span>x.bp2		<span class="comment">--42.75</span></span><br></pre></td></tr></table></figure>
-<p>可以使用参数%a参数，通过函数string.format对这种格式进行格式化输出：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%a&quot;</span>,<span class="number">419</span>)		<span class="comment">--0x1.a3p+8</span></span><br><span class="line">&gt;<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%a&quot;</span>,<span class="number">0.1</span>)		<span class="comment">--0x1.999999999999ap-4</span></span><br></pre></td></tr></table></figure>
-<p>虽然这种格式很难阅读，但是这种格式可以保留所有浮点数的精度，并且比十进制的转换速度更快。</p>
-<h2 id="算术运算"><a href="#算术运算" class="headerlink" title="算术运算"></a>算术运算</h2><p>除了加减乘除、取负数等常见的算术运算外，Lua语言还支持取整除法、取模和指数运算。<br>两个整数型值进行加减乘除和取负操作的结果仍然是整型值。对于这些算术运算而言，操作数是用整型还暗示浮点型表示的整数都没有区别：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">13</span> + <span class="number">15</span> 		<span class="comment">--28</span></span><br><span class="line">&gt;<span class="number">13.0</span> + <span class="number">15.0</span> 	<span class="comment">--28.0</span></span><br></pre></td></tr></table></figure>
-<p>如果两个操作数都是整型值，那么结果也是整型值；否则，结果就是浮点型值。当操作数一个是整型值一个是浮点型值时，Lua语言会在进行算术运算前将整型值转换为浮点型值：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">13.0</span> + <span class="number">25</span> 		<span class="comment">--38.0</span></span><br><span class="line">&gt;-(<span class="number">3</span> * <span class="number">6.0</span>)		<span class="comment">--18.0</span></span><br></pre></td></tr></table></figure>
-<p>由于两个整数相除的结果并不一定是整数，因此除法不遵循上述规则。为了避免两个整型值相除和两个浮点型值相除导致不一样的结果，除法运算操作永远是浮点数且产生浮点型值的结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;3.0 / 2.0				--1.5</span><br><span class="line">&gt;3 / 2					--1.5</span><br></pre></td></tr></table></figure>
-<p>Lua5.3针对整数除法引入了一个称为floor除法的新算术运算符&#x2F;&#x2F;。顾名思义，floor除法会对得到的商向负无穷取整，从而保证结果是一个整数。这样，floor除法就可以与其他算术运算一样遵循同样的规则：如果操作数都是整型值，那么结果就是整型值，否则就是浮点型值</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">3</span> // <span class="number">2</span>			<span class="comment">--1</span></span><br><span class="line">&gt;<span class="number">3.0</span> // <span class="number">2</span>		<span class="comment">--1.0</span></span><br><span class="line">&gt;<span class="number">6</span> // <span class="number">2</span>			<span class="comment">--3</span></span><br><span class="line">&gt;<span class="number">6.0</span> // <span class="number">2.0</span> 	<span class="comment">--3.0</span></span><br><span class="line">&gt;<span class="number">-9</span> // <span class="number">2</span>		<span class="comment">--5</span></span><br><span class="line">&gt;<span class="number">1.5</span> // <span class="number">0.5</span>		<span class="comment">--3.0</span></span><br></pre></td></tr></table></figure>
-<p>下面公式是取模运算的定义：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a % b == a - ((a // b ) * b )</span><br></pre></td></tr></table></figure>
-<p>如果操作数是整数，那么取模运算的结果也是整数。因此，取模运算也遵从与算术运算相同的规律，即如果两个操作数均是整型值，则结果为整型，否则为浮点型。<br>对于整型操作数而言，取模运算的含义没有什么特别的，其结果的符号永远与第二个操作数的符号保持一致。特别地，对于任意指定的正常数K，即使x是负数，表达式x%K的结果也永远在[0,K-1]之间。例如，对于任意整数值i，表达式i%2的结果均是0或1。<br>对于实数类型的操作数而言，取模运算有一些不同。例如，x-x%0.01恰好是x保留两位小数的结果，x-x%0.001恰好是x保留三位小数的结果：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;x = <span class="built_in">math</span>.<span class="built_in">pi</span></span><br><span class="line">&gt;x - x%<span class="number">0.01</span>			<span class="comment">--3.14</span></span><br><span class="line">&gt;x - x%<span class="number">0.001</span>		<span class="comment">--3.141</span></span><br></pre></td></tr></table></figure>
-<p>再比如，我们可以使用取模运算检查某辆车在拐过了指定的角度后是否能够原路返回。假设使用度作为角度的单位，那么我们可以使用如下的公式:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> tolerance = <span class="number">10</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isturnback</span><span class="params">( angle)</span></span></span><br><span class="line">	angle = angle % <span class="number">360</span></span><br><span class="line">	<span class="keyword">return</span> (<span class="built_in">math</span>.<span class="built_in">abs</span>(angle - <span class="number">180</span>) &lt; tolerance)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>该函数对负的角度而言也同样适用：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(istrunback(-180))			--turn</span><br></pre></td></tr></table></figure>
-<p>假设使用弧度作为角度的单位，那么我们只需要简单地修改常量的定义即可：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> tolerance = <span class="number">0.17</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isturnback</span><span class="params">( angle)</span></span></span><br><span class="line">	angle = angle % (<span class="number">2</span> * <span class="built_in">math</span>.<span class="built_in">pi</span>)</span><br><span class="line">	<span class="keyword">return</span> (<span class="built_in">math</span>.<span class="built_in">abs</span>(angle - <span class="number">180</span>) &lt; tolerance)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>表达式angle%(2*math.pi)实现了将任意范围的角度归一化到[0,2pi]之间。</p>
-<p>Lua表达式同意支持幂运算，使用符号<code>^</code>表示，像除法一样，幂运算的操作数也永远是浮点类型（整型值在幂运算时不能整除，例如，$2^{-2}$的结果不是整型数）。我们可以使用$x^{0.5}$来计算x的平方根，使用$x^{1&#x2F;3}$来计算x的立方根。</p>
-<h2 id="关系运算"><a href="#关系运算" class="headerlink" title="关系运算"></a>关系运算</h2><p>Lua语言提供了下列关系运算：<br><code>&lt;</code>,<code>&gt;</code>,<code>&lt;=</code>,<code>&gt;=</code>,<code>==</code>,<code>~=</code><br>这些关系运算的结果都是Boolean类型。<br><code>==</code>用于相等性测试，<code>~=</code>用于不等性测试。这两个运算符可以应用于任意两个值，当这两个值的类型不同时，Lua语言认为它们是不相等的；否则，会根据它们的类型再对两者进行比较。<br>比较数值时应用户忽略数值的子类型，数值究竟是以整型还是浮点型类型表示并无区别，只娱算术有关。</p>
-<h2 id="数学库"><a href="#数学库" class="headerlink" title="数学库"></a>数学库</h2><p>Lua语言提供了标准数学库math。标准数学库由一组标准的数学函数组成，包括三角函数、指数函数、取证函数、最大和最小函数、用于生成伪随机数函数(random)以及常量pi和huge。<br>详情可见链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Silent_F/article/details/86547290">https://blog.csdn.net/Silent_F/article/details/86547290</a><br>所有的三角函数都以弧度为单位，并通过函数deg和rad进行角度和弧度的转换。</p>
-<h3 id="随机数发生器"><a href="#随机数发生器" class="headerlink" title="随机数发生器"></a>随机数发生器</h3><p>函数math.random用于生成随机数，共有三种调用方式。当不带参数调用时，该函数将返回一个在[0,1)范围内均匀分布的随机实数。当使用带有一个整型值n的参数调用时，该函数将返回一个在[1,n]范围内的随机整数。例如，我们可以通过调用random(6)来模拟掷骰子的结果。当使用带有两个整数值l和u的参数调用时，该函数返回在[l,u]范围内的随机整数。<br>函数randomseed用于设置随机数发生器的种子，该函数的唯一参数就是数值类型的种子。在一个程序启动时，系统固定使用1为种子初始化随机数发生器。如果不设置其他的种子，那么每次程序运行时都会生成相同的随机数序列。从调试的角度看，这是一个不错的特行，然而，对于一个游戏来说却会导致相同的场景重复地出现。为了解决这个问题，通常调用<code>math.randomsee(os.time())</code>来使当前系统时间作为种子初始化随机数发生器。</p>
-<h3 id="取证函数"><a href="#取证函数" class="headerlink" title="取证函数"></a>取证函数</h3><p>数学库提供了三个取证函数:floor、ceil和modf。其中，floor向负无穷取整，ceil向正无穷取整，modf向零取整。当取整结果能够用整型表示时，返回结果为整型值，否则返回浮点型值。处理返回取整后的值义务外，函数modf还会返回小数部分作为第二个结果。</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">floor</span>(<span class="number">3.3</span>)		<span class="comment">--3</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">floor</span>(<span class="number">-3.3</span>)		<span class="comment">-- -4</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">ceil</span>(<span class="number">3.3</span>)			<span class="comment">-- 4</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">ceil</span>(<span class="number">-3.3</span>)		<span class="comment">-- -3</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">modf</span>(<span class="number">3.3</span>)			<span class="comment">-- 3 	0.3</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">modf</span>(<span class="number">-3.3</span>)		<span class="comment">-- -3 	-0.3</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">floor</span>(<span class="number">2</span>^<span class="number">70</span>)		<span class="comment">--1.1805916207174e+21</span></span><br></pre></td></tr></table></figure>
-<p>如果参数本身就是一个整型值，那么它将被原样返回。<br>如果想将数值x向最近的整数取整，可以对x+0.5调用floor函数。不过，当参数是一个很大的整数时，简单的加法可能会导致错误。例如，考虑如下代码：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = x^<span class="number">52</span> + <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%d %d&quot;</span> , x , <span class="built_in">math</span>.<span class="built_in">floor</span>(x + <span class="number">0.5</span>)))</span><br><span class="line">	<span class="comment">-- 4503599627370497   4503599627370498</span></span><br></pre></td></tr></table></figure>
-<p>$2^{52}$ + 1.5的浮点值表示是不精确的，因此内部会以我们不可控制的方式取整。为了避免这个问题，我们可以单独地处理整数值：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">round</span><span class="params">(x)</span></span></span><br><span class="line">	<span class="keyword">local</span> f = <span class="built_in">math</span>.<span class="built_in">floor</span>(x)</span><br><span class="line">	<span class="keyword">if</span> x == f <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">return</span> f</span><br><span class="line">	<span class="keyword">else</span> </span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">math</span>.<span class="built_in">floor</span>(x + <span class="number">0.5</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>上例中的函数总是会向上取整半个整数。如果想进行无偏取整，即向距离最近的偶数取整半个整数，上述公式在x + 0.5是奇数的情况下产生不正确的结果：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">floor</span>(<span class="number">3.5</span> + <span class="number">0.5</span>) 		<span class="comment">--4 (ok)</span></span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">floor</span>(<span class="number">2.5</span> + <span class="number">0.5</span>)		<span class="comment">--3 (wrong)</span></span><br></pre></td></tr></table></figure>
-<p>这时，还是可以利用取整操作来解决上面的问题：表达式<code>(x%2.0 == 0.5)</code>只有在x + 0.5为奇数时为真。基于这些情况，定义一个无偏取整函数就很简单了：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">round</span><span class="params">(x)</span></span></span><br><span class="line">	<span class="keyword">local</span> f = <span class="built_in">math</span>.<span class="built_in">floor</span>(x)</span><br><span class="line">	<span class="keyword">if</span> (x == f) <span class="keyword">or</span> (x % <span class="number">2.0</span> == <span class="number">0.5</span>) <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">return</span> f</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">math</span>.<span class="built_in">floor</span>(x + <span class="number">0.5</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(round(<span class="number">2.5</span>))		<span class="comment">-- 2</span></span><br><span class="line"><span class="built_in">print</span>(round(<span class="number">3.5</span>))		<span class="comment">-- 4</span></span><br><span class="line"><span class="built_in">print</span>(round(<span class="number">-2.5</span>))		<span class="comment">-- -2</span></span><br><span class="line"><span class="built_in">print</span>(round(<span class="number">-1.5</span>))		<span class="comment">-- -2</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="表示范围"><a href="#表示范围" class="headerlink" title="表示范围"></a>表示范围</h2><p>大多数编程语言使用某些固定长度的比特位来表达数值。因此，数值的表示在范围和精度上都是有限制的。<br>标准Lua使用64个比特位来存储整型值，其最大值为$2^{63}-1$，约等于$10^{19}$；精简Lua使用32个比特位存储整型值，其最大值约为20亿。数学库中的常量定义了整型值的最大值(math.maxinteger)和最小值(math.mininteger)。<br>64位整型值中的最大值是一个很大的数值：全球财富总和（按美分计算）的数千倍和全球人口总数的数十亿倍。尽管这个数值很大，但是仍然有可能发生溢出。当我们在整型数操作时出现比mininteger更小或者比maxinteger更大的数值时，结果就会回环。<br>在数学领域，回环的意思是结果只能在mininteger和maxinteger之间，也就是对$2^{64}$取模的算术结果。在计算机领域，回环的意思是丢弃最高进位。假设最高进位存在，其将是第65个比特位，代表$2^{64}$。因此，忽略第65个比特位不会改变值对$2^{64}$取模的结果。在Lua语言中，这种行为对所有涉及整型值的算术运算都是一致且可预测的：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.maxinteger + <span class="number">1</span> == <span class="built_in">math</span>.mininteger			<span class="comment">--ture</span></span><br><span class="line">&gt;<span class="built_in">math</span>.mininteger - <span class="number">1</span> == <span class="built_in">math</span>.maxinteger			<span class="comment">--true</span></span><br><span class="line">&gt;-<span class="built_in">math</span>.mininteger == <span class="built_in">math</span>.mininteger			<span class="comment">--true</span></span><br><span class="line">&gt;<span class="built_in">math</span>.mininteger // <span class="number">-1</span> == <span class="built_in">math</span>.mininteger		<span class="comment">--true</span></span><br></pre></td></tr></table></figure>
-<p>最大可以表示的证书是0x7ff…fff，即除最高位（符号位，零为非负整数）外其余比特位均为1.当我们对0x7ff…fff加1时，其结果变为0x800…000，即最小可表示的整数。最小整数比最大整数的表示幅度大1：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.maxinteger		<span class="comment">--9223372036854775807</span></span><br><span class="line">&gt;<span class="number">0x7fffffffffffffff</span>		<span class="comment">--9223372036854775807</span></span><br><span class="line">&gt;<span class="built_in">math</span>.maxinteger		<span class="comment">--9223372036854775808</span></span><br><span class="line">&gt;<span class="number">0x8000000000000000</span>		<span class="comment">--9223372036854775808</span></span><br></pre></td></tr></table></figure>
-<p>对于浮点数而言，标准Lua使用双精度。标准Lua使用64个比特位表示所有数值，其中11位为指数。双精度浮点数可以表示具有大致16个有效十进制位的数，范围从$-10^{308}$到$10^{308}$。精简Lua使用32个比特位表示的单精度浮点数，大致具有7个有效十进制位，范围从$-10^{38}$到$10^{38}$。<br>双精度浮点数对于大多数实际应用而言是足够大的，但是我们必须了解精度的限制。如果我们使用十位表示一个数，那么1&#x2F;7会被取整到0.142857142。如果我们使用十位计算1&#x2F;7 * 7，结果会是0.999999994而不是1。此外，用十进制表示的有限小数在用二进制表示时可能是无线小数。例如，12.7 -20 + 7.3即便是用双精度表示也不是0，这是由于12.7和7.3的二进制表示不是有限小数。<br>由于整型值和浮点型值的表示范围不同，因此当超过它们的表示范围时，整型值和浮点型值的算术运算会产生不同的结果：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.maxinteger + <span class="number">2</span>		<span class="comment">-- -9223372036854775807</span></span><br><span class="line">&gt;<span class="built_in">math</span>.maxinteger + <span class="number">2.0</span>      <span class="comment">-- 9.2233720368548e + 18</span></span><br></pre></td></tr></table></figure>
-<p>在上例中，两个结果从数学的角度看都是错误的，而且它们错误的方式不同。第一行对最大可表示整数进行了整型求和，结果发生了回环。第二行对最大可表示整数进行了浮点型求和，结果被取整成了一个近似值，这可以通过如下的比较运算证明：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.maxinteger + <span class="number">2.0</span> == <span class="built_in">math</span>.maxinteger + <span class="number">1.0</span>   <span class="comment">-- true</span></span><br></pre></td></tr></table></figure>
-<p>尽管每一种表示方法都有其优势，但是只有浮点型才能表示小数。浮点数的值可以表示很大的范围，但是浮点型能够表示的整数范围被精确地限制[$-2^{53}$,$2^{53}$]之间。在这个范围内，我们基本可以忽略整型和浮点型的区别；超出这个范围后，我们则应该谨慎地思考所使用的表示方式。</p>
-<h2 id="惯例"><a href="#惯例" class="headerlink" title="惯例"></a>惯例</h2><p>我们可以简单地通过增加0.0的方法将整型值强制转换为浮点型值，一个整型值总是可以被转换成浮点型值：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">-3</span> + <span class="number">0.0</span> 				<span class="comment">-- -3.0</span></span><br></pre></td></tr></table></figure>
-<p>小于$2^{53}$的所有整型值的表示与双精度浮点型值的表示一样，对于绝对值超过了这个值的整型值而言，在将其强制转换为浮点型值时可能导致精度损失：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">9007199254740991</span> + <span class="number">0.0</span> == <span class="number">90071992547440991</span>		<span class="comment">--true</span></span><br><span class="line">&gt; <span class="number">9007199254740992</span> + <span class="number">0.0</span> == <span class="number">90071992547440992</span>		<span class="comment">--true</span></span><br><span class="line">&gt; <span class="number">9007199254740993</span> + <span class="number">0.0</span> == <span class="number">90071992547440993</span>		<span class="comment">--false</span></span><br></pre></td></tr></table></figure>
-<p>在最后一行中，$2^{53} + 1$的结果被取整为$2^{53}$，打破了等式，表达式结果为false。<br>通过与零进行按位或运算，可以把浮点型值强制转换为整型值:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">2</span>^<span class="number">53</span>				<span class="comment">-- 9.007199254741e+15 (浮点型值)</span></span><br><span class="line">&gt; <span class="number">2</span>^<span class="number">53</span>|<span class="number">0</span>			<span class="comment">-- 9007199254730992	  (整型值)</span></span><br></pre></td></tr></table></figure>
-<p>在将浮点型值强制转换为整型值时，Lua语言会检查数值是否与整型值表示完全一致，即没有小数部分且其值在整型值的表示范围内，如果不满足条件则会抛出异常：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">3.2</span>|<span class="number">0</span>             <span class="comment">--小数部分</span></span><br><span class="line"><span class="built_in">stdin</span>:<span class="number">1</span>: number has no integer representation</span><br><span class="line">&gt; <span class="number">2</span>^<span class="number">64</span>|<span class="number">0</span>            <span class="comment">--超出范围</span></span><br><span class="line"><span class="built_in">stdin</span>:<span class="number">1</span>: number has no integer representation</span><br><span class="line">&gt;<span class="built_in">math</span>.<span class="built_in">random</span>(<span class="number">1</span>,<span class="number">3.5</span>)</span><br><span class="line"><span class="built_in">stdin</span>:<span class="number">1</span>: bad argument #<span class="number">2</span> to <span class="string">&#x27;random&#x27;</span>（数值没有用整型表示）</span><br></pre></td></tr></table></figure>
-<p>对小数进行取整必须显示地调用取整函数。<br>另一种把数值强制转换为整型值的方式是使用函数math.tointeger，该函数会在输入参数无法转换为整型值时返回nil:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">math</span>.tointeger(<span class="number">-258.0</span>)			<span class="comment">-- -258</span></span><br><span class="line">&gt;<span class="built_in">math</span>.tointeger(<span class="number">2</span>^<span class="number">30</span>)			<span class="comment">-- 1073741824</span></span><br><span class="line">&gt;<span class="built_in">math</span>.tointeger(<span class="number">5.01</span>)			<span class="comment">-- nil   (不是整数)</span></span><br><span class="line">&gt;<span class="built_in">math</span>.tointeger(<span class="number">2</span>^<span class="number">64</span>)			<span class="comment">-- nil	 (超出范围)</span></span><br></pre></td></tr></table></figure>
-<p>这个函数在需要检查一个数字能否被转换为整型值时尤为有用。例如，以下函数在可能时会将输入参数转换为整型值，否则将保持原来的值不变：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cond2int</span><span class="params">(x)</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">math</span>.tointerger(x) <span class="keyword">or</span> x</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h2><p>Lua语言中的运算符优先级如下（从高到低）</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">^</span><br><span class="line">一元运算符（-  #  ~  <span class="keyword">not</span> )</span><br><span class="line">*    /    //    %</span><br><span class="line">+    -</span><br><span class="line">..(连续)</span><br><span class="line">&lt;&lt;    &gt;&gt; （按位移位）</span><br><span class="line">&amp;（按位与）</span><br><span class="line">~（按位异或）</span><br><span class="line">|（按位或）</span><br><span class="line">&lt;    &gt;    &lt;=    &gt;=    ~=    ==</span><br><span class="line"><span class="keyword">and</span></span><br><span class="line"><span class="keyword">or</span></span><br></pre></td></tr></table></figure>
-<p>在二元运算符中，除了幂运算和链接操作符是右结合的外，其他运算符都是左结合的。因此，以下表达式的左右两边等价：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a + i &lt; b/<span class="number">2</span> + <span class="number">1</span>     &lt;<span class="comment">--&gt; (a + i) &lt; ((b/2) + 1)</span></span><br><span class="line"><span class="number">5</span> + x^<span class="number">2</span>*<span class="number">8</span>			&lt;<span class="comment">--&gt; 5 + ((x^2) * 8)</span></span><br><span class="line">a &lt; y <span class="keyword">and</span> y &lt;= z    &lt;<span class="comment">--&gt; (a &lt; y) and (y &lt;= z)</span></span><br><span class="line">-x^<span class="number">2</span>				&lt;<span class="comment">--&gt; -(x^2)</span></span><br><span class="line">x^y^z				&lt;<span class="comment">--&gt; x^(y^z)</span></span><br></pre></td></tr></table></figure>
-<p>当不能确定某些表达式的运算符优先级时，应该显示地用括号来指定所希望的运算次序。</p>
-
+          <p>我们可以使用科学计数法（一个可选的十进制部分外加一个可选的十进制指数部分）书写数值常量，例如：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/06/Lua%E4%B8%AD%E7%9A%84%E6%95%B0%E5%80%BC/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -394,7 +395,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-16 11:26:59" itemprop="dateModified" datetime="2024-05-16T11:26:59+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -418,70 +419,14 @@
 
       
           <p>遵照惯例，我们的第一个Lua程序时通过标准输出打印字符串”Hello World”:<br><code>print(&quot;Hello World&quot;)</code></p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>如果读者使用的是Lua语言独立解释器(stand-alone interpreter)，要运行这第一个程序的话，直接调用解释器运行包含程序代码的文本文件就可以了。例如，如果把上述代码保存为名hello.lua的文件，那么可以通过以下命令运行：<br><code>% lua hello.lua</code></p>
-<p>再来看一个稍微复杂点的例子，以下代码定义了一个计算阶乘的函数，该函数先让用户输入一个数，然后打印出这个数的阶乘结果：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--定义一个计算阶乘的函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fact</span><span class="params">(n)</span></span></span><br><span class="line">	<span class="keyword">if</span> n  == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> n * fact(n<span class="number">-1</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;enter a number:&quot;</span>)</span><br><span class="line"></span><br><span class="line">a = <span class="built_in">io</span>.<span class="built_in">read</span>(<span class="string">&quot;*n&quot;</span>)  <span class="comment">--读取一个数字</span></span><br><span class="line"><span class="built_in">print</span>(fact(a))</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-1-程序段"><a href="#1-1-程序段" class="headerlink" title="1.1 程序段"></a>1.1 程序段</h2><p>我们将Lua语言执行的每一段代码称为一个*程序段(Chunk)*，即一组命令或表达式组成的序列。<br>程序段既可以简单到只由一句表达式构成，也可以由多句表达式和函数定义（实际是复制表达式，后面会详细介绍）组成（例如计算阶乘的示例）。程序段在大小上并没有限制，事实上，由于Lua语言也可以被用作数据定义语言，所以几MB的程序段也很常见。Lua语言的解释器可以支持非常大的程序段。<br>除了将源码保存成文件外，我们有也可以直接在交互式模式(interactive mode)下运行独立解释器。当不带参数第调用lua时，可以看到如下的输出:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">% lua</span><br><span class="line">Lua <span class="number">5.3</span> Copyright(C)<span class="number">1994</span><span class="number">-2016</span> Lua.org, PUC-Rio</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-<p>此后，输入的每一条命令都会在按下回车键后立即执行。我们可以通过输入<code>EPF</code>控制字符，或调用操作系统库的<code>exit</code>函数（执行<code>os.exit()</code>）退出交互模式。<br>从Lua5.3版本开始，可以直接在交互模式下输入表达式，Lua语言会输出表达式的值，例如：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">% lua</span><br><span class="line">Lua <span class="number">5.3</span> Copyright(C)<span class="number">1994</span><span class="number">-2016</span> Lua.org, PUC-Rio</span><br><span class="line">&gt; <span class="built_in">math</span>.<span class="built_in">pi</span> / <span class="number">4</span>         <span class="comment">--0.78539816339745</span></span><br><span class="line">&gt; a = <span class="number">15</span></span><br><span class="line">&gt; a^<span class="number">2</span>                 <span class="comment">--225</span></span><br><span class="line">&gt; a + <span class="number">2</span>               <span class="comment">--7</span></span><br></pre></td></tr></table></figure>
-<p>要以代码段的方式运行代码（不在交互模式下），那么必须把表达式包在函数<code>print</code>的调用中：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">math</span>.<span class="built_in">pi</span>/<span class="number">4</span>)</span><br><span class="line">a = <span class="number">15</span></span><br><span class="line"><span class="built_in">print</span>(a^<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(a + <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-<p>在交互模式下，Lua语言解释器一般会把我们输入的每一行当做完整的程序块或表达式解释执行。但是，如果Lua语言解释器发现我们输入的某一行不完成，那么它会等待直到程序块或表达式被输入完整后再进行解释执行。这样，我们也可以直接在交互模式下输入一个像阶乘函数示例那样的由多行组成的多行定义。不过，对于这种较长的函数定义而言，将其保存文件然后再调用独立解释器来执行通常更方便。<br>我们可以使用<code>-i</code>参数让Lua语言解释器在执行完制定的程序段后进入交互模式：<br><code>% lua -i prog</code><br>上述命令会在执行完文件prog中的程序后进入交互模式，这对于调试和手工测试很有用。在本章的最后，我们会学习有关独立解释器的更多参数。<br>另一种运行程序段的方式调用函数<code>dofile</code>，该函数会立即执行一个文件。例如，假设我们有一个如下所示的文件lib1.lua:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">norm</span><span class="params">( x,y )</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">math</span>.<span class="built_in">sqrt</span>(x^<span class="number">2</span> + y^<span class="number">2</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">twice</span> <span class="params">(x)</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">2.0</span> * x</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>然后，在交互模式下运行：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">dofile</span>(<span class="string">&#x27;lib1.lua&#x27;</span>)   <span class="comment">--加载文件</span></span><br><span class="line">&gt;n = norm(<span class="number">3.4</span>,<span class="number">1.0</span>)</span><br><span class="line">&gt;twice(n)             <span class="comment">--7.088018058677</span></span><br></pre></td></tr></table></figure>
-<p>函数dofile在开发阶段也非常有用。我们可以同时打开两个窗口，一个窗口中使用文件编辑器编辑代码，另一个窗口中使用交互模式运行Lua语言解释器。当修改完代码并保存后，只要在Lua语言交互模式的提示符下执行dofile(“prog.lua”)就可以加载新代码，然后就可以观察新代码的函数调用和执行结果了。</p>
-<h2 id="1-2-一些语法规范"><a href="#1-2-一些语法规范" class="headerlink" title="1.2 一些语法规范"></a>1.2 一些语法规范</h2><p>Lua语言中的标识符是由任意字母、数字和下划线组成的字符串（注意不能用数字开头），例如：<br><code>i</code>,<code>j</code>,<code>i1</code>,<code>j1</code>,<code>_i</code>,<code>abc</code><br>“下划线 + 大写字母”组成的标识符通过被Lua语言用作特殊用途，应避免将其用作其他用途。我们通常将“下划线 + 小写字母”用作哑变量。<br>以下是Lua语言的保留字，它们不能被用作标识符：<br><code>and</code>,<code>brask</code>,<code>do</code>,<code>else</code>,<code>elseif</code>,<code>end</code>,<code>false</code>,<code>goto</code>,<code>for</code>,<code>function</code>,<code>if</code>,<code>in</code>,<code>local</code>,<code>nil</code>,<code>not</code>,<code>or</code>,<code>repeat</code>,<code>return</code>,<code>then</code>,<code>true</code>,<code>until</code>,<code>while</code><br>Lua语言是对大小写敏感的，因而<code>and</code>是保留字，但是<code>And</code>和<code>AND</code>就是两个不同的标识符。<br>Lua语言中使用两个连续的连字符（–）表示单行注释，使用两个连续的连字符加两对左方括号表示长注释或多行注释的开始，指导两个连续的右括号为止，中间都是注释，例如：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--[[多行</span></span><br><span class="line"><span class="comment">长注释</span></span><br><span class="line"><span class="comment">]]</span></span><br></pre></td></tr></table></figure>
-<p>在注释一段代码时，一个常见的技巧是将这些代码放入–[[和–]]之间，例如：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">print(10)   --无动作，被注释掉了</span></span><br><span class="line"><span class="comment">--]]</span></span><br></pre></td></tr></table></figure>
-<p>当我们需要重新启用这段代码时，只需要在第一行行首添加一个连字符即可：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">---[[</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">10</span>)      <span class="comment">--10</span></span><br><span class="line"><span class="comment">--]]</span></span><br></pre></td></tr></table></figure>
-<p>在第一个示例中，第一行的–[[表示一段多行注释的开始，直到两个连续的右括号这段多行注释才会结束，因而尽管最后一行有两个连续的连字符，但由于这两个连字符在最后两个右括号之前，所以仍然被注释掉了。在第二个示例中，由于第一行的–[[实际是单行注释，因此最后一行实际上也是一条独立的单行注释（最后的两个连续右方括号没有与之匹配的–[[），print并没有被注释掉。<br>在Lua语言中，连续语句之间的分隔符并不是必需的，如果有需要的话可以使用分号来进行分割。在Lua语言中，表达式之间的换行也不起任何作用。例如，以下4个程序段都是合法且等价的：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span> </span><br><span class="line">b = a * <span class="number">2</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span>;</span><br><span class="line">b = a * <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span>; b = a * <span class="number">2</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span> b = a * <span class="number">2</span></span><br></pre></td></tr></table></figure>
-<p>这个根据个人习惯来。</p>
-<h2 id="1-3-全局变量"><a href="#1-3-全局变量" class="headerlink" title="1.3 全局变量"></a>1.3 全局变量</h2><p>在Lua语言中，全局变量无须声明即可使用，使用未经初始化的全局变量也不会导致错误。当使用未经初始化的全局变量时，得到的结果是<code>nil</code>：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; b      <span class="comment">-- nil</span></span><br><span class="line">&gt; b = <span class="number">10</span> </span><br><span class="line">&gt; b      <span class="comment">--10</span></span><br></pre></td></tr></table></figure>
-<p>当把<code>nil</code>赋值给全局变量时，Lua会回收改全局变量（就像该全局变量从来没有出现过一样），例如：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; b = <span class="literal">nil</span></span><br><span class="line">&gt; b         			<span class="comment">--nil</span></span><br></pre></td></tr></table></figure>
-<p>Lua语言不区分为初始化变量和被赋值为nil的变量。在上述赋值语句执行后，Lua语言会最终回收该变量占用的内存。</p>
-<h2 id="1-4类型和值"><a href="#1-4类型和值" class="headerlink" title="1.4类型和值"></a>1.4类型和值</h2><p>Lua语言是一种动态类型的语言，在这种语言中没有类型定义，每个值都带有其自身的类型信息。<br>Lua语言中有8个基本类型：nil（空）、bloolean（布尔）、number（数值）、string（字符串）、userdata（用户数据）、function（函数）、thread（线程）和table（表）。使用函数type可获取一个值对应的类型名称：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">type</span>(<span class="literal">nil</span>)			<span class="comment">-- nil</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="literal">true</span>)			<span class="comment">-- boolean</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="number">10.4</span>*<span class="number">3</span>)		<span class="comment">--number</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="string">&quot;Hello World&quot;</span>)<span class="comment">--string</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="built_in">io</span>.<span class="built_in">stdin</span>)		<span class="comment">--userdata</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="built_in">print</span>)		<span class="comment">--function</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="built_in">type</span>)			<span class="comment">--thread</span></span><br><span class="line">&gt;<span class="built_in">type</span>(&#123;&#125;)			<span class="comment">--table</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="built_in">type</span>(X))		<span class="comment">--string</span></span><br></pre></td></tr></table></figure>
-<p>不管X是什么，最后一行返回的永远是“string”。这是因为函数type的返回值永远是一个字符串。<br>userdata类型允许把任意的C语言数据保存在Lua语言变量中。在Lua语言中，用户数据类型除了赋值和相等性测试外，没有其他预定义的操作。用户数据被用来表示由应用或C语言编写的库所创建的新类型。例如，标准I&#x2F;O库使用用户数据来表示打开的文件。我们会在后面设计C API时再讨论更多的相关内容。<br>变量没有预定义的类型，任何变量都可以包含任何类型的值：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">type</span>(a)		<span class="comment">-- nil(a没有初始化)</span></span><br><span class="line">&gt;a = <span class="number">10</span></span><br><span class="line">&gt;<span class="built_in">type</span>(a)		<span class="comment">--number</span></span><br><span class="line">&gt;a = <span class="string">&quot;a string!&quot;</span></span><br><span class="line">&gt;<span class="built_in">type</span>(a)		<span class="comment">--string</span></span><br><span class="line">&gt;a = <span class="literal">nil</span> </span><br><span class="line">&gt;<span class="built_in">type</span>(a)		<span class="comment">--nil</span></span><br></pre></td></tr></table></figure>
-<p>一般情况下，将一个变量用作不同类型时会导致代码的可读性不佳；但是，在某些情况下谨慎地使用这个特行可能会带来一定程度的便利。例如，当代码发生异常时可以返回一个nil以区别于其他正常情况下的返回值。</p>
-<h3 id="1-4-1-nil"><a href="#1-4-1-nil" class="headerlink" title="1.4.1 nil"></a>1.4.1 nil</h3><p>nil是一种只有一个nil值的类型，它的主要作用就是与其他所有值进行区分。Lua语言使用nil来表示无效值的情况。像我们所学习的其他语言，一个全局变量在第一次被赋值前的默认值就是nil，而将nil赋值给全局变量则相当于将其删除。</p>
-<h3 id="1-4-2-boolean"><a href="#1-4-2-boolean" class="headerlink" title="1.4.2 boolean"></a>1.4.2 boolean</h3><p>boolean类型具有两个值，<em>true</em>和<em>false</em>，它们分别代表了传统布尔值。不过，在Lua语言中，Boolean值并非是用于条件测试的唯一方式，任何值都可以表示条件。在Lua语言中，条件测试将除Boolean值false和nil外的所有其他值视为真。特别的是，在条件检测中Lua语言把零和空字符串也都视为真。<br>Lua语言支持常见的逻辑运算符：<code>and</code>,<code>or</code>和<code>not</code>。和条检测试一样，所有的逻辑运算将Boolean类型的false和nil当做假，而把其他值当作真。</p>
-<h2 id="1-5-独立解释器"><a href="#1-5-独立解释器" class="headerlink" title="1.5 独立解释器"></a>1.5 独立解释器</h2><p>独立解释器是一个可以直接使用Lua语言的小程序。<br>如果源代码文件第一行以井号（#）开头，那么解释器在加载该文件时会忽略这一行。这个特征主要是为了方便在POSIX系统中将Lua作为一种脚本解释器来使用。假设独立解释器位于&#x2F;usr&#x2F;local&#x2F;bin下，当使用下列脚本:<br><code>#!/usr/local/bin/lua</code><br>或<br><code>#!/usr/bin/env lua</code><br>时，不需要显式地调用Lua语言解释器也可以直接运行Lua脚本。<br>lua命令的完整参数如：<br><code>lua [options] [script [args]]</code><br>其中，所有的参数都是可选的。如前所述，当不使用任何参数调用lua时，就会直接进入交互模式。<br> -e参数允许我们直接在命令行中输入代码，例如</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% lua -e <span class="string">&quot;print(math.sin(12))&quot;</span> </span><br></pre></td></tr></table></figure>
-<p>请注意，在POSIX系统下需要使用双引号，以防止Shell错误第解析括号。<br>-l参数用于加载库。正如之前提到的那样，-i参数用于在运行完其他命令行参数后进入交互模式。因此，下面的命令会首先加载lib库，然后执行x&#x3D;10的赋值语句，并最终进入交互模式：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% lua -i -llib -e <span class="string">&quot;x = 10&quot;</span></span><br></pre></td></tr></table></figure>
-<p>如果在交互模式下输入表达式，那么解释器会输出表达式求值后的结果：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">math</span>.<span class="built_in">sin</span>(<span class="number">3</span>)</span><br><span class="line">&gt; a = <span class="number">30</span> </span><br><span class="line">&gt; a 			<span class="comment">--30</span></span><br></pre></td></tr></table></figure>
-<p>请记住，这个特征只在Lua5.3及之后的版本中才有效。在之前的版本中，必须在表达式前加上一个等号。如果不想输出结果，那么可以在行末加上一个分号：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">io</span>.<span class="built_in">flush</span>()	<span class="comment">--true</span></span><br><span class="line">&gt; <span class="built_in">io</span>.<span class="built_in">flush</span>();</span><br></pre></td></tr></table></figure>
-<p>分号使得最后一行在语法上变成了无效的表达式，但可以被当作有效命令执行。<br>解释器在处理参数前，会查找名为<code>LUA_INIT_5_3</code>的环境变量，如果找不到，就会再查找名为<code>LUA_INIT</code>的环境变量。如果这两个环境变量中的任意一个存在，并且其内容为<code>@filename</code>，那么解释器就会运行相应的文件；如果这两个环境变量存在，但是不以@开头，那么解释器就会认为其包含Lua代码，并会对其进行解释执行。由于可以通过上面的方法完整地配置Lua，因而LUA_INIT使得我们可以灵活地配置独立解释器。例如，我们可以预先加载程序包、修改路径、定义自定义函数、对函数进行重命名或删除函数，等等。<br>我们可以通过预先定义的全局变量arg来获取解释器传入的参数。例如，当执行如下命令时：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% lua script a b c</span><br></pre></td></tr></table></figure>
-<p>编辑器在运行代码前或创建一个名为arg的表，其中存储了所有的命令行参数。索引0中保存的内容为脚本名，索引1中保存的内容为第一个参数，以此类推；而在脚本之前的所有选项则位于负数索引上，例如：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% lua -e <span class="string">&quot;sin = math.sin&quot;</span> script a b</span><br></pre></td></tr></table></figure>
-<p>解释器按照如下的方式获取参数:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">arg</span>[<span class="number">-3</span>] = <span class="string">&quot;lua&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">-2</span>] = <span class="string">&quot;-e&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">-1</span>] = <span class="string">&quot;sin = math.sin&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">0</span>]  = <span class="string">&quot;script&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">1</span>]  = <span class="string">&quot;a&quot;</span></span><br><span class="line"><span class="built_in">arg</span>[<span class="number">2</span>]  = <span class="string">&quot;b&quot;</span></span><br></pre></td></tr></table></figure>
-<p>一般情况下，脚本只会用到索引为证书的参数。<br>Lua语言也支持可变长参数，可以通过可变长参数表达式来获取。在脚本文件中，表达式…（3个点）表示传递给脚本的所有参数。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/01/Lua%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -531,7 +476,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-16 11:26:47" itemprop="dateModified" datetime="2024-05-16T11:26:47+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -555,27 +500,14 @@
 
       
           <p>今天在写游戏的时候，遇到了一个数据问题，就开始查资料</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>代码如下</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- Deep copies a table into a new table.</span></span><br><span class="line"><span class="comment">-- Tables used as keys are also deep copied, as are metatables</span></span><br><span class="line"><span class="comment">-- @param orig The table to copy</span></span><br><span class="line"><span class="comment">-- @return Returns a copy of the input table</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">deep_copy</span><span class="params">(orig)</span></span></span><br><span class="line">  <span class="keyword">local</span> copy</span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">type</span>(orig) == <span class="string">&quot;table&quot;</span> <span class="keyword">then</span></span><br><span class="line">    copy = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> orig_key, orig_value <span class="keyword">in</span> <span class="built_in">next</span>, orig, <span class="literal">nil</span> <span class="keyword">do</span></span><br><span class="line">      copy[deep_copy(orig_key)] = deep_copy(orig_value)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="built_in">setmetatable</span>(copy, deep_copy(<span class="built_in">getmetatable</span>(orig)))</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    copy = orig</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">return</span> copy</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--- Copies a table into a new table.</span></span><br><span class="line"><span class="comment">-- neither sub tables nor metatables will be copied.</span></span><br><span class="line"><span class="comment">-- @param orig The table to copy</span></span><br><span class="line"><span class="comment">-- @return Returns a copy of the input table</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">shallow_copy</span><span class="params">(orig)</span></span></span><br><span class="line">  <span class="keyword">local</span> copy</span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">type</span>(orig) == <span class="string">&quot;table&quot;</span> <span class="keyword">then</span></span><br><span class="line">    copy = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> orig_key, orig_value <span class="keyword">in</span> <span class="built_in">pairs</span>(orig) <span class="keyword">do</span></span><br><span class="line">      copy[orig_key] = orig_value</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">else</span> <span class="comment">-- number, string, boolean, etc</span></span><br><span class="line">    copy = orig</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">return</span> copy</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>例子如下：<br>深拷贝</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> a = &#123; aa = <span class="number">1</span>, bb = <span class="number">2</span>, cc = &#123; dd = &#123; ee = <span class="number">3</span> &#125; &#125; &#125;</span><br><span class="line"><span class="comment">--local b = deep_copy(a)</span></span><br><span class="line"><span class="keyword">local</span> b = shallow_copy(a)</span><br><span class="line">b.cc.dd.ee = <span class="number">111</span></span><br><span class="line">b.bb = <span class="number">111</span></span><br><span class="line">ngx.say(cjson.encode(a))</span><br><span class="line">ngx.say(cjson.encode(b))</span><br></pre></td></tr></table></figure>
-<p>结果：{“aa”:1,”bb”:2,”cc”:{“dd”:{“ee”:111}}}<br>{“aa”:1,”bb”:111,”cc”:{“dd”:{“ee”:111}}}</p>
-<p>浅拷贝</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> men = &#123; mkey = <span class="number">555</span> &#125;</span><br><span class="line"><span class="keyword">local</span> a = &#123; aa = <span class="number">1</span>, bb = <span class="number">2</span>, cc = &#123; dd = &#123; ee = &#123; ff = <span class="number">3</span> &#125; &#125; &#125; &#125;</span><br><span class="line"><span class="built_in">setmetatable</span>(a, &#123; <span class="built_in">__index</span> = men &#125;)</span><br><span class="line"><span class="keyword">local</span> b = deep_copy(a)</span><br><span class="line"></span><br><span class="line">ngx.say(a.cc.dd.ee.ff)</span><br><span class="line">ngx.say(a.mkey)</span><br><span class="line">ngx.say(b.mkey)</span><br></pre></td></tr></table></figure>
-<p>3<br>555<br>555</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/27/Lua%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -625,7 +557,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-16 11:28:46" itemprop="dateModified" datetime="2024-05-16T11:28:46+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -649,30 +581,14 @@
 
       
           <p>最近在工作中经常需要从git拉取到一些项目到本地，但是因为本地项目被我自己修改，所以无法用传统的方式将远程仓库的项目拉取下来。下面介绍一种远程仓库强制拉取项目到本地的方法。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<blockquote>
-<p>除非必须强制，不要轻易使用。</p>
-</blockquote>
-<p><strong>需要将这些更新取回本地，用命令<code>git fetch</code>.</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch --all</span><br></pre></td></tr></table></figure>
-<p><strong>撤销本地、暂存区、版本库(用远程服务器的origin&#x2F;master替换本地、暂存区、版本库)</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard origin/master</span><br></pre></td></tr></table></figure>
-
-<p><strong>git pull来从远程仓库”同步”代码</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
-<p>或者用下面一行命令<br><strong>git强制覆盖本地命令（单条执行）：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch --all &amp;&amp; git reset --hard origin/master &amp;&amp; git pull</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/11/15/git%E5%BC%BA%E5%88%B6%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E9%A1%B9%E7%9B%AE%E8%A6%86%E7%9B%96%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -722,7 +638,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-16 11:28:59" itemprop="dateModified" datetime="2024-05-16T11:28:59+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -746,31 +662,14 @@
 
       
           <p>闲着无聊，在网上找了一些好玩的代码，比如用Python实现微信自动回消息<br>之前弄了一个定时自动给好友发天气或者发心灵鸡汤的脚本，下载链接：<a target="_blank" rel="noopener" href="https://download.csdn.net/download/silent_f/11162951">https://download.csdn.net/download/silent_f/11162951</a></p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-
-<p>今天这里就介绍几个微信接入图灵机器人，自动和好友聊天的脚本</p>
-<h3 id="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"><a href="#1、自动和所有好友聊天，只要好友发消息来，就会给好友回复" class="headerlink" title="1、自动和所有好友聊天，只要好友发消息来，就会给好友回复"></a>1、自动和所有好友聊天，只要好友发消息来，就会给好友回复</h3><p>这里笔者用的是3.6版本python ,安装itchat,<br>用下面命令</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install itchat </span><br></pre></td></tr></table></figure>
-<p>然后去图灵机器人官网注册账号，获取一个key</p>
-<p>具体代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> itchat</span><br><span class="line"><span class="keyword">import</span> importlib,sys </span><br><span class="line">importlib.reload(sys)</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_response</span>(<span class="params">_info</span>):</span><br><span class="line">    <span class="built_in">print</span>(_info)                                       <span class="comment"># 从好友发过来的消息</span></span><br><span class="line">    api_url = <span class="string">&#x27;http://www.tuling123.com/openapi/api&#x27;</span>   <span class="comment"># 图灵机器人网址</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;key&#x27;</span>: <span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>,     <span class="comment"># 如果这个 apiKey 如不能用，那就注册一次</span></span><br><span class="line">        <span class="string">&#x27;info&#x27;</span>: _info,                                 <span class="comment"># 这是我们从好友接收到的消息 然后转发给图灵机器人</span></span><br><span class="line">        <span class="string">&#x27;userid&#x27;</span>: <span class="string">&#x27;wechat-robot&#x27;</span>,                      <span class="comment"># 这里你想改什么都可以</span></span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(api_url, data=data).json()       <span class="comment"># 把data数据发</span></span><br><span class="line">    <span class="built_in">print</span>(r.get(<span class="string">&#x27;text&#x27;</span>))                               <span class="comment"># 机器人回复给好友的消息</span></span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line"><span class="meta">@itchat.msg_register(<span class="params">itchat.content.TEXT</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">text_reply</span>(<span class="params">msg</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span> + get_response(msg[<span class="string">&quot;Text&quot;</span>])[<span class="string">&quot;text&quot;</span>]</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    itchat.auto_login()                  <span class="comment"># hotReload = True, 保持在线，下次运行代码可自动登录  hotReload=True</span></span><br><span class="line">    itchat.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="2、和指定好友聊天"><a href="#2、和指定好友聊天" class="headerlink" title="2、和指定好友聊天"></a>2、和指定好友聊天</h3><p>代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> wxpy <span class="keyword">import</span> Bot,Tuling,embed,ensure_one</span><br><span class="line">bot = Bot()</span><br><span class="line">my_friend = ensure_one(bot.search(<span class="string">&#x27;张三&#x27;</span>))  <span class="comment">#想和机器人聊天的好友的备注</span></span><br><span class="line">tuling = Tuling(api_key=<span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>)     <span class="comment">#这里是图灵机器人申请后的api</span></span><br><span class="line"><span class="meta">@bot.register(<span class="params">my_friend</span>)  </span><span class="comment"># 使用图灵机器人自动与指定好友聊天</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">reply_my_friend</span>(<span class="params">msg</span>):</span><br><span class="line">    tuling.do_reply(msg)</span><br><span class="line">embed()</span><br></pre></td></tr></table></figure>
-
-<h3 id="3、在指定微信群里聊天"><a href="#3、在指定微信群里聊天" class="headerlink" title="3、在指定微信群里聊天"></a>3、在指定微信群里聊天</h3><p>代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> wxpy <span class="keyword">import</span> Bot,Tuling,embed</span><br><span class="line">bot = Bot(cache_path=<span class="literal">True</span>)</span><br><span class="line">my_group = bot.groups().search(<span class="string">&#x27;8个人儿? ? ? ? ?&#x27;</span>)[<span class="number">0</span>]  <span class="comment"># 更改为自己的群聊名称</span></span><br><span class="line">tuling = Tuling(api_key=<span class="string">&#x27;466856743b3442bf95acb1e21a5218e2&#x27;</span>)  <span class="comment"># 图灵机器人申请的apikey</span></span><br><span class="line"><span class="meta">@bot.register(<span class="params">my_group, except_self=<span class="literal">False</span></span>)  </span><span class="comment"># 使用图灵机器人自动在指定群聊天</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">reply_my_friend</span>(<span class="params">msg</span>):</span><br><span class="line">    <span class="built_in">print</span>(tuling.do_reply(msg))</span><br><span class="line">embed()</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/07/16/python%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E8%87%AA%E5%8A%A8%E8%81%8A%E5%A4%A9/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -820,7 +719,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-05-16 11:24:27" itemprop="dateModified" datetime="2024-05-16T11:24:27+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -844,30 +743,14 @@
 
       
           <p>初学lua，可能会对<code>.</code>和<code>:</code>这两个符号的用法产生疑问，很多时候都会因为这个出错，这里笔者简单介绍下笔者在使用cocos2dx游戏开发中对这两者的认识</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>冒号的作用：定义函数时，给函数添加隐藏的第一个参数<code>self</code>，调用函数时，默认把当前调用者作为第一个参数传递进去。<br>使用冒号后，就相当于我们使用了点号，只是我们不再需要显示的定义<code>self</code>参数以及主动低传递参数。</p>
-<p>在cocos2dx 开发过程中，大部分时候都是使用的冒号</p>
-<p>一般我们在定义函数时会用下面写法</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:onCreate</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-<p>等同于下面写法</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene.onCreate</span><span class="params">(self)</span></span></span><br></pre></td></tr></table></figure>
-
-
-<blockquote>
-<p>笔者个人看法，欢迎大家更正</p>
-</blockquote>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/03/17/Lua%E4%B8%AD%E2%80%9C-%E2%80%9D%E5%92%8C%E2%80%9C-%E2%80%9D%E5%8C%BA%E5%88%AB/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -917,7 +800,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 18:45:01" itemprop="dateModified" datetime="2024-05-14T18:45:01+08:00">2024-05-14</time>
+                <time title="修改时间：2024-05-16 11:29:13" itemprop="dateModified" datetime="2024-05-16T11:29:13+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -941,23 +824,14 @@
 
       
           <p>刚刚在用pip安装ipython时，遇到了下面这个错误</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<blockquote>
-<p>笔者这里用的是python3.7.2版本</p>
-</blockquote>
-<p><img src="https://pic.imgdb.cn/item/664340940ea9cb1403bb81b5.png" alt="在这里插入图片描述"><br>解决方案如下：打开python 的安装路径，到<code>python3.7\Lib\site-packages\pip</code>路径下，打开<br><code>__main__.py</code>文件，修改最后一行，<br>将原本的<code>sys.exit(_main())</code> 改为 <code>sys.exit(_main__._main())</code> ,如下图<br><img src="https://pic.imgdb.cn/item/664340940ea9cb1403bb8198.png" alt="在这里插入图片描述"></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/03/16/pip%E9%97%AE%E9%A2%981/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1007,7 +881,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 18:46:19" itemprop="dateModified" datetime="2024-05-14T18:46:19+08:00">2024-05-14</time>
+                <time title="修改时间：2024-05-16 11:29:44" itemprop="dateModified" datetime="2024-05-16T11:29:44+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1030,23 +904,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>今天在使用python安装ipython时出现了下面错误</p>
-<p><img src="https://pic.imgdb.cn/item/664340d90ea9cb1403bbdb61.png" alt="在这里插入图片描述"></p>
-<p>解决方法很简单，退出python命令行<br>重新输入命令：<code>pip3 install ipython</code> 即可</p>
-<p><img src="https://pic.imgdb.cn/item/664340d90ea9cb1403bbdb4e.png" alt="在这里插入图片描述"></p>
-
+          <p>Xcode各种目录路径和调试方法</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/03/16/pip%E9%97%AE%E9%A2%982/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1096,7 +962,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 18:47:44" itemprop="dateModified" datetime="2024-05-14T18:47:44+08:00">2024-05-14</time>
+                <time title="修改时间：2024-05-16 11:29:58" itemprop="dateModified" datetime="2024-05-16T11:29:58+08:00">2024-05-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1120,151 +986,14 @@
 
       
           <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在游戏中模拟真实的物理世界是比较麻烦的，通常都会交给物理引擎来做，比较知名的物理引擎有Box2D和Chipmunk。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>在Cocos2d-x 2.x中，游戏直接使用物理引擎，引擎提供一个简单的CCPhysicsSprite，处理了物理引擎的body与CCSprite的关系，而物理引擎的其他元素并没有和引擎对应起来，游戏需要选择直接调用Box2D或Chipmunk的API来处理逻辑。然而直接使用物理引擎是比较复杂的，物理引擎的接口参数繁多、复杂、需要开发人员对物理引擎和Coco2d-x都很了解，才能把两者融合得很好。<br>这种情况在Cocos2d-x 3.x中有了改变，全新的Physics Integration，把Chipmunk和Box2D封装到引擎内部，开发者不必关心底层具体用的是哪个物理引擎，也不用直接调用物理引擎的接口。<br>Cocos2d-x 3.x默认使用Chipmunk作为内部物理引擎。<br>Physics Integration 做了以下深度融合：<br>（1）物理世界被融入到Scene中，即当创建一个场景时，可以指定这个场景是否使用物理引擎。<br>（2）Node自带body属性，也就是Sprite自带body属性。<br>（3）对物理引擎的Body(cc.PhysicsBody),Shape(cc.PhysicsShape),Contact(cc.PhysicsContact),Joint(cc.PhysicsJoint),World(cc.PhysicsWold)进行封装抽象，使用更加简单。<br>（4）更简单的碰撞检测监听:EventListenerPhysicsContact.</p>
-<h3 id="创建带物理世界的scene"><a href="#创建带物理世界的scene" class="headerlink" title="创建带物理世界的scene"></a>创建带物理世界的scene</h3><p>使用下面方法创建带物理世界的scene:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> MainScene = class (<span class="string">&quot;MainScene&quot;</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> display.newScene(<span class="string">&quot;MainScene&quot;</span>,&#123;physics = <span class="number">2</span>&#125;)</span><br><span class="line"><span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
-<p>创建后，<code>self:getPhysicsWorld()</code>用来获取场景绑定的物理世界对象。<br><code>PhysicsWorld()</code>默认是带重力的，大小为Vect(0.0f,-98.0f),也可以通过<code>setGravity()</code>方法来改变重力值，如下：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">self</span>:getPhysicsWorld():setGravity(cc.p(<span class="number">0</span>,<span class="number">-100</span>)) </span><br></pre></td></tr></table></figure>
-<p>在调试物理世界中物体运动模拟时，可以使用<code>PyhsicsWorld</code>的<code>setDebugDrawMask()</code>来开启调试模式。它能把物理世界中不可见的shape, joint和contact都可视化。当调试结束需要发布游戏的时候，需要把该<code>debug</code>开关关闭<br>关闭DEBUG，传入参数<code>cc.PhysicsWorld.DEBUGDRAW_NONE</code>。</p>
-<h3 id="创建物理边界"><a href="#创建物理边界" class="headerlink" title="创建物理边界"></a>创建物理边界</h3><p>在物理世界中，所以物体均受重力的影响。物理引擎提供StaticShape创建一个不受重力影响的形状，在Cocos2d-x 2.x中，我们需要了解物理引擎的StaticShape相关的各种参数来完成边界设置。而在Cocos2d-x 3.x中，由<code>cc.PhysicsBody</code>创建边界，然后由<code>Node</code>添加到场景，<code>addChild</code>内部自动碗好吃呢个边界添加到物理世界，<code>Node</code>在这里起中介作用。<br>代码如下：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> size = display.size</span><br><span class="line"><span class="keyword">local</span> body = cc.PhysicsBody:createEdgeBox(size,cc.PHYSICSBODY_MATERIAL_DEFAULT,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">local</span> edgeNode = display.newNode()</span><br><span class="line">edgeNode:setPosition(size.width/<span class="number">2</span>,size.height/<span class="number">2</span>)</span><br><span class="line">edgeNode:setPhysicsBody(body)</span><br><span class="line"><span class="built_in">self</span>:addChild(edgeNode)</span><br></pre></td></tr></table></figure>
-<p><code>cc.PhysicsBody</code>包含很多工程方法，<code>createEdgeBox</code>创建一个不受重力影响的矩形边界,参数含义依次是:<br>      (1)矩形区域大小,这里设置为屏幕大小。<br>      (2)设置材质,可选参数,默认为<code>PHYSICSBODY_ MATERIAL DEFAULT</code>。<br>      (3)边线宽度,可选参数,默认为<code>1</code>。<br>      然后我们创建一个Node,把刚刚创建的body附加到Node上，并设置好Node的position为屏幕中心点。最后把Node添加到scene。<br>      Node的addChild方法,在Cocos2d-x 3. x中有对物理body做处理,它会自动把Node的body设置到scene的PhysicsWorld上去。<br>      PhysicsBody中的工程方法,针对参数设置的body大小，会自动创建对应的PhysicsBody和一个PhysicsShape, 这也是通常情况下,直接使用物理引擎创建一个body需要做的事情。Cocos2d-x 3. x的Physics Integration 极大地简化了使用物理引擎的代码量。</p>
-<h3 id="创建受重力作用的sprite"><a href="#创建受重力作用的sprite" class="headerlink" title="创建受重力作用的sprite"></a>创建受重力作用的sprite</h3><p> 在Cocos2d-x 3.0中创建一个受重力作用的Sprite也很简单。首先来看代码:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> oneSprite = display.newSprite(<span class="string">&quot;game/basketball/image/basketball.png&quot;</span>)</span><br><span class="line"><span class="comment">-- local oneBody = cc.PhysicsBody:createBox(oneSprite:getContentSize(),cc.PHYSICSBODY_MATERIAL_DEFAULT,cc.p(0,0))  --矩形刚体</span></span><br><span class="line"><span class="keyword">local</span> oneBody = cc.PhysicsBody:createCircle(<span class="number">25</span>,cc.PHYSICSBODY_MATERIAL_DEFAULT,cc.p(<span class="number">0</span>,<span class="number">0</span>))      <span class="comment">--圆形刚体   </span></span><br><span class="line">oneBody:setContactTestBitmask(<span class="number">0xFFFFFFFF</span>)</span><br><span class="line">oneBody:applyImpulse(cc.p(<span class="number">0</span>,<span class="number">10000</span>))</span><br><span class="line">oneSprite:setPhysicsBody(oneBody)</span><br><span class="line">oneSprite:setPosition(x,y)</span><br><span class="line"><span class="built_in">self</span>:addChild(oneSprite)</span><br><span class="line"><span class="comment">--onBody:setGravityEnable(false)  --刚体不受重力作用</span></span><br></pre></td></tr></table></figure>
-<p> 首先创建-一个<code>sprite</code>,然后用<code>cc.PhysicsBody:createBox()</code>创建一个矩形的body附加在sprite上。<code>createBox</code> 接受三个参数如下:<br>       (1)参数1,<code>cc. size</code>类型,表示矩形的长宽。<br>       (2)参数2,<code>cc.PhysicsMaterial</code>类型，表示物理材质属性，可选参数，默认为<code>cc. PHYSICSBODY MATERIAL DEFAULT</code>。手动创建材质方法如下:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc. PhysicsMaterial(density, restitution, friction)</span><br></pre></td></tr></table></figure>
-<p> 其中第一个参数表示密度,第二个参数表示反弹力,第三个参数表示摩擦力。<br>(3)参数3,cc.p类型,表示body与中心点的偏移量,可选参数,默认为cc. p(0,0)。类似地,可以用下面的方法创建圆形body:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc. PhysicsBody:createCircle(radius,material,offset)</span><br></pre></td></tr></table></figure>
-<p>不同于矩形的创建，第一个参数是园的半径，第二、三个参数的作用同<code>createBox</code>一样。</p>
-<h3 id="碰撞检测"><a href="#碰撞检测" class="headerlink" title="碰撞检测"></a>碰撞检测</h3><p>在Cocos2d-x 中，事件派发机制做了重构，所有事件均由事件派发器统一管理。物理引擎的碰撞事件也不例外，下面的代码注册碰撞begin回调函数。</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--监听碰撞</span></span><br><span class="line">    <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">onContactBegin</span><span class="params">(contact)</span></span></span><br><span class="line">        <span class="keyword">local</span> tag = contact:getShapeA():getBody():getNode():getTag()</span><br><span class="line">        <span class="comment">-- print(tag)     --碰撞后的回调事件</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> contactListener = cc.EventListenerPhysicsContact:<span class="built_in">create</span>()</span><br><span class="line">    contactListener:registerScriptHandler(onContactBegin,cc.Handler.EVENT_PHYSICS_CONTACT_BEGIN)</span><br><span class="line">    <span class="keyword">local</span> eventDispatcher = cc.Director:getInstance():getEventDispatcher()</span><br><span class="line">    eventDispatcher:addEventListenerWithFixedPriority(contactListener,<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p>碰撞检测的所有事件由<code>cc.EventListenerPhysicsContact</code>的实例来监听,这些事件有如下几类。<br>(1) <code>cc. Handler. EVENT_ PHYSICS_ _CONTACT_ BEGIN</code>,在碰撞刚发生时,触发这个事件,并且在此次碰撞中只会被调用一次。可以通过返回<code>true</code> 或者<code>false</code> 来决定物体是否发生碰撞。需要注意的是，当这个事件的回调函数返回<code>flase</code> 时, <code>EVENT _ PHYSICS_CONTACT_ PRESOLVE</code>和<code>EVENT_ PHYSICS_ CONTACT_ POSTSOLVE</code> 将不会被触发,但<code>EVENT_ PHYSICS_ CONTACT_ SEPERATE</code>必定会触发。<br>(2) <code>cc. Handler. EVENT_ PHYSICS_ CONTACT_ PRESOLVE</code>, 发生在碰撞的每个<code>step</code>,可以通过调用<code>cc.PhysicsContactPreSolve</code>的成员函数来改变碰撞处理的一些参数设定,比如弹力和阻力等。同样可以通过返回<code>true</code>或者<code>false</code>来决定物体是否发生碰撞。<br>(3)<code> cc. Handler. EVENT_ PHYSICS_ CONTACT_ POSTSOLVE</code>,发生在碰撞计算完毕的每个<code>step</code>,可以在此做一些碰撞的后续处理,比如安全的移除某个物体等。<br> (4) <code>cc. Handler. EVENT_ PHYSICS_ CONTACT_ SEPERATE</code>,发生在碰撞结束两物体分离时,同样只会被调用一次。它与<code>onContactBegin</code>必定是成对出现的。<br> 监听器设置完毕,需要加入到引擎导演的事件分发器中。<br> 默认情况下,物理引擎中的物体都不发出碰撞事件,也就是上面的代码中的<code>onContactBegin</code>永远不会调用到。为了解决这个问题,首先需要了解<code>cc. PhysicsBody</code>的三个mask。<br>  (1) <code>CategoryBitmask body</code>,类别掩码,32位整型,也就是可以有32 个不同的类别。默认值为<code>0xFFFFFFFF</code>。<br>  (2) <code>ContactTestBitmask</code>,当两个物体接触时,用一个物体的<code>CategoryBitmask</code>与另一.个物体的<code>ContactTestBitmask</code>做逻辑<code>与</code>运算,不为0时引擎才会新建<code>PhysicsContact</code>对象,发送碰撞事件。<code>ContactTestBitmask</code>的设计是为了优化性能,并不是所有物体之间的碰撞我们都关心,所以这个<code>ContactTestBitmask</code>的默认值为<code>0x00000000</code>。<br>  (3)<code>CollisionBitmask</code>刚体碰撞掩码,当两个物体接触后,用–个物体的<code>CollisionBitmask</code>与另一个物体的<code>CategoryBitmask</code>做逻辑<code>与</code>运算,不为0时才能发生刚体碰撞,默认值为<code>0xFFFFFFFF</code>。<br> 上面的解释说明了每个掩码的作用,而掩码之间的相互作用可归纳如下:<br> (1)<code>CategoryBitmask</code>,是其他两个掩码比较的基础。<br> (2) <code>CategoryBitmask &amp; ContactTestBitmask</code>,决定是否发送事件消息。<br> (3) <code>CategoryBitmask &amp; CollisionBitmask</code>,决定是否产生刚体反弹效果。<br> (4) <code>ContactTestBitmask</code>和<code>CollisionBitmask</code>,互相之间没有联系。</p>
-<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><blockquote>
-<p>下面是main.lua文件的完整代码，单击屏幕任意一点会创建一个精灵，精灵之间相互碰撞后产生回调事件。</p>
-</blockquote>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> MainScene = class (<span class="string">&quot;MainScene&quot;</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> display.newScene(<span class="string">&quot;MainScene&quot;</span>,&#123;physics = <span class="number">2</span>&#125;)</span><br><span class="line"><span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:ctor</span><span class="params">()</span></span></span><br><span class="line">    <span class="built_in">self</span>:getPhysicsWorld():setGravity(cc.p(<span class="number">0</span>,<span class="number">-100</span>))    <span class="comment">--重力</span></span><br><span class="line">    <span class="built_in">self</span>:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)</span><br><span class="line">    <span class="keyword">local</span> size = display.size</span><br><span class="line">    <span class="keyword">local</span> body = cc.PhysicsBody:createEdgeBox(size,cc.PHYSICSBODY_MATERIAL_DEFAULT,<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">local</span> edgeNode = display.newNode()</span><br><span class="line">    edgeNode:setPosition(size.width/<span class="number">2</span>,size.height/<span class="number">2</span>)</span><br><span class="line">    edgeNode:setPhysicsBody(body)</span><br><span class="line">    <span class="built_in">self</span>:addChild(edgeNode)</span><br><span class="line">    <span class="comment">--监听碰撞</span></span><br><span class="line">    <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">onContactBegin</span><span class="params">(contact)</span></span></span><br><span class="line">        <span class="keyword">local</span> tag = contact:getShapeA():getBody():getNode():getTag()</span><br><span class="line">        <span class="comment">-- print(tag)     --碰撞后的回调事件</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> contactListener = cc.EventListenerPhysicsContact:<span class="built_in">create</span>()</span><br><span class="line">    contactListener:registerScriptHandler(onContactBegin,cc.Handler.EVENT_PHYSICS_CONTACT_BEGIN)</span><br><span class="line">    <span class="keyword">local</span> eventDispatcher = cc.Director:getInstance():getEventDispatcher()</span><br><span class="line">    eventDispatcher:addEventListenerWithFixedPriority(contactListener,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">self</span>:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)</span><br><span class="line">    <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">onTouchBegan</span><span class="params">( touch, event )</span></span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>  </span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">onTouchEnded</span><span class="params">( touch, event )</span></span></span><br><span class="line">        <span class="keyword">local</span> location = touch:getLocation()   <span class="comment">--获取鼠标的位置</span></span><br><span class="line">        <span class="keyword">local</span> event_x = location[<span class="string">&quot;x&quot;</span>] <span class="keyword">or</span> <span class="number">0</span>      </span><br><span class="line">        <span class="keyword">local</span> event_y = location[<span class="string">&quot;y&quot;</span>] <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line">        <span class="built_in">self</span>:addSprite(event_x,event_y)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">onTouchMoved</span><span class="params">(touch, event)</span></span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> listener1 = cc.EventListenerTouchOneByOne:<span class="built_in">create</span>()  <span class="comment">--创建一个单点事件监听</span></span><br><span class="line">    listener1:setSwallowTouches(<span class="literal">false</span>)  <span class="comment">--是否向下传递</span></span><br><span class="line">    listener1:registerScriptHandler(onTouchBegan,cc.Handler.EVENT_TOUCH_BEGAN )</span><br><span class="line">    listener1:registerScriptHandler(onTouchMoved,cc.Handler.EVENT_TOUCH_MOVED )</span><br><span class="line">    listener1:registerScriptHandler(onTouchEnded,cc.Handler.EVENT_TOUCH_ENDED )</span><br><span class="line">    <span class="keyword">local</span> eventDispatcher = <span class="built_in">self</span>:getEventDispatcher() </span><br><span class="line">    eventDispatcher:addEventListenerWithSceneGraphPriority(listener1, <span class="built_in">self</span>) <span class="comment">--分发监听事件</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:addSprite</span><span class="params">(x,y)</span></span></span><br><span class="line">    <span class="keyword">local</span> oneSprite = display.newSprite(<span class="string">&quot;game/basketball/image/basketball.png&quot;</span>)</span><br><span class="line">    <span class="comment">-- local oneBody = cc.PhysicsBody:createBox(oneSprite:getContentSize(),cc.PHYSICSBODY_MATERIAL_DEFAULT,cc.p(0,0))  --矩形刚体</span></span><br><span class="line">    <span class="keyword">local</span> oneBody = cc.PhysicsBody:createCircle(<span class="number">25</span>,cc.PHYSICSBODY_MATERIAL_DEFAULT,cc.p(<span class="number">0</span>,<span class="number">0</span>))      <span class="comment">--圆形刚体   </span></span><br><span class="line">    oneBody:setContactTestBitmask(<span class="number">0xFFFFFFFF</span>)</span><br><span class="line">    oneBody:applyImpulse(cc.p(<span class="number">0</span>,<span class="number">10000</span>))</span><br><span class="line">    oneSprite:setPhysicsBody(oneBody)</span><br><span class="line">    oneSprite:setPosition(x,y)</span><br><span class="line">    oneSprite:setTag(<span class="number">101</span>)</span><br><span class="line">    <span class="built_in">self</span>:addChild(oneSprite)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:showWithScene</span><span class="params">(transition, time, more)</span></span></span><br><span class="line">    <span class="built_in">self</span>:setVisible(<span class="literal">true</span>)</span><br><span class="line">    <span class="keyword">local</span> scene = <span class="built_in">self</span></span><br><span class="line">    display.runScene(scene, transition, <span class="built_in">time</span>, more)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">self</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> MainScene</span><br></pre></td></tr></table></figure>
-<p>首先，使用	<code>display.newPhysicsScene</code>作为MainScene的父类,创建一个带物理世界的MainScene。<br>在MainScene:ctor中依次做了下面的初始化工作:<br>(1)修改物理世界的重力,重力是从cc. p(0,0)到setGravity()参数点之间的向量。<br>(2)用<code>cc. PhysicsBody: createEdgeBox</code>在屏幕四周创建物理边界，然后通过节点添加到场景中,它不受重力的影响。<br>(3)注册<code>EVENT_ PHYSICS_ CONTACT_ BEGIN</code>事件的回调函数。</p>
-<blockquote>
-<p>注: onContactBegin需要return true,否则物体碰撞后不发生刚体反弹。</p>
-</blockquote>
-<p>(4)打开物理世界的调试模式,可以在屏幕上看到物理边界以及刚体的框架。<br>(5)注册触摸事件,每次触摸事件到来都会在触摸点创建一个刚体精灵。<br><code>MainScene: addSprite</code>完成精灵的创建以及初始化:<br>(1)xxxx.png是个圆形的图片,通过这种图片创建精灵。<br>(2) <code>cc. PhysicsBody: createCircle</code>创建一个圆形的刚体,注意到它采用了radius作为第一个参数,这样刚体就能完全吻合图片的形状。<br>(3)<code>setContactTestBitmask</code>修改精灵的接触检测掩码,这样精灵之间碰撞就能发出事件。<br>(4)我们还用<code>applyImpulse</code>为刚体施加了一个向，上的瞬时冲力,这样精灵创建后会先向上飞,再掉落下来。<code>applyImpulse</code>是个很有用的接口,在物理世界中,用这个接口来改变物体的运动轨迹,而不是用传统的<code>setPos</code>,否则物理世界的运动将不可预期。<br>(5)<code>setPhysicsBody</code>把物理刚体和精灵都绑定在一起。<br>(6)设置精灵的初始坐标并添加到场景上。<br>快速单机屏幕创建多个精灵，发现它们互相弹开了，这是由于刚体的弹力作用，然后由于受到重力的影响，最终他们都凋落到屏幕下方。<br>设置刚体属性,参数分别是密度，碰撞系数，摩擦力</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.PhysicsMaterial(<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-<h4 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h4><p><img src="https://pic.imgdb.cn/item/664341310ea9cb1403bc2fe2.gif" alt="在这里插入图片描述"></p>
-<h3 id="掩码说明"><a href="#掩码说明" class="headerlink" title="掩码说明"></a>掩码说明</h3><pre><code>  categoryBitmask：
-
-分类掩码，定义了物体属于哪个分类。场景中的每个物理刚体可以被赋值一个多达32位的值(因为categoryBitmask为int型),每个对应32位掩码中的每一位，你在你的游戏中定义掩码值。结合collisionBitMask和contactTestBitMask属性， 你可以定义哪些物理刚体相互作用并且你的游戏何时接受这些相互作用的通知。默认值为0xFFFFFFFF(所有位都被设置)。
-
-contactTestBitmask：
-
-接触测试掩码，定义哪些刚体分类可以与本刚体产生相互作用的通知。当两个刚体在同一个空间，即物理世界中，每个刚体的分类掩码会和其他刚体的接触测试掩码进行逻辑与的运算。如果任意一个比较结果为非零值，产生一个PhysicsContact对象并且传递到物理世界协议中，这里协议指我们的监听器对应的回调函数。 为了最好的性能，仅设置你感兴趣的接触测试掩码中的位，也就是说通过设置接触测试掩码，你可以决定发生碰撞后，回调函数是否有响应。默认值为0x00000000(所有位都被清除)。
-
-collisionBitmask：
-
-碰撞掩码，定义了哪些物理刚体分类可以和这个物理刚体发生碰撞。当两个物理刚体相互接触时，可能发生碰撞。这个刚体的碰撞掩码和另一个刚体的分类掩码进行逻辑与运算比较。如果结果是一个非零值，这个刚体会发生碰撞。每个刚体独立选择接受与哪个刚体发生碰撞。例如，你可以使用此掩码来忽略那些对于本刚体的速度有影响的刚体碰撞，也就是说你可以使用此掩码使得本刚体与某些刚体碰撞不会对本刚体产生影响。默认值为0xFFFFFFFF(所有位都被设置)。
-
-从上面三个掩码的说明中，我们可以做一个小结。假设刚体A的接触测试掩码和碰撞掩码已知，刚体B的分类掩码决定了能否和A进行碰撞和在碰撞的前提下能否发出PhysicsContact对象触发回调函数。如果B的分类掩码与A的碰撞掩码做逻辑与运算的结果为0，则不会发生碰撞，因此也不会继续和A的接触测试掩码进行逻辑与运算。如果B的分类掩码与A的碰撞掩码做逻辑与运算的结果非0，则发生碰撞，并且B的分类掩码继续与A的接触测试掩码做逻辑与运算，如果结果非0，则发出PhysicsContact对象触发回调函数。
-</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/22/cocos2dx-lua%E8%99%9A%E6%8B%9F%E6%91%87%E6%9D%86%E6%96%B9%E5%90%91%E6%8E%A7%E5%88%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="南锋">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/01/22/cocos2dx-lua%E8%99%9A%E6%8B%9F%E6%91%87%E6%9D%86%E6%96%B9%E5%90%91%E6%8E%A7%E5%88%B6/" class="post-title-link" itemprop="url">cocos2dx-lua虚拟摇杆方向控制</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-01-22 11:53:34" itemprop="dateCreated datePublished" datetime="2019-01-22T11:53:34+08:00">2019-01-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 18:48:37" itemprop="dateModified" datetime="2024-05-14T18:48:37+08:00">2024-05-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在游戏开发中，很多时候都需要控制游戏角色的移动，比如王者荣耀中对英雄的控制，我们可以做一个虚拟摇杆来实现</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">控制层</span></span><br><span class="line"><span class="comment">--]]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> CtrlLayer = class(<span class="string">&#x27;CtrlLayer&#x27;</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> display.newLayer(<span class="string">&#x27;CtrlLayer&#x27;</span>)</span><br><span class="line"><span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">--方向按钮的size</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_w = <span class="number">265</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_h = <span class="number">265</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--方向按钮位置</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_x = display.width - btn_dir_w - <span class="number">20</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_y = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--方向按钮的中心点</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_cx = btn_dir_x + btn_dir_w/<span class="number">2</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_cy = btn_dir_y + btn_dir_h/<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--方向按钮中心圆圈的半径</span></span><br><span class="line"><span class="keyword">local</span> btn_dir_center_r = <span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">构造方法</span></span><br><span class="line"><span class="comment">@param linstener 需要接收事件通知的人，需要实现事件列表中的方法</span></span><br><span class="line"><span class="comment">事件列表为：</span></span><br><span class="line"><span class="comment">    setDir(dir) : 设置了方向</span></span><br><span class="line"><span class="comment">--]]</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CtrlLayer:ctor</span><span class="params">(linstener)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">self</span>.linstener = linstener</span><br><span class="line"></span><br><span class="line">    <span class="built_in">self</span>:pos(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="built_in">self</span>:size(display.width, display.height)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">--方向按钮图片 </span></span><br><span class="line">    <span class="keyword">local</span> dirSprite = display.newSprite(<span class="string">&#x27;dir_btn.jpg&#x27;</span>)</span><br><span class="line">    dirSprite:setAnchorPoint(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    dirSprite:pos(btn_dir_x, btn_dir_y)</span><br><span class="line">    dirSprite:addTo(<span class="built_in">self</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">--添加触屏单点事件</span></span><br><span class="line">    <span class="built_in">self</span>:setTouchEnabled(<span class="literal">true</span>)</span><br><span class="line">    <span class="comment">--多点触控</span></span><br><span class="line">    <span class="comment">--self:setTouchMode(cc.TOUCHES_ALL_AT_ONCE)</span></span><br><span class="line">    <span class="comment">--单点触控</span></span><br><span class="line">    <span class="built_in">self</span>:setTouchMode(cc.TOUCHES_ONE_BY_ONE)</span><br><span class="line">    <span class="built_in">self</span>:addNodeEventListener(cc.NODE_TOUCH_EVENT, <span class="function"><span class="keyword">function</span><span class="params">(event)</span></span></span><br><span class="line">        <span class="keyword">if</span> event.name == <span class="string">&#x27;began&#x27;</span> <span class="keyword">then</span></span><br><span class="line">            <span class="comment">--需要return true才能让事件继续到move/ended等</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span> </span><br><span class="line">        <span class="keyword">elseif</span> event.name == <span class="string">&#x27;ended&#x27;</span> <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">self</span>:onTouchEnded(event)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--计算某点是否在方向按钮范围</span></span><br><span class="line"><span class="comment">--规定在方向按钮外围构成的矩形为按钮的边界</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CtrlLayer:isInDirBtn</span><span class="params">(x, y)</span></span></span><br><span class="line">    <span class="keyword">if</span> x &gt;= btn_dir_x <span class="keyword">and</span> x &lt;= (btn_dir_x + btn_dir_w) <span class="keyword">and</span> y &gt;= btn_dir_y <span class="keyword">and</span> y &lt;= (btn_dir_y + btn_dir_h) <span class="keyword">then</span> </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span> </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span> </span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--计数某点是否在方向按钮的中心圆圈内</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CtrlLayer:isInDirBtnCenter</span><span class="params">(x, y)</span></span></span><br><span class="line">    <span class="keyword">local</span> tx = <span class="built_in">math</span>.<span class="built_in">abs</span>(x-btn_dir_cx)</span><br><span class="line">    <span class="keyword">local</span> ty = <span class="built_in">math</span>.<span class="built_in">abs</span>(y-btn_dir_cy)</span><br><span class="line">    <span class="keyword">local</span> tlen = <span class="built_in">math</span>.<span class="built_in">sqrt</span>( <span class="built_in">math</span>.<span class="built_in">pow</span>(tx, <span class="number">2</span>) + <span class="built_in">math</span>.<span class="built_in">pow</span>(ty, <span class="number">2</span>) )</span><br><span class="line">    <span class="keyword">return</span> tlen &lt;= btn_dir_center_r</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--计数某点相对于方向按钮的中心点的方向</span></span><br><span class="line"><span class="comment">--规定方向有up/right/down/left</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CtrlLayer:getDir</span><span class="params">(x, y)</span></span></span><br><span class="line">    <span class="keyword">local</span> dir = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">local</span> tx = <span class="built_in">math</span>.<span class="built_in">abs</span>(x - btn_dir_cx)</span><br><span class="line">    <span class="keyword">local</span> ty = <span class="built_in">math</span>.<span class="built_in">abs</span>(y - btn_dir_cy)</span><br><span class="line">    <span class="keyword">if</span> x &gt; btn_dir_cx <span class="keyword">then</span> </span><br><span class="line">        <span class="keyword">if</span> y &gt; btn_dir_cy <span class="keyword">then</span> </span><br><span class="line">            <span class="keyword">if</span> tx &gt; ty <span class="keyword">then</span> </span><br><span class="line">                dir = <span class="string">&#x27;right&#x27;</span></span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                dir = <span class="string">&#x27;up&#x27;</span></span><br><span class="line">            <span class="keyword">end</span> </span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            <span class="keyword">if</span> tx &gt; ty <span class="keyword">then</span> </span><br><span class="line">                dir = <span class="string">&#x27;right&#x27;</span></span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                dir = <span class="string">&#x27;down&#x27;</span></span><br><span class="line">            <span class="keyword">end</span> </span><br><span class="line">        <span class="keyword">end</span> </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="keyword">if</span> y &gt; btn_dir_cy <span class="keyword">then</span> </span><br><span class="line">            <span class="keyword">if</span> tx &gt; ty <span class="keyword">then</span> </span><br><span class="line">                dir = <span class="string">&#x27;left&#x27;</span></span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                dir = <span class="string">&#x27;up&#x27;</span></span><br><span class="line">            <span class="keyword">end</span> </span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            <span class="keyword">if</span> tx &gt; ty <span class="keyword">then</span> </span><br><span class="line">                dir = <span class="string">&#x27;left&#x27;</span></span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                dir = <span class="string">&#x27;down&#x27;</span></span><br><span class="line">            <span class="keyword">end</span> </span><br><span class="line">        <span class="keyword">end</span> </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line">    <span class="keyword">return</span> dir </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">--触屏结束</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CtrlLayer:onTouchEnded</span><span class="params">(event)</span></span></span><br><span class="line">    <span class="keyword">local</span> x, y = event.x, event.y </span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">self</span>:isInDirBtn(x, y) <span class="keyword">then</span> </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">self</span>:isInDirBtnCenter(x, y) <span class="keyword">then</span> </span><br><span class="line">            <span class="keyword">local</span> dir = <span class="built_in">self</span>:getDir(x, y)</span><br><span class="line">            <span class="built_in">self</span>.linstener:setDir(dir)</span><br><span class="line">        <span class="keyword">end</span> </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> CtrlLayer </span><br></pre></td></tr></table></figure>
-<p>效果图如下<br><img src="https://pic.imgdb.cn/item/6643416b0ea9cb1403bc72f0.png" alt="在这里插入图片描述"></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/01/26/cocos2dx-lua%E7%89%A9%E7%90%86%E5%BC%95%E6%93%8E%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1350,7 +1079,7 @@ collisionBitmask：
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-count">175</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1359,7 +1088,7 @@ collisionBitmask：
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
