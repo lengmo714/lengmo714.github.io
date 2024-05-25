@@ -582,18 +582,18 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
     new Valine({
       el         : '#valine-comments',
       verify     : false,
-      notify     : false,
+      notify     : true,
       appId      : 'YsQGBgpvH7i6nSDWekzhTmIv',
       appKey     : 'HZzy2We3Ks5LQmQ4TjXkKfHn',
       placeholder: "填写QQ邮箱就会使用QQ头像喔~",
       avatar     : 'mm',
       meta       : guest,
       pageSize   : '10' || 10,
-      visitor    : false,
+      visitor    : true,
       lang       : 'zh-cn' || 'zh-cn',
       path       : location.pathname,
       recordIP   : true,
-      serverURLs : 'https://lean1.lengmo714.top'
+      serverURLs : ''
     });
   }, window.Valine);
 });
