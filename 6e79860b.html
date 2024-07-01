@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/667e7068d9c307b7e9640de7.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/667e7162d9c307b7e965dc7d.png">
 <meta property="article:published_time" content="2024-06-28T06:57:31.000Z">
-<meta property="article:modified_time" content="2024-06-28T14:57:07.357Z">
+<meta property="article:modified_time" content="2024-07-01T15:05:16.072Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="telegram">
 <meta property="article:tag" content="mini APP">
@@ -241,10 +241,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-06-28 14:57:31 / 修改时间：22:57:07" itemprop="dateCreated datePublished" datetime="2024-06-28T14:57:31+08:00">2024-06-28</time>
+              <time title="创建时间：2024-06-28 14:57:31" itemprop="dateCreated datePublished" datetime="2024-06-28T14:57:31+08:00">2024-06-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-01 23:05:16" itemprop="dateModified" datetime="2024-07-01T23:05:16+08:00">2024-07-01</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -352,7 +358,7 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Bot</span>,<span class="title class_">InlineKeyboard</span>&#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> keyboard = <span class="keyword">new</span> <span class="title class_">InlineKeyboard</span>().<span class="title function_">text</span>(<span class="string">&quot;开始游戏1&quot;</span>, <span class="string">&quot;one&quot;</span>).<span class="title function_">row</span>()</span><br><span class="line">                                    .<span class="title function_">text</span>(<span class="string">&quot;开始游戏2&quot;</span>, <span class="string">&quot;two&quot;</span>).<span class="title function_">row</span>()</span><br><span class="line">                                    .<span class="title function_">text</span>(<span class="string">&quot;开始游戏3&quot;</span>,<span class="string">&quot;three&quot;</span>);</span><br><span class="line"><span class="comment">// 处理 &quot;/start&quot; 命令</span></span><br><span class="line">bot.<span class="title function_">command</span>(<span class="string">&quot;start&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">reply</span>(<span class="string">&quot;请选择你需要点击的按钮&quot;</span>,&#123;</span><br><span class="line">        <span class="attr">reply_markup</span>: keyboard,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
 <p>运行脚本后出现如下图:<br><img data-src="https://pic.imgdb.cn/item/667e6ea9d9c307b7e960ac34.png" alt="对话框">;<br>我们可以发现，这三个按钮时垂直排列，如果我们需要让这三个按钮排成一排，修改上面<code>keyboard</code>中的<code>row()</code>即可，如下代码</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> keyboard = <span class="keyword">new</span> <span class="title class_">InlineKeyboard</span>().<span class="title function_">text</span>(<span class="string">&quot;开始游戏1&quot;</span>, <span class="string">&quot;one&quot;</span>)</span><br><span class="line">                                    .<span class="title function_">text</span>(<span class="string">&quot;开始游戏2&quot;</span>, <span class="string">&quot;two&quot;</span>)</span><br><span class="line">                                    .<span class="title function_">text</span>(<span class="string">&quot;开始游戏3&quot;</span>,<span class="string">&quot;three&quot;</span>);</span><br></pre></td></tr></table></figure>
-<p>注意：这里的添加的按钮有好几种类型：<code>.text</code>、<code>.game</code>、<code>.url</code>，目前我只用到这三种，可能还有其他的。</p>
+<p>注意：这里的添加的按钮有好几种类型：<code>.text</code>、<code>.game</code>、<code>.url</code>、<code>webApp</code>目前我只用到这四种，可能还有其他的。</p>
 <h3 id="机器人回复的内容为图片-文字-按钮"><a href="#机器人回复的内容为图片-文字-按钮" class="headerlink" title="机器人回复的内容为图片+文字+按钮"></a>机器人回复的内容为图片+文字+按钮</h3><p>今天在telegram上看见一个非常喜欢的回复，如下图，这是别人的。<br><img data-src="https://pic.imgdb.cn/item/667e7068d9c307b7e9640de7.png" alt="对话框">;<br>是由一个gif动画+文字+三个按钮组成，而且还能获取到发送用户的id。感觉非常nice，于是自己也参考这个做了个类似的，代码如下：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Bot</span>,<span class="title class_">InlineKeyboard</span> &#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TELEGRAM_GAME_URL</span> = <span class="string">&#x27;https://lengmo714.top&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 内联键盘，包含游戏按钮和访问网站按钮</span></span><br><span class="line"><span class="keyword">const</span> keyboard = <span class="keyword">new</span> <span class="title class_">InlineKeyboard</span>()</span><br><span class="line">  .<span class="title function_">url</span>(<span class="string">&quot;开始游戏1&quot;</span>,<span class="variable constant_">TELEGRAM_GAME_URL</span>).<span class="title function_">row</span>()</span><br><span class="line">  .<span class="title function_">url</span>(<span class="string">&quot;开始游戏2&quot;</span>,<span class="variable constant_">TELEGRAM_GAME_URL</span>).<span class="title function_">row</span>()</span><br><span class="line">  .<span class="title function_">url</span>(<span class="string">&quot;开始游戏3&quot;</span>,<span class="variable constant_">TELEGRAM_GAME_URL</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理 /start 命令</span></span><br><span class="line">bot.<span class="title function_">command</span>(<span class="string">&quot;start&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ctx.update.message = &quot;</span>,ctx.<span class="property">update</span>.<span class="property">message</span>.<span class="property">from</span>.<span class="property">first_name</span>);</span><br><span class="line">    <span class="keyword">const</span> gifUrl = <span class="string">&quot;https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> caption = <span class="string">`Hi <span class="subst">$&#123;ctx.update.message.<span class="keyword">from</span>.first_name&#125;</span>!\n\n给你带来一款非常好的游戏\n\n🎰 给你带来一款非常好的游戏\n\n💸 给你带来一款非常好的游戏\n\n🎁 给你带来一款非常好的游戏`</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">replyWithAnimation</span>(gifUrl, &#123;</span><br><span class="line">      <span class="attr">caption</span>: caption,</span><br><span class="line">      <span class="attr">reply_markup</span>: keyboard,</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 处理回调查询</span></span><br><span class="line">bot.<span class="title function_">start</span>(); <span class="comment">// 启动机器人</span></span><br></pre></td></tr></table></figure>
 <p>最后运行如下图：<br><img data-src="https://pic.imgdb.cn/item/667e7162d9c307b7e965dc7d.png" alt="对话框">;</p>
@@ -417,7 +423,10 @@
     <a href="/1d25c150.html" rel="prev" title="cocosCreator获取手机剪切板内容">
       <i class="fa fa-chevron-left"></i> cocosCreator获取手机剪切板内容
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/78a7bf41.html" rel="next" title="telegram获取用户信息">
+      telegram获取用户信息 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -493,7 +502,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">186</span>
+          <span class="site-state-item-count">187</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -590,12 +599,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">737k</span>
+    <span title="站点总字数">740k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">11:10</span>
+    <span title="站点阅读时长">11:13</span>
 </div>
 
         
