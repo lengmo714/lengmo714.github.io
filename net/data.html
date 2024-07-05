@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>彩云专属,爱心定制</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 5px;
+            /* 减少填充，使表格显得更紧凑 */
+            text-align: left;
+            font-size: 15px;
+            /* 修改字体大小为原来的一半 */
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .increase {
+            background-color: red;
+            color: white;
+        }
+
+        .decrease {
+            background-color: green;
+            color: white;
+        }
+
+        .arrow {
+            font-weight: bold;
+            margin-left: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>读取并筛选Excel文件，数据对比</h1>
+    <input type="file" id="fileInput" webkitdirectory directory multiple>
+    <label for="timeSelect">选择时间:</label>
+    <select id="timeSelect">
+        <option value="">全部</option>
+    </select>
+    <label for="skuSelect">选择SKU:</label>
+    <select id="skuSelect">
+        <option value="">全部</option>
+    </select>
+    <label for="startDate">开始时间:</label>
+    <input type="date" id="startDate">
+    <label for="endDate">结束时间:</label>
+    <input type="date" id="endDate">
+    <label for="category1Select">选择一级类目:</label>
+    <select id="category1Select">
+        <option value="">全部</option>
+    </select>
+    <label for="category2Select">选择二级类目:</label>
+    <select id="category2Select">
+        <option value="">全部</option>
+    </select>
+    <label for="category3Select">选择三级类目:</label>
+    <select id="category3Select">
+        <option value="">全部</option>
+    </select>
+    <div id="result"></div>
+
+    <script>
+        let allData = [];
+
+        document.getElementById('fileInput').addEventListener('change', handleFiles, false);
+        document.getElementById('timeSelect').addEventListener('change', filterData);
+        document.getElementById('startDate').addEventListener('change', filterData);
+        document.getElementById('endDate').addEventListener('change', filterData);
+        document.getElementById('skuSelect').addEventListener('change', filterData);
+        document.getElementById('category1Select').addEventListener('change', filterData);
+        document.getElementById('category2Select').addEventListener('change', filterData);
+        document.getElementById('category3Select').addEventListener('change', filterData);
+
+        function handleFiles(e) {
+            const files = e.target.files;
+            const result = document.getElementById('result');
+            result.innerHTML = '';
+            allData = []; // 清除数据
+
+            const timeSet = new Set();
+            const skuSet = new Set();
+            const category1Set = new Set();
+            const category2Set = new Set();
+            const category3Set = new Set();
+
+            Array.from(files).forEach(file => {
+                if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        const data = new Uint8Array(event.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+
+                        const firstSheetName = workbook.SheetNames[0];
+                        const worksheet = workbook.Sheets[firstSheetName];
+                        const json = XLSX.utils.sheet_to_json(worksheet);
+
+                        json.forEach(item => {
+                            // 将SKU字段转换为字符串
+                            if (item['SKU'] !== undefined) {
+                                item['SKU'] = String(item['SKU']);
+                                skuSet.add(item['SKU']);
+                            }
+                            if (item['时间'] !== undefined) {
+                                timeSet.add(item['时间']);
+                            }
+                            if (item['一级类目'] !== undefined) {
+                                category1Set.add(item['一级类目']);
+                            }
+                            if (item['二级类目'] !== undefined) {
+                                category2Set.add(item['二级类目']);
+                            }
+                            if (item['三级类目'] !== undefined) {
+                                category3Set.add(item['三级类目']);
+                            }
+                            allData.push(item);
+                        });
+
+                        updateSelectOptions(timeSet, skuSet, category1Set, category2Set, category3Set);
+                        filterData();
+                    };
+                    reader.readAsArrayBuffer(file);
+                }
+            });
+        }
+
+        function updateSelectOptions(timeSet, skuSet, category1Set, category2Set, category3Set) {
+            const timeSelect = document.getElementById('timeSelect');
+            const skuSelect = document.getElementById('skuSelect');
+            const category1Select = document.getElementById('category1Select');
+            const category2Select = document.getElementById('category2Select');
+            const category3Select = document.getElementById('category3Select');
+
+            timeSelect.innerHTML = '<option value="">全部</option>';
+            skuSelect.innerHTML = '<option value="">全部</option>';
+            category1Select.innerHTML = '<option value="">全部</option>';
+            category2Select.innerHTML = '<option value="">全部</option>';
+            category3Select.innerHTML = '<option value="">全部</option>';
+
+            timeSet.forEach(time => {
+                const option = document.createElement('option');
+                option.value = time;
+                option.textContent = time;
+                timeSelect.appendChild(option);
+            });
+
+            skuSet.forEach(sku => {
+                const option = document.createElement('option');
+                option.value = sku;
+                option.textContent = sku;
+                skuSelect.appendChild(option);
+            });
+
+            category1Set.forEach(category1 => {
+                const option = document.createElement('option');
+                option.value = category1;
+                option.textContent = category1;
+                category1Select.appendChild(option);
+            });
+
+            category2Set.forEach(category2 => {
+                const option = document.createElement('option');
+                option.value = category2;
+                option.textContent = category2;
+                category2Select.appendChild(option);
+            });
+
+            category3Set.forEach(category3 => {
+                const option = document.createElement('option');
+                option.value = category3;
+                option.textContent = category3;
+                category3Select.appendChild(option);
+            });
+        }
+
+        function filterData() {
+            const timeSelect = document.getElementById('timeSelect').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const skuSelect = document.getElementById('skuSelect').value;
+            const category1Select = document.getElementById('category1Select').value;
+            const category2Select = document.getElementById('category2Select').value;
+            const category3Select = document.getElementById('category3Select').value;
+
+            const filteredData = allData.filter(item => {
+                return (timeSelect === "" || item['时间'] === timeSelect) &&
+                    (startDate === "" || new Date(item['时间']) >= new Date(startDate)) &&
+                    (endDate === "" || new Date(item['时间']) <= new Date(endDate)) &&
+                    (skuSelect === "" || item['SKU'] === skuSelect) &&
+                    (category1Select === "" || item['一级类目'] === category1Select) &&
+                    (category2Select === "" || item['二级类目'] === category2Select) &&
+                    (category3Select === "" || item['三级类目'] === category3Select);
+            });
+
+            filteredData.sort((a, b) => {
+                const dateA = new Date(a['时间']);
+                const dateB = new Date(b['时间']);
+                return dateB - dateA;
+            });
+
+            const result = document.getElementById('result');
+            result.innerHTML = generateTable(filteredData);
+        }
+
+        function generateTable(data) {
+            if (data.length === 0) return '<p>暂无数据。</p>';
+
+            let table = '<table><thead><tr>';
+
+            // Generate table headers
+            const headers = Object.keys(data[0]);
+            headers.forEach(header => {
+                let headerText = header;
+                switch (header) {
+                    case '时间':
+                        headerText = '时间';
+                        break;
+                    case '浏览量':
+                        headerText = '浏览量';
+                        break;
+                    case '访客数':
+                        headerText = '访客数';
+                        break;
+                    case '人均浏览量':
+                        headerText = '人均浏览量';
+                        break;
+                    case '平均停留时长':
+                        headerText = '平均停留时长';
+                        break;
+                    case '成交人数':
+                        headerText = '成交人数';
+                        break;
+                    case '成交转化率':
+                        headerText = '成交转化率';
+                        break;
+                    case '成交单量':
+                        headerText = '成交单量';
+                        break;
+                    case '成交商品件数':
+                        headerText = '成交商品件数';
+                        break;
+                    case '成交金额':
+                        headerText = '成交金额';
+                        break;
+                    case '成交客单价':
+                        headerText = '成交客单价';
+                        break;
+                    case '加购人数':
+                        headerText = '加购人数';
+                        break;
+                    case '加购商品件数':
+                        headerText = '加购商品件数';
+                        break;
+                    case '加购转化率':
+                        headerText = '加购转化率';
+                        break;
+                    case 'SKU':
+                        headerText = 'SKU';
+                        break;
+                    case '一级类目':
+                        headerText = '一级类目';
+                        break;
+                    case '二级类目':
+                        headerText = '二级类目';
+                        break;
+                    case '三级类目':
+                        headerText = '三级类目';
+                        break;
+                    default:
+                        break;
+                }
+                table += `<th>${headerText}</th>`;
+            });
+            table += '</tr></thead><tbody>';
+
+            // Generate table rows
+            data.forEach((row, index) => {
+                table += '<tr>';
+
+                headers.forEach(header => {
+                    let currentValue = row[header];
+                    let previousValue = '';
+
+                    // Find previous day's data for the same SKU
+                    if (index >= 0) {
+                        const previousItem = data.find(item => item['SKU'] === row['SKU'] && new Date(item['时间']).getTime() < new Date(row['时间']).getTime());
+                        if (previousItem) {
+                            previousValue = previousItem[header];
+                            // Add arrow and color for selected fields
+                            if (header === '浏览量' || header === '访客数' || header === '人均浏览量' || header === '平均停留时长' ||
+                                header === '成交人数' || header === '成交单量' || header === '成交金额' || header === '成交转化率' ||
+                                header === '加购人数' || header === '加购商品件数' || header === '成交客单价' || header === '加购转化率' || header === '成交商品件数') {
+                                const currentValueNum = parseFloat(currentValue);
+                                const previousValueNum = parseFloat(previousValue);
+                                if (!isNaN(currentValueNum) && !isNaN(previousValueNum)) {
+                                    if (currentValueNum > previousValueNum) {
+                                        currentValue = `<span class="increase">${currentValue}<span class="arrow up">&#8593;</span></span>`;
+                                    } else if (currentValueNum < previousValueNum) {
+                                        currentValue = `<span class="decrease">${currentValue}<span class="arrow down">&#8595;</span></span>`;
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        // For the first row, just display the value
+                        currentValue = `<span>${currentValue}</span>`;
+                    }
+
+                    table += `<td>${currentValue}</td>`;
+                });
+
+                table += '</tr>';
+            });
+
+            table += '</tbody></table>';
+            return table;
+        }
+    </script>
+</body>
+
+</html>
