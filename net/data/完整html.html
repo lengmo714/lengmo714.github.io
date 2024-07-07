@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>彩云专属,爱心定制</title>
+    <title>读取并筛选Excel文件，数据对比</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         table {
             border-collapse: collapse;
@@ -40,6 +41,45 @@
             font-weight: bold;
             margin-left: 4px;
         }
+
+        /* 新增返回顶部按钮样式 */
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 20px;
+            /* 调整按钮距离底部的距离 */
+            right: 20px;
+            /* 调整按钮距离右侧的距离 */
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1000;
+            /* 确保按钮位于其他内容之上 */
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #0056b3;
+        }
+
+        #chartsContainer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            /* 设置曲线图和饼状图之间的间距 */
+        }
+
+        #pieChartContainer {
+            width: 400px;
+            height: 300px;
+        }
+
+        #lineChartContainer {
+            width: 600px;
+            height: 400px;
+            display: none;
+        }
     </style>
 </head>
 
@@ -70,10 +110,22 @@
     <select id="category3Select">
         <option value="">全部</option>
     </select>
+    <button onclick="calculateAndDrawPieChart()">三级类目占比</button>
+    <button onclick="calculateAndDrawLineCharts()">访客数和成交单量曲线图</button>
     <div id="result"></div>
-
+    <div id="chartsContainer">
+        <div id="pieChartContainer">
+            <canvas id="pieChartCanvas"></canvas>
+        </div>
+        <div id="lineChartContainer">
+            <canvas id="lineChartCanvas"></canvas>
+        </div>
+    </div>
+    <button id="scrollToTopBtn" onclick="scrollToTop()">返回顶部</button>
     <script>
         let allData = [];
+        let pieChart = null;
+        let lineChart = null;
 
         document.getElementById('fileInput').addEventListener('change', handleFiles, false);
         document.getElementById('timeSelect').addEventListener('change', filterData);
@@ -212,6 +264,10 @@
 
             const result = document.getElementById('result');
             result.innerHTML = generateTable(filteredData);
+
+            // 清除饼状图和曲线图
+            clearPieChart();
+            clearLineChart();
         }
 
         function generateTable(data) {
@@ -326,6 +382,203 @@
 
             table += '</tbody></table>';
             return table;
+        }
+
+        function calculateAndDrawPieChart() {
+            clearPieChart();
+            const timeSelect = document.getElementById('timeSelect').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+
+            // 根据时间筛选数据
+            let filteredData = allData.filter(item => {
+                return (timeSelect === "" || item['时间'] === timeSelect) &&
+                    (startDate === "" || new Date(item['时间']) >= new Date(startDate)) &&
+                    (endDate === "" || new Date(item['时间']) <= new Date(endDate));
+            });
+
+            // 计算每个三级类目的成交金额总和
+            const category3Total = {};
+            filteredData.forEach(item => {
+                const category3 = item['三级类目'];
+                const amount = parseFloat(item['成交金额']) || 0;
+                if (category3 && !isNaN(amount)) {
+                    if (category3Total[category3]) {
+                        category3Total[category3] += amount;
+                    } else {
+                        category3Total[category3] = amount;
+                    }
+                }
+            });
+
+            // 计算总成交金额
+            const totalAmount = Object.values(category3Total).reduce((acc, val) => acc + val, 0);
+
+            // 计算每个三级类目的百分比
+            const category3Percentages = {};
+            Object.keys(category3Total).forEach(category3 => {
+                const percentage = (category3Total[category3] / totalAmount) * 100;
+                category3Percentages[category3] = percentage.toFixed(2); // 保留两位小数
+            });
+
+            // 准备数据用于绘制饼状图
+            const labels = Object.keys(category3Percentages);
+            const dataValues = Object.values(category3Percentages);
+
+            // 清空现有的饼状图
+            const pieChartContainer = document.getElementById('pieChartContainer');
+            pieChartContainer.innerHTML = '<canvas id="pieChartCanvas"></canvas>';
+
+            // 使用 Chart.js 绘制饼状图
+            const ctx = document.getElementById('pieChartCanvas').getContext('2d');
+            pieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '三级类目成交金额占比',
+                        data: dataValues,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(153, 102, 255, 0.7)',
+                            'rgba(255, 159, 64, 0.7)',
+                            'rgba(255, 99, 132, 0.7)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return `${labels[tooltipItem.dataIndex]}: 金额:${category3Total[tooltipItem.label]}  占比:${dataValues[tooltipItem.dataIndex]}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 在绘制完饼状图后滚动到饼状图容器
+            scrollToElement(pieChartContainer);
+        }
+        function calculateAndDrawLineCharts() {
+            clearLineChart();
+            const skuSelect = document.getElementById('skuSelect').value;
+
+            // 根据 SKU 筛选数据
+            let filteredData = allData.filter(item => {
+                return (skuSelect === "" || item['SKU'] === skuSelect);
+            });
+
+            // 准备访客数和成交单量的数据
+            const labels = filteredData.map(item => item['时间']);
+            const visitorsData = filteredData.map(item => parseFloat(item['访客数']) || 0);
+            const ordersData = filteredData.map(item => parseFloat(item['成交单量']) || 0);
+
+            // 清空现有的曲线图
+            const lineChartContainer = document.getElementById('lineChartContainer');
+            lineChartContainer.style.display = 'block'; // 显示曲线图容器
+            lineChartContainer.innerHTML = '<canvas id="lineChartCanvas"></canvas>';
+
+            // 使用 Chart.js 绘制曲线图
+            const ctx = document.getElementById('lineChartCanvas').getContext('2d');
+            lineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '访客数',
+                        data: visitorsData,
+                        borderColor: 'rgba(54, 162, 235, 0.7)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: false
+                    }, {
+                        label: '成交单量',
+                        data: ordersData,
+                        borderColor: 'rgba(255, 99, 132, 0.7)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: '时间'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: '数量'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 在绘制完曲线图后滚动到曲线图容器
+            scrollToElement(lineChartContainer);
+        }
+        function scrollToElement(element) {
+            window.scrollTo({
+                top: element.offsetTop,
+                behavior: 'smooth'
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function clearPieChart() {
+            if (pieChart) {
+                pieChart.destroy();
+                pieChart = null;
+            }
+        }
+
+        function clearLineChart() {
+            if (lineChart) {
+                lineChart.destroy();
+                lineChart = null;
+            }
         }
     </script>
 </body>

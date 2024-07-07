@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>读取并筛选Excel文件，数据对比</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body oncontextmenu="return false;">
+    <h1>读取并筛选Excel文件，数据对比</h1>
+    <input type="file" id="fileInput" webkitdirectory directory multiple>
+    <label for="timeSelect">选择时间:</label>
+    <select id="timeSelect">
+        <option value="">全部</option>
+    </select>
+    <label for="skuSelect">选择SKU:</label>
+    <select id="skuSelect">
+        <option value="">全部</option>
+    </select>
+    <label for="startDate">开始时间:</label>
+    <input type="date" id="startDate">
+    <label for="endDate">结束时间:</label>
+    <input type="date" id="endDate">
+    <label for="category1Select">选择一级类目:</label>
+    <select id="category1Select">
+        <option value="">全部</option>
+    </select>
+    <label for="category2Select">选择二级类目:</label>
+    <select id="category2Select">
+        <option value="">全部</option>
+    </select>
+    <label for="category3Select">选择三级类目:</label>
+    <select id="category3Select">
+        <option value="">全部</option>
+    </select>
+    <button onclick="calculateAndDrawPieChart()">三级类目占比</button>
+    <button onclick="calculateAndDrawLineCharts()">访客数和成交单量曲线图</button>
+    <div id="result"></div>
+    <div id="chartsContainer">
+        <div id="pieChartContainer">
+            <canvas id="pieChartCanvas"></canvas>
+        </div>
+        <div id="lineChartContainer">
+            <canvas id="lineChartCanvas"></canvas>
+        </div>
+    </div>
+    <button id="scrollToTopBtn" onclick="scrollToTop()">返回顶部</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="scripts.js"></script>
+</body>
+
+</html>
