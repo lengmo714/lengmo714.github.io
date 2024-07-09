@@ -257,14 +257,14 @@
                 const date = new Date(day.fxDate);
                 const dayOfMonth = date.getDate();
                 const month = date.getMonth() + 1; // 月份从0开始，需要加1
-                return `${dayOfMonth}/${month}`;
+                return `${month}/${dayOfMonth}`;
             });
 
             const tempMax = daily.map(day => day.tempMax);
             const tempMin = daily.map(day => day.tempMin);
 
             const ctx = document.createElement('canvas');
-            ctx.width = chartContainer.offsetWidth / 1.5; // 设置曲线图的宽度为容器宽度的四分之一
+            ctx.width = chartContainer.offsetWidth / 1.3; // 设置曲线图的宽度为容器宽度的四分之一
             ctx.height = 450; // 固定曲线图的高度为150px
             chartContainer.appendChild(ctx);
 
@@ -323,7 +323,6 @@
                 }
             });
         }
-
     </script>
 </body>
 
