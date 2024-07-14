@@ -460,6 +460,139 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/75509731.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/75509731.html" class="post-title-link" itemprop="url">telegram获取用户发送的消息并上报给服务器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-07-12 14:09:02" itemprop="dateCreated datePublished" datetime="2024-07-12T14:09:02+08:00">2024-07-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-14 23:39:04" itemprop="dateModified" datetime="2024-07-14T23:39:04+08:00">2024-07-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/" itemprop="url" rel="index"><span itemprop="name">telegram</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/" itemprop="url" rel="index"><span itemprop="name">mini APP</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/Game/" itemprop="url" rel="index"><span itemprop="name">Game</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/75509731.html" class="post-meta-item leancloud_visitors" data-flag-title="telegram获取用户发送的消息并上报给服务器" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/75509731.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/75509731.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近做的tg mini app投放后发现一些用户的操作异常，但是又不知道为什么，于是加上了这个功能，看用户是否给bot机器人发送了反馈消息，我们没有收到。</p>
+<!---more--->
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>bot接收到用户发送的消息，然后将消息转发给服务器，从而达到我们的目的</p>
+<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Bot</span>, <span class="title class_">InlineKeyboard</span> &#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;  <span class="comment">//你的机器人token</span></span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>);</span><br><span class="line"><span class="keyword">const</span> serverUrl = <span class="string">&quot;&quot;</span>; <span class="comment">// 你的服务器地址</span></span><br><span class="line">bot.<span class="title function_">on</span>(<span class="string">&quot;message:text&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> messageText = ctx.<span class="property">message</span>.<span class="property">text</span>;</span><br><span class="line">  <span class="keyword">const</span> chatId = ctx.<span class="property">message</span>.<span class="property">chat</span>.<span class="property">id</span>;</span><br><span class="line">  <span class="keyword">const</span> firstName = ctx.<span class="property">update</span>.<span class="property">message</span>.<span class="property">from</span>.<span class="property">first_name</span>;</span><br><span class="line">  <span class="keyword">const</span> eventtime = (<span class="keyword">await</span> <span class="title function_">getCurrentTime</span>()).<span class="title function_">toString</span>();</span><br><span class="line">  <span class="keyword">const</span> payload = &#123;</span><br><span class="line">      <span class="attr">uid</span>: chatId,</span><br><span class="line">      <span class="attr">message</span>: messageText,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 将数据发送到服务器</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(serverUrl, &#123;</span><br><span class="line">      <span class="attr">method</span>: <span class="string">&quot;POST&quot;</span>,</span><br><span class="line">      <span class="attr">headers</span>: &#123;</span><br><span class="line">        <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">body</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(payload),</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!response.<span class="property">ok</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">`HTTP error! status: <span class="subst">$&#123;response.status&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 解析服务器响应</span></span><br><span class="line">    <span class="keyword">const</span> responseData = <span class="keyword">await</span> response.<span class="title function_">json</span>();</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;服务器响应:&quot;</span>, responseData);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;发送消息到服务器失败:&quot;</span>, error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 启动机器人</span></span><br><span class="line">bot.<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lengmo714.top/8baa366.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1286,116 +1419,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/1d25c150.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_3307.JPG">
-      <meta itemprop="name" content="南锋">
-      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="南锋">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/1d25c150.html" class="post-title-link" itemprop="url">cocosCreator获取手机剪切板内容</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-06-17 16:24:16 / 修改时间：23:06:14" itemprop="dateCreated datePublished" datetime="2024-06-17T16:24:16+08:00">2024-06-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cocos-Creator/" itemprop="url" rel="index"><span itemprop="name">cocos Creator</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/1d25c150.html" class="post-meta-item leancloud_visitors" data-flag-title="cocosCreator获取手机剪切板内容" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/1d25c150.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/1d25c150.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>最近游戏中需要加上复制粘贴的功能，这个时候就涉及到安卓原生层的东西。步骤如下：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/1d25c150.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1467,7 +1490,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">192</span>
+          <span class="site-state-item-count">193</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1564,12 +1587,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">752k</span>
+    <span title="站点总字数">753k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">11:24</span>
+    <span title="站点阅读时长">11:25</span>
 </div>
 
         
