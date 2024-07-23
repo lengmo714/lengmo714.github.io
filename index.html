@@ -480,7 +480,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-07-23 15:28:49 / 修改时间：23:25:52" itemprop="dateCreated datePublished" datetime="2024-07-23T15:28:49+08:00">2024-07-23</time>
+              <time title="创建时间：2024-07-23 15:28:49 / 修改时间：23:27:59" itemprop="dateCreated datePublished" datetime="2024-07-23T15:28:49+08:00">2024-07-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -547,235 +547,9 @@
 
       
           <p>在telegram上打开webapp的时候，默认只显示半个屏幕，需要用户手动往上滑一下才能全屏。我们现在想要用户打开我们的webapp，自动给他全屏显示。其实方法很简单：</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<p>要在 Telegram bot 机器人中打开 WebApp 时设置为全屏，telegram官方已经给出了相关的api，只需要在 WebApp 的 <code>HTML</code> 和 <code>JavaScript</code> 中直接调用即可。</p>
-<h3 id="api调用"><a href="#api调用" class="headerlink" title="api调用"></a>api调用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Telegram</span>.<span class="property">WebApp</span>.<span class="title function_">expand</span>();</span><br></pre></td></tr></table></figure>
-<p>只需要加上上面一行代码就能实现。</p>
-<h3 id="完整例程"><a href="#完整例程" class="headerlink" title="完整例程"></a>完整例程</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0, user-scalable=no&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Telegram WebApp<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">body</span>, <span class="selector-tag">html</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">overflow</span>: hidden;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.full-screen</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">justify-content</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">align-items</span>: center;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;full-screen&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Your WebApp Content<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 全屏设置</span></span></span><br><span class="line"><span class="language-javascript">        <span class="title class_">Telegram</span>.<span class="property">WebApp</span>.<span class="title function_">expand</span>();</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/33452.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_3307.JPG">
-      <meta itemprop="name" content="南锋">
-      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="南锋">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/33452.html" class="post-title-link" itemprop="url">cocos2dx使用帧动画</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-07-17 23:08:28" itemprop="dateCreated datePublished" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/33452.html" class="post-meta-item leancloud_visitors" data-flag-title="cocos2dx使用帧动画" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/33452.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/33452.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一般来说，使用cocos2d_x开发游戏的时候都有两种做UI的方式，一种是用代码手写，一种是用cocos studio做UI</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/33452.html">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/28873.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_3307.JPG">
-      <meta itemprop="name" content="南锋">
-      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="南锋">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/28873.html" class="post-title-link" itemprop="url">cocos2dx_lua键盘监听</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-07-17 23:08:28" itemprop="dateCreated datePublished" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/28873.html" class="post-meta-item leancloud_visitors" data-flag-title="cocos2dx_lua键盘监听" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/28873.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/28873.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>537</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>cocos2dx监听键盘事件</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/28873.html">
+              <a class="btn" href="/688ebf18.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -908,7 +682,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/63240.html">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/4a64b591.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_3307.JPG">
@@ -922,7 +696,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/63240.html" class="post-title-link" itemprop="url">cocos2dx-lua对图片进行九宫格缩放</a>
+            <a href="/4a64b591.html" class="post-title-link" itemprop="url">遍历文件夹下所有的文件找出大于500KB的图片</a>
         </h2>
 
         <div class="post-meta">
@@ -932,20 +706,39 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-07-17 23:08:28" itemprop="dateCreated datePublished" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
+              <time title="创建时间：2024-07-16 20:48:47" itemprop="dateCreated datePublished" datetime="2024-07-16T20:48:47+08:00">2024-07-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-17 23:09:12" itemprop="dateModified" datetime="2024-07-17T23:09:12+08:00">2024-07-17</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">日常代码</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">Python应用</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97/" itemprop="url" rel="index"><span itemprop="name">俄罗斯方块</span></a>
                 </span>
             </span>
 
           
-            <span id="/63240.html" class="post-meta-item leancloud_visitors" data-flag-title="cocos2dx-lua对图片进行九宫格缩放" title="阅读次数">
+            <span id="/4a64b591.html" class="post-meta-item leancloud_visitors" data-flag-title="遍历文件夹下所有的文件找出大于500KB的图片" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -960,8 +753,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/63240.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/63240.html" itemprop="commentCount"></span>
+    <a title="valine" href="/4a64b591.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/4a64b591.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -971,7 +764,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>488</span>
+              <span>1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -990,10 +783,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在游戏开发中纹理九宫格拉伸都是必不可少的，因为采用这种拉伸方式，可以最大化的节省纹理资源，任意缩放图片还能保持一个不错的效果</p>
+          <p>我们cocosCreator导出web项目后，我们发现有些图片比较大，放在服务器上加载的时间比较长，想着可以把这些图片压缩后再放上去。但是导出的项目文件夹比较多，图片找起来比较麻烦，于是就有了下面的脚本工具。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/63240.html">
+              <a class="btn" href="/4a64b591.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1017,7 +810,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/38089.html">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/8c2ab891.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_3307.JPG">
@@ -1031,7 +824,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/38089.html" class="post-title-link" itemprop="url">ccocos2dx-lua使用schedule定时器</a>
+            <a href="/8c2ab891.html" class="post-title-link" itemprop="url">在html文件的指定位置加入指定文本</a>
         </h2>
 
         <div class="post-meta">
@@ -1041,20 +834,39 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-07-17 23:08:28" itemprop="dateCreated datePublished" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
+              <time title="创建时间：2024-07-16 20:34:02" itemprop="dateCreated datePublished" datetime="2024-07-16T20:34:02+08:00">2024-07-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-17 23:09:12" itemprop="dateModified" datetime="2024-07-17T23:09:12+08:00">2024-07-17</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">日常代码</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">Python应用</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97/" itemprop="url" rel="index"><span itemprop="name">俄罗斯方块</span></a>
                 </span>
             </span>
 
           
-            <span id="/38089.html" class="post-meta-item leancloud_visitors" data-flag-title="ccocos2dx-lua使用schedule定时器" title="阅读次数">
+            <span id="/8c2ab891.html" class="post-meta-item leancloud_visitors" data-flag-title="在html文件的指定位置加入指定文本" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -1069,8 +881,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/38089.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/38089.html" itemprop="commentCount"></span>
+    <a title="valine" href="/8c2ab891.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/8c2ab891.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1080,14 +892,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>286</span>
+              <span>3.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -1099,10 +911,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>定时器在游戏开发中必不可少，下面简单介绍下定时器在cocos2dx-lua中的一种用法</p>
+          <p>记录自己工作中用到的脚本，因为我们的cocosCreator项目导出<code>web</code>项目后，需要修改<code>index.html</code>文件，每次手动修改都很麻烦，而且容易出错，于是决定用脚本来搞定。<br>我这里是用python写的，python版本为3.8</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/38089.html">
+              <a class="btn" href="/8c2ab891.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1126,7 +938,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/18736.html">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/39e5712d.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_3307.JPG">
@@ -1140,7 +952,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/18736.html" class="post-title-link" itemprop="url">cocos2dx-lua_ProgressTimer创建扇形进度条</a>
+            <a href="/39e5712d.html" class="post-title-link" itemprop="url">telegram Bot机器人 打开webApp有本地缓存</a>
         </h2>
 
         <div class="post-meta">
@@ -1150,20 +962,35 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-07-17 23:08:28" itemprop="dateCreated datePublished" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
+              <time title="创建时间：2024-07-16 20:12:22" itemprop="dateCreated datePublished" datetime="2024-07-16T20:12:22+08:00">2024-07-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-17 23:09:12" itemprop="dateModified" datetime="2024-07-17T23:09:12+08:00">2024-07-17</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
+                  <a href="/categories/telegram/" itemprop="url" rel="index"><span itemprop="name">telegram</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/" itemprop="url" rel="index"><span itemprop="name">mini APP</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/Game/" itemprop="url" rel="index"><span itemprop="name">Game</span></a>
                 </span>
             </span>
 
           
-            <span id="/18736.html" class="post-meta-item leancloud_visitors" data-flag-title="cocos2dx-lua_ProgressTimer创建扇形进度条" title="阅读次数">
+            <span id="/39e5712d.html" class="post-meta-item leancloud_visitors" data-flag-title="telegram Bot机器人 打开webApp有本地缓存" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -1178,8 +1005,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/18736.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/18736.html" itemprop="commentCount"></span>
+    <a title="valine" href="/39e5712d.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/39e5712d.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1189,7 +1016,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>429</span>
+              <span>515</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1208,10 +1035,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>开发环境：cocos2dx 3.17<br>开发语言：lua<br>我们在开发游戏的时候经常会用到扇形进度条。比如：技能CD</p>
+          <p>昨天我们的游戏更新了一个版本，但是发现使用bot机器人打开还是之前的老版本，没有进入到新更的版本，当时就有点懵了。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/18736.html#more" rel="contents">
+              <a class="btn" href="/39e5712d.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1235,7 +1062,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/27430.html">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/75509731.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_3307.JPG">
@@ -1249,7 +1076,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/27430.html" class="post-title-link" itemprop="url">cocos2dx-lua中Label文本设置自动换行</a>
+            <a href="/75509731.html" class="post-title-link" itemprop="url">telegram获取用户发送的消息并上报给服务器</a>
         </h2>
 
         <div class="post-meta">
@@ -1259,20 +1086,35 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-07-17 23:08:28" itemprop="dateCreated datePublished" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
+              <time title="创建时间：2024-07-12 14:09:02" itemprop="dateCreated datePublished" datetime="2024-07-12T14:09:02+08:00">2024-07-12</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-17 23:09:12" itemprop="dateModified" datetime="2024-07-17T23:09:12+08:00">2024-07-17</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
+                  <a href="/categories/telegram/" itemprop="url" rel="index"><span itemprop="name">telegram</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/" itemprop="url" rel="index"><span itemprop="name">mini APP</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/Game/" itemprop="url" rel="index"><span itemprop="name">Game</span></a>
                 </span>
             </span>
 
           
-            <span id="/27430.html" class="post-meta-item leancloud_visitors" data-flag-title="cocos2dx-lua中Label文本设置自动换行" title="阅读次数">
+            <span id="/75509731.html" class="post-meta-item leancloud_visitors" data-flag-title="telegram获取用户发送的消息并上报给服务器" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -1287,8 +1129,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/27430.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/27430.html" itemprop="commentCount"></span>
+    <a title="valine" href="/75509731.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/75509731.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1317,10 +1159,258 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在cocos2dx中如何实现Label自动换行</p>
+          <p>最近做的tg mini app投放后发现一些用户的操作异常，但是又不知道为什么，于是加上了这个功能，看用户是否给bot机器人发送了反馈消息，我们没有收到。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/27430.html">
+              <a class="btn" href="/75509731.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/8baa366.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/8baa366.html" class="post-title-link" itemprop="url">telegramBot之取消按钮的监听</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-07-10 15:35:33" itemprop="dateCreated datePublished" datetime="2024-07-10T15:35:33+08:00">2024-07-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-17 23:09:12" itemprop="dateModified" datetime="2024-07-17T23:09:12+08:00">2024-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/" itemprop="url" rel="index"><span itemprop="name">telegram</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/" itemprop="url" rel="index"><span itemprop="name">mini APP</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/Game/" itemprop="url" rel="index"><span itemprop="name">Game</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/8baa366.html" class="post-meta-item leancloud_visitors" data-flag-title="telegramBot之取消按钮的监听" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/8baa366.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/8baa366.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>700</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近发现我们用telegram bot打开一个<code>web App</code>的时候，容易误点到屏幕左上角的<code>取消</code>按钮，希望这个时候能够弹出一个2次确认弹窗。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/8baa366.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/69613828.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/69613828.html" class="post-title-link" itemprop="url">telegram Bot 设置左下角的菜单按钮</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-07-05 20:11:08" itemprop="dateCreated datePublished" datetime="2024-07-05T20:11:08+08:00">2024-07-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-17 23:08:28" itemprop="dateModified" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/" itemprop="url" rel="index"><span itemprop="name">telegram</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/" itemprop="url" rel="index"><span itemprop="name">mini APP</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/Game/" itemprop="url" rel="index"><span itemprop="name">Game</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/69613828.html" class="post-meta-item leancloud_visitors" data-flag-title="telegram Bot 设置左下角的菜单按钮" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/69613828.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/69613828.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我们在和BotFather对话的时候发现它的左下角有个菜单按钮，而且里面有很多命令，这个是怎么实现的了？接着往下看</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/69613828.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
