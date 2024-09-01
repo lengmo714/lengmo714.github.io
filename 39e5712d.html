@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/66966705d9c307b7e916faf6.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/66966750d9c307b7e9179139.png">
 <meta property="article:published_time" content="2024-07-16T12:12:22.000Z">
-<meta property="article:modified_time" content="2024-07-17T15:09:12.820Z">
+<meta property="article:modified_time" content="2024-09-01T14:03:27.296Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="telegram">
 <meta property="article:tag" content="mini APP">
@@ -241,7 +241,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-07-17 23:09:12" itemprop="dateModified" datetime="2024-07-17T23:09:12+08:00">2024-07-17</time>
+                <time title="修改时间：2024-09-01 22:03:27" itemprop="dateModified" datetime="2024-09-01T22:03:27+08:00">2024-09-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -330,7 +330,7 @@
 </script>
 
 <h3 id="原因：缓存"><a href="#原因：缓存" class="headerlink" title="原因：缓存"></a>原因：缓存</h3><p>刚开始我们以为是服务器的缓存，但是清除服务器缓存后没用。于是抓包，查看bot打开webApp时所有的网络请求。发现每次打开webApp的时候都没有重新拉取资源，因为更新后的文件名和文件路径和更新前是一样的。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>每次更新的时候文件名后面统一加上一个后缀，说干就干，在网上找插件，甚至要chatGPT写脚本，都没搞定。因为我们的web是用cocos creator开发的(直接从安卓转过来的)。在用脚本加后缀后，文件索引会出问题。在这里也卡了一会儿，最后没办法去查看cocos Creator的官方文档，发现文档上已经给出了解决方法。如下图：<br><img data-src="https://pic.imgdb.cn/item/669666ced9c307b7e91688f0.png">;<br>其实也就是我们在打包的时候勾选上MD5缓存，就可以解决这个问题了。<br>如下图：<br><img data-src="https://pic.imgdb.cn/item/66966705d9c307b7e916faf6.png">;<br>我们来康康构建后的文件名：<br><img data-src="https://pic.imgdb.cn/item/66966750d9c307b7e9179139.png">;<br>完美，是我们想要的结果。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>每次更新的时候文件名后面统一加上一个后缀，说干就干，在网上找插件，甚至要chatGPT写脚本，都没搞定。因为我们的web是用Cocos Creator开发的(直接从安卓转过来的)。在用脚本加后缀后，文件索引会出问题。在这里也卡了一会儿，最后没办法去查看Cocos Creator的官方文档，发现文档上已经给出了解决方法。如下图：<br><img data-src="https://pic.imgdb.cn/item/669666ced9c307b7e91688f0.png">;<br>其实也就是我们在打包的时候勾选上MD5缓存，就可以解决这个问题了。<br>如下图：<br><img data-src="https://pic.imgdb.cn/item/66966705d9c307b7e916faf6.png">;<br>我们来康康构建后的文件名：<br><img data-src="https://pic.imgdb.cn/item/66966750d9c307b7e9179139.png">;<br>完美，是我们想要的结果。</p>
 <p>先在本地运行，看有没有文件索引不到的bug，没问题直接推送到服务器或CDN即可。</p>
 <h3 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h3><p>还是得多看看官方文档，有时候看官方文档可以为你节约很长的时间。</p>
 
@@ -479,13 +479,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-count">68</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-count">61</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
