@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>彩云生日倒计时</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #countdown {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="countdown"></div>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const nextYear = now.getFullYear() + 1;
+            const targetDate = new Date(`August 5, ${nextYear} 00:00:00`);
+
+            const timeDiff = targetDate - now;
+
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerText =
+                `大家请注意，离我老婆生日还有: ${days} 天 ${hours} 小时 ${minutes} 分 ${seconds} 秒 请大家按时送上祝福` ;
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+
+        // Initial call to display the countdown immediately
+        updateCountdown();
+    </script>
+</body>
+</html>
