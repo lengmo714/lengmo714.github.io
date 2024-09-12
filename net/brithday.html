@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +14,13 @@
             height: 100vh;
             margin: 0;
         }
+
         #countdown {
             font-size: 24px;
         }
     </style>
 </head>
+
 <body>
     <div id="countdown"></div>
 
@@ -35,7 +38,7 @@
             const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
             document.getElementById('countdown').innerText =
-                `大家请注意，离我老婆生日还有: ${days} 天 ${hours} 小时 ${minutes} 分 ${seconds} 秒 请大家按时送上祝福` ;
+                `大家请注意，离我老婆生日还有: \n ${days} 天 ${hours} 小时 ${minutes} 分 ${seconds} 秒\n 请大家准时送上祝福`;
         }
 
         // Update countdown every second
@@ -45,4 +48,5 @@
         updateCountdown();
     </script>
 </body>
+
 </html>
