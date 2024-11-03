@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2023/04/13/ppx2mSP.png">
 <meta property="og:image" content="https://s1.ax1x.com/2023/04/13/ppx2ZWt.png">
 <meta property="article:published_time" content="2023-04-13T13:52:14.000Z">
-<meta property="article:modified_time" content="2024-10-24T13:56:43.186Z">
+<meta property="article:modified_time" content="2024-11-03T05:04:10.391Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="TypeScript">
@@ -240,7 +240,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-10-24 21:56:43" itemprop="dateModified" datetime="2024-10-24T21:56:43+08:00">2024-10-24</time>
+                <time title="修改时间：2024-11-03 13:04:10" itemprop="dateModified" datetime="2024-11-03T13:04:10+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -319,9 +319,9 @@
 </script>
 
 <p>During the development process with Cocos Creator, I encountered an issue when trying to dynamically change images for 7 sprites. The following error occurred where the images could not be found:</p>
-<img data-src="https://s1.ax1x.com/2023/04/13/ppx2mSP.png" alt="" />
+<img data-src="https://s1.ax1x.com/2023/04/13/ppx2mSP.png" alt="示意图" />
 
-<p>I was puzzled because the image paths seemed correct:<br><img data-src="https://s1.ax1x.com/2023/04/13/ppx2ZWt.png" alt="" /></p>
+<p>I was puzzled because the image paths seemed correct:<br><img data-src="https://s1.ax1x.com/2023/04/13/ppx2ZWt.png" alt="示意图" /></p>
 <p>Here are examples of the code with the bug and the solution:</p>
 <h3 id="Code-with-Bug"><a href="#Code-with-Bug" class="headerlink" title="Code with Bug:"></a>Code with Bug:</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> <span class="attr">i</span>: <span class="built_in">number</span> = <span class="number">0</span>; i &lt; <span class="number">7</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> spriteFrame = <span class="keyword">new</span> <span class="title class_">SpriteFrame</span>();</span><br><span class="line">    <span class="keyword">let</span> imagePath = <span class="string">&quot;ui/Atlas/gameHall/game_type_btn_&quot;</span> + (i + <span class="number">1</span>) + <span class="string">&quot;.png&quot;</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;imagePath = &quot;</span>, imagePath);</span><br><span class="line">    resources.<span class="title function_">load</span>(imagePath, <span class="title class_">SpriteFrame</span>, <span class="function">(<span class="params">err, res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Image not found&quot;</span>, err);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        spriteFrame = res;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">hallImage</span>[i].<span class="property">spriteFrame</span> = spriteFrame;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
