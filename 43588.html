@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文深入探讨Lua编程语言中的线程和状态的概念，介绍Lua中如何处理并发编程以及状态管理，为使用Lua进行开发的开发者提供实用的知识和技巧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua连续教程之Lua线程和状态">
+<meta property="og:url" content="https://lengmo714.top/43588.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="本文深入探讨Lua编程语言中的线程和状态的概念，介绍Lua中如何处理并发编程以及状态管理，为使用Lua进行开发的开发者提供实用的知识和技巧。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-23T12:36:53.000Z">
+<meta property="article:modified_time" content="2024-07-17T15:08:28.231Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="ios">
+<meta property="article:tag" content="android">
+<meta property="article:tag" content="游戏开发">
+<meta property="article:tag" content="quick-cocos">
+<meta property="article:tag" content="游戏上架">
+<meta property="article:tag" content="cocoscreater">
+<meta property="article:tag" content="c语言">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="cocos2dx">
+<meta property="article:tag" content="Lua">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="数据手套">
+<meta property="article:tag" content="嵌入式开发">
+<meta property="article:tag" content="stem32">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lengmo714.top/43588.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Lua连续教程之Lua线程和状态 | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XDK58GP86Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/43588.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lua连续教程之Lua线程和状态
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-23 20:36:53" itemprop="dateCreated datePublished" datetime="2020-07-23T20:36:53+08:00">2020-07-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-17 23:08:28" itemprop="dateModified" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Lua编程</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua%E7%BC%96%E7%A8%8B/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">并发编程</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/43588.html" class="post-meta-item leancloud_visitors" data-flag-title="Lua连续教程之Lua线程和状态" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/43588.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/43588.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+            <div class="post-description">本文深入探讨Lua编程语言中的线程和状态的概念，介绍Lua中如何处理并发编程以及状态管理，为使用Lua进行开发的开发者提供实用的知识和技巧。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Lua语言不支持真正的多线程，即不支持共享内存的抢占式线程。原因有两个，其一是IOS C没有提供这样的功能，因此也没有可移植的方法能在Lua中实现这种机制：</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>其二，也是更重要的原因，在于我们认为在Lua中引入多线程不是一个好主意。<br>多线程一般用于底层编程。像信号量和监视器这样的同步机制一般都是操作系统上下文提供的，而非应用程序提供。要查找和纠正多线程相关的bug是很困难的，其中有些Bug还会导致安全隐患。此外，程序中的一些需要同步的临界区还可能由于同步而导致性能问题。<br>多线程的这些问题源于线程抢占和共享内存，因此如果使用非抢先式的线程后者不使用共享内存就可以避免这些问题。Lua语言同时支持这两种方案。Lua语言的线程是协作式的，因此可以避免因不可预知的线程切换而带来的问题。另一方面，Lua状态之间不共享内存，因此也为Lua语言中实现并行化提供了良好基础。</p>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p>在Lua语言中，协程的本质就是线程。我们可以认为协程是带有良好编程接口的线程，也可以认为线程是带有底层API的协程。<br>从C API的角度来看，把线程当作一个栈会比较有用；而从实现的角度来看，栈实际上就是线程。每个站都保存着一个线程中挂起的函数调用信息，外加每个函数调用的参数和局部变量。换句话说，一个栈包括了一个线程得以继续运行所需的所有信息。因此，多个线程就意味着多个独立的栈。<br>Lua语言中 CAPI的大多数函数操作的特定的栈，Lua是如何知道应该使用哪个栈的呢？当调用lua_pushnumber时，是怎么制定将数字压入何处的呢？秘密在于lua_State类型，即这些函数的第一个参数，它不仅表示一个Lua状态，还表示带有该状态的一个线程。<br>当创建一个Lua状态时，Lua就会自动用这个状态创建一个主线程，并返回代表该线程的lua_State。这个主线程永远不会被垃圾回收，它只会调用lua_close关闭状态时随着状态一起释放。与线程无关的程序会在这个主线程中运行所有的代码。<br>调用lua_newthread可以在一个状态中创建其他的线程：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua_State *<span class="title function_">lua_newthread</span> <span class="params">(lua_State *L)</span>;</span><br></pre></td></tr></table></figure>
+<p>该函数会将新线程作为一个”thread”类型的值压入栈中，并返回一个表示新线程的lua_State类型的指针。例如，考虑如下的语句：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">L1 = lua_newthread(L);</span><br></pre></td></tr></table></figure>
+<p>执行上述代码后，我们就有了两个线程L1和L，它们都在内部引用了相同的Lua状态。每个线程都有其自己的栈。新线程L1从空栈开始运行，而老线程L在其栈顶会引用这个新线程：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,lua_gettop(L1));  -- <span class="number">0</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,luaL_typename(L,<span class="number">-1</span>));   -- thread</span><br></pre></td></tr></table></figure>
+<p>除主线程以外，线程和其他的Lua对象一样都是垃圾回收的对象。当新建一个线程时，新创建的线程会被压入栈中，这样就保证了新线程不会被垃圾收集。永远不要使用未被正确锚定在Lua状态中的线程。所有对LuaAPI的调用都有可能回收未锚定的线程，即使是在正在使用这个线程的函数调用。例如，考虑如下的代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lua_State *L1 = lua_newthread(L);</span><br><span class="line">lua_pop(L,<span class="number">1</span>);</span><br><span class="line">lua_pushstring(L1,<span class="string">&quot;hello&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>调用lua_pushstring可能会触发垃圾收集器并回收L1，从而导致应用崩溃，尽管L1正在被使用。要避免这种情况，应该在诸如一个已锚定线程的栈、注册表或Lua变量中保留一个对使用中线程的引用。<br>一旦拥有一个新线程，我们就可以像使用主线程一样来使用它了。我们可以将元素压入栈中，或者从栈中弹出元素，还可以用它来调用函数等等。例如，如下代码在新线程中调用了f(5)，然后将结果传递到老线程中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lua_getglobal(L1,<span class="string">&quot;f&quot;</span>);  <span class="comment">/* 假设&#x27;f&#x27;是一个全局函数 */</span></span><br><span class="line">lua_pushinteger(L1,<span class="number">5</span>);</span><br><span class="line">lua_call(L1,<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">lua_xmove(L1,L,<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>函数lua_xmove可以在同一个Lua状态的两个栈之间移动Lua值。一个形如lua_xmove(F,T,n)的调用会从栈F中弹出n个元素，并将它们压入栈T中。<br>不过，对于这类用法，我们不需要用新线程，用主线程就足够了。使用多线程的主要目的是实现协程，从而可以挂起某些协程的执行，并在之后恢复执行。因此，我们需要用到函数lua_resume：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">lua_resume</span> <span class="params">(lua_State *L,lua_State *from, <span class="type">int</span> narg)</span>;</span><br></pre></td></tr></table></figure>
+<p>要启动一个协程，我们可以像使用lua_pcall一样使用lua_resume：将待调用函数压入栈，然后压入协程的参数，并以参数的数量作为参数narg调用lua_resume（参数from是正在执行调用的线程，或为NULL）。这个行为与lua_pcall类似，但有三个不同点。首先，lua_resume中没有表示期望结果数量的参数，它总是返回被调用函数的额所有结果。其次，它没有表示错误处理函数的参数，发生错误时不会进行栈展开，这样我们就可以在错误发生后检查栈的情况。最后，如果正在运行的哈数被挂起，lua_resume就会返回代码LUA_YIELD,并将线程置于一个可以后续再恢复执行的状态中。<br>当lua_resume返回LUA_YIELD时，线程栈中的可见部分只包含传递给yield的值。调用lua_gettop会返回这些值的个数。如果要将这些值转移到另一个线程，可以使用lua_xmove。<br>要恢复一个挂起的线程，可以再次调用lua_resume。在这种调用中，Lua假设栈中所有的值都会被调用的yield返回。例如，如果在一个lua_resume返回后到再次调用lua_resume时不改变线程的栈，那么yield会原样返回它产生的值。<br>通常，我们会把一个Lua函数作为协程启动协程。这个Lua函数可以调用其他Lua函数，并且其中任意一个函数都可以挂起，从而结束对lua_resume的调用。例如，假设有如下定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function <span class="title function_">foo</span><span class="params">(x)</span> coroutine.<span class="title function_">yield</span><span class="params">(<span class="number">10</span>,x)</span> end</span><br><span class="line">function <span class="title function_">foo1</span><span class="params">(x)</span> <span class="title function_">foo</span><span class="params">(x + <span class="number">1</span>)</span>; <span class="keyword">return</span> <span class="number">3</span> end</span><br></pre></td></tr></table></figure>
+<p>现在运行一下C语言代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lua_State *L1 = lua_newthread(L);</span><br><span class="line">lua_getglobal(L1,<span class="string">&quot;foo1&quot;</span>);</span><br><span class="line">lua_pushinteger(L1,<span class="number">20</span>);</span><br><span class="line">lua_Resume(L1,L,<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>调用lua_resume会返回LUA_YIELD，表示线程已交出了控制权。此时，L1的栈便有了位yield指定的值：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,lua_gettpo(L1));			--&gt; <span class="number">2</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>,lua_tointeger(L1,<span class="number">1</span>));   --&gt; <span class="number">10</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>,lua_tointeger(L1,<span class="number">2</span>));   --&gt; <span class="number">21</span></span><br></pre></td></tr></table></figure>
+<p>当恢复此线程时，它会从挂起的地方（即调用yield的地方）继续执行。此时，foo会返回到foo1，foo1继而又返回到lua_resume:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lua_resume(L1,L,<span class="number">0</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,lua_gettpo(L1));   --&gt; <span class="number">1</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>,lua_tointeger(L1,<span class="number">1</span>));  --&gt;<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>第二次调用lua_resume是会返回NULL_OK，表示一个正常的返回。<br>一个协程也可以调用C语言函数，而C语言函数又可以反过来调用其他Lua函数。我们已经讨论过如何使用延续来让这些Lua函数交出控制权。C语言函数也可以交出控制权。在这这种情况下，它必须提供一个在线恢复时被调用的延续函数。要交出控制权，C语言函数必须调用如下的函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">lua_yield</span> <span class="params">(lua_State *L, <span class="type">int</span> nresults, <span class="type">int</span> ctx, lua_CFunction k)</span>;</span><br></pre></td></tr></table></figure>
+<p>在返回语句中我们应该始终使用这个函数，例如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> inf <span class="title function_">myCfunction</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">return</span> lua_yieldk(L,nreseults,ctx, k);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个调用会立即挂起正在运行的协程。参数nresults是将要返回给对应的lua_resume的栈中的值的个数；参数ctx是传递给延续的上下文信息；参数k是延续函数。当协程恢复运行时，控制权会直接交给延续函数k；当协程交出控制权后，myCfunction就不会再有其他任何动作，它必须将所有后续的工作委托给延续函数处理。<br>让我们看一个典型的例子。假设要编写一个读取数据的函数，如果无数据可读则交出控制权。我们可能会用C语言写出一个这样的函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">readK</span> <span class="params">(lua_State *L,<span class="type">int</span> status, lua_KContext ctx)</span>&#123;</span><br><span class="line">	(<span class="type">void</span>)status;(<span class="type">void</span>)ctx; <span class="comment">/* 未使用的参数 */</span></span><br><span class="line">	<span class="keyword">if</span> (something_to_read())&#123;</span><br><span class="line">		lua_pushstring(L,read_some_data());</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> lua_yieldk(L,<span class="number">0</span>,<span class="number">0</span>,&amp;readK);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">prim_read</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> readK(L,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个示例中，prim_read无须做任何初始化，因此它可以直接调用延续函数。如果有数据可读。readK会读取并返回数据；否则，它会交出控制权。当线程恢复时，prim_read会再次调用延续函数，该延续函数会再次尝试读取数据。<br>如果C语言函数在交出控制权之后什么都不做，那么它可以不带延续函数调用lua_yieldk或者使用宏lua_yield:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> lua_yield(L,nres);</span><br></pre></td></tr></table></figure>
+<p>在这一句调用之后，当线程恢复时，控制权会返回到名为myCfunction的函数中。</p>
+<h2 id="Lua状态"><a href="#Lua状态" class="headerlink" title="Lua状态"></a>Lua状态</h2><p>每次调用luaL_newstate(或lua_newstate)都会创建一个新的Lua状态。不同的Lua状态之间是完全独立的，它们根本不共享数据。也就是说，无论在一个Lua状态中发生了什么，都不会影响其他Lua状态。这也意味着Lua状态之间不能直接通信，因而必须借助一些C语言代码的帮助。例如，给定两个状态L1和L2，如下命令会将L1栈顶的字符串压入L2的栈中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua_pushstring(L2,lua_tostring(L1,<span class="number">-1</span>));</span><br></pre></td></tr></table></figure>
+<p>由于所有数据必须由C语言进行传递，因此Lua状态之间只能交换能够使用C语言表示的类型，例如字符串和数值。其他诸如表之类的类型必须序列化后才能传递。<br>在支持多线程的系统中，一种有趣的设计是为每个线程创建一个独立的Lua状态。这种设计使得线程类似于POSIX进程，它实现了非共享内存的并发。在本节中，我们会根据这种方法开发一个多线程的原型实现。在这个实现中，将会使用POSIX线程。因为这些代码只使用了一些基础功能，所以将它们移植到其他线程系统中并不难。<br>我们要开发的系统很简单，其主要目的是演示一个多线程环境中使用多个Lua状态。在这个系统开始运行之后，我们可以为它添加几个高级功能。我们把这个库称为lproc，它只提供4个函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lproc.start(chunk)</span><br></pre></td></tr></table></figure>
+<p>启动一个新进程来运行指定的代码段（一个字符串）。这个库将Lua进程实现为一个C语言进程外加与其相关联的Lua状态。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lproc.send(channel,val1,val2,...)</span><br></pre></td></tr></table></figure>
+<p>将所有指定值（应为字符串）发送给指定的、由名称（也是一个字符串）标识的通道。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lproc.receive(channel)</span><br></pre></td></tr></table></figure>
+<p>接收发送给指定通道的值。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lproc.<span class="built_in">exit</span>()</span><br></pre></td></tr></table></figure>
+<p>结束一个进程。只有主进程需要这个函数。如果主程序不调用lproc.exit就直接结束，那么整个程序会终止，而不会等待其他进程结束。<br>这个库通过字符串标识不同的通道，并通过字符串来匹配发送者和接收这。一个发送操作可以发送任意数量的字符串，这些字符串由对应的接收操作返回。所有的通信都是同步的，向通道发送消息的进程会一直阻塞，知道有进程从该通道接收信息，从而通道接收信息的进程会一直阻塞，直至有进程向其发送消息。<br>lproc的实现像其接口一样简单，它使用了两个循环双向链表，一个用于等待发送消息的进程，另一个用于等待接收消息的进程。lproc使用一个互斥量来控制对着两个链表的访问。每个进程有一个关联的条件变量。当进程要向通道发送一条消息时，它会遍历接收链表以查找一个在该通道上等到的进程。如果找到了这样的进程，它会将该进程从等待链表中删除，并将消息的值从自身转移到找到的进程中，然后通知其他进程；否则，它就将自己插入发送链表，然后等待其条件变量发生变化。接收消息的操作也与此基本类似。<br>在这种实现中，主要的元素之一就是表示进程的结构体：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;lua.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;luaxlib.h&quot;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Proc</span>&#123;</span></span><br><span class="line">	lua_State *L;</span><br><span class="line">	<span class="type">pthread_t</span> thread;</span><br><span class="line">	<span class="type">pthread_cond_t</span> cond;</span><br><span class="line">	<span class="type">const</span> <span class="type">char</span> *channel;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Proc</span> *<span class="title">previous</span>, *<span class="title">next</span>;</span></span><br><span class="line">&#125;Proc;</span><br></pre></td></tr></table></figure>
+<p>前两个字段表示进程使用的Lua状态和运行该进程的C线程。第三个字段cond是条件变量，线程会在等待匹配的发送&#x2F;接收时用它来使自己进入则塞状态。第四个字段保存了进程正在等待的通过。最后两个字段previous和next将进程的结构体组成等待链表。<br>下面的代码声明了两个等待链表及关联的互斥量：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> Proc *waitsend = <span class="literal">NULL</span>;</span><br><span class="line"><span class="type">static</span> Proc *waitreceive = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">pthread_mutex_t</span> kernel_access = PTHERAD_MUTEX_INITIALIZER;</span><br></pre></td></tr></table></figure>
+<p>每个进程都需要一个Proc结构体，并且进程脚本调用send或receive时就需要访问这个结构体。这些函数接收的唯一参数就是进程的Lua状态；因此，每个进程都应该将其Proc结构体保存在其Lua状态中。在我们的实现中，每个状态都将其对应的Proc结构体作为完整的用户数据存储在注册表中，关联的键为”_SELF”。辅助函数getself可以从指定的状态中获取相关联的Prco结构体：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> Proc *<span class="title function_">getself</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	Proc *p;</span><br><span class="line">	lua_getfield(L&lt;LUA_REGISTRYINDEX,<span class="string">&quot;_SELF&quot;</span>);</span><br><span class="line">	p = (Proc *)lua_touserdata(L,<span class="number">-1</span>);</span><br><span class="line">	lua_pop(L,<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下一个函数，movevalues，将值从发送进程移动到接收进程：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">movevalues</span><span class="params">(lua_State *send, lua_State *rec)</span>&#123;</span><br><span class="line">	<span class="type">int</span> n = lua_gettop(send);</span><br><span class="line">	<span class="type">int</span> i;</span><br><span class="line">	lua_checkstack(rec,n,<span class="string">&quot;too many results&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">2</span>; i &lt;= n; i++)</span><br><span class="line">		lua_pushstring(rec,lua_tostring(send,i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数将发送进程的栈中所有的值移动到接收进程的栈中。请注意，在压入任意数量的元素时，需要检查栈空间。<br>示例定义了函数searchhmatch,该函数会遍历列表以寻找等待指定通道的进程。</p>
+<blockquote>
+<p>示例 用于寻找等待通道的进程的函数</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> Proc *<span class="title function_">serachmatch</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *channel, Proc **<span class="built_in">list</span>)</span>&#123;</span><br><span class="line">	Proc *node;</span><br><span class="line">	<span class="keyword">for</span> (node = *<span class="built_in">list</span>; node != <span class="literal">NULL</span>; node = node -&gt;next)&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">strcmp</span>(channel, node -&gt;channel) == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span> (*<span class="built_in">list</span> == node)</span><br><span class="line">				*<span class="built_in">list</span> = (node-&gt;next == node)?<span class="literal">NULL</span>:node-&gt;next;</span><br><span class="line">			node-&gt;provious-&gt;next = node -&gt;next;</span><br><span class="line">			node-&gt;next-&gt;previous = node -&gt;previous;</span><br><span class="line">			<span class="keyword">return</span> node;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果找到一个进程，那么该函数会将这个进程从列表中移除并返回该进程；否则，该函数会返回NULL。<br>当找不到匹配的进程时，会调用最后的辅助函数，参见下例</p>
+<blockquote>
+<p>示例 用于在等待列表中新增一个进程的函数</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">waitonlist</span> <span class="params">(lua_State *L, <span class="type">const</span> <span class="type">char</span> *channel, Proc **<span class="built_in">list</span>)</span>&#123;</span><br><span class="line">	Proc *p = getself(L);</span><br><span class="line">	<span class="keyword">if</span> (*<span class="built_in">list</span> == <span class="literal">NULL</span>)&#123;</span><br><span class="line">		*<span class="built_in">list</span> = p;</span><br><span class="line">		p-&gt;previous = p-&gt;next = p;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		p-&gt;previous = (*<span class="built_in">list</span>)-&gt; previous;</span><br><span class="line">		p-&gt;next = *<span class="built_in">list</span>;</span><br><span class="line">		p-&gt;previous-&gt;next = p-&gt;next-&gt;previous = p;</span><br><span class="line">	&#125;</span><br><span class="line">	p-&gt;channel = channel;</span><br><span class="line">	<span class="keyword">do</span>&#123;</span><br><span class="line">		pthread_cond_wait(&amp;p-&gt;cond,&amp;kernel_access);</span><br><span class="line">	&#125;<span class="keyword">while</span>(p-&gt;channel);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，进程会将自己链接到相应等待链表的末尾，然后进入等待状态，知道另一个进程与之匹配并将其唤醒。当一个进程唤醒另一个进程时，它会将另一个进程的channel字段设置为NULL。因此，如果p-&gt;channel不是NULL，那就表示尚未出现与进程p匹配的进程，所以需要继续等待。<br>有了这些辅助函数，我们就可以编写send和receive了</p>
+<blockquote>
+<p>示例 用于发送和接收消息的函数</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">ll_send</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	Proc *p;</span><br><span class="line">	<span class="type">const</span> <span class="type">char</span> *channel = luaL_checkstring(L,<span class="number">1</span>);</span><br><span class="line">	pthread_mutex_lock(&amp;kernel_access);</span><br><span class="line">	p = searchmatch(channel,&amp;waitreceive);</span><br><span class="line">	<span class="keyword">if</span>(p)&#123;</span><br><span class="line">		movevalues(L,p-&gt;L);</span><br><span class="line">		p-&gt;channel = <span class="literal">NULL</span>;</span><br><span class="line">		pthread_cond_signal(&amp;p-&gt;cond);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		waitonlist(L,channel,&amp;waitsend);</span><br><span class="line"></span><br><span class="line">	pthread_mutex_unlock(&amp;kernel_access);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">ll_receive</span> <span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	Proc *p;</span><br><span class="line">	<span class="type">const</span> <span class="type">char</span> *channel = luaL_checkstring(L,<span class="number">1</span>);</span><br><span class="line">	lua_settop(L,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	pthread_mutex_lock(&amp;kernel_access);</span><br><span class="line">	p = searchmatch(channel,&amp;waitsend);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(p)&#123;</span><br><span class="line">		movevalues(p-&gt;L,L);</span><br><span class="line">		p-&gt;channel = <span class="literal">NULL</span>;</span><br><span class="line">		pthread_cond_signal(&amp;p-&gt;cond);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		waitonlist(L,channel,&amp;waitreceive);</span><br><span class="line"></span><br><span class="line">	pthread_mutex_unlock(&amp;kernel_access);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> lua_gettop(L) <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数ll_send先获取通道，然后锁住互斥量并搜索匹配的接收进程。如果找到了，就把待发送的值传递给这个接收进程，然后将接收进程标记为就绪状态并唤醒接收进程。否则，发送进程就将自己放入等待链表。当操作完成后，ll_send解锁互斥量且不向Lua返回任何值。函数ll_receive与之类似，但它会返回所有接收到的值。<br>现在，让我们看一下如何创建新进程。新进程需要一个新的POSIX线程，而POSIX线程的运行需要一个线程体。我们会在后面的内容中定义这个线程体。在此，先看一下它的原型，这是pthreads所需求的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> *<span class="title function_">ll_thread</span><span class="params">(<span class="type">void</span> *arg)</span>;</span><br></pre></td></tr></table></figure>
+<p>要创建并运行一个新进程，我们开发的系统必须创建一个新的Lua状态，启动一个新线程，编译指定的代码段，调用该代码段，最后释放其资源。原线程会完成前面三个任务，而新线程则负责其余任务。<br>函数ll_start可以创建一个新的进程。</p>
+<blockquote>
+<p>示例 用于创建进程的函数</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">ll_start</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	<span class="type">pthread_t</span> thread;</span><br><span class="line">	<span class="type">const</span> <span class="type">char</span> *chunk = luaL_checkstring(L,<span class="number">1</span>);</span><br><span class="line">	lua_State *L1 = luaL_newstate();</span><br><span class="line">	<span class="keyword">if</span>(L1 == <span class="literal">NULL</span>)</span><br><span class="line">		lua_error(L,<span class="string">&quot;unable to create new state&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (luaL_loadstring(L1,chunk) ！= <span class="number">0</span>)</span><br><span class="line">		luaL_error(L,<span class="string">&quot;error in thread body:%s&quot;</span>,lua_tostring(L1,<span class="number">-1</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(pthread_create(&amp;thread,<span class="literal">NULL</span>,ll_thread,L1)!=<span class="number">0</span>)</span><br><span class="line">		luaL_error(L,<span class="string">&quot;unable to create new thread&quot;</span>);</span><br><span class="line"></span><br><span class="line">	pthread_detach(thread);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该函数创建了一个新的Lua状态L1，并在其中编译了指定的代码段。如果有错误发生，该函数会把错误传递给原来的状态L。然后，该函数使用ll_thread作为线程体创建一个新线程，同时将新状态L1作为参数传递给这个线程体。最后，该函数调用pthread_detach通知系统我们不需要该线程的任何运行结果。<br>每个新线程的线程体都是函数ll_thread，它接手相应的Lua状态，这个Lua状态的栈中只含有预编译的主代码段。</p>
+<blockquote>
+<p>示例  新线程的线程体</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">luaopen_lproc</span><span class="params">(lua_State *L)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> *<span class="title function_">ll_thread</span><span class="params">(<span class="type">void</span> *arg)</span>&#123;</span><br><span class="line">	lua_State *L = (lua_State *) arg;</span><br><span class="line">	Proc *self;</span><br><span class="line"></span><br><span class="line">	openlibs(L);</span><br><span class="line">	luaL_requiref(L,<span class="string">&quot;lproc&quot;</span>,luaopen_lproc,<span class="number">1</span>);</span><br><span class="line">	lua_pop(L,<span class="number">1</span>);</span><br><span class="line">	self = (Proc *)lua_newuserdata(L,<span class="keyword">sizeof</span>(Proc));</span><br><span class="line">	lua_setfield(L,LUA_REGISTRYINDEX, <span class="string">&quot;_SELF&quot;</span>);</span><br><span class="line">	self-&gt;L = L;</span><br><span class="line">	self-&gt;thread = pthread_self();</span><br><span class="line">	self-&gt;channel = <span class="literal">NULL</span>;</span><br><span class="line">	pthread_cond_init(&amp;self-&gt;cond,<span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(lua_pcall(L,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,)!=<span class="number">0</span>)</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>,<span class="string">&quot;thread error: %s&quot;</span>,lua_tostring(L,<span class="number">-1</span>));</span><br><span class="line"></span><br><span class="line">	pthread_cond_destroy(&amp;getself(L)-&gt;cond);</span><br><span class="line">	lua_close(L);</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先，该函数打开Lua标准库和库lproc；之后，它创建并初始化其自身的控制块；然后，调用主代码段；最后，销毁其条件变量并关闭Lua状态。<br>请注意使用luaL_requiref打开库lproc的用法。这个函数在某种意义上等价于require，但它用指定函数来打开库而没有搜索打开函数。在调用这个打开函数后，luaL_requiref会在表package.loaded中注册结果，这样以后再调用require加载这个库时就无须再次打开库了。当luaL_requiref的最后一个参数为真时，该函数还会在相应的全局变量中注册这个库。<br>示例演示了这个模块中的最后一个函数</p>
+<blockquote>
+<p>示例 模块lproc的其他函数</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> inti <span class="title function_">ll_exit</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	pthread_exit(<span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">luaL_Reg</span> <span class="title">l_funcs</span>[] =</span>&#123;</span><br><span class="line">	&#123;<span class="string">&quot;start&quot;</span>,ll_start&#125;,</span><br><span class="line">	&#123;<span class="string">&quot;send&quot;</span>,ll_send&#125;,</span><br><span class="line">	&#123;<span class="string">&quot;receive&quot;</span>,ll_receive&#125;,</span><br><span class="line">	&#123;<span class="string">&quot;exit&quot;</span>,ll_exit&#125;,</span><br><span class="line">	&#123;<span class="literal">NULL</span>,<span class="literal">NULL</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">luaopen_lproc</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	luaL_newlib(L,ll_funcs);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这两个函数都很简单。函数ll_exit应该只能在主进程结束时由主进程调用，以避免整个程序立即结束。函数luaopen_lproc是用于打开这个模块的标准函数。<br>正如笔者之前说过的，在Lua语言中这种进程的实现方式非常简单。我们可以对它进行各种改进，这里简单介绍几种。<br>第一种显而易见的改进是改变对匹配通道的线性查找，更好的选择是用哈希表来寻找通道，并为每个通道设置一个独立的等待列表。<br>另一种改进涉及创建进程的效率。创建一个新的Lua状态时一个轻量级操作，但打开所有的标准库可不是轻量级的，并且大部分进程可能并不需要用到所有的标准库。我们可以通过对库进行预注册来避免打开无用的库。相对于为每个标准库调用luaL_requiref，使用这种方法时我们只需要将库的打开函数放入表package.preload中即可。当且仅当进程调用require”lib”时，require才会调用这个与库相关的函数来打开库。</p>
+<blockquote>
+<p>示例 注册按需打开的库</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">registerlib</span> <span class="params">(lua_State *L, <span class="type">const</span> <span class="type">char</span> *name,lua_CFunction f)</span>&#123;</span><br><span class="line">	lua_getglobal(L,<span class="string">&quot;package&quot;</span>);</span><br><span class="line">	lua_getfield(L,<span class="number">-1</span>,<span class="string">&quot;preload&quot;</span>);</span><br><span class="line">	lua_pushcfunction(L,f);</span><br><span class="line">	lua_setfield(L,<span class="number">-2</span>,name);</span><br><span class="line">	lua_pop(L,<span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">openlibs</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	luaL_requiref(L,<span class="string">&quot;_G&quot;</span>,luaopen_base,<span class="number">1</span>);</span><br><span class="line">	lua_requiref(L,<span class="string">&quot;package&quot;</span>,luaopen_package,<span class="number">1</span>);</span><br><span class="line">	lua_pop(L,<span class="number">2</span>);</span><br><span class="line">	registerlib(L,<span class="string">&quot;coroutine&quot;</span>,luaopen_coroutine);</span><br><span class="line">	registerlib(L,<span class="string">&quot;table&quot;</span>,luaopen_table);</span><br><span class="line">	registerlib(L,<span class="string">&quot;io&quot;</span>,luaopen_io);</span><br><span class="line">	registerlib(L,<span class="string">&quot;os&quot;</span>,luaopen_os);</span><br><span class="line">	registerlib(L,<span class="string">&quot;string&quot;</span>,luaopen_string);</span><br><span class="line">	registerlib(L,<span class="string">&quot;math&quot;</span>,luaopen_math);</span><br><span class="line">	registerlib(L,<span class="string">&quot;utf8&quot;</span>,luaopen_utf8);</span><br><span class="line">	registerlib(L,<span class="string">&quot;debug&quot;</span>,luaopen_debug);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一般情况都需要打开基础库。另外，我们还需要package库；如果没有package库，就无法通过require来打开其他库。所有其他的库都是可选的。因此，除了调用luaL_openlibs之外，可以在打开新状态时调用我们自己的函数openlibs。当进程需要用到其中任意一个库时，只需显式地调用require，require就会调用相应的luaopen_*函数ll_start可以创建一个新的进程。<br>另一个改进涉及通信原语。例如，为lproc.send和lproc.receive设置一个等待匹配的时间阀值会非常有用。特别的，当等待时间阈值为零时，这两个函数会成为非阻塞的。在POSIX线程中，可以用pthread_cond_timedwait实现这个功能。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/43588.html" title="Lua连续教程之Lua线程和状态">https://lengmo714.top/43588.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/22026.html" rel="prev" title="Mac-Xcode各种目录路径和调试方法">
+      <i class="fa fa-chevron-left"></i> Mac-Xcode各种目录路径和调试方法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/40902.html" rel="next" title="用python检测微信好友是否删除自己">
+      用python检测微信好友是否删除自己 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">多线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lua%E7%8A%B6%E6%80%81"><span class="nav-number">2.</span> <span class="nav-text">Lua状态</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mall.jd.com/index-12955410.html" title="https:&#x2F;&#x2F;mall.jd.com&#x2F;index-12955410.html" rel="noopener" target="_blank">京东小店</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a>
+      <img src="/images/1.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">769k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11:39</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 't3TkgC71hcBBtINYfsVe8r0R-gzGzoHsz',
+      appKey     : 'SUF3DMDZlFZMDGj3ai9WfgFY',
+      placeholder: "填写QQ邮箱就会使用QQ头像喔~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  +  
+  
+	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
+  
+
+</body>
+</html>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
