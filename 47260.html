@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+<meta name="keywords" content="telegram, mini APP, Game, Cocos Creator, Game Development, Telegram mini APP or game development bot setup, Telegram Bot Payments">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="与其他几种脚本语言不通，Lua语言既没有使用POSIX正则表达式，也没有使用Perl正则表达式来进行模式匹配。之所以这样做的主要原因在于大小问题：一个典型的POSIX正则表达式实现需要超过4000行代码，这比所有Lua语言标准库总大小的一半还大。相比之下，Lua语言模式匹配的实现代码只有不到600行。尽管Lua语言的欧式匹配做不到完整POSIX实现的所有功能，但是Lua语言的模式匹配仍然非常强大，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua模式匹配">
+<meta property="og:url" content="https://lengmo714.top/47260.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="与其他几种脚本语言不通，Lua语言既没有使用POSIX正则表达式，也没有使用Perl正则表达式来进行模式匹配。之所以这样做的主要原因在于大小问题：一个典型的POSIX正则表达式实现需要超过4000行代码，这比所有Lua语言标准库总大小的一半还大。相比之下，Lua语言模式匹配的实现代码只有不到600行。尽管Lua语言的欧式匹配做不到完整POSIX实现的所有功能，但是Lua语言的模式匹配仍然非常强大，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-15T06:15:06.000Z">
+<meta property="article:modified_time" content="2024-07-17T15:08:28.164Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lengmo714.top/47260.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Lua模式匹配 | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XDK58GP86Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/47260.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lua模式匹配
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-15 14:15:06" itemprop="dateCreated datePublished" datetime="2020-04-15T14:15:06+08:00">2020-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-17 23:08:28" itemprop="dateModified" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/47260.html" class="post-meta-item leancloud_visitors" data-flag-title="Lua模式匹配" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/47260.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/47260.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>与其他几种脚本语言不通，Lua语言既没有使用POSIX正则表达式，也没有使用Perl正则表达式来进行模式匹配。之所以这样做的主要原因在于大小问题：一个典型的POSIX正则表达式实现需要超过4000行代码，这比所有Lua语言标准库总大小的一半还大。相比之下，Lua语言模式匹配的实现代码只有不到600行。尽管Lua语言的欧式匹配做不到完整POSIX实现的所有功能，但是Lua语言的模式匹配仍然非常强大，同时还具有一些与标准POSIX不同但又可与之媲美的功能。</p>
+<span id="more"></span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+
+<h2 id="模式匹配的相关函数"><a href="#模式匹配的相关函数" class="headerlink" title="模式匹配的相关函数"></a>模式匹配的相关函数</h2><p>字符串标准库提供了基于模式的4个函数。我们已经初步了解过函数find和gsub，其余两个函数分别是match和gmatch。</p>
+<h3 id="函数string-find"><a href="#函数string-find" class="headerlink" title="函数string.find"></a>函数string.find</h3><p>函数string.find用于在指定的目标字符串中搜索指定的模式。最简单的模式就是一个单词，它智慧匹配到这个单词本身。例如，模式’hello’会在目标自服装中所搜子串”hello”。函数string.find找到一个模式后，会返回两个值：匹配到模式开始位置的索引和结束位置的索引。如果没有找到任何匹配，则返回nil：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;hello world&quot;</span></span><br><span class="line">i,j = <span class="built_in">string</span>.<span class="built_in">find</span>(s,<span class="string">&quot;hello&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(i,j)				<span class="comment">-- 1	5</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">sub</span>(s,i,j)) <span class="comment">-- hello</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">find</span>(s,<span class="string">&quot;world&quot;</span>))	<span class="comment">--	7	11</span></span><br><span class="line">	i,j = <span class="built_in">string</span>.<span class="built_in">find</span>(s,<span class="string">&quot;l&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(i,j)			<span class="comment">-- 3	3</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">find</span>(s,<span class="string">&quot;lll&quot;</span>))		<span class="comment">-- nil</span></span><br></pre></td></tr></table></figure>
+<p>匹配成功后，可以以函数find返回的结果为参数调用函数string.sub来获取目标字符串匹配相应模式的子串。对于简单的模式来说，这一般就是模式本身。<br>函数string.find具有两个可选参数。第3个参数是一个索引，用于说明从目标字符串的哪个位置开始搜索。第4个参数是一个布尔值，用于说明是否进行简单搜索。所谓简单所有就是忽略模式而在目标字符串中进行单纯的“查找子字符串”的动作：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">find</span>(<span class="string">&quot;a[word]&quot;</span>,<span class="string">&quot;[&quot;</span>)</span><br><span class="line"><span class="built_in">stdin</span>:<span class="number">1</span>:malformed pattern (missing <span class="string">&#x27;]&#x27;</span>)</span><br><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">find</span>(<span class="string">&quot;a [word]&quot;</span>,<span class="string">&quot;[&quot;</span>,<span class="number">1</span>,<span class="literal">true</span>) 		<span class="comment">-- 3	3</span></span><br></pre></td></tr></table></figure>
+<p>由于’[‘在模式中具有特殊含义，因此第1个函数调用会报错。在第2个函数调用中，函数只是把’[‘当作简单字符串。请注意，如果没有第3个参数，是不能传入第4个可选参数的。</p>
+<h3 id="函数string-match"><a href="#函数string-match" class="headerlink" title="函数string.match"></a>函数string.match</h3><p>由于函数string.match也用于在一个字符串搜索模式，因此它与函数string.find非常相似。不过，函数string.match返回的是目标字符串中与模式相匹配的那部分子串，而非该模式所在的位置：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">match</span>(<span class="string">&quot;hello world&quot;</span>,<span class="string">&quot;hello&quot;</span>))			<span class="comment">-- hello</span></span><br></pre></td></tr></table></figure>
+<p>对于诸如’hello’这样固定的模式，使用这个函数并没有什么意义。然而，当模式是变量时，这个函数的强大之处就显现出来了。例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">date</span> = <span class="string">&quot;Today is 15/4/2020&quot;</span></span><br><span class="line">d = <span class="built_in">string</span>.<span class="built_in">match</span>(<span class="built_in">date</span>,<span class="string">&quot;%d + /%d + /%d +&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(d)		<span class="comment">-- 15/4/2020</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="函数string-gmatch"><a href="#函数string-gmatch" class="headerlink" title="函数string.gmatch"></a>函数string.gmatch</h3><p> 函数string.gmatch返回一个函数，通过返回的函数可以遍历一个字符串中所有出现的指定模式。例如，以下示例可以找出字符串s中出现的所有单词：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;some string&quot;</span></span><br><span class="line">words = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> w <span class="keyword">in</span> <span class="built_in">string</span>.<span class="built_in">gmatch</span>(s,<span class="string">&quot;%a+&quot;</span>) <span class="keyword">do</span> </span><br><span class="line">	words[#words + <span class="number">1</span>] = w</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><p> 大多数模式匹配库都是用反斜杠作为转义符。然后，这种方式可能会导致一些不良的后果。对于Lua语言的解析器而言，模式仅仅是普通的字符串。模式与其他的字符串一样遵循相同的规则，并不会被特殊对待；只有模式匹配相关的函数才会把它们当做模式进行解析。由于反斜杠是Lua语言中的转义符，所以我们应该避免它传递给任何函数。模式本身就难以阅读，到处把“\”换成“\”就更加火上浇油了。<br> 我们可以使用双括号把模式括起来构成的长字符串来解决这个问题。然而，长字符串的写法对于通常比较短的模式而言又往往显得冗长。此外，我们还会失去在模式内进行转义的能力。<br> Lua语言的解决方案更加简单：Lua语言中的模式使用百分号作为转义符。总体上，所有被转义的字母都具有某些特殊含义，而所有被转移的非字母则代表其本身。<br> 我们首先来学习字符分类的模式。所谓字符分类，就是模式中能够与一个特定集合中的任意字符相匹配的一项。例如，分类%d匹配的是任意数字。因此，可以使用模式’%d%d&#x2F;%d%&#x2F;d%d%d%d’来匹配dd&#x2F;mm&#x2F;yyyy格式的日期：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;Deadline is 15/04/2020, firm</span></span><br><span class="line"><span class="string">date = &quot;</span>%d%d/%d%d/%d%d%d%d<span class="string">&quot;</span></span><br><span class="line"><span class="string">print(string.match(s,date))		-- 15/04/2020</span></span><br></pre></td></tr></table></figure>
+<p>下表列出了所有预置的字符串分类及其对应的含义：</p>
+<hr>
+<p>.					  任意字符<br>%a				  字母<br>%c				  控制字符<br>%d				  数字<br>%g				  除空格外的可打印字符	<br>%l				  小写字母<br>%p				  标点符号<br>%s				  空白字符<br>%u				  大写字母<br>%w				  字母和数字<br>%x				  十六进制数字</p>
+<hr>
+<p> 这些类的大写形式表示类的补集。例如，<code>%A</code>代表任意非字母的字符：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>((<span class="built_in">string</span>.<span class="built_in">gsub</span>(<span class="string">&quot;hello, up-down!&quot;</span>,<span class="string">&quot;%A&quot;</span>,<span class="string">&quot;.&quot;</span>))) <span class="comment">-- hello..up.down.</span></span><br></pre></td></tr></table></figure>
+<p>在输出函数gsub的返回结果时，我们使用了额外的括号来丢弃第二个结果，也就是特换发生的次数。<br> 当在模式中使用时，还有一些被称为魔法字符的字符具有特殊含义。Lua语言的模式所使用的魔法字符包括：<br><code>()</code> <code>.</code> <code>%</code> <code>+</code> <code>-</code> <code>*</code> <code>?</code> <code>[</code> <code>]</code> <code>^</code> <code>$</code><br>正如我们之前已经看到的，百分号同样可以用于这些魔法字符的转义。因此，<code>%?</code>匹配一个问号，<code>%%</code>匹配一个百分号。我们不仅可以用百分号对魔法字符进行转义，还可以将其用于其他所有字母和数字外的字符。当不确定是否需要转义时，为了保险起见就可以使用转义符。<br> 可以使用字符集来创建自定义的字符分类，只需要在方括号内将单个字符和字符分类组合起来即可。例如，字符集<code>[%w_]</code>匹配所有以下画线结尾的字母和数字，<code>[01]</code>匹配二进制数字，<code>[%[%]]</code>匹配方括号。如果想要统计一段文本中元音的数量，可以使用如下的代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_,nvow = <span class="built_in">string</span>.<span class="built_in">gsub</span>(text,<span class="string">&quot;[AEIOUaeiou]&quot;</span>,<span class="string">&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>还可以在字符集中包含一段字符范围，做法是写出字符范围的第一个字符和最后一个字符并用横线将它们连接在一起。由于大多数常用的字符范围都被预先定义了，所以这个功能很少被使用。例如，<code>%d</code>相当于<code>[0,9]</code>，<code>%x</code>相当于<code>[0-9a-fA-F]</code>。不过，如果需要查找一个八进制的数字，那么使用<code>[0-7]</code>就比显示地枚举<code>[01234567]</code>强多了。<br> 在字符集前加一个补字符^就可以得到这个字符集对应的补集：模式<code>[^\n]</code>则代表除换行符以外的其他字符。尽管如此，我们还是要记得对于简单的分类来说可以使用大写形式来获得对应的补集：<code>$S</code>显然要比<code>[^%s]</code>更简单。<br> 还可以通过描述模式中重复和可选部分的修饰符来让模式更加有用。Lua语言中的模式提供了4中修饰符：</p>
+<hr>
+<p><code>+</code>  重复一次或多次<br><code>*</code>  重复零次或多次<br><code>-</code>  重复零次或多次（最小匹配）<br><code>?</code>  可选（出现零次或一次）</p>
+<hr>
+<p> 修饰符 + 匹配原始字符串分类中的一个或多个字符，它总是获取与模式相匹配的最长序列。例如，模式’%a+’代表一个或多个字母：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>((<span class="built_in">string</span>.gusb(<span class="string">&quot;one , and two; and three&quot;</span>, <span class="string">&quot;%a+&quot;</span>,<span class="string">&quot;word&quot;</span>)))</span><br><span class="line"><span class="comment">-- word, word word; word word</span></span><br></pre></td></tr></table></figure>
+<p>模式’%d+’匹配一个或多个数字</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">match</span>(<span class="string">&quot;the number 1298 is event&quot;</span>,<span class="string">&quot;%d+&quot;</span>))	<span class="comment">-- 1298</span></span><br></pre></td></tr></table></figure>
+<p> 修饰符 * 类似于修饰符+，但是它还接受对应字符分类出现零次的情况。该修饰符一个典型的用法就是在模式的部分之间匹配可选的空格。例如，为了匹配像（）或（）这样的空括号对，就可以使用模式<code>&#39;%(%s*%)&#39;</code>，其中的<code>&#39;%s*&#39;</code>匹配零个或多个空格。另一个示例是用模式<code>&#39;[_%a][_%w]*&#39;</code>匹配Lua程序中的标识符：标识符是一个由字母或下画线开头，并紧跟零个或多个由下画线、字母或数字组成的序列。<br> 修饰符-和修饰符 * 类似，也是用于匹配原始字符分类的零次或多次出现。不过，跟修饰符 * 总是匹配能匹配的最长序列不同，修饰符-只会匹配最短序列。虽然有时它们两者并没有什么区别，但大多数情况下这两者会导致截然不同的结果。例如，当试图用模式<code>&#39;[_%a][_%w]-&#39;</code>查找标识符时，由于<code>[_%w]-</code>总是匹配空序列，所以我们只会找到第一个字母。又如，假设我们想要删掉某C语言程序中的所有注释，通常会首先尝试使用<code>&#39;/%*.*%*/&#39;</code>。然而，由于<code>&#39;.*</code>会尽可能长地匹配，因此程序中的第一个<code>&quot;/*&quot;</code>只会与最后一个<code>&quot;*/&quot;</code>相匹配：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test = <span class="string">&quot;int x; /* x */ int y; /* y * /&quot;</span></span><br><span class="line"><span class="built_in">print</span>((<span class="built_in">string</span>.<span class="built_in">gsub</span>(test,<span class="string">&quot;/%*.*%*/&quot;</span>, <span class="string">&quot;&quot;</span>)))</span><br><span class="line"><span class="comment">-- int x</span></span><br></pre></td></tr></table></figure>
+<p>相反，模式’.-‘则只会匹配到找到的第一个”*&#x2F;“，这样就能得到期望的结果：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test = <span class="string">&quot;int x; /* x */ int y; /* y * /&quot;</span></span><br><span class="line"><span class="built_in">print</span>((<span class="built_in">string</span>.<span class="built_in">gsub</span>(test,<span class="string">&quot;/%*.-*%*/&quot;</span>, <span class="string">&quot;&quot;</span>)))</span><br><span class="line"><span class="comment">-- int x;	int y</span></span><br></pre></td></tr></table></figure>
+<p> 最后一个修饰符？可用于匹配一个可选的字符。例如，假设我们想在一段文本中寻找一个证书，而这个证书可能包括一个可选的符号，那么就可以使用模式<code>[+-]?%d+</code>来完成这个需求，该模式可以匹配像“-12”、“23”和“+1009”这样的数字。其中字符分类<code>[+-]</code>匹配加号或减号，而其后的问号则代表这个符号是可选的。<br> 与其他系统不同的是，Lua语言中的修饰符只能作用于一个字符模式，而无法作用于一组分类。例如，我们不能写出匹配一个可选的单词的模式。通常，可以使用一些高级技巧来绕开这个限制。<br> 以补字符^开头的模式表示从目标字符串开头开始匹配。类似地，以$结尾的模式表示匹配到目标字符串的结尾。我们可以同时使用这两个标记来限制匹配查找和锚定模式。例如，如下的代码可以用来检查字符串s是否以数字开头：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">string</span>.<span class="built_in">find</span>(s,<span class="string">&quot;^%d&quot;</span>) <span class="keyword">then</span> ...</span><br></pre></td></tr></table></figure>
+<p>如下的代码用来检查字符串是否为一个没有多余前缀字符和后缀字符的整数：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">string</span>.<span class="built_in">find</span>(s.<span class="string">&quot;^[+-]?%d+$&quot;</span>) <span class="keyword">then</span> ...</span><br></pre></td></tr></table></figure>
+<p>^和$字符只有位于模式的开头和结尾时才具有特殊含义；否则，它们仅仅就是与其身相匹配的普通字符。<br> 模式<code>%b</code>匹配成对的字符串，它的写法是<code>%bxy</code>，其中x和y是任意两个不同的字符，x作为起始符而y作为结束字符。例如，模式<code>%b()</code>匹配以左括号开始并以对应右括号结束的子串：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;a (enclosed (in) parentheses line&quot;</span></span><br><span class="line"><span class="built_in">print</span>((<span class="built_in">string</span>.<span class="built_in">gsub</span>（s,<span class="string">&quot;%b()&quot;</span>,<span class="string">&quot;&quot;</span>))			<span class="comment">-- a line</span></span><br></pre></td></tr></table></figure>
+<p>通常，我们使用<code>%b()</code>、<code>%b[]</code>、<code>%b&#123;&#125;</code>或<code>%b&lt;&gt;</code>等作为模式，但实际上可以用任意不同的字符作为分隔符。<br> 最后，模式<code>%f[char-set]</code>代表前置模式。该模式只有在后一个字符位于char-set内而前一个字符不在时匹配一个空字符串：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;the anthem is then theme&quot;</span></span><br><span class="line"><span class="built_in">print</span>((<span class="built_in">string</span>.<span class="built_in">gsub</span>(s,<span class="string">&quot;%f[%w]the%f[%W]&quot;</span>,<span class="string">&quot;one&quot;</span>)))			<span class="comment">-- one anthem is one theme</span></span><br></pre></td></tr></table></figure>
+<p>模式<code>%f[%w]</code>匹配位于一个非字母或数字的字符和一个字母或数字的字符之间的前置，而模式<code>%f[%W]</code>则匹配一个字母或数字的字符和一个非字母或数字的字符之间的前置。因此，指定的模式只会匹配完整的字符串”the”。请注意，即使字符集只有一个分类，也必须把它用括号括起来。<br> 前置模式把目标字符串中第一个字符前和最后一个字符后的位置当成空字符。在前例中，第一个”the”在不属于集合<code>[%W]</code>的空字符和属于集合<code>[%W]</code>的t之间匹配了一个前置。</p>
+<h2 id="捕获"><a href="#捕获" class="headerlink" title="捕获"></a>捕获</h2><p> 捕获机制允许根据一个模式从目标字符串中抽出与该模式匹配的内容来用于后续用途，可以通过把模式中需要捕获的部分放到一对圆括号内来指定捕获。<br> 对于具有捕获的模式，函数string.match会将所有捕获到的值作为单独的结果返回；换句话说，该函数将字符串切分成多个被捕获的部分：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pair = <span class="string">&quot;name = Anna&quot;</span></span><br><span class="line">key,value = <span class="built_in">string</span>.<span class="built_in">match</span>(pair, <span class="string">&quot;(%a+)%s*=%s*(%a+)&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(key,value)		<span class="comment">-- name Anna</span></span><br></pre></td></tr></table></figure>
+<p>模式<code>%a+</code>表示一个非空的字母序列，模式<code>%s*</code>表示一个可能为空的空白序列。因此，上例中的这个模式表示一个字母序列、紧跟着空白序列、一个等号、空白序列以及另一个字母序列。模式中的两个字母系列被分别放在圆括号中，因此在匹配时就能捕获到它们。下面是一个类似的示例：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">date</span> = <span class="string">&quot;Today is 15/4/2020&quot;</span></span><br><span class="line">d,m,y = <span class="built_in">string</span>.<span class="built_in">match</span>(<span class="built_in">date</span>,<span class="string">&quot;(%d+)/(%d+)/(%d+)&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(d,m,y)		<span class="comment">-- 15 4 2020</span></span><br></pre></td></tr></table></figure>
+<p>在这个示例中，使用了3个捕获，每个捕获对应一个数字序列。<br> 在模式中，形如<code>%n</code>的分类，表示匹配第n个捕获的副本。举一个典型的例子，假设想在一个字符串中寻找一个由单引号或双引号括起来的子串。那么可能会尝试使用模式’[“ ‘].-[“ ‘]’，它表示一个引号后面跟任意内容及另外一个引号；但是，这种模式在处理像”it’s all right”这样的字符串时会有问题。要解决这个问题，可以捕获第一个引号然后用它来指明第二个引号：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">[[then he said:&quot;it&#x27;s all right&quot;!]]</span></span><br><span class="line">q, quotedPart = <span class="built_in">string</span>.<span class="built_in">match</span>(s,<span class="string">&quot;([\&quot;&#x27;])(.-)%1&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(quotedPart)			<span class="comment">-- it&#x27;s all right</span></span><br><span class="line"><span class="built_in">print</span>(q)					<span class="comment">-- &quot;</span></span><br></pre></td></tr></table></figure>
+<p>第1个捕获是引号本身，第2个捕获是引号中的内容。<br>下例是一个类似的示例，用于匹配Lua语言中的长字符串的模式：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%[(=*)%[(.-)%]%<span class="number">1</span>%]</span><br></pre></td></tr></table></figure>
+<p>它所匹配的内容依次是：一个左方括号、零个或多个等号、另一个左方括号、任意内容（字符串的内容）、一个右方括号、相同数量的等号及另一个右方括号：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="string">&quot;%[(=*)%[(.-)%]%1%]&quot;</span></span><br><span class="line">s = <span class="string">&quot;a = [ = [[[ something ]] ] == ] ] =];print(a)&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">match</span>(s,p))   <span class="comment">-- [[something]] ] == ]</span></span><br></pre></td></tr></table></figure>
+<p>第1个捕获是等号序列，第2个捕获是字符串内容。<br> 被捕获对象的第3个用途是在函数gsub的替代字符串中。像模式一样，替代字符串同样可以包括像”%n”一样的字符分类，当发生替换时会被替换为相应的捕获。特别地，“%0”意味着整个匹配，并且替换字符串中的百分号必须被转义为“%%”。下面这个示例会重复字符串中的每个字母，并且在每个被重复的字母之间插入一个减号：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>((<span class="built_in">string</span>.<span class="built_in">gsub</span>(<span class="string">&quot;hello Lua!&quot;</span>,<span class="string">&quot;%a&quot;</span>,<span class="string">&quot;%0-%0&quot;</span>)))		<span class="comment">-- h-he-el-ll-lo-o L-Lu-ua-a!</span></span><br></pre></td></tr></table></figure>
+<p>下例交换了相邻的字符：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>((<span class="built_in">string</span>.<span class="built_in">gsub</span>(<span class="string">&quot;hello Lua!&quot;</span>,<span class="string">&quot;(.)(.)&quot;</span>,<span class="string">&quot;%2%1&quot;</span>)))  <span class="comment">-- ehll ouLa	</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h2><p> 正如我们此前已经看到的，函数string.gsub的第3个参数不仅可以是字符串，还可以是一个函数或表。当第3个参数是一个函数时，函数string.gsub会在每次找到匹配时调用该函数，参数是捕获到的内容而返回值则被作为替换字符串。当第3个参数是一个表时，函数string.gsub会把第一个捕获到的内容作为建，然后将表中对应该键的值作为替换字符串。如果函数的返回值为nil或表中不包含这个键或表中键的对应值为nil，那么函数gsub不改变这个匹配。<br> 先举一个例子，下述函数用于变量展开，它会把字符串中所有出现的$varname替换为全局变量varname的值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">expand</span><span class="params">(s)</span></span></span><br><span class="line">	<span class="keyword">return</span> (<span class="built_in">string</span>.<span class="built_in">gsub</span>(s,<span class="string">&quot;$(%w+)&quot;</span>,<span class="built_in">_G</span>))</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">name = <span class="string">&quot;Lua&quot;</span>;<span class="built_in">status</span> = <span class="string">&quot;great&quot;</span></span><br><span class="line"><span class="built_in">print</span>(expand(<span class="string">&quot;$name is %status, isn&#x27;t it?&quot;</span>))	<span class="comment">-- Lua is great ,isn&#x27;t it?</span></span><br></pre></td></tr></table></figure>
+<p>（_G是预先定义的包括所有全局变量的表）对于每个与<code>$(%w_)</code>匹配到的地方，函数gsub都会在全局表_G中查找捕获到的名字，并用找到的结果替换字符串中相匹配的部分；如果表中没有对应的键，则不进行替换：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(expand(<span class="string">&quot;$othername is $status, isn&#x27;t it?&quot;</span>))	<span class="comment">-- $othername is great,isn&#x27;t it?</span></span><br></pre></td></tr></table></figure>
+<p>如果不确定是否制定变量具有字符串值，那么可以对它们的值调用函数tostring。在这种情况下，可以用一个函数来返回要替换的值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">expand</span><span class="params">(s)</span></span></span><br><span class="line">	<span class="keyword">return</span> (<span class="built_in">string</span>.<span class="built_in">gsub</span>(s,<span class="string">&quot;$(%w+)&quot;</span>,<span class="function"><span class="keyword">function</span><span class="params">(n)</span></span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">tostring</span>(<span class="built_in">_G</span>[n])</span><br><span class="line">	<span class="keyword">end</span>))</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(expand(<span class="string">&quot;print = $print; a = $a&quot;</span>))		<span class="comment">-- print = function:0x8050; a = nil</span></span><br></pre></td></tr></table></figure>
+<p>在函数expand中，对于所有匹配<code>$(%w+)</code>的地方，函数gsub都会调用给定的函数，传入捕获到的名字作为参数，并使用返回字符串替换匹配到的内容。</p>
+<h3 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a>URL编码</h3><p>我们的下一个示例中将用到URL编码，也就是HTTP所使用的在URL中传递参数的编码方式。这种编码方式会将特殊字符编码为”%xx”的形式，其中xx是对应字符的十六进制。此外，URL编码还会将空格转换为加号。例如，字符串<code>a + b = c</code>的URL编码为<code>a%2Bb+%3D+c</code>。最后，URL编码会将对参数名及其值用等号连接起来，然后将每对name &#x3D; value用&amp;连接起来。例如，值<br><code>name = &quot;al&quot;</code>;<code>query = &quot;a+b = c&quot;</code>;<code>q = &quot;yes or no&quot;</code><br>对应的URL编码为<code>name=al&amp;query=a%2Bb+%3D+c&amp;q=yes+or+no</code>。<br>现在，假设要将这个URL解码并将其中的键值对保存到一个表内，以相应的键作为索引，那么可以使用一下函数完成基本的解码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unescape</span><span class="params">(s)</span></span></span><br><span class="line">	s = <span class="built_in">string</span>.<span class="built_in">gsub</span>(s,<span class="string">&quot;+&quot;</span>,<span class="string">&quot; &quot;</span>)</span><br><span class="line">	s = <span class="built_in">string</span>.<span class="built_in">gsub</span>(s,<span class="string">&quot;%%(%x%x)&quot;</span>,<span class="function"><span class="keyword">function</span><span class="params">(h)</span></span></span><br><span class="line">		<span class="keyword">return</span> sting.<span class="built_in">char</span>(<span class="built_in">tonumber</span>(h,<span class="number">16</span>))</span><br><span class="line">	<span class="keyword">end</span>)</span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(unescape(<span class="string">&quot;a%2Bb+%3D+c&quot;</span>))			<span class="comment">-- a + b = c</span></span><br></pre></td></tr></table></figure>
+<p>第一个gsub函数将字符串中的所有加号替换为空格，第二个gsub函数则匹配所有以百分号开头的两位十六进制数，并对每处匹配调用一个匿名函数。这个匿名函数会将十六进制转换成一个数字并返回其对应的字符。<br>可以使用函数gmatch来对键值对name &#x3D; value进行解码。由于键名和值都不能包含&amp;或&#x3D;，所以可以使用模式<code>[^&amp;=]+</code>来匹配它们：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cgi = &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">decode</span><span class="params">(s)</span></span></span><br><span class="line">	<span class="keyword">for</span> name, value <span class="keyword">in</span> <span class="built_in">string</span>.<span class="built_in">gmatch</span>(s,<span class="string">&quot;([^&amp;=]+)=([^&amp;=]+)&quot;</span>) <span class="keyword">do</span></span><br><span class="line">		neme = unescape(name)</span><br><span class="line">		value = unescape(value)</span><br><span class="line">		cgi[name] = value</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>调用函数gmatch会匹配所有格式为name&#x3D;value的键值对。对于每组键值对，迭代器会返回对应的捕获，捕获到的内容也就是name和value的值。循环体内只是简单地对两个字符串调用函数unescape，然后将结果保存到表cgi中。<br>对应的编码函数也很容易编写。先写一个escape函数，用它将所有的特殊字符编码为百分号紧跟对应的十六进制形式，然后把空格替换成加号：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function escape(s)</span><br><span class="line">	s - string.gsub(s,&quot;[&amp;=+%%%c]&quot;,function(c)</span><br><span class="line">		return string.format(&quot;%%%02X&quot;,string.byte(c))</span><br><span class="line">	end)</span><br><span class="line">	s = string.gsub(s,&quot; &quot;,&quot;+&quot;)</span><br><span class="line">	return s</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>encode函数会遍历整个待编码的表，然后构造出最终的字符串：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encode</span><span class="params">(t)</span></span></span><br><span class="line">	<span class="keyword">local</span> b = &#123;&#125;</span><br><span class="line">	<span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="built_in">pairs</span>(t) <span class="keyword">do</span></span><br><span class="line">		b[#b + <span class="number">1</span>] = (escape(k) .. <span class="string">&quot;=&quot;</span> .. escape(v))</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="comment">-- 将b中所有元素连接在一起，使用&quot;&amp;&quot;分隔</span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">table</span>.<span class="built_in">concat</span>(b,<span class="string">&quot;&amp;&quot;</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">t = &#123;name = <span class="string">&quot;al&quot;</span>,query = <span class="string">&quot;a+b=c&quot;</span> , q = <span class="string">&quot;yes or no&quot;</span>&#125;</span><br><span class="line"><span class="built_in">print</span>(encode(t)) 	<span class="comment">-- q = yes+or+no&amp;query=a%2Bb+%3D+c&amp;name=al</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="制表符展开"><a href="#制表符展开" class="headerlink" title="制表符展开"></a>制表符展开</h3><p>在Lua语言中，像<code>()</code>这样的空白捕获具有特殊含义。该模式并不代表捕获空内容，而是捕获模式在目标字符串中的位置：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(strig.<span class="built_in">match</span>(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;()ll()&quot;</span>))   <span class="comment">-- 3    5</span></span><br></pre></td></tr></table></figure>
+<p>另一个关于位置捕获的良好示例是在字符串中进行制表符展开：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">expandTabs</span><span class="params">(s,tab)</span></span></span><br><span class="line">	tab = tab <span class="keyword">or</span> <span class="number">8</span> 	<span class="comment">-- 制表符的&quot;大小&quot;（默认是8）</span></span><br><span class="line">	<span class="keyword">local</span> corr = <span class="number">0</span> 	<span class="comment">-- 修正量</span></span><br><span class="line">	s = <span class="built_in">string</span>.<span class="built_in">gsub</span>(s,<span class="string">&quot;()\t&quot;</span>,<span class="function"><span class="keyword">function</span><span class="params">(p)</span></span></span><br><span class="line">		<span class="keyword">local</span> sp = tab - (p - <span class="number">1</span> + corr)%tab)</span><br><span class="line">		corr = corr - <span class="number">1</span> + sp</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">string</span>.<span class="built_in">rep</span>(<span class="string">&quot;&quot;</span>,sp)</span><br><span class="line">	<span class="keyword">end</span>)</span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>函数gsub会匹配字符串中所有的制表符并捕获它们的位置。对于每个制表符，匿名函数会根据其所在位置计算出需要多少个空格才能恰好凑够一列（整数个tab）：该函数先将位置减去1以从0开始计数，然后加上corr凑整之前的指标符（每一个被展开的指标符都会影响后续制表符的位置）。之后，该函数更新下一个制表符的修正量：为正在被去掉的制表符减1，再加上要增加的空格数sp。最后，这个函数返回由替代制表符的合适数量的空格组成的字符串。<br>为了完整起见，让我们再看下如何实现逆向操作，即将空格转换为制表符。第一种方法是通过空捕获来对位置进行操作，但还有一种更简单的方法：即在字符串中每隔8个字符插入一个标记，然后将前面有空格的标记替换为制表符。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unexpandTabs</span><span class="params">(s,tab)</span></span></span><br><span class="line">	tab = tab <span class="keyword">or</span> <span class="number">8</span></span><br><span class="line">	s = expandTabs(s,tab)</span><br><span class="line">	<span class="keyword">local</span> pat = <span class="built_in">string</span>.<span class="built_in">rep</span>(<span class="string">&quot;.&quot;</span>,tab)			<span class="comment">-- 辅助模式</span></span><br><span class="line">	s = <span class="built_in">string</span>.<span class="built_in">gsub</span>(s,pat,<span class="string">&quot;%0\1&quot;</span>)			<span class="comment">-- 在每8个字符后添加一个标记\1</span></span><br><span class="line">	s = <span class="built_in">string</span>.<span class="built_in">gsub</span>(s,<span class="string">&quot;+\1&quot;</span>,<span class="string">&quot;\t&quot;</span>)			<span class="comment">-- 将所有以此标记结尾的空格序列都替换为制表符\t</span></span><br><span class="line">	s = <span class="built_in">string</span>.<span class="built_in">gsub</span>(s,<span class="string">&quot;\1&quot;</span>,<span class="string">&quot;&quot;</span>)				<span class="comment">-- 将剩下的标记\1删除</span></span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>这个函数首先对字符串进行了制表符展开以移除其中所有的制表符，然后构造出一个用于匹配所有8个字符序列的辅助模式，再利用这个模式在每8个字符后添加一个标记。接着，它将所有以此标记结尾的空格序列都替换为制表符。最后，将剩下的标记删除。</p>
+<h2 id="诀窍"><a href="#诀窍" class="headerlink" title="诀窍"></a>诀窍</h2><p>模式匹配是进行字符串处理的强大工具之一。虽然通过多次调用函数string.gsub就可以完成许多复杂的操作，但是还是应该谨慎地使用函数。<br>模式匹配替代不了传统的解析器。对于那些用后即弃的程序来说，我们确实可以在源代码中做一些有用的操作，但却很难构建出高质量的产品。<br>通常，在Lua程序中使用模式匹配时的效率是足够高的，但仍然需要注意，应该永远使用尽可能的精确的模式，不精确的模式会比精确的模式慢很多。一个极端的例子是模式<code>(.-)%$</code>，它用于获取字符串中第一个$字符前的所有内容。如果目标字符串中有$符号，那么这个模式工作很正常；但是，如果字符串中没有$符号，那么匹配算法就会受限从字符串起始位置开始匹配，直至为了搜索$符号而遍历完整字符串。当到达字符串结尾时，这次从字符串起始位置开始的模式匹配就失败了。之后，模式匹配算法又从字符串的第二个位置开始第二次搜索，结果仍然是无法匹配这个模式。这个匹配过程会在字符串的每个位置上进行一次，从而导致O(n^2^)的时间复杂度。<br>此外，还要留心空模式，也就是那些匹配空字符串的模式。例如，如果试图使用模式<code>%a*</code>来匹配名字，那么 就会发现到处都是名字：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i,j = <span class="built_in">string</span>.<span class="built_in">find</span>(<span class="string">&quot;;$% **#$hello13&quot;</span>,<span class="string">&quot;%a*&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(i,j)			<span class="comment">-- 1   0 </span></span><br></pre></td></tr></table></figure>
+<p>在这个示例汇中，函数string.find在字符串的开始位置正确地找到一个空的字母序列。<br>在模式的结束处使用修饰符-是没有意义的，因为这样只会匹配到空字符串。该修饰符总是需要在其后跟上其他的东西来限制扩展的范围。同样，含有”.*”的模式也非常容易出错，这主要是因为这种模式可能会匹配到超出我们预期范围的内容。<br>有时，用Lua语言来构造一个模式也很有用。我们已经在将空格转换为制表符的程序中使用过这个技巧。接下来再看另外一个示例，考虑如何找出一个文本中较长的行（比如超出70个字符的行）。较长的行就是一个具有70个或更多字符的序列，其中每个字符都不为换行符，因而可以使用字符分类<code>[^\n]</code>来匹配除换行符以外的其他单个字符。这样，就能够通过把这个匹配单个字符的模式重复70次来匹配较长的行。除了手写以外，还可以使用函数string.rep来创建这个模式：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pattern = <span class="built_in">string</span>.ret(<span class="string">&quot;[^\n]&quot;</span>,<span class="number">70</span> .. <span class="string">&quot;+&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>再举一个例子，假设要进行大小写无关的查找。一种方法就是将模式中的所有字母x用<code>[xX]</code>替换，即同时包含原字母大小写形式的字符分类。我们可以使用如下函数来自动地完成这种替换：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">oncase</span><span class="params">(s)</span></span></span><br><span class="line">	s = <span class="built_in">string</span>.<span class="built_in">gsub</span>(s,<span class="string">&quot;%a&quot;</span>,<span class="function"><span class="keyword">function</span><span class="params">(c)</span></span></span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;[&quot;</span> .. <span class="built_in">string</span>.<span class="built_in">lower</span>(c) .. <span class="built_in">string</span>.<span class="built_in">upper</span>(c)..<span class="string">&quot;]&quot;</span></span><br><span class="line">	<span class="keyword">end</span>)</span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(nocase(<span class="string">&quot;Hi there!&quot;</span>))		<span class="comment">-- [hH][iI][tT][hH][eE][rR][eE]!</span></span><br></pre></td></tr></table></figure>
+<p>有时，我们可能需要将所有出现的s1替换为s2，而不管其中是否包含魔法字符。如果字符串s1和s2是常量，那么可以在编写字符串时对魔法字符进行合理的转义；但如果字符串是一个变量，那么就需要用另一个gsub函数来进行转义：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s1 = <span class="built_in">string</span>.<span class="built_in">gsub</span>(s1,<span class="string">&quot;(%W)&quot;</span>,<span class="string">&quot;%%%1&quot;</span>)</span><br><span class="line">s2 = <span class="built_in">string</span>.<span class="built_in">gsub</span>(s2,<span class="string">&quot;%%&quot;</span>,<span class="string">&quot;%%%%&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>在进行字符串搜索时，我们对所有字母和数字外的字符进行了转义（即大写的W）。而在替换字符串中，我们只对百分号进行了转义。<br>模式匹配的另一个有用的技巧就是，在进行实际工作前对目标字符串进行预处理。假设想把一个字符串中所有被双引号(“)引起来的内容改为大写，但又允许内容中包含转义的引号(“&quot;“):</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">follows a typical <span class="built_in">string</span>:<span class="string">&quot;This is \&quot;great\&quot;!&quot;</span>.</span><br></pre></td></tr></table></figure>
+<p>处理这种情况的方法之一就是先对文本进行预处理，将所有可能导致歧义的内容编码成别的内容。例如，可以讲<code>&quot;\&quot;&quot;</code>编码成<code>&quot;\1&quot;</code>。不过，如果原文中本身就含有<code>&quot;\1&quot;</code>，那么就会遇到问题。另一种可以避免这个问题的简单做法是将所有<code>&quot;\x&quot;</code>编码为<code>&quot;\ddd&quot;</code>，其中ddd为字符x的十六进制表示形式：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">code</span><span class="params">(s)</span></span></span><br><span class="line">	<span class="keyword">return</span> (<span class="built_in">string</span>.<span class="built_in">gsub</span>(s,<span class="string">&quot;\\(.)&quot;</span>,<span class="function"><span class="keyword">function</span><span class="params">(x)</span></span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;\\%03d&quot;</span>,<span class="built_in">string</span>.<span class="built_in">byte</span>(x))</span><br><span class="line">	<span class="keyword">end</span>))</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>这样，由于原字符串中所有的<code>&quot;\ddd&quot;</code>都进行了编码，所以编码后字符串中的<code>&quot;\ddd&quot;</code>序列一定都是编码造成的。这样，解码也就很简单了：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">decode</span><span class="params">(s)</span></span></span><br><span class="line">	<span class="keyword">return</span> (<span class="built_in">string</span>.<span class="built_in">gsub</span>(s,<span class="string">&quot;\\(%d%d%d)&quot;</span>,<span class="function"><span class="keyword">function</span><span class="params">(d)</span></span></span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;\\&quot;</span> .. <span class="built_in">string</span>.<span class="built_in">char</span>(<span class="built_in">tonumber</span>(d))</span><br><span class="line">	<span class="keyword">end</span>))</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>现在我们就可以完成把一个字符串中被双引号(“)引起来的内容改为大写的需求。由于编码后的字符串中不包含任何转义的引号<code>(&quot;\&quot;&quot;)</code>，所以就可以直接使用<code>&quot;._&quot;</code>来查找位于一对引号中的内容：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">[[follows a typical string:&quot;This is \&quot;great\&quot;!&quot;.]]</span></span><br><span class="line">s = code(s)</span><br><span class="line">s = <span class="built_in">string</span>.<span class="built_in">gsub</span>(s,<span class="string">&#x27;&quot;.-&quot;&#x27;</span>,<span class="built_in">string</span>.<span class="built_in">upper</span>)</span><br><span class="line">s = decode(s)</span><br><span class="line"><span class="built_in">print</span>(s)	<span class="comment">-- follows a typical string:&quot;THIS IS \&quot;GREAT\&quot;!&quot;.</span></span><br></pre></td></tr></table></figure>
+<p>或者写成：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(decode(<span class="built_in">string</span>.<span class="built_in">gsub</span>(code(s),<span class="string">&#x27;&quot;.-&quot;&#x27;</span>,<span class="built_in">string</span>.<span class="built_in">upper</span>)))</span><br></pre></td></tr></table></figure>
+<p>是否能够将模式匹配函数用于UTF-8字符串取决于模式本身。由于UTF-8的主要特征之一就是任意字符的编码不会出现在别的字符的编码中，因此文本类的模式一般可以正常工作。字符分类和字符集只对ASCII字符有效。例如，可以对UTF-8字字符串使用模式’%s’，但它只能匹配ASCII空格，而不能匹配诸如HTML空格或蒙古文元音分隔符等其他的Uicode空格。<br>恰当的模式能够为处理Unicode带来额外的能力。一个优秀的例子是预定义模式utf8.charpattern，该模式只精确地匹配一个UTF-8字符。utf8标准库中就是按照下面的方法定义这个模式的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">utf8.charpattern = [\<span class="number">0</span>-\x7F\xC2-\xF4][\x80-\xBF]*</span><br></pre></td></tr></table></figure>
+<p>该模式的第1部分匹配ASCII字符或多字节序列的其实字节。第2部分则匹配零个或多个后续的自己。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/47260.html" title="Lua模式匹配">https://lengmo714.top/47260.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/57636.html" rel="prev" title="Lua闭包详解">
+      <i class="fa fa-chevron-left"></i> Lua闭包详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/11458.html" rel="next" title="Lua日期和时间">
+      Lua日期和时间 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%9A%84%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">模式匹配的相关函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0string-find"><span class="nav-number">1.1.</span> <span class="nav-text">函数string.find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0string-match"><span class="nav-number">1.2.</span> <span class="nav-text">函数string.match</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0string-gmatch"><span class="nav-number">1.3.</span> <span class="nav-text">函数string.gmatch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%95%E8%8E%B7"><span class="nav-number">3.</span> <span class="nav-text">捕获</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2"><span class="nav-number">4.</span> <span class="nav-text">替换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#URL%E7%BC%96%E7%A0%81"><span class="nav-number">4.1.</span> <span class="nav-text">URL编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%B6%E8%A1%A8%E7%AC%A6%E5%B1%95%E5%BC%80"><span class="nav-number">4.2.</span> <span class="nav-text">制表符展开</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%80%E7%AA%8D"><span class="nav-number">5.</span> <span class="nav-text">诀窍</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mall.jd.com/index-12955410.html" title="https:&#x2F;&#x2F;mall.jd.com&#x2F;index-12955410.html" rel="noopener" target="_blank">京东小店</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">769k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11:39</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 't3TkgC71hcBBtINYfsVe8r0R-gzGzoHsz',
+      appKey     : 'SUF3DMDZlFZMDGj3ai9WfgFY',
+      placeholder: "填写QQ邮箱就会使用QQ头像喔~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  +  
+  
+	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
+  
+
+</body>
+</html>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
