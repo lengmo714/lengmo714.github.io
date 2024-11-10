@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="虽然我们把Lua语言成为解释型语言，但Lua语言总是在运行代码前先预编译源码为中间代码（这没什么大不了的，很多解释型语言也这样做）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua编译执行和错误">
+<meta property="og:url" content="https://lengmo714.top/21815.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="虽然我们把Lua语言成为解释型语言，但Lua语言总是在运行代码前先预编译源码为中间代码（这没什么大不了的，很多解释型语言也这样做）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-20T09:26:38.000Z">
+<meta property="article:modified_time" content="2024-07-17T15:08:28.166Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lengmo714.top/21815.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Lua编译执行和错误 | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XDK58GP86Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/21815.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lua编译执行和错误
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-20 17:26:38" itemprop="dateCreated datePublished" datetime="2020-04-20T17:26:38+08:00">2020-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-17 23:08:28" itemprop="dateModified" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/21815.html" class="post-meta-item leancloud_visitors" data-flag-title="Lua编译执行和错误" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/21815.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/21815.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+            <div class="post-description">虽然我们把Lua语言成为解释型语言，但Lua语言总是在运行代码前先预编译源码为中间代码（这没什么大不了的，很多解释型语言也这样做）。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>虽然我们把Lua语言成为解释型语言，但Lua语言总是在运行代码前先预编译源码为中间代码（这没什么大不了的，很多解释型语言也这样做）。编译阶段的存在听上去超出了解释型语言的范畴，但解释型语言的区分并不在与源码是否被编译，而在于是否有能力（且轻易地）执行动态生成的代码。可以认为，正是由于诸如dofile这样函数的的存在，才使得Lua语言能够被称为解释型语言。</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>此前，我们已经介绍过函数dofile，它是运行Lua代码段的主要方式之一。实际上，函数dofile是一个辅助函数，函数loadfile才完成了真正的核心工作。与函数dofile类似，函数loadfile也是从文件中加载Lua代码段，但它不会运行代码，而是只是编译代码，然后将编译后的代码段作为一个函数返回。此外，与函数dofile不同，函数loadfile只返回错误码而不抛出异常。可以认为，函数dofile就是：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dofile</span> <span class="params">(filename)</span></span></span><br><span class="line">	<span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">loadfile</span>(filename))</span><br><span class="line">	<span class="keyword">return</span> f()</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>请注意，如果函数loadfile执行失败，那么函数assert会引发一个错误。<br>对于简单的需求而言，由于函数dofile在一次调用中就做完了所有工作，所以改函数非常易用。不过，函数loadfile更灵活。在发生错误的情况中，函数loadfile会返回nil及错误信息，以允许我们按自定义的方式来处理错误。此外，如果需要多次运行一个文件，那么只需要调用一次loadfile函数后再多次调用它的返回结果即可。由于只编译一次文件，因此这种方式的开销要比多次调用函数dofile小得多（编译在某种程度上相比其他操作开销更大）。<br>函数load与函数loadfile类似，不同之处在于该函数从一个字符串或函数中读取代码段，而不是从文件中读取。例如，考虑如下的代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">load</span>(<span class="string">&quot;i = i + 1&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>在这句话代码执行后，变量f就会变成一个被调用时执行i &#x3D; i + 1的函数：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">0</span> </span><br><span class="line">f();<span class="built_in">print</span>(i)		<span class="comment">-- 1</span></span><br><span class="line">f();<span class="built_in">print</span>(i)		<span class="comment">-- 2</span></span><br></pre></td></tr></table></figure>
+<p>尽管函数load的功能很强大，但还是应该谨慎地使用。相当于其他可选的函数而言，该函数的开销较大并且可能会引起诡异的问题。请先确定当下已经找不到更简单的解决方式后再使用该函数。<br>如果要编写一个用后即弃的dostring函数（例如加载并运行一行代码），那么我们可以直接调用函数load的返回值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">load</span>(s)()</span><br></pre></td></tr></table></figure>
+<p>不过，如果代码中有语法错误，函数load就会返回你来和形如”attempt to call a nil value”的错误信息。为了更清楚地展示错误信息，最好使用函数assert:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">assert</span>(<span class="built_in">load</span>(s))()</span><br></pre></td></tr></table></figure>
+<p>通常，用函数load来加载字符串常量是没有意义的。例如，如下的两行代码基本等价：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">load</span>(<span class="string">&quot;i = i + 1&quot;</span>)</span><br><span class="line"></span><br><span class="line">f = <span class="function"><span class="keyword">function</span><span class="params">()</span></span> i = i + <span class="number">1</span> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>但是，由于第2行代码会与其外层的函数一起被编译，所以其执行速度要快得多。与之对比，第一段代码在调用函数load时会进行一次独立的编译。</p>
+<p>由于函数load在编译时不涉及词法定界，所以上述示例的两段代码可能并不完全等价。为了清洗地展示它们之间的区别，让我们稍微修改一下上面的例子：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">32</span></span><br><span class="line"><span class="keyword">local</span> i = <span class="number">0</span></span><br><span class="line">f = <span class="built_in">load</span>(<span class="string">&quot;i = i +1;print(i)&quot;</span>)</span><br><span class="line">g = <span class="function"><span class="keyword">function</span><span class="params">()</span></span> i = i + <span class="number">1</span>; <span class="built_in">print</span>(i) <span class="keyword">end</span></span><br><span class="line">f()			<span class="comment">-- 33</span></span><br><span class="line">g()			<span class="comment">-- 1</span></span><br></pre></td></tr></table></figure>
+<p>函数g像我们所预期地那样操作局部变量i，但函数f操作的却是全局变量i，这是由于函数load总是在全局环境中编译代码段。<br>函数load最典型的用法是执行外部代码（即那些来自程序本身之外的代码段）或动态生成的代码。例如，我们可能想运行用户定义的函数，由用户输入函数的代码后调用函数load对其求值。请注意，函数load期望的输入是一段程序，也就是一系列的语句。如果需要对表达式求值，那么可以在表达式前添加return，这样才能构成一条返回指定表达式值的语句。例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="string">&quot;enter your expression:&quot;</span></span><br><span class="line"><span class="keyword">local</span> line = <span class="built_in">io</span>.<span class="built_in">read</span>()</span><br><span class="line"><span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">load</span>(<span class="string">&quot;return &quot;</span> .. line))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;the value of your expression is&quot;</span> .. fun())</span><br></pre></td></tr></table></figure>
+<p>由于函数load所返回的函数就是一个普通函数，因此可以反复对其进行调用：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="string">&quot;enter function to be plotted (with variable &#x27;x&#x27;):&quot;</span></span><br><span class="line"><span class="keyword">local</span> line = <span class="built_in">io</span>.<span class="built_in">read</span>()</span><br><span class="line"><span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">load</span>(<span class="string">&quot;return &quot;</span> .. line ))</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">20</span> <span class="keyword">do</span></span><br><span class="line">	x = i <span class="comment">-- 全局的&#x27;x&#x27;（当前代码段内可见）</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">rep</span>(<span class="string">&quot;*&quot;</span>,f()))</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>我们也可以使用读取函数作为函数load的第1个参数。读取函数时以分几次返回一段程序，函数load会不断地调用读取函数知道读取函数返回nil（表示程序段结束）。作为示例，以下的调用与函数loadfile等价：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">load</span>(<span class="built_in">io</span>.<span class="built_in">lines</span>(filename,<span class="string">&quot;*L&quot;</span>))</span><br></pre></td></tr></table></figure>
+<p>调用io.lines(filename.”*L”)返回一个函数，这个函数每次被调用时就从指定文件返回一行。因此，函数load会一行一行地从文件中读出一段程序。以下的版本与之相似但效率稍高：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">load</span>(<span class="built_in">io</span>.<span class="built_in">lines</span>(filename,<span class="number">1024</span>))</span><br></pre></td></tr></table></figure>
+<p>这里，函数io.lines返回的迭代器会以1024字节为块读取源文件。<br>Lua语言将所有独立的代码段当做匿名可变长参数函数的函数体。例如，load(“a &#x3D; 1”)的返回值与以下表达式等价：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span><span class="params">(...)</span></span> a = <span class="number">1</span> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>像其他任何函数一样，代码段中可以声明局部变量：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">load</span>(<span class="string">&quot;local a = 10;pirnt(a + 20&quot;</span>)</span><br><span class="line">f()			<span class="comment">-- 30</span></span><br></pre></td></tr></table></figure>
+<p>使用这个特行，可以在不使用全局变量x的情况下重写之前运行用户定义函数的示例：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="string">&quot;enter function to be plotted(with variable &#x27;x&#x27;):&quot;</span></span><br><span class="line"><span class="keyword">local</span> line = <span class="built_in">io</span>.<span class="built_in">read</span>()</span><br><span class="line"><span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">load</span>(<span class="string">&quot;local x = ...;return &quot;</span> .. line))</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">20</span> <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">rep</span>(<span class="string">&quot;*&quot;</span>,f(i)))</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>在上述代码中，在代码段开头增加了”local x &#x3D; …” 来将x声明为局部变量。之后使用参数i调用函数f，参数i就是可变长参数表达式的值(…)。<br>函数load和函数loadfile从来不引发错误。当有错误发生时，它们会返回nil及错误信息：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">load</span>(<span class="string">&quot;i i&quot;</span>))			<span class="comment">-- nil [string &quot;i i&quot;]:1: &#x27;=&#x27; expected near &#x27;i&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>另外，这些函数没有任何副作用，它们既不改变后创建变量，也不向文件写入等。这些函数只是将程序段编译为一种中间形式，然后将结果作为匿名函数返回。一种常见的误解是认为加载一段程序也就是定义了函数，但实际上在Lua语言中函数定义是在运行时而不是在编译时发生的一种赋值操作。例如，假设有一个文件foo.lua:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 文件foo.lua</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">(x)</span></span></span><br><span class="line">	<span class="built_in">print</span>(x)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>当执行</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">loadfile</span>(<span class="string">&quot;foo.lua&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>时，编译foo的命令并没有定义foo，只有运行代码才会定义它：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">loadfile</span>(<span class="string">&quot;foo.lua&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(foo)			<span class="comment">-- nil</span></span><br><span class="line">f()					<span class="comment">-- 运行代码</span></span><br><span class="line">foo(<span class="string">&quot;ok&quot;</span>)			<span class="comment">-- ok</span></span><br></pre></td></tr></table></figure>
+<p>这种行为可能看上去有些奇怪，但如果不使用语法糖对其进行重写则看上去会清晰很多：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 文件&#x27;foo.lua&#x27;</span></span><br><span class="line">foo = <span class="function"><span class="keyword">function</span><span class="params">(x)</span></span></span><br><span class="line">	<span class="built_in">print</span>(x)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>如果线上产品级别的程序需要执行外部代码，那么应该处理加载程序段时报告的所有错误。此外，为了避免不愉快的副作用发生，可能还应该在一个受保护的环境中执行这些代码。</p>
+<h2 id="预编译的代码"><a href="#预编译的代码" class="headerlink" title="预编译的代码"></a>预编译的代码</h2><p>生成预编译文件（也被称为二进制文件）最简单的方式是，使用标准发行版中附带的luac程序。例如，下列命令会创建文件prog.lua的预编译版本prog.lc:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ luac -o prog.lc prog.lua</span><br></pre></td></tr></table></figure>
+<p>Lua解析器会像执行普通Lua代码一样执行这个新文件，完成与原来代码完全一致的动作：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lua prog.lc</span><br></pre></td></tr></table></figure>
+<p>几乎在Lua语言中所有能够使用源码的地方都可以使用预编译代码。特别地，函数loadfile和函数load都可以接受预编译代码。<br>我们可以直接在Lua语言中实现一个最简单的Luac：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="built_in">loadfile</span>(<span class="built_in">arg</span>[<span class="number">1</span>])</span><br><span class="line">f = <span class="built_in">io</span>.<span class="built_in">open</span>(<span class="built_in">arg</span>[<span class="number">2</span>],<span class="string">&quot;wb&quot;</span>)</span><br><span class="line">f:<span class="built_in">write</span>(<span class="built_in">string</span>.<span class="built_in">dump</span>(p))</span><br><span class="line">f:<span class="built_in">close</span>()</span><br></pre></td></tr></table></figure>
+<p>这里关键函数是string.dump，该函数的入参是一个Lua函数，返回值是传入函数对应的字符串形式的预编译代码。<br>luac程序提供了一些有意思的选项。特别地，选项-l会列出编译器为指定代码段生成的操作码。</p>
+<blockquote>
+<p>示例 luac -l的输出示例</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">main&lt;<span class="built_in">stdin</span>:<span class="number">0</span>,o&gt; (<span class="number">7</span> instructions, <span class="number">28</span>bytes at <span class="number">0x988cb30</span>)</span><br><span class="line"><span class="number">0</span> + params, <span class="number">2</span> slots, <span class="number">0</span> upvalues, o locals, <span class="number">4</span> constants, <span class="number">0</span> functions</span><br><span class="line"><span class="number">1</span> [<span class="number">1</span>] GETGLOBAL	<span class="number">0</span> <span class="number">-2</span>	; x</span><br><span class="line"><span class="number">2</span> [<span class="number">1</span>] GETGLOBAL <span class="number">1</span> <span class="number">-3</span>	; y</span><br><span class="line"><span class="number">3</span> [<span class="number">1</span>] ADD	    <span class="number">0</span>  <span class="number">0</span>  <span class="number">1</span></span><br><span class="line"><span class="number">4</span> [<span class="number">1</span>] GETGLOBAL <span class="number">1</span> <span class="number">-4</span>	; x</span><br><span class="line"><span class="number">5</span> [<span class="number">1</span>] USB       <span class="number">0</span> <span class="number">0</span> <span class="number">1</span></span><br><span class="line"><span class="number">6</span> [<span class="number">1</span>] SETGLOBAL <span class="number">0</span> <span class="number">-1</span>	; a</span><br><span class="line"><span class="number">7</span> [<span class="number">1</span>] RETURN    <span class="number">0</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>预编译形式的代码不一定比源代码更小，但是却加载得更快。预编译形式的代码的另一个好处是，可以避免由于意外而修改源码。然而，与源代码不同，蓄意损坏或构造的二进制代码可能会让Lua解析器奔溃或甚至执行用户提供的机器码。当运行一般的代码时通常无须担心，但应该避免运行以预编译形式给出的非受信代码。这种需求，函数load正好有一个选项可以适用。<br>除了必需的第1个参数外，函数load还有3个可选参数。第2个参数是程序段的名称，只在错误信息中被用到。第4个参数是环境。第3个参数正是我们这里关心的，它控制了允许加载的代码段的类型。如果该参数存在，则只能是如下的字符串：字符串”t”允许加载文本类型的代码段，字符串”b”只允许加载二进制类型的代码段，字符串”bt”允许同时加载上述两种类型的代码段。</p>
+<h2 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h2><p>人人皆难免犯错误。因此，我们必须尽可能地处理错误。由于lua语言是一种经常被嵌入在应用程序中的扩展语言，所以当错误发生时并不能简单地奔溃或退出。相反，只要错误发生，Lua语言就必须提供处理错误的方式。<br>Lua语言会在遇到非预期的情况时引发错误。例如，当试图将两个非常值类型的值相加，对不是函数的值进行调用，对不是表类型的值进行索引等。我们也可以显示地通过调用函数error并传入一个错误信息来作为参数引发一个错误。通常，这个函数就是在代码中提示出错的合理方式：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pirnt <span class="string">&quot;enter a number :&quot;</span></span><br><span class="line">n = <span class="built_in">io</span>.<span class="built_in">read</span>(<span class="string">&quot;n&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> n <span class="keyword">then</span> <span class="built_in">error</span>(<span class="string">&quot;invalid input&quot;</span>) <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>由于“针对某些情况调用函数error”这样的代码结构太常见了，所以Lua语言提供了一个内建的函数assert来完成这类工作：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="string">&quot;enter a nubmer:&quot;</span></span><br><span class="line">n = <span class="built_in">assert</span>(<span class="built_in">io</span>.<span class="built_in">read</span>(<span class="string">&quot;*n&quot;</span>),<span class="string">&quot;invalid input&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>函数assert检查其第1个参数是否为真，如果该参数为真则返回该参数；如果该参数为假，则引发一个错误。该函数的第2个参数是一个可选的错误信息。不过，要注意函数assert只是一个普通函数，所以Lua语言会总是在调用该函数前先对参数进行求值。如果编写形如</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="built_in">io</span>.<span class="built_in">read</span>()</span><br><span class="line"><span class="built_in">assert</span>(tonumver(n),<span class="string">&quot;invalid input:&quot;</span> .. n .. <span class="string">&quot;is not a number&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>的代码，那么即使n是一个数值类型，Lua语言也总是会进行字符串连接。在这种情况下使用显示的测试可能更加明智。<br>当一个函数发现某种意外的情况发生时，在进行一场处理时可以采取两种基本方式：一种是返回错误代码（通常是nil或者false），另一种是通过调用函数error引发了一个错误。如何在这两种方式之间进行选择并没有固定的规则，但笔者通常遵循如下的知道原则：容易避免的异常应该引发错误，否则应该返回错误码。<br>以函数math.sin为例，当调用参数传入了一个表该如何反应呢？如果要检查错误，那么就不得不编写如下代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> res = <span class="built_in">math</span>.<span class="built_in">sin</span>(x)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> res <span class="keyword">then</span>			<span class="comment">-- 错误？</span></span><br><span class="line">	<span class="built_in">error</span>-handling code</span><br></pre></td></tr></table></figure>
+<p>当然，也可以在调用函数前轻松地检查出这种异常：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">tonumber</span>(x) <span class="keyword">then</span>			<span class="comment">-- x是否为数字</span></span><br><span class="line">	<span class="built_in">error</span>-handling code</span><br></pre></td></tr></table></figure>
+<p>通常，我们既不会检查参数也不会检查函数sin的返回值；如果sin的参数不是一个数值，那么就意味着我们的程序可能出现了问题。此时，处理异常最简单也是最实用的做法就是停止运行，然后输出一条错误信息。<br>另一方面，让我们再考虑一下用于打开文件的函数io.open。如果要打开的文件不存在，那么该函数应该有怎么样的行为呢？在这种情况下，没有什么简单的方法可以在调用函数前检测到这种异常。在很多系统中，判断一个文件是否存在的唯一方法就是试着去打开这个文件。因此，如果由于外部原因导致函数io.open无法打开一个文件，那么它应返回false及一条错误信息。通过这种方式，我们就有机会采取恰当的方式来处理这个异常情况，例如要求用户提供另外一个文件名：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> file, msg</span><br><span class="line"><span class="keyword">repeat</span></span><br><span class="line">	<span class="built_in">print</span> <span class="string">&quot;enter a file name:&quot;</span></span><br><span class="line">	<span class="keyword">local</span> name = <span class="built_in">io</span>.<span class="built_in">read</span>()</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> name <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span> 		<span class="comment">--没有输入</span></span><br><span class="line">	file, msg = <span class="built_in">io</span>.<span class="built_in">open</span>(name,<span class="string">&quot;r&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> file <span class="keyword">then</span> <span class="built_in">print</span>(msg) <span class="keyword">end</span></span><br><span class="line"><span class="keyword">until</span> file</span><br></pre></td></tr></table></figure>
+<p>如果不想处理这些情况，但又想安全地运行程序，那么只需要用assert：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file = <span class="built_in">assert</span>(<span class="built_in">io</span>.<span class="built_in">open</span>(name,<span class="string">&quot;r&quot;</span>))	<span class="comment">-- stdin:1:no-file: No such file or directory</span></span><br></pre></td></tr></table></figure>
+<p>这是Lua语言中一种典型的技巧：如果函数io.open执行失败，assert就引发一个错误。</p>
+<h2 id="错误处理和异常"><a href="#错误处理和异常" class="headerlink" title="错误处理和异常"></a>错误处理和异常</h2><p>对于大多数应用而言，我们无须在Lua代码中做任何错误处理，应用程序本身会负责处理这类问题。所以Lua语言的行为是由应用程序的第一次调用而触发的，这类调用通常是要求Lua语言执行一段代码。如果执行中发生了错误，那么调用会返回一个错误代码，以便应用程序采取适当的行为来处理错误。当独立解释器中发生错误时，主循环会打印错误信息，然后继续显示提示符，并等待执行指令的命令。<br>不过，如果要在Lua代码中处理错误，那么就应该使用函数pcall来封装代码。<br>假设要执行一段Lua代码并捕获执行中发生的所有错误，那么首先需要将这段代码封装到一个函数中，这个函数通常是一个匿名函数。之后通过pcall来调用这个函数：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> ok , msg = <span class="built_in">pcall</span> (<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">	some code</span><br><span class="line">	<span class="keyword">if</span> unexpected_condition <span class="keyword">then</span> <span class="built_in">error</span>() <span class="keyword">end</span></span><br><span class="line">	some code</span><br><span class="line">	<span class="built_in">print</span>(a[i])			<span class="comment">-- 潜在错误，&#x27;a&#x27;可能不是一个表</span></span><br><span class="line">	some code</span><br><span class="line"><span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ok <span class="keyword">then</span>			<span class="comment">-- 执行被保护的代码时没有发生错误</span></span><br><span class="line">	regular code</span><br><span class="line"><span class="keyword">else</span>				<span class="comment">-- 执行被保护的代码时有错误发生：进行恰当的处理</span></span><br><span class="line">	<span class="built_in">error</span>-handling code</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>函数pcall会以一种保护模式来调用它的第1个参数，以便捕获该函数执行中的错误。无论是否有错误发生，函数pcall都不会引发错误。如果没有错误发生，那么pcall返回true及调用函数的所有返回值；否则，则返回false及错误信息。<br>使用”错误信息”的命名方式可能会让人误解错误信息必须是一个字符串，因此称之为错误对象可能更好，这主要是因为函数pacll能够返回传递给error的任意语言类型的值。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">status</span> , err = <span class="built_in">pcall</span>(<span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="built_in">error</span>(&#123;coude = <span class="number">121</span>&#125;) <span class="keyword">end</span>)</span><br><span class="line"><span class="built_in">print</span>(err.code)		<span class="comment">-- 121</span></span><br></pre></td></tr></table></figure>
+<p>这些机制为我们提供了在Lua语言中进行异常处理的全部。我们可以通过error来抛出异常，然后用函数pcall来捕获异常，而错误信息则用来表示错误的类型。</p>
+<h2 id="错误信息和栈回调"><a href="#错误信息和栈回调" class="headerlink" title="错误信息和栈回调"></a>错误信息和栈回调</h2><p>虽然能够使用任何类型的值作为错误对象，但错误对象通常是一个描述出错内容的字符串。当遇到内部错误出现时，Lua语言负责产生错误对象，如果错误对象是一个字符串，那么Lua语言会尝试把一些有关错误发生位置的信息附上：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">status</span> , err = <span class="built_in">pcall</span>(<span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="built_in">error</span>(<span class="string">&quot;my error&quot;</span>) <span class="keyword">end</span>)</span><br><span class="line"><span class="built_in">print</span>(err)		<span class="comment">-- stdin:1:my error</span></span><br></pre></td></tr></table></figure>
+<p>位置信息中给出了出错代码段的名称和行号。<br>函数error还有第2个可选参数level，用于指出向函数调用层次中的哪层函数报告错误，以说明谁应该为错误负责。例如，假设编写一个用来检查其自身是否被正确调用了的函数：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">(str)</span></span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">type</span>(str) ~= <span class="string">&quot;string&quot;</span> <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">error</span>(<span class="string">&quot;string expected&quot;</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	regular code</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>如果调用时被传递了错误的参数：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo(&#123;x = <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>由于函数foo调用的error，所以Lua语言会认为是函数foo发生了错误。然而，真正的肇事者其实是函数foo的调用者。为了纠正这个问题，我们需要告诉error函数错误实际发生在函数调用蹭的第2层中：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> <span class="params">(str)</span></span></span><br><span class="line">	<span class="keyword">if</span> typr(str) ~= <span class="string">&quot;string&quot;</span> <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">error</span>(<span class="string">&quot;string expected&quot;</span>,<span class="number">2</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	regular code</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>通常，除了发生错误的位置以外，我们还希望在错误发生时得到更多的调试信息。至少，我们希望得到具有发生错误时完整函数调用栈回溯。当函数pcall返回错误信息时，部分的调用栈已经被破坏了。因此，如果希望得到一个有意义的栈回溯，那么就必须在函数pcall返回前先将调用栈构造好。为了完成这个需求，Lua语言提供了函数xpcall。该函数与函数pcall蕾西，但它的第2个参数是一个消息处理函数。当发生凑无时，Lua会调用栈展开前调用这个消息处理函数，以便消息处理函数能够使用调试库来获取有关错误的更逗信息。两个常用的消息处理函数是debug.debug和debug.traceback，前者为用户提供一个Lua提示符来让用户检查错误发生的原因；后者则使用调用栈来构造详细的错误，Lua语言的独立解释器就是使用这个函数来构造错误信息的。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/21815.html" title="Lua编译执行和错误">https://lengmo714.top/21815.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/43611.html" rel="prev" title="用树莓派搭建虚拟专用网络服务器">
+      <i class="fa fa-chevron-left"></i> 用树莓派搭建虚拟专用网络服务器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/15834.html" rel="next" title="Lua中模块和包">
+      Lua中模块和包 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">1.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E7%BC%96%E8%AF%91%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">预编译的代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF"><span class="nav-number">3.</span> <span class="nav-text">错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="nav-number">4.</span> <span class="nav-text">错误处理和异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF%E5%92%8C%E6%A0%88%E5%9B%9E%E8%B0%83"><span class="nav-number">5.</span> <span class="nav-text">错误信息和栈回调</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mall.jd.com/index-12955410.html" title="https:&#x2F;&#x2F;mall.jd.com&#x2F;index-12955410.html" rel="noopener" target="_blank">京东小店</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">769k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11:39</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 't3TkgC71hcBBtINYfsVe8r0R-gzGzoHsz',
+      appKey     : 'SUF3DMDZlFZMDGj3ai9WfgFY',
+      placeholder: "填写QQ邮箱就会使用QQ头像喔~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  +  
+  
+	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
+  
+
+</body>
+</html>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
