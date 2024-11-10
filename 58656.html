@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="LSI是低速内部时钟，RC振荡器，频率为32kHz左右。供独立看门狗和自动唤醒单元使用。LSE是低速外部时钟，接频率为32.768kHz的石英晶体。这个主要是RTC的时钟源。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32系统时钟树分析：时钟源配置与管理详解">
+<meta property="og:url" content="https://lengmo714.top/58656.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="LSI是低速内部时钟，RC振荡器，频率为32kHz左右。供独立看门狗和自动唤醒单元使用。LSE是低速外部时钟，接频率为32.768kHz的石英晶体。这个主要是RTC的时钟源。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/664349da0ea9cb1403cde7b8.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/664349d90ea9cb1403cde6f4.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/664349d90ea9cb1403cde6dc.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/664349d90ea9cb1403cde6ce.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/664349d90ea9cb1403cde6b3.png">
+<meta property="article:published_time" content="2017-05-06T22:29:45.000Z">
+<meta property="article:modified_time" content="2024-11-10T03:37:17.625Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="硬件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/664349da0ea9cb1403cde7b8.png">
+
+<link rel="canonical" href="https://lengmo714.top/58656.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>STM32系统时钟树分析：时钟源配置与管理详解 | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XDK58GP86Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/58656.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+      <meta itemprop="keywords" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          STM32系统时钟树分析：时钟源配置与管理详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-05-07 06:29:45" itemprop="dateCreated datePublished" datetime="2017-05-07T06:29:45+08:00">2017-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-10 11:37:17" itemprop="dateModified" datetime="2024-11-10T11:37:17+08:00">2024-11-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">嵌入式开发</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/58656.html" class="post-meta-item leancloud_visitors" data-flag-title="STM32系统时钟树分析：时钟源配置与管理详解" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/58656.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/58656.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+            <div class="post-description">LSI是低速内部时钟，RC振荡器，频率为32kHz左右。供独立看门狗和自动唤醒单元使用。LSE是低速外部时钟，接频率为32.768kHz的石英晶体。这个主要是RTC的时钟源。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>下面是一个STM32芯片的时钟树图<br><img data-src="https://pic.imgdb.cn/item/664349da0ea9cb1403cde7b8.png" alt="这里写图片描述"><br>1、LSI是低速内部时钟，RC振荡器，频率为32kHz左右。供独立看门狗和自动唤醒单元使用。<br>2、LSE是低速外部时钟，接频率为32.768kHz的石英晶体。这个主要是RTC的时钟源。<br>3、HSE是高速外部时钟，课接石英&#x2F;陶瓷谐振器，或者接外部时钟源，频率范围为4MHz~26MHz。我们开发板接的是8M的晶振。HSE也可以直接作为系统时钟或者PLL输入。</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>4、HSI是高速内部时钟，RC振荡器，频率为16MHz。可以直接作为系统时钟或者用作PLL输入。<br>5、PLL为锁相环倍频输出。STM32F4有两个PLL：<br>（1）主PLL由HSE或者HSI提供时钟信号，并具有两个不同的输出时钟。<br>    第一个输出PLLP用于生成高速的系统时钟（最高168MHz）<br>    第二个输出PLLQ用于生成USB　OTG FS的时钟（48MHz）,随机数发生器的时钟和SDIO时钟。<br>（2）专用PLL（PLLI2S）用于生成精确时钟，从而在I2S借口实现高品质音频性能。<br><img data-src="https://pic.imgdb.cn/item/664349d90ea9cb1403cde6f4.png" alt="这里写图片描述">                                               <img data-src="https://pic.imgdb.cn/item/664349d90ea9cb1403cde6dc.png" alt="这里写图片描述"><br>大家在图中可以看到一些梯形，这些梯形为选择器。左边为选择器，右边为分频器</p>
+<h3 id="LSI，低速内部时钟"><a href="#LSI，低速内部时钟" class="headerlink" title="LSI，低速内部时钟"></a>LSI，低速内部时钟</h3><p>LSI低速内部时钟，频率为32kHz。RC振荡器产生，因为是RC振荡器产生，所以频率不是很稳定。主要对右边的独立看门狗做时钟。因为独立看门狗对时钟的精度要求不是很高，所以可以使用LSI。LSI比较简单，简单的理解就是一个电阻一个电容。<br>    LSI还可以作为RTC模块的时钟来源。在RTC模块左边有一个选择器，那么它不仅可以选择LSI作为时钟来源，还可以选择LSE作为时钟来源。</p>
+<h3 id="LSE，低速外部时钟"><a href="#LSE，低速外部时钟" class="headerlink" title="LSE，低速外部时钟"></a>LSE，低速外部时钟</h3><p>LSE一般是由外接的一个精确的32.768k的晶振产生，比较稳定，一般情况下RTC选择LSE作为时钟源。RTC的时钟来源还可以来自HSE（图上有线连着，顺着线找）。</p>
+<h4 id="MCO1-MCO2"><a href="#MCO1-MCO2" class="headerlink" title="MCO1&#x2F;MCO2"></a>MCO1&#x2F;MCO2</h4><p>在LSE下面有MCO1和MCO2两个引脚，这两个引脚就是把芯片内部的时钟输出到引脚。MCO1对应的是PA8，MCO2对应的是PC9（笔者这里使用的STM32F407芯片），MCO1和MCO2都有一个选择器，可以选择四个时钟来源，选择好时钟来源后经过一个分频器，分频就是对时钟进行除法运算，然后再输出到对应的引脚。</p>
+<h3 id="HSE，高速外部时钟"><a href="#HSE，高速外部时钟" class="headerlink" title="HSE，高速外部时钟"></a>HSE，高速外部时钟</h3><p>HSE是由外接的晶振产生的，是4MHz<del>26MHz。HSE产生时钟后会先经过一个分频器，这个分频系数是2</del>31，分频后的时钟才可以作为RTC时钟的一个选择。</p>
+<h3 id="HSI，高速内部时钟"><a href="#HSI，高速内部时钟" class="headerlink" title="HSI，高速内部时钟"></a>HSI，高速内部时钟</h3><p><img data-src="https://pic.imgdb.cn/item/664349d90ea9cb1403cde6ce.png" alt="这里写图片描述"><br>由RC振荡器产生，精度不高。首先，可以作为MCO1的一个时钟来源，其次可以作为系统时钟的一个来源。向下会将时钟信号送给一个选择器，这个选择器可以选择来自HSE和HSI的信号。左边一个“&#x2F;M”的分频器，会把选择的时钟&#x2F;M之后产生一个频率，产生一个频率后就到了PLL。</p>
+<h3 id="PLL，锁相环倍频输出"><a href="#PLL，锁相环倍频输出" class="headerlink" title="PLL，锁相环倍频输出"></a>PLL，锁相环倍频输出</h3><p><img data-src="https://pic.imgdb.cn/item/664349d90ea9cb1403cde6b3.png" alt="这里写图片描述"><br>上面的叫主PLL，下面的叫专用PLL。主PLL产生两种时钟，一种作为系统时钟；一种叫作PLL48CK的时钟，用于USB OTG的时钟。专用PLL时钟主要是给I2S模块使用，因为I2S主要处理音频问题，对于频率的要求比较高，所以就有一个专用PLL。时钟信号从“&#x2F;M”分频器出来后，进入“xN”的倍频器，然后在“&#x2F;P”、“&#x2F;Q”或者“&#x2F;R”，“&#x2F;P”出来后作为系统时钟；“&#x2F;Q”出来后作为PLL48CK时钟；“&#x2F;Q”出来后作为I2S时钟。从这里我们就能计算出从PLL出来的时钟频率，假设从选择器进去的时钟频率为f，PLL&#x3D;(f&#x2F;M)<em>(N&#x2F;P)或者PLL&#x3D;(f&#x2F;M)</em>(N&#x2F;Q)或者PLL&#x3D;(f&#x2F;M)*(N&#x2F;R)。</p>
+<p>图中A<del>G表示的地方：<br><strong>A：</strong> 这里是看门狗时钟输入。从图中可以看出，看门狗时钟源之恩给你是低速的LSI时钟。<br><strong>B：</strong>  这里是RTC时钟源，从图上可以看出，RTC的时钟源可以选择LSI，LSE，以及HSE分频后的时钟，HSE分频系数为2</del>31。<br><strong>C：</strong>  这里是STM32F4输出时钟MCO1和MCO2。MCO1是芯片的。PA8引脚输出时钟。它有四个时钟来源分别为：HSI,LSE,HSE和PLL时钟。MCO2是向芯片的PC9输出时钟，它同样有四个时钟来源分别为：HSE,PLL,SYSCLK以及PLLI2S时钟MCO输出时钟频率最大不超过100MHz。<br><strong>D：</strong> 这里我们值得是以太网PTP时钟，AHB时钟，APB2高速时钟，APB1低速时钟。这些时钟都是来源与SYSCLK系统时钟。其中以太网PTP时钟是使用系统时钟。最大时钟为168MHz，APB2高速时钟最大频率为84MHz,而APB1低速时钟最大频率为42MHz。<br><strong>F：</strong> 这里是指I2S时钟源。从图可以看出，I2S的时钟源来源于PLLI2S或者映射到I2S_CKIN引脚的外部时钟。I2S出于音质的考虑，对时钟精度要求很高。<br><strong>G:</strong> 这是STM32F4内部以太网MAC时钟的来源。对于MII接口来说，必须向外部PHY芯片提供25MHz的时钟，这个时钟，可以由PHY芯片外接晶振，或者使用STM32F4的MCO输出来提供。然后，PHY芯片再给STM32F4提供ETH_MII_TX_CLK和ETH_MII_RX_CLK时钟。对于RMII接口来说，外部必须提供50MHz的时钟驱动PHY和STM32F4的ETH_RMII_REF_CLK,这个50MHz时钟可以来自PHY、有源晶振或者STM32F4的MCO。我们的开发板使用的是RMII接口，使用PHY芯片提供50MHz时钟驱动STM32F4的ETH_RMII_REF_CLK.<br><strong>H：</strong> 这里是指外部PHY提供的USB OTG HS (60MHz)时钟。</p>
+<blockquote>
+<p>本文图片来STM32F4开发指南，部分内容参考STM32F4开发指南。如有不妥，还请各位多多指出。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/58656.html" title="STM32系统时钟树分析：时钟源配置与管理详解">https://lengmo714.top/58656.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 硬件</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/28639.html" rel="prev" title="STM32 GPIO部分介绍：端口模式与寄存器配置详解">
+      <i class="fa fa-chevron-left"></i> STM32 GPIO部分介绍：端口模式与寄存器配置详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/40929.html" rel="next" title="Arduino Mega 2560 Reference Design原理图解读">
+      Arduino Mega 2560 Reference Design原理图解读 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#LSI%EF%BC%8C%E4%BD%8E%E9%80%9F%E5%86%85%E9%83%A8%E6%97%B6%E9%92%9F"><span class="nav-number">1.</span> <span class="nav-text">LSI，低速内部时钟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSE%EF%BC%8C%E4%BD%8E%E9%80%9F%E5%A4%96%E9%83%A8%E6%97%B6%E9%92%9F"><span class="nav-number">2.</span> <span class="nav-text">LSE，低速外部时钟</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MCO1-MCO2"><span class="nav-number">2.1.</span> <span class="nav-text">MCO1&#x2F;MCO2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HSE%EF%BC%8C%E9%AB%98%E9%80%9F%E5%A4%96%E9%83%A8%E6%97%B6%E9%92%9F"><span class="nav-number">3.</span> <span class="nav-text">HSE，高速外部时钟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HSI%EF%BC%8C%E9%AB%98%E9%80%9F%E5%86%85%E9%83%A8%E6%97%B6%E9%92%9F"><span class="nav-number">4.</span> <span class="nav-text">HSI，高速内部时钟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PLL%EF%BC%8C%E9%94%81%E7%9B%B8%E7%8E%AF%E5%80%8D%E9%A2%91%E8%BE%93%E5%87%BA"><span class="nav-number">5.</span> <span class="nav-text">PLL，锁相环倍频输出</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mall.jd.com/index-12955410.html" title="https:&#x2F;&#x2F;mall.jd.com&#x2F;index-12955410.html" rel="noopener" target="_blank">京东小店</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">769k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11:39</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 't3TkgC71hcBBtINYfsVe8r0R-gzGzoHsz',
+      appKey     : 'SUF3DMDZlFZMDGj3ai9WfgFY',
+      placeholder: "填写QQ邮箱就会使用QQ头像喔~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  +  
+  
+	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
+  
+
+</body>
+</html>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>

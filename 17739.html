@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言在游戏中模拟真实的物理世界是比较麻烦的，通常都会交给物理引擎来做，比较知名的物理引擎有Box2D和Chipmunk。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cocos2dx-lua物理引擎碰撞检测">
+<meta property="og:url" content="https://lengmo714.top/17739.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="前言在游戏中模拟真实的物理世界是比较麻烦的，通常都会交给物理引擎来做，比较知名的物理引擎有Box2D和Chipmunk。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/664341310ea9cb1403bc2fe2.gif">
+<meta property="article:published_time" content="2019-01-26T07:33:05.000Z">
+<meta property="article:modified_time" content="2024-09-01T14:01:13.711Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="Lua">
+<meta property="article:tag" content="Cocos2dx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/664341310ea9cb1403bc2fe2.gif">
+
+<link rel="canonical" href="https://lengmo714.top/17739.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Cocos2dx-lua物理引擎碰撞检测 | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XDK58GP86Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/17739.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+      <meta itemprop="keywords" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Cocos2dx-lua物理引擎碰撞检测
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-26 15:33:05" itemprop="dateCreated datePublished" datetime="2019-01-26T15:33:05+08:00">2019-01-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-01 22:01:13" itemprop="dateModified" datetime="2024-09-01T22:01:13+08:00">2024-09-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/17739.html" class="post-meta-item leancloud_visitors" data-flag-title="Cocos2dx-lua物理引擎碰撞检测" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/17739.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/17739.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在游戏中模拟真实的物理世界是比较麻烦的，通常都会交给物理引擎来做，比较知名的物理引擎有Box2D和Chipmunk。</p>
+<span id="more"></span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>在Cocos2d-x 2.x中，游戏直接使用物理引擎，引擎提供一个简单的CCPhysicsSprite，处理了物理引擎的body与CCSprite的关系，而物理引擎的其他元素并没有和引擎对应起来，游戏需要选择直接调用Box2D或Chipmunk的API来处理逻辑。然而直接使用物理引擎是比较复杂的，物理引擎的接口参数繁多、复杂、需要开发人员对物理引擎和Coco2d-x都很了解，才能把两者融合得很好。<br>这种情况在Cocos2d-x 3.x中有了改变，全新的Physics Integration，把Chipmunk和Box2D封装到引擎内部，开发者不必关心底层具体用的是哪个物理引擎，也不用直接调用物理引擎的接口。<br>Cocos2d-x 3.x默认使用Chipmunk作为内部物理引擎。<br>Physics Integration 做了以下深度融合：<br>（1）物理世界被融入到Scene中，即当创建一个场景时，可以指定这个场景是否使用物理引擎。<br>（2）Node自带body属性，也就是Sprite自带body属性。<br>（3）对物理引擎的Body(cc.PhysicsBody),Shape(cc.PhysicsShape),Contact(cc.PhysicsContact),Joint(cc.PhysicsJoint),World(cc.PhysicsWold)进行封装抽象，使用更加简单。<br>（4）更简单的碰撞检测监听:EventListenerPhysicsContact.</p>
+<h3 id="创建带物理世界的scene"><a href="#创建带物理世界的scene" class="headerlink" title="创建带物理世界的scene"></a>创建带物理世界的scene</h3><p>使用下面方法创建带物理世界的scene:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> MainScene = class (<span class="string">&quot;MainScene&quot;</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> display.newScene(<span class="string">&quot;MainScene&quot;</span>,&#123;physics = <span class="number">2</span>&#125;)</span><br><span class="line"><span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<p>创建后，<code>self:getPhysicsWorld()</code>用来获取场景绑定的物理世界对象。<br><code>PhysicsWorld()</code>默认是带重力的，大小为Vect(0.0f,-98.0f),也可以通过<code>setGravity()</code>方法来改变重力值，如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">self</span>:getPhysicsWorld():setGravity(cc.p(<span class="number">0</span>,<span class="number">-100</span>)) </span><br></pre></td></tr></table></figure>
+<p>在调试物理世界中物体运动模拟时，可以使用<code>PyhsicsWorld</code>的<code>setDebugDrawMask()</code>来开启调试模式。它能把物理世界中不可见的shape, joint和contact都可视化。当调试结束需要发布游戏的时候，需要把该<code>debug</code>开关关闭<br>关闭DEBUG，传入参数<code>cc.PhysicsWorld.DEBUGDRAW_NONE</code>。</p>
+<h3 id="创建物理边界"><a href="#创建物理边界" class="headerlink" title="创建物理边界"></a>创建物理边界</h3><p>在物理世界中，所以物体均受重力的影响。物理引擎提供StaticShape创建一个不受重力影响的形状，在Cocos2d-x 2.x中，我们需要了解物理引擎的StaticShape相关的各种参数来完成边界设置。而在Cocos2d-x 3.x中，由<code>cc.PhysicsBody</code>创建边界，然后由<code>Node</code>添加到场景，<code>addChild</code>内部自动碗好吃呢个边界添加到物理世界，<code>Node</code>在这里起中介作用。<br>代码如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> size = display.size</span><br><span class="line"><span class="keyword">local</span> body = cc.PhysicsBody:createEdgeBox(size,cc.PHYSICSBODY_MATERIAL_DEFAULT,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">local</span> edgeNode = display.newNode()</span><br><span class="line">edgeNode:setPosition(size.width/<span class="number">2</span>,size.height/<span class="number">2</span>)</span><br><span class="line">edgeNode:setPhysicsBody(body)</span><br><span class="line"><span class="built_in">self</span>:addChild(edgeNode)</span><br></pre></td></tr></table></figure>
+<p><code>cc.PhysicsBody</code>包含很多工程方法，<code>createEdgeBox</code>创建一个不受重力影响的矩形边界,参数含义依次是:<br>      (1)矩形区域大小,这里设置为屏幕大小。<br>      (2)设置材质,可选参数,默认为<code>PHYSICSBODY_ MATERIAL DEFAULT</code>。<br>      (3)边线宽度,可选参数,默认为<code>1</code>。<br>      然后我们创建一个Node,把刚刚创建的body附加到Node上，并设置好Node的position为屏幕中心点。最后把Node添加到scene。<br>      Node的addChild方法,在Cocos2d-x 3. x中有对物理body做处理,它会自动把Node的body设置到scene的PhysicsWorld上去。<br>      PhysicsBody中的工程方法,针对参数设置的body大小，会自动创建对应的PhysicsBody和一个PhysicsShape, 这也是通常情况下,直接使用物理引擎创建一个body需要做的事情。Cocos2d-x 3. x的Physics Integration 极大地简化了使用物理引擎的代码量。</p>
+<h3 id="创建受重力作用的sprite"><a href="#创建受重力作用的sprite" class="headerlink" title="创建受重力作用的sprite"></a>创建受重力作用的sprite</h3><p> 在Cocos2d-x 3.0中创建一个受重力作用的Sprite也很简单。首先来看代码:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> oneSprite = display.newSprite(<span class="string">&quot;game/basketball/image/basketball.png&quot;</span>)</span><br><span class="line"><span class="comment">-- local oneBody = cc.PhysicsBody:createBox(oneSprite:getContentSize(),cc.PHYSICSBODY_MATERIAL_DEFAULT,cc.p(0,0))  --矩形刚体</span></span><br><span class="line"><span class="keyword">local</span> oneBody = cc.PhysicsBody:createCircle(<span class="number">25</span>,cc.PHYSICSBODY_MATERIAL_DEFAULT,cc.p(<span class="number">0</span>,<span class="number">0</span>))      <span class="comment">--圆形刚体   </span></span><br><span class="line">oneBody:setContactTestBitmask(<span class="number">0xFFFFFFFF</span>)</span><br><span class="line">oneBody:applyImpulse(cc.p(<span class="number">0</span>,<span class="number">10000</span>))</span><br><span class="line">oneSprite:setPhysicsBody(oneBody)</span><br><span class="line">oneSprite:setPosition(x,y)</span><br><span class="line"><span class="built_in">self</span>:addChild(oneSprite)</span><br><span class="line"><span class="comment">--onBody:setGravityEnable(false)  --刚体不受重力作用</span></span><br></pre></td></tr></table></figure>
+<p> 首先创建-一个<code>sprite</code>,然后用<code>cc.PhysicsBody:createBox()</code>创建一个矩形的body附加在sprite上。<code>createBox</code> 接受三个参数如下:<br>       (1)参数1,<code>cc. size</code>类型,表示矩形的长宽。<br>       (2)参数2,<code>cc.PhysicsMaterial</code>类型，表示物理材质属性，可选参数，默认为<code>cc. PHYSICSBODY MATERIAL DEFAULT</code>。手动创建材质方法如下:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc. PhysicsMaterial(density, restitution, friction)</span><br></pre></td></tr></table></figure>
+<p> 其中第一个参数表示密度,第二个参数表示反弹力,第三个参数表示摩擦力。<br>(3)参数3,cc.p类型,表示body与中心点的偏移量,可选参数,默认为cc. p(0,0)。类似地,可以用下面的方法创建圆形body:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc. PhysicsBody:createCircle(radius,material,offset)</span><br></pre></td></tr></table></figure>
+<p>不同于矩形的创建，第一个参数是园的半径，第二、三个参数的作用同<code>createBox</code>一样。</p>
+<h3 id="碰撞检测"><a href="#碰撞检测" class="headerlink" title="碰撞检测"></a>碰撞检测</h3><p>在Cocos2d-x 中，事件派发机制做了重构，所有事件均由事件派发器统一管理。物理引擎的碰撞事件也不例外，下面的代码注册碰撞begin回调函数。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--监听碰撞</span></span><br><span class="line">    <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">onContactBegin</span><span class="params">(contact)</span></span></span><br><span class="line">        <span class="keyword">local</span> tag = contact:getShapeA():getBody():getNode():getTag()</span><br><span class="line">        <span class="comment">-- print(tag)     --碰撞后的回调事件</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> contactListener = cc.EventListenerPhysicsContact:<span class="built_in">create</span>()</span><br><span class="line">    contactListener:registerScriptHandler(onContactBegin,cc.Handler.EVENT_PHYSICS_CONTACT_BEGIN)</span><br><span class="line">    <span class="keyword">local</span> eventDispatcher = cc.Director:getInstance():getEventDispatcher()</span><br><span class="line">    eventDispatcher:addEventListenerWithFixedPriority(contactListener,<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>碰撞检测的所有事件由<code>cc.EventListenerPhysicsContact</code>的实例来监听,这些事件有如下几类。<br>(1) <code>cc. Handler. EVENT_ PHYSICS_ _CONTACT_ BEGIN</code>,在碰撞刚发生时,触发这个事件,并且在此次碰撞中只会被调用一次。可以通过返回<code>true</code> 或者<code>false</code> 来决定物体是否发生碰撞。需要注意的是，当这个事件的回调函数返回<code>flase</code> 时, <code>EVENT _ PHYSICS_CONTACT_ PRESOLVE</code>和<code>EVENT_ PHYSICS_ CONTACT_ POSTSOLVE</code> 将不会被触发,但<code>EVENT_ PHYSICS_ CONTACT_ SEPERATE</code>必定会触发。<br>(2) <code>cc. Handler. EVENT_ PHYSICS_ CONTACT_ PRESOLVE</code>, 发生在碰撞的每个<code>step</code>,可以通过调用<code>cc.PhysicsContactPreSolve</code>的成员函数来改变碰撞处理的一些参数设定,比如弹力和阻力等。同样可以通过返回<code>true</code>或者<code>false</code>来决定物体是否发生碰撞。<br>(3)<code> cc. Handler. EVENT_ PHYSICS_ CONTACT_ POSTSOLVE</code>,发生在碰撞计算完毕的每个<code>step</code>,可以在此做一些碰撞的后续处理,比如安全的移除某个物体等。<br> (4) <code>cc. Handler. EVENT_ PHYSICS_ CONTACT_ SEPERATE</code>,发生在碰撞结束两物体分离时,同样只会被调用一次。它与<code>onContactBegin</code>必定是成对出现的。<br> 监听器设置完毕,需要加入到引擎导演的事件分发器中。<br> 默认情况下,物理引擎中的物体都不发出碰撞事件,也就是上面的代码中的<code>onContactBegin</code>永远不会调用到。为了解决这个问题,首先需要了解<code>cc. PhysicsBody</code>的三个mask。<br>  (1) <code>CategoryBitmask body</code>,类别掩码,32位整型,也就是可以有32 个不同的类别。默认值为<code>0xFFFFFFFF</code>。<br>  (2) <code>ContactTestBitmask</code>,当两个物体接触时,用一个物体的<code>CategoryBitmask</code>与另一.个物体的<code>ContactTestBitmask</code>做逻辑<code>与</code>运算,不为0时引擎才会新建<code>PhysicsContact</code>对象,发送碰撞事件。<code>ContactTestBitmask</code>的设计是为了优化性能,并不是所有物体之间的碰撞我们都关心,所以这个<code>ContactTestBitmask</code>的默认值为<code>0x00000000</code>。<br>  (3)<code>CollisionBitmask</code>刚体碰撞掩码,当两个物体接触后,用–个物体的<code>CollisionBitmask</code>与另一个物体的<code>CategoryBitmask</code>做逻辑<code>与</code>运算,不为0时才能发生刚体碰撞,默认值为<code>0xFFFFFFFF</code>。<br> 上面的解释说明了每个掩码的作用,而掩码之间的相互作用可归纳如下:<br> (1)<code>CategoryBitmask</code>,是其他两个掩码比较的基础。<br> (2) <code>CategoryBitmask &amp; ContactTestBitmask</code>,决定是否发送事件消息。<br> (3) <code>CategoryBitmask &amp; CollisionBitmask</code>,决定是否产生刚体反弹效果。<br> (4) <code>ContactTestBitmask</code>和<code>CollisionBitmask</code>,互相之间没有联系。</p>
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><blockquote>
+<p>下面是main.lua文件的完整代码，单击屏幕任意一点会创建一个精灵，精灵之间相互碰撞后产生回调事件。</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> MainScene = class (<span class="string">&quot;MainScene&quot;</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> display.newScene(<span class="string">&quot;MainScene&quot;</span>,&#123;physics = <span class="number">2</span>&#125;)</span><br><span class="line"><span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:ctor</span><span class="params">()</span></span></span><br><span class="line">    <span class="built_in">self</span>:getPhysicsWorld():setGravity(cc.p(<span class="number">0</span>,<span class="number">-100</span>))    <span class="comment">--重力</span></span><br><span class="line">    <span class="built_in">self</span>:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)</span><br><span class="line">    <span class="keyword">local</span> size = display.size</span><br><span class="line">    <span class="keyword">local</span> body = cc.PhysicsBody:createEdgeBox(size,cc.PHYSICSBODY_MATERIAL_DEFAULT,<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">local</span> edgeNode = display.newNode()</span><br><span class="line">    edgeNode:setPosition(size.width/<span class="number">2</span>,size.height/<span class="number">2</span>)</span><br><span class="line">    edgeNode:setPhysicsBody(body)</span><br><span class="line">    <span class="built_in">self</span>:addChild(edgeNode)</span><br><span class="line">    <span class="comment">--监听碰撞</span></span><br><span class="line">    <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">onContactBegin</span><span class="params">(contact)</span></span></span><br><span class="line">        <span class="keyword">local</span> tag = contact:getShapeA():getBody():getNode():getTag()</span><br><span class="line">        <span class="comment">-- print(tag)     --碰撞后的回调事件</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> contactListener = cc.EventListenerPhysicsContact:<span class="built_in">create</span>()</span><br><span class="line">    contactListener:registerScriptHandler(onContactBegin,cc.Handler.EVENT_PHYSICS_CONTACT_BEGIN)</span><br><span class="line">    <span class="keyword">local</span> eventDispatcher = cc.Director:getInstance():getEventDispatcher()</span><br><span class="line">    eventDispatcher:addEventListenerWithFixedPriority(contactListener,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">self</span>:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)</span><br><span class="line">    <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">onTouchBegan</span><span class="params">( touch, event )</span></span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>  </span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">onTouchEnded</span><span class="params">( touch, event )</span></span></span><br><span class="line">        <span class="keyword">local</span> location = touch:getLocation()   <span class="comment">--获取鼠标的位置</span></span><br><span class="line">        <span class="keyword">local</span> event_x = location[<span class="string">&quot;x&quot;</span>] <span class="keyword">or</span> <span class="number">0</span>      </span><br><span class="line">        <span class="keyword">local</span> event_y = location[<span class="string">&quot;y&quot;</span>] <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line">        <span class="built_in">self</span>:addSprite(event_x,event_y)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">onTouchMoved</span><span class="params">(touch, event)</span></span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> listener1 = cc.EventListenerTouchOneByOne:<span class="built_in">create</span>()  <span class="comment">--创建一个单点事件监听</span></span><br><span class="line">    listener1:setSwallowTouches(<span class="literal">false</span>)  <span class="comment">--是否向下传递</span></span><br><span class="line">    listener1:registerScriptHandler(onTouchBegan,cc.Handler.EVENT_TOUCH_BEGAN )</span><br><span class="line">    listener1:registerScriptHandler(onTouchMoved,cc.Handler.EVENT_TOUCH_MOVED )</span><br><span class="line">    listener1:registerScriptHandler(onTouchEnded,cc.Handler.EVENT_TOUCH_ENDED )</span><br><span class="line">    <span class="keyword">local</span> eventDispatcher = <span class="built_in">self</span>:getEventDispatcher() </span><br><span class="line">    eventDispatcher:addEventListenerWithSceneGraphPriority(listener1, <span class="built_in">self</span>) <span class="comment">--分发监听事件</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:addSprite</span><span class="params">(x,y)</span></span></span><br><span class="line">    <span class="keyword">local</span> oneSprite = display.newSprite(<span class="string">&quot;game/basketball/image/basketball.png&quot;</span>)</span><br><span class="line">    <span class="comment">-- local oneBody = cc.PhysicsBody:createBox(oneSprite:getContentSize(),cc.PHYSICSBODY_MATERIAL_DEFAULT,cc.p(0,0))  --矩形刚体</span></span><br><span class="line">    <span class="keyword">local</span> oneBody = cc.PhysicsBody:createCircle(<span class="number">25</span>,cc.PHYSICSBODY_MATERIAL_DEFAULT,cc.p(<span class="number">0</span>,<span class="number">0</span>))      <span class="comment">--圆形刚体   </span></span><br><span class="line">    oneBody:setContactTestBitmask(<span class="number">0xFFFFFFFF</span>)</span><br><span class="line">    oneBody:applyImpulse(cc.p(<span class="number">0</span>,<span class="number">10000</span>))</span><br><span class="line">    oneSprite:setPhysicsBody(oneBody)</span><br><span class="line">    oneSprite:setPosition(x,y)</span><br><span class="line">    oneSprite:setTag(<span class="number">101</span>)</span><br><span class="line">    <span class="built_in">self</span>:addChild(oneSprite)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:showWithScene</span><span class="params">(transition, time, more)</span></span></span><br><span class="line">    <span class="built_in">self</span>:setVisible(<span class="literal">true</span>)</span><br><span class="line">    <span class="keyword">local</span> scene = <span class="built_in">self</span></span><br><span class="line">    display.runScene(scene, transition, <span class="built_in">time</span>, more)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">self</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> MainScene</span><br></pre></td></tr></table></figure>
+<p>首先，使用	<code>display.newPhysicsScene</code>作为MainScene的父类,创建一个带物理世界的MainScene。<br>在MainScene:ctor中依次做了下面的初始化工作:<br>(1)修改物理世界的重力,重力是从cc. p(0,0)到setGravity()参数点之间的向量。<br>(2)用<code>cc. PhysicsBody: createEdgeBox</code>在屏幕四周创建物理边界，然后通过节点添加到场景中,它不受重力的影响。<br>(3)注册<code>EVENT_ PHYSICS_ CONTACT_ BEGIN</code>事件的回调函数。</p>
+<blockquote>
+<p>注: onContactBegin需要return true,否则物体碰撞后不发生刚体反弹。</p>
+</blockquote>
+<p>(4)打开物理世界的调试模式,可以在屏幕上看到物理边界以及刚体的框架。<br>(5)注册触摸事件,每次触摸事件到来都会在触摸点创建一个刚体精灵。<br><code>MainScene: addSprite</code>完成精灵的创建以及初始化:<br>(1)xxxx.png是个圆形的图片,通过这种图片创建精灵。<br>(2) <code>cc. PhysicsBody: createCircle</code>创建一个圆形的刚体,注意到它采用了radius作为第一个参数,这样刚体就能完全吻合图片的形状。<br>(3)<code>setContactTestBitmask</code>修改精灵的接触检测掩码,这样精灵之间碰撞就能发出事件。<br>(4)我们还用<code>applyImpulse</code>为刚体施加了一个向，上的瞬时冲力,这样精灵创建后会先向上飞,再掉落下来。<code>applyImpulse</code>是个很有用的接口,在物理世界中,用这个接口来改变物体的运动轨迹,而不是用传统的<code>setPos</code>,否则物理世界的运动将不可预期。<br>(5)<code>setPhysicsBody</code>把物理刚体和精灵都绑定在一起。<br>(6)设置精灵的初始坐标并添加到场景上。<br>快速单机屏幕创建多个精灵，发现它们互相弹开了，这是由于刚体的弹力作用，然后由于受到重力的影响，最终他们都凋落到屏幕下方。<br>设置刚体属性,参数分别是密度，碰撞系数，摩擦力</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.PhysicsMaterial(<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h4><p><img data-src="https://pic.imgdb.cn/item/664341310ea9cb1403bc2fe2.gif" alt="在这里插入图片描述"></p>
+<h3 id="掩码说明"><a href="#掩码说明" class="headerlink" title="掩码说明"></a>掩码说明</h3><pre><code>  categoryBitmask：
+
+分类掩码，定义了物体属于哪个分类。场景中的每个物理刚体可以被赋值一个多达32位的值(因为categoryBitmask为int型),每个对应32位掩码中的每一位，你在你的游戏中定义掩码值。结合collisionBitMask和contactTestBitMask属性， 你可以定义哪些物理刚体相互作用并且你的游戏何时接受这些相互作用的通知。默认值为0xFFFFFFFF(所有位都被设置)。
+
+contactTestBitmask：
+
+接触测试掩码，定义哪些刚体分类可以与本刚体产生相互作用的通知。当两个刚体在同一个空间，即物理世界中，每个刚体的分类掩码会和其他刚体的接触测试掩码进行逻辑与的运算。如果任意一个比较结果为非零值，产生一个PhysicsContact对象并且传递到物理世界协议中，这里协议指我们的监听器对应的回调函数。 为了最好的性能，仅设置你感兴趣的接触测试掩码中的位，也就是说通过设置接触测试掩码，你可以决定发生碰撞后，回调函数是否有响应。默认值为0x00000000(所有位都被清除)。
+
+collisionBitmask：
+
+碰撞掩码，定义了哪些物理刚体分类可以和这个物理刚体发生碰撞。当两个物理刚体相互接触时，可能发生碰撞。这个刚体的碰撞掩码和另一个刚体的分类掩码进行逻辑与运算比较。如果结果是一个非零值，这个刚体会发生碰撞。每个刚体独立选择接受与哪个刚体发生碰撞。例如，你可以使用此掩码来忽略那些对于本刚体的速度有影响的刚体碰撞，也就是说你可以使用此掩码使得本刚体与某些刚体碰撞不会对本刚体产生影响。默认值为0xFFFFFFFF(所有位都被设置)。
+
+从上面三个掩码的说明中，我们可以做一个小结。假设刚体A的接触测试掩码和碰撞掩码已知，刚体B的分类掩码决定了能否和A进行碰撞和在碰撞的前提下能否发出PhysicsContact对象触发回调函数。如果B的分类掩码与A的碰撞掩码做逻辑与运算的结果为0，则不会发生碰撞，因此也不会继续和A的接触测试掩码进行逻辑与运算。如果B的分类掩码与A的碰撞掩码做逻辑与运算的结果非0，则发生碰撞，并且B的分类掩码继续与A的接触测试掩码做逻辑与运算，如果结果非0，则发出PhysicsContact对象触发回调函数。
+</code></pre>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/17739.html" title="Cocos2dx-lua物理引擎碰撞检测">https://lengmo714.top/17739.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+              <a href="/tags/Cocos2dx/" rel="tag"><i class="fa fa-tag"></i> Cocos2dx</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/56592.html" rel="prev" title="Cocos2dx-lua虚拟摇杆方向控制">
+      <i class="fa fa-chevron-left"></i> Cocos2dx-lua虚拟摇杆方向控制
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/33452.html" rel="next" title="Cocos2dx使用帧动画">
+      Cocos2dx使用帧动画 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%B8%A6%E7%89%A9%E7%90%86%E4%B8%96%E7%95%8C%E7%9A%84scene"><span class="nav-number">2.</span> <span class="nav-text">创建带物理世界的scene</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%89%A9%E7%90%86%E8%BE%B9%E7%95%8C"><span class="nav-number">3.</span> <span class="nav-text">创建物理边界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%8F%97%E9%87%8D%E5%8A%9B%E4%BD%9C%E7%94%A8%E7%9A%84sprite"><span class="nav-number">4.</span> <span class="nav-text">创建受重力作用的sprite</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B"><span class="nav-number">5.</span> <span class="nav-text">碰撞检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text">完整代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="nav-number">6.1.</span> <span class="nav-text">效果图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A9%E7%A0%81%E8%AF%B4%E6%98%8E"><span class="nav-number">7.</span> <span class="nav-text">掩码说明</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mall.jd.com/index-12955410.html" title="https:&#x2F;&#x2F;mall.jd.com&#x2F;index-12955410.html" rel="noopener" target="_blank">京东小店</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">769k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11:39</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 't3TkgC71hcBBtINYfsVe8r0R-gzGzoHsz',
+      appKey     : 'SUF3DMDZlFZMDGj3ai9WfgFY',
+      placeholder: "填写QQ邮箱就会使用QQ头像喔~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  +  
+  
+	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
+  
+
+</body>
+</html>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>

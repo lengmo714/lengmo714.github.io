@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="字符串用于文本。Lua语言中的字符串即可以表示单个字符，也可以表示一整本书籍。在Lua语言中，操作100K或者1M个字母组成的字符串的程序也很常见。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua连续教程之Lua字符串">
+<meta property="og:url" content="https://lengmo714.top/57396.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="字符串用于文本。Lua语言中的字符串即可以表示单个字符，也可以表示一整本书籍。在Lua语言中，操作100K或者1M个字母组成的字符串的程序也很常见。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-07T16:42:19.000Z">
+<meta property="article:modified_time" content="2024-07-17T15:08:28.160Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lengmo714.top/57396.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Lua连续教程之Lua字符串 | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XDK58GP86Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/57396.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+      <meta itemprop="keywords" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lua连续教程之Lua字符串
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-08 00:42:19" itemprop="dateCreated datePublished" datetime="2020-04-08T00:42:19+08:00">2020-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-17 23:08:28" itemprop="dateModified" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/57396.html" class="post-meta-item leancloud_visitors" data-flag-title="Lua连续教程之Lua字符串" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/57396.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/57396.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>字符串用于文本。Lua语言中的字符串即可以表示单个字符，也可以表示一整本书籍。在Lua语言中，操作100K或者1M个字母组成的字符串的程序也很常见。</p>
+<span id="more"></span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>Lua语言中的字符串是不可变值。我们不能像在C语言中那样直接改变某个字符串中的某个字符，但是我们可以通过创建一个新的字符串的方式来达到修改的目的。例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;one string&quot;</span></span><br><span class="line">b = <span class="built_in">string</span>.<span class="built_in">gsub</span>(a,<span class="string">&quot;one&quot;</span>,<span class="string">&quot;another&quot;</span>) <span class="comment">--改变字符串中的某些部分</span></span><br><span class="line"><span class="built_in">print</span>(a)				<span class="comment">--one string</span></span><br><span class="line"><span class="built_in">print</span>(b)				<span class="comment">--another string</span></span><br></pre></td></tr></table></figure>
+<p>像Lua语言中的其他对象一样，Lua语言中的字符串也是自动内存管理的对象之一。这意味着Lua语言会负责字符串的分配和释放，开发人员无须关注。<br>可以使用长度操作符(#)获取字符串的长度：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="built_in">print</span>(#a)			<span class="comment">--5</span></span><br><span class="line"><span class="built_in">print</span>(#<span class="string">&quot;good bye&quot;</span>)  <span class="comment">--8</span></span><br></pre></td></tr></table></figure>
+<p>该操作符返回字符串占用的字节数，在某些编码中，这个值可能与字符串中字符的个数不同。<br>我们可以使用连接操作符<code>..</code>（两个点）来进行字符串连接。如果操作数中存在数值，那么Lua语言会先把数值转换成字符串：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="string">&quot;Hello&quot;</span> .. <span class="string">&quot;World&quot;</span> 		<span class="comment">-- Hello World</span></span><br><span class="line">&gt; <span class="string">&quot;result is &quot;</span> .. <span class="number">3</span>			<span class="comment">-- result is 3</span></span><br></pre></td></tr></table></figure>
+<p>在某些语言中，字符串连接使用的是加号，但实际上3+5和3..5是不一样的。<br>应该注意，在Lua语言中，字符串是不可变量。字符串连接总是创建一个新字符串，而不会改变原来作为操作数的字符串：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; a = <span class="string">&quot;Hello&quot;</span></span><br><span class="line">&gt; a .. <span class="string">&quot;World&quot;</span>      <span class="comment">-- Hello World</span></span><br><span class="line">&gt; a 				<span class="comment">-- Hello</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串常量"><a href="#字符串常量" class="headerlink" title="字符串常量"></a>字符串常量</h2><p>我们可以使用一对双引号或单引号来声明字符串常量：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot; a line &quot;</span></span><br><span class="line">b = <span class="string">&#x27; another line&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>使用双引号和单引号声明字符串是等价的。它们两者唯一的区别在于，使用双引号声明的字符串中出现单引号时，单引号可以不用转义；使用单引号声明的字符串中出现双引号时，双引号可以不用转义。<br>Lua语言中的字符串支持下列C语言风格的转义字符：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">\a			响铃（bell）</span><br><span class="line">\b			退格（back space）</span><br><span class="line">\f			换页（form feed）</span><br><span class="line">\n			换行（newline）</span><br><span class="line">\r			回车（carriage <span class="keyword">return</span>）</span><br><span class="line">\t			水平制表符（horizontal tab）</span><br><span class="line">\v			垂直制表符（vertical tab）</span><br><span class="line">\\			反斜杠（backslash）</span><br><span class="line">\<span class="string">&quot;			双引号（double quote）</span></span><br><span class="line"><span class="string">\&#x27;			单引号（single quote）</span></span><br></pre></td></tr></table></figure>
+<p>下述示例展示了转义字符的使用方法：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">print</span>(<span class="string">&quot;one line \n next line \n\&quot;in quotes\&quot;,&#x27;in quotes&#x27; &quot;</span>)</span><br><span class="line">one line</span><br><span class="line"><span class="built_in">next</span> line</span><br><span class="line"><span class="string">&quot;in quotes&quot;</span> , <span class="string">&#x27;in quotes&#x27;</span></span><br><span class="line">&gt;<span class="built_in">print</span>(<span class="string">&#x27;a backslash inside quotes:\&#x27; \\\ &#x27;</span><span class="string">&#x27;)</span></span><br><span class="line"><span class="string">a backslash inside quotes: &#x27;</span>\<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&gt;print(&quot;a simpler way: &#x27;</span>\\<span class="string">&#x27; &quot;)</span></span><br><span class="line"><span class="string">a simpler way: &#x27;</span>\<span class="string">&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>在字符串中，还可以通过转义\add和\xhh来声明字符。其中，add是由最多3个十进制数字组成的序列，hh是由两个且必须是两个十六进制数字组成的序列。</p>
+<h2 id="长字符串-多行字符串"><a href="#长字符串-多行字符串" class="headerlink" title="长字符串&#x2F;多行字符串"></a>长字符串&#x2F;多行字符串</h2><p>像长注释&#x2F;多行注释一样，可以使用一对双括号来声明长度字符串&#x2F;多行字符串常量。被方括号括起来的内容可以包含很多行，并且内容中的转义序列不会被转义。此外，如果多行字符串中的第一个字符是换行符，那么这个换行符会被忽略。多行字符串在声明包含大段代码的字符串时非常方便，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">page = <span class="string">[[</span></span><br><span class="line"><span class="string">&lt;html&gt;</span></span><br><span class="line"><span class="string">&lt;head&gt;</span></span><br><span class="line"><span class="string">	&lt;title&gt; An HTML Page&lt;/title&gt;</span></span><br><span class="line"><span class="string">&lt;/head&gt;</span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string">	&lt;a href = &quot;http://www.lua.org&quot;&gt;Lua&lt;a&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br><span class="line"><span class="string">]]</span></span><br></pre></td></tr></table></figure>
+<p>有时字符串中可能有类似a &#x3D; b[c[i]]这样的内容，或者，字符串中可能有被注释掉的代码。为了应对这些情况，可以在两个左方括号之间加上任意数量的等号，如[&#x3D;&#x3D;&#x3D;[。这样，字符串常量只有在遇到了包含了相同数量等号的两个右括号时才会结束。Lua语言的语法扫描器会忽略所含等号数量不相同的方括号。通过选择恰当数量的等号，就可以在无须修改原字符串的情况下声明任意的字符串常量了。<br>对注释而言，这种机制也同样有效。例如，我们可以使用–[&#x3D;和]&#x3D;]来进行长注释，从而降低了对内部已经包含注释的代码进行注释的难度。<br>当代码中需要使用常量文本时，使用长字符串是一种理想的选择。但是，对于非文本的常量我们不应该滥用长字符串。虽然Lua语言中的字符串常量可以包含任意字节，但是滥用这个特行并不明智。同时，像”\r\n”一样的EOF序列在被读取的时候可能会被归一化成”\n”。作为替代方案，最好就是把这些可能引起歧义的二进制数据用十进制或十六进制的数值转义系列进行表示，例如”\x13\x01\xA1\xBB”。不过，由于这种转义表示行程的字符串往往很长，所以对于长字符串来说仍可能是个问题。针对这种情况，从Lua5.2开始引入了转义序列\z，该转义符会跳过其后的所有空白字符，直到遇到第一个非空白字符。下列中演示了该转义符的使用方法：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data = <span class="string">&quot;\x00\x01\x02\x03\x04\x05\x06\x07\z</span></span><br><span class="line"><span class="string">		\x08\x09\x0A\x0B\x0C\x0D\x0E\x0F&quot;</span></span><br></pre></td></tr></table></figure>
+<p>第一行最后的\z会跳过其后的EOF和第二行的制表符，因此最终得到的字符串中，\x08实际上是紧跟着\x07的。</p>
+<h2 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h2><p>Lua语言在运行时提供了数值和字符串之间的自动转换。针对字符串的所有算术操作会尝试将字符串转换为数值。Lua语言不仅仅在算术操作时进行这种强制类型转换，还会在任何需要数值的情况下进行，例如函数math.sin的参数。<br>相反，当Lua语言发现在需要字符串的地方出现了数值时，它就会把数值转换为字符串：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="number">10</span> .. <span class="number">20</span> )  	<span class="comment">--1020</span></span><br></pre></td></tr></table></figure>
+<p>当在数值后紧接着使用字符串连接时，必须使用空格将它们分开，否则Lua语言会把第一个点当成小数点。<br>很多人认为自动强制类型转换算不上是Lua语言中的一项好设计。作为原则之一，建议最好不要完全寄希望于自动强制类型转换。虽然在某些场景下这种机制很便利，但同时也给语言和适用这种机制的程序带来了复杂性。<br>作为这种”二类状态”的表现之一，Lua5.3没有实现强制类型转换娱整型的集成，而是采用了另一种更简单和快速的实现方式：算术运算的规则就是只有在两个操作数都是整型值时结果才是整型。因此，由于字符串不是整型值，所以任何有字符串参与的算术运算都会被当做浮点运算处理：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="string">&quot;10&quot;</span> + <span class="number">1</span>          <span class="comment">--11.0</span></span><br></pre></td></tr></table></figure>
+<p>如果需要显示地将一个字符串转换成数值，那么可以使用函数tonumber。当这个字符串的内容不能表示为有效数字时该函数返回nil；否则，该函数就按照Lua语法扫描器的规则返回对应的整型值或浮点类型值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; tounmber(<span class="string">&quot; -3 &quot;</span>)			<span class="comment">-- -3</span></span><br><span class="line">&gt; tounmber(<span class="string">&quot; 10e4 &quot;</span>)		<span class="comment">-- 100000.0</span></span><br><span class="line">&gt; tounmber(<span class="string">&quot; 10e &quot;</span>)         <span class="comment">-- nil (not a valid number)</span></span><br><span class="line">&gt; tounmber(<span class="string">&quot; 0x1.3p - 4&quot;</span>)   <span class="comment">-- 0.07421875</span></span><br></pre></td></tr></table></figure>
+<p>默认情况下，函数tonumber使用的是十进制，但是也可以指明使用二进制到三十六进制之间的任意进制：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; tounmber(<span class="string">&quot;100101&quot;</span>, <span class="number">2</span>)			<span class="comment">-- 37</span></span><br><span class="line">&gt; tounmber(<span class="string">&quot;fff&quot;</span> ,<span class="number">16</span>)			<span class="comment">-- 4095</span></span><br><span class="line">&gt; tounmber(<span class="string">&quot;-ZZ&quot;</span>,<span class="number">36</span>)      	<span class="comment">-- -1295</span></span><br><span class="line">&gt; tounmber(<span class="string">&quot;987&quot;</span>,<span class="number">8</span>)   			<span class="comment">-- nli</span></span><br></pre></td></tr></table></figure>
+<p>在最后一行，对于制定的进制而言，传入的字符串是一个无效值，因此函数tonumber返回nil。<br>调用函数tonumber可以将数值转换成字符串：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">tostring</span>(<span class="number">10</span>) == <span class="string">&quot;10&quot;</span>)   <span class="comment">--true</span></span><br></pre></td></tr></table></figure>
+<p>上述的这种转换总是有效，但我们需要记住，使用这种转换时并不能控制输出字符串的格式。</p>
+<h2 id="字符串标准库"><a href="#字符串标准库" class="headerlink" title="字符串标准库"></a>字符串标准库</h2><p>Lua语言解释器本身处理字符串的功能是十分有限的。一个程序能够创建字符串、连接字符串、比较字符串和获取字符串的长度，但是，它并不能提取字符串的子串或检视字符串的内容。Lua语言处理字符串的完整能力来自其字符串标准库。<br>字符串标准库中的一些函数非常简单：函数string.len(s)返回字符串s的长度，等价于#s。函数string.rep(s,n)返回将字符串s重复n遍的结果。可以通过调用string.rep(“a”,$2^{20}$)创建一个1MB大小的字符串。函数string.reverse用于字符串翻转。函数string.lower(s)返回一份s的副本，其中所有的大写字母都被转换成小写字母，而其他字符则保持不变。函数string.upper与之相反，该函数会将小写字母转换成大写字母。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">rep</span>(<span class="string">&quot;abc&quot;</span>,<span class="number">3</span>)			<span class="comment">-- 游戏开发abcabc</span></span><br><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">reverse</span>(<span class="string">&quot;A Long Line!&quot;</span>)	<span class="comment">-- !eniL gnoL A</span></span><br><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">lower</span>(<span class="string">&quot;A Long Line!&quot;</span>)		<span class="comment">-- a long line!</span></span><br><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">upper</span>(<span class="string">&quot;A Long Line!&quot;</span>)		<span class="comment">-- A LONG LINE!</span></span><br></pre></td></tr></table></figure>
+<p>作为一种典型的应用，我们可以使用如下代码在忽略大小写差异的原则下比较两个字符串：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>.<span class="built_in">lower</span>(a) &lt; <span class="built_in">string</span>.<span class="built_in">lower</span>(b)</span><br></pre></td></tr></table></figure>
+<p>函数string.sub(s,i,j)从字符串s中提取第i个到第j个字符。该函数也支持负数索引，负数索引从字符串的结尾开始计数：索引-1代表字符串的最后一个字符，索引-2代表倒数第二个字符，依此类推。这样，对字符串s调用函数string.sub(s,1,j)得到的是字符串s中长度为j的前缀，调用string.sub(s,j,-1)得到的是字符串s从第j个字符开始的后缀，调用string.sub(s,2,-2)返回的是去掉字符串s中第一个和最后一个字符的结果。<br>请注意，Lua语言中的字符串是不可变的。和Lua语言中的所有其他函数一样，函数string.sub不会改变原有字符串的值，它只会返回一个新字符串。一种常见的误解是以为string.sub(s,2,-2)返回的是修改后的s。如果需要修改原字符串，那么必须把心的值赋值给它：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="built_in">string</span>.<span class="built_in">sub</span>(s,<span class="number">2</span>,<span class="number">-2</span>)</span><br></pre></td></tr></table></figure>
+<p>函数string.char 和string.byte用于转换字符串及其内部数值表示。函数string.char接收零个或多个证书作为参数，然后将每个整数转换成对应的字符，最后返回由这些字符连接而成的字符串。函数string.byte(s,i)返回字符串s中第i 个字符的内部数值表示，该函数的第二个参数是可选的。调用string.byte(s)返回字符串s中第一个字符的内部数值表示。在下面例子中，假定字符串是用ASCII表示的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">char</span>(<span class="number">97</span>))			<span class="comment">-- a</span></span><br><span class="line">i = <span class="number">99</span>; <span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">char</span>(i,i+<span class="number">7</span>,i+<span class="number">2</span>))		<span class="comment">-- cde</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">byte</span>(<span class="string">&quot;abc&quot;</span>))			<span class="comment">-- 97</span></span><br><span class="line">pring(<span class="built_in">string</span>.<span class="built_in">byte</span>(<span class="string">&quot;abc&quot;</span> , <span class="number">2</span>))		<span class="comment">-- 98</span></span><br><span class="line">pring(<span class="built_in">string</span>.<span class="built_in">byte</span>(<span class="string">&quot;abc&quot;</span> , <span class="number">-1</span>))		<span class="comment">-- 99</span></span><br></pre></td></tr></table></figure>
+<p>在最后一行中，使用负数索引来访问字符串的最后一个字符。<br>调用string.byte(s,i,j)返回索引i到j之间的所有字符的数字表示：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">byte</span>(<span class="string">&quot;abc&quot;</span>,<span class="number">1</span>,<span class="number">2</span>)     <span class="comment">-- 97 98</span></span><br></pre></td></tr></table></figure>
+<p>一种常见的写法是{string.byte(s,1,-1)}，该表达式会创建一个由字符串s中的所有字符代码组成的表。<br>函数string.format是用于进行字符串格式化和将数值输出为字符串的强大工具，该函数会返回一个参数的副本，其中的每一个指示符都会被替换为使用对应格式化后的对应参数。格式化字符串中的指示符与C语言中函数printf的规则类似，一个指示符由一个百分号和一个代表格式化方式的字母组成：d代表一个十进制整数、x代表一个十六进制整数、f代表一个浮点数、s代表字符串等等。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;x = %d y = %d&quot;</span>,<span class="number">10</span> ,<span class="number">20</span>)			<span class="comment">-- x = 10 y = 20</span></span><br><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;x = %x&quot;</span>, <span class="number">200</span>)					<span class="comment">-- x = c8</span></span><br><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;x = 0x%x&quot;</span>, <span class="number">200</span>)				<span class="comment">-- x = 0xC8</span></span><br><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;x = %f&quot;</span>, <span class="number">200</span>)					<span class="comment">-- x = 200.000000</span></span><br><span class="line">&gt; tag, title = <span class="string">&quot;h1&quot;</span>, <span class="string">&quot;a title&quot;</span></span><br><span class="line">&gt; <span class="built_in">string</span>.foramt(<span class="string">&quot;&lt;%s&gt;%s&lt;/%s&gt;&quot;</span>,tag,title,tag)	<span class="comment">-- &lt;h1&gt; a title&lt;/h1&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在百分号和字母之间可以包含用于控制格式细节的其他选项。例如，可以指定一个浮点数中小数的位数：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.foramt(<span class="string">&quot;pi = %.4f&quot;</span>, <span class="built_in">math</span>.<span class="built_in">pi</span>))			<span class="comment">-- pi = 3.1416</span></span><br><span class="line">d = <span class="number">5</span>; m = <span class="number">11</span>; y = <span class="number">1990</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%02d/%02d/%04d&quot;</span>, d, m, y))		<span class="comment">-- 05/11/1990</span></span><br></pre></td></tr></table></figure>
+<p>在上例中，%.4f表示小数点后保留4位小数；%02d表示一个十进制数至少由两个数字组成，不足两个数字的用0补齐，而%2d则表示用空格来补齐。关于这些指示符的完整描述可以参考C语言printf函数的相关文档。<br>可以使用冒号操作符像调用字符串的一个方法那样调用字符串中标准库中的所有函数。例如，string.sub(s,i,j)可以重写成s:sub(i,j)，string.upper(s)可以重写成s:supper()。<br>字符串标准库还包括了几个基于模式匹配的函数。函数string.find用于在指定的字符串中进行模式搜索：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">find</span>(<span class="string">&quot;hello world&quot;</span> , <span class="string">&quot;wor&quot;</span>)		<span class="comment">-- 7 9</span></span><br><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">find</span>(<span class="string">&quot;hello world&quot;</span> , <span class="string">&quot;war&quot;</span>)		<span class="comment">-- nil</span></span><br></pre></td></tr></table></figure>
+<p>如果该函数在指定的字符串中找到了匹配的模式，则返回模式的开始和结束位置，否则返回nil。函数string.gsub(Global SUBstitution)则把所有匹配的模式用另一个字符串替换：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">gsub</span>(<span class="string">&quot;hello world&quot;</span>, <span class="string">&quot;l&quot;</span> , <span class="string">&quot;.&quot;</span>)			<span class="comment">-- he..o wor.d 3</span></span><br><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">gsub</span>(<span class="string">&quot;hello world&quot;</span>, <span class="string">&quot;ll&quot;</span> , <span class="string">&quot;..&quot;</span>)       <span class="comment">-- he..o world 1</span></span><br><span class="line">&gt; <span class="built_in">string</span>.<span class="built_in">gsub</span>(<span class="string">&quot;hello world&quot;</span>, <span class="string">&quot;a&quot;</span>, <span class="string">&quot;.&quot;</span>)			<span class="comment">-- hello world 0</span></span><br></pre></td></tr></table></figure>
+<p>该函数还会在第二个返回值中返回发生替换的次数。</p>
+<h2 id="Unicode编码"><a href="#Unicode编码" class="headerlink" title="Unicode编码"></a>Unicode编码</h2><p>UTF-8是Web环境中用于Unicode的主要编码之一。由于UTF-8编码娱ASCII编码部分兼容，所以UTF-8对于Lua来说是一种理想的编码方式。这种兼容性保证了用于ASCII字符串的一些字符操作技巧无须修改就可以用于UTF-8字符串。<br>UTF-8使用变长的多个字节来编码一个Unicode字符。例如，UTF-8编码使用一个字节的65来代表A，使用两个字节的215-144代表希伯来语字符Aleph。UTF-8使用一个字节表示所有ASCII范围内的字符（小于128）。对于其他字符，则使用字节序列表示，其中第一个字节的范围时[194,244]，而后续的字节范围时[128,191]。更准确地说，对于两个字节组成的序列，第一个字节的范围是[194,223]；对于三个字节组成的序列来说，第一个字节的范围是[224,239]；对于四个字节组成的序列来说，第一个字节的范围是[240,224]，这些范围互相之间均不重叠。这种特点保证了任意字符对应的字节序列不会在其他字符对应的字节序列中出现。特别地，一个小于128的字节永远不会在多字节序列中，它只会代表与之对应的ASCII字符。<br>Lua语言中的一些机制对UTF-8字符串来说同样“有效”。由于Lua语言使用8个字节来编码字符，所以可以像操作其他字符串一样读写和存储UTF-8字符串。字符串常量也可以包含UTF-8数据。字符串连接UTF-8字符串同样适用。对字符串比较会按照Unicode编码中的字符代码顺序进行。<br>Lua语言的操作系统库和输入输出库是与对应系统之间的主要接口，所以它们是否支持UTF-8取决于对应的操作系统。例如，在Linux操作系统下文件名要使用UTF-8编码，而在Windows操作系统下文件名使用UTF-16编码。因此，如果要在Windows操作系统中处理Unicode文件名，要么使用额外的库，要么就修改Lua语言的标准库。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/57396.html" title="Lua连续教程之Lua字符串">https://lengmo714.top/57396.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/63692.html" rel="prev" title="Lua连续教程之Lua中的数值">
+      <i class="fa fa-chevron-left"></i> Lua连续教程之Lua中的数值
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/36871.html" rel="next" title="Lua连续教程之Lua中表的使用">
+      Lua连续教程之Lua中表的使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">字符串常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%BF%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%A4%9A%E8%A1%8C%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.</span> <span class="nav-text">长字符串&#x2F;多行字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">3.</span> <span class="nav-text">强制类型转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%87%E5%87%86%E5%BA%93"><span class="nav-number">4.</span> <span class="nav-text">字符串标准库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unicode%E7%BC%96%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">Unicode编码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mall.jd.com/index-12955410.html" title="https:&#x2F;&#x2F;mall.jd.com&#x2F;index-12955410.html" rel="noopener" target="_blank">京东小店</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">769k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11:39</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 't3TkgC71hcBBtINYfsVe8r0R-gzGzoHsz',
+      appKey     : 'SUF3DMDZlFZMDGj3ai9WfgFY',
+      placeholder: "填写QQ邮箱就会使用QQ头像喔~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  +  
+  
+	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
+  
+
+</body>
+</html>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>

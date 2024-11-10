@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="全局变量在大多数变成语言中是让人爱恨交织又不可或缺的。一方面，使用管全局变量会明显地使无关的代码部分纠缠在一起，容易导致代码复杂。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua中的环境(Environment)">
+<meta property="og:url" content="https://lengmo714.top/64510.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="全局变量在大多数变成语言中是让人爱恨交织又不可或缺的。一方面，使用管全局变量会明显地使无关的代码部分纠缠在一起，容易导致代码复杂。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-10T07:17:38.000Z">
+<meta property="article:modified_time" content="2024-07-17T15:08:28.153Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lengmo714.top/64510.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Lua中的环境(Environment) | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XDK58GP86Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/64510.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+      <meta itemprop="keywords" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lua中的环境(Environment)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-10 15:17:38" itemprop="dateCreated datePublished" datetime="2020-05-10T15:17:38+08:00">2020-05-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-17 23:08:28" itemprop="dateModified" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/64510.html" class="post-meta-item leancloud_visitors" data-flag-title="Lua中的环境(Environment)" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/64510.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/64510.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>全局变量在大多数变成语言中是让人爱恨交织又不可或缺的。一方面，使用管全局变量会明显地使无关的代码部分纠缠在一起，容易导致代码复杂。</p>
+<span id="more"></span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>另一方面，谨慎地使用全局变量又能更好地表达程序中真正的全局概念；此外，虽然全局常量看似无害，但像Lua语言这样的动态语言是无法区分常量和变量的。像Lua这样的嵌入式语言更复杂：虽然全局变量时再整个程序中均可见的变量，但由于Lua语言是由宿主应用调用代码段的，因此“程序”的概念不明确。<br>Lua语言通过不使用全局变量的方法来解决这个难题，但又不遗余力地在Lua语言汇总对全局变量进行模拟。在第一种近似的模拟中，我们可以认为Lua语言把所有的全局变量保存在一个称为全局环境的普通表中。<br>由于不需要再为全局变量创造一种新的数据结构，因此使用一个表来保存全局变量的一个优点是简化了Lua 语言的内部实现。另一个优点是，可以像操作其他表一样操作这个表。为了便于实现这种操作方式，Lua语言将全局环境自身保存在全局变量_G中。例如，如下代码输出了全局环境中所有全局变量的名称：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">pairs</span>(<span class="built_in">_G</span>) <span class="keyword">do</span> <span class="built_in">print</span>(n) <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="具有动态名称的全局变量"><a href="#具有动态名称的全局变量" class="headerlink" title="具有动态名称的全局变量"></a>具有动态名称的全局变量</h2><p>通常，赋值操作对于访问和设置全局变量已经足够了。<br>通常，赋值操作对于访问和设置全局变量已经足够了。然而，有时我们也需要某些形式的元变成。例如，我们需要操作一个全局变量，而这个全局变量的名称却存储在另一个变量中或者经由运行时计算得到。为了获取这个变量的值，许多程序员会写出下面的代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">value = <span class="built_in">load</span>(<span class="string">&quot;return &quot;</span> .. varname)()</span><br></pre></td></tr></table></figure>
+<p>例如，如果varname是x，那么字符串连接的结果就是”return x”，当执行时就能得到期望的结果。然而，在这段代码中涉及一个新代码段的创建和编译，在一定程度上开销昂贵。我们可以使用下面的代码来实现相同的效果，但效率却比之前的高出一个数量级：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">value  = <span class="built_in">_G</span>[varname]</span><br></pre></td></tr></table></figure>
+<p>由于全局环境是一个普通的表，因此可以简单地使用个对应的键直接进行索引。<br>类似地，我们可以通过编写_G[varname] &#x3D; value给一个名称为动态计算出的全局变量赋值。不过，请注意，有些程序员对于这种机制的使用可能有些过度而写出诸如_G[“a”] &#x3D; _G[“b”]这样的代码，而这仅仅是a &#x3D; b 的一种复杂写法。<br>上述问题的一般化形式是，允许字段使用诸如”io.read”或”a.b.c.d”这样的动态名称。如果直接使用_G[“io.read”]，显然是不能从表io中得到字段read的。但我们可以编写一个函数getfield让getfield(“io.read”)返回想要的结果。这个函数主要是一个循环，从_G开始逐个字段地进行求值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getfield</span><span class="params">(f)</span></span></span><br><span class="line">	<span class="keyword">local</span> v = <span class="built_in">_G</span></span><br><span class="line">	<span class="keyword">for</span> w <span class="keyword">in</span> <span class="built_in">string</span>.<span class="built_in">gmatch</span>(f,<span class="string">&quot;[%a_][%w_]*&quot;</span>) <span class="keyword">do</span></span><br><span class="line">		v = v[w]</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">return</span> v</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>我们使用函数gmatch来遍历f中的所有标识符。<br>与之对应的设置字段的函数稍显复杂。像a.b.c.d &#x3D; v这样的赋值等价于一下的代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> temp = a.b.c</span><br><span class="line">temp.d = v</span><br></pre></td></tr></table></figure>
+<p>也就是说，我们必须一直取到最后一个名称，然后再单独处理最后的这个名称。</p>
+<blockquote>
+<p>示例 函数setfield</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setfield</span><span class="params">(f,v)</span></span></span><br><span class="line">	<span class="keyword">local</span> t = <span class="built_in">_G</span></span><br><span class="line">	<span class="keyword">for</span> w, d <span class="keyword">in</span> <span class="built_in">string</span>.<span class="built_in">gmatch</span>(f, <span class="string">&quot;([%a_][%w_]*)(%.?)&quot;</span>) <span class="keyword">do</span></span><br><span class="line">		<span class="keyword">if</span> d == <span class="string">&quot;.&quot;</span> <span class="keyword">then</span></span><br><span class="line">			t[w] = t[w] <span class="keyword">or</span> &#123;&#125;</span><br><span class="line">			t = t[w]</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			t[w] = v</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>上例中使用的模式将捕获字段名称保存在变量w中，并将其后可选的点保存在变量d中。如果字段名后没有点，那么该字段就是最后一个名称。<br>下面的代码通过上例中的函数创建了全局表t和t.x，并将10赋值给了t.x.y:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setfield(<span class="string">&quot;t.x.y&quot;</span>, <span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(t.x.y)</span><br><span class="line"><span class="built_in">print</span>(getfield(<span class="string">&quot;t.x.y&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<h2 id="全局变量的声明"><a href="#全局变量的声明" class="headerlink" title="全局变量的声明"></a>全局变量的声明</h2><p>Lua语言中的全局变量不需要声明就可以使用。虽然这种行为对于小型程序来说较为方便，但在大型程序中一个简单的手误可能造成难以发现的bug。不过，如果我们乐意的话，也可以改变这种行为。由于Lua语言将全局变量存放在一个普通的表中，所以可以通过元表来访问不存在全局变量的情况。<br>一种方法是简单地检测所有对全局表中不存在键的访问：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setmetatable</span>(<span class="built_in">_G</span>,&#123;</span><br><span class="line">	<span class="built_in">__newindex</span> = funciton (_,n)</span><br><span class="line">	<span class="built_in">error</span>(<span class="string">&quot;attempt to write to undeclared variable&quot;</span> .. n, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">end</span>,</span><br><span class="line"><span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span><span class="params">(_,n)</span></span></span><br><span class="line">	<span class="built_in">error</span>(<span class="string">&quot;attempt to read undeclared variable &quot;</span> .. n , <span class="number">2</span>)</span><br><span class="line"><span class="keyword">end</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这段代码执行后，所有试图对不存在全局变量的访问都将引发一个错误：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">stdin</span>:<span class="number">1</span>:attempt to <span class="built_in">read</span> undeclared variable a </span><br></pre></td></tr></table></figure>
+<p>但是，我们应该如何声明一个新的变量呢？方法之一是使用函数rawset,它可以绕过元方法：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">declare</span> <span class="params">(name initval)</span></span></span><br><span class="line">	<span class="built_in">rawset</span>(<span class="built_in">_G</span>,name,initval <span class="keyword">or</span> <span class="literal">false</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>其中，or 和false保证新变量一定会得到一个不为nil的值。<br>另外一种更简单的方法是把对新全局变量的赋值限制在仅能在函数内进行，而代码段外层的代码则被允许自有赋值。<br>要检查赋值是否在主代码段中必须用到调试库。调用函数debug.getinfo(2,”S”)将返回一个表。其中的字段what表示调用元方法的函数是主代码段还是普通的Lua函数还是C函数。使用该函数，可以将__newindex元方法重写：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">__newindex</span> = funciton (t,n,v)</span><br><span class="line">	<span class="keyword">local</span> w = <span class="built_in">debug</span>.<span class="built_in">getinfo</span>(<span class="number">2</span>,<span class="string">&quot;S&quot;</span>).wath</span><br><span class="line">	<span class="keyword">if</span> w ~= <span class="string">&quot;main&quot;</span> <span class="keyword">and</span> w ~= <span class="string">&quot;C&quot;</span> <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">error</span> (<span class="string">&quot;attempt to write to undeclared variable&quot;</span> .. n , <span class="number">2</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	rewset(t,n,v)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>这个新版本还可以接受来自C代码的赋值，因为一般C代码都知道自己究竟在做什么。<br>如果要测试一个变量是否存在，并不能简单地将它与nil比较。因为如果它为nil，那么访问就回引发一个错误。这是，应该使用rawget来绕过元方法：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">rawset</span>(<span class="built_in">_G</span>, var) == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">	...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>正如前面所提到的，我们不允许值为nil的全局变量，因为值为nil的全局变量都会被自动地认为未声明。但是，要允许值为nil的全局变量也不难，只需要引入一个辅助表来保存已声明变量的名称即可。一旦调用了元方法，元方法就会检查该表，看变量是否是未声明过的。</p>
+<blockquote>
+<p>示例 检查全局变量的声明</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> declareNames = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">setmetatable</span>(<span class="built_in">_G</span>,&#123;</span><br><span class="line">	<span class="built_in">__newindex</span> = funciton(t,n,v)</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> declareNames[n] <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">local</span> w = <span class="built_in">debug</span>.<span class="built_in">getinfo</span>(<span class="number">2</span>,<span class="string">&quot;S&quot;</span>).wath </span><br><span class="line">		<span class="keyword">if</span> w ~= <span class="string">&quot;main&quot;</span> <span class="keyword">and</span> w ~= <span class="string">&quot;C&quot;</span> <span class="keyword">then</span></span><br><span class="line">			<span class="built_in">error</span>(<span class="string">&quot;attempt to write to undeclared variable &quot;</span> .. n, <span class="number">2</span>)</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">		declareNames[n] = <span class="literal">true</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="built_in">rawset</span>(t,n,v)</span><br><span class="line"><span class="keyword">end</span>,</span><br><span class="line"></span><br><span class="line"><span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span> <span class="params">(_,v)</span></span></span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> declareNames[n] <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">error</span>(<span class="string">&quot;attempt to read undeclared variable &quot;</span> .. n , <span class="number">2</span>)</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>现在，即使像 x &#x3D; nil这样的赋值也能够声明全局变量了。<br>上述两种方法所导致的开销都基本可以忽略不计。在第一种方法中，在普通操作期间元方法不会被调用。在第二种方法中，元方法只有当程序访问一个值为nil的变量时才会被调用。</p>
+<h2 id="非全局环境"><a href="#非全局环境" class="headerlink" title="非全局环境"></a>非全局环境</h2><p>在Lua语言中，全局变量并一定非得是真正全局的。正如笔者此前所提到的，Lua语言甚至根本没有全局变量。Lua语言竭尽全力地让程序员有全局变量存在的幻觉。现在，让我们看看Lua语言是如何构建这种幻觉的。<br>首先，让我们忘掉全局变量而从自由名称的概念开始讨论。一个自由名称是指没有关联到显示声明上的名称，即它不出现在对应局部变量的范围内。例如，在下面的代码段中，x和y是自由名称，而z不是：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> z = <span class="number">10</span></span><br><span class="line">x = y + z</span><br></pre></td></tr></table></figure>
+<p>接下来就到了关键的部分：Lua语言编译器将代码段中的所有自由名称x转换为_ENV.x。因此，此前的代码段完全等价于：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> z = <span class="number">10</span></span><br><span class="line"><span class="built_in">_ENV</span>.x = <span class="built_in">_ENV</span>.y + z</span><br></pre></td></tr></table></figure>
+<p>但是这里新出现的_ENV变量又究竟是什么呢？</p>
+<p>我们刚才说过，Lua语言中没有全局变量。因此，_ENV不可能是全局变量。在这里，编译器实际上又进行了一次巧妙的工作。笔者已经提到过，Lua语言包所有代码段都当做匿名函数。所以，Lua语言编译器实际上将原来的代码段编译为如下形式：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">_ENV</span> = some value</span><br><span class="line"><span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(...)</span></span></span><br><span class="line">	<span class="keyword">local</span> z = <span class="number">10</span></span><br><span class="line">	<span class="built_in">_ENV</span>.x = <span class="built_in">_ENV</span>.y + z</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>也就是说，Lua语言是在一个名为_ENV的预定义上值（一个外部的局部变量，upvalue）存在的情况下编译所有的代码段的。因此，所有的变量要么是绑定到了一个名称的局部变量，要么是_ENV中的一个字段，而_ENV本身是一个局部变量。<br>_ENV的初始值可以是任意的表。任何一个这样的表都被称为一个环境。为了维持全局变量存在的幻觉，Lua语言在内部维护了一个表来用作全局变量。通过，当加载一个代码段时，函数load会使用预定义上的值来初始化全局环境。因此，原始的代码段等价于：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">_ENV</span> = the global environment</span><br><span class="line"><span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(...)</span></span></span><br><span class="line">	<span class="keyword">local</span> z = <span class="number">10</span></span><br><span class="line">	<span class="built_in">_ENV</span>.x = <span class="built_in">_ENV</span>.y + z</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>上述赋值的结果是，全局环境中的字段x得到全局环境中字段y加10的结果。<br>乍一看，这可能像是操作全局变量的一种相当拐弯抹角的方式。笔者也不会去争辩说这是最简单的方式，但是，这种方式比那些更简单的实现方法具有更多的灵活性。<br>在继续学习前，让我们总结一下Lua语言中处理全局变量的方式：</p>
+<ul>
+<li>编译器在编译所有代码段前，在外层创建局部变量_ENV；</li>
+<li>编译器将所有自由名称var变换为_ENV.var；</li>
+<li>函数load使用全局环境初始化代码段的第一个上值，即Lua语言内部维护的一个普通的表。<br>实际上，这也不是太复杂。<br>有些人由于试图从这些规则中引申出额外的“魔法”而感到困惑；其实，这些规则并没有额外的含义。尤其是，前两条规则完全是由编译器进行的。除了是由编译器预定的，_ENV只是一个单纯的普通变量。抛开编译器，名称_ENV对于Lua语言来说根本没有特殊含义。类似地，从x到_ENV.x的转换时纯粹的语法转换，没有隐藏的含义。尤其是，在转换后，按照标准的可见性规则，_ENV引用的是所在位置所有可见的额_ENV变量。</li>
+</ul>
+<h2 id="使用-ENV"><a href="#使用-ENV" class="headerlink" title="使用_ENV"></a>使用_ENV</h2><p>由于_ENV只是一个普通的变量，因此可以对其赋值或像访问其他变量一样访问它。赋值语句_ENV &#x3D; nil会使得后续代码不能直接访问全局变量。这可以赢来控制代码使用哪种变量：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">print</span>, <span class="built_in">sin</span> = <span class="built_in">print</span>,<span class="built_in">math</span>.<span class="built_in">sin</span></span><br><span class="line"><span class="built_in">_ENV</span> = <span class="literal">nil</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">13</span>) 		<span class="comment">-- 13</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">sin</span>(<span class="number">13</span>))  <span class="comment">-- 0.42016703682664</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">math</span>.<span class="built_in">cos</span>(<span class="number">13</span>))  <span class="comment">-- error</span></span><br></pre></td></tr></table></figure>
+<p>任何对自由名称的赋值都会引发类似的错误。<br>我们可以显式地使用_ENV来绕过局部声明：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">13</span>     <span class="comment">-- 全局的</span></span><br><span class="line"><span class="keyword">local</span> a = <span class="number">12</span> </span><br><span class="line"><span class="built_in">print</span>(a)		<span class="comment">-- 12(局部的)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">_ENV</span>.a)   <span class="comment">-- 13(全局的)</span></span><br></pre></td></tr></table></figure>
+<p>用_G也可以：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">13</span>    <span class="comment">-- 全局的</span></span><br><span class="line"><span class="keyword">local</span> a = <span class="number">12</span> </span><br><span class="line"><span class="built_in">print</span>(a)   <span class="comment">-- 12 局部的</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">_G</span>.a) <span class="comment">-- 13 局部的</span></span><br></pre></td></tr></table></figure>
+<p>通常，_G和_ENV指向的是同一个表。但是，尽管如此，它们是很不一样的实体。_ENV是一个局部变量，所有对“全局变量”的访问实际上访问的都是_ENV。_G则是一个在任何情况下都没有任何特殊状态的全局变量。按照定义，_ENV永远指向的是当前的环境；而假设在可见且无人改变过其值的前提下，_G通常指向的是全局变量。<br>_ENV的主要用途是用来改变代码段使用的环境。一旦改变了环境，所有的全局访问就都将使用新表：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--将当前的环境改为一个新的空表</span></span><br><span class="line"><span class="built_in">_ENV</span> = &#123;&#125;</span><br><span class="line">a = <span class="number">1</span>	<span class="comment">-- 在_ENV中创建字段</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="comment">-- stdin:4:attempt to call global &#x27;print&#x27; (a nil value)</span></span><br></pre></td></tr></table></figure>
+<p>如果新环境是空的，就会丢失所有的全局变量，包括函数print。因此，应该首先把一些有用的值放入新环境，比如全局环境：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">15</span>		<span class="comment">-- 创建一个全局变量</span></span><br><span class="line"><span class="built_in">_ENV</span> = &#123;g = <span class="built_in">_G</span>&#125;		<span class="comment">-- 改变当前环境</span></span><br><span class="line">a = <span class="number">1</span>		<span class="comment">-- 在_ENV中创建字段</span></span><br><span class="line">g.<span class="built_in">print</span>(<span class="built_in">_ENV</span>.a,g.a)		<span class="comment">-- 1, 15</span></span><br></pre></td></tr></table></figure>
+<p>这时，当访问“全局”的g（位于_ENV而不是全局环境中）时，我们使用的是全局环境，在其中能够找到函数print。<br>我们可以使用_G代替g，从而重写前面的例子：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">15</span>					<span class="comment">-- 创建一个全局变量</span></span><br><span class="line"><span class="built_in">_ENV</span> = &#123;<span class="built_in">_G</span> = <span class="built_in">_G</span>&#125;		<span class="comment">-- 改变的当前环境</span></span><br><span class="line">a = <span class="number">1</span>					<span class="comment">-- 在_ENV中创建字段</span></span><br><span class="line"><span class="built_in">_G</span>.<span class="built_in">print</span>(<span class="built_in">_ENV</span>.a,_g.a)	<span class="comment">-- 1	15</span></span><br></pre></td></tr></table></figure>
+<p>_G只有在Lua语言创建初始化的全局表并让字段_G指向它自己的时候，才会出现特殊状态。Lua语言并不关心该变量的当前值。不过尽管如此，就像我们在上面重写的示例中所看到的那样，将指向全局环境的变量命名为同一个名字(_G)是一个惯例。<br>另一种把旧环境装入新环境的方式是使用继承：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span></span><br><span class="line"><span class="keyword">local</span> newgt = &#123;&#125;		<span class="comment">-- 创建新环境</span></span><br><span class="line"><span class="built_in">setmetatable</span>(newgt,&#123;<span class="built_in">__index</span> = <span class="built_in">_G</span>&#125;)</span><br><span class="line"><span class="built_in">_ENV</span> = newgt			<span class="comment">-- 设置新环境</span></span><br><span class="line"><span class="built_in">print</span>(a)		<span class="comment">--1 </span></span><br></pre></td></tr></table></figure>
+<p>在这段代码中，新环境从全局环境中继承了函数print和a。不过，任何赋值都会发生在新表中，虽然我们仍然能通过_G来修改全局环境中的变量，但如果误改全局环境中的变量也不会有什么影响。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 接此前的代码</span></span><br><span class="line">a = <span class="number">10</span></span><br><span class="line"><span class="built_in">print</span>(a,<span class="built_in">_G</span>.a)			<span class="comment">-- 10 	1</span></span><br><span class="line"><span class="built_in">_G</span>.a  = <span class="number">20</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">_G</span>.a)				<span class="comment">-- 20</span></span><br></pre></td></tr></table></figure>
+<p>作为一个普通的变量，_ENV遵循通常的定界规则。特别地，在一段代码中定义的函数可以按照访问其他外部变量一样的规则访问_ENV:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">_ENV</span> = &#123;<span class="built_in">_G</span> = <span class="built_in">_G</span>&#125;</span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line">	<span class="built_in">_G</span>.<span class="built_in">print</span>(a)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">a = <span class="number">10</span></span><br><span class="line">foo()			<span class="comment">-- 10</span></span><br><span class="line"><span class="built_in">_ENV</span> = &#123;<span class="built_in">_G</span> = <span class="built_in">_G</span>, a = <span class="number">20</span>&#125;</span><br><span class="line">foo()		<span class="comment">-- 20</span></span><br></pre></td></tr></table></figure>
+<p>如果定义一个名为_ENV的局部变量，那么对自由名称的引用将会绑定绑定到这个新变量上：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">2</span></span><br><span class="line"><span class="keyword">do</span> </span><br><span class="line">	<span class="keyword">local</span> <span class="built_in">_ENV</span> - &#123;<span class="built_in">print</span> = <span class="built_in">print</span>,a = <span class="number">14</span>&#125;</span><br><span class="line">	<span class="built_in">print</span>(a)			<span class="comment">-- 14</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">print</span>(a)			<span class="comment">-- 2</span></span><br></pre></td></tr></table></figure>
+<p>因此，，可以跟很容易地使用私有环境定义一个函数：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factory</span><span class="params">(_ENV)</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span></span> <span class="keyword">return</span> a <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">f1 = factory&#123;a = <span class="number">6</span>&#125;</span><br><span class="line">f2 = factory&#123;a = <span class="number">7</span>&#125;</span><br><span class="line"><span class="built_in">print</span>(f1())			<span class="comment">-- 6</span></span><br><span class="line"><span class="built_in">print</span>(f2())			<span class="comment">-- 7</span></span><br></pre></td></tr></table></figure>
+<p>factory函数创建了一个简单的闭包，这个闭包返回了其中“全局”的a。每当闭包被创建时，闭包可见的变量_ENV就成了外部factory函数的参数_ENV。因此，每个闭包都会使用自己的外部变量来访问其自由名称。<br>使用普遍的定界规则，我们可以有几种方式操作环境。例如，可以让多个函数共享一个公共环境，或者让一个函数改变它与其他函数共享的环境。</p>
+<h2 id="环境和模块"><a href="#环境和模块" class="headerlink" title="环境和模块"></a>环境和模块</h2><p>模块的缺点之一在于很容易污染全局空间，例如在私有声明中忘记local关键字。环境为解决这个问题提供了一种有趣的方式。一旦模块的主程序有一个独占的环境，则不仅该模块所有的函数共享了这个环境，该模块的全局变量也进入到了这个环境中。我们可以将所有的公有函数声明为全局变量，这样它们就会自动地进入分开的环境中。模块索要做的就是将这个环境赋值给变量_ENV。之后，当我们声明函数add时，它会变成M.add:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = &#123;&#125;</span><br><span class="line"><span class="built_in">_ENV</span> = M</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(c1,c2)</span></span></span><br><span class="line">	<span class="keyword">return</span> new(c1.r + c2.r, c1.i + c2.i)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>此外，我们在调用同一模块中的其他函数时不需要任何前缀。在此前的代码中，add会从其环境中得到new，也就是M.new。<br>这种方法为模块提供了一种良好的支持，只需要程序员多做一点额外的工作。使用这种方法，完全不需要前缀，并且调用一个导出的函数与调用一个私有函数没有什么区别。即使程序员忘记了local关键词，也不会污染全局命名空间。相反，他只是让一个私有函数编程了公有函数而已。<br>不过尽管如此，笔者目前还是倾向于使用原始的基本方法，也许原始的基本方法需要更多的工作，但代码会更加清晰。为了避免错误地创建全局变量，笔者使用把nil赋给_ENV的方式。在把_ENV设为nil后，任何对全局变量的复制都会抛出异常。这种方式的另一个好处是无须修改代码也可以在老版本的Lua语言中运行。<br>为了访问其他模块，我们可以声明一个保存全局环境的局部变量：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = &#123;&#125;</span><br><span class="line"><span class="keyword">local</span> <span class="built_in">_G</span> = <span class="built_in">_G</span></span><br><span class="line"><span class="built_in">_ENV</span> = <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+<p>然后在全局名称前加上_G和模块名M即可。<br>另一种更规范的访问其他模块的做法是只把需要的函数或模块声明为局部变量：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 模块初始化</span></span><br><span class="line"><span class="keyword">local</span> M = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 导入部分：</span></span><br><span class="line"><span class="comment">-- 声明该模块需要的外部函数或模块等</span></span><br><span class="line"><span class="keyword">local</span> <span class="built_in">sqrt</span> = <span class="built_in">math</span>.<span class="built_in">sqrt</span></span><br><span class="line"><span class="keyword">local</span> <span class="built_in">io</span> = <span class="built_in">io</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 从此以后不能再进行外部访问</span></span><br><span class="line"><span class="built_in">_ENV</span> = <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+<p>这种方式需要做更多的工作，但是它能清晰地列出模块的依赖。</p>
+<h2 id="ENV-和load"><a href="#ENV-和load" class="headerlink" title="_ENV 和load"></a>_ENV 和load</h2><p>正如笔者此前提到的，函数load通常把被加载代码段上的值_ENV初始化为全局环境。不过，函数load还有一个可选的第四个参数来让我们为_ENV指定一个不同的初始值。<br>例如，假设我们有一个典型的配置文件，该配置文件定义了程序要使用的几个常量和函数，如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 文件&#x27;config.lua&#x27;</span></span><br><span class="line">width = <span class="number">200</span></span><br><span class="line">height = <span class="number">300</span></span><br></pre></td></tr></table></figure>
+<p>可以使用如下的代码加载该文件：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">env = &#123;&#125;</span><br><span class="line"><span class="built_in">loadfile</span>(<span class="string">&quot;config.lua&quot;</span>,<span class="string">&quot;t&quot;</span>,env)()</span><br></pre></td></tr></table></figure>
+<p>配置文件中的所有代码会运行在空的环境env中，类似于某种沙盒。特别地，所有的定义都会进入这个环境中。即使出错，配置文件也无法影响任何别的东西，甚至是恶意的代码也不能对其他东西造成任何破坏。除了通过消耗CPU时间和内存来制造拒绝服务攻击，恶意代码也做不了什么其他的事。<br>有时，我们可能想重复运行一段代码数次，每一次使用一个不同的环境。在这种情况下，函数load可选的参数就没用了。此时，我们有另外两种选择。<br>第一种选择是使用调试库中的函数debug.setupvalue。顾名思义，函数setupvalue允许改变任何指定函数的上值，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">load</span>(<span class="string">&quot;b = 10; return a&quot;</span>)</span><br><span class="line">env = &#123;a = <span class="number">20</span>&#125;</span><br><span class="line"><span class="built_in">debug</span>.<span class="built_in">setupvalue</span>(f,<span class="number">1</span>,env)</span><br><span class="line"><span class="built_in">print</span>(f())			<span class="comment">-- 20</span></span><br><span class="line"><span class="built_in">print</span>(env.b)		<span class="comment">-- 10</span></span><br></pre></td></tr></table></figure>
+<p>setupvalue的第一个参数是指定的函数，第二个参数是上值的索引，第三个参数是新的上值。对于这种用法，第二个参数永远是1：当函数表示的是一段代码时，Lua语言可以保证它只有一个上值且上值就是_ENV。<br>这种方式的一个小缺点在于依赖调试库。调试库打破了有关程序的一些常见假设。例如，debug.setupvalue打破了Lua语言的可见性规则，而可见性规则可以保证我们不能从词法定界的范围外访问局部变量。<br>另一种在几个不同环境中运行代码段的方式是每次加载代码时稍微对其进行一下修改。假设我们在要加载的代码段钱加入一行：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">_ENV</span> = ...;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>请注意，由于Lua语言把所有的代码段都当做可变长参数函数进行编译，因此，多出的这一行代码会把传给代码段的第一个参数赋值_ENV，从而把参数设为环境。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">prefix = <span class="string">&quot;_ENV = ...;&quot;</span></span><br><span class="line">f = loadwithprefix(prefix,<span class="built_in">io</span>.<span class="built_in">lines</span>(filename,<span class="string">&quot;*L&quot;</span>))</span><br><span class="line">...</span><br><span class="line">env1 = &#123;&#125;</span><br><span class="line">f(env1)</span><br><span class="line">env2 = &#123;&#125;</span><br><span class="line">f(env2)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/64510.html" title="Lua中的环境(Environment)">https://lengmo714.top/64510.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/52859.html" rel="prev" title="Lua教程之Lua打乱数组排序">
+      <i class="fa fa-chevron-left"></i> Lua教程之Lua打乱数组排序
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/3472.html" rel="next" title="Lua连续教程之Lua垃圾收集">
+      Lua连续教程之Lua垃圾收集 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E6%9C%89%E5%8A%A8%E6%80%81%E5%90%8D%E7%A7%B0%E7%9A%84%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">具有动态名称的全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">全局变量的声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E5%85%A8%E5%B1%80%E7%8E%AF%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text">非全局环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-ENV"><span class="nav-number">4.</span> <span class="nav-text">使用_ENV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%92%8C%E6%A8%A1%E5%9D%97"><span class="nav-number">5.</span> <span class="nav-text">环境和模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ENV-%E5%92%8Cload"><span class="nav-number">6.</span> <span class="nav-text">_ENV 和load</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mall.jd.com/index-12955410.html" title="https:&#x2F;&#x2F;mall.jd.com&#x2F;index-12955410.html" rel="noopener" target="_blank">京东小店</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">769k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11:39</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 't3TkgC71hcBBtINYfsVe8r0R-gzGzoHsz',
+      appKey     : 'SUF3DMDZlFZMDGj3ai9WfgFY',
+      placeholder: "填写QQ邮箱就会使用QQ头像喔~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  +  
+  
+	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
+  
+
+</body>
+</html>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>

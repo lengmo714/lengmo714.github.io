@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="反射是程序用来检查和修改其自身某些部分的能力。像Lua语言这样的动态语言支持几种反射机制：环境允许运行时观察全局变量；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua连续教程之Lua反射">
+<meta property="og:url" content="https://lengmo714.top/52447.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="反射是程序用来检查和修改其自身某些部分的能力。像Lua语言这样的动态语言支持几种反射机制：环境允许运行时观察全局变量；">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-26T07:17:09.000Z">
+<meta property="article:modified_time" content="2024-07-17T15:08:28.158Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lengmo714.top/52447.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Lua连续教程之Lua反射 | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XDK58GP86Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/52447.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+      <meta itemprop="keywords" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lua连续教程之Lua反射
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-26 15:17:09" itemprop="dateCreated datePublished" datetime="2020-05-26T15:17:09+08:00">2020-05-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-17 23:08:28" itemprop="dateModified" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/52447.html" class="post-meta-item leancloud_visitors" data-flag-title="Lua连续教程之Lua反射" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/52447.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/52447.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>反射是程序用来检查和修改其自身某些部分的能力。像Lua语言这样的动态语言支持几种反射机制：环境允许运行时观察全局变量；</p>
+<span id="more"></span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>诸如type和pairs这样的函数允许运行时检查和遍历未知数据结构；诸如load和require这样的函数允许程序在自身中追加代码或更新代码。不过，还有很多方面仍然是缺失的：程序不能检查局部变量，开发人员不能跟踪代码的执行，函数也不知道是被谁调用的，等等。调试库填补了上述缺陷。<br>调试库是由两类函数组成：自省函数和钩子。自省函数允许我们检查一个正在运行中的程序的几个方面，例如活动函数的额栈、当前正在执行的代码行、局部变量的名称和值。钩子则允许我们跟踪一个程序的执行。<br>虽然名字里带有”调试“的字眼，但调试库提供的并不是Lua语言的调试器。不过，调试库提供了编写我们自己的调试器所需要的不同层次的所有底层机制。<br>调试库与其他库不同，必须被慎重地使用。首先，调试库中的某些功能的性能不高。其次，调试库会打破语言的一些固有规则，例如不能从一个局部变量的词法定界范围外访问这个局部变量。虽然调试库作为标准库直接可用，但笔者建议在使用调试库的代码段中显示地加载调试库。</p>
+<h2 id="自省机制"><a href="#自省机制" class="headerlink" title="自省机制"></a>自省机制</h2><p>调试库中主要的自省函数是getinfo，该函数的第一个参数可以是一个函数或一个栈层次。当为某个函数foo调用debug.getinfo(foo)时，该函数会返回一个包含与该函数有关的一些数据的表。这个表可能具有以下字段：<br>  <strong>source:</strong>  该字段用于说明函数定义的位置。如果函数定义在一个字符串中（通过调用load），那么source就是这个字符串；如果函数定义在一个文件中，那么source就是使用@作为前缀的文件名。<br> <strong>short_src:</strong> 该字段是source的精简版本，对于错误信息十分有用。<br> <strong>linedefined:</strong> 该字段是该函数定义在源代码中第一行的行号。<br>  <strong>lastlinedefined:</strong> 该字段是该函数定义在源代码中最后一行的行号。<br> <strong>what:</strong> 该字段用于说明函数的类型。如果foo是一个普通的Lua函数，则为“Lua”；如果是一个C函数，则为“C”;如果是一个Lua语言代码段的主要部分，则为“main”。<br> <strong>name:</strong> 该字段是该函数的一个适当的名称，例如保存该函数的全局变量的名称。<br> <strong>namewhat:</strong> 该字段用于说明上一个子弹的含义，可能是”global”、”local”、”method”、”filed”或””(空字符串)。空字符串表示Lua原因找不到该函数的名称。<br> <strong>nups:</strong> 该字段是该函数的上值的个数。<br> <strong>nparams:</strong> 该字段是该函数的参数个数。<br> <strong>isvararg:</strong> 该字段表明该函数是否为可变长参数函数。<br> <strong>activelines:</strong> 该字段是一个包含该函数所有活跃行的集合。活跃行时指除空行和只包含注释的外行的其他行。<br> <strong>func:</strong> 该字段是该函数本身。<br> 当foo是一个C函数时，Lua语言没有多少关于该函数的信息。对于这种函数，只有字段what、name、namewhat、nups和func是有意义的。<br>当使用给一个数字n作为参数调用函数debug.getinfo(n)时，可以得到有关相应栈层次上活跃函数的数据。栈层次是一个数字，代表某个时刻上活跃的特定函数。调用getinfo的函数A的层次是1，而调用A的函数的层次是2，以此类推。如果n大于栈中活跃函数的数量，那么函数debug.getinfo返回nil。当通过带有栈层次的debug.getinfo查询一个活跃函数时，返回的表中海油两个额外字段：currentline，表示当前该函数正在执行的代码所在的行；istailcall，如果为真则表示函数是被尾调用所调起。<br>字段name有些特殊。请注意，由于函数在Lua语言中是第一类值，因此函数既可以没有名称也可以有多个名称。Lua语言会通过检查调用该函数的代码来看函数是如何被调用的，进而尝试找到该函数的名称。这种方法只有在以一个数字为参数调用getinfo时才会起作用，即我们只能获取关于某一具体调用的信息。<br>函数getinfo的效率不高。Lua语言以一种不影响程序执行的形式来保存调试信息，至于获取这些调试信息的效率则是次要的。为了实现更好的性能，函数getinfo有一个可选的第二参数，该参数用于指定希望获取哪些信息。通过这个参数，函数getinfo就不会浪费时间去收集用户不需要的数据。这个参数是一个字符串，其中每个字母代表选择一组字段，如下表所示：</p>
+<hr>
+<p>n 选择name和namewhat<br>f 选择func<br>S 选择source、short_src、what、linedefined和lastlinedefined<br>l 选择currentline<br>L 选择activelines<br>u 选择nup、nparams和isvararg</p>
+<hr>
+<p>下面这个函数演示了函数debug.getinfo的用法，它打印出了活跃栈的栈回溯：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">funciton <span class="built_in">traceback</span>()</span><br><span class="line">	<span class="keyword">for</span> level = <span class="number">1</span>, <span class="built_in">math</span>.<span class="built_in">huge</span> <span class="keyword">do</span></span><br><span class="line">		<span class="keyword">local</span> info = <span class="built_in">debug</span>.<span class="built_in">getinfo</span>(level,<span class="string">&quot;Sl&quot;</span>)</span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">not</span> info <span class="keyword">then</span> back <span class="keyword">end</span></span><br><span class="line">		<span class="keyword">if</span> info.what == <span class="string">&quot;C&quot;</span> <span class="keyword">then</span></span><br><span class="line">			<span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%d\tC function&quot;</span>,level))</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%d\t[%s]:%d&quot;</span>,level,</span><br><span class="line">				info.short_src, info.currentline))</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>要改进这个函数并不难，只需要让函数getinfo返回更多数据即可。实事上，调试库也提供了这样一个改进版本，即函数traceback。与我们的版本不同的是，函数debug.traceback不会打印结果，而是返回一个包含栈回溯的字符串：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">print</span>(<span class="built_in">debug</span>.<span class="built_in">traceback</span>())</span><br><span class="line">stack <span class="built_in">traceback</span>:</span><br><span class="line">	<span class="built_in">stdin</span>:<span class="number">1</span>:<span class="keyword">in</span> main chunk</span><br><span class="line">	[C]:<span class="keyword">in</span> ?</span><br></pre></td></tr></table></figure>
+<h3 id="访问局部变量"><a href="#访问局部变量" class="headerlink" title="访问局部变量"></a>访问局部变量</h3><p>我们可以通过函数debug.getlocal来检查任意活跃函数的局部变量。该函数有两个参数，一个是要查询函数的栈层次，另一个是变量的索引。该函数返回两个值，变量名和变量的当前值。如果变量索引大于活跃变量的数量，那么函数getlocal返回nil。如果栈层次无效，则会抛出异常。<br>Lua语言按局部变量在函数中的出现顺序对它们进行编号，但编号只限于在函数当前作用域中活跃的变量。例如，考虑如下的代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">(a,b)</span></span></span><br><span class="line">	<span class="keyword">local</span> x </span><br><span class="line">	<span class="keyword">do</span> <span class="keyword">local</span> c = a - b <span class="keyword">end</span></span><br><span class="line">	<span class="keyword">local</span> a = <span class="number">1</span></span><br><span class="line">	<span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">		<span class="keyword">local</span> name ,value = <span class="built_in">debug</span>.<span class="built_in">getlocal</span>(<span class="number">1</span>,a)</span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">not</span> name <span class="keyword">then</span> <span class="keyword">break</span> <span class="keyword">end</span></span><br><span class="line">		<span class="built_in">print</span>(name , value)</span><br><span class="line">		a = a + <span class="number">1</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>调用foo(10,20)会输出：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a	<span class="number">10</span></span><br><span class="line">b 	<span class="number">20</span></span><br><span class="line">x 	<span class="literal">nil</span></span><br><span class="line">a 	<span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>索引为1的变量a，索引为2的变量b，索引为3的变量是x，索引为4的变量时内层的a。在getlocal被调用的时候，c已经完成了作用域，而name和value还未出现于作用域。<br>从Lua5.2开始，值为负的索引获取可变长参数函数的额外参数，索引-1指向第一个额外参数。此时，变量的名称永远是”(*vararg)”。<br>我们还可以通过函数debug.setlocal改变局部变量的值，该函数的前两个参数与getlocal相同，分别是栈层次和变量索引，而第三个参数是该局部变量的新值。该函数的返回值是变量名，如果变量索引超出了范围则返回nil。</p>
+<h3 id="访问非局部变量"><a href="#访问非局部变量" class="headerlink" title="访问非局部变量"></a>访问非局部变量</h3><p>测试库还提供了函数getupvalue，该函数允许我们访问一个被Lua函数所使用的非局部变量。与局部变量不同，被一个函数所引用的非局部变量即使在引用它的函数已经不活跃的情况下也会一直存在。因此，函数getupvalue的第一个参数不是栈层次，而是一个函数。函数getupvalue的第二个参数是变量索引，Lua语言按照函数引用非局部变量的顺序对它们编号，但由于一个函数不能用同一个名称访问两个非局部变量，所以这个顺序是无关紧要的。<br>我们还可以通过函数debug.setupvalue更新非局部变量的值。就像读者可能预想的一样，该函数有三个参数：一个闭包、一个变量索引和一个新值。与函数setlocal一样，该函数返回变量名，如果索引超出范围则返回nil。</p>
+<blockquote>
+<p>示例 获取变量的值</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getvarvalue</span><span class="params">(name,level,isenv)</span></span></span><br><span class="line">	<span class="keyword">local</span> value</span><br><span class="line">	<span class="keyword">local</span> found = <span class="literal">false</span></span><br><span class="line">	level = (level <span class="keyword">or</span> <span class="number">1</span>) + <span class="number">1</span></span><br><span class="line">	<span class="comment">--尝试局部变量</span></span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span> , <span class="built_in">math</span>.<span class="built_in">huge</span> <span class="keyword">do</span></span><br><span class="line">		lcoal n, v = <span class="built_in">debug</span>,<span class="built_in">getlocal</span> (level,i)</span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">not</span> n <span class="keyword">then</span> <span class="keyword">break</span> <span class="keyword">end</span></span><br><span class="line">		<span class="keyword">if</span> n == name <span class="keyword">then</span></span><br><span class="line">			value = v</span><br><span class="line">			found = <span class="literal">true</span></span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">if</span> found <span class="keyword">then</span> <span class="keyword">return</span> <span class="string">&quot;local&quot;</span>, value <span class="keyword">end</span></span><br><span class="line">	<span class="comment">--尝试非局部变量</span></span><br><span class="line">	<span class="keyword">local</span> fun = <span class="built_in">debug</span>.<span class="built_in">getinfo</span>(level,<span class="string">&quot;f&quot;</span>).func</span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>, <span class="built_in">math</span>.<span class="built_in">huge</span> <span class="keyword">do</span></span><br><span class="line">		<span class="keyword">local</span> n,v = <span class="built_in">debug</span>.<span class="built_in">getupvalue</span>(func,i)</span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">not</span> n <span class="keyword">then</span> <span class="keyword">break</span> <span class="keyword">end</span></span><br><span class="line">		<span class="keyword">if</span> n == name <span class="keyword">then</span> <span class="keyword">return</span> <span class="string">&quot;upvalue&quot;</span>, v <span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">if</span> isenv <span class="keyword">then</span> <span class="keyword">return</span> <span class="string">&quot;noenv&quot;</span> <span class="keyword">end</span>	<span class="comment">--避免循环</span></span><br><span class="line">	<span class="comment">--没找到；从环境中获取值</span></span><br><span class="line">	<span class="keyword">local</span> _, env = getvarvalue(<span class="string">&quot;_ENV&quot;</span>,level,<span class="literal">true</span>)</span><br><span class="line">	<span class="keyword">if</span> env <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;global&quot;</span> , env[name]</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;noenv&quot;</span></span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>用法如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">local</span> a = <span class="number">4</span>; <span class="built_in">print</span>(getvarvalue(<span class="string">&quot;a&quot;</span>))		<span class="comment">-- local 4</span></span><br><span class="line">&gt; a = <span class="string">&quot;xx&quot;</span>;<span class="built_in">print</span>(getvarvalue(<span class="string">&quot;a&quot;</span>))			<span class="comment">-- global xx</span></span><br></pre></td></tr></table></figure>
+<p>参数level指明在那个栈层次中寻找函数，1意味着直接的调用者。代码中多加1将层次纠正为包括getvarvalue自己。<br>该函数首先查找局部变量。如果有多个局部变量的名称与给定的名称相同，则获取具有最大索引的那个局部变量。因此，函数必须执行完整个循环。如果找不到指定名称的局部变量，那么就查找非局部变量。为了遍历非局部变量，该函数使用debug.getinfo函数获取调用闭包，然后遍历非局部变量。最后，如果还是找不到指定名字的非局部变量，就检索全局变量：该函数递归地调用自己来访问合适的_ENV变量并在相应环境中查找指定的名字。<br>参数isenv避免了一个诡异的问题。该参数用于说明我们是否处于一个从_ENV变量中查询全局名称的递归调用中。一个不使用全局变量的函数可能没有上值_ENV。在这种情况下，如果我们试图把_ENV当做全局变量来查询，那么由于我们需要_ENV来得到其自身的值，所以可能会陷入无限递归循环。因此，当isenv为真且函数getvarvalue找不到局部变量或上值时，getvarvalue就不应该再尝试全局变量。</p>
+<h3 id="访问其他协程"><a href="#访问其他协程" class="headerlink" title="访问其他协程"></a>访问其他协程</h3><p>调试库中的所有自省函数都能够接受一个可选的协程作为第一个参数，这样就可以从外部来检查这个协程。例如，考虑使用如下的示例：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">co = <span class="built_in">coroutine</span>.<span class="built_in">create</span>(<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">	<span class="keyword">local</span> x = <span class="number">10</span></span><br><span class="line">	<span class="built_in">coroutine</span>.<span class="built_in">yield</span>()</span><br><span class="line">	<span class="built_in">error</span>(<span class="string">&quot;some error&quot;</span>)</span><br><span class="line"><span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">coroutine</span>.<span class="built_in">resume</span>(co)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">debug</span>.<span class="built_in">traceback</span>(co))</span><br></pre></td></tr></table></figure>
+<p>对函数traceback的调用作用在协程co上，结果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stack traceback:</span><br><span class="line">	[C]:in function &#x27;yield&#x27;</span><br><span class="line">	temp:3:in function &lt;temp:1&gt;</span><br></pre></td></tr></table></figure>
+<p>由于协程和主程序运行在不同的栈上，所以回溯没有跟踪到对函数resume的调用。<br>当协程引发错误时并不会进行栈展开，这就意味着可以在错误发生后检查错误。继续上面的示例，如果再次唤醒协程，它会提示引起了一个错误：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">coroutine</span>.<span class="built_in">resume</span>(co))		<span class="comment">-- false temp:4:some error</span></span><br></pre></td></tr></table></figure>
+<p>现在，如果输出栈回溯，会得到这样的结果：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stack <span class="built_in">traceback</span>:</span><br><span class="line">	[C]:<span class="keyword">in</span> <span class="function"><span class="keyword">function</span> &#x27;<span class="title">error</span>&#x27;</span></span><br><span class="line"><span class="function">	<span class="title">temp</span>:4:<span class="title">in</span> <span class="title">function</span> &lt;<span class="title">temp</span>:1&gt;</span></span><br></pre></td></tr></table></figure>
+<p>即使在错误发生后，也可以检查协程中的局部变量：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">debug</span>.<span class="built_in">getlocal</span>(co,<span class="number">1</span>,<span class="number">1</span>))		<span class="comment">-- x 10</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="钩子"><a href="#钩子" class="headerlink" title="钩子"></a>钩子</h2><p>调试库中的钩子机制允许用户注册一个钩子函数，这个钩子函数会在程序运行中某个特定事件发生时被调用。有四种时间能够触发一个钩子：</p>
+<ul>
+<li>每当调用一个函数时产生的call事件；</li>
+<li>每当函数返回时产生的return事件；</li>
+<li>每当开始执行一行新代码时产生的line事件；</li>
+<li>执行完制定数量的指令后产生的count事件。<br>Lua语言用给一个描述导致钩子函数被调用的事件的字符串为参数来调用钩子函数，包括”call”、”return”、”line”或”count”。对于line事件来说，还有第二个参数，即新行号。我们可以在钩子函数内部调用函数debug.getinfo来获取更多的信息。<br>要注册一个钩子，需要用两个或三个参数来调用函数debug.sethook:第一个参数是钩子函数，第二个参数是描述要监控事件的掩码字符串，第三个参数是一个用于描述以何种频度获取count事件的可选数字。如果要监控call、return和line事件，那么需要把这几个事件的首字母放入掩码字符串。如果要监控count事件，则只需要在第三个参数中指定一个计数器。如果要关闭钩子，只需不带任何参数第调用函数sethook即可。<br>作为一个简单的示例，以下代码安装了一个简单的跟踪器，它会输出解释器执行的每一行代码：<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">debug</span>.<span class="built_in">sethook</span>(<span class="built_in">print</span>,<span class="string">&quot;l&quot;</span>)</span><br></pre></td></tr></table></figure>
+这句调用只是简单地把函数print安装为一个钩子函数，并告诉Lua语言在line事件发生时调用它。一个更精巧的跟踪器可以使用函数getinfo获取当前文件名并添加到输出中：<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">trace</span><span class="params">(event,line)</span></span></span><br><span class="line">	<span class="keyword">local</span> s = <span class="built_in">debug</span>.<span class="built_in">getinfo</span>(<span class="number">2</span>).short_src</span><br><span class="line">	<span class="built_in">print</span>(s .. <span class="string">&quot;:&quot;</span> .. line)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">debug</span>.<span class="built_in">sethook</span>(trace,<span class="string">&quot;l&quot;</span>)</span><br></pre></td></tr></table></figure>
+与钩子一起被使用的一个很有用的函数debug.debug。这个简单的函数可以提供一个能够执行任意Lua语言命令的提示符，其等价于如下的代码：<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debug1</span><span class="params">()</span></span></span><br><span class="line">	<span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">		<span class="built_in">io</span>.<span class="built_in">write</span>(<span class="string">&quot;debug&gt; &quot;</span>)</span><br><span class="line">		<span class="keyword">local</span> line = <span class="built_in">io</span>.<span class="built_in">read</span>()</span><br><span class="line">		<span class="keyword">if</span> line == <span class="string">&quot;cont&quot;</span> <span class="keyword">then</span> <span class="keyword">break</span> <span class="keyword">end</span></span><br><span class="line">		<span class="built_in">assert</span>(<span class="built_in">load</span>(line))()</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+当用户输入”命令“cont时，函数返回。这种标准的实现十分简单，并且在全局环境中运行命令，位于正在被调试代码的定界范围之外。</li>
+</ul>
+<h2 id="调优"><a href="#调优" class="headerlink" title="调优"></a>调优</h2><p>除了调试，反射的另外一个常见用法是用于调优，即程序使用资源的行为分析。对于时间相关的调优，最好使用C接口，因为每次钩子调用函数开销太大从而可能导致测试结果无效。不过，对于计数性质的调优，Lua代码就可以做得很好。<br>性能调优工具的主要数据结构是两个表，其中一个表将函数和它们的调用计数关联起来，另一个表关联函数和函数名。这两个表的索引都是函数自身：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> Counters = &#123;&#125;</span><br><span class="line"><span class="keyword">local</span> Names = &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以在性能分析完成后再获取函数的名称，但是如果能在一个函数F处于活动状态时获取其名称可能会得到更好的结果。这是因为，在函数F处于活动状态时，Lua语言可以通过分析正在调用函数F的代码来找出函数F的名称。<br>现在，我们定义一个钩子函数，该钩子函数的任务是获取当前正在被调用的函数，并递增相应的计数器，再收集函数名。</p>
+<blockquote>
+<p>示例 用于计算调用次数的钩子</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">hook</span><span class="params">()</span></span></span><br><span class="line">	<span class="keyword">local</span> f = <span class="built_in">debug</span>.<span class="built_in">getinfo</span>(<span class="number">2</span>,<span class="string">&quot;f&quot;</span>).func </span><br><span class="line">	<span class="keyword">local</span> count = Counters[f]</span><br><span class="line">	<span class="keyword">if</span> count == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">		Counters[f] = <span class="number">1</span></span><br><span class="line">		Names[f] = <span class="built_in">debug</span>.<span class="built_in">getinfo</span>(<span class="number">2</span>,<span class="string">&quot;Sn&quot;</span>)</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		Counters[f] = count + <span class="number">1</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>接下来，运行带有钩子的程序。假设我们要分析的程序位于一个文件中，且用户通过参数把该文件名传递个性能分析器，如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% lua profile main-prog</span><br></pre></td></tr></table></figure>
+<p>这样，性能分析器就可以从arg[1]中得到文件名、设置钩子并运行文件：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">loadfile</span>(<span class="built_in">arg</span>[<span class="number">1</span>]))</span><br><span class="line"><span class="built_in">debug</span>.<span class="built_in">sethook</span>(hook,<span class="string">&quot;c&quot;</span>)</span><br><span class="line">f()</span><br><span class="line"><span class="built_in">debug</span>.<span class="built_in">sethook</span>()</span><br></pre></td></tr></table></figure>
+<p>最后一步是显示结果。</p>
+<blockquote>
+<p>示例  获取一个函数的函数名</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getname</span> <span class="params">(func)</span></span></span><br><span class="line">	<span class="keyword">local</span> n = Names[func]</span><br><span class="line">	<span class="keyword">if</span> n.what == <span class="string">&quot;C&quot;</span> <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">return</span> n.name </span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">local</span> lc = <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;[%s]:%d&quot;</span>,n.short_src, n.linedefined)</span><br><span class="line">	<span class="keyword">if</span> n.what ~= <span class="string">&quot;main&quot;</span> <span class="keyword">and</span> n.namewhat ~= <span class="string">&quot;&quot;</span> <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%s (%s)&quot;</span>,lc, n.name)</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> lc</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>有Lua语言中的函数名不是特别确定，所以我们给每个函数再加上位置信息，以file:file这样的形式给出。如果一个函数没有名称，那么就只使用它的位置。如果函数是C函数，那么就只使用它的名称（因为没有位置）。在上述函数定义后，我们输出每个函数及其计数器的值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> func,count <span class="keyword">in</span> <span class="built_in">pairs</span>(Counters) <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(getname(func),count)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="沙盒"><a href="#沙盒" class="headerlink" title="沙盒"></a>沙盒</h2><p>由于Lua语言通过库函数完成所有与外部世界的通信，因此一旦移除了这些函数也就排除了一个脚本能够影响外部环境的可能。不过尽管如此，我们仍然可能会被消耗大量CPU时间或内存的脚本进行拒绝服务Dos攻击。反射，以调试钩子的形式，提供了一种避免这种攻击的有趣方式。<br>首先，我们使用count时间钩子来限制一段代码能够执行的指令数。</p>
+<blockquote>
+<p>示例  一个使用钩子的简单沙盒</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">debug</span> = <span class="built_in">require</span> <span class="string">&quot;debug&quot;</span></span><br><span class="line"><span class="keyword">local</span> steplimit = <span class="number">1000</span></span><br><span class="line"><span class="keyword">local</span> count = <span class="number">0</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">setp</span><span class="params">()</span></span></span><br><span class="line">	count = count + <span class="number">1</span></span><br><span class="line">	<span class="keyword">if</span> count &gt; steplimit <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">error</span>(<span class="string">&quot;script uses too much CPU&quot;</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">loadfile</span>(<span class="built_in">arg</span>[<span class="number">1</span>],<span class="string">&quot;t&quot;</span>,&#123;&#125;))</span><br><span class="line"></span><br><span class="line"><span class="built_in">debug</span>.<span class="built_in">sethook</span>(step,<span class="string">&quot;&quot;</span>,<span class="number">100</span>)</span><br><span class="line">f()</span><br></pre></td></tr></table></figure>
+<p>这个程序加载了指定的文件，设置了钩子，然后运行文件。该程序把钩子设置为监听count事件，使得Lua语言每执行100条执行就调用一次钩子函数。钩子只是递增一个计数器，然后检查其是否超过了某个固定的限制。这样做之后还会有问题么？<br>当然有问题。我们还必须限制所加载的代码段的大小：一段很长的代码只要被加载就可能消耗尽内存。另一个问题是，程序可以通过少量指令消耗大量的内存。例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> s = <span class="string">&quot;123456789012345&quot;</span></span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>,<span class="number">36</span> <span class="keyword">do</span> s = s .. s <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>上述的几行代码用不到150行的指令就试图创建一个1字节的字符串。显然，单纯限制指令数量和程序大小是不够的。<br>一种改进是检查和限制函数step使用的内存。</p>
+<blockquote>
+<p>示例  控制内存使用</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 最大能够使用的内存（单位 KB）</span></span><br><span class="line"><span class="keyword">local</span> memlimit = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 最大能够执行的&quot;steps&quot;</span></span><br><span class="line"><span class="keyword">local</span> steplimit = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">checkmem</span><span class="params">()</span></span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">collectgarbage</span>(<span class="string">&quot;count&quot;</span>) &gt; memlimit <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">error</span>(<span class="string">&quot;script uses too much memory&quot;</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> count = <span class="number">0</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">step</span><span class="params">()</span></span></span><br><span class="line">	checkmem()</span><br><span class="line">	count = count + <span class="number">1</span></span><br><span class="line">	<span class="keyword">if</span> count &gt; steplimit <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">error</span>(<span class="string">&quot;script uses too much CPU&quot;</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>由于通过少量指令就可以消耗很多内存，所以我们应该设置一个很低的限制或以很小的步进来调用钩子函数。更具体地说，一个程序用40行以内的指令就能把一个字符串的大小增加上千倍。因此，我们要么以比40条指令更高的频率调用钩子，要么把内存限制设为我们能够承受的最大值的一千分之一。<br>一个微妙的问题是字符串标准库。我们可以对字符串调用该库中的所有函数。因此，即使环境中没有这些函数，我们也可以调用它们：字符串常量把它们“走私”到了我们的沙盒中。字符串标准库中没有函数能够影响外部世界，但是它们绕过了我们的指令计数器。字符串标准库中的有些函数对于DoS攻击而言可能会非常危险。</p>
+<blockquote>
+<p>示例 使用钩子阻止对未授权函数的访问</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">debug</span> = <span class="built_in">require</span> <span class="string">&quot;debug&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> steplimit = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> validfunc = &#123;</span><br><span class="line">	[<span class="built_in">string</span>.<span class="built_in">upper</span>] = <span class="literal">true</span>,</span><br><span class="line">	[<span class="built_in">string</span>.<span class="built_in">lower</span>] = <span class="literal">true</span>,</span><br><span class="line">	... <span class="comment">-- 其他授权的函数</span></span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">hook</span><span class="params">(event)</span></span></span><br><span class="line"> 	<span class="keyword">if</span> event == <span class="string">&quot;call&quot;</span> <span class="keyword">then</span></span><br><span class="line"> 		<span class="keyword">local</span> info = <span class="built_in">debug</span>.<span class="built_in">getinfo</span>(<span class="number">2</span>,<span class="string">&quot;fn&quot;</span>)</span><br><span class="line"> 		<span class="keyword">if</span> <span class="keyword">not</span> validfunc[info.func] <span class="keyword">then</span></span><br><span class="line"> 			<span class="built_in">error</span>(<span class="string">&quot;calling bad function :&quot;</span> .. (info.name <span class="keyword">or</span> <span class="string">&quot;?&quot;</span>))</span><br><span class="line"> 		<span class="keyword">end</span></span><br><span class="line"> 	<span class="keyword">end</span></span><br><span class="line"> 	count = count + <span class="number">1</span></span><br><span class="line"> 	<span class="keyword">if</span> count &gt; steplimit <span class="keyword">then</span></span><br><span class="line"> 		<span class="built_in">error</span>(<span class="string">&quot;script uses too much CPU&quot;</span>)</span><br><span class="line"> 	<span class="keyword">end</span></span><br><span class="line"> <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">-- 加载代码段</span></span><br><span class="line"> <span class="keyword">local</span> f = <span class="built_in">assert</span>(<span class="built_in">loadfile</span>(<span class="built_in">arg</span>[<span class="number">1</span>],<span class="string">&quot;t&quot;</span>,&#123;&#125;))</span><br><span class="line"> <span class="built_in">debug</span>.<span class="built_in">sethook</span>(hook,<span class="string">&quot;&quot;</span>,<span class="number">100</span>)</span><br><span class="line"> f()</span><br></pre></td></tr></table></figure>
+<p>在上述代码中，表validfunc表示一个包含程序所能够调用的函数的集合。函数hook使用调试库来访问正在被调用的函数，然后检查函数是否在集合validfunc中。<br>对于任何一种沙盒的实现而言，很重要的一点是沙盒内允许使用哪些函数。用于数据描述的沙盒可以限制所有或大部分函数；其他的沙盒则需要更加宽容，也许应该对某些函数提供它们自己带限制的实现。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/52447.html" title="Lua连续教程之Lua反射">https://lengmo714.top/52447.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/28748.html" rel="prev" title="Lua协程">
+      <i class="fa fa-chevron-left"></i> Lua协程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/11143.html" rel="next" title="Lua使用协程实现多线程">
+      Lua使用协程实现多线程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E7%9C%81%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">自省机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">1.1.</span> <span class="nav-text">访问局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E9%9D%9E%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">访问非局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E5%85%B6%E4%BB%96%E5%8D%8F%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">访问其他协程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%92%A9%E5%AD%90"><span class="nav-number">2.</span> <span class="nav-text">钩子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E4%BC%98"><span class="nav-number">3.</span> <span class="nav-text">调优</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B2%99%E7%9B%92"><span class="nav-number">4.</span> <span class="nav-text">沙盒</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mall.jd.com/index-12955410.html" title="https:&#x2F;&#x2F;mall.jd.com&#x2F;index-12955410.html" rel="noopener" target="_blank">京东小店</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">769k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11:39</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 't3TkgC71hcBBtINYfsVe8r0R-gzGzoHsz',
+      appKey     : 'SUF3DMDZlFZMDGj3ai9WfgFY',
+      placeholder: "填写QQ邮箱就会使用QQ头像喔~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  +  
+  
+	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
+  
+
+</body>
+</html>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>

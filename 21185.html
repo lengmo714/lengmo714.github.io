@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Lua是一种嵌入式语言，这就意味着Lua并不是一个独立运行的应用，而是一个库，它可以链接到其他应用程序，将Lua的功能融入这些应用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua连续教程之C语言API总览">
+<meta property="og:url" content="https://lengmo714.top/21185.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="Lua是一种嵌入式语言，这就意味着Lua并不是一个独立运行的应用，而是一个库，它可以链接到其他应用程序，将Lua的功能融入这些应用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-26T15:21:06.000Z">
+<meta property="article:modified_time" content="2024-07-17T15:08:28.147Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="C">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lengmo714.top/21185.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Lua连续教程之C语言API总览 | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XDK58GP86Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/21185.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+      <meta itemprop="keywords" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lua连续教程之C语言API总览
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-26 23:21:06" itemprop="dateCreated datePublished" datetime="2020-06-26T23:21:06+08:00">2020-06-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-17 23:08:28" itemprop="dateModified" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/21185.html" class="post-meta-item leancloud_visitors" data-flag-title="Lua连续教程之C语言API总览" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/21185.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/21185.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Lua是一种嵌入式语言，这就意味着Lua并不是一个独立运行的应用，而是一个库，它可以链接到其他应用程序，将Lua的功能融入这些应用。</p>
+<span id="more"></span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>因为能够当作库来扩展某个应用程序，所以Lua是一种嵌入式语言。同时，使用了Lua语言的程序也可以在Lua环境中注册新的函数，比如用C语言实现函数，从而增加一些无法直接用Lua语言编写的功能。因此Lua也是一种可扩展的语言。<br>上述两种对Lua语言的定位分别对应C语言和Lua语言之间的两种交互形式。在第一种形式中，C语言拥有控制权，而Lua语言被用作库，这种交互形式中的C代码被称为应用代码。在第二种形式中，Lua语言拥有控制权，而C语言被用作库，此时的C代码被称为库代码。应用代码和库代码都适用相同的API与Lua语言通信，这些API被称为C API。<br>C API是一个函数、常量和类型组成的集合，有了它，C语言代码就能与Lua语言交互。C API包括读写Lua全局变量的函数、调用Lua函数的函数、运行Lua代码段的函数，以及注册C函数的函数等。通过调用CAPI，C代码几乎可以做Lua代码能够做的所有事情。<br>CAPI遵循C语言的操作模式，与Lua的操作模式由很大的区别。在使用C语言编程时，我们必须注意类型检查、错误恢复、内存分配错误和其他一些复杂的概念。CAPI中的大多数函数都不会检查其参数的正确性，我们必须在调用函数前确保参数的合法性，一旦出错，程序会直接崩溃而不会收到规范的错误信息。此外，CAPI强调的是灵活性和简洁性，某些情况下会以牺牲易用性为代价，即便是常见的需求，也可能需要调用好几个API。这么做虽然有些繁琐，但我们却可以完全控制所有细节。</p>
+<h2 id="第一个示例"><a href="#第一个示例" class="headerlink" title="第一个示例"></a>第一个示例</h2><p>首先来学习一个简单的应用程序的例子：一个独立的解释器。</p>
+<blockquote>
+<p>一个简单地额独立解释器</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;lua.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;luaxlib.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;lualib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">	<span class="type">char</span> buff[<span class="number">256</span>];</span><br><span class="line">	<span class="type">int</span> error;</span><br><span class="line">	lua_State *L = luaL_newstate();     <span class="comment">/*打开Lua*/</span></span><br><span class="line">	luaL_openlibs(L);				<span class="comment">/*打开标准库*/</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (fgets(buff,<span class="keyword">sizeof</span>(buff),<span class="built_in">stdin</span>)!= <span class="literal">NULL</span>)&#123;</span><br><span class="line">		error = luaL_loadstring(L,buff)||lua_pcall(L,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">		<span class="keyword">if</span>(error)&#123;</span><br><span class="line">			<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>,<span class="string">&quot;%s\n&quot;</span>,lua_tostring(L,<span class="number">-1</span>));</span><br><span class="line">			lua_pop(L,<span class="number">1</span>);			<span class="comment">/*从栈中弹出错误信息*/</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	lua_close(L);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>头文件lua.h声明了Lua提供的基础函数，其中包括创建新Lua环境的函数、调用Lua函数的函数、读写环境中的全局变量的函数，以及注册供Lua语言调用新函数的函数等等。lua.h中声明的所有内容都有一个前缀lua_。<br>头文件luaxlib.h声明了辅助库所提供的函数，其中所有的声明均以luaL_开头。辅助库使用lua.h提供的基础API来提供更高层次的抽象，特别是对标准库用到的相关机制进行抽象。基础API追求经济性和正交性，而辅助库则追求对常见任务的实用性。当然，要在程序中创建其他所需的抽象也是非常简单的。请记住，辅助库不能访问Lua的内部元素，而只能通过lua.h中声明的官方基础API完成所有工作。辅助库能实现什么，你的程序就能实现什么。<br>Lua标准库没有定义任何C语言全局变量，它将其所有的状态都保存在动态的结构体lua_State中，Lua中的所有函数都接收一个指向该结构的指针作为参数。这种设计使得Lua是可重入的，并且可以直接用于编程多线程代码。<br>顾名思义，函数luaL_newstate用于创建一个新的Lua状态。当它创建一个新状态时，新环境中没有包含预定义的函数，甚至连print也没有。为了保持Lua语言的精炼，所有的标准库都被组织成不同的包，这样我们在不需要使用某些包时可以忽略它们。头文件lualib.h中声明了用于打开这些库的函数。函数luaL_openlibs用于打开所有的标准库。<br>当创建好一个状态并且在其中加载标准库以后，就可以处理用户的输入了。程序会首先调用函数luaL_loadstring来编译用户输入的每一行内容。如果没有错误，则返回零，并向栈中压入编译后得到的函数。然后，程序调用函数lua_pcall从栈中弹出编译后的函数，并以保护模式运行。与函数lua_loadstring类似，如果没有错误发生，函数lua_pcall则返回零；当发生错误时，这两个函数都会向栈中压入一条错误信息。随后我们可以通过函数lua_tostring获取错误信息，并在打印错误信息后使用函数lua_pop将从栈中删除。<br>在C语言中，真是的错误处理可能会相当复杂，并且如何处理错误取决于应用的性质。Lua核不会直接向任何输出流写入数据，它只会通过返回错误信息来提示错误。每个应用可以用其所需的最恰当的方式来处理这些错误信息。为了简化讨论，假设一下示例使用如下简单的错误处理函数，即打印一条错误信息，关闭Lua状态并结束整个应用：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">error</span> <span class="params">(lua_State *L,<span class="type">const</span> <span class="type">char</span> *fmt, ...)</span>&#123;</span><br><span class="line">	va_list argp;</span><br><span class="line">	va_start(argp,fmt);</span><br><span class="line">	<span class="built_in">vfprintf</span>(<span class="built_in">stderr</span>,fmt,argp);</span><br><span class="line">	va_end(argp);</span><br><span class="line">	lua_close(L);</span><br><span class="line">	<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于Lua既可以作为C代码来编译，也可以作为C++代码来编译，因此lua.h中并没有包含以下这种在C标准库中的常见的写法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span>&#123;</span><br><span class="line">	<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">	...</span><br><span class="line">	<span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>如果将Lua作为C代码编译出来后又要在C++中使用，那么可以引入lua.hpp来替代lua.h，定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span>&#123;</span><br><span class="line">	<span class="meta">#<span class="keyword">include</span> <span class="string">&quot;lua.h&quot;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>Lua和C之间通信的主要组件是无处不在的虚拟栈，几乎所有的API调用都是在操作这个栈中的值，Lua与C之间所有的数据交换都是通过这个栈完成的。此外，还可以利用栈保存中间结果。<br>当我们想在Lua和C之间交换数据时，会面对两个问题：第一个问题是动态类型和静态类型体系之间不匹配；第二个问题是自动内存管理和手动内存管理之间不匹配。<br>在Lua中，如果我们写t[k]&#x3D;v，k和v都可以是几种不同类型；由于元表的存在，甚至t也可以有不同的类型。然而，如果要在C语言中提供这种操作，任意给定的settable函数都必须有一个固定的类型。为了实现这样的操作，我们就需要好几十个不同的函数。<br>可以通过在C语言中声明某种联合体类型来解决这个问题，假设这种类型叫lua_Value，它能够表示Lua语言中所有的值，然后，可以把settable声明为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">lua_settable</span> <span class="params">(lua_Value a,lua_Value k,lua_Value v)</span>;</span><br></pre></td></tr></table></figure>
+<p>这种方法有两个缺点。首先，我们很难将如此复杂的类型映射到其他语言中；而在设计Lua时，我们又要求Lua语言不仅能方便地与C&#x2F;C++交互，而且还能与<code>Java</code>、<code>Fortran</code>、<code>C#</code>等其他语言方便地交互。其次，Lua语言会做垃圾收集：由于Lua预压引擎并不知道Lua中的一个表可能会被保存在一个C语言变量中，因此它可能会认为这个表是垃圾并将其收回。<br>因此，LuaAPI中灭有定义任何类似于lua_Value的类型，而是使用栈在Lua和C之间交换数据。栈中的每个元素都能保存Lua中任意类型的值。当我们想要从Lua中获取一个值时，只需要调用Lua，Lua就会将指定的值压入栈中。当想要将一个值传给Lua时，首先要将这个值压入栈，然后调用Lua将其中栈中弹出即可。尽管我们仍然需要一个不同的函数将每种C语言类型的值压入栈，还需要另一个不同函数从栈中弹出每种C语言类型的值，但是避免了过多的组合。另外，由于这个栈是Lua状态的一部分，因此垃圾收集器知道C语言正在使用哪些值。<br>几乎CAPI中的所有函数都会用到栈。正如第一个示例，函数luaL_loadstring将其结果留在栈中；函数lua_pcall从栈中取出要调用的函数，并且也会将错误消息留在栈中。<br>Lua严格地按照LIFO的规则来操作栈。在调用Lua时只有栈顶部的部分会发生改变，而C语言代码则有更大的自由度。更具体地说，C语言可以检视栈中的任何一个元素，甚至可以在栈的任意位置插入或删除元素。</p>
+<h3 id="压入元素"><a href="#压入元素" class="headerlink" title="压入元素"></a>压入元素</h3><p>针对每一种能用C语言直接表示的Lua数据类型，CAPI中都有一个对应的亚栈函数：常量nil使用lua_pushnil；布尔值使用lua_pushboolean;双精度浮点数使用lua_pushnumber；整型使用lua_pushinteger；任意字符串使用lua_pushlstring；以\0终止的字符串使用lua_pushstring。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">lua_pushnil</span>         <span class="params">(lua_State *L)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lua_pushboolean</span>     <span class="params">(lua_State *L, <span class="type">int</span> <span class="type">bool</span>)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lua_pushnumber</span>		 <span class="params">(lua_State *L, lua_Number n)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lua_pushinteger</span>     <span class="params">(lua_State *L, lua_Integer n)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lua_pushlstring</span>     <span class="params">(lua_State *L, <span class="type">const</span> <span class="type">char</span> *s, <span class="type">size_t</span> len)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lua_pushstring</span>      <span class="params">(lua_State *L, <span class="type">const</span> <span class="type">char</span> *s)</span>;</span><br></pre></td></tr></table></figure>
+<p>当然，也有向栈中压入C函数和用户数据的函数。<br>类型Lua_Number相当于Lua语言的浮点数类型，默认为double，但可以在编译时配置Lua，让Lua_Number为float甚至long double。类型lua_Integer相当于Lua语言中的整型，通常被定义为long long ，既有符号64位整型。同样，要把Lua语言中的lua_Integer配置为使用int或long也很容易。如果使用float-int组合，也就是32浮点数类型和整型，即我们所说的精简Lua，对于资源受限的机器和硬件而言，相当高效。<br>Lua语言中的额字符串不是以\0结尾的，它们可以包含任意二进制数据。因此，将字符串压栈的基本函数lua_pushlstring需要一个明确的长度作为参数。对于以\0结尾的字符串，也可以使用函数lua_pushstring，该函数通过strlen来计算字符串的长度。Lua语言不会保留指向外部字符串的指针。对于不得不保留的字符串，Lua要么生成一个内部副本，要么复用已有的字符串。因此，一旦上述函数返回，即使立即释放或修改缓冲区也不会出现问题。<br>无论何时向栈内压入一个元素，我们都应该确保栈中有足够的空间。请注意，现在你是一个C语言程序员，Lua语言不会宠着你。当Lua启动时，以及Lua调用C语言时，栈中至少有20个空闲的位置。对于大多数情况，这个空间是完全够用，所以我们一般无须考虑栈空间的问题。不过，有些任务可能会需要更多的栈空间，特备是循环向栈中压入元素时。在这些情况下，就需要调用哈数lua_checkstack来检查栈中是否有足够的空间：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> lua_checkstack (lua_State *L, <span class="built_in">int</span> sz);</span><br></pre></td></tr></table></figure>
+<p>这里，sz是我们所需要的额外栈位置的数量。如果可能，函数lua_checkstack会增加栈的大小，以容纳所需的额外空间；否则，该函数返回零。<br>辅助库也提供了一个高层函数来检查栈空间：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void luaL_checkstack (lua_State *L, <span class="built_in">int</span> sz, const char *msg);</span><br></pre></td></tr></table></figure>
+<p>该函数类似于函数lua_checkstack，但是如果栈空间不能满足请求，该函数会使用指定的错误信息抛出异常，而不是返回错误码。</p>
+<h3 id="查询元素"><a href="#查询元素" class="headerlink" title="查询元素"></a>查询元素</h3><p>CAPI使用索引来引用栈中的元素。第一个被压入栈的元素索引为1，第二个被压入的元素索引为2，依次类推。我们还可以以栈顶为参照，使用负数索引来访问栈中的元素，此时，-1表示栈顶元素，-2表示在它之前被压入栈的元素，依次类推。例如，调用lua_tostring(L,-1)会将栈顶的值作为字符串返回。正如你接下来要看到的，有些情况下从栈底对栈进行索引更加自然，而有些情况下则使用负数索引更好。<br>要检查栈中的一个元素是否为特定的类型，CAPI提供了一系列名为lua_is<em>的函数，其中</em>可以是任意一种Lua数据类型。这些函数包括lua_isnil、lua_isnumber、lua_isstring和lua_istable等。所有这些函数都有同样的原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> lua_is* (lua_State *L, <span class="type">int</span> index);</span><br></pre></td></tr></table></figure>
+<p>实际上，函数lua_isnumber不会检查某个值是否为特定类型，而是检查该值是否能被转换为特定类型。函数lua_isstring与之类似，特别之处在于，它接受数字。<br>还有一个函数lua_type，用于返回栈中元素的类型，每一种类型都由一个对应的常量表示，包括LUA_INIT、LUA_TBOOLEAN、LUA_TUMBER、LUA_TSTRING等。还函数一般与switch语句连用。当需要检查字符串和数值是否存在潜在的强制类型转换时，该函数也同样有用。<br>函数lua_to*用于从栈中获取一个值：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> 				<span class="title function_">lua_toboolean</span><span class="params">(lua_State *L, <span class="type">int</span> index)</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">char</span> 			*<span class="title function_">lua_tolstring</span><span class="params">(lua_State *L, <span class="type">int</span> index, <span class="type">size_t</span> *len)</span>;</span><br><span class="line">lua_State           *<span class="title function_">lua_tothread</span><span class="params">(lua_State *L, <span class="type">int</span> index)</span>;</span><br><span class="line">lua_Number          <span class="title function_">lua_tonumber</span><span class="params">(lua_State *L, <span class="type">int</span> index)</span>;</span><br><span class="line">lua_Integer         <span class="title function_">lua_tointeger</span><span class="params">(lua_State *L, <span class="type">int</span> index)</span>;</span><br></pre></td></tr></table></figure>
+<p>即使指定的元素的类型不正确，调用这些函数也不会有问题。函数lua_toboolean适用于所有类型，它可以按照如下的规则将任意Lua值转换为C的布尔值：nil和false转换为0，所有其他的Lua值转换为1.对于类型不正确的值，函数lua_tolstring和lua_tothread返回NULL。不过，数值相关的函数都无法提示数值的类型错误，因此只能简单地返回0。以前我们需要调用函数lua_isnumber来检查类型，但是Lua5.2引入了如下的新函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lua_Number      lua_tonumberx(lua_State *L, <span class="built_in">int</span> idx, <span class="built_in">int</span> *isnum)</span><br><span class="line">lua_Integer     lua_tointegerx(lua_State *L,<span class="built_in">int</span> idx, <span class="built_in">int</span> *isnum)</span><br></pre></td></tr></table></figure>
+<p>出口参数isnum返回了一个布尔值，来表示Lua值是否被强制转换为期望的类型。<br>函数lua_tolstring返回一个指向该字符串内部副本的指针，并将字符串的长度存入到参数len指定的位置。我们无法修改这个内部副本。Lua语言保证，只要对应的字符串还在栈中，那么这个指针就是有效的。当Lua调用的一个C函数返回时，Lua就会清空栈。因此，作为规则，永远不要指向Lua字符串的指针存放到获取该指针的函数之外。<br>函数lua_tolstring返回的所有字符串在其末尾都会有一个额外的\0，不过这些字符串中也可能会有\0，因此可以通过第三个参数len获取字符串的真实长度。特别的，假设栈顶的值是一个字符串，那么如下推断永远成立：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">size_t</span> len;</span><br><span class="line"><span class="type">const</span> <span class="type">char</span> *s = lua_tolstring(L, <span class="number">-1</span> ,&amp;len); <span class="comment">/*任意Lua字符串*/</span></span><br><span class="line">assert(s[len] == <span class="string">&#x27;\0&#x27;</span>);</span><br><span class="line">assert(<span class="built_in">strlen</span>(s) &lt;= len);</span><br></pre></td></tr></table></figure>
+<p>如果不需要长度信息，可以在调用函数lua_tolstring时将第三个参数设为NULL。不过，使用宏lua_tostring会更好，因此这个宏就是用NULL作为第三个参数来调用函数lua_tolstring的。<br>为了掩饰这些函数的用法，示例提供了一个有用的辅助函数，它输出整个栈的内容。</p>
+<blockquote>
+<p>对栈进行Dump</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">static void stackDump(lua_State *L)&#123;</span><br><span class="line">	<span class="built_in">int</span> i;</span><br><span class="line">	<span class="built_in">int</span> top = lua_gettop(L); /*栈的深度*/</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i&lt;= top;i++)&#123;</span><br><span class="line">		<span class="built_in">int</span> t = lua_type(L,i);</span><br><span class="line">		switch(t)&#123;</span><br><span class="line">			<span class="keyword">case</span> LUA_TSTRING:&#123;</span><br><span class="line">				printf(<span class="string">&quot;&#x27;%s&#x27;&quot;</span>,lua_tostring(L,i));</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">case</span> LUA_TBOOLEAN:&#123;</span><br><span class="line">				printf(lua_toboolean(L,i)?<span class="string">&quot;true&quot;</span>:<span class="string">&quot;false&quot;</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">case</span> LUA_TUNMBER:&#123;</span><br><span class="line">				printf(<span class="string">&quot;%g&quot;</span>,lua_tonumber(L,i));</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			default:&#123;</span><br><span class="line">				printf(<span class="string">&quot;%s&quot;</span>,lua_typename(L,t));</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		printf(<span class="string">&quot; &quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数从栈底向栈顶遍历，并根据每个元素的类型打印其值。它打印字符串时会用单引号将其括起来，对数值类型的值则使用格式”%g”输出，对于其他C语言中不存在等价类型的值则只打印出它们的类型。<br>在Lua5.3中，由于整型总是可以被强制转换为浮点型，因此仍然可以用函数lua_tonumber和”%g”的格式打印所有的数值。但是，我们倾向于将整数打印为整型，以避免损失精度。此时，我们可以用新函数lua_isinteger来区分整型和浮点型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> LUA_TNUMBER:&#123;</span><br><span class="line">	<span class="keyword">if</span> (lua_isinteger(L,i))</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,lua_tointeger(L,i));</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%g&quot;</span>,lua_tonumber(L,i));</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他栈操作"><a href="#其他栈操作" class="headerlink" title="其他栈操作"></a>其他栈操作</h3><p>除了上述在C语言和栈之间交换数据的函数外CAPI还提供了下列用于通过栈操作的函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">lua_gettop</span>			<span class="params">(lua_State *L)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lua_settop</span>         <span class="params">(lua_State *L, <span class="type">int</span> index)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lua_pushvalue</span>		<span class="params">(lua_State *L, <span class="type">int</span> index)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lua_rotate</span>			<span class="params">(lua_State *L, <span class="type">int</span> index, <span class="type">int</span> n)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lua_remove</span>  		<span class="params">(lua_State *L, <span class="type">int</span> index)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lua_insert</span> 		<span class="params">(lua_State *L, <span class="type">int</span> index)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lua_replace</span>        <span class="params">(lua_State *L, <span class="type">int</span> index)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lua_copy</span> 			<span class="params">(lua_State *L, <span class="type">int</span> fromidx,<span class="type">int</span> toidx)</span>;</span><br></pre></td></tr></table></figure>
+<p>函数lua_gettop返回栈中元素的个数，也即栈顶元素的索引。函数lua_settop将栈顶设置为一个指定的值，即修改栈中的元素数量。如果之前的栈顶比新设置的更高，那么高出来的这些元素就会被丢弃；反之，该函数会向栈中压入nil来不足大小。特别的，函数lua_settop(L,0)用于清空栈。在调用函数lua_settop时也可以使用负数索引；基于这个功能，CAPI提供了下面的宏，用于从栈中弹出n个元素：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> lua_pop(L,n)  lua_settop(L,-(n) -1)</span></span><br></pre></td></tr></table></figure>
+<p>函数lua_pushvalue用于将指定索引上的元素的副本压入栈。<br>函数lua_rotate是Lua5.3中新引入的。顾名思义，该函数将指定索引的元素向栈顶转动n个位置。若n为整数，表示将元素向栈顶方向转动，而n为负数则表示向相反的方向转动。这是一个非常有用的函数，另外两个CAPI操作实际上是基于使用该函数的宏定义的。其中一个是lua_remove，用于删除指定索引的元素，并将该位置上的所有元素下移以填补空缺，其定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> lua_remove(L,idx) \ (lua_rotate(L,(idx),-1),lua_pop(L,1))</span></span><br></pre></td></tr></table></figure>
+<p>也就是说，该函数会将栈顶转动一格，把想要的那个元素移动到栈顶，然后弹出该元素。另一个宏是lua_insert，用于将栈顶元素移动到指定位置，并上移指定位置之上的所有元素以开辟出一个元素的空间：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> lua_insert(L,inx)    lua_rotate(L,(idx),1)</span></span><br></pre></td></tr></table></figure>
+<p>函数lua_replace弹出一个值，并将栈顶设置为指定索引上的值，而不移动任何元素。最后，函数lua_copy将一个索引上的值复制到另一个索引上，并且原值不受影响。请注意，以下的操作不会对空栈产生影响：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lua_settop(L,<span class="number">-1</span>);<span class="comment">/*将栈顶设为当前值*/</span></span><br><span class="line">lua_insert(L,<span class="number">-1</span>);<span class="comment">/*将栈顶的元素移动到栈顶*/</span></span><br><span class="line">lua_copy(L,x,x);<span class="comment">/*把一个元素复制到它当前的位置*/</span></span><br><span class="line">lua_rotate(L,x,<span class="number">0</span>);<span class="comment">/*旋转零个位置*/</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>示例 栈操作示例</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;lua.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;luaxlib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">stackDump</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	参见上面那个示例</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">	lua_State *L = luaL_newstate();</span><br><span class="line">	lua_pushboolean(L,<span class="number">1</span>);</span><br><span class="line">	lua_pushnumber(L,<span class="number">10</span>);</span><br><span class="line">	lua_pushnil(L);</span><br><span class="line">	lua_pushstring(L,<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">	stackDump(L):</span><br><span class="line">	<span class="comment">/*将输出：true 10 nil &#x27;hello&#x27; */</span></span><br><span class="line">	lua_pushvalue(L.<span class="number">-4</span>); stackDump(L);</span><br><span class="line">	<span class="comment">/*将输出：true 10 nil &#x27;hello&#x27; true */</span></span><br><span class="line">	lua_replace(L,<span class="number">3</span>); stackDump(L);</span><br><span class="line">	<span class="comment">/*将输出：true 10 nil &#x27;hello&#x27; */</span></span><br><span class="line">	lua_settop(L,<span class="number">6</span>);stackDump(L);</span><br><span class="line">	<span class="comment">/*将输出：true 10 true &#x27;hello&#x27; nil nil */</span></span><br><span class="line">	lua_rotate(L,<span class="number">3</span>,<span class="number">1</span>);stackDump(L);</span><br><span class="line">	<span class="comment">/*将输出：true 10 nil true &#x27;hello&#x27; nil */</span></span><br><span class="line">	lua_remove(L,<span class="number">-3</span>);stackDump(L);</span><br><span class="line">	<span class="comment">/*将输出：true 10 nil &#x27;hello&#x27; nil*/</span></span><br><span class="line">	lua_settop(L,<span class="number">-5</span>);stackDump(L);</span><br><span class="line">	<span class="comment">/*将输出：true */</span></span><br><span class="line">	lua_close(L);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用CAPI进行错误处理"><a href="#使用CAPI进行错误处理" class="headerlink" title="使用CAPI进行错误处理"></a>使用CAPI进行错误处理</h2><p>Lua中所有的结构都是动态的：它们会按需扩展，并且在可能时最后重新收缩。这意味着在Lua中内存分配失败可能无处不在，几乎所有的操作最终都可能会面临内存分配失败。此外，许多操作可能会抛出异常。例如，访问一个全局变量可能会触发__index元方法，而该元方法又可能会抛出异常。最后，分配内存的操作会触发垃圾收集器，而垃圾收集器又可能会调用同样可能抛出异常的析构器。简而言之，Lua API中的绝大部分函数都可能抛出异常。<br>Lua语言使用异常来提示错误，而没有再API的每个操作中使用错误码。与C++或Java不同，C语言没有提供异常处理机制。为了解决这个问题，Lua使用了C语言中的setjmp机制，setjmp营造了一个类似异常处理的机制。因此，大多数API函数都可以跑出异常而不是直接返回。<br>在编写库代码时，由于Lua会捕获所有异常，因此，对我们来说使用longjmp并不是进行额外的操作。不过，在编写应用程序代码时，则必须提供一种捕获异常的方法。</p>
+<h3 id="处理应用代码中的错误"><a href="#处理应用代码中的错误" class="headerlink" title="处理应用代码中的错误"></a>处理应用代码中的错误</h3><p>如果应用调用了Lua API中的函数，就可能发生错误。Lua语言通常通过长跳转来提示错误。但是，如果没有相应的setjmp，解释器就无法进行长跳转。此时，API中的任何错误都会导致Lua调用紧急函数，当这个函数返回后，应用就会退出。我们可以通过函数lua_atpanic来设置自己的紧急函数，但作用不大。<br>要正确地处理应用代码中的错误，就必须通过Lua语言调用我们自己的代码，这样Lua语言才能设置适合的上下文来捕获异常，即在setjmp的上下文中运行代码。类似于通过函数pcall在保护模式中运行Lua代码，我们也可以用函数lua_pcall运行C代码。更具体地说，可以把C代码封装到一个函数F中，然后使用lua_pcall调用这个函数F。通过这种方式，我们的C代码会在保护模式下运行。即便发生内存分配失败，函数lua_pcall也会返回一个对应的错误码，是解释器能够保持一致的状态，如下所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">foo</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	code to run in protected <span class="title function_">mode</span><span class="params">(要以保护模式运行的代码)</span></span><br><span class="line">	<span class="keyword">return</span> 0;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">secure_foo</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	lua_pushcfunction(L,foo)<span class="comment">/*将foo作为Lua函数压栈*/</span></span><br><span class="line">	<span class="keyword">return</span> (lua_pcall(L,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>) == <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上述示例中，无论发生什么，调用secure_foo时都会返回一个布尔值，来表示foo执行是否成功。特别的，请注意，栈中已经预先分配了空间，而且函数lua_pushcfunction不会分配内存，这样才不会引发错误。</p>
+<h3 id="处理库代码中的错误"><a href="#处理库代码中的错误" class="headerlink" title="处理库代码中的错误"></a>处理库代码中的错误</h3><p>Lua是一种安全的语言。这意味着不管用Lua写什么，也不管写出来的内容多么不正确，我们总能用它自身的机制来理解程序的行为。此外，程序中的错误也是通过Lua语言的机制来检测和解释的。与之相比，许多C语言代码中的错误只能从底层硬件的角度来解释。<br>只要往Lua中加入新的C函数，这种安全性就可能被打破。例如，一个等价于BASIC命令poke的函数就可能导致各种各样的内存崩溃。因此，我们必须确保新加入的内容对Lua语言来说是安全的，并提供妥善的错误处理。<br>正如之前讨论的，C语言程序必须通过lua_pcall设置错误处理。不过，在为lua编写库函数时，通常无须处理错误。库函数抛出的错误要么被Lua中的pcall捕获，要么被应用代码中的lua_pcall捕获。因此，当C语言库中的函数检测到错误时，只需要简单地调用lua_error即可。函数lua_error会收拾Lua系统中的残局，然后跳转回保护模式调用处，并传递错误信息。</p>
+<h2 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h2><p>Lua语言核心对内存分配不进行任何假设，它既不会调用malloc也不会调用realloc来分配内存。相反，Lua语言核心只会通过一个分配函数来分配和释放内存，当用户创建Lua状态时必须提供该函数。<br>luaL_newstate是一个用默认分配函数来创建Lua状态的辅助函数。该默认分配函数使用了来自C语言标准函数库的标准函数malloc-realloc-free，对于大多数应用程序来说，这几个函数够用了。但是，要完全控制Lua的内存分配也很容易，使用原始的lua_newstate来创建我们自己的Lua状态即可：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua_State *<span class="title function_">lua_newstate</span><span class="params">(lua_Alloc f, <span class="type">void</span> *ud)</span>;</span><br></pre></td></tr></table></figure>
+<p>该函数有两个参数：一个是分配函数，另一个是用户数据。用这种方式创建的Lua状态会通过调用f完成所有的内存分配和释放，甚至结构lua_State也是由f分配的。<br>分配函数必须满足lua_Alloc的类型声明：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">void</span> * (*lua_Alloc) (<span class="type">void</span> *ud,</span><br><span class="line">							 <span class="type">void</span> *ptr,</span><br><span class="line">							 <span class="type">size_t</span> osize,</span><br><span class="line">							 <span class="type">size_t</span> nsize);</span><br></pre></td></tr></table></figure>
+<p>第一个参数始终为lua_newstate所提供的用户数据；第二个参数是正要被分配或者释放的地址；第三个参数是原始块的大小；最后一个参数是请求的块大小。如果ptr不是NULL，Lua会保证其之前被分配的大小就是osize。<br>Lua语言使用NULL表示大小为零的块。当nsize为零时，分配函数必须释放ptr指向的块并返回NULL，对应于所要求的大小的块。当ptr是NULL时，该函数必须分配并返回一个指定大小的块；如果无法分配指定的块，则必须返回NULL。如果ptr是NULL并且nsize为零，则两条规则都适用：最终结果是分配函数什么都不做，返回NULL。<br>最后，当ptr不是NULL并且nsize不为零时，分配函数应该像realloc一样重新分配块并且返回新地址。同样，当出现错误分配函数必须返回NULL。Lua假定分配函数在块的新尺寸小于或等于旧尺寸时不会失败。<br>luaL_newstate使用的标准分配函数定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> *<span class="title function_">l_alloc</span> <span class="params">(<span class="type">void</span> *ud , <span class="type">void</span> *ptr, <span class="type">size_t</span> osize, <span class="type">size_t</span> nsize)</span>&#123;</span><br><span class="line">	(<span class="type">void</span>)ud; (<span class="type">void</span>)osie;<span class="comment">/*未使用*/</span></span><br><span class="line">	<span class="keyword">if</span>(nsize == <span class="number">0</span> )&#123;</span><br><span class="line">		<span class="built_in">free</span>(ptr);</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">realloc</span> (ptr,nsize);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该函数假设free(NULL)什么也不做，并且realloc(NULL,size)等价于malloc(size)。IOSC标准会托管这两种行为。<br>我们可以通过调用lua_getallocf恢复Lua状态的内存分配器：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua_Alloc <span class="title function_">lua_getallocf</span> <span class="params">(lua_State *L, <span class="type">void</span> **ud)</span>;</span><br></pre></td></tr></table></figure>
+<p>如果ud不是NULL，那么该函数会把*ud设置为该分配器的用户数据。我们可以通过调用lua_setallocf来更改Lua状态的内存分配器：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">lua_setallocf</span> <span class="params">(lua_State *L, Lua_Alloc f, <span class="type">void</span> *ud)</span>;</span><br></pre></td></tr></table></figure>
+<p>请记住，所有新的分配函数都有责任释放由前一个分配函数分配的块。通常情况下，新的分配函数是在旧分配函数的基础上做了包装，来追踪或同步访问堆的。<br>Lua在内部不会为了重用而缓存空闲内存。它假定分配函数会完成这种缓存工作；而优秀的分配函数确实也会这么做。Lua不会试图压缩内存碎片。研究表明，内存碎片更多是由糟糕的分配决策导致的，而非程序的行为造成的；而优秀的分配函数不会造成太多内存碎片。<br>对于已有的优秀分配函数，想要做到比它更好是很难的，但有时候也不妨试一试。例如，Lua会告诉你已经释放或者重新分配的块的大小。因此，一个特定的分配函数不需要保存有关块大小的信息，以此减少每个块的内存开销。<br>还有一种可以改善的内存分配的场景，是在多线程系统中。这种系统通常需要对内存分配函数进行线程同步，因为这些函数使用的是全局资源。不过，对Lua状态的访问也必须是同步的——或者更好的情况是，限制只有一个线程能够访问Lua状态。如果每个Lua状态都从私有的内存池中分配内存，那么分配函数就可以避免线程同步导致的额外开销了。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/21185.html" title="Lua连续教程之C语言API总览">https://lengmo714.top/21185.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/28873.html" rel="prev" title="Cocos2dx_lua键盘监听">
+      <i class="fa fa-chevron-left"></i> Cocos2dx_lua键盘监听
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/18339.html" rel="next" title="在Lua中调用C语言">
+      在Lua中调用C语言 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.</span> <span class="nav-text">第一个示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88"><span class="nav-number">2.</span> <span class="nav-text">栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%8B%E5%85%A5%E5%85%83%E7%B4%A0"><span class="nav-number">2.1.</span> <span class="nav-text">压入元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%85%83%E7%B4%A0"><span class="nav-number">2.2.</span> <span class="nav-text">查询元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%A0%88%E6%93%8D%E4%BD%9C"><span class="nav-number">2.3.</span> <span class="nav-text">其他栈操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8CAPI%E8%BF%9B%E8%A1%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">使用CAPI进行错误处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%BA%94%E7%94%A8%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF"><span class="nav-number">3.1.</span> <span class="nav-text">处理应用代码中的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%BA%93%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF"><span class="nav-number">3.2.</span> <span class="nav-text">处理库代码中的错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">4.</span> <span class="nav-text">内存分配</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mall.jd.com/index-12955410.html" title="https:&#x2F;&#x2F;mall.jd.com&#x2F;index-12955410.html" rel="noopener" target="_blank">京东小店</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">769k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11:39</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 't3TkgC71hcBBtINYfsVe8r0R-gzGzoHsz',
+      appKey     : 'SUF3DMDZlFZMDGj3ai9WfgFY',
+      placeholder: "填写QQ邮箱就会使用QQ头像喔~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  +  
+  
+	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
+  
+
+</body>
+</html>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
