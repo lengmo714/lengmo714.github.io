@@ -1,44 +1,38 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.2.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
-  <meta name="yandex-verification" content="7f4abda1472881d3">
-  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
-
-<link rel="stylesheet" href="/css/main.css">
-
-<link rel="stylesheet" href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
+<meta content="#222" name="theme-color"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 资源管理系统" name="keywords"/>
+<link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
+<link color="#222" href="/images/favicon-32x32-next.png" rel="mask-icon"/>
+<meta content="7f4abda1472881d3" name="yandex-verification"/>
+<meta content="5lU3qr1ysBwet0Uc" name="baidu-site-verification"/>
+<link href="/css/main.css" rel="stylesheet"/>
+<link href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;display=swap&amp;subset=latin,latin-ext" rel="stylesheet"/>
+<link href="/lib/font-awesome/css/all.min.css" rel="stylesheet"/>
+<link href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css" rel="stylesheet"/>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-
-  <meta name="description" content="函数dir会遍历目录并返回一张包含指定目录下所有内容的表。这里对dir新的实现会返回一个迭代器，每次调用这个迭代器时它都会返回一个新元素。通过这种实现，我们就能使用如下的循环来遍历目录：">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Lua连续教程之Lua资源管理">
-<meta property="og:url" content="https://lengmo714.top/45984.html">
-<meta property="og:site_name" content="南锋">
-<meta property="og:description" content="函数dir会遍历目录并返回一张包含指定目录下所有内容的表。这里对dir新的实现会返回一个迭代器，每次调用这个迭代器时它都会返回一个新元素。通过这种实现，我们就能使用如下的循环来遍历目录：">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-21T16:52:38.000Z">
-<meta property="article:modified_time" content="2024-07-17T15:08:28.236Z">
-<meta property="article:author" content="南锋">
-<meta property="article:tag" content="Lua">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://lengmo714.top/45984.html">
-
-
+<meta content="函数dir会遍历目录并返回一张包含指定目录下所有内容的表。这里对dir新的实现会返回一个迭代器，每次调用这个迭代器时它都会返回一个新元素。通过这种实现，我们就能使用如下的循环来遍历目录：" name="description"/>
+<meta content="article" property="og:type"/>
+<meta content="Lua连续教程之Lua资源管理" property="og:title"/>
+<meta content="https://lengmo714.top/45984.html" property="og:url"/>
+<meta content="南锋" property="og:site_name"/>
+<meta content="函数dir会遍历目录并返回一张包含指定目录下所有内容的表。这里对dir新的实现会返回一个迭代器，每次调用这个迭代器时它都会返回一个新元素。通过这种实现，我们就能使用如下的循环来遍历目录：" property="og:description"/>
+<meta content="zh_CN" property="og:locale"/>
+<meta content="2020-07-21T16:52:38.000Z" property="article:published_time"/>
+<meta content="2024-07-17T15:08:28.236Z" property="article:modified_time"/>
+<meta content="南锋" property="article:author"/>
+<meta content="Lua" property="article:tag"/>
+<meta content="summary" name="twitter:card"/>
+<link href="https://lengmo714.top/45984.html" rel="canonical"/>
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -48,11 +42,9 @@
     lang   : 'zh-CN'
   };
 </script>
-
-  <title>Lua连续教程之Lua资源管理 | 南锋</title>
-  
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
-    <script>
+<title>Lua连续教程之Lua资源管理 | 南锋</title>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+<script>
       if (CONFIG.hostname === location.hostname) {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -60,14 +52,8 @@
         gtag('config', 'G-XDK58GP86Z');
       }
     </script>
-
-
-
-
-
-
-  <noscript>
-  <style>
+<noscript>
+<style>
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -88,378 +74,288 @@
   .use-motion .logo-line-after i { right: initial; }
   </style>
 </noscript>
-
 </head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">南锋</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
+<body itemscope="" itemtype="http://schema.org/WebPage">
+<div class="container use-motion">
+<div class="headband"></div>
+<header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+<div class="header-inner"><div class="site-brand-container">
+<div class="site-nav-toggle">
+<div aria-label="切换导航栏" class="toggle">
+<span class="toggle-line toggle-line-first"></span>
+<span class="toggle-line toggle-line-middle"></span>
+<span class="toggle-line toggle-line-last"></span>
 </div>
-
-
-
-
+</div>
+<div class="site-meta">
+<a class="brand" href="/" rel="start">
+<span class="logo-line-before"><i></i></span>
+<h1 class="site-title">南锋</h1>
+<span class="logo-line-after"><i></i></span>
+</a>
+<p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+</div>
+<div class="site-nav-right">
+<div class="toggle popup-trigger">
+<i class="fa fa-search fa-fw fa-lg"></i>
+</div>
+</div>
+</div>
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+<ul class="main-menu menu" id="menu">
+<li class="menu-item menu-item-home">
+<a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+</li>
+<li class="menu-item menu-item-about">
+<a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+</li>
+<li class="menu-item menu-item-tags">
+<a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+</li>
+<li class="menu-item menu-item-categories">
+<a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+</li>
+<li class="menu-item menu-item-archives">
+<a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+</li>
+<li class="menu-item menu-item-search">
+<a class="popup-trigger" role="button"><i class="fa fa-search fa-fw"></i>搜索
         </a>
-      </li>
-  </ul>
+</li>
+</ul>
 </nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
+<div class="search-pop-overlay">
+<div class="popup search-popup">
+<div class="search-header">
+<span class="search-icon">
+<i class="fa fa-search"></i>
+</span>
+<div class="search-input-container">
+<input autocapitalize="off" autocomplete="off" class="search-input" placeholder="搜索..." spellcheck="false" type="search"/>
+</div>
+<span class="popup-btn-close">
+<i class="fa fa-times-circle"></i>
+</span>
 </div>
 <div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
+<div id="no-result">
+<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
 </div>
-
-    </div>
-  </div>
-
 </div>
-    </header>
-
-    
-  <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/45984.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_3307.JPG">
-      <meta itemprop="name" content="南锋">
-      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="南锋">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+</div>
+</div>
+</div>
+</header>
+<div class="reading-progress-bar"></div>
+<a class="book-mark-link book-mark-link-fixed" role="button"></a>
+<main class="main">
+<div class="main-inner">
+<div class="content-wrap">
+<div class="content post posts-expand">
+<article class="post-block" itemscope="" itemtype="http://schema.org/Article" lang="zh-CN">
+<link href="https://lengmo714.top/45984.html" itemprop="mainEntityOfPage"/>
+<span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+<meta content="/images/IMG_3307.JPG" itemprop="image"/>
+<meta content="南锋" itemprop="name"/>
+<meta content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员" itemprop="description"/>
+</span>
+<span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+<meta content="南锋" itemprop="name"/>
+</span>
+<header class="post-header">
+<h1 class="post-title" itemprop="name headline">
           Lua连续教程之Lua资源管理
         </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-22 00:52:38" itemprop="dateCreated datePublished" datetime="2020-07-22T00:52:38+08:00">2020-07-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-07-17 23:08:28" itemprop="dateModified" datetime="2024-07-17T23:08:28+08:00">2024-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/45984.html" class="post-meta-item leancloud_visitors" data-flag-title="Lua连续教程之Lua资源管理" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/45984.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/45984.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>10k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <p>函数dir会遍历目录并返回一张包含指定目录下所有内容的表。这里对dir新的实现会返回一个迭代器，每次调用这个迭代器时它都会返回一个新元素。通过这种实现，我们就能使用如下的循环来遍历目录：</p>
+<div class="post-meta">
+<span class="post-meta-item">
+<span class="post-meta-item-icon">
+<i class="far fa-calendar"></i>
+</span>
+<span class="post-meta-item-text">发表于</span>
+<time datetime="2020-07-22T00:52:38+08:00" itemprop="dateCreated datePublished" title="创建时间：2020-07-22 00:52:38">2020-07-22</time>
+</span>
+<span class="post-meta-item">
+<span class="post-meta-item-icon">
+<i class="far fa-calendar-check"></i>
+</span>
+<span class="post-meta-item-text">更新于</span>
+<time datetime="2024-07-17T23:08:28+08:00" itemprop="dateModified" title="修改时间：2024-07-17 23:08:28">2024-07-17</time>
+</span>
+<span class="post-meta-item">
+<span class="post-meta-item-icon">
+<i class="far fa-folder"></i>
+</span>
+<span class="post-meta-item-text">分类于</span>
+<span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+</span>
+</span>
+<span class="post-meta-item leancloud_visitors" data-flag-title="Lua连续教程之Lua资源管理" id="/45984.html" title="阅读次数">
+<span class="post-meta-item-icon">
+<i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读次数：</span>
+<span class="leancloud-visitors-count"></span>
+</span>
+<span class="post-meta-item" id="busuanzi_container_page_pv" style="display: none;" title="阅读次数">
+<span class="post-meta-item-icon">
+<i class="fa fa-eye"></i>
+</span>
+<span class="post-meta-item-text">阅读次数：</span>
+<span id="busuanzi_value_page_pv"></span>
+</span>
+<span class="post-meta-item">
+<span class="post-meta-item-icon">
+<i class="far fa-comment"></i>
+</span>
+<span class="post-meta-item-text">Valine：</span>
+<a href="/45984.html#valine-comments" itemprop="discussionUrl" title="valine">
+<span class="post-comments-count valine-comment-count" data-xid="/45984.html" itemprop="commentCount"></span>
+</a>
+</span>
+<br/>
+<span class="post-meta-item" title="本文字数">
+<span class="post-meta-item-icon">
+<i class="far fa-file-word"></i>
+</span>
+<span class="post-meta-item-text">本文字数：</span>
+<span>10k</span>
+</span>
+<span class="post-meta-item" title="阅读时长">
+<span class="post-meta-item-icon">
+<i class="far fa-clock"></i>
+</span>
+<span class="post-meta-item-text">阅读时长 ≈</span>
+<span>10 分钟</span>
+</span>
+</div>
+</header>
+<div class="post-body" itemprop="articleBody">
+<p>函数dir会遍历目录并返回一张包含指定目录下所有内容的表。这里对dir新的实现会返回一个迭代器，每次调用这个迭代器时它都会返回一个新元素。通过这种实现，我们就能使用如下的循环来遍历目录：</p>
 <span id="more"></span>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"></script>
+<p><ins class="adsbygoogle" data-ad-client="ca-pub-3160571902547760" data-ad-format="fluid" data-ad-layout="in-article" data-ad-slot="8630948880" style="display:block; text-align:center;"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> fname <span class="keyword">in</span> <span class="built_in">dir</span>.<span class="built_in">open</span>(<span class="string">&quot;.&quot;</span>)do</span><br><span class="line">	<span class="built_in">print</span>(fname)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>要在C语言中遍历一个目录，我们需要用到DIR结构体。DIR的实例由opendir创建，且必须通过调用closedir显示地释放。在之前的实现中，我们将DIR的示例当做局部变量，并在或获取最后一个文件名后释放了它。而在新的实现中，由于必须通过多次调用来查询该值，因此不能把DIR的实例保存到局部变量中。此外，不能在获取最后一个文件名后再释放DIR的示例，因为如果程序从循环中跳出，那么迭代器永远不会获取最后一个文件名。因此，为了确保DIR的实例能被正确释放，需要把该实例的地址存入一个用户数据中，并且用这个用户数据的远方__gc来释放该结构体。<br>尽管用户数据在我们实现中处于核心地位，但这个表示目录数据并不一定需要对Lua可见。函数dir.open会返回一个Lua可见的迭代函数，而目录可以作为迭代函数的一个上值。这样，迭代函数能直接访问这个结构体，而Lua代码则不能。<br>总之，我们需要三个C语言函数。首先，我们需要函数dir.open，该函数是一个工厂函数，Lua调用该函数来创建迭代器；它必须打开一个DIR结构体，并将这个结构体作为上值创建一个迭代函数的闭包。其次，我们需要迭代函数。最后，我们需要__gc元方法，该元方法用于释放DIR结构体。通常情况下，我们还需要一个额外的函数进行一些初始化工作，例如为目录创建和初始化元表。<br>先来看函数dir.open，参加下面示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> fname <span class="keyword">in</span> <span class="built_in">dir</span>.<span class="built_in">open</span>(<span class="string">"."</span>)do</span><br/><span class="line">	<span class="built_in">print</span>(fname)</span><br/><span class="line">end</span><br/></pre></td></tr></table></figure>
+<p>要在C语言中遍历一个目录，我们需要用到DIR结构体。DIR的实例由opendir创建，且必须通过调用closedir显示地释放。在之前的实现中，我们将DIR的示例当做局部变量，并在或获取最后一个文件名后释放了它。而在新的实现中，由于必须通过多次调用来查询该值，因此不能把DIR的实例保存到局部变量中。此外，不能在获取最后一个文件名后再释放DIR的示例，因为如果程序从循环中跳出，那么迭代器永远不会获取最后一个文件名。因此，为了确保DIR的实例能被正确释放，需要把该实例的地址存入一个用户数据中，并且用这个用户数据的远方__gc来释放该结构体。<br/>尽管用户数据在我们实现中处于核心地位，但这个表示目录数据并不一定需要对Lua可见。函数dir.open会返回一个Lua可见的迭代函数，而目录可以作为迭代函数的一个上值。这样，迭代函数能直接访问这个结构体，而Lua代码则不能。<br/>总之，我们需要三个C语言函数。首先，我们需要函数dir.open，该函数是一个工厂函数，Lua调用该函数来创建迭代器；它必须打开一个DIR结构体，并将这个结构体作为上值创建一个迭代函数的闭包。其次，我们需要迭代函数。最后，我们需要__gc元方法，该元方法用于释放DIR结构体。通常情况下，我们还需要一个额外的函数进行一些初始化工作，例如为目录创建和初始化元表。<br/>先来看函数dir.open，参加下面示例</p>
 <blockquote>
 <p>示例 工厂函数dir.open</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dirent.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;lua.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;luaxlib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*迭代函数的前向声明*/</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">dir_iter</span><span class="params">(lua_State *L)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">l_dir</span> <span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	<span class="type">const</span> <span class="type">char</span> *path = luaL_checkstring(L,<span class="number">1</span>);</span><br><span class="line">	<span class="comment">/*创建一个保存DIR结构体的用户数据*/</span></span><br><span class="line">	DIR **d = (DIR **)lua_newuserdata(L,<span class="keyword">sizeof</span>(DIR *));</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 预先初始化*/</span></span><br><span class="line">	*d = <span class="literal">NULL</span>；</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*设置元表*/</span></span><br><span class="line">	luaL_getmetatable(L,<span class="string">&quot;LuaBook.dir&quot;</span>);</span><br><span class="line">	lua_setmetatable(L,<span class="number">-2</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*尝试打开指定目录*/</span></span><br><span class="line">	*d = opendir(path);</span><br><span class="line">	<span class="keyword">if</span> (*d == <span class="literal">NULL</span>)  <span class="comment">/* 打开目录失败*/</span></span><br><span class="line">		luaL_error(L, <span class="string">&quot;cannot open %s:%s&quot;</span>,path,strerror(errno));</span><br><span class="line">	<span class="comment">/*创建并返回迭代函数；该函数唯一的上值，即代表目录的用户数据本身就位于栈顶*/</span></span><br><span class="line">	lua_pushcclosure(L,dir_iter,<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这个函数中要注意的是，必须在打开目录前先创建用户数据。如果先打开目录再调用lua_newuserdata，那么会引发内存错误，该函数会丢失并泄露DIR结构体。如果顺序正确，DIR结构体一旦被创建就会立即与用户数据相关联；无论此后发生什么，元方法__gc最终都会将其释放。<br>另一个需要注意的点是用户数据的一致性。一旦设置了元表，元方法__gc就一定会被调用。因此，在设置元表前，我们需要使用NULL预先初始化用户数据，以确保用户数据具有定义明确的值。<br>下一个函数dir_iter也就是迭代器本身。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/><span class="line">27</span><br/><span class="line">28</span><br/><span class="line">29</span><br/></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dirent.h&gt;</span></span></span><br/><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;errno.h&gt;</span></span></span><br/><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br/><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"lua.h"</span></span></span><br/><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"luaxlib.h"</span></span></span><br/><span class="line"></span><br/><span class="line"><span class="comment">/*迭代函数的前向声明*/</span></span><br/><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">dir_iter</span><span class="params">(lua_State *L)</span>;</span><br/><span class="line"></span><br/><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">l_dir</span> <span class="params">(lua_State *L)</span>{</span><br/><span class="line">	<span class="type">const</span> <span class="type">char</span> *path = luaL_checkstring(L,<span class="number">1</span>);</span><br/><span class="line">	<span class="comment">/*创建一个保存DIR结构体的用户数据*/</span></span><br/><span class="line">	DIR **d = (DIR **)lua_newuserdata(L,<span class="keyword">sizeof</span>(DIR *));</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/* 预先初始化*/</span></span><br/><span class="line">	*d = <span class="literal">NULL</span>；</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/*设置元表*/</span></span><br/><span class="line">	luaL_getmetatable(L,<span class="string">"LuaBook.dir"</span>);</span><br/><span class="line">	lua_setmetatable(L,<span class="number">-2</span>);</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/*尝试打开指定目录*/</span></span><br/><span class="line">	*d = opendir(path);</span><br/><span class="line">	<span class="keyword">if</span> (*d == <span class="literal">NULL</span>)  <span class="comment">/* 打开目录失败*/</span></span><br/><span class="line">		luaL_error(L, <span class="string">"cannot open %s:%s"</span>,path,strerror(errno));</span><br/><span class="line">	<span class="comment">/*创建并返回迭代函数；该函数唯一的上值，即代表目录的用户数据本身就位于栈顶*/</span></span><br/><span class="line">	lua_pushcclosure(L,dir_iter,<span class="number">1</span>);</span><br/><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br/><span class="line">}</span><br/></pre></td></tr></table></figure>
+<p>在这个函数中要注意的是，必须在打开目录前先创建用户数据。如果先打开目录再调用lua_newuserdata，那么会引发内存错误，该函数会丢失并泄露DIR结构体。如果顺序正确，DIR结构体一旦被创建就会立即与用户数据相关联；无论此后发生什么，元方法__gc最终都会将其释放。<br/>另一个需要注意的点是用户数据的一致性。一旦设置了元表，元方法__gc就一定会被调用。因此，在设置元表前，我们需要使用NULL预先初始化用户数据，以确保用户数据具有定义明确的值。<br/>下一个函数dir_iter也就是迭代器本身。</p>
 <blockquote>
 <p>示例 dir库中的其他函数</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">dir_iter</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	DIR *d = *(DIR **)lua_touserdata(L, lua_upvalueindex(<span class="number">1</span>));</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">dirent</span> *<span class="title">entry</span> =</span> readdir(d);</span><br><span class="line">	<span class="keyword">if</span> (entry != <span class="literal">NULL</span>)&#123;</span><br><span class="line">		lua_pushstring(L,entry -&gt;d_name);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">/* 遍历完成*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">dir_gc</span><span class="params">(lua_State *L)</span> &#123;</span><br><span class="line">	DIR *d = *(DIR **)lua_touserdata(L,<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">if</span>(d) closedir(d);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">luaL_Reg</span> <span class="title">dirlib</span> [] =</span> &#123;</span><br><span class="line">	&#123;<span class="string">&quot;open&quot;</span>,l_dir&#125;,</span><br><span class="line">	(<span class="literal">NULL</span>,<span class="literal">NULL</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">luaopen_dir</span> <span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	luaL_newmetatable(L,<span class="string">&quot;luaBook.dir&quot;</span>);</span><br><span class="line">	<span class="comment">/*设置__gc字段*/</span></span><br><span class="line">	lua_pushcfunction(L,dir_gc);</span><br><span class="line">	lua_setfield(L,<span class="number">-2</span>,<span class="string">&quot;__gc&quot;</span>);</span><br><span class="line">	<span class="comment">/*创建库*/</span></span><br><span class="line">	luaL_newlib(L,dirlib);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述代码很简单，它从上值中获取DIR结构体的地址，然后调用readdir读取下一个元素。<br>函数dir_gc就是元方法__gc，该元方法用于关闭目录。正如之前提到的，该元方法必须做好防御措施：如果初始化出现错误，那么目录可能会是NULL。<br>整个示例中还有一点需要注意。dir_gc似乎应该检查其参数是否为一个目录以及目录是否已经被关闭；否则，恶意用户可能会用其他类型的用户数据来调用dir_gc或者关闭一个目录两次，这样会造成灾难性后果。然而，Lua程序时无法访问这个函数的：该函数被保存在目录的元表中，而用户数据又被保存为迭代函数的上值，因此Lua代码无法访问这些目录。</p>
-<h2 id="XML解析器"><a href="#XML解析器" class="headerlink" title="XML解析器"></a>XML解析器</h2><p>接下来，我们介绍一种使用Lua语言编写的Expat绑定的简单实现，称为lxp。Expat是一个用C语言编写的开源XML1.0解析器，实现了SAX，即<em>Simple API for XML</em>。SAX是一套基于事件的API，这就意味着一个SAX解析器在读取XML文档时会边读取边通过回调函数向应用上报读取到的内容。例如，如果让Expat解析形如”<tag cap="5">hi</tag>“的字符串，那么Expat会生成三个事件：当读取到子串”<tag cap ="5">“时，生成开始元素事件；当读取到”hi”时，生成文本事件，也称为字符数据事件；当读取到”</tag>“时，生成结束元素事件。每个事件都会调用应用中相应的回调处理器。<br>在此我们不会介绍整个Expat库，只关注于那些用于演示与Lua交互的新技术部分。虽然Expat可以处理很多不同的事件，但我们只考虑前面示例中所提到的三个事件（开始元素、结束元素和文本事件）。<br>本例中用到的Expat API很少。首先，我们需要用于创建和销毁Expat解析器的函数：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">XML_Parser <span class="title function_">XML_ParserCreate</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *encoding)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">XML_PaserFree</span><span class="params">(XML_Parser p)</span>;</span><br></pre></td></tr></table></figure>
-<p>参数encoding是可选的，本例中将使用NULL。<br>当解析器创建完成后，必须注册回调处理器：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">XML_SetElementHandler</span><span class="params">(SML_Parser p,XML_StartElementHandler start,XML_EndElementHandler end)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">XML_SetCharacterDataHandler</span><span class="params">(XML_Parser p, XML_CharacterDataHandler hndl)</span>;</span><br></pre></td></tr></table></figure>
-<p>第一个函数为开始元素和结束元素事件注册了处理函数，第二个函数为文本（XML术语中的字符数据character data)事件注册了处理函数。<br>所有回调处理函数的第一个参数都是用户数据，开始元素事件的处理函数还能接收标签名（tag name）及其属性（attribute):</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span><span class="params">(*XML_StartElementHandler)</span><span class="params">(<span class="type">void</span> *uData, <span class="type">const</span> <span class="type">char</span> *name, <span class="type">const</span> <span class="type">char</span> **atts)</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/><span class="line">27</span><br/><span class="line">28</span><br/><span class="line">29</span><br/><span class="line">30</span><br/></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">dir_iter</span><span class="params">(lua_State *L)</span>{</span><br/><span class="line">	DIR *d = *(DIR **)lua_touserdata(L, lua_upvalueindex(<span class="number">1</span>));</span><br/><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">dirent</span> *<span class="title">entry</span> =</span> readdir(d);</span><br/><span class="line">	<span class="keyword">if</span> (entry != <span class="literal">NULL</span>){</span><br/><span class="line">		lua_pushstring(L,entry -&gt;d_name);</span><br/><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br/><span class="line">	}</span><br/><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">/* 遍历完成*/</span></span><br/><span class="line">}</span><br/><span class="line"></span><br/><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">dir_gc</span><span class="params">(lua_State *L)</span> {</span><br/><span class="line">	DIR *d = *(DIR **)lua_touserdata(L,<span class="number">1</span>);</span><br/><span class="line">	<span class="keyword">if</span>(d) closedir(d);</span><br/><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br/><span class="line">}</span><br/><span class="line"></span><br/><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">luaL_Reg</span> <span class="title">dirlib</span> [] =</span> {</span><br/><span class="line">	{<span class="string">"open"</span>,l_dir},</span><br/><span class="line">	(<span class="literal">NULL</span>,<span class="literal">NULL</span>)</span><br/><span class="line">};</span><br/><span class="line"></span><br/><span class="line"><span class="type">int</span> <span class="title function_">luaopen_dir</span> <span class="params">(lua_State *L)</span>{</span><br/><span class="line">	luaL_newmetatable(L,<span class="string">"luaBook.dir"</span>);</span><br/><span class="line">	<span class="comment">/*设置__gc字段*/</span></span><br/><span class="line">	lua_pushcfunction(L,dir_gc);</span><br/><span class="line">	lua_setfield(L,<span class="number">-2</span>,<span class="string">"__gc"</span>);</span><br/><span class="line">	<span class="comment">/*创建库*/</span></span><br/><span class="line">	luaL_newlib(L,dirlib);</span><br/><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br/><span class="line">}</span><br/></pre></td></tr></table></figure>
+<p>上述代码很简单，它从上值中获取DIR结构体的地址，然后调用readdir读取下一个元素。<br/>函数dir_gc就是元方法__gc，该元方法用于关闭目录。正如之前提到的，该元方法必须做好防御措施：如果初始化出现错误，那么目录可能会是NULL。<br/>整个示例中还有一点需要注意。dir_gc似乎应该检查其参数是否为一个目录以及目录是否已经被关闭；否则，恶意用户可能会用其他类型的用户数据来调用dir_gc或者关闭一个目录两次，这样会造成灾难性后果。然而，Lua程序时无法访问这个函数的：该函数被保存在目录的元表中，而用户数据又被保存为迭代函数的上值，因此Lua代码无法访问这些目录。</p>
+<h2 id="XML解析器"><a class="headerlink" href="#XML解析器" title="XML解析器"></a>XML解析器</h2><p>接下来，我们介绍一种使用Lua语言编写的Expat绑定的简单实现，称为lxp。Expat是一个用C语言编写的开源XML1.0解析器，实现了SAX，即<em>Simple API for XML</em>。SAX是一套基于事件的API，这就意味着一个SAX解析器在读取XML文档时会边读取边通过回调函数向应用上报读取到的内容。例如，如果让Expat解析形如”<tag cap="5">hi</tag>“的字符串，那么Expat会生成三个事件：当读取到子串”<tag cap="5">“时，生成开始元素事件；当读取到”hi”时，生成文本事件，也称为字符数据事件；当读取到”</tag>“时，生成结束元素事件。每个事件都会调用应用中相应的回调处理器。<br/>在此我们不会介绍整个Expat库，只关注于那些用于演示与Lua交互的新技术部分。虽然Expat可以处理很多不同的事件，但我们只考虑前面示例中所提到的三个事件（开始元素、结束元素和文本事件）。<br/>本例中用到的Expat API很少。首先，我们需要用于创建和销毁Expat解析器的函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line">XML_Parser <span class="title function_">XML_ParserCreate</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *encoding)</span>;</span><br/><span class="line"><span class="type">void</span> <span class="title function_">XML_PaserFree</span><span class="params">(XML_Parser p)</span>;</span><br/></pre></td></tr></table></figure>
+<p>参数encoding是可选的，本例中将使用NULL。<br/>当解析器创建完成后，必须注册回调处理器：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">XML_SetElementHandler</span><span class="params">(SML_Parser p,XML_StartElementHandler start,XML_EndElementHandler end)</span>;</span><br/><span class="line"><span class="type">void</span> <span class="title function_">XML_SetCharacterDataHandler</span><span class="params">(XML_Parser p, XML_CharacterDataHandler hndl)</span>;</span><br/></pre></td></tr></table></figure>
+<p>第一个函数为开始元素和结束元素事件注册了处理函数，第二个函数为文本（XML术语中的字符数据character data)事件注册了处理函数。<br/>所有回调处理函数的第一个参数都是用户数据，开始元素事件的处理函数还能接收标签名（tag name）及其属性（attribute):</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span><span class="params">(*XML_StartElementHandler)</span><span class="params">(<span class="type">void</span> *uData, <span class="type">const</span> <span class="type">char</span> *name, <span class="type">const</span> <span class="type">char</span> **atts)</span>;</span><br/></pre></td></tr></table></figure>
 <p>属性是一个以NULL结尾的字符串数组，其中每对连续的字符串保存一个属性的名称和值。结束元素事件处理函数除了用户数据外还有一个额外的参数，即标签名：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span><span class="params">(XML_EndElementHandler)</span><span class="params">(<span class="type">void</span> *uData, <span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span><span class="params">(XML_EndElementHandler)</span><span class="params">(<span class="type">void</span> *uData, <span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br/></pre></td></tr></table></figure>
 <p>最后，文本事件处理函数只接收文本作为额外参数，该文本字符串不是以NULL结尾的，它有一个显示的长度：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typedef void(*XML_CharacterDataHandler)(void *uData, const char *s, int len);</span><br><span class="line">```c</span><br><span class="line">为了将文本输入Expat，可以使用如下的函数：</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line">typedef void(*XML_CharacterDataHandler)(void *uData, const char *s, int len);</span><br/><span class="line">```c</span><br/><span class="line">为了将文本输入Expat，可以使用如下的函数：</span><br/></pre></td></tr></table></figure>
 <p>int XML_Parser(XML_Parser p, const char *s, int len, int isLast);</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Expat通过连续调用函数XML_Parse一段一段地接收要解析的文档。XML_Parse的最后一个参数，布尔类型的isLast，告知Expat该片段是否是文档的最后一个片段。如果检测到解析错误，XML_返回零。</span><br><span class="line">Expat中要用到的最后一个函数允许我们设置传递给事件处理函数的用户数据：</span><br><span class="line">```c</span><br><span class="line">void XML_SetUserData(XML_Parser p, void *uData);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/></pre></td><td class="code"><pre><span class="line">Expat通过连续调用函数XML_Parse一段一段地接收要解析的文档。XML_Parse的最后一个参数，布尔类型的isLast，告知Expat该片段是否是文档的最后一个片段。如果检测到解析错误，XML_返回零。</span><br/><span class="line">Expat中要用到的最后一个函数允许我们设置传递给事件处理函数的用户数据：</span><br/><span class="line">```c</span><br/><span class="line">void XML_SetUserData(XML_Parser p, void *uData);</span><br/></pre></td></tr></table></figure>
 <p>现在，让我们看一下如何在Lua中使用这个库。第一种方法是一种直接的方法，即简单地把所有函数导出给Lua。另一个更好的方法是让这些函数适配Lua。例如，因为Lua语言不是强类型的，所以不需要为每一种回调函数设置不同的函数。我们可以做得更好，甚至免去所有注册回调函数的函数。我们要做的只是创建解析器时提供一个包含所有事件处理函数的回调函数表，其中每一个键值对是与相应时间对应的键和事件处理函数。例如，如果需要打印出一个文档的布局，可以使用如下的回调函数表：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">local count = <span class="number">0</span></span><br><span class="line">callbacks = &#123;</span><br><span class="line">	StartElement = function(parser, tagname)</span><br><span class="line">		io.write(<span class="string">&quot;+ &quot;</span>, string.rep(<span class="string">&quot; &quot;</span>,count),tagname,<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">		count = count + <span class="number">1</span></span><br><span class="line">	end,</span><br><span class="line"></span><br><span class="line">	EndElement = function (parser,tagname)</span><br><span class="line">		count = count - <span class="number">1</span></span><br><span class="line">		io.write(<span class="string">&quot;- &quot;</span>,string.rep(<span class="string">&quot; &quot;</span>,count),tagname,<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">	end,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输入内容”<to><yes/></to>“时，这些事件处理函数会打印出如下内容：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+ to</span><br><span class="line">+   yes</span><br><span class="line">-   yes</span><br><span class="line">- to</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/></pre></td><td class="code"><pre><span class="line">local count = <span class="number">0</span></span><br/><span class="line">callbacks = {</span><br/><span class="line">	StartElement = function(parser, tagname)</span><br/><span class="line">		io.write(<span class="string">"+ "</span>, string.rep(<span class="string">" "</span>,count),tagname,<span class="string">"\n"</span>)</span><br/><span class="line">		count = count + <span class="number">1</span></span><br/><span class="line">	end,</span><br/><span class="line"></span><br/><span class="line">	EndElement = function (parser,tagname)</span><br/><span class="line">		count = count - <span class="number">1</span></span><br/><span class="line">		io.write(<span class="string">"- "</span>,string.rep(<span class="string">" "</span>,count),tagname,<span class="string">"\n"</span>)</span><br/><span class="line">	end,</span><br/><span class="line">}</span><br/></pre></td></tr></table></figure>
+<p>输入内容”<to><yes></yes></to>“时，这些事件处理函数会打印出如下内容：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/></pre></td><td class="code"><pre><span class="line">+ to</span><br/><span class="line">+   yes</span><br/><span class="line">-   yes</span><br/><span class="line">- to</span><br/></pre></td></tr></table></figure>
 <p>有了这个API，我们就不再需要那些操作回调函数的函数了，可以直接在回调函数表中操作它们。因此，整个API只需用到三个函数：一个用于创建解析器，一个用于解析文本，一个用于关闭解析器。实际上，我们可以将后两个函数实现为解析器对象的方法。该API的典型用法如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">local lxp = require <span class="string">&quot;lxp&quot;</span></span><br><span class="line">p = lxp.new(callbacks)</span><br><span class="line"><span class="keyword">for</span> l in io.lines() <span class="keyword">do</span></span><br><span class="line">	assert(p:parse(l))</span><br><span class="line">	assert(p:parse(<span class="string">&quot;\n&quot;</span>))</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">assert(p:parse())</span><br><span class="line">p:close()</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/></pre></td><td class="code"><pre><span class="line">local lxp = require <span class="string">"lxp"</span></span><br/><span class="line">p = lxp.new(callbacks)</span><br/><span class="line"><span class="keyword">for</span> l in io.lines() <span class="keyword">do</span></span><br/><span class="line">	assert(p:parse(l))</span><br/><span class="line">	assert(p:parse(<span class="string">"\n"</span>))</span><br/><span class="line">end</span><br/><span class="line"></span><br/><span class="line">assert(p:parse())</span><br/><span class="line">p:close()</span><br/></pre></td></tr></table></figure>
 <p>现在，让我们来看看如何实现它。首先要决定如何在Lua语言中表示一个解析器。我们会很自然地想到使用用户数据来包含C语言结构体，但是需要在用户数据中放些什么东西呢？我们至少需要实际的Expat解析器来回调函数表。由于这些解析器对象都是Expat回调函数接收的，并且回调函数需要调用Lua语言，因此还需要保存Lua状态。我们可以直接在C语言结构体中保存Expat解析器和Lua状态；而对于作为Lua语言值的回调函数表，一个选择是在注册表中为其创建引用并保存该引用，另一个选择是使用用户值。每个用户数据都可以有一个与其直接关联的唯一的Lua语言值，这个值就被叫做用户值。要是使用这种方式的话，解析器对象的定义形如：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;expat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;lua.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;luaxlib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">lxp_userdata</span>&#123;</span></span><br><span class="line">	XML_Parser parser;</span><br><span class="line">	lua_State *L;</span><br><span class="line">&#125;lxp_userdata;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br/><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"expat.h"</span></span></span><br/><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"lua.h"</span></span></span><br/><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"luaxlib.h"</span></span></span><br/><span class="line"></span><br/><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">lxp_userdata</span>{</span></span><br/><span class="line">	XML_Parser parser;</span><br/><span class="line">	lua_State *L;</span><br/><span class="line">}lxp_userdata;</span><br/></pre></td></tr></table></figure>
 <p>下一步是创建解析器对象的函数lxp_make_parser,参考下例</p>
 <blockquote>
 <p>示例 创建XML解析器对象的函数</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 回调函数的前向声明 */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">f_StartElemnt</span> <span class="params">(<span class="type">void</span> *ud, <span class="type">const</span> <span class="type">char</span> *name, <span class="type">const</span> <span class="type">char</span> **atts)</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">f_CharData</span><span class="params">(<span class="type">void</span> *ud, <span class="type">const</span> <span class="type">char</span> *s,<span class="type">int</span> len)</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">lxp_make_parser</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	XML_Parser p;</span><br><span class="line">	<span class="comment">/* 创建解析器对象 */</span></span><br><span class="line">	lxp_userdata *xpu = (lxp_userdata *)lua_newuserdata(L, <span class="keyword">sizeof</span>(lxp_userdata));</span><br><span class="line">	<span class="comment">/* 预先初始化以防止错误发生 */</span></span><br><span class="line">	xpu-&gt;parser = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 设置元表*/</span></span><br><span class="line">	luaL_getmetatable(L, <span class="string">&quot;Expat&quot;</span>);</span><br><span class="line">	lua_setmetatable(L,<span class="number">-2</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 创建Expat解析器 */</span></span><br><span class="line">	p = xpu-&gt; parser = XML_ParserCreate(<span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">if</span>(!p)</span><br><span class="line">		luaL_error(L,<span class="string">&quot;XML_ParserCreate failed&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 检查并保存回调函数表*/</span></span><br><span class="line">	luaL_checktype(L,<span class="number">1</span>,LUA_TTABLE );</span><br><span class="line">	lua_pushvalue(L,<span class="number">1</span>); <span class="comment">/* 回调函数表入栈 */</span></span><br><span class="line">	lua_setuservalue(L,<span class="number">-2</span>); <span class="comment">/* 将回调函数表设置为用户值*/</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 设置Expat解析器 */</span></span><br><span class="line">	XML_SetUserData(p,xpu);</span><br><span class="line"></span><br><span class="line">	XML_SetElementHandler(p,f_StartElemnt, f_EndElement);</span><br><span class="line">	XML_SetCharacterDataHandler(p,f_CharData);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/><span class="line">27</span><br/><span class="line">28</span><br/><span class="line">29</span><br/><span class="line">30</span><br/><span class="line">31</span><br/></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 回调函数的前向声明 */</span></span><br/><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">f_StartElemnt</span> <span class="params">(<span class="type">void</span> *ud, <span class="type">const</span> <span class="type">char</span> *name, <span class="type">const</span> <span class="type">char</span> **atts)</span>;</span><br/><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">f_CharData</span><span class="params">(<span class="type">void</span> *ud, <span class="type">const</span> <span class="type">char</span> *s,<span class="type">int</span> len)</span>;</span><br/><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">lxp_make_parser</span><span class="params">(lua_State *L)</span>{</span><br/><span class="line">	XML_Parser p;</span><br/><span class="line">	<span class="comment">/* 创建解析器对象 */</span></span><br/><span class="line">	lxp_userdata *xpu = (lxp_userdata *)lua_newuserdata(L, <span class="keyword">sizeof</span>(lxp_userdata));</span><br/><span class="line">	<span class="comment">/* 预先初始化以防止错误发生 */</span></span><br/><span class="line">	xpu-&gt;parser = <span class="literal">NULL</span>;</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/* 设置元表*/</span></span><br/><span class="line">	luaL_getmetatable(L, <span class="string">"Expat"</span>);</span><br/><span class="line">	lua_setmetatable(L,<span class="number">-2</span>);</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/* 创建Expat解析器 */</span></span><br/><span class="line">	p = xpu-&gt; parser = XML_ParserCreate(<span class="literal">NULL</span>);</span><br/><span class="line">	<span class="keyword">if</span>(!p)</span><br/><span class="line">		luaL_error(L,<span class="string">"XML_ParserCreate failed"</span>);</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/* 检查并保存回调函数表*/</span></span><br/><span class="line">	luaL_checktype(L,<span class="number">1</span>,LUA_TTABLE );</span><br/><span class="line">	lua_pushvalue(L,<span class="number">1</span>); <span class="comment">/* 回调函数表入栈 */</span></span><br/><span class="line">	lua_setuservalue(L,<span class="number">-2</span>); <span class="comment">/* 将回调函数表设置为用户值*/</span></span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/* 设置Expat解析器 */</span></span><br/><span class="line">	XML_SetUserData(p,xpu);</span><br/><span class="line"></span><br/><span class="line">	XML_SetElementHandler(p,f_StartElemnt, f_EndElement);</span><br/><span class="line">	XML_SetCharacterDataHandler(p,f_CharData);</span><br/><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br/><span class="line">}</span><br/></pre></td></tr></table></figure>
 <p>该函数有四个主要步骤。</p>
 <ul>
 <li>第一步遵循常见的模 式：先创建用户数据，然后使用一致性的值预先初始化用户数据，最后设置用户数据的元表（其中的预先初始化确保如果在初始化过程中发生了错误，解析器能够以一致性的状态处理用户数据）。</li>
 <li>第二步中，该函数创建了一个Expat解析器，将其存储到用户数据中，并检查了错误。</li>
 <li>第三步保证该函数的第一个参数是一个表（回调函数表），并将其作为用户值赋给了新的用户数据。</li>
-<li>最后一步初始化Expat解析器，将用户数据设为传递给回调函数的对象，并设置了回调函数。请注意，这些回调函数对于所有的解析器来说都是相同的；毕竟，用户无法在C语言中动态地创建新函数。不同点在于，这些固定的C语言函数会通过回调函数表来决定每次应该调用哪些Lua函数。<br>接下来是解析函数lxp_parse，该函数用于解析XML数据片段。<blockquote>
+<li>最后一步初始化Expat解析器，将用户数据设为传递给回调函数的对象，并设置了回调函数。请注意，这些回调函数对于所有的解析器来说都是相同的；毕竟，用户无法在C语言中动态地创建新函数。不同点在于，这些固定的C语言函数会通过回调函数表来决定每次应该调用哪些Lua函数。<br/>接下来是解析函数lxp_parse，该函数用于解析XML数据片段。<blockquote>
 <p>示例 解析XML片段的函数</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">lxp_parse</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	<span class="type">int</span> status;</span><br><span class="line">	<span class="type">size_t</span> len;</span><br><span class="line">	<span class="type">const</span> <span class="type">char</span> *s;</span><br><span class="line">	lxp_userdata *xpu;</span><br><span class="line">	<span class="comment">/* 获取并检查第一个参数 */</span></span><br><span class="line">	xpu = (lxp_userdata *)luaL_checkudata(L,<span class="number">1</span>,<span class="string">&quot;Expat&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 检查解析器是否已经被关闭了*/</span></span><br><span class="line">	luaL_argcheck(L,xpu-&gt;parser != <span class="literal">NULL</span>, <span class="number">1</span>,  <span class="string">&quot;parser is closed&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 获取第二个参数*/</span></span><br><span class="line">	s = luaL_optlstring(L,<span class="number">2</span>,<span class="literal">NULL</span>, &amp;len);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 将回调函数表放在栈索引为3的位置 */</span></span><br><span class="line">	lua_settop(L,<span class="number">2</span>);</span><br><span class="line">	lua_getuservalue(L,<span class="number">1</span>);</span><br><span class="line">	xpu-&gt;L = L; <span class="comment">/*设置Lua状态*/</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*调用Expat解析字符串*/</span></span><br><span class="line">	status = XML_Parse(xpu-&gt;parser , s, (<span class="type">int</span>)len , s == <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 返回错误码 */</span></span><br><span class="line">	lua_pushboolean(L,status);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-该函数有两个参数，即解析器对象和一个可选的XML数据。如果调用该函数时未传入XML数据，那么它谁通知Expat文档已结束。<br>当lxp_parse调用XML_Parse时，后一个函数会为指定文件片段中找到的每个相关元素调用处理函数。这些处理函数需要访问回调函数表，因此lxp_parse会将这个表放到栈索引为3的位置。在调用XML_Parse时还有一个细节：请注意，该函数的最后一个参数会告诉Expat文本的指定片段是否为最后一个片段。当不带参数调用parse时，s是NULL，这样最后一个参数就为真。<br>现在我们把注意力放到处理回调的f_CharData、f_StartElement和f_EndElement函数上。这三个函数的代码结构类似，它们都会检查回调函数表是否为指定的事情定义了Lua处理函数，如果是，则准备好参数并调用这个处理函数。<br>首先来看实力中的梳理函数f_CharData.<blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">lxp_parse</span><span class="params">(lua_State *L)</span>{</span><br/><span class="line">	<span class="type">int</span> status;</span><br/><span class="line">	<span class="type">size_t</span> len;</span><br/><span class="line">	<span class="type">const</span> <span class="type">char</span> *s;</span><br/><span class="line">	lxp_userdata *xpu;</span><br/><span class="line">	<span class="comment">/* 获取并检查第一个参数 */</span></span><br/><span class="line">	xpu = (lxp_userdata *)luaL_checkudata(L,<span class="number">1</span>,<span class="string">"Expat"</span>);</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/* 检查解析器是否已经被关闭了*/</span></span><br/><span class="line">	luaL_argcheck(L,xpu-&gt;parser != <span class="literal">NULL</span>, <span class="number">1</span>,  <span class="string">"parser is closed"</span>);</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/* 获取第二个参数*/</span></span><br/><span class="line">	s = luaL_optlstring(L,<span class="number">2</span>,<span class="literal">NULL</span>, &amp;len);</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/* 将回调函数表放在栈索引为3的位置 */</span></span><br/><span class="line">	lua_settop(L,<span class="number">2</span>);</span><br/><span class="line">	lua_getuservalue(L,<span class="number">1</span>);</span><br/><span class="line">	xpu-&gt;L = L; <span class="comment">/*设置Lua状态*/</span></span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/*调用Expat解析字符串*/</span></span><br/><span class="line">	status = XML_Parse(xpu-&gt;parser , s, (<span class="type">int</span>)len , s == <span class="literal">NULL</span>);</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/* 返回错误码 */</span></span><br/><span class="line">	lua_pushboolean(L,status);</span><br/><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br/><span class="line">}</span><br/></pre></td></tr></table></figure>
+该函数有两个参数，即解析器对象和一个可选的XML数据。如果调用该函数时未传入XML数据，那么它谁通知Expat文档已结束。<br/>当lxp_parse调用XML_Parse时，后一个函数会为指定文件片段中找到的每个相关元素调用处理函数。这些处理函数需要访问回调函数表，因此lxp_parse会将这个表放到栈索引为3的位置。在调用XML_Parse时还有一个细节：请注意，该函数的最后一个参数会告诉Expat文本的指定片段是否为最后一个片段。当不带参数调用parse时，s是NULL，这样最后一个参数就为真。<br/>现在我们把注意力放到处理回调的f_CharData、f_StartElement和f_EndElement函数上。这三个函数的代码结构类似，它们都会检查回调函数表是否为指定的事情定义了Lua处理函数，如果是，则准备好参数并调用这个处理函数。<br/>首先来看实力中的梳理函数f_CharData.<blockquote>
 <p>示例 字符数据事件的处理函数</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">f_CharData</span><span class="params">(<span class="type">void</span> *ud , <span class="type">const</span> <span class="type">char</span> *s, <span class="type">int</span> len)</span>&#123;</span><br><span class="line">	lxp_userdata *xpu = (lxp_userdata *)ud;</span><br><span class="line">	lua_State *L = xpu -&gt; L;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 从回调函数表中获取处理函数 */</span></span><br><span class="line">	lua_getfield(L,<span class="number">3</span>,<span class="string">&quot;CharacterDara&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (lua_isnil(L,<span class="number">-1</span>)) &#123; <span class="comment">/* 没有处理函数？ */</span></span><br><span class="line">		lua_pop(L,<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	lua_pushvalue(L,<span class="number">1</span>); <span class="comment">/* 解析器压栈*/</span></span><br><span class="line">	lua_pushlstring(L,<span class="number">1</span>,len); <span class="comment">/* 压入字符数据 */</span></span><br><span class="line">	lua_call(L,<span class="number">2</span>,<span class="number">0</span>); <span class="comment">/* 调用处理函数 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-该函数的代码很简单。由于创建解析器时调用了XML_SetUserData，所以处理函数的第一个参数是lxp_userdata结构体。在获取Lua状态后，处理函数就可以访问由lxp_parse设置的位于栈索引3位置的回调函数表，以及位于栈索引1位置的解析器。然后，该函数就可以用解析器和字符数据作为参数调用Lua中对应的处理函数了。<br>处理函数f_EndElement与f_CharData十分相似，参见示例<blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">f_CharData</span><span class="params">(<span class="type">void</span> *ud , <span class="type">const</span> <span class="type">char</span> *s, <span class="type">int</span> len)</span>{</span><br/><span class="line">	lxp_userdata *xpu = (lxp_userdata *)ud;</span><br/><span class="line">	lua_State *L = xpu -&gt; L;</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/* 从回调函数表中获取处理函数 */</span></span><br/><span class="line">	lua_getfield(L,<span class="number">3</span>,<span class="string">"CharacterDara"</span>);</span><br/><span class="line">	<span class="keyword">if</span> (lua_isnil(L,<span class="number">-1</span>)) { <span class="comment">/* 没有处理函数？ */</span></span><br/><span class="line">		lua_pop(L,<span class="number">1</span>);</span><br/><span class="line">		<span class="keyword">return</span>;</span><br/><span class="line">	}</span><br/><span class="line"></span><br/><span class="line">	lua_pushvalue(L,<span class="number">1</span>); <span class="comment">/* 解析器压栈*/</span></span><br/><span class="line">	lua_pushlstring(L,<span class="number">1</span>,len); <span class="comment">/* 压入字符数据 */</span></span><br/><span class="line">	lua_call(L,<span class="number">2</span>,<span class="number">0</span>); <span class="comment">/* 调用处理函数 */</span></span><br/><span class="line">}</span><br/></pre></td></tr></table></figure>
+该函数的代码很简单。由于创建解析器时调用了XML_SetUserData，所以处理函数的第一个参数是lxp_userdata结构体。在获取Lua状态后，处理函数就可以访问由lxp_parse设置的位于栈索引3位置的回调函数表，以及位于栈索引1位置的解析器。然后，该函数就可以用解析器和字符数据作为参数调用Lua中对应的处理函数了。<br/>处理函数f_EndElement与f_CharData十分相似，参见示例<blockquote>
 <p>示例 结束元素事件的处理函数</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">f_EndElement</span><span class="params">(<span class="type">void</span> *ud, <span class="type">const</span> <span class="type">char</span> *name)</span>&#123;</span><br><span class="line">	lxp_userdata *xpu = (lxp_userdata *)ud;</span><br><span class="line">	lua_State *L = xpu -&gt;L;</span><br><span class="line"></span><br><span class="line">	lua_getfield(L,<span class="number">3</span>,<span class="string">&quot;EndElement&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (lua_isnil(L,<span class="number">-1</span>))&#123; <span class="comment">/*没有处理函数？*/</span></span><br><span class="line">		lua_pop(L,<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	lua_pushvalue(L,<span class="number">1</span>); <span class="comment">/* 解析器压栈 */</span></span><br><span class="line">	lua_pushstring(L,name); <span class="comment">/* 压入标签名 */</span></span><br><span class="line">	lua_call(L,<span class="number">2</span>,<span class="number">0</span>); <span class="comment">/* 调用处理函数 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-该函数也以解析器和标签名（也是一个字符串，但是以null结尾）作为参数调用相应的Lua处理函数。<br>示例演示了最后一个处理函数f_StartElement.<blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">f_EndElement</span><span class="params">(<span class="type">void</span> *ud, <span class="type">const</span> <span class="type">char</span> *name)</span>{</span><br/><span class="line">	lxp_userdata *xpu = (lxp_userdata *)ud;</span><br/><span class="line">	lua_State *L = xpu -&gt;L;</span><br/><span class="line"></span><br/><span class="line">	lua_getfield(L,<span class="number">3</span>,<span class="string">"EndElement"</span>);</span><br/><span class="line">	<span class="keyword">if</span> (lua_isnil(L,<span class="number">-1</span>)){ <span class="comment">/*没有处理函数？*/</span></span><br/><span class="line">		lua_pop(L,<span class="number">1</span>);</span><br/><span class="line">		<span class="keyword">return</span>;</span><br/><span class="line">	}</span><br/><span class="line">	lua_pushvalue(L,<span class="number">1</span>); <span class="comment">/* 解析器压栈 */</span></span><br/><span class="line">	lua_pushstring(L,name); <span class="comment">/* 压入标签名 */</span></span><br/><span class="line">	lua_call(L,<span class="number">2</span>,<span class="number">0</span>); <span class="comment">/* 调用处理函数 */</span></span><br/><span class="line">}</span><br/></pre></td></tr></table></figure>
+该函数也以解析器和标签名（也是一个字符串，但是以null结尾）作为参数调用相应的Lua处理函数。<br/>示例演示了最后一个处理函数f_StartElement.<blockquote>
 <p>示例  开始元素事件的处理函数</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">f_StartElemnt</span> <span class="params">(<span class="type">void</span> *ud, <span class="type">const</span> <span class="type">char</span> *name, <span class="type">const</span> <span class="type">char</span> **atts)</span>&#123;</span><br><span class="line">	lxp_userdata *xpu = (lxp_userdata *)ud;</span><br><span class="line">	lua_State *L = xpu-&gt;L;</span><br><span class="line"></span><br><span class="line">	lua_getfield(L,<span class="number">3</span>,<span class="string">&quot;StartElement&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (lua_isnil(L,<span class="number">-1</span>)) &#123; <span class="comment">/* 没有处理函数？ */</span>&#125;</span><br><span class="line">		lua_pop(L,<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">	lua_pushvalue(L,<span class="number">1</span>); <span class="comment">/* 解析器压栈 */</span></span><br><span class="line">	lua_pushstring(L,name); <span class="comment">/* 压入标签名*/</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 创建并填充属性表 */</span></span><br><span class="line">	lua_newtable(L);</span><br><span class="line">	<span class="keyword">for</span> (; *atts; atts += <span class="number">2</span>)&#123;</span><br><span class="line">		lua_pushstring(L, *(atts + <span class="number">1</span>));</span><br><span class="line">		lua_Setfield(l,<span class="number">-2</span>,*atts); <span class="comment">/* table[*atts] = *(atts + 1) */</span></span><br><span class="line">	&#125;</span><br><span class="line">	lua_call(L,<span class="number">3</span>,<span class="number">0</span>); <span class="comment">/* 调用处理函数 */</span></span><br></pre></td></tr></table></figure>
-该函数以解析器、标签名和一个属性列表为参数，调用了Lua处理函数。处理函数f_StartElement比其他的处理函数稍微复杂一点，因为它需要将属性的标签列表转换为Lua语言。f_StartElement使用了一种非常自然的转换方法，即创建一张包含属性名和属性值的表。例如，类似这样的开始标签：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;to method = <span class="string">&quot;post&quot;</span> proirity = <span class="string">&quot;hight&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
-会产生如下的属性表：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;method = <span class="string">&quot;post&quot;</span>, priority = <span class="string">&quot;hight&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">f_StartElemnt</span> <span class="params">(<span class="type">void</span> *ud, <span class="type">const</span> <span class="type">char</span> *name, <span class="type">const</span> <span class="type">char</span> **atts)</span>{</span><br/><span class="line">	lxp_userdata *xpu = (lxp_userdata *)ud;</span><br/><span class="line">	lua_State *L = xpu-&gt;L;</span><br/><span class="line"></span><br/><span class="line">	lua_getfield(L,<span class="number">3</span>,<span class="string">"StartElement"</span>);</span><br/><span class="line">	<span class="keyword">if</span> (lua_isnil(L,<span class="number">-1</span>)) { <span class="comment">/* 没有处理函数？ */</span>}</span><br/><span class="line">		lua_pop(L,<span class="number">1</span>);</span><br/><span class="line">		<span class="keyword">return</span>;</span><br/><span class="line">}</span><br/><span class="line">	lua_pushvalue(L,<span class="number">1</span>); <span class="comment">/* 解析器压栈 */</span></span><br/><span class="line">	lua_pushstring(L,name); <span class="comment">/* 压入标签名*/</span></span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/* 创建并填充属性表 */</span></span><br/><span class="line">	lua_newtable(L);</span><br/><span class="line">	<span class="keyword">for</span> (; *atts; atts += <span class="number">2</span>){</span><br/><span class="line">		lua_pushstring(L, *(atts + <span class="number">1</span>));</span><br/><span class="line">		lua_Setfield(l,<span class="number">-2</span>,*atts); <span class="comment">/* table[*atts] = *(atts + 1) */</span></span><br/><span class="line">	}</span><br/><span class="line">	lua_call(L,<span class="number">3</span>,<span class="number">0</span>); <span class="comment">/* 调用处理函数 */</span></span><br/></pre></td></tr></table></figure>
+该函数以解析器、标签名和一个属性列表为参数，调用了Lua处理函数。处理函数f_StartElement比其他的处理函数稍微复杂一点，因为它需要将属性的标签列表转换为Lua语言。f_StartElement使用了一种非常自然的转换方法，即创建一张包含属性名和属性值的表。例如，类似这样的开始标签：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">&lt;to method = <span class="string">"post"</span> proirity = <span class="string">"hight"</span>&gt;</span><br/></pre></td></tr></table></figure>
+会产生如下的属性表：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">{method = <span class="string">"post"</span>, priority = <span class="string">"hight"</span>}</span><br/></pre></td></tr></table></figure>
 解析器的最后一个方法是close，参见示例<blockquote>
 <p>示例 关闭XML解析器的方法</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">lxp_close</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	lxp_userdata *xpu = (lxp_userdata *)luaL_checkudata(L,<span class="number">1</span>,<span class="string">&quot;Expat&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 释放Expat解析器 */</span></span><br><span class="line">	<span class="keyword">if</span> (xpu-&gt;parser)</span><br><span class="line">		XML_ParserFree(xpu-&gt;parser);</span><br><span class="line">	xpu-&gt;parser = <span class="literal">NULL</span>; <span class="comment">/* 避免重复关闭*/</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-当关闭解析器时，必须释放其资源，也就是Expat结构体。请注意，由于在创建解析器时可能会发生错误，解析器可能没有这些资源。此外还需注意，如何像关闭解析器一样，在一致的状态中保存解析器，这样当我们试图再次关闭解析器或者垃圾收集器结束解析器时才不会产生问题。实际上，我们可以将这个函数当做终结器来使用。这样便可以确保，即使程序员没有关闭解析器，每个解析器最终也会释放其资源。<br>下面示例是最后一步，它演示了打开库的luaopen_lxp。luaopen_lxp将前面所有的部分组织到一起。<blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">lxp_close</span><span class="params">(lua_State *L)</span>{</span><br/><span class="line">	lxp_userdata *xpu = (lxp_userdata *)luaL_checkudata(L,<span class="number">1</span>,<span class="string">"Expat"</span>);</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/* 释放Expat解析器 */</span></span><br/><span class="line">	<span class="keyword">if</span> (xpu-&gt;parser)</span><br/><span class="line">		XML_ParserFree(xpu-&gt;parser);</span><br/><span class="line">	xpu-&gt;parser = <span class="literal">NULL</span>; <span class="comment">/* 避免重复关闭*/</span></span><br/><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br/><span class="line">}</span><br/></pre></td></tr></table></figure>
+当关闭解析器时，必须释放其资源，也就是Expat结构体。请注意，由于在创建解析器时可能会发生错误，解析器可能没有这些资源。此外还需注意，如何像关闭解析器一样，在一致的状态中保存解析器，这样当我们试图再次关闭解析器或者垃圾收集器结束解析器时才不会产生问题。实际上，我们可以将这个函数当做终结器来使用。这样便可以确保，即使程序员没有关闭解析器，每个解析器最终也会释放其资源。<br/>下面示例是最后一步，它演示了打开库的luaopen_lxp。luaopen_lxp将前面所有的部分组织到一起。<blockquote>
 <p>示例 lxp库的初始化代码</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">luaL_Reg</span> <span class="title">lxp_meths</span>[] =</span> &#123;</span><br><span class="line">	&#123;<span class="string">&quot;parse&quot;</span>, lxp_parse&#125;,</span><br><span class="line">	&#123;<span class="string">&quot;close&quot;</span>, lxp_close&#125;,</span><br><span class="line">	&#123;<span class="string">&quot;__gc&quot;</span>,  lxp_close&#125;,</span><br><span class="line">	&#123;<span class="literal">NULL</span>,<span class="literal">NULL</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">luaL_Reg</span> <span class="title">lxp_funcs</span>[] =</span> &#123;</span><br><span class="line">	&#123;<span class="string">&quot;new&quot;</span>,lxp_make_parser&#125;，</span><br><span class="line">	&#123;<span class="literal">NULL</span>,<span class="literal">NULL</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">luaopen_lxp</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	<span class="comment">/*创建元表*/</span></span><br><span class="line">	luaL_newmetatble(L,<span class="string">&quot;Expat&quot;</span>);</span><br><span class="line">	<span class="comment">/* metatable.__index = metatable */</span></span><br><span class="line">	lua_pushvalue(L,<span class="number">-1</span>);</span><br><span class="line">	lua_setfield(L,<span class="number">-2</span>,<span class="string">&quot;__index&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*注册方法*/</span></span><br><span class="line">	luaL_setfuncs(L,lxp_meths,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 注册（只有lxp.new） */</span></span><br><span class="line">	luaL_newlib(L,lxp_funcs);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">luaL_Reg</span> <span class="title">lxp_meths</span>[] =</span> {</span><br/><span class="line">	{<span class="string">"parse"</span>, lxp_parse},</span><br/><span class="line">	{<span class="string">"close"</span>, lxp_close},</span><br/><span class="line">	{<span class="string">"__gc"</span>,  lxp_close},</span><br/><span class="line">	{<span class="literal">NULL</span>,<span class="literal">NULL</span>}</span><br/><span class="line">};</span><br/><span class="line"></span><br/><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">luaL_Reg</span> <span class="title">lxp_funcs</span>[] =</span> {</span><br/><span class="line">	{<span class="string">"new"</span>,lxp_make_parser}，</span><br/><span class="line">	{<span class="literal">NULL</span>,<span class="literal">NULL</span>}</span><br/><span class="line">};</span><br/><span class="line"></span><br/><span class="line"><span class="type">int</span> <span class="title function_">luaopen_lxp</span><span class="params">(lua_State *L)</span>{</span><br/><span class="line">	<span class="comment">/*创建元表*/</span></span><br/><span class="line">	luaL_newmetatble(L,<span class="string">"Expat"</span>);</span><br/><span class="line">	<span class="comment">/* metatable.__index = metatable */</span></span><br/><span class="line">	lua_pushvalue(L,<span class="number">-1</span>);</span><br/><span class="line">	lua_setfield(L,<span class="number">-2</span>,<span class="string">"__index"</span>);</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/*注册方法*/</span></span><br/><span class="line">	luaL_setfuncs(L,lxp_meths,<span class="number">0</span>);</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">/* 注册（只有lxp.new） */</span></span><br/><span class="line">	luaL_newlib(L,lxp_funcs);</span><br/><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br/><span class="line">}</span><br/></pre></td></tr></table></figure></li>
 </ul>
-
-    </div>
-
-    
-    
-    
-        <div class="reward-container">
-  <div></div>
-  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+</div>
+<div class="reward-container">
+<div></div>
+<button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
     打赏
   </button>
-  <div id="qr" style="display: none;">
-      
-      <div style="display: inline-block;">
-        <img src="/images/wechat.png" alt="南锋 微信支付">
-        <p>微信支付</p>
-      </div>
-      
-      <div style="display: inline-block;">
-        <img src="/images/alipay.png" alt="南锋 支付宝">
-        <p>支付宝</p>
-      </div>
-
-  </div>
+<div id="qr" style="display: none;">
+<div style="display: inline-block;">
+<img alt="南锋 微信支付" src="/images/wechat.png"/>
+<p>微信支付</p>
 </div>
-
-        
-
+<div style="display: inline-block;">
+<img alt="南锋 支付宝" src="/images/alipay.png"/>
+<p>支付宝</p>
+</div>
+</div>
+</div>
 <div>
 <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者： </strong>南锋
+<li class="post-copyright-author">
+<strong>本文作者： </strong>南锋
   </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/45984.html" title="Lua连续教程之Lua资源管理">https://lengmo714.top/45984.html</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+<li class="post-copyright-link">
+<strong>本文链接：</strong>
+<a href="https://lengmo714.top/45984.html" title="Lua连续教程之Lua资源管理">https://lengmo714.top/45984.html</a>
+</li>
+<li class="post-copyright-license">
+<strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
   </li>
 </ul>
 </div>
-
-      <footer class="post-footer">
-          
-          <div class="post-tags">
-              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/23361.html" rel="prev" title="c语言中的用户自定义类型">
-      <i class="fa fa-chevron-left"></i> c语言中的用户自定义类型
+<footer class="post-footer">
+<div class="post-tags">
+<a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+</div>
+<div class="post-nav">
+<div class="post-nav-item">
+<a href="/23361.html" rel="prev" title="c语言中的用户自定义类型">
+<i class="fa fa-chevron-left"></i> c语言中的用户自定义类型
     </a></div>
-      <div class="post-nav-item">
-    <a href="/22026.html" rel="next" title="Mac-Xcode各种目录路径和调试方法">
+<div class="post-nav-item">
+<a href="/22026.html" rel="next" title="Mac-Xcode各种目录路径和调试方法">
       Mac-Xcode各种目录路径和调试方法 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-    <div class="comments" id="valine-comments"></div>
-
+</a></div>
+</div>
+</footer>
+</article>
+</div>
+<div class="comments" id="valine-comments"></div>
 <script>
   window.addEventListener('tabs:register', () => {
     let { activeClass } = CONFIG.comments;
@@ -481,207 +377,163 @@
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
+</div>
+<div class="toggle sidebar-toggle">
+<span class="toggle-line toggle-line-first"></span>
+<span class="toggle-line toggle-line-middle"></span>
+<span class="toggle-line toggle-line-last"></span>
+</div>
+<aside class="sidebar">
+<div class="sidebar-inner">
+<ul class="sidebar-nav motion-element">
+<li class="sidebar-nav-toc">
           文章目录
         </li>
-        <li class="sidebar-nav-overview">
+<li class="sidebar-nav-overview">
           站点概览
         </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#XML%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">XML解析器</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="南锋"
-      src="/images/IMG_3307.JPG">
-  <p class="site-author-name" itemprop="name">南锋</p>
-  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+</ul>
+<!--noindex-->
+<div class="post-toc-wrap sidebar-panel">
+<div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#XML%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">XML解析器</span></a></li></ol></div>
+</div>
+<!--/noindex-->
+<div class="site-overview-wrap sidebar-panel">
+<div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+<img alt="南锋" class="site-author-image" itemprop="image" src="/images/IMG_3307.JPG"/>
+<p class="site-author-name" itemprop="name">南锋</p>
+<div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
 </div>
 <div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">202</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">68</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">61</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+<nav class="site-state">
+<div class="site-state-item site-state-posts">
+<a href="/archives/">
+<span class="site-state-item-count">202</span>
+<span class="site-state-item-name">日志</span>
+</a>
 </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
-      </span>
-  </div>
-  <div class="cc-license motion-element" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
-  </div>
-
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+<div class="site-state-item site-state-categories">
+<a href="/categories/">
+<span class="site-state-item-count">68</span>
+<span class="site-state-item-name">分类</span></a>
+</div>
+<div class="site-state-item site-state-tags">
+<a href="/tags/">
+<span class="site-state-item-count">61</span>
+<span class="site-state-item-name">标签</span></a>
+</div>
+</nav>
+</div>
+<div class="links-of-author motion-element">
+<span class="links-of-author-item">
+<a href="https://github.com/lengmo714" rel="noopener" target="_blank" title="GitHub → https://github.com/lengmo714"><i class="fab fa-github fa-fw"></i>GitHub</a>
+</span>
+<span class="links-of-author-item">
+<a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+</span>
+<span class="links-of-author-item">
+<a href="https://weibo.com/u/3124723200" rel="noopener" target="_blank" title="Weibo → https://weibo.com/u/3124723200"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+</span>
+<span class="links-of-author-item">
+<a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank" title="抖音 → https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+</span>
+</div>
+<div class="cc-license motion-element" itemprop="license">
+<a class="cc-opacity" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><img alt="Creative Commons" src="/images/cc-by-nc-sa.svg"/></a>
+</div>
+<div class="links-of-blogroll motion-element">
+<div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
       Links
     </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://mall.jd.com/index-12955410.html" title="https:&#x2F;&#x2F;mall.jd.com&#x2F;index-12955410.html" rel="noopener" target="_blank">京东小店</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
-        </li>
-    </ul>
-  </div>
-      </div>
-        <div class="back-to-top motion-element">
-          <i class="fa fa-arrow-up"></i>
-          <span>0%</span>
-        </div>
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
-  </div>
-
+<ul class="links-of-blogroll-list">
+<li class="links-of-blogroll-item">
+<a href="/Link/" title="/Link/">友情链接</a>
+</li>
+<li class="links-of-blogroll-item">
+<a href="https://blog.csdn.net/Silent_F" rel="noopener" target="_blank" title="https://blog.csdn.net/Silent_F">CSDN</a>
+</li>
+<li class="links-of-blogroll-item">
+<a href="https://lengmo714.top/net/map/index.html" title="https://lengmo714.top/net/map/index.html">足迹</a>
+</li>
+<li class="links-of-blogroll-item">
+<a href="https://mall.jd.com/index-12955410.html" rel="noopener" target="_blank" title="https://mall.jd.com/index-12955410.html">京东小店</a>
+</li>
+<li class="links-of-blogroll-item">
+<a href="https://lengmo714.top/net/Love/baby.html" title="https://lengmo714.top/net/Love/baby.html">恋爱计时</a>
+</li>
+<li class="links-of-blogroll-item">
+<a href="https://lengmo714.top/net/wechat/index.html" title="https://lengmo714.top/net/wechat/index.html">微信对话生成器</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="back-to-top motion-element">
+<i class="fa fa-arrow-up"></i>
+<span>0%</span>
+</div>
+</div>
+</aside>
+<div id="sidebar-dimmer"></div>
+</div>
+</main>
+<footer class="footer">
+<div class="footer-inner">
+<div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+</div>
 <div class="copyright">
   
-  &copy; 2017 – 
+  © 2017 – 
   <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">南锋</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
-    </span>
-    <span title="站点总字数">769k</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="站点阅读时长">11:39</span>
+<span class="with-love">
+<i class="fa fa-heart"></i>
+</span>
+<span class="author" itemprop="copyrightHolder">南锋</span>
+<span class="post-meta-divider">|</span>
+<span class="post-meta-item-icon">
+<i class="fa fa-chart-area"></i>
+</span>
+<span title="站点总字数">769k</span>
+<span class="post-meta-divider">|</span>
+<span class="post-meta-item-icon">
+<i class="fa fa-coffee"></i>
+</span>
+<span title="站点阅读时长">11:39</span>
 </div>
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
+<script async="" src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+<span class="post-meta-item-icon">
+<i class="fa fa-user"></i>
+</span>
+<span class="site-uv" title="总访客量">
+<span id="busuanzi_value_site_uv"></span>
+</span>
+</span>
+<span class="post-meta-divider">|</span>
+<span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+<span class="post-meta-item-icon">
+<i class="fa fa-eye"></i>
+</span>
+<span class="site-pv" title="总访问量">
+<span id="busuanzi_value_site_pv"></span>
+</span>
+</span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
+</div>
+</footer>
+</div>
+<script src="/lib/anime.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+<script src="/lib/velocity/velocity.min.js"></script>
+<script src="/lib/velocity/velocity.ui.min.js"></script>
 <script src="/js/utils.js"></script>
-
 <script src="/js/motion.js"></script>
-
-
 <script src="/js/schemes/pisces.js"></script>
-
-
 <script src="/js/next-boot.js"></script>
-
 <script src="/js/bookmark.js"></script>
-
-
-
-
-  
-  <script>
+<script>
     (function(){
       var canonicalURL, curProtocol;
       //Get the <link> tag
@@ -706,30 +558,7 @@
 	    //Assign script content. Replace current URL with the canonical URL
       !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
   </script>
-
-
-
-
-  
 <script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-
 <script>
 NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
   NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
@@ -760,20 +589,11 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
 
   +  
   
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
-
+	<script src="/js/cursor/fireworks.js" type="text/javascript"></script>
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"></script>
+<p><ins class="adsbygoogle" data-ad-client="ca-pub-3160571902547760" data-ad-format="fluid" data-ad-layout="in-article" data-ad-slot="8630948880" style="display:block; text-align:center;"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
