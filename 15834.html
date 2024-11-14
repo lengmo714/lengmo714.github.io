@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 模块, 包" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 模块, 包, Lua, 模块, 包, require函数, 命名空间, 代码共享, package.loaded, 依赖管理" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="通常，Lua语言不会设置规则。相反，Lua语言提供的是足够强大的机制供不同的开发者实现最适合自己的规则。然而，这种方法对于模块而言并不是特别适用。模块系统的主要目标之一就是允许不同的人共享代码，缺乏公共规则就无法实现这样的分享。" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Lua中模块和包" property="og:title"/>
+<meta content="Lua模块与包详解：require函数的使用与命名空间管理" property="og:title"/>
 <meta content="https://lengmo714.top/15834.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="通常，Lua语言不会设置规则。相反，Lua语言提供的是足够强大的机制供不同的开发者实现最适合自己的规则。然而，这种方法对于模块而言并不是特别适用。模块系统的主要目标之一就是允许不同的人共享代码，缺乏公共规则就无法实现这样的分享。" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2020-04-21T12:41:58.000Z" property="article:published_time"/>
-<meta content="2024-11-14T16:07:00.262Z" property="article:modified_time"/>
+<meta content="2024-11-14T17:05:15.937Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Lua" property="article:tag"/>
 <meta content="summary" name="twitter:card"/>
@@ -42,7 +42,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Lua中模块和包 | 南锋</title>
+<title>Lua模块与包详解：require函数的使用与命名空间管理 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -164,7 +164,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Lua中模块和包
+          Lua模块与包详解：require函数的使用与命名空间管理
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -179,7 +179,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-11-15T00:07:00+08:00" itemprop="dateModified" title="修改时间：2024-11-15 00:07:00">2024-11-15</time>
+<time datetime="2024-11-15T01:05:15+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:05:15">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -190,7 +190,7 @@
 <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Lua中模块和包" id="/15834.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Lua模块与包详解：require函数的使用与命名空间管理" id="/15834.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -324,7 +324,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/15834.html" title="Lua中模块和包">https://lengmo714.top/15834.html</a>
+<a href="https://lengmo714.top/15834.html" title="Lua模块与包详解：require函数的使用与命名空间管理">https://lengmo714.top/15834.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -337,12 +337,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/21815.html" rel="prev" title="Lua编译执行和错误">
-<i class="fa fa-chevron-left"></i> Lua编译执行和错误
+<a href="/21815.html" rel="prev" title="Lua编译执行与错误处理详解：从loadfile到assert的最佳实践">
+<i class="fa fa-chevron-left"></i> Lua编译执行与错误处理详解：从loadfile到assert的最佳实践
     </a></div>
 <div class="post-nav-item">
-<a href="/12794.html" rel="next" title="Lua迭代器和泛型for">
-      Lua迭代器和泛型for <i class="fa fa-chevron-right"></i>
+<a href="/12794.html" rel="next" title="Lua迭代器与泛型for循环详解：实现与应用">
+      Lua迭代器与泛型for循环详解：实现与应用 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -412,7 +412,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

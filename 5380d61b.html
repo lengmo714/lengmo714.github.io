@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="游戏开发, Cocos2dx, 纹理, 源码分析" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="游戏开发, Cocos2dx, 纹理, 源码分析, Cocos2dx, Lua, 纹理管理, CCTexture2D, 纹理格式, 图片加载, 内存优化, 纹理缓存, PVR格式, 游戏开发" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="在游戏开发中，总是离不开一个词——纹理。当一张图片被加载到内存后，它是以纹理的形式存在的。" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Cocos2dx纹理源码分析" property="og:title"/>
+<meta content="Cocos2d-x纹理管理与源码分析：CCTexture2D与纹理格式" property="og:title"/>
 <meta content="https://lengmo714.top/5380d61b.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="在游戏开发中，总是离不开一个词——纹理。当一张图片被加载到内存后，它是以纹理的形式存在的。" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2022-12-23T12:54:44.000Z" property="article:published_time"/>
-<meta content="2024-11-14T16:10:51.178Z" property="article:modified_time"/>
+<meta content="2024-11-14T17:50:41.276Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Cocos2dx" property="article:tag"/>
 <meta content="游戏开发" property="article:tag"/>
@@ -44,7 +44,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Cocos2dx纹理源码分析 | 南锋</title>
+<title>Cocos2d-x纹理管理与源码分析：CCTexture2D与纹理格式 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -166,7 +166,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Cocos2dx纹理源码分析
+          Cocos2d-x纹理管理与源码分析：CCTexture2D与纹理格式
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -181,7 +181,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-11-15T00:10:51+08:00" itemprop="dateModified" title="修改时间：2024-11-15 00:10:51">2024-11-15</time>
+<time datetime="2024-11-15T01:50:41+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:50:41">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -192,7 +192,7 @@
 <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Cocos2dx纹理源码分析" id="/5380d61b.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Cocos2d-x纹理管理与源码分析：CCTexture2D与纹理格式" id="/5380d61b.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -278,7 +278,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/5380d61b.html" title="Cocos2dx纹理源码分析">https://lengmo714.top/5380d61b.html</a>
+<a href="https://lengmo714.top/5380d61b.html" title="Cocos2d-x纹理管理与源码分析：CCTexture2D与纹理格式">https://lengmo714.top/5380d61b.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -293,12 +293,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/6f89e884.html" rel="prev" title="国外AppleID注册">
-<i class="fa fa-chevron-left"></i> 国外AppleID注册
+<a href="/6f89e884.html" rel="prev" title="如何注册美区Apple ID：详细步骤与注意事项">
+<i class="fa fa-chevron-left"></i> 如何注册美区Apple ID：详细步骤与注意事项
     </a></div>
 <div class="post-nav-item">
-<a href="/4a90989.html" rel="next" title="Mac升级后安装python2.7">
-      Mac升级后安装python2.7 <i class="fa fa-chevron-right"></i>
+<a href="/4a90989.html" rel="next" title="如何在Mac升级后安装Python 2.7：完整安装教程">
+      如何在Mac升级后安装Python 2.7：完整安装教程 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -368,7 +368,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

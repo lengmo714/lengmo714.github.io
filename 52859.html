@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, Lua, 打乱数组, 随机排序, 数组操作, math.random, 表排序, 随机数" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="打乱有序数组，生成随机数组,在很多场景中都会用到这个函数，非常好用" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Lua教程之Lua打乱数组排序" property="og:title"/>
+<meta content="Lua打乱数组排序方法：实现随机数组" property="og:title"/>
 <meta content="https://lengmo714.top/52859.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="打乱有序数组，生成随机数组,在很多场景中都会用到这个函数，非常好用" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2020-04-27T06:59:49.000Z" property="article:published_time"/>
-<meta content="2024-11-14T16:07:00.272Z" property="article:modified_time"/>
+<meta content="2024-11-14T17:17:44.229Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Lua" property="article:tag"/>
 <meta content="summary" name="twitter:card"/>
@@ -42,7 +42,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Lua教程之Lua打乱数组排序 | 南锋</title>
+<title>Lua打乱数组排序方法：实现随机数组 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -164,7 +164,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Lua教程之Lua打乱数组排序
+          Lua打乱数组排序方法：实现随机数组
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -179,7 +179,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-11-15T00:07:00+08:00" itemprop="dateModified" title="修改时间：2024-11-15 00:07:00">2024-11-15</time>
+<time datetime="2024-11-15T01:17:44+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:17:44">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -190,7 +190,7 @@
 <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Lua教程之Lua打乱数组排序" id="/52859.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Lua打乱数组排序方法：实现随机数组" id="/52859.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -262,7 +262,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/52859.html" title="Lua教程之Lua打乱数组排序">https://lengmo714.top/52859.html</a>
+<a href="https://lengmo714.top/52859.html" title="Lua打乱数组排序方法：实现随机数组">https://lengmo714.top/52859.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -275,12 +275,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/59502.html" rel="prev" title="Lua连续教程之Lua面向对象编程">
-<i class="fa fa-chevron-left"></i> Lua连续教程之Lua面向对象编程
+<a href="/59502.html" rel="prev" title="Lua面向对象编程详解：从原型继承到方法调用">
+<i class="fa fa-chevron-left"></i> Lua面向对象编程详解：从原型继承到方法调用
     </a></div>
 <div class="post-nav-item">
-<a href="/64510.html" rel="next" title="Lua中的环境(Environment)">
-      Lua中的环境(Environment) <i class="fa fa-chevron-right"></i>
+<a href="/64510.html" rel="next" title="深入理解Lua中的环境管理：_G表与全局变量模拟">
+      深入理解Lua中的环境管理：_G表与全局变量模拟 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -349,7 +349,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 反射" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 反射, 调试库, 自省机制, 动态代码, getinfo, debug库, 钩子函数" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="反射是程序用来检查和修改其自身某些部分的能力。像Lua语言这样的动态语言支持几种反射机制：环境允许运行时观察全局变量；" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Lua连续教程之Lua反射" property="og:title"/>
+<meta content="Lua反射操作指南：使用调试库实现动态数据分析" property="og:title"/>
 <meta content="https://lengmo714.top/52447.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="反射是程序用来检查和修改其自身某些部分的能力。像Lua语言这样的动态语言支持几种反射机制：环境允许运行时观察全局变量；" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2020-05-26T07:17:09.000Z" property="article:published_time"/>
-<meta content="2024-11-14T16:07:00.232Z" property="article:modified_time"/>
+<meta content="2024-11-14T17:13:52.999Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Lua" property="article:tag"/>
 <meta content="summary" name="twitter:card"/>
@@ -42,7 +42,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Lua连续教程之Lua反射 | 南锋</title>
+<title>Lua反射操作指南：使用调试库实现动态数据分析 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -164,7 +164,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Lua连续教程之Lua反射
+          Lua反射操作指南：使用调试库实现动态数据分析
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -179,7 +179,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-11-15T00:07:00+08:00" itemprop="dateModified" title="修改时间：2024-11-15 00:07:00">2024-11-15</time>
+<time datetime="2024-11-15T01:13:52+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:13:52">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -190,7 +190,7 @@
 <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Lua连续教程之Lua反射" id="/52447.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Lua反射操作指南：使用调试库实现动态数据分析" id="/52447.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -340,7 +340,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/52447.html" title="Lua连续教程之Lua反射">https://lengmo714.top/52447.html</a>
+<a href="https://lengmo714.top/52447.html" title="Lua反射操作指南：使用调试库实现动态数据分析">https://lengmo714.top/52447.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -353,12 +353,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/28748.html" rel="prev" title="Lua协程">
-<i class="fa fa-chevron-left"></i> Lua协程
+<a href="/28748.html" rel="prev" title="Lua协程详解：多线程模拟与非对称协程的实现">
+<i class="fa fa-chevron-left"></i> Lua协程详解：多线程模拟与非对称协程的实现
     </a></div>
 <div class="post-nav-item">
-<a href="/11143.html" rel="next" title="Lua使用协程实现多线程">
-      Lua使用协程实现多线程 <i class="fa fa-chevron-right"></i>
+<a href="/11143.html" rel="next" title="Lua协程实现多线程：异步编程与资源下载">
+      Lua协程实现多线程：异步编程与资源下载 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -428,7 +428,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

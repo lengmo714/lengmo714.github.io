@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="git pull, Cocos2dx, git, Lua" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="git pull, Cocos2dx, git, Lua, Git, 强制拉取, 远程仓库, 覆盖本地, git fetch, git reset, 版本控制, 代码同步" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="最近在工作中经常需要从git拉取到一些项目到本地，但是因为本地项目被我自己修改，所以无法用传统的方式将远程仓库的项目拉取下来。下面介绍一种远程仓库强制拉取项目到本地的方法。" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="git强制拉取远程项目覆盖本地项目" property="og:title"/>
+<meta content="Git强制同步远程仓库：覆盖本地修改的操作指南" property="og:title"/>
 <meta content="https://lengmo714.top/20023.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="最近在工作中经常需要从git拉取到一些项目到本地，但是因为本地项目被我自己修改，所以无法用传统的方式将远程仓库的项目拉取下来。下面介绍一种远程仓库强制拉取项目到本地的方法。" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2019-11-15T10:12:38.000Z" property="article:published_time"/>
-<meta content="2024-09-01T14:01:13.699Z" property="article:modified_time"/>
+<meta content="2024-11-14T16:57:53.815Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="git" property="article:tag"/>
 <meta content="summary" name="twitter:card"/>
@@ -42,7 +42,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>git强制拉取远程项目覆盖本地项目 | 南锋</title>
+<title>Git强制同步远程仓库：覆盖本地修改的操作指南 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -164,7 +164,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          git强制拉取远程项目覆盖本地项目
+          Git强制同步远程仓库：覆盖本地修改的操作指南
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -179,7 +179,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-09-01T22:01:13+08:00" itemprop="dateModified" title="修改时间：2024-09-01 22:01:13">2024-09-01</time>
+<time datetime="2024-11-15T00:57:53+08:00" itemprop="dateModified" title="修改时间：2024-11-15 00:57:53">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -190,7 +190,7 @@
 <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">开发工具的使用</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="git强制拉取远程项目覆盖本地项目" id="/20023.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Git强制同步远程仓库：覆盖本地修改的操作指南" id="/20023.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -273,7 +273,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/20023.html" title="git强制拉取远程项目覆盖本地项目">https://lengmo714.top/20023.html</a>
+<a href="https://lengmo714.top/20023.html" title="Git强制同步远程仓库：覆盖本地修改的操作指南">https://lengmo714.top/20023.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -286,12 +286,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/61950.html" rel="prev" title="python实现微信自动聊天">
-<i class="fa fa-chevron-left"></i> python实现微信自动聊天
+<a href="/61950.html" rel="prev" title="使用Python实现微信自动回复：接入图灵机器人教程">
+<i class="fa fa-chevron-left"></i> 使用Python实现微信自动回复：接入图灵机器人教程
     </a></div>
 <div class="post-nav-item">
-<a href="/29648.html" rel="next" title="Lua的深拷贝和浅拷贝">
-      Lua的深拷贝和浅拷贝 <i class="fa fa-chevron-right"></i>
+<a href="/29648.html" rel="next" title="Lua中深拷贝与浅拷贝的实现与区别详解">
+      Lua中深拷贝与浅拷贝的实现与区别详解 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -360,7 +360,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

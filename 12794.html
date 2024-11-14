@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 迭代器, for" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 迭代器, for, 泛型for, 循环结构, 数据遍历, 闭包, 集合迭代, 迭代函数" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="迭代器是一种可以让我们遍历一个集合中所有元素的代码结构。在Lua语言中，通常使用函数表示迭代器：每一次调用函数时，函数会返回集合中的”下一个“元素。一个典型的例子是io.read，每次调用该函数时它都会返回标准输入中的下一行，在没有读取的行时返回nil。" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Lua迭代器和泛型for" property="og:title"/>
+<meta content="Lua迭代器与泛型for循环详解：实现与应用" property="og:title"/>
 <meta content="https://lengmo714.top/12794.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="迭代器是一种可以让我们遍历一个集合中所有元素的代码结构。在Lua语言中，通常使用函数表示迭代器：每一次调用函数时，函数会返回集合中的”下一个“元素。一个典型的例子是io.read，每次调用该函数时它都会返回标准输入中的下一行，在没有读取的行时返回nil。" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2020-04-22T14:00:46.000Z" property="article:published_time"/>
-<meta content="2024-11-14T16:07:00.231Z" property="article:modified_time"/>
+<meta content="2024-11-14T17:22:45.297Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Lua" property="article:tag"/>
 <meta content="summary" name="twitter:card"/>
@@ -42,7 +42,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Lua迭代器和泛型for | 南锋</title>
+<title>Lua迭代器与泛型for循环详解：实现与应用 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -164,7 +164,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Lua迭代器和泛型for
+          Lua迭代器与泛型for循环详解：实现与应用
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -179,9 +179,9 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-11-15T00:07:00+08:00" itemprop="dateModified" title="修改时间：2024-11-15 00:07:00">2024-11-15</time>
+<time datetime="2024-11-15T01:22:45+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:22:45">2024-11-15</time>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Lua迭代器和泛型for" id="/12794.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Lua迭代器与泛型for循环详解：实现与应用" id="/12794.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -307,7 +307,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/12794.html" title="Lua迭代器和泛型for">https://lengmo714.top/12794.html</a>
+<a href="https://lengmo714.top/12794.html" title="Lua迭代器与泛型for循环详解：实现与应用">https://lengmo714.top/12794.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -320,12 +320,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/15834.html" rel="prev" title="Lua中模块和包">
-<i class="fa fa-chevron-left"></i> Lua中模块和包
+<a href="/15834.html" rel="prev" title="Lua模块与包详解：require函数的使用与命名空间管理">
+<i class="fa fa-chevron-left"></i> Lua模块与包详解：require函数的使用与命名空间管理
     </a></div>
 <div class="post-nav-item">
-<a href="/7941.html" rel="next" title="python画素描画">
-      python画素描画 <i class="fa fa-chevron-right"></i>
+<a href="/7941.html" rel="next" title="Python素描效果生成教程：将彩色图像转换为黑白素描">
+      Python素描效果生成教程：将彩色图像转换为黑白素描 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -395,7 +395,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

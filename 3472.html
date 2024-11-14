@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 垃圾收集" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 垃圾收集, 内存管理, 弱引用表, collectgarbage, 自动内存回收, 内存优化" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="Lua语言使用自动内存管理。程序可以创建对象，但却没有函数来删除对象。Lua语言通过垃圾收集自动删除称为垃圾的对象，从而将程序员从内存管理的绝大部分负担中解放出来。" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Lua连续教程之Lua垃圾收集" property="og:title"/>
+<meta content="Lua垃圾收集机制详解：内存管理与弱引用表" property="og:title"/>
 <meta content="https://lengmo714.top/3472.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="Lua语言使用自动内存管理。程序可以创建对象，但却没有函数来删除对象。Lua语言通过垃圾收集自动删除称为垃圾的对象，从而将程序员从内存管理的绝大部分负担中解放出来。" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2020-05-15T15:17:59.000Z" property="article:published_time"/>
-<meta content="2024-11-14T16:07:00.242Z" property="article:modified_time"/>
+<meta content="2024-11-14T17:15:45.233Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Lua" property="article:tag"/>
 <meta content="summary" name="twitter:card"/>
@@ -42,7 +42,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Lua连续教程之Lua垃圾收集 | 南锋</title>
+<title>Lua垃圾收集机制详解：内存管理与弱引用表 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -164,7 +164,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Lua连续教程之Lua垃圾收集
+          Lua垃圾收集机制详解：内存管理与弱引用表
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -179,7 +179,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-11-15T00:07:00+08:00" itemprop="dateModified" title="修改时间：2024-11-15 00:07:00">2024-11-15</time>
+<time datetime="2024-11-15T01:15:45+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:15:45">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -190,7 +190,7 @@
 <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Lua连续教程之Lua垃圾收集" id="/3472.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Lua垃圾收集机制详解：内存管理与弱引用表" id="/3472.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -312,7 +312,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/3472.html" title="Lua连续教程之Lua垃圾收集">https://lengmo714.top/3472.html</a>
+<a href="https://lengmo714.top/3472.html" title="Lua垃圾收集机制详解：内存管理与弱引用表">https://lengmo714.top/3472.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -325,12 +325,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/64510.html" rel="prev" title="Lua中的环境(Environment)">
-<i class="fa fa-chevron-left"></i> Lua中的环境(Environment)
+<a href="/64510.html" rel="prev" title="深入理解Lua中的环境管理：_G表与全局变量模拟">
+<i class="fa fa-chevron-left"></i> 深入理解Lua中的环境管理：_G表与全局变量模拟
     </a></div>
 <div class="post-nav-item">
-<a href="/28748.html" rel="next" title="Lua协程">
-      Lua协程 <i class="fa fa-chevron-right"></i>
+<a href="/28748.html" rel="next" title="Lua协程详解：多线程模拟与非对称协程的实现">
+      Lua协程详解：多线程模拟与非对称协程的实现 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -400,7 +400,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

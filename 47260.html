@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 模式匹配" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 模式匹配, 字符串查找, find, match, gsub, 正则表达式替代, 字符串处理" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="与其他几种脚本语言不通，Lua语言既没有使用POSIX正则表达式，也没有使用Perl正则表达式来进行模式匹配。之所以这样做的主要原因在于大小问题：一个典型的POSIX正则表达式实现需要超过4000行代码，这比所有Lua语言标准库总大小的一半还大。相比之下，Lua语言模式匹配的实现代码只有不到600行。尽管Lua语言的欧式匹配做不到完整POSIX实现的所有功能，但是Lua语言的模式匹配仍然非常强大，" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Lua模式匹配" property="og:title"/>
+<meta content="Lua模式匹配详解：find、match和gsub的使用技巧" property="og:title"/>
 <meta content="https://lengmo714.top/47260.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="与其他几种脚本语言不通，Lua语言既没有使用POSIX正则表达式，也没有使用Perl正则表达式来进行模式匹配。之所以这样做的主要原因在于大小问题：一个典型的POSIX正则表达式实现需要超过4000行代码，这比所有Lua语言标准库总大小的一半还大。相比之下，Lua语言模式匹配的实现代码只有不到600行。尽管Lua语言的欧式匹配做不到完整POSIX实现的所有功能，但是Lua语言的模式匹配仍然非常强大，" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2020-04-15T06:15:06.000Z" property="article:published_time"/>
-<meta content="2024-11-14T16:07:00.202Z" property="article:modified_time"/>
+<meta content="2024-11-14T17:11:06.187Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Lua" property="article:tag"/>
 <meta content="summary" name="twitter:card"/>
@@ -42,7 +42,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Lua模式匹配 | 南锋</title>
+<title>Lua模式匹配详解：find、match和gsub的使用技巧 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -164,7 +164,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Lua模式匹配
+          Lua模式匹配详解：find、match和gsub的使用技巧
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -179,7 +179,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-11-15T00:07:00+08:00" itemprop="dateModified" title="修改时间：2024-11-15 00:07:00">2024-11-15</time>
+<time datetime="2024-11-15T01:11:06+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:11:06">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -190,7 +190,7 @@
 <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Lua模式匹配" id="/47260.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Lua模式匹配详解：find、match和gsub的使用技巧" id="/47260.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -362,7 +362,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/47260.html" title="Lua模式匹配">https://lengmo714.top/47260.html</a>
+<a href="https://lengmo714.top/47260.html" title="Lua模式匹配详解：find、match和gsub的使用技巧">https://lengmo714.top/47260.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -375,12 +375,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/57636.html" rel="prev" title="Lua闭包详解">
-<i class="fa fa-chevron-left"></i> Lua闭包详解
+<a href="/57636.html" rel="prev" title="深入理解Lua闭包：作用域与高阶函数的实现">
+<i class="fa fa-chevron-left"></i> 深入理解Lua闭包：作用域与高阶函数的实现
     </a></div>
 <div class="post-nav-item">
-<a href="/11458.html" rel="next" title="Lua日期和时间">
-      Lua日期和时间 <i class="fa fa-chevron-right"></i>
+<a href="/11458.html" rel="next" title="Lua日期与时间操作详解：os.time与os.date的用法">
+      Lua日期与时间操作详解：os.time与os.date的用法 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -450,7 +450,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

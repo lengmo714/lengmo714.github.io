@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 数据文件, 序列化" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 数据文件, 序列化, Lua, 数据文件, 序列化, 反序列化, 数据存储, 文件读取, 数据格式, 沙盒安全, 动态数据" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="在处理数据文件时，写数据通常比读数据简单很多。当向一个文件中写时，我们拥有绝对的控制权；但是，当从一个文件中读时，我们并不知道会读什么东西。一个健壮的程序除了能够处理一个合法文件中所包含的所有类型的数据外，还应该能够优雅地处理错误的文件。因此，编写一个健壮的处理输入的程序总是比较困难的。" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Lua数据文件和序列化" property="og:title"/>
+<meta content="Lua数据文件操作与序列化指南：从读取到安全存储" property="og:title"/>
 <meta content="https://lengmo714.top/7981.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="在处理数据文件时，写数据通常比读数据简单很多。当向一个文件中写时，我们拥有绝对的控制权；但是，当从一个文件中读时，我们并不知道会读什么东西。一个健壮的程序除了能够处理一个合法文件中所包含的所有类型的数据外，还应该能够优雅地处理错误的文件。因此，编写一个健壮的处理输入的程序总是比较困难的。" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2020-04-18T15:56:16.000Z" property="article:published_time"/>
-<meta content="2024-11-14T16:07:00.220Z" property="article:modified_time"/>
+<meta content="2024-11-14T17:07:42.550Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Lua" property="article:tag"/>
 <meta content="summary" name="twitter:card"/>
@@ -42,7 +42,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Lua数据文件和序列化 | 南锋</title>
+<title>Lua数据文件操作与序列化指南：从读取到安全存储 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -164,7 +164,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Lua数据文件和序列化
+          Lua数据文件操作与序列化指南：从读取到安全存储
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -179,7 +179,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-11-15T00:07:00+08:00" itemprop="dateModified" title="修改时间：2024-11-15 00:07:00">2024-11-15</time>
+<time datetime="2024-11-15T01:07:42+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:07:42">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -190,7 +190,7 @@
 <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Lua数据文件和序列化" id="/7981.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Lua数据文件操作与序列化指南：从读取到安全存储" id="/7981.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -325,7 +325,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/7981.html" title="Lua数据文件和序列化">https://lengmo714.top/7981.html</a>
+<a href="https://lengmo714.top/7981.html" title="Lua数据文件操作与序列化指南：从读取到安全存储">https://lengmo714.top/7981.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -338,12 +338,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/42473.html" rel="prev" title="Lua数据结构">
-<i class="fa fa-chevron-left"></i> Lua数据结构
+<a href="/42473.html" rel="prev" title="Lua数据结构详解：表、数组与矩阵实现">
+<i class="fa fa-chevron-left"></i> Lua数据结构详解：表、数组与矩阵实现
     </a></div>
 <div class="post-nav-item">
-<a href="/43611.html" rel="next" title="用树莓派搭建虚拟专用网络服务器">
-      用树莓派搭建虚拟专用网络服务器 <i class="fa fa-chevron-right"></i>
+<a href="/43611.html" rel="next" title="树莓派VPN服务器搭建教程：内网IP与端口转发配置">
+      树莓派VPN服务器搭建教程：内网IP与端口转发配置 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -413,7 +413,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

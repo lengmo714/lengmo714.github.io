@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Cocos2dx, Sprite, ImageView, plist, 图集, Lua" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Cocos2dx, Sprite, ImageView, plist, 图集, Lua, Cocos2dx, Lua, Sprite, ImageView, 图像显示, 图片更换, 图集使用, UI组件, 九宫格精灵, Cocos Studio" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,7 +22,7 @@
   </script>
 <meta content="在Cocos2dx中Sprite和ImageView的使用以及它们的区别及动态更换图片，在使用的时候一定要注意节点属性，是精灵Sprite还是图片ImageView" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Cocos2dx中Sprite和ImageView的使用" property="og:title"/>
+<meta content="Cocos2d-x Lua：Sprite与ImageView的使用与区别解析" property="og:title"/>
 <meta content="https://lengmo714.top/e883772a.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="在Cocos2dx中Sprite和ImageView的使用以及它们的区别及动态更换图片，在使用的时候一定要注意节点属性，是精灵Sprite还是图片ImageView" property="og:description"/>
@@ -30,7 +30,7 @@
 <meta content="https://s1.ax1x.com/2022/11/21/zQ6Gb6.png" property="og:image"/>
 <meta content="https://s1.ax1x.com/2022/11/21/zQ6YVK.png" property="og:image"/>
 <meta content="2022-11-21T13:30:37.000Z" property="article:published_time"/>
-<meta content="2024-11-03T05:04:10.441Z" property="article:modified_time"/>
+<meta content="2024-11-14T17:52:44.174Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Lua" property="article:tag"/>
 <meta content="Cocos2dx" property="article:tag"/>
@@ -48,7 +48,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Cocos2dx中Sprite和ImageView的使用 | 南锋</title>
+<title>Cocos2d-x Lua：Sprite与ImageView的使用与区别解析 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -170,7 +170,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Cocos2dx中Sprite和ImageView的使用
+          Cocos2d-x Lua：Sprite与ImageView的使用与区别解析
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -185,7 +185,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-11-03T13:04:10+08:00" itemprop="dateModified" title="修改时间：2024-11-03 13:04:10">2024-11-03</time>
+<time datetime="2024-11-15T01:52:44+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:52:44">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -196,7 +196,7 @@
 <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Cocos2dx中Sprite和ImageView的使用" id="/e883772a.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Cocos2d-x Lua：Sprite与ImageView的使用与区别解析" id="/e883772a.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -285,7 +285,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/e883772a.html" title="Cocos2dx中Sprite和ImageView的使用">https://lengmo714.top/e883772a.html</a>
+<a href="https://lengmo714.top/e883772a.html" title="Cocos2d-x Lua：Sprite与ImageView的使用与区别解析">https://lengmo714.top/e883772a.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -301,12 +301,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/391391b6.html" rel="prev" title="Mac下安装NDK(android开发)">
-<i class="fa fa-chevron-left"></i> Mac下安装NDK(android开发)
+<a href="/391391b6.html" rel="prev" title="在Mac上安装Android NDK：详细步骤与配置指南">
+<i class="fa fa-chevron-left"></i> 在Mac上安装Android NDK：详细步骤与配置指南
     </a></div>
 <div class="post-nav-item">
-<a href="/6f89e884.html" rel="next" title="国外AppleID注册">
-      国外AppleID注册 <i class="fa fa-chevron-right"></i>
+<a href="/6f89e884.html" rel="next" title="如何注册美区Apple ID：详细步骤与注意事项">
+      如何注册美区Apple ID：详细步骤与注意事项 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -376,7 +376,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

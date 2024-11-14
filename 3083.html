@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, Lua局部变量" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, Lua局部变量, Lua局部变量, Lua代码块, 变量作用域, Lua编程, 垃圾收集, 代码优化, 全局变量与局部变量对比" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="Lua语言中的变量在默认情况下是全局变量，所有的局部变量在使用前必须声明。与全局变量不同，局部变量的生效范围仅限于声明它的代码块。一个代码块是一个控制结构的主体，或是一个函数的主体，或是一个代码段：" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Lua局部变量和代码块" property="og:title"/>
+<meta content="Lua局部变量和作用域详解：代码块中的变量管理" property="og:title"/>
 <meta content="https://lengmo714.top/3083.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="Lua语言中的变量在默认情况下是全局变量，所有的局部变量在使用前必须声明。与全局变量不同，局部变量的生效范围仅限于声明它的代码块。一个代码块是一个控制结构的主体，或是一个函数的主体，或是一个代码段：" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2020-04-13T05:15:27.000Z" property="article:published_time"/>
-<meta content="2024-11-14T16:07:00.246Z" property="article:modified_time"/>
+<meta content="2024-11-14T16:53:23.452Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Lua" property="article:tag"/>
 <meta content="summary" name="twitter:card"/>
@@ -42,7 +42,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Lua局部变量和代码块 | 南锋</title>
+<title>Lua局部变量和作用域详解：代码块中的变量管理 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -164,7 +164,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Lua局部变量和代码块
+          Lua局部变量和作用域详解：代码块中的变量管理
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -179,7 +179,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-11-15T00:07:00+08:00" itemprop="dateModified" title="修改时间：2024-11-15 00:07:00">2024-11-15</time>
+<time datetime="2024-11-15T00:53:23+08:00" itemprop="dateModified" title="修改时间：2024-11-15 00:53:23">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -190,7 +190,7 @@
 <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Lua局部变量和代码块" id="/3083.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Lua局部变量和作用域详解：代码块中的变量管理" id="/3083.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -268,7 +268,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/3083.html" title="Lua局部变量和代码块">https://lengmo714.top/3083.html</a>
+<a href="https://lengmo714.top/3083.html" title="Lua局部变量和作用域详解：代码块中的变量管理">https://lengmo714.top/3083.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -281,12 +281,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/55910.html" rel="prev" title="Lua输入输出">
-<i class="fa fa-chevron-left"></i> Lua输入输出
+<a href="/55910.html" rel="prev" title="Lua输入输出详解：I/O模型与文件操作">
+<i class="fa fa-chevron-left"></i> Lua输入输出详解：I/O模型与文件操作
     </a></div>
 <div class="post-nav-item">
-<a href="/16666.html" rel="next" title="Lua的控制结构">
-      Lua的控制结构 <i class="fa fa-chevron-right"></i>
+<a href="/16666.html" rel="next" title="Lua编程中的控制结构：if、while、for循环的使用方法">
+      Lua编程中的控制结构：if、while、for循环的使用方法 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -355,7 +355,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

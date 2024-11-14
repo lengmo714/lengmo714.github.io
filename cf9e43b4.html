@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, Cocos2dx, tolua" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, Cocos2dx, tolua, Cocos2dx, Lua, tolua, tolua.cast, tolua.type, tolua.isnull, 强制类型转换, 类型检查, C++对象" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -20,15 +20,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-<meta content="Cocos2dx-lua tolua" name="description"/>
+<meta content="Cocos2dx Lua教程：tolua.cast、tolua.type与tolua.isnull详解" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Cocos2dx-lua tolua" property="og:title"/>
+<meta content="Cocos2dx Lua教程：tolua.cast、tolua.type与tolua.isnull详解" property="og:title"/>
 <meta content="https://lengmo714.top/cf9e43b4.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
-<meta content="Cocos2dx-lua tolua" property="og:description"/>
+<meta content="Cocos2dx Lua教程：tolua.cast、tolua.type与tolua.isnull详解" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2023-01-15T02:08:48.000Z" property="article:published_time"/>
-<meta content="2024-09-01T14:01:13.699Z" property="article:modified_time"/>
+<meta content="2024-11-14T17:47:45.192Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Lua" property="article:tag"/>
 <meta content="Cocos2dx" property="article:tag"/>
@@ -44,7 +44,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Cocos2dx-lua tolua | 南锋</title>
+<title>Cocos2dx Lua教程：tolua.cast、tolua.type与tolua.isnull详解 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -166,7 +166,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Cocos2dx-lua tolua
+          Cocos2dx Lua教程：tolua.cast、tolua.type与tolua.isnull详解
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -181,7 +181,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-09-01T22:01:13+08:00" itemprop="dateModified" title="修改时间：2024-09-01 22:01:13">2024-09-01</time>
+<time datetime="2024-11-15T01:47:45+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:47:45">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -192,7 +192,7 @@
 <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Cocos2dx-lua tolua" id="/cf9e43b4.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Cocos2dx Lua教程：tolua.cast、tolua.type与tolua.isnull详解" id="/cf9e43b4.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -230,7 +230,7 @@
 <span class="post-meta-item-text">阅读时长 ≈</span>
 <span>1 分钟</span>
 </span>
-<div class="post-description">Cocos2dx-lua tolua</div>
+<div class="post-description">Cocos2dx Lua教程：tolua.cast、tolua.type与tolua.isnull详解</div>
 </div>
 </header>
 <div class="post-body" itemprop="articleBody">
@@ -271,7 +271,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/cf9e43b4.html" title="Cocos2dx-lua tolua">https://lengmo714.top/cf9e43b4.html</a>
+<a href="https://lengmo714.top/cf9e43b4.html" title="Cocos2dx Lua教程：tolua.cast、tolua.type与tolua.isnull详解">https://lengmo714.top/cf9e43b4.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -286,8 +286,8 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/cca71b02.html" rel="prev" title="用python写一个漂亮的烟花">
-<i class="fa fa-chevron-left"></i> 用python写一个漂亮的烟花
+<a href="/cca71b02.html" rel="prev" title="用Python绘制炫酷烟花效果：Pygame实现烟花动画">
+<i class="fa fa-chevron-left"></i> 用Python绘制炫酷烟花效果：Pygame实现烟花动画
     </a></div>
 <div class="post-nav-item">
 <a href="/92589552.html" rel="next" title="用python画一只兔子">
@@ -361,7 +361,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

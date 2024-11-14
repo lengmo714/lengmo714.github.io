@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 数据结构" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 数据结构, Lua, 数据结构, 表, 数组, 矩阵, 多维数组, 稀疏矩阵, 队列, 集合" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="Lua语言中的表并不是一种数据结构，它们是其他数据结构的基础。我们可以用Lua语言中的表来实现其他语言提供的数据结构，如数组、记录、列表、队列、集合等。而且，用Lua语言中的表实现这些数据结构还很高效。" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Lua数据结构" property="og:title"/>
+<meta content="Lua数据结构详解：表、数组与矩阵实现" property="og:title"/>
 <meta content="https://lengmo714.top/42473.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="Lua语言中的表并不是一种数据结构，它们是其他数据结构的基础。我们可以用Lua语言中的表来实现其他语言提供的数据结构，如数组、记录、列表、队列、集合等。而且，用Lua语言中的表实现这些数据结构还很高效。" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2020-04-18T10:44:36.000Z" property="article:published_time"/>
-<meta content="2024-11-14T16:07:00.227Z" property="article:modified_time"/>
+<meta content="2024-11-14T17:08:29.637Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Lua" property="article:tag"/>
 <meta content="summary" name="twitter:card"/>
@@ -42,7 +42,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Lua数据结构 | 南锋</title>
+<title>Lua数据结构详解：表、数组与矩阵实现 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -164,7 +164,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Lua数据结构
+          Lua数据结构详解：表、数组与矩阵实现
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -179,7 +179,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-11-15T00:07:00+08:00" itemprop="dateModified" title="修改时间：2024-11-15 00:07:00">2024-11-15</time>
+<time datetime="2024-11-15T01:08:29+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:08:29">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -190,7 +190,7 @@
 <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Lua数据结构" id="/42473.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Lua数据结构详解：表、数组与矩阵实现" id="/42473.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -340,7 +340,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/42473.html" title="Lua数据结构">https://lengmo714.top/42473.html</a>
+<a href="https://lengmo714.top/42473.html" title="Lua数据结构详解：表、数组与矩阵实现">https://lengmo714.top/42473.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -353,12 +353,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/43504.html" rel="prev" title="Lua连续教程之Lua位和字节">
-<i class="fa fa-chevron-left"></i> Lua连续教程之Lua位和字节
+<a href="/43504.html" rel="prev" title="深入解析Lua的位操作与字节处理：二进制数据的打包与解包">
+<i class="fa fa-chevron-left"></i> 深入解析Lua的位操作与字节处理：二进制数据的打包与解包
     </a></div>
 <div class="post-nav-item">
-<a href="/7981.html" rel="next" title="Lua数据文件和序列化">
-      Lua数据文件和序列化 <i class="fa fa-chevron-right"></i>
+<a href="/7981.html" rel="next" title="Lua数据文件操作与序列化指南：从读取到安全存储">
+      Lua数据文件操作与序列化指南：从读取到安全存储 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -428,7 +428,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

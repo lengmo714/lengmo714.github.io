@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="游戏开发, Cocos2dx, 节点, 层级, Lua" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="游戏开发, Cocos2dx, 节点, 层级, Lua, Cocos2dx, Lua, 节点层级, setLocalZOrder, 渲染顺序, 层级控制, 游戏开发, UI元素" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="Cocos2dx-lua如何设置节点层级,括号中的数字越大，表示层级越高。高层级的节点会覆盖在低层级节点上" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Cocos2dx-lua设置节点层级" property="og:title"/>
+<meta content="Cocos2dx Lua节点层级管理：使用setLocalZOrder控制层级显示" property="og:title"/>
 <meta content="https://lengmo714.top/39213.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="Cocos2dx-lua如何设置节点层级,括号中的数字越大，表示层级越高。高层级的节点会覆盖在低层级节点上" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2021-08-31T03:03:30.000Z" property="article:published_time"/>
-<meta content="2024-09-01T14:01:13.683Z" property="article:modified_time"/>
+<meta content="2024-11-14T17:38:05.016Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Lua" property="article:tag"/>
 <meta content="Cocos2dx" property="article:tag"/>
@@ -43,7 +43,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Cocos2dx-lua设置节点层级 | 南锋</title>
+<title>Cocos2dx Lua节点层级管理：使用setLocalZOrder控制层级显示 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -165,7 +165,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Cocos2dx-lua设置节点层级
+          Cocos2dx Lua节点层级管理：使用setLocalZOrder控制层级显示
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -180,7 +180,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-09-01T22:01:13+08:00" itemprop="dateModified" title="修改时间：2024-09-01 22:01:13">2024-09-01</time>
+<time datetime="2024-11-15T01:38:05+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:38:05">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -191,7 +191,7 @@
 <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Cocos2dx-lua设置节点层级" id="/39213.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Cocos2dx Lua节点层级管理：使用setLocalZOrder控制层级显示" id="/39213.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -265,7 +265,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/39213.html" title="Cocos2dx-lua设置节点层级">https://lengmo714.top/39213.html</a>
+<a href="https://lengmo714.top/39213.html" title="Cocos2dx Lua节点层级管理：使用setLocalZOrder控制层级显示">https://lengmo714.top/39213.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -279,12 +279,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/12275.html" rel="prev" title="Cocos2dx-Lua中Label文本超过特定长度使用...代替">
-<i class="fa fa-chevron-left"></i> Cocos2dx-Lua中Label文本超过特定长度使用...代替
+<a href="/12275.html" rel="prev" title="Cocos2dx Lua：处理Label文本溢出，使用...代替超长文本">
+<i class="fa fa-chevron-left"></i> Cocos2dx Lua：处理Label文本溢出，使用...代替超长文本
     </a></div>
 <div class="post-nav-item">
-<a href="/38089.html" rel="next" title="cCocos2dx-lua使用schedule定时器">
-      cCocos2dx-lua使用schedule定时器 <i class="fa fa-chevron-right"></i>
+<a href="/38089.html" rel="next" title="Cocos2dx Lua中的schedule定时器：创建、调用与取消操作详解">
+      Cocos2dx Lua中的schedule定时器：创建、调用与取消操作详解 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -353,7 +353,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>

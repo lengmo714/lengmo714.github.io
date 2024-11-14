@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="游戏开发, Cocos2dx, 进度条, CD, Lua" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="游戏开发, Cocos2dx, 进度条, CD, Lua, Cocos2dx, Lua, ProgressTimer, 扇形进度条, 技能CD, 逆时针进度条, 游戏开发, UI设计" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="开发环境：Cocos2dx 3.17开发语言：lua我们在开发游戏的时候经常会用到扇形进度条。比如：技能CD" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Cocos2dx-lua_ProgressTimer创建扇形进度条" property="og:title"/>
+<meta content="Cocos2d-x Lua实现扇形进度条：使用ProgressTimer创建技能CD" property="og:title"/>
 <meta content="https://lengmo714.top/18736.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="开发环境：Cocos2dx 3.17开发语言：lua我们在开发游戏的时候经常会用到扇形进度条。比如：技能CD" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2021-11-11T08:43:52.000Z" property="article:published_time"/>
-<meta content="2024-09-01T14:01:13.700Z" property="article:modified_time"/>
+<meta content="2024-11-14T17:36:51.841Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Lua" property="article:tag"/>
 <meta content="Cocos2dx" property="article:tag"/>
@@ -43,7 +43,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Cocos2dx-lua_ProgressTimer创建扇形进度条 | 南锋</title>
+<title>Cocos2d-x Lua实现扇形进度条：使用ProgressTimer创建技能CD | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -165,7 +165,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Cocos2dx-lua_ProgressTimer创建扇形进度条
+          Cocos2d-x Lua实现扇形进度条：使用ProgressTimer创建技能CD
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -180,7 +180,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-09-01T22:01:13+08:00" itemprop="dateModified" title="修改时间：2024-09-01 22:01:13">2024-09-01</time>
+<time datetime="2024-11-15T01:36:51+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:36:51">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -191,7 +191,7 @@
 <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Cocos2dx-lua_ProgressTimer创建扇形进度条" id="/18736.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Cocos2d-x Lua实现扇形进度条：使用ProgressTimer创建技能CD" id="/18736.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -265,7 +265,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/18736.html" title="Cocos2dx-lua_ProgressTimer创建扇形进度条">https://lengmo714.top/18736.html</a>
+<a href="https://lengmo714.top/18736.html" title="Cocos2d-x Lua实现扇形进度条：使用ProgressTimer创建技能CD">https://lengmo714.top/18736.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -279,12 +279,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/38089.html" rel="prev" title="cCocos2dx-lua使用schedule定时器">
-<i class="fa fa-chevron-left"></i> cCocos2dx-lua使用schedule定时器
+<a href="/38089.html" rel="prev" title="Cocos2dx Lua中的schedule定时器：创建、调用与取消操作详解">
+<i class="fa fa-chevron-left"></i> Cocos2dx Lua中的schedule定时器：创建、调用与取消操作详解
     </a></div>
 <div class="post-nav-item">
-<a href="/8861.html" rel="next" title="摸鱼神器之下班倒计时计时器">
-      摸鱼神器之下班倒计时计时器 <i class="fa fa-chevron-right"></i>
+<a href="/8861.html" rel="next" title="Python下班倒计时计时器：自动提醒与关机功能">
+      Python下班倒计时计时器：自动提醒与关机功能 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
@@ -353,7 +353,7 @@
 </div>
 <div class="site-state-item site-state-tags">
 <a href="/tags/">
-<span class="site-state-item-count">61</span>
+<span class="site-state-item-count">69</span>
 <span class="site-state-item-name">标签</span></a>
 </div>
 </nav>
