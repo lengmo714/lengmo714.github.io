@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="python, 工具脚本, 批量修改图片名, 图片处理, 修改图片名, Python脚本, 图片处理工具, 文件操作" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="python, 工具脚本, 批量修改图片名, 图片处理, 修改图片名, Python脚本, 图片处理工具, 文件操作, Python批量重命名, 图片批量重命名工具, 添加文件名前缀, 图片处理脚本, 批量修改图片名, 文件名格式化, 自动化脚本" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="介绍一个用于批量修改图片名的Python脚本工具，可在原始图片名前添加指定前缀，提供了简单的用户交互界面。" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="批量修改图片名" property="og:title"/>
+<meta content="Python实现批量修改图片名：添加前缀与完整代码示例" property="og:title"/>
 <meta content="https://lengmo714.top/a80afa50.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="介绍一个用于批量修改图片名的Python脚本工具，可在原始图片名前添加指定前缀，提供了简单的用户交互界面。" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2023-11-07T15:06:19.000Z" property="article:published_time"/>
-<meta content="2024-07-17T15:08:28.224Z" property="article:modified_time"/>
+<meta content="2024-11-15T09:46:02.394Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="ios" property="article:tag"/>
 <meta content="android" property="article:tag"/>
@@ -57,7 +57,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>批量修改图片名 | 南锋</title>
+<title>Python实现批量修改图片名：添加前缀与完整代码示例 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -179,7 +179,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          批量修改图片名
+          Python实现批量修改图片名：添加前缀与完整代码示例
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -194,7 +194,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-07-17T23:08:28+08:00" itemprop="dateModified" title="修改时间：2024-07-17 23:08:28">2024-07-17</time>
+<time datetime="2024-11-15T17:46:02+08:00" itemprop="dateModified" title="修改时间：2024-11-15 17:46:02">2024-11-15</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -205,7 +205,7 @@
 <a href="/categories/%E5%B7%A5%E5%85%B7%E8%84%9A%E6%9C%AC/" itemprop="url" rel="index"><span itemprop="name">工具脚本</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="批量修改图片名" id="/a80afa50.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Python实现批量修改图片名：添加前缀与完整代码示例" id="/a80afa50.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -282,7 +282,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/a80afa50.html" title="批量修改图片名">https://lengmo714.top/a80afa50.html</a>
+<a href="https://lengmo714.top/a80afa50.html" title="Python实现批量修改图片名：添加前缀与完整代码示例">https://lengmo714.top/a80afa50.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -292,8 +292,8 @@
 <footer class="post-footer">
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/bb4fae33.html" rel="prev" title="Cocos Creator Shader 扑克牌的透视效果">
-<i class="fa fa-chevron-left"></i> Cocos Creator Shader 扑克牌的透视效果
+<a href="/bb4fae33.html" rel="prev" title="Cocos Creator教程：使用Shader实现扑克牌透视效果">
+<i class="fa fa-chevron-left"></i> Cocos Creator教程：使用Shader实现扑克牌透视效果
     </a></div>
 <div class="post-nav-item">
 <a href="/fbea9931.html" rel="next" title="IE浏览器停用，靠IE才能打开的网页怎么办">
