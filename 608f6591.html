@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Cocos Creator, assetManager, mask, 圆形遮罩, Cocos, 游戏开发, MaskCircle, TypeScript, clear(), fill(), circle(), progress, 圆形进度条, 二维码, qrCode" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Cocos Creator, assetManager, mask, 圆形遮罩, Cocos, 游戏开发, MaskCircle, TypeScript, clear(), fill(), circle(), progress, 圆形进度条, 二维码, qrCode, Cocos Creator, 动态生成二维码, QRCode生成, TypeScript教程, 二维码渲染, 游戏开发工具, 二维码实现, Cocos Creator开发" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,14 +22,14 @@
   </script>
 <meta content="Cocos Creator 版本：3.7.2开发语言：typeScript  我们在游戏开发中，经常会生成一个专属于玩家个人的二维码，比如说推广、充值等功能。" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="Cocos Creator动态生成二维码" property="og:title"/>
+<meta content="Cocos Creator动态生成二维码实现教程" property="og:title"/>
 <meta content="https://lengmo714.top/608f6591.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="Cocos Creator 版本：3.7.2开发语言：typeScript  我们在游戏开发中，经常会生成一个专属于玩家个人的二维码，比如说推广、充值等功能。" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="https://pic.imgdb.cn/item/66519b25d9c307b7e9a2642a.png" property="og:image"/>
 <meta content="2024-05-25T08:03:30.000Z" property="article:published_time"/>
-<meta content="2024-09-01T14:03:27.296Z" property="article:modified_time"/>
+<meta content="2024-11-15T16:31:24.798Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Cocos Creator" property="article:tag"/>
 <meta content="summary" name="twitter:card"/>
@@ -44,7 +44,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Cocos Creator动态生成二维码 | 南锋</title>
+<title>Cocos Creator动态生成二维码实现教程 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -166,7 +166,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          Cocos Creator动态生成二维码
+          Cocos Creator动态生成二维码实现教程
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -181,7 +181,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-09-01T22:03:27+08:00" itemprop="dateModified" title="修改时间：2024-09-01 22:03:27">2024-09-01</time>
+<time datetime="2024-11-16T00:31:24+08:00" itemprop="dateModified" title="修改时间：2024-11-16 00:31:24">2024-11-16</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -192,7 +192,7 @@
 <a href="/categories/Cocos-Creator/" itemprop="url" rel="index"><span itemprop="name">Cocos Creator</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Cocos Creator动态生成二维码" id="/608f6591.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Cocos Creator动态生成二维码实现教程" id="/608f6591.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -276,7 +276,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/608f6591.html" title="Cocos Creator动态生成二维码">https://lengmo714.top/608f6591.html</a>
+<a href="https://lengmo714.top/608f6591.html" title="Cocos Creator动态生成二维码实现教程">https://lengmo714.top/608f6591.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -289,12 +289,12 @@
 </div>
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/e68dac10.html" rel="prev" title="Cocos Creator制作圆形进度条">
-<i class="fa fa-chevron-left"></i> Cocos Creator制作圆形进度条
+<a href="/e68dac10.html" rel="prev" title="Cocos Creator制作圆形进度条教程">
+<i class="fa fa-chevron-left"></i> Cocos Creator制作圆形进度条教程
     </a></div>
 <div class="post-nav-item">
-<a href="/343880cb.html" rel="next" title="chrome调试手机网页">
-      chrome调试手机网页 <i class="fa fa-chevron-right"></i>
+<a href="/343880cb.html" rel="next" title="Chrome调试手机网页的详细步骤与注意事项">
+      Chrome调试手机网页的详细步骤与注意事项 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>

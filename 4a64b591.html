@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="日常代码, Python应用, python工具" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="日常代码, Python应用, python工具, Python脚本, 文件夹遍历, 大图片查找, 图片大小, 自动化, 图片优化, 文件管理, Cocos Creator" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -22,13 +22,13 @@
   </script>
 <meta content="我们Cocos Creator导出web项目后，我们发现有些图片比较大，放在服务器上加载的时间比较长，想着可以把这些图片压缩后再放上去。但是导出的项目文件夹比较多，图片找起来比较麻烦，于是就有了下面的脚本工具。" name="description"/>
 <meta content="article" property="og:type"/>
-<meta content="遍历文件夹下所有的文件找出大于500KB的图片" property="og:title"/>
+<meta content="Python脚本：遍历文件夹查找大于500KB的图片并输出路径" property="og:title"/>
 <meta content="https://lengmo714.top/4a64b591.html" property="og:url"/>
 <meta content="南锋" property="og:site_name"/>
 <meta content="我们Cocos Creator导出web项目后，我们发现有些图片比较大，放在服务器上加载的时间比较长，想着可以把这些图片压缩后再放上去。但是导出的项目文件夹比较多，图片找起来比较麻烦，于是就有了下面的脚本工具。" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="2024-07-16T12:48:47.000Z" property="article:published_time"/>
-<meta content="2024-09-01T14:03:27.337Z" property="article:modified_time"/>
+<meta content="2024-11-15T16:55:54.575Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="ios" property="article:tag"/>
 <meta content="android" property="article:tag"/>
@@ -57,7 +57,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>遍历文件夹下所有的文件找出大于500KB的图片 | 南锋</title>
+<title>Python脚本：遍历文件夹查找大于500KB的图片并输出路径 | 南锋</title>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
 <script>
       if (CONFIG.hostname === location.hostname) {
@@ -179,7 +179,7 @@
 </span>
 <header class="post-header">
 <h1 class="post-title" itemprop="name headline">
-          遍历文件夹下所有的文件找出大于500KB的图片
+          Python脚本：遍历文件夹查找大于500KB的图片并输出路径
         </h1>
 <div class="post-meta">
 <span class="post-meta-item">
@@ -194,7 +194,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2024-09-01T22:03:27+08:00" itemprop="dateModified" title="修改时间：2024-09-01 22:03:27">2024-09-01</time>
+<time datetime="2024-11-16T00:55:54+08:00" itemprop="dateModified" title="修改时间：2024-11-16 00:55:54">2024-11-16</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -209,7 +209,7 @@
 <a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">Python应用</span></a>
 </span>
 </span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="遍历文件夹下所有的文件找出大于500KB的图片" id="/4a64b591.html" title="阅读次数">
+<span class="post-meta-item leancloud_visitors" data-flag-title="Python脚本：遍历文件夹查找大于500KB的图片并输出路径" id="/4a64b591.html" title="阅读次数">
 <span class="post-meta-item-icon">
 <i class="fa fa-eye"></i>
 </span>
@@ -283,7 +283,7 @@
   </li>
 <li class="post-copyright-link">
 <strong>本文链接：</strong>
-<a href="https://lengmo714.top/4a64b591.html" title="遍历文件夹下所有的文件找出大于500KB的图片">https://lengmo714.top/4a64b591.html</a>
+<a href="https://lengmo714.top/4a64b591.html" title="Python脚本：遍历文件夹查找大于500KB的图片并输出路径">https://lengmo714.top/4a64b591.html</a>
 </li>
 <li class="post-copyright-license">
 <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -293,12 +293,12 @@
 <footer class="post-footer">
 <div class="post-nav">
 <div class="post-nav-item">
-<a href="/8c2ab891.html" rel="prev" title="在html文件的指定位置加入指定文本">
-<i class="fa fa-chevron-left"></i> 在html文件的指定位置加入指定文本
+<a href="/8c2ab891.html" rel="prev" title="如何在HTML文件的指定位置插入文本 | 实用技巧">
+<i class="fa fa-chevron-left"></i> 如何在HTML文件的指定位置插入文本 | 实用技巧
     </a></div>
 <div class="post-nav-item">
-<a href="/688ebf18.html" rel="next" title="telegram Bot机器人打开webapp自动展开全屏">
-      telegram Bot机器人打开webapp自动展开全屏 <i class="fa fa-chevron-right"></i>
+<a href="/688ebf18.html" rel="next" title="Telegram Bot机器人打开WebApp时自动全屏设置教程 | 开发者指南">
+      Telegram Bot机器人打开WebApp时自动全屏设置教程 | 开发者指南 <i class="fa fa-chevron-right"></i>
 </a></div>
 </div>
 </footer>
