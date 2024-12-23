@@ -5653,9 +5653,9 @@ collisionBitmask：
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天将cocosCreator导出为安卓工程，打开后发现出现了雪花屏，如下图所示：<br><img data-src="/postImg/kong/1.jpg" alt="雪花图"></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天将cocosCreator导出为安卓工程，打开后发现出现了雪花屏，如下图所示：<br>![雪花图](postImg&#x2F;kong&#x2F;1.jpg &#x3D; 150*200)</p>
 <h3 id="踩坑历程"><a href="#踩坑历程" class="headerlink" title="踩坑历程"></a>踩坑历程</h3><p>在浏览器上运行没有问题，只有在安卓上有这种情况，还不是所有的界面都有，只有部分界面有，所以改的时候非常烦，改点东西就构建一次安卓包。关键是出现雪花屏的时候还没有报错。<br>也是试了很多方法，刚开始以为是资源加载或者是屏幕适配的问题，但是通过各种控制变量法，构建了n多个安卓包后发现并不是，和资源加载以及屏幕适配没有一毛钱关系。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>修改摄像机的<code>Clear Flags</code>即可。<br>如图：刚开始我的<code>Clear Flags</code>是<code>DEPTH_ONLY</code><br><img data-src="/postImg/kong/2.jpg" alt="Clear Flags"><br>前面敲代码的时候也没有注意过摄像机这个参数的设置，于是特意去官方文档看了下相关部分的说明。<br><img data-src="/postImg/kong/3.jpg" alt="说明"><br>于是，我们将<code>Clear Flags</code>的值改为<code>SOLID_COLOR</code>即可。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>修改摄像机的<code>Clear Flags</code>即可。<br>如图：刚开始我的<code>Clear Flags</code>是<code>DEPTH_ONLY</code><br><img data-src="/postImg/kong/2.jpg" alt="Clear Flags"><br>前面敲代码的时候也没有注意过摄像机这个参数的设置，于是特意去官方文档看了下相关部分的说明。<br><img data-src="/postImg/kong/3.jpg" alt="说明"><br>于是，我们将<code>Clear Flags</code>的值改为<code>SOLID_COLOR</code>即可,如下图。<br><img data-src="/postImg/kong/4.jpg" alt="说明"></p>
 ]]></content>
       <categories>
         <category>Cocos Creator</category>
