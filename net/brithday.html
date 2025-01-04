@@ -23,15 +23,27 @@
 
 <body>
     <div id="countdown"></div>
-
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+        crossorigin="anonymous"></script>
+    <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article"
+        data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
     <script>
         function updateCountdown() {
             const now = new Date();
-            const nextYear = now.getFullYear() + 1;
-            const targetDate = new Date(`August 5, ${nextYear} 00:00:00`);
+            const year = now.getFullYear();
+            const birthdayThisYear = new Date(`August 5, ${year} 00:00:00`);
+            let targetDate;
+
+            if (now < birthdayThisYear) {
+                targetDate = birthdayThisYear; // 如果今天日期小于今年生日，倒计时设置为今年的生日
+            } else {
+                targetDate = new Date(`August 5, ${year + 1} 00:00:00`); // 否则，设置为明年的生日
+            }
 
             const timeDiff = targetDate - now;
-
             const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
