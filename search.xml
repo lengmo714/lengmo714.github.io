@@ -10412,4 +10412,41 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
         <tag>facebook</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Fetching FCM registration token failed导致手机闪退</title>
+    <url>/a31729da.html</url>
+    <content><![CDATA[<p>今天在接完firebase FCM通知后，发现手机会出现闪退的情况，而且都是在刚启动应用的前一两分钟。查看日志，发现是因为FCM通知导致的。</p>
+<span id="more"></span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h3 id="表现"><a href="#表现" class="headerlink" title="表现"></a>表现</h3><p>日志报错如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Fetching FCM registartion token failed</span><br><span class="line">java.io.IOException: java.util.concurrent.ExecutionException: java.io.IOException: SERVICE_NOT_AVAILABLE.</span><br></pre></td></tr></table></figure>
+<p>错误日志如下图所示：<br><img data-src="postImg/FCM/1.jpg" width = "150" height = "200" alt="日志截图" /></p>
+<h3 id="报错原因及解决方法"><a href="#报错原因及解决方法" class="headerlink" title="报错原因及解决方法"></a>报错原因及解决方法</h3><h4 id="原因一、手机不支持谷歌服务"><a href="#原因一、手机不支持谷歌服务" class="headerlink" title="原因一、手机不支持谷歌服务"></a>原因一、手机不支持谷歌服务</h4><p>可以在获取FCMtoken前加入一个判断，判断是否支持谷歌服务，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">checkIsSupportGoogle</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">    <span class="type">GoogleApiAvailability</span> <span class="variable">googleApiAvailability</span> <span class="operator">=</span> GoogleApiAvailability.getInstance();</span><br><span class="line">    <span class="type">int</span> <span class="variable">resultCode</span> <span class="operator">=</span> googleApiAvailability.isGooglePlayServicesAvailable(context);</span><br><span class="line">    <span class="keyword">return</span> resultCode == ConnectionResult.SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后引入库</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 谷歌服务支持</span></span><br><span class="line">implementation <span class="string">&#x27;com.google.android.gms:play-services-base:18.5.0&#x27;</span></span><br></pre></td></tr></table></figure>
+<h4 id="原因二、手机没有开梯子"><a href="#原因二、手机没有开梯子" class="headerlink" title="原因二、手机没有开梯子"></a>原因二、手机没有开梯子</h4><p>我这里就是第二种情况，手机没有开梯子</p>
+<h3 id="闪退的原因"><a href="#闪退的原因" class="headerlink" title="闪退的原因"></a>闪退的原因</h3><p>闪退的原因就出现在下面代码部分</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">initFCM</span><span class="params">()</span> &#123;</span><br><span class="line">        Log.d(TAG, <span class="string">&quot;Initializing Firebase Cloud Messaging...&quot;</span>);</span><br><span class="line">        <span class="comment">// 获取 FCM 令牌</span></span><br><span class="line">        FirebaseMessaging.getInstance().getToken()</span><br><span class="line">                .addOnCompleteListener(task -&gt; &#123;</span><br><span class="line">                    <span class="keyword">if</span> (!task.isSuccessful()) &#123;</span><br><span class="line">                        Log.w(TAG, <span class="string">&quot;Fetching FCM registration token failed&quot;</span>, task.getException());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 获取令牌</span></span><br><span class="line">                    <span class="type">String</span> <span class="variable">token</span> <span class="operator">=</span> task.getResult();</span><br><span class="line">                    Log.d(TAG, <span class="string">&quot;FCM Token: &quot;</span> + token);</span><br><span class="line">                    myFCMtoken = token;</span><br><span class="line">                &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>猜测是因为使用了未初始化<code>myFCMtoken</code>导致的。因为改了这里之后就没有闪退了</p>
+]]></content>
+      <categories>
+        <category>安卓开发</category>
+      </categories>
+      <tags>
+        <tag>安卓开发</tag>
+      </tags>
+  </entry>
 </search>
