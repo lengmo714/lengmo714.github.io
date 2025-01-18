@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Cocos Creator, assetManager, mask, chrome, Cocos, 游戏开发, Vscode, TypeScript, web, h5, 上传图片, Cocos Creator, Web工程导出, 本地图片上传, 游戏开发教程, PWA, Web端资源管理" name="keywords"/><br/><meta content="Cocos Creator, assetManager, mask, chrome, Cocos, 游戏开发, Vscode, TypeScript, web, h5, 上传图片, Cocos Creator, Web工程导出, 本地图片上传, 游戏开发教程, PWA, Web端资源管理" name="keywords"/><br/><meta content="Cocos Creator, assetManager, mask, chrome, Cocos, 游戏开发, Vscode, TypeScript, web, h5, 上传图片, Cocos Creator, Web工程导出, 本地图片上传, 游戏开发教程, PWA, Web端资源管理" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Cocos Creator, assetManager, mask, chrome, Cocos, 游戏开发, Vscode, TypeScript, web, h5, 上传图片, Cocos Creator, Web工程导出, 本地图片上传, 游戏开发教程, PWA, Web端资源管理" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -28,11 +28,11 @@
 <meta content="渐进式 Web 应用 (PWA) 是使用 Web 技术生成的应用程序，可以从一个代码库安装并可在所有设备上运行。PWA 在支持设备上为用户提供类似于本机的体验。 它们适应每个设备支持的功能，还可以在 Web 浏览器（如网站）中运行。 今天尝试着将我们用cocosCreator开发的游戏也达成一个PWA包，让其可以在三端运行。" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
 <meta content="https://lengmo714.top/(postImg/pwa/1.png)" property="og:image"/>
-<meta content="https://lengmo714.top/(postImg/pwa/1.png)" property="og:image"/>
+<meta content="https://lengmo714.top/(postImg/pwa/2.png)" property="og:image"/>
 <meta content="https://lengmo714.top/(postImg/pwa/3.png)" property="og:image"/>
 <meta content="https://lengmo714.top/(postImg/pwa/4.png)" property="og:image"/>
 <meta content="2025-01-17T07:14:20.000Z" property="article:published_time"/>
-<meta content="2025-01-17T08:06:30.333Z" property="article:modified_time"/>
+<meta content="2025-01-18T06:09:28.110Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Cocos Creator" property="article:tag"/>
 <meta content="summary" name="twitter:card"/>
@@ -177,7 +177,14 @@
 <i class="far fa-calendar"></i>
 </span>
 <span class="post-meta-item-text">发表于</span>
-<time datetime="2025-01-17T15:14:20+08:00" itemprop="dateCreated datePublished" title="创建时间：2025-01-17 15:14:20 / 修改时间：16:06:30">2025-01-17</time>
+<time datetime="2025-01-17T15:14:20+08:00" itemprop="dateCreated datePublished" title="创建时间：2025-01-17 15:14:20">2025-01-17</time>
+</span>
+<span class="post-meta-item">
+<span class="post-meta-item-icon">
+<i class="far fa-calendar-check"></i>
+</span>
+<span class="post-meta-item-text">更新于</span>
+<time datetime="2025-01-18T14:09:28+08:00" itemprop="dateModified" title="修改时间：2025-01-18 14:09:28">2025-01-18</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -245,7 +252,7 @@
 <p>方法2：使用Node.js</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">npx http-server</span><br/></pre></td></tr></table></figure>
 <p>使用上面两种方法都可以，然后在浏览器打开网站<code>http://localhost:8080</code>，就可以访问自己的网页了。</p>
-<p>1、如果是在电脑端，最简单的方式就是看浏览器有没有安装的图标，如果有就是成功了。如下<br/><img alt="谷歌浏览器" data-src="/(postImg/pwa/1.png)"/><br/><img alt="Edge浏览器" data-src="/(postImg/pwa/1.png)"/></p>
+<p>1、如果是在电脑端，最简单的方式就是看浏览器有没有安装的图标，如果有就是成功了。如下<br/><img alt="谷歌浏览器" data-src="/(postImg/pwa/1.png)"/><br/><img alt="Edge浏览器" data-src="/(postImg/pwa/2.png)"/></p>
 <p>2、打开浏览器开发者工具，查看<code>sw.js</code>是否生效，如下图<br/><img alt="sw.js是否生效" data-src="/(postImg/pwa/3.png)"/></p>
 <p>3、查看<code>sw.js</code>中设置的缓存资源路径下的资源是否有缓存，如下图<br/><img alt="是否缓存" data-src="/(postImg/pwa/4.png)"/></p>
 <h3 id="踩坑"><a class="headerlink" href="#踩坑" title="踩坑"></a>踩坑</h3><p>1、个人在整个过程中，踩的最多的坑就是文件路径的问题，然后基本上所有的问题都是文件路径设置不对的原因。<br/>因为我在开发过程中是在自己电脑上使用的本地服务器，然后正式测试的时候是将web包上传到CDN上测试的，<code>index.html</code>的索引路径不一样。<br/>2、在手机上安装后，icon显示的不对<br/>我在手机上使用谷歌浏览器打开的，提示我安装后，桌面icon右下角会加上一个谷歌浏览器的icon。原因：<code>manifest.json</code>设置的icon尺寸不对。</p>
