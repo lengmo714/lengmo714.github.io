@@ -27,16 +27,16 @@
 <meta content="南锋" property="og:site_name"/>
 <meta content="渐进式 Web 应用 (PWA) 是使用 Web 技术生成的应用程序，可以从一个代码库安装并可在所有设备上运行。PWA 在支持设备上为用户提供类似于本机的体验。 它们适应每个设备支持的功能，还可以在 Web 浏览器（如网站）中运行。 今天尝试着将我们用cocosCreator开发的游戏也达成一个PWA包，让其可以在三端运行。" property="og:description"/>
 <meta content="zh_CN" property="og:locale"/>
-<meta content="https://lengmo714.top/(postImg/pwa/1.png)" property="og:image"/>
-<meta content="https://lengmo714.top/(postImg/pwa/2.png)" property="og:image"/>
-<meta content="https://lengmo714.top/(postImg/pwa/3.png)" property="og:image"/>
-<meta content="https://lengmo714.top/(postImg/pwa/4.png)" property="og:image"/>
+<meta content="https://lengmo714.top/postImg/pwa/1.png" property="og:image"/>
+<meta content="https://lengmo714.top/postImg/pwa/2.png" property="og:image"/>
+<meta content="https://lengmo714.top/postImg/pwa/3.png" property="og:image"/>
+<meta content="https://lengmo714.top/postImg/pwa/4.png" property="og:image"/>
 <meta content="2025-01-17T07:14:20.000Z" property="article:published_time"/>
-<meta content="2025-01-18T06:09:28.110Z" property="article:modified_time"/>
+<meta content="2025-02-07T06:02:15.511Z" property="article:modified_time"/>
 <meta content="南锋" property="article:author"/>
 <meta content="Cocos Creator" property="article:tag"/>
 <meta content="summary" name="twitter:card"/>
-<meta content="https://lengmo714.top/(postImg/pwa/1.png)" name="twitter:image"/>
+<meta content="https://lengmo714.top/postImg/pwa/1.png" name="twitter:image"/>
 <link href="https://lengmo714.top/53bea4c8.html" rel="canonical"/>
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
@@ -184,7 +184,7 @@
 <i class="far fa-calendar-check"></i>
 </span>
 <span class="post-meta-item-text">更新于</span>
-<time datetime="2025-01-18T14:09:28+08:00" itemprop="dateModified" title="修改时间：2025-01-18 14:09:28">2025-01-18</time>
+<time datetime="2025-02-07T14:02:15+08:00" itemprop="dateModified" title="修改时间：2025-02-07 14:02:15">2025-02-07</time>
 </span>
 <span class="post-meta-item">
 <span class="post-meta-item-icon">
@@ -252,9 +252,9 @@
 <p>方法2：使用Node.js</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">npx http-server</span><br/></pre></td></tr></table></figure>
 <p>使用上面两种方法都可以，然后在浏览器打开网站<code>http://localhost:8080</code>，就可以访问自己的网页了。</p>
-<p>1、如果是在电脑端，最简单的方式就是看浏览器有没有安装的图标，如果有就是成功了。如下<br/><img alt="谷歌浏览器" data-src="/(postImg/pwa/1.png)"/><br/><img alt="Edge浏览器" data-src="/(postImg/pwa/2.png)"/></p>
-<p>2、打开浏览器开发者工具，查看<code>sw.js</code>是否生效，如下图<br/><img alt="sw.js是否生效" data-src="/(postImg/pwa/3.png)"/></p>
-<p>3、查看<code>sw.js</code>中设置的缓存资源路径下的资源是否有缓存，如下图<br/><img alt="是否缓存" data-src="/(postImg/pwa/4.png)"/></p>
+<p>1、如果是在电脑端，最简单的方式就是看浏览器有没有安装的图标，如果有就是成功了。如下<br/><img alt="谷歌浏览器" data-src="/postImg/pwa/1.png"/><br/><img alt="Edge浏览器" data-src="/postImg/pwa/2.png"/></p>
+<p>2、打开浏览器开发者工具，查看<code>sw.js</code>是否生效，如下图<br/><img alt="sw.js是否生效" data-src="/postImg/pwa/3.png"/></p>
+<p>3、查看<code>sw.js</code>中设置的缓存资源路径下的资源是否有缓存，如下图<br/><img alt="是否缓存" data-src="/postImg/pwa/4.png"/></p>
 <h3 id="踩坑"><a class="headerlink" href="#踩坑" title="踩坑"></a>踩坑</h3><p>1、个人在整个过程中，踩的最多的坑就是文件路径的问题，然后基本上所有的问题都是文件路径设置不对的原因。<br/>因为我在开发过程中是在自己电脑上使用的本地服务器，然后正式测试的时候是将web包上传到CDN上测试的，<code>index.html</code>的索引路径不一样。<br/>2、在手机上安装后，icon显示的不对<br/>我在手机上使用谷歌浏览器打开的，提示我安装后，桌面icon右下角会加上一个谷歌浏览器的icon。原因：<code>manifest.json</code>设置的icon尺寸不对。</p>
 </div>
 <div class="reward-container">
@@ -296,7 +296,10 @@
 <a href="/18e312f1.html" rel="prev" title="cocosCreator动态调整pageView下面的标记indicator">
 <i class="fa fa-chevron-left"></i> cocosCreator动态调整pageView下面的标记indicator
     </a></div>
-<div class="post-nav-item"></div>
+<div class="post-nav-item">
+<a href="/a37e9cdc.html" rel="next" title="pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况">
+      pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况 <i class="fa fa-chevron-right"></i>
+</a></div>
 </div>
 </footer>
 </article>
@@ -354,7 +357,7 @@
 <nav class="site-state">
 <div class="site-state-item site-state-posts">
 <a href="/archives/">
-<span class="site-state-item-count">210</span>
+<span class="site-state-item-count">211</span>
 <span class="site-state-item-name">日志</span>
 </a>
 </div>
