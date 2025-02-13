@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
 <meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="STM32, GPIO, 单片机, 嵌入式开发, 端口模式寄存器, 输出类型寄存器, 输出速度寄存器, 上拉下拉寄存器, 输入数据寄存器, 输出数据寄存器, 置位/复位寄存器, 配置锁存寄存器, 复用功能寄存器, 5V容忍, 芯片结构" name="keywords"/><br/><meta content="STM32, GPIO, 单片机, 嵌入式开发, 端口模式寄存器, 输出类型寄存器, 输出速度寄存器, 上拉下拉寄存器, 输入数据寄存器, 输出数据寄存器, 置位/复位寄存器, 配置锁存寄存器, 复用功能寄存器, 5V容忍, 芯片结构" name="keywords"/><br/><meta content="STM32, GPIO, 单片机, 嵌入式开发, 端口模式寄存器, 输出类型寄存器, 输出速度寄存器, 上拉下拉寄存器, 输入数据寄存器, 输出数据寄存器, 置位/复位寄存器, 配置锁存寄存器, 复用功能寄存器, 5V容忍, 芯片结构" name="keywords"/><br/><meta content="STM32, GPIO, 单片机, 嵌入式开发, 端口模式寄存器, 输出类型寄存器, 输出速度寄存器, 上拉下拉寄存器, 输入数据寄存器, 输出数据寄存器, 置位/复位寄存器, 配置锁存寄存器, 复用功能寄存器, 5V容忍, 芯片结构" name="keywords"/><br/><meta content="STM32, GPIO, 单片机, 嵌入式开发, 端口模式寄存器, 输出类型寄存器, 输出速度寄存器, 上拉下拉寄存器, 输入数据寄存器, 输出数据寄存器, 置位/复位寄存器, 配置锁存寄存器, 复用功能寄存器, 5V容忍, 芯片结构" name="keywords"/>
+<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="STM32, GPIO, 单片机, 嵌入式开发, 端口模式寄存器, 输出类型寄存器, 输出速度寄存器, 上拉下拉寄存器, 输入数据寄存器, 输出数据寄存器, 置位/复位寄存器, 配置锁存寄存器, 复用功能寄存器, 5V容忍, 芯片结构" name="keywords"/><br/><meta content="STM32, GPIO, 单片机, 嵌入式开发, 端口模式寄存器, 输出类型寄存器, 输出速度寄存器, 上拉下拉寄存器, 输入数据寄存器, 输出数据寄存器, 置位/复位寄存器, 配置锁存寄存器, 复用功能寄存器, 5V容忍, 芯片结构" name="keywords"/>
 <link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -224,7 +224,7 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-<p> <strong>芯片结构</strong><br/>F3系列和F4系列芯片的芯片结构大体相似，区别在于F4将F3芯片的上下拉结构配置由内部转到了外部。如下图所示。<br/><img data-src="https://pic.imgdb.cn/item/66434b080ea9cb1403cf85ba.png"/><br/><img data-src="https://pic.imgdb.cn/item/66434b090ea9cb1403cf8655.png"/><br/>同时大家注意到在第二张图的右边有一个“TF:5V容忍”，F4芯片I/O口大部分也支持5V容忍，5V容忍就是说STM32的输出电压是3.3V，但是也容忍输出5V。<br/>那么哪些I/O口支持5V容忍了，这个得看最上面的芯片手册，如果芯片后面有一栏写有“TF”标示，即说明支持5V容忍。</p>
+<p> <strong>芯片结构</strong><br/>F3系列和F4系列芯片的芯片结构大体相似，区别在于F4将F3芯片的上下拉结构配置由内部转到了外部。如下图所示。<br/><img data-src="https://pic.imgdb.cn/item/66434b080ea9cb1403cf85ba.png"/><br/><img data-src="https://pic.imgdb.cn/item/66434b090ea9cb1403cf8655.png"><br/>同时大家注意到在第二张图的右边有一个“TF:5V容忍”，F4芯片I/O口大部分也支持5V容忍，5V容忍就是说STM32的输出电压是3.3V，但是也容忍输出5V。<br/>那么哪些I/O口支持5V容忍了，这个得看最上面的芯片手册，如果芯片后面有一栏写有“TF”标示，即说明支持5V容忍。</img></p>
 <p><strong>GPIO相关配置寄存器</strong><br/>每组GPIO口包含１０组寄存器。</p>
 <p><code>一个端口模式寄存器（GPIOx_MODER） 一个端口输出类型寄存器(GPIOx_OTYPER) 一个端口输出速度寄存器（GPIOx_OSPEEDR) 一个端口上拉下拉寄存器（GPIOx_PUPDR)　　前４个为３２位配置寄存器 一个端口输入数据寄存器（GPIOx_IDR） 一个端口输出数据寄存器（GPIOx_ODR)　　中间２个为３２位数据寄存器 一个端口置位/复位寄存器（GPIOx_BSRR) 一个端口配置锁存寄存器（GPIOx_LCKR) 两个复位功能寄存器（低位GPIOx_AFRL &amp; GPIOx_AFRH) </code> </p>
 <blockquote>
@@ -339,7 +339,7 @@
 <nav class="site-state">
 <div class="site-state-item site-state-posts">
 <a href="/archives/">
-<span class="site-state-item-count">211</span>
+<span class="site-state-item-count">213</span>
 <span class="site-state-item-name">日志</span>
 </a>
 </div>
