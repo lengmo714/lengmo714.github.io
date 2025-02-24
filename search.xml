@@ -10724,4 +10724,45 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
 <p>自己在服务器另起一个go的服务器即可。</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>脚本构建cocosCreator工程导出ios包时报错run cmake failed</title>
+    <url>/7903be95.html</url>
+    <content><![CDATA[<p>今天在使用脚本构建cocosCreator工程导出ios包时报错</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">run cmake failed &quot;cmake -S &quot;/Users/fandong/Desktop/cxf/iosStudy/cocos_ios_demo/native/engine/ios&quot; -GXcode -B&quot;/Users/fandong/Desktop/cxf/iosStudy/cocos_ios_demo/build/ios/proj&quot; -T buildsystem=1 -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DRES_DIR=&quot;/Users/fandong/Desktop/cxf/iosStudy/cocos_ios_demo/build/ios&quot; -DAPP_NAME=&quot;IOSStudy&quot; &quot;, code: 1, signal: null</span><br><span class="line">at ChildProcess.&lt;anonymous&gt; (/Applications/Cocos/Creator/3.6.0/CocosCreator.app/Contents/Resources/resources/3d/engine/scripts/native-pack-tool/source/utils.ts:462:28)</span><br><span class="line">at ChildProcess.emit (events.js:315:20)</span><br><span class="line">at maybeClose (internal/child_process.js:1048:16)</span><br><span class="line">at Process.onexit (internal/child_process.js:288:5)</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>截图如下：<br><img data-src="/postImg/ios/1.jpg" alt="错误截图"></p>
+<h3 id="注意踩坑"><a href="#注意踩坑" class="headerlink" title="注意踩坑"></a>注意踩坑</h3><p>这里这个错其实和本地的<code>cmake</code>没有一毛钱的关系，刚开始我还特意去安装了升级了<code>cmake</code>。后面发现根本就不是本地<code>cmake</code>的原因，于是为了避免本地<code>cmake</code>对脚本执行过程中产生干扰，直接将本地的<code>cmake</code>又给卸载了。</p>
+<h3 id="看报错"><a href="#看报错" class="headerlink" title="看报错"></a>看报错</h3><p>仔细看报错，会发现有这么一行报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Assets] Command failed: xcrun xcodebuild -version</span><br><span class="line">xcrun: error: unable to find utility &quot;xcodebuild&quot;, not a developer tool or in PATH</span><br></pre></td></tr></table></figure>
+
+<p>这个错误通常表示你的系统中没有正确安装 <code>Xcode</code> 或者 <code>Xcode</code> 的命令行工具</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>1、安装 <code>Xcode</code> 命令行工具： 打开终端，输入以下命令来安装 <code>Xcode</code> 的命令行工具：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
+
+<p>2、配置<code>Xcode</code>命令行工具，输入下面代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer</span><br></pre></td></tr></table></figure>
+
+<p>3、配置完后，重启终端或者电脑。</p>
+]]></content>
+      <categories>
+        <category>Cocos Creator</category>
+      </categories>
+      <tags>
+        <tag>Cocos Creator</tag>
+        <tag>ios</tag>
+      </tags>
+  </entry>
 </search>
