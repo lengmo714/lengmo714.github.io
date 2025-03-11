@@ -1,55 +1,61 @@
 <!DOCTYPE html>
-
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
-<meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="日常代码, Python应用, python工具, HTML插入文本, 文件编辑, 文本插入技巧, Web开发, 动态文本, HTML教程, 网站优化" name="keywords"/><br/><meta content="日常代码, Python应用, python工具, HTML插入文本, 文件编辑, 文本插入技巧, Web开发, 动态文本, HTML教程, 网站优化" name="keywords"/>
-<link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
-<link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
-<link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
-<link color="#222" href="/images/favicon-32x32-next.png" rel="mask-icon"/>
-<meta content="7f4abda1472881d3" name="yandex-verification"/>
-<meta content="5lU3qr1ysBwet0Uc" name="baidu-site-verification"/>
-<link href="/css/main.css" rel="stylesheet"/>
-<link href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;display=swap&amp;subset=latin,latin-ext" rel="stylesheet"/>
-<link href="/lib/font-awesome/css/all.min.css" rel="stylesheet"/>
-<link href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css" rel="stylesheet"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-<meta content="记录自己工作中用到的脚本，因为我们的Cocos Creator项目导出web项目后，需要修改index.html文件，每次手动修改都很麻烦，而且容易出错，于是决定用脚本来搞定。我这里是用python写的，python版本为3.8" name="description"/>
-<meta content="article" property="og:type"/>
-<meta content="如何在HTML文件的指定位置插入文本 | 实用技巧" property="og:title"/>
-<meta content="https://lengmo714.top/8c2ab891.html" property="og:url"/>
-<meta content="南锋" property="og:site_name"/>
-<meta content="记录自己工作中用到的脚本，因为我们的Cocos Creator项目导出web项目后，需要修改index.html文件，每次手动修改都很麻烦，而且容易出错，于是决定用脚本来搞定。我这里是用python写的，python版本为3.8" property="og:description"/>
-<meta content="zh_CN" property="og:locale"/>
-<meta content="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png" property="og:image"/>
-<meta content="2024-07-16T12:34:02.000Z" property="article:published_time"/>
-<meta content="2024-11-15T16:57:18.000Z" property="article:modified_time"/>
-<meta content="南锋" property="article:author"/>
-<meta content="ios" property="article:tag"/>
-<meta content="android" property="article:tag"/>
-<meta content="游戏开发" property="article:tag"/>
-<meta content="quick-cocos" property="article:tag"/>
-<meta content="游戏上架" property="article:tag"/>
-<meta content="cocoscreater" property="article:tag"/>
-<meta content="c语言" property="article:tag"/>
-<meta content="C++" property="article:tag"/>
-<meta content="Java" property="article:tag"/>
-<meta content="cocos2dx" property="article:tag"/>
-<meta content="Lua" property="article:tag"/>
-<meta content="hexo" property="article:tag"/>
-<meta content="数据手套" property="article:tag"/>
-<meta content="嵌入式开发" property="article:tag"/>
-<meta content="stem32" property="article:tag"/>
-<meta content="python" property="article:tag"/>
-<meta content="summary" name="twitter:card"/>
-<meta content="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png" name="twitter:image"/>
-<link href="https://lengmo714.top/8c2ab891.html" rel="canonical"/>
+
+  <meta name="description" content="如何在HTML文件的指定位置插入文本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在HTML文件的指定位置插入文本 | 实用技巧">
+<meta property="og:url" content="https://lengmo714.top/8c2ab891.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="如何在HTML文件的指定位置插入文本">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png">
+<meta property="article:published_time" content="2024-07-16T12:34:02.000Z">
+<meta property="article:modified_time" content="2025-03-11T11:10:34.944Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="ios">
+<meta property="article:tag" content="android">
+<meta property="article:tag" content="游戏开发">
+<meta property="article:tag" content="quick-cocos">
+<meta property="article:tag" content="游戏上架">
+<meta property="article:tag" content="cocoscreater">
+<meta property="article:tag" content="c语言">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="cocos2dx">
+<meta property="article:tag" content="Lua">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="数据手套">
+<meta property="article:tag" content="嵌入式开发">
+<meta property="article:tag" content="stem32">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png">
+
+<link rel="canonical" href="https://lengmo714.top/8c2ab891.html">
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -59,9 +65,11 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>如何在HTML文件的指定位置插入文本 | 实用技巧 | 南锋</title>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
-<script>
+
+  <title>如何在HTML文件的指定位置插入文本 | 实用技巧 | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
       if (CONFIG.hostname === location.hostname) {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -69,8 +77,14 @@
         gtag('config', 'G-XDK58GP86Z');
       }
     </script>
-<noscript>
-<style>
+
+
+
+
+
+
+  <noscript>
+  <style>
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -91,211 +105,279 @@
   .use-motion .logo-line-after i { right: initial; }
   </style>
 </noscript>
+
 </head>
-<body itemscope="" itemtype="http://schema.org/WebPage">
-<div class="container use-motion">
-<div class="headband"></div>
-<header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-<div class="header-inner"><div class="site-brand-container">
-<div class="site-nav-toggle">
-<div aria-label="切换导航栏" class="toggle">
-<span class="toggle-line toggle-line-first"></span>
-<span class="toggle-line toggle-line-middle"></span>
-<span class="toggle-line toggle-line-last"></span>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
 </div>
-</div>
-<div class="site-meta">
-<a class="brand" href="/" rel="start">
-<span class="logo-line-before"><i></i></span>
-<h1 class="site-title">南锋</h1>
-<span class="logo-line-after"><i></i></span>
-</a>
-<p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
-</div>
-<div class="site-nav-right">
-<div class="toggle popup-trigger">
-<i class="fa fa-search fa-fw fa-lg"></i>
-</div>
-</div>
-</div>
+
+
+
+
 <nav class="site-nav">
-<ul class="main-menu menu" id="menu">
-<li class="menu-item menu-item-home">
-<a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-</li>
-<li class="menu-item menu-item-about">
-<a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-</li>
-<li class="menu-item menu-item-tags">
-<a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-</li>
-<li class="menu-item menu-item-categories">
-<a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-</li>
-<li class="menu-item menu-item-archives">
-<a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-</li>
-<li class="menu-item menu-item-search">
-<a class="popup-trigger" role="button"><i class="fa fa-search fa-fw"></i>搜索
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
-</li>
-</ul>
+      </li>
+  </ul>
 </nav>
-<div class="search-pop-overlay">
-<div class="popup search-popup">
-<div class="search-header">
-<span class="search-icon">
-<i class="fa fa-search"></i>
-</span>
-<div class="search-input-container">
-<input autocapitalize="off" autocomplete="off" class="search-input" placeholder="搜索..." spellcheck="false" type="search"/>
-</div>
-<span class="popup-btn-close">
-<i class="fa fa-times-circle"></i>
-</span>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
 </div>
 <div id="search-result">
-<div id="no-result">
-<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
 </div>
+
+    </div>
+  </div>
+
 </div>
-</div>
-</div>
-</div>
-</header>
-<div class="reading-progress-bar"></div>
-<a class="book-mark-link book-mark-link-fixed" role="button"></a>
-<main class="main">
-<div class="main-inner">
-<div class="content-wrap">
-<div class="content post posts-expand">
-<article class="post-block" itemscope="" itemtype="http://schema.org/Article" lang="zh-CN">
-<link href="https://lengmo714.top/8c2ab891.html" itemprop="mainEntityOfPage"/>
-<span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-<meta content="/images/IMG_3307.JPG" itemprop="image"/>
-<meta content="南锋" itemprop="name"/>
-<meta content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员" itemprop="description"/>
-</span>
-<span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-<meta content="南锋" itemprop="name"/>
-</span>
-<header class="post-header">
-<h1 class="post-title" itemprop="name headline">
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/8c2ab891.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
           如何在HTML文件的指定位置插入文本 | 实用技巧
         </h1>
-<div class="post-meta">
-<span class="post-meta-item">
-<span class="post-meta-item-icon">
-<i class="far fa-calendar"></i>
-</span>
-<span class="post-meta-item-text">发表于</span>
-<time datetime="2024-07-16T20:34:02+08:00" itemprop="dateCreated datePublished" title="创建时间：2024-07-16 20:34:02">2024-07-16</time>
-</span>
-<span class="post-meta-item">
-<span class="post-meta-item-icon">
-<i class="far fa-calendar-check"></i>
-</span>
-<span class="post-meta-item-text">更新于</span>
-<time datetime="2024-11-16T00:57:18+08:00" itemprop="dateModified" title="修改时间：2024-11-16 00:57:18">2024-11-16</time>
-</span>
-<span class="post-meta-item">
-<span class="post-meta-item-icon">
-<i class="far fa-folder"></i>
-</span>
-<span class="post-meta-item-text">分类于</span>
-<span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-<a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">日常代码</span></a>
-</span>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-07-16 20:34:02" itemprop="dateCreated datePublished" datetime="2024-07-16T20:34:02+08:00">2024-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-11 19:10:34" itemprop="dateModified" datetime="2025-03-11T19:10:34+08:00">2025-03-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">日常代码</span></a>
+                </span>
                   ，
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-<a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">Python应用</span></a>
-</span>
-</span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="如何在HTML文件的指定位置插入文本 | 实用技巧" id="/8c2ab891.html" title="阅读次数">
-<span class="post-meta-item-icon">
-<i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读次数：</span>
-<span class="leancloud-visitors-count"></span>
-</span>
-<span class="post-meta-item">
-<span class="post-meta-item-icon">
-<i class="far fa-comment"></i>
-</span>
-<span class="post-meta-item-text">Valine：</span>
-<a href="/8c2ab891.html#valine-comments" itemprop="discussionUrl" title="valine">
-<span class="post-comments-count valine-comment-count" data-xid="/8c2ab891.html" itemprop="commentCount"></span>
-</a>
-</span>
-</div>
-</header>
-<div class="post-body" itemprop="articleBody">
-<p>记录自己工作中用到的脚本，因为我们的Cocos Creator项目导出<code>web</code>项目后，需要修改<code>index.html</code>文件，每次手动修改都很麻烦，而且容易出错，于是决定用脚本来搞定。<br/>我这里是用python写的，python版本为3.8</p>
-<span id="more"></span>
-<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"></script>
-<p><ins class="adsbygoogle" data-ad-client="ca-pub-3160571902547760" data-ad-format="fluid" data-ad-layout="in-article" data-ad-slot="8630948880" style="display:block; text-align:center;"></ins></p>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E4%BB%A3%E7%A0%81/Python%E5%BA%94%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">Python应用</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">如何在HTML文件的指定位置插入文本</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>记录自己工作中用到的脚本，因为我们的cocosCreator项目导出<code>web</code>项目后，需要修改<code>index.html</code>文件，每次手动修改都很麻烦，而且容易出错，于是决定用脚本来搞定。<br>我这里是用python写的，python版本为3.8</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
 <p>要在 HTML 文件的指定位置插入指定的文本，可以使用 <code>Python</code> 的 <code>BeautifulSoup</code> 库。</p>
-<h3 id="安装库"><a class="headerlink" href="#安装库" title="安装库"></a>安装库</h3><p>首先，安装 <code>BeautifulSoup</code> 和 <code>lxml</code>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">pip3 install BeautifulSoup</span><br/></pre></td></tr></table></figure>
-<h3 id="代码"><a class="headerlink" href="#代码" title="代码"></a>代码</h3><p>我这里是在<code>index.html</code>中的<code>&lt;head&gt;</code>和<code>&lt;body&gt;</code>中添加了一些代码。完整代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/><span class="line">27</span><br/><span class="line">28</span><br/><span class="line">29</span><br/><span class="line">30</span><br/><span class="line">31</span><br/><span class="line">32</span><br/><span class="line">33</span><br/><span class="line">34</span><br/><span class="line">35</span><br/><span class="line">36</span><br/><span class="line">37</span><br/><span class="line">38</span><br/><span class="line">39</span><br/><span class="line">40</span><br/><span class="line">41</span><br/><span class="line">42</span><br/><span class="line">43</span><br/><span class="line">44</span><br/><span class="line">45</span><br/><span class="line">46</span><br/><span class="line">47</span><br/><span class="line">48</span><br/><span class="line">49</span><br/><span class="line">50</span><br/><span class="line">51</span><br/><span class="line">52</span><br/><span class="line">53</span><br/><span class="line">54</span><br/><span class="line">55</span><br/><span class="line">56</span><br/><span class="line">57</span><br/><span class="line">58</span><br/><span class="line">59</span><br/><span class="line">60</span><br/><span class="line">61</span><br/><span class="line">62</span><br/><span class="line">63</span><br/><span class="line">64</span><br/><span class="line">65</span><br/><span class="line">66</span><br/><span class="line">67</span><br/><span class="line">68</span><br/><span class="line">69</span><br/><span class="line">70</span><br/><span class="line">71</span><br/><span class="line">72</span><br/><span class="line">73</span><br/><span class="line">74</span><br/><span class="line">75</span><br/><span class="line">76</span><br/><span class="line">77</span><br/><span class="line">78</span><br/><span class="line">79</span><br/><span class="line">80</span><br/><span class="line">81</span><br/><span class="line">82</span><br/><span class="line">83</span><br/><span class="line">84</span><br/><span class="line">85</span><br/><span class="line">86</span><br/><span class="line">87</span><br/><span class="line">88</span><br/><span class="line">89</span><br/><span class="line">90</span><br/><span class="line">91</span><br/><span class="line">92</span><br/><span class="line">93</span><br/><span class="line">94</span><br/><span class="line">95</span><br/><span class="line">96</span><br/><span class="line">97</span><br/></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br/><span class="line"></span><br/><span class="line"><span class="keyword">def</span> <span class="title function_">insert_code_in_html</span>(<span class="params">file_path</span>):</span><br/><span class="line">    head_code = <span class="string">'''</span></span><br/><span class="line"><span class="string">    &lt;script src="https://telegram.org/js/telegram-web-app.js"&gt;&lt;/script&gt;</span></span><br/><span class="line"><span class="string">    &lt;style&gt;</span></span><br/><span class="line"><span class="string">        body, html {</span></span><br/><span class="line"><span class="string">            height: 100%;</span></span><br/><span class="line"><span class="string">            margin: 0;</span></span><br/><span class="line"><span class="string">            display: flex;</span></span><br/><span class="line"><span class="string">            justify-content: center;</span></span><br/><span class="line"><span class="string">            align-items: center;</span></span><br/><span class="line"><span class="string">        }</span></span><br/><span class="line"><span class="string"></span></span><br/><span class="line"><span class="string">        #GameDiv {</span></span><br/><span class="line"><span class="string">            display: flex;</span></span><br/><span class="line"><span class="string">            justify-content: center;</span></span><br/><span class="line"><span class="string">            align-items: center;</span></span><br/><span class="line"><span class="string">            width: 100%;</span></span><br/><span class="line"><span class="string">            height: 100%;</span></span><br/><span class="line"><span class="string">            position: absolute;</span></span><br/><span class="line"><span class="string">            top: 0;</span></span><br/><span class="line"><span class="string">            left: 0;</span></span><br/><span class="line"><span class="string">        }</span></span><br/><span class="line"><span class="string"></span></span><br/><span class="line"><span class="string">        #Cocos3dGameContainer {</span></span><br/><span class="line"><span class="string">            width: 100%;</span></span><br/><span class="line"><span class="string">            height: 100%;</span></span><br/><span class="line"><span class="string">            display: flex;</span></span><br/><span class="line"><span class="string">            justify-content: center;</span></span><br/><span class="line"><span class="string">            align-items: center;</span></span><br/><span class="line"><span class="string">        }</span></span><br/><span class="line"><span class="string"></span></span><br/><span class="line"><span class="string">        #GameCanvas {</span></span><br/><span class="line"><span class="string">            width: 100%;</span></span><br/><span class="line"><span class="string">            height: 100%;</span></span><br/><span class="line"><span class="string">        }</span></span><br/><span class="line"><span class="string"></span></span><br/><span class="line"><span class="string">        #loading-animation {</span></span><br/><span class="line"><span class="string">            display: flex;</span></span><br/><span class="line"><span class="string">            justify-content: center;</span></span><br/><span class="line"><span class="string">            align-items: center;</span></span><br/><span class="line"><span class="string">            position: absolute;</span></span><br/><span class="line"><span class="string">            top: calc(50% - 200px);</span></span><br/><span class="line"><span class="string">            left: 50%;</span></span><br/><span class="line"><span class="string">            transform: translate(-50%, -50%);</span></span><br/><span class="line"><span class="string">        }</span></span><br/><span class="line"><span class="string"></span></span><br/><span class="line"><span class="string">        #loading-text {</span></span><br/><span class="line"><span class="string">            display: flex;</span></span><br/><span class="line"><span class="string">            justify-content: center;</span></span><br/><span class="line"><span class="string">            align-items: center;</span></span><br/><span class="line"><span class="string">            color: white;</span></span><br/><span class="line"><span class="string">            font-size: 20px;</span></span><br/><span class="line"><span class="string">            position: absolute;</span></span><br/><span class="line"><span class="string">            top: calc(50% - 80px);</span></span><br/><span class="line"><span class="string">            left: 50%;</span></span><br/><span class="line"><span class="string">            transform: translate(-50%, -50%);</span></span><br/><span class="line"><span class="string">            width: 80%;</span></span><br/><span class="line"><span class="string">            text-align: center;</span></span><br/><span class="line"><span class="string">        }</span></span><br/><span class="line"><span class="string">    &lt;/style&gt;</span></span><br/><span class="line"><span class="string">    '''</span></span><br/><span class="line">    body_code = <span class="string">'''</span></span><br/><span class="line"><span class="string">    &lt;div id="loading-animation"&gt;</span></span><br/><span class="line"><span class="string">        &lt;img src="web.png" alt="Loading..." style="width: 100%; height: 100%;"&gt;</span></span><br/><span class="line"><span class="string">    &lt;/div&gt;</span></span><br/><span class="line"><span class="string">    &lt;div id="loading-text"&gt;Loading may take a few seconds for the first time. Please be patient.&lt;/div&gt;</span></span><br/><span class="line"><span class="string">    &lt;script&gt;</span></span><br/><span class="line"><span class="string">        const tg = window.Telegram.WebApp;</span></span><br/><span class="line"><span class="string">        tg.isClosingConfirmationEnabled = true;</span></span><br/><span class="line"><span class="string">    &lt;/script&gt;</span></span><br/><span class="line"><span class="string">    '''</span></span><br/><span class="line"></span><br/><span class="line">    <span class="comment"># 读取 HTML 文件内容</span></span><br/><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">'r'</span>, encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> file:</span><br/><span class="line">        soup = BeautifulSoup(file, <span class="string">'lxml'</span>)</span><br/><span class="line"></span><br/><span class="line">    <span class="comment"># 在 &lt;head&gt; 中插入代码</span></span><br/><span class="line">    <span class="keyword">if</span> soup.head:</span><br/><span class="line">        soup.head.append(BeautifulSoup(head_code, <span class="string">'html.parser'</span>))</span><br/><span class="line">    <span class="keyword">else</span>:</span><br/><span class="line">        <span class="built_in">print</span>(<span class="string">"&lt;head&gt; 标签未找到。"</span>)</span><br/><span class="line"></span><br/><span class="line">    <span class="comment"># 在 &lt;body&gt; 中插入代码</span></span><br/><span class="line">    <span class="keyword">if</span> soup.body:</span><br/><span class="line">        soup.body.append(BeautifulSoup(body_code, <span class="string">'html.parser'</span>))</span><br/><span class="line">    <span class="keyword">else</span>:</span><br/><span class="line">        <span class="built_in">print</span>(<span class="string">"&lt;body&gt; 标签未找到。"</span>)</span><br/><span class="line"></span><br/><span class="line">    <span class="comment"># 将修改后的 HTML 写回文件</span></span><br/><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">'w'</span>, encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> file:</span><br/><span class="line">        file.write(<span class="built_in">str</span>(soup))</span><br/><span class="line"></span><br/><span class="line"><span class="comment"># 示例用法</span></span><br/><span class="line">file_path = <span class="string">'web-mobile/index.html'</span></span><br/><span class="line">insert_code_in_html(file_path)</span><br/></pre></td></tr></table></figure>
+<h3 id="安装库"><a href="#安装库" class="headerlink" title="安装库"></a>安装库</h3><p>首先，安装 <code>BeautifulSoup</code> 和 <code>lxml</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install BeautifulSoup</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>我这里是在<code>index.html</code>中的<code>&lt;head&gt;</code>和<code>&lt;body&gt;</code>中添加了一些代码。完整代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">insert_code_in_html</span>(<span class="params">file_path</span>):</span><br><span class="line">    head_code = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    &lt;script src=&quot;https://telegram.org/js/telegram-web-app.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">    &lt;style&gt;</span></span><br><span class="line"><span class="string">        body, html &#123;</span></span><br><span class="line"><span class="string">            height: 100%;</span></span><br><span class="line"><span class="string">            margin: 0;</span></span><br><span class="line"><span class="string">            display: flex;</span></span><br><span class="line"><span class="string">            justify-content: center;</span></span><br><span class="line"><span class="string">            align-items: center;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        #GameDiv &#123;</span></span><br><span class="line"><span class="string">            display: flex;</span></span><br><span class="line"><span class="string">            justify-content: center;</span></span><br><span class="line"><span class="string">            align-items: center;</span></span><br><span class="line"><span class="string">            width: 100%;</span></span><br><span class="line"><span class="string">            height: 100%;</span></span><br><span class="line"><span class="string">            position: absolute;</span></span><br><span class="line"><span class="string">            top: 0;</span></span><br><span class="line"><span class="string">            left: 0;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        #Cocos3dGameContainer &#123;</span></span><br><span class="line"><span class="string">            width: 100%;</span></span><br><span class="line"><span class="string">            height: 100%;</span></span><br><span class="line"><span class="string">            display: flex;</span></span><br><span class="line"><span class="string">            justify-content: center;</span></span><br><span class="line"><span class="string">            align-items: center;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        #GameCanvas &#123;</span></span><br><span class="line"><span class="string">            width: 100%;</span></span><br><span class="line"><span class="string">            height: 100%;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        #loading-animation &#123;</span></span><br><span class="line"><span class="string">            display: flex;</span></span><br><span class="line"><span class="string">            justify-content: center;</span></span><br><span class="line"><span class="string">            align-items: center;</span></span><br><span class="line"><span class="string">            position: absolute;</span></span><br><span class="line"><span class="string">            top: calc(50% - 200px);</span></span><br><span class="line"><span class="string">            left: 50%;</span></span><br><span class="line"><span class="string">            transform: translate(-50%, -50%);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        #loading-text &#123;</span></span><br><span class="line"><span class="string">            display: flex;</span></span><br><span class="line"><span class="string">            justify-content: center;</span></span><br><span class="line"><span class="string">            align-items: center;</span></span><br><span class="line"><span class="string">            color: white;</span></span><br><span class="line"><span class="string">            font-size: 20px;</span></span><br><span class="line"><span class="string">            position: absolute;</span></span><br><span class="line"><span class="string">            top: calc(50% - 80px);</span></span><br><span class="line"><span class="string">            left: 50%;</span></span><br><span class="line"><span class="string">            transform: translate(-50%, -50%);</span></span><br><span class="line"><span class="string">            width: 80%;</span></span><br><span class="line"><span class="string">            text-align: center;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &lt;/style&gt;</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    body_code = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    &lt;div id=&quot;loading-animation&quot;&gt;</span></span><br><span class="line"><span class="string">        &lt;img src=&quot;web.png&quot; alt=&quot;Loading...&quot; style=&quot;width: 100%; height: 100%;&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;div id=&quot;loading-text&quot;&gt;Loading may take a few seconds for the first time. Please be patient.&lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;script&gt;</span></span><br><span class="line"><span class="string">        const tg = window.Telegram.WebApp;</span></span><br><span class="line"><span class="string">        tg.isClosingConfirmationEnabled = true;</span></span><br><span class="line"><span class="string">    &lt;/script&gt;</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 读取 HTML 文件内容</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        soup = BeautifulSoup(file, <span class="string">&#x27;lxml&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在 &lt;head&gt; 中插入代码</span></span><br><span class="line">    <span class="keyword">if</span> soup.head:</span><br><span class="line">        soup.head.append(BeautifulSoup(head_code, <span class="string">&#x27;html.parser&#x27;</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;&lt;head&gt; 标签未找到。&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在 &lt;body&gt; 中插入代码</span></span><br><span class="line">    <span class="keyword">if</span> soup.body:</span><br><span class="line">        soup.body.append(BeautifulSoup(body_code, <span class="string">&#x27;html.parser&#x27;</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;&lt;body&gt; 标签未找到。&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将修改后的 HTML 写回文件</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        file.write(<span class="built_in">str</span>(soup))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例用法</span></span><br><span class="line">file_path = <span class="string">&#x27;web-mobile/index.html&#x27;</span></span><br><span class="line">insert_code_in_html(file_path)</span><br></pre></td></tr></table></figure>
 <p>由于自己太懒，连代码都不想运行，于是乎，直接将上面python脚本导出了一个<code>.exe</code>可执行文件，每次只要双击改执行文件就行了。</p>
-<h3 id="踩坑"><a class="headerlink" href="#踩坑" title="踩坑"></a>踩坑</h3><p>运行的时候报下面错：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br/><span class="line">  File ".\html.py", line 1, in &lt;module&gt;</span><br/><span class="line">    from bs4 import BeautifulSoup</span><br/><span class="line">  File "C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\__init__.py", line 37, in &lt;module&gt;</span><br/><span class="line">    from .builder import (</span><br/><span class="line">  File "C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\builder\__init__.py", line 9, in &lt;module&gt;</span><br/><span class="line">    from bs4.element import (</span><br/><span class="line">  File "C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\element.py", line 13, in &lt;module&gt;</span><br/><span class="line">    from bs4.formatter import (</span><br/><span class="line">  File "C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\formatter.py", line 1, in &lt;module&gt;</span><br/><span class="line">    from bs4.dammit import EntitySubstitution</span><br/><span class="line">  File "C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\dammit.py", line 12, in &lt;module&gt;</span><br/><span class="line">    from html.entities import codepoint2name</span><br/><span class="line">  File "E:\Project_D_tg\build\html.py", line 1, in &lt;module&gt;</span><br/><span class="line">    from bs4 import BeautifulSoup</span><br/><span class="line">ImportError: cannot import name 'BeautifulSoup' from partially initialized module 'bs4' (most likely due to a circular import) (C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\__init__.py)</span><br/></pre></td></tr></table></figure>
-<p>如下图：<br/><img data-src="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png"/></p>
+<h3 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h3><p>运行的时候报下面错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;.\html.py&quot;, line 1, in &lt;module&gt;</span><br><span class="line">    from bs4 import BeautifulSoup</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\__init__.py&quot;, line 37, in &lt;module&gt;</span><br><span class="line">    from .builder import (</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\builder\__init__.py&quot;, line 9, in &lt;module&gt;</span><br><span class="line">    from bs4.element import (</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\element.py&quot;, line 13, in &lt;module&gt;</span><br><span class="line">    from bs4.formatter import (</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\formatter.py&quot;, line 1, in &lt;module&gt;</span><br><span class="line">    from bs4.dammit import EntitySubstitution</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\dammit.py&quot;, line 12, in &lt;module&gt;</span><br><span class="line">    from html.entities import codepoint2name</span><br><span class="line">  File &quot;E:\Project_D_tg\build\html.py&quot;, line 1, in &lt;module&gt;</span><br><span class="line">    from bs4 import BeautifulSoup</span><br><span class="line">ImportError: cannot import name &#x27;BeautifulSoup&#x27; from partially initialized module &#x27;bs4&#x27; (most likely due to a circular import) (C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\__init__.py)</span><br></pre></td></tr></table></figure>
+<p>如下图：<br><img data-src="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png"></p>
 <p><strong>解决方案：</strong> python文件名的问题，因为我的python脚本命名为<code>html.py</code>，这里的<code>html</code>和代码里面的<code>html</code>冲突，所以导致报错，这里只需要修改python的文件名即可。</p>
 <blockquote>
 <p>好吧，表示自己第一次遇到这种因为文件名报错的情况。</p>
 </blockquote>
-</div>
-<div class="reward-container">
-<div></div>
-<button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
     打赏
   </button>
-<div id="qr" style="display: none;">
-<div style="display: inline-block;">
-<img alt="南锋 微信支付" src="/images/wechat.png"/>
-<p>微信支付</p>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
 </div>
-<div style="display: inline-block;">
-<img alt="南锋 支付宝" src="/images/alipay.png"/>
-<p>支付宝</p>
-</div>
-</div>
-</div>
+
+        
+
 <div>
 <ul class="post-copyright">
-<li class="post-copyright-author">
-<strong>本文作者： </strong>南锋
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
   </li>
-<li class="post-copyright-link">
-<strong>本文链接：</strong>
-<a href="https://lengmo714.top/8c2ab891.html" title="如何在HTML文件的指定位置插入文本 | 实用技巧">https://lengmo714.top/8c2ab891.html</a>
-</li>
-<li class="post-copyright-license">
-<strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/8c2ab891.html" title="如何在HTML文件的指定位置插入文本 | 实用技巧">https://lengmo714.top/8c2ab891.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
   </li>
 </ul>
 </div>
-<footer class="post-footer">
-<div class="post-nav">
-<div class="post-nav-item">
-<a href="/39e5712d.html" rel="prev" title="Telegram Bot打开WebApp缓存问题及解决方法 | Cocos Creator优化">
-<i class="fa fa-chevron-left"></i> Telegram Bot打开WebApp缓存问题及解决方法 | Cocos Creator优化
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/39e5712d.html" rel="prev" title="Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化">
+      <i class="fa fa-chevron-left"></i> Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化
     </a></div>
-<div class="post-nav-item">
-<a href="/4a64b591.html" rel="next" title="Python脚本：遍历文件夹查找大于500KB的图片并输出路径">
+      <div class="post-nav-item">
+    <a href="/4a64b591.html" rel="next" title="Python脚本：遍历文件夹查找大于500KB的图片并输出路径">
       Python脚本：遍历文件夹查找大于500KB的图片并输出路径 <i class="fa fa-chevron-right"></i>
-</a></div>
-</div>
-</footer>
-</article>
-</div>
-<div class="comments" id="valine-comments"></div>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
 <script>
   window.addEventListener('tabs:register', () => {
     let { activeClass } = CONFIG.comments;
@@ -317,133 +399,177 @@
     });
   }
 </script>
-</div>
-<div class="toggle sidebar-toggle">
-<span class="toggle-line toggle-line-first"></span>
-<span class="toggle-line toggle-line-middle"></span>
-<span class="toggle-line toggle-line-last"></span>
-</div>
-<aside class="sidebar">
-<div class="sidebar-inner">
-<ul class="sidebar-nav motion-element">
-<li class="sidebar-nav-toc">
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
           文章目录
         </li>
-<li class="sidebar-nav-overview">
+        <li class="sidebar-nav-overview">
           站点概览
         </li>
-</ul>
-<!--noindex-->
-<div class="post-toc-wrap sidebar-panel">
-<div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">安装库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B8%A9%E5%9D%91"><span class="nav-number">3.</span> <span class="nav-text">踩坑</span></a></li></ol></div>
-</div>
-<!--/noindex-->
-<div class="site-overview-wrap sidebar-panel">
-<div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-<img alt="南锋" class="site-author-image" itemprop="image" src="/images/IMG_3307.JPG"/>
-<p class="site-author-name" itemprop="name">南锋</p>
-<div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">安装库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B8%A9%E5%9D%91"><span class="nav-number">3.</span> <span class="nav-text">踩坑</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
 </div>
 <div class="site-state-wrap motion-element">
-<nav class="site-state">
-<div class="site-state-item site-state-posts">
-<a href="/archives/">
-<span class="site-state-item-count">214</span>
-<span class="site-state-item-name">日志</span>
-</a>
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">215</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
 </div>
-<div class="site-state-item site-state-categories">
-<a href="/categories/">
-<span class="site-state-item-count">71</span>
-<span class="site-state-item-name">分类</span></a>
-</div>
-<div class="site-state-item site-state-tags">
-<a href="/tags/">
-<span class="site-state-item-count">71</span>
-<span class="site-state-item-name">标签</span></a>
-</div>
-</nav>
-</div>
-<div class="links-of-author motion-element">
-<span class="links-of-author-item">
-<a href="https://github.com/lengmo714" rel="noopener" target="_blank" title="GitHub → https://github.com/lengmo714"><i class="fab fa-github fa-fw"></i>GitHub</a>
-</span>
-<span class="links-of-author-item">
-<a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-</span>
-<span class="links-of-author-item">
-<a href="https://weibo.com/u/3124723200" rel="noopener" target="_blank" title="Weibo → https://weibo.com/u/3124723200"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
-</span>
-<span class="links-of-author-item">
-<a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank" title="抖音 → https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W"><i class="fa fa-mobile fa-fw"></i>抖音</a>
-</span>
-</div>
-<div class="cc-license motion-element" itemprop="license">
-<a class="cc-opacity" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><img alt="Creative Commons" src="/images/cc-by-nc-sa.svg"/></a>
-</div>
-<div class="links-of-blogroll motion-element">
-<div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
       Links
     </div>
-<ul class="links-of-blogroll-list">
-<li class="links-of-blogroll-item">
-<a href="/Link/" title="/Link/">友情链接</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://blog.csdn.net/Silent_F" rel="noopener" target="_blank" title="https://blog.csdn.net/Silent_F">CSDN</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://lengmo714.top/net/map/index.html" title="https://lengmo714.top/net/map/index.html">足迹</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://mall.jd.com/index-12955410.html" rel="noopener" target="_blank" title="https://mall.jd.com/index-12955410.html">京东小店</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://lengmo714.top/net/Love/baby.html" title="https://lengmo714.top/net/Love/baby.html">恋爱计时</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://lengmo714.top/net/wechat/index.html" title="https://lengmo714.top/net/wechat/index.html">微信对话生成器</a>
-</li>
-</ul>
-</div>
-</div>
-<div class="back-to-top motion-element">
-<i class="fa fa-arrow-up"></i>
-<span>0%</span>
-</div>
-</div>
-</aside>
-<div id="sidebar-dimmer"></div>
-</div>
-</main>
-<footer class="footer">
-<div class="footer-inner">
-<div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
-</div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mall.jd.com/index-12955410.html" title="https:&#x2F;&#x2F;mall.jd.com&#x2F;index-12955410.html" rel="noopener" target="_blank">京东小店</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
 <div class="copyright">
   
-  © 2017 – 
+  &copy; 2017 – 
   <span itemprop="copyrightYear">2025</span>
-<span class="with-love">
-<i class="fa fa-heart"></i>
-</span>
-<span class="author" itemprop="copyrightHolder">南锋</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
 </div>
-</div>
-</footer>
-</div>
-<script src="/lib/anime.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-<script src="/lib/velocity/velocity.min.js"></script>
-<script src="/lib/velocity/velocity.ui.min.js"></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
 <script src="/js/utils.js"></script>
+
 <script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 <script src="/js/bookmark.js"></script>
-<script>
+
+
+
+
+  
+  <script>
     (function(){
       var canonicalURL, curProtocol;
       //Get the <link> tag
@@ -468,42 +594,45 @@
 	    //Assign script content. Replace current URL with the canonical URL
       !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
   </script>
+
+
+
+
+  
 <script src="/js/local-search.js"></script>
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : true,
-      appId      : 't3TkgC71hcBBtINYfsVe8r0R-gzGzoHsz',
-      appKey     : 'SUF3DMDZlFZMDGj3ai9WfgFY',
-      placeholder: "填写QQ邮箱就会使用QQ头像喔~",
-      avatar     : 'mm',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : true,
-      lang       : 'zh-cn' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : true,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
   +  
   
-	<script src="/js/cursor/fireworks.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
+  
+
 </body>
 </html>
-<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"></script>
-<p><ins class="adsbygoogle" data-ad-client="ca-pub-3160571902547760" data-ad-format="fluid" data-ad-layout="in-article" data-ad-slot="8630948880" style="display:block; text-align:center;"></ins></p>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>

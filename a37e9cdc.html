@@ -1,57 +1,63 @@
 <!DOCTYPE html>
-
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
-<meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Cocos Creator, assetManager, mask, chrome, Cocos, 游戏开发, Vscode, TypeScript, web, h5, 上传图片, Cocos Creator, Web工程导出, 本地图片上传, 游戏开发教程, PWA, Web端资源管理, AB面" name="keywords"/><br/><meta content="Cocos Creator, assetManager, mask, chrome, Cocos, 游戏开发, Vscode, TypeScript, web, h5, 上传图片, Cocos Creator, Web工程导出, 本地图片上传, 游戏开发教程, PWA, Web端资源管理, AB面" name="keywords"/>
-<link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
-<link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
-<link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
-<link color="#222" href="/images/favicon-32x32-next.png" rel="mask-icon"/>
-<meta content="7f4abda1472881d3" name="yandex-verification"/>
-<meta content="5lU3qr1ysBwet0Uc" name="baidu-site-verification"/>
-<link href="/css/main.css" rel="stylesheet"/>
-<link href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;display=swap&amp;subset=latin,latin-ext" rel="stylesheet"/>
-<link href="/lib/font-awesome/css/all.min.css" rel="stylesheet"/>
-<link href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css" rel="stylesheet"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-<meta content="年前将cocosCreator导出的pwa包后，近两天又将pwa应用进行一些优化主要优化点如下：1、区分AB面,即用户直接通过浏览器访问链接和安装后点击桌面图标进来看到的内容不一样2、添加了安装按钮，用户打开url后，需要手动点击安装按钮才能进行安装3、区分了不同的系统和浏览器，在无法直接安装时，进行了弹窗提示" name="description"/>
-<meta content="article" property="og:type"/>
-<meta content="pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况" property="og:title"/>
-<meta content="https://lengmo714.top/a37e9cdc.html" property="og:url"/>
-<meta content="南锋" property="og:site_name"/>
-<meta content="年前将cocosCreator导出的pwa包后，近两天又将pwa应用进行一些优化主要优化点如下：1、区分AB面,即用户直接通过浏览器访问链接和安装后点击桌面图标进来看到的内容不一样2、添加了安装按钮，用户打开url后，需要手动点击安装按钮才能进行安装3、区分了不同的系统和浏览器，在无法直接安装时，进行了弹窗提示" property="og:description"/>
-<meta content="zh_CN" property="og:locale"/>
-<meta content="https://lengmo714.top/postImg/pwa/7.png" property="og:image"/>
-<meta content="https://lengmo714.top/postImg/pwa/6.png" property="og:image"/>
-<meta content="https://lengmo714.top/postImg/pwa/5.png" property="og:image"/>
-<meta content="2025-02-07T06:11:01.000Z" property="article:published_time"/>
-<meta content="2025-02-07T06:35:36.567Z" property="article:modified_time"/>
-<meta content="南锋" property="article:author"/>
-<meta content="ios" property="article:tag"/>
-<meta content="android" property="article:tag"/>
-<meta content="游戏开发" property="article:tag"/>
-<meta content="quick-cocos" property="article:tag"/>
-<meta content="游戏上架" property="article:tag"/>
-<meta content="cocoscreater" property="article:tag"/>
-<meta content="c语言" property="article:tag"/>
-<meta content="C++" property="article:tag"/>
-<meta content="Java" property="article:tag"/>
-<meta content="cocos2dx" property="article:tag"/>
-<meta content="Lua" property="article:tag"/>
-<meta content="hexo" property="article:tag"/>
-<meta content="数据手套" property="article:tag"/>
-<meta content="嵌入式开发" property="article:tag"/>
-<meta content="stem32" property="article:tag"/>
-<meta content="python" property="article:tag"/>
-<meta content="summary" name="twitter:card"/>
-<meta content="https://lengmo714.top/postImg/pwa/7.png" name="twitter:image"/>
-<link href="https://lengmo714.top/a37e9cdc.html" rel="canonical"/>
+
+  <meta name="description" content="pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况">
+<meta property="og:url" content="https://lengmo714.top/a37e9cdc.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lengmo714.top/postImg/pwa/7.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/pwa/6.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/pwa/5.png">
+<meta property="article:published_time" content="2025-02-07T06:11:01.000Z">
+<meta property="article:modified_time" content="2025-03-11T11:10:34.932Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="ios">
+<meta property="article:tag" content="android">
+<meta property="article:tag" content="游戏开发">
+<meta property="article:tag" content="quick-cocos">
+<meta property="article:tag" content="游戏上架">
+<meta property="article:tag" content="cocoscreater">
+<meta property="article:tag" content="c语言">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="cocos2dx">
+<meta property="article:tag" content="Lua">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="数据手套">
+<meta property="article:tag" content="嵌入式开发">
+<meta property="article:tag" content="stem32">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lengmo714.top/postImg/pwa/7.png">
+
+<link rel="canonical" href="https://lengmo714.top/a37e9cdc.html">
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -61,9 +67,11 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况 | 南锋</title>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
-<script>
+
+  <title>pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况 | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
       if (CONFIG.hostname === location.hostname) {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -71,8 +79,14 @@
         gtag('config', 'G-XDK58GP86Z');
       }
     </script>
-<noscript>
-<style>
+
+
+
+
+
+
+  <noscript>
+  <style>
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -93,186 +107,262 @@
   .use-motion .logo-line-after i { right: initial; }
   </style>
 </noscript>
+
 </head>
-<body itemscope="" itemtype="http://schema.org/WebPage">
-<div class="container use-motion">
-<div class="headband"></div>
-<header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-<div class="header-inner"><div class="site-brand-container">
-<div class="site-nav-toggle">
-<div aria-label="切换导航栏" class="toggle">
-<span class="toggle-line toggle-line-first"></span>
-<span class="toggle-line toggle-line-middle"></span>
-<span class="toggle-line toggle-line-last"></span>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
 </div>
-</div>
-<div class="site-meta">
-<a class="brand" href="/" rel="start">
-<span class="logo-line-before"><i></i></span>
-<h1 class="site-title">南锋</h1>
-<span class="logo-line-after"><i></i></span>
-</a>
-<p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
-</div>
-<div class="site-nav-right">
-<div class="toggle popup-trigger">
-<i class="fa fa-search fa-fw fa-lg"></i>
-</div>
-</div>
-</div>
+
+
+
+
 <nav class="site-nav">
-<ul class="main-menu menu" id="menu">
-<li class="menu-item menu-item-home">
-<a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-</li>
-<li class="menu-item menu-item-about">
-<a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-</li>
-<li class="menu-item menu-item-tags">
-<a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-</li>
-<li class="menu-item menu-item-categories">
-<a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-</li>
-<li class="menu-item menu-item-archives">
-<a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-</li>
-<li class="menu-item menu-item-search">
-<a class="popup-trigger" role="button"><i class="fa fa-search fa-fw"></i>搜索
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
-</li>
-</ul>
+      </li>
+  </ul>
 </nav>
-<div class="search-pop-overlay">
-<div class="popup search-popup">
-<div class="search-header">
-<span class="search-icon">
-<i class="fa fa-search"></i>
-</span>
-<div class="search-input-container">
-<input autocapitalize="off" autocomplete="off" class="search-input" placeholder="搜索..." spellcheck="false" type="search"/>
-</div>
-<span class="popup-btn-close">
-<i class="fa fa-times-circle"></i>
-</span>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
 </div>
 <div id="search-result">
-<div id="no-result">
-<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
 </div>
+
+    </div>
+  </div>
+
 </div>
-</div>
-</div>
-</div>
-</header>
-<div class="reading-progress-bar"></div>
-<a class="book-mark-link book-mark-link-fixed" role="button"></a>
-<main class="main">
-<div class="main-inner">
-<div class="content-wrap">
-<div class="content post posts-expand">
-<article class="post-block" itemscope="" itemtype="http://schema.org/Article" lang="zh-CN">
-<link href="https://lengmo714.top/a37e9cdc.html" itemprop="mainEntityOfPage"/>
-<span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-<meta content="/images/IMG_3307.JPG" itemprop="image"/>
-<meta content="南锋" itemprop="name"/>
-<meta content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员" itemprop="description"/>
-</span>
-<span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-<meta content="南锋" itemprop="name"/>
-</span>
-<header class="post-header">
-<h1 class="post-title" itemprop="name headline">
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/a37e9cdc.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
           pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况
         </h1>
-<div class="post-meta">
-<span class="post-meta-item">
-<span class="post-meta-item-icon">
-<i class="far fa-calendar"></i>
-</span>
-<span class="post-meta-item-text">发表于</span>
-<time datetime="2025-02-07T14:11:01+08:00" itemprop="dateCreated datePublished" title="创建时间：2025-02-07 14:11:01 / 修改时间：14:35:36">2025-02-07</time>
-</span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况" id="/a37e9cdc.html" title="阅读次数">
-<span class="post-meta-item-icon">
-<i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读次数：</span>
-<span class="leancloud-visitors-count"></span>
-</span>
-<span class="post-meta-item">
-<span class="post-meta-item-icon">
-<i class="far fa-comment"></i>
-</span>
-<span class="post-meta-item-text">Valine：</span>
-<a href="/a37e9cdc.html#valine-comments" itemprop="discussionUrl" title="valine">
-<span class="post-comments-count valine-comment-count" data-xid="/a37e9cdc.html" itemprop="commentCount"></span>
-</a>
-</span>
-</div>
-</header>
-<div class="post-body" itemprop="articleBody">
-<p>年前将cocosCreator导出的pwa包后，近两天又将pwa应用进行一些优化<br/>主要优化点如下：<br/>1、区分AB面,即用户直接通过浏览器访问链接和安装后点击桌面图标进来看到的内容不一样<br/>2、添加了安装按钮，用户打开url后，需要手动点击安装按钮才能进行安装<br/>3、区分了不同的系统和浏览器，在无法直接安装时，进行了弹窗提示</p>
-<span id="more"></span>
-<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"></script>
-<p><ins class="adsbygoogle" data-ad-client="ca-pub-3160571902547760" data-ad-format="fluid" data-ad-layout="in-article" data-ad-slot="8630948880" style="display:block; text-align:center;"></ins></p>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-02-07 14:11:01" itemprop="dateCreated datePublished" datetime="2025-02-07T14:11:01+08:00">2025-02-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-11 19:10:34" itemprop="dateModified" datetime="2025-03-11T19:10:34+08:00">2025-03-11</time>
+              </span>
+
+          
+            <div class="post-description">pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>年前将cocosCreator导出的pwa包后，近两天又将pwa应用进行一些优化<br>主要优化点如下：<br>1、区分AB面,即用户直接通过浏览器访问链接和安装后点击桌面图标进来看到的内容不一样<br>2、添加了安装按钮，用户打开url后，需要手动点击安装按钮才能进行安装<br>3、区分了不同的系统和浏览器，在无法直接安装时，进行了弹窗提示</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-<h3 id="功能说明和注意事项"><a class="headerlink" href="#功能说明和注意事项" title="功能说明和注意事项"></a>功能说明和注意事项</h3><p>1、区分AB面，我这里的A面是<code>index.html</code>里面的内容，因为我的url直接指向的是这个文件。B面的内容可以使用另外一个链接，将链接地址写在<code>manifest.json</code>文件的<code>start_url</code>字段，这个字段其实就是通过桌面图标打开的路径。<br/>2、区分了不同和系统和浏览器，这里主要是因为并不是所有的系统和浏览器都支持安装pwa。在点击按钮时会去判断系统和浏览器，如果支持安装，则进行安装，如果不支持，则进行弹窗提示。比如在苹果手机，使用chrome打开，会提示你使用safair浏览器打开。在safair打开后会提示你如何将应用添加到桌面。如下图片所示：<br/><img data-src="postImg/pwa/7.png" width="50%"/><img data-src="postImg/pwa/6.png" width="50%"/></p>
-<h3 id="代码实现"><a class="headerlink" href="#代码实现" title="代码实现"></a>代码实现</h3><p><code>index.html</code>代码，其实主要的修改逻辑都在这里，其他的代码都和前面介绍的一样，不用怎么修改</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/><span class="line">27</span><br/><span class="line">28</span><br/><span class="line">29</span><br/><span class="line">30</span><br/><span class="line">31</span><br/><span class="line">32</span><br/><span class="line">33</span><br/><span class="line">34</span><br/><span class="line">35</span><br/><span class="line">36</span><br/><span class="line">37</span><br/><span class="line">38</span><br/><span class="line">39</span><br/><span class="line">40</span><br/><span class="line">41</span><br/><span class="line">42</span><br/><span class="line">43</span><br/><span class="line">44</span><br/><span class="line">45</span><br/><span class="line">46</span><br/><span class="line">47</span><br/><span class="line">48</span><br/><span class="line">49</span><br/><span class="line">50</span><br/><span class="line">51</span><br/><span class="line">52</span><br/><span class="line">53</span><br/><span class="line">54</span><br/><span class="line">55</span><br/><span class="line">56</span><br/><span class="line">57</span><br/><span class="line">58</span><br/><span class="line">59</span><br/><span class="line">60</span><br/><span class="line">61</span><br/><span class="line">62</span><br/><span class="line">63</span><br/><span class="line">64</span><br/><span class="line">65</span><br/><span class="line">66</span><br/><span class="line">67</span><br/><span class="line">68</span><br/><span class="line">69</span><br/><span class="line">70</span><br/><span class="line">71</span><br/><span class="line">72</span><br/><span class="line">73</span><br/><span class="line">74</span><br/><span class="line">75</span><br/><span class="line">76</span><br/><span class="line">77</span><br/><span class="line">78</span><br/><span class="line">79</span><br/><span class="line">80</span><br/><span class="line">81</span><br/><span class="line">82</span><br/><span class="line">83</span><br/><span class="line">84</span><br/><span class="line">85</span><br/><span class="line">86</span><br/><span class="line">87</span><br/><span class="line">88</span><br/><span class="line">89</span><br/><span class="line">90</span><br/><span class="line">91</span><br/><span class="line">92</span><br/><span class="line">93</span><br/><span class="line">94</span><br/><span class="line">95</span><br/><span class="line">96</span><br/><span class="line">97</span><br/><span class="line">98</span><br/><span class="line">99</span><br/><span class="line">100</span><br/><span class="line">101</span><br/><span class="line">102</span><br/><span class="line">103</span><br/><span class="line">104</span><br/><span class="line">105</span><br/><span class="line">106</span><br/><span class="line">107</span><br/><span class="line">108</span><br/><span class="line">109</span><br/><span class="line">110</span><br/><span class="line">111</span><br/><span class="line">112</span><br/><span class="line">113</span><br/><span class="line">114</span><br/><span class="line">115</span><br/><span class="line">116</span><br/><span class="line">117</span><br/><span class="line">118</span><br/><span class="line">119</span><br/><span class="line">120</span><br/><span class="line">121</span><br/><span class="line">122</span><br/><span class="line">123</span><br/><span class="line">124</span><br/><span class="line">125</span><br/><span class="line">126</span><br/><span class="line">127</span><br/><span class="line">128</span><br/></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br/><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"zh"</span>&gt;</span></span><br/><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br/><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br/><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br/><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>PWA 示例<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br/><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"theme-color"</span> <span class="attr">content</span>=<span class="string">"#ffffff"</span>&gt;</span></span><br/><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"manifest"</span> <span class="attr">href</span>=<span class="string">"manifest.json"</span>&gt;</span></span><br/><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br/><span class="line"><span class="language-css">        <span class="selector-id">#install-btn</span> {</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">20px</span>;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: <span class="number">#007bff</span>;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">color</span>: white;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">border</span>: none;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">cursor</span>: pointer;</span></span><br/><span class="line"><span class="language-css">        }</span></span><br/><span class="line"><span class="language-css"></span></span><br/><span class="line"><span class="language-css">        <span class="comment">/* 提示图片样式 */</span></span></span><br/><span class="line"><span class="language-css">        <span class="selector-id">#ios-install-guide</span> {</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">display</span>: none;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">position</span>: fixed;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">top</span>: <span class="number">0</span>;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">left</span>: <span class="number">0</span>;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.8</span>);</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">justify-content</span>: center;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">align-items</span>: center;</span></span><br/><span class="line"><span class="language-css">        }</span></span><br/><span class="line"><span class="language-css"></span></span><br/><span class="line"><span class="language-css">        <span class="selector-id">#ios-install-guide</span> <span class="selector-tag">img</span> {</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">80%</span>;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">max-width</span>: <span class="number">400px</span>;</span></span><br/><span class="line"><span class="language-css">            <span class="attribute">border-radius</span>: <span class="number">10px</span>;</span></span><br/><span class="line"><span class="language-css">        }</span></span><br/><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br/><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br/><span class="line"><span class="language-javascript">        <span class="keyword">let</span> deferredPrompt;</span></span><br/><span class="line"><span class="language-javascript">        <span class="keyword">let</span> installBtn;</span></span><br/><span class="line"><span class="language-javascript"></span></span><br/><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">isAndroid</span>(<span class="params"></span>) {</span></span><br/><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="regexp">/Android/i</span>.<span class="title function_">test</span>(navigator.<span class="property">userAgent</span>);</span></span><br/><span class="line"><span class="language-javascript">        }</span></span><br/><span class="line"><span class="language-javascript"></span></span><br/><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">isIOS</span>(<span class="params"></span>) {</span></span><br/><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="regexp">/iPhone|iPad|iPod/i</span>.<span class="title function_">test</span>(navigator.<span class="property">userAgent</span>);</span></span><br/><span class="line"><span class="language-javascript">        }</span></span><br/><span class="line"><span class="language-javascript"></span></span><br/><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">isSafari</span>(<span class="params"></span>) {</span></span><br/><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="title function_">isIOS</span>() &amp;&amp; navigator.<span class="property">userAgent</span>.<span class="title function_">includes</span>(<span class="string">"Safari"</span>) &amp;&amp; !navigator.<span class="property">userAgent</span>.<span class="title function_">includes</span>(<span class="string">"CriOS"</span>) &amp;&amp; !navigator.<span class="property">userAgent</span>.<span class="title function_">includes</span>(<span class="string">"FxiOS"</span>);</span></span><br/><span class="line"><span class="language-javascript">        }</span></span><br/><span class="line"><span class="language-javascript"></span></span><br/><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">isPWAInstallable</span>(<span class="params"></span>) {</span></span><br/><span class="line"><span class="language-javascript">            <span class="keyword">return</span> (<span class="string">'BeforeInstallPromptEvent'</span> <span class="keyword">in</span> <span class="variable language_">window</span>);</span></span><br/><span class="line"><span class="language-javascript">        }</span></span><br/><span class="line"><span class="language-javascript"></span></span><br/><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">isStandalone</span>(<span class="params"></span>) {</span></span><br/><span class="line"><span class="language-javascript">            <span class="keyword">return</span> (<span class="variable language_">window</span>.<span class="title function_">matchMedia</span>(<span class="string">'(display-mode: standalone)'</span>).<span class="property">matches</span> || navigator.<span class="property">standalone</span>);</span></span><br/><span class="line"><span class="language-javascript">        }</span></span><br/><span class="line"><span class="language-javascript"></span></span><br/><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">isPC</span>(<span class="params"></span>) {</span></span><br/><span class="line"><span class="language-javascript">            <span class="keyword">return</span> !<span class="title function_">isAndroid</span>() &amp;&amp; !<span class="title function_">isIOS</span>();</span></span><br/><span class="line"><span class="language-javascript">        }</span></span><br/><span class="line"><span class="language-javascript"></span></span><br/><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">"DOMContentLoaded"</span>, <span class="function">() =&gt;</span> {</span></span><br/><span class="line"><span class="language-javascript">            installBtn = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">"install-btn"</span>);</span></span><br/><span class="line"><span class="language-javascript">            <span class="keyword">const</span> iosInstallGuide = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">"ios-install-guide"</span>);</span></span><br/><span class="line"><span class="language-javascript"></span></span><br/><span class="line"><span class="language-javascript">            <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">"beforeinstallprompt"</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> {</span></span><br/><span class="line"><span class="language-javascript">                e.<span class="title function_">preventDefault</span>();</span></span><br/><span class="line"><span class="language-javascript">                deferredPrompt = e;</span></span><br/><span class="line"><span class="language-javascript">            });</span></span><br/><span class="line"><span class="language-javascript"></span></span><br/><span class="line"><span class="language-javascript">            installBtn.<span class="title function_">addEventListener</span>(<span class="string">"click"</span>, <span class="function">() =&gt;</span> {</span></span><br/><span class="line"><span class="language-javascript">                <span class="keyword">if</span> (<span class="title function_">isAndroid</span>()) {</span></span><br/><span class="line"><span class="language-javascript">                    <span class="keyword">if</span> (deferredPrompt) {</span></span><br/><span class="line"><span class="language-javascript">                        deferredPrompt.<span class="title function_">prompt</span>();</span></span><br/><span class="line"><span class="language-javascript">                        deferredPrompt.<span class="property">userChoice</span>.<span class="title function_">then</span>(<span class="function">(<span class="params">choiceResult</span>) =&gt;</span> {</span></span><br/><span class="line"><span class="language-javascript">                            <span class="variable language_">console</span>.<span class="title function_">log</span>(choiceResult.<span class="property">outcome</span> === <span class="string">'accepted'</span> ? <span class="string">'用户接受了安装'</span> : <span class="string">'用户拒绝了安装'</span>);</span></span><br/><span class="line"><span class="language-javascript">                            deferredPrompt = <span class="literal">null</span>;</span></span><br/><span class="line"><span class="language-javascript">                        });</span></span><br/><span class="line"><span class="language-javascript">                    } <span class="keyword">else</span> {</span></span><br/><span class="line"><span class="language-javascript">                        <span class="title function_">alert</span>(<span class="string">"当前浏览器不支持 PWA 直接安装，请尝试使用 Chrome 或 Edge"</span>);</span></span><br/><span class="line"><span class="language-javascript">                    }</span></span><br/><span class="line"><span class="language-javascript">                } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">isIOS</span>()) {</span></span><br/><span class="line"><span class="language-javascript">                    <span class="keyword">if</span> (<span class="title function_">isSafari</span>()) {</span></span><br/><span class="line"><span class="language-javascript">                        iosInstallGuide.<span class="property">style</span>.<span class="property">display</span> = <span class="string">"flex"</span>; <span class="comment">// 只有点击按钮后才显示图片</span></span></span><br/><span class="line"><span class="language-javascript">                    } <span class="keyword">else</span> {</span></span><br/><span class="line"><span class="language-javascript">                        <span class="title function_">alert</span>(<span class="string">"请使用 Safari 浏览器，通过点击分享按钮并选择“添加到主屏幕”来安装 PWA 应用。"</span>);</span></span><br/><span class="line"><span class="language-javascript">                    }</span></span><br/><span class="line"><span class="language-javascript">                } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">isPC</span>()) {</span></span><br/><span class="line"><span class="language-javascript">                    <span class="keyword">if</span> (deferredPrompt) {</span></span><br/><span class="line"><span class="language-javascript">                        deferredPrompt.<span class="title function_">prompt</span>();</span></span><br/><span class="line"><span class="language-javascript">                        deferredPrompt.<span class="property">userChoice</span>.<span class="title function_">then</span>(<span class="function">(<span class="params">choiceResult</span>) =&gt;</span> {</span></span><br/><span class="line"><span class="language-javascript">                            <span class="variable language_">console</span>.<span class="title function_">log</span>(choiceResult.<span class="property">outcome</span> === <span class="string">'accepted'</span> ? <span class="string">'用户接受了安装'</span> : <span class="string">'用户拒绝了安装'</span>);</span></span><br/><span class="line"><span class="language-javascript">                            deferredPrompt = <span class="literal">null</span>;</span></span><br/><span class="line"><span class="language-javascript">                        });</span></span><br/><span class="line"><span class="language-javascript">                    } <span class="keyword">else</span> {</span></span><br/><span class="line"><span class="language-javascript">                        <span class="title function_">alert</span>(<span class="string">"当前浏览器不支持 PWA 直接安装，请尝试使用 Chrome 或 Edge"</span>);</span></span><br/><span class="line"><span class="language-javascript">                    }</span></span><br/><span class="line"><span class="language-javascript">                }</span></span><br/><span class="line"><span class="language-javascript">            });</span></span><br/><span class="line"><span class="language-javascript"></span></span><br/><span class="line"><span class="language-javascript">            <span class="comment">// 点击图片后隐藏</span></span></span><br/><span class="line"><span class="language-javascript">            iosInstallGuide.<span class="title function_">addEventListener</span>(<span class="string">"click"</span>, <span class="function">() =&gt;</span> {</span></span><br/><span class="line"><span class="language-javascript">                iosInstallGuide.<span class="property">style</span>.<span class="property">display</span> = <span class="string">"none"</span>;</span></span><br/><span class="line"><span class="language-javascript">            });</span></span><br/><span class="line"><span class="language-javascript"></span></span><br/><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (<span class="string">'serviceWorker'</span> <span class="keyword">in</span> navigator) {</span></span><br/><span class="line"><span class="language-javascript">                navigator.<span class="property">serviceWorker</span>.<span class="title function_">register</span>(<span class="string">'service-worker.js'</span>)</span></span><br/><span class="line"><span class="language-javascript">                    .<span class="title function_">then</span>(<span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">"Service Worker 注册成功"</span>))</span></span><br/><span class="line"><span class="language-javascript">                    .<span class="title function_">catch</span>(<span class="function"><span class="params">err</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">"Service Worker 注册失败"</span>, err));</span></span><br/><span class="line"><span class="language-javascript">            }</span></span><br/><span class="line"><span class="language-javascript">        });</span></span><br/><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br/><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br/><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br/><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>A 界面<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br/><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>安装 PWA 应用到设备。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br/><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"install-btn"</span>&gt;</span>安装 PWA 应用<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br/><span class="line"></span><br/><span class="line">    <span class="comment">&lt;!-- iOS 安装引导 --&gt;</span></span><br/><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"ios-install-guide"</span>&gt;</span></span><br/><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"ios-install-guide.png"</span> <span class="attr">alt</span>=<span class="string">"请点击 Safari 的分享按钮，然后选择‘添加到主屏幕’"</span>&gt;</span></span><br/><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br/><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br/><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br/></pre></td></tr></table></figure>
+
+<h3 id="功能说明和注意事项"><a href="#功能说明和注意事项" class="headerlink" title="功能说明和注意事项"></a>功能说明和注意事项</h3><p>1、区分AB面，我这里的A面是<code>index.html</code>里面的内容，因为我的url直接指向的是这个文件。B面的内容可以使用另外一个链接，将链接地址写在<code>manifest.json</code>文件的<code>start_url</code>字段，这个字段其实就是通过桌面图标打开的路径。<br>2、区分了不同和系统和浏览器，这里主要是因为并不是所有的系统和浏览器都支持安装pwa。在点击按钮时会去判断系统和浏览器，如果支持安装，则进行安装，如果不支持，则进行弹窗提示。比如在苹果手机，使用chrome打开，会提示你使用safair浏览器打开。在safair打开后会提示你如何将应用添加到桌面。如下图片所示：<br><img data-src="postImg/pwa/7.png" width="50%"><img data-src="postImg/pwa/6.png" width="50%"></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p><code>index.html</code>代码，其实主要的修改逻辑都在这里，其他的代码都和前面介绍的一样，不用怎么修改</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>PWA 示例<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;theme-color&quot;</span> <span class="attr">content</span>=<span class="string">&quot;#ffffff&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;manifest&quot;</span> <span class="attr">href</span>=<span class="string">&quot;manifest.json&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-id">#install-btn</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">20px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: <span class="number">#007bff</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">color</span>: white;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: none;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">cursor</span>: pointer;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 提示图片样式 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-id">#ios-install-guide</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">display</span>: none;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">position</span>: fixed;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">top</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">left</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.8</span>);</span></span><br><span class="line"><span class="language-css">            <span class="attribute">justify-content</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">align-items</span>: center;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-id">#ios-install-guide</span> <span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">80%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">max-width</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border-radius</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">let</span> deferredPrompt;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">let</span> installBtn;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">isAndroid</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="regexp">/Android/i</span>.<span class="title function_">test</span>(navigator.<span class="property">userAgent</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">isIOS</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="regexp">/iPhone|iPad|iPod/i</span>.<span class="title function_">test</span>(navigator.<span class="property">userAgent</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">isSafari</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="title function_">isIOS</span>() &amp;&amp; navigator.<span class="property">userAgent</span>.<span class="title function_">includes</span>(<span class="string">&quot;Safari&quot;</span>) &amp;&amp; !navigator.<span class="property">userAgent</span>.<span class="title function_">includes</span>(<span class="string">&quot;CriOS&quot;</span>) &amp;&amp; !navigator.<span class="property">userAgent</span>.<span class="title function_">includes</span>(<span class="string">&quot;FxiOS&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">isPWAInstallable</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> (<span class="string">&#x27;BeforeInstallPromptEvent&#x27;</span> <span class="keyword">in</span> <span class="variable language_">window</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">isStandalone</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> (<span class="variable language_">window</span>.<span class="title function_">matchMedia</span>(<span class="string">&#x27;(display-mode: standalone)&#x27;</span>).<span class="property">matches</span> || navigator.<span class="property">standalone</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">isPC</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> !<span class="title function_">isAndroid</span>() &amp;&amp; !<span class="title function_">isIOS</span>();</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;DOMContentLoaded&quot;</span>, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">            installBtn = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;install-btn&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> iosInstallGuide = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;ios-install-guide&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;beforeinstallprompt&quot;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                e.<span class="title function_">preventDefault</span>();</span></span><br><span class="line"><span class="language-javascript">                deferredPrompt = e;</span></span><br><span class="line"><span class="language-javascript">            &#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            installBtn.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">if</span> (<span class="title function_">isAndroid</span>()) &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">if</span> (deferredPrompt) &#123;</span></span><br><span class="line"><span class="language-javascript">                        deferredPrompt.<span class="title function_">prompt</span>();</span></span><br><span class="line"><span class="language-javascript">                        deferredPrompt.<span class="property">userChoice</span>.<span class="title function_">then</span>(<span class="function">(<span class="params">choiceResult</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                            <span class="variable language_">console</span>.<span class="title function_">log</span>(choiceResult.<span class="property">outcome</span> === <span class="string">&#x27;accepted&#x27;</span> ? <span class="string">&#x27;用户接受了安装&#x27;</span> : <span class="string">&#x27;用户拒绝了安装&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                            deferredPrompt = <span class="literal">null</span>;</span></span><br><span class="line"><span class="language-javascript">                        &#125;);</span></span><br><span class="line"><span class="language-javascript">                    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                        <span class="title function_">alert</span>(<span class="string">&quot;当前浏览器不支持 PWA 直接安装，请尝试使用 Chrome 或 Edge&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">                    &#125;</span></span><br><span class="line"><span class="language-javascript">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">isIOS</span>()) &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">if</span> (<span class="title function_">isSafari</span>()) &#123;</span></span><br><span class="line"><span class="language-javascript">                        iosInstallGuide.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&quot;flex&quot;</span>; <span class="comment">// 只有点击按钮后才显示图片</span></span></span><br><span class="line"><span class="language-javascript">                    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                        <span class="title function_">alert</span>(<span class="string">&quot;请使用 Safari 浏览器，通过点击分享按钮并选择“添加到主屏幕”来安装 PWA 应用。&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">                    &#125;</span></span><br><span class="line"><span class="language-javascript">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">isPC</span>()) &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">if</span> (deferredPrompt) &#123;</span></span><br><span class="line"><span class="language-javascript">                        deferredPrompt.<span class="title function_">prompt</span>();</span></span><br><span class="line"><span class="language-javascript">                        deferredPrompt.<span class="property">userChoice</span>.<span class="title function_">then</span>(<span class="function">(<span class="params">choiceResult</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                            <span class="variable language_">console</span>.<span class="title function_">log</span>(choiceResult.<span class="property">outcome</span> === <span class="string">&#x27;accepted&#x27;</span> ? <span class="string">&#x27;用户接受了安装&#x27;</span> : <span class="string">&#x27;用户拒绝了安装&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                            deferredPrompt = <span class="literal">null</span>;</span></span><br><span class="line"><span class="language-javascript">                        &#125;);</span></span><br><span class="line"><span class="language-javascript">                    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                        <span class="title function_">alert</span>(<span class="string">&quot;当前浏览器不支持 PWA 直接安装，请尝试使用 Chrome 或 Edge&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">                    &#125;</span></span><br><span class="line"><span class="language-javascript">                &#125;</span></span><br><span class="line"><span class="language-javascript">            &#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// 点击图片后隐藏</span></span></span><br><span class="line"><span class="language-javascript">            iosInstallGuide.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                iosInstallGuide.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&quot;none&quot;</span>;</span></span><br><span class="line"><span class="language-javascript">            &#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (<span class="string">&#x27;serviceWorker&#x27;</span> <span class="keyword">in</span> navigator) &#123;</span></span><br><span class="line"><span class="language-javascript">                navigator.<span class="property">serviceWorker</span>.<span class="title function_">register</span>(<span class="string">&#x27;service-worker.js&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">                    .<span class="title function_">then</span>(<span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Service Worker 注册成功&quot;</span>))</span></span><br><span class="line"><span class="language-javascript">                    .<span class="title function_">catch</span>(<span class="function"><span class="params">err</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Service Worker 注册失败&quot;</span>, err));</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>A 界面<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>安装 PWA 应用到设备。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;install-btn&quot;</span>&gt;</span>安装 PWA 应用<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- iOS 安装引导 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;ios-install-guide&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;ios-install-guide.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;请点击 Safari 的分享按钮，然后选择‘添加到主屏幕’&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p><code>manifest.json</code>代码展示</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br/><span class="line">    <span class="attr">"short_name"</span><span class="punctuation">:</span> <span class="string">"MyPWA"</span><span class="punctuation">,</span></span><br/><span class="line">    <span class="attr">"name"</span><span class="punctuation">:</span> <span class="string">"My Progressive Web App"</span><span class="punctuation">,</span></span><br/><span class="line">    <span class="attr">"start_url"</span><span class="punctuation">:</span> <span class="string">"/client/test/pwa2/index.html"</span><span class="punctuation">,</span></span><br/><span class="line">    <span class="attr">"display"</span><span class="punctuation">:</span> <span class="string">"standalone"</span><span class="punctuation">,</span></span><br/><span class="line">    <span class="attr">"background_color"</span><span class="punctuation">:</span> <span class="string">"#ffffff"</span><span class="punctuation">,</span></span><br/><span class="line">    <span class="attr">"theme_color"</span><span class="punctuation">:</span> <span class="string">"#ffffff"</span><span class="punctuation">,</span></span><br/><span class="line">    <span class="attr">"icons"</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br/><span class="line">        <span class="punctuation">{</span></span><br/><span class="line">            <span class="attr">"src"</span><span class="punctuation">:</span> <span class="string">"/client/test/pwa0206/icons/icon-192x192.png"</span><span class="punctuation">,</span></span><br/><span class="line">            <span class="attr">"type"</span><span class="punctuation">:</span> <span class="string">"image/png"</span><span class="punctuation">,</span></span><br/><span class="line">            <span class="attr">"sizes"</span><span class="punctuation">:</span> <span class="string">"192x192"</span></span><br/><span class="line">        <span class="punctuation">}</span><span class="punctuation">,</span></span><br/><span class="line">        <span class="punctuation">{</span></span><br/><span class="line">            <span class="attr">"src"</span><span class="punctuation">:</span> <span class="string">"/client/test/pwa0206/icons/icon-512x512.png"</span><span class="punctuation">,</span></span><br/><span class="line">            <span class="attr">"type"</span><span class="punctuation">:</span> <span class="string">"image/png"</span><span class="punctuation">,</span></span><br/><span class="line">            <span class="attr">"sizes"</span><span class="punctuation">:</span> <span class="string">"512x512"</span></span><br/><span class="line">        <span class="punctuation">}</span></span><br/><span class="line">    <span class="punctuation">]</span></span><br/><span class="line"><span class="punctuation">}</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;short_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;MyPWA&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;My Progressive Web App&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;start_url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/client/test/pwa2/index.html&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;display&quot;</span><span class="punctuation">:</span> <span class="string">&quot;standalone&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;background_color&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#ffffff&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;theme_color&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#ffffff&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;icons&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;src&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/client/test/pwa0206/icons/icon-192x192.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;image/png&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;sizes&quot;</span><span class="punctuation">:</span> <span class="string">&quot;192x192&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;src&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/client/test/pwa0206/icons/icon-512x512.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;image/png&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;sizes&quot;</span><span class="punctuation">:</span> <span class="string">&quot;512x512&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
 <p><code>service-worker.js</code>代码展示</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/></pre></td><td class="code"><pre><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">'install'</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> {</span><br/><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">"Service Worker 已安装"</span>);</span><br/><span class="line">    self.<span class="title function_">skipWaiting</span>();</span><br/><span class="line">});</span><br/><span class="line"></span><br/><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">'activate'</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> {</span><br/><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">"Service Worker 已激活"</span>);</span><br/><span class="line">});</span><br/><span class="line"></span><br/><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">'fetch'</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> {</span><br/><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">"拦截请求:"</span>, event.<span class="property">request</span>.<span class="property">url</span>);</span><br/><span class="line">});</span><br/></pre></td></tr></table></figure>
-<p>此外，自己还需要准备2张icon图标，和一张<code>ios-install-guide.png</code>图片，用于在iOS设备上引导用户安装PWA应用。项目文件结构如下图所示：<br/><img alt="项目结构" data-src="/postImg/pwa/5.png"/></p>
-</div>
-<div class="reward-container">
-<div></div>
-<button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&#x27;install&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Service Worker 已安装&quot;</span>);</span><br><span class="line">    self.<span class="title function_">skipWaiting</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&#x27;activate&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Service Worker 已激活&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&#x27;fetch&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;拦截请求:&quot;</span>, event.<span class="property">request</span>.<span class="property">url</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>此外，自己还需要准备2张icon图标，和一张<code>ios-install-guide.png</code>图片，用于在iOS设备上引导用户安装PWA应用。项目文件结构如下图所示：<br><img data-src="/postImg/pwa/5.png" alt="项目结构"></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
     打赏
   </button>
-<div id="qr" style="display: none;">
-<div style="display: inline-block;">
-<img alt="南锋 微信支付" src="/images/wechat.png"/>
-<p>微信支付</p>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
 </div>
-<div style="display: inline-block;">
-<img alt="南锋 支付宝" src="/images/alipay.png"/>
-<p>支付宝</p>
-</div>
-</div>
-</div>
+
+        
+
 <div>
 <ul class="post-copyright">
-<li class="post-copyright-author">
-<strong>本文作者： </strong>南锋
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
   </li>
-<li class="post-copyright-link">
-<strong>本文链接：</strong>
-<a href="https://lengmo714.top/a37e9cdc.html" title="pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况">https://lengmo714.top/a37e9cdc.html</a>
-</li>
-<li class="post-copyright-license">
-<strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/a37e9cdc.html" title="pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况">https://lengmo714.top/a37e9cdc.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
   </li>
 </ul>
 </div>
-<footer class="post-footer">
-<div class="post-nav">
-<div class="post-nav-item">
-<a href="/53bea4c8.html" rel="prev" title="cocosCreator导出PWA包">
-<i class="fa fa-chevron-left"></i> cocosCreator导出PWA包
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/53bea4c8.html" rel="prev" title="cocosCreator导出PWA包">
+      <i class="fa fa-chevron-left"></i> cocosCreator导出PWA包
     </a></div>
-<div class="post-nav-item">
-<a href="/61cfa629.html" rel="next" title="git不同分支文件对比">
+      <div class="post-nav-item">
+    <a href="/61cfa629.html" rel="next" title="git不同分支文件对比">
       git不同分支文件对比 <i class="fa fa-chevron-right"></i>
-</a></div>
-</div>
-</footer>
-</article>
-</div>
-<div class="comments" id="valine-comments"></div>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
 <script>
   window.addEventListener('tabs:register', () => {
     let { activeClass } = CONFIG.comments;
@@ -294,133 +384,177 @@
     });
   }
 </script>
-</div>
-<div class="toggle sidebar-toggle">
-<span class="toggle-line toggle-line-first"></span>
-<span class="toggle-line toggle-line-middle"></span>
-<span class="toggle-line toggle-line-last"></span>
-</div>
-<aside class="sidebar">
-<div class="sidebar-inner">
-<ul class="sidebar-nav motion-element">
-<li class="sidebar-nav-toc">
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
           文章目录
         </li>
-<li class="sidebar-nav-overview">
+        <li class="sidebar-nav-overview">
           站点概览
         </li>
-</ul>
-<!--noindex-->
-<div class="post-toc-wrap sidebar-panel">
-<div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E8%AF%B4%E6%98%8E%E5%92%8C%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.</span> <span class="nav-text">功能说明和注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li></ol></div>
-</div>
-<!--/noindex-->
-<div class="site-overview-wrap sidebar-panel">
-<div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-<img alt="南锋" class="site-author-image" itemprop="image" src="/images/IMG_3307.JPG"/>
-<p class="site-author-name" itemprop="name">南锋</p>
-<div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E8%AF%B4%E6%98%8E%E5%92%8C%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.</span> <span class="nav-text">功能说明和注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
 </div>
 <div class="site-state-wrap motion-element">
-<nav class="site-state">
-<div class="site-state-item site-state-posts">
-<a href="/archives/">
-<span class="site-state-item-count">214</span>
-<span class="site-state-item-name">日志</span>
-</a>
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">215</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
 </div>
-<div class="site-state-item site-state-categories">
-<a href="/categories/">
-<span class="site-state-item-count">71</span>
-<span class="site-state-item-name">分类</span></a>
-</div>
-<div class="site-state-item site-state-tags">
-<a href="/tags/">
-<span class="site-state-item-count">71</span>
-<span class="site-state-item-name">标签</span></a>
-</div>
-</nav>
-</div>
-<div class="links-of-author motion-element">
-<span class="links-of-author-item">
-<a href="https://github.com/lengmo714" rel="noopener" target="_blank" title="GitHub → https://github.com/lengmo714"><i class="fab fa-github fa-fw"></i>GitHub</a>
-</span>
-<span class="links-of-author-item">
-<a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-</span>
-<span class="links-of-author-item">
-<a href="https://weibo.com/u/3124723200" rel="noopener" target="_blank" title="Weibo → https://weibo.com/u/3124723200"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
-</span>
-<span class="links-of-author-item">
-<a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank" title="抖音 → https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W"><i class="fa fa-mobile fa-fw"></i>抖音</a>
-</span>
-</div>
-<div class="cc-license motion-element" itemprop="license">
-<a class="cc-opacity" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><img alt="Creative Commons" src="/images/cc-by-nc-sa.svg"/></a>
-</div>
-<div class="links-of-blogroll motion-element">
-<div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
       Links
     </div>
-<ul class="links-of-blogroll-list">
-<li class="links-of-blogroll-item">
-<a href="/Link/" title="/Link/">友情链接</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://blog.csdn.net/Silent_F" rel="noopener" target="_blank" title="https://blog.csdn.net/Silent_F">CSDN</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://lengmo714.top/net/map/index.html" title="https://lengmo714.top/net/map/index.html">足迹</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://mall.jd.com/index-12955410.html" rel="noopener" target="_blank" title="https://mall.jd.com/index-12955410.html">京东小店</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://lengmo714.top/net/Love/baby.html" title="https://lengmo714.top/net/Love/baby.html">恋爱计时</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://lengmo714.top/net/wechat/index.html" title="https://lengmo714.top/net/wechat/index.html">微信对话生成器</a>
-</li>
-</ul>
-</div>
-</div>
-<div class="back-to-top motion-element">
-<i class="fa fa-arrow-up"></i>
-<span>0%</span>
-</div>
-</div>
-</aside>
-<div id="sidebar-dimmer"></div>
-</div>
-</main>
-<footer class="footer">
-<div class="footer-inner">
-<div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
-</div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mall.jd.com/index-12955410.html" title="https:&#x2F;&#x2F;mall.jd.com&#x2F;index-12955410.html" rel="noopener" target="_blank">京东小店</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
 <div class="copyright">
   
-  © 2017 – 
+  &copy; 2017 – 
   <span itemprop="copyrightYear">2025</span>
-<span class="with-love">
-<i class="fa fa-heart"></i>
-</span>
-<span class="author" itemprop="copyrightHolder">南锋</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
 </div>
-</div>
-</footer>
-</div>
-<script src="/lib/anime.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-<script src="/lib/velocity/velocity.min.js"></script>
-<script src="/lib/velocity/velocity.ui.min.js"></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
 <script src="/js/utils.js"></script>
+
 <script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 <script src="/js/bookmark.js"></script>
-<script>
+
+
+
+
+  
+  <script>
     (function(){
       var canonicalURL, curProtocol;
       //Get the <link> tag
@@ -445,42 +579,45 @@
 	    //Assign script content. Replace current URL with the canonical URL
       !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
   </script>
+
+
+
+
+  
 <script src="/js/local-search.js"></script>
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : true,
-      appId      : 't3TkgC71hcBBtINYfsVe8r0R-gzGzoHsz',
-      appKey     : 'SUF3DMDZlFZMDGj3ai9WfgFY',
-      placeholder: "填写QQ邮箱就会使用QQ头像喔~",
-      avatar     : 'mm',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : true,
-      lang       : 'zh-cn' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : true,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
   +  
   
-	<script src="/js/cursor/fireworks.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
+  
+
 </body>
 </html>
-<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"></script>
-<p><ins class="adsbygoogle" data-ad-client="ca-pub-3160571902547760" data-ad-format="fluid" data-ad-layout="in-article" data-ad-slot="8630948880" style="display:block; text-align:center;"></ins></p>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>

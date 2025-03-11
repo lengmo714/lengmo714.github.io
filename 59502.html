@@ -1,38 +1,44 @@
 <!DOCTYPE html>
-
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport"/>
-<meta content="#222" name="theme-color"/>
-<meta content="Hexo 7.2.0" name="generator"/><br/><meta content="Lua, 编程语言, 面向对象, 面向对象编程, 原型继承, 类与对象, self参数, 方法调用, 元表" name="keywords"/><br/><meta content="Lua, 编程语言, 面向对象, 面向对象编程, 原型继承, 类与对象, self参数, 方法调用, 元表" name="keywords"/>
-<link href="/images/favicon-16x16-next.png" rel="apple-touch-icon" sizes="180x180"/>
-<link href="/images/favicon-32x32-next.png" rel="icon" sizes="32x32" type="image/png"/>
-<link href="/images/favicon-16x16-next.png" rel="icon" sizes="16x16" type="image/png"/>
-<link color="#222" href="/images/favicon-32x32-next.png" rel="mask-icon"/>
-<meta content="7f4abda1472881d3" name="yandex-verification"/>
-<meta content="5lU3qr1ysBwet0Uc" name="baidu-site-verification"/>
-<link href="/css/main.css" rel="stylesheet"/>
-<link href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&amp;display=swap&amp;subset=latin,latin-ext" rel="stylesheet"/>
-<link href="/lib/font-awesome/css/all.min.css" rel="stylesheet"/>
-<link href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css" rel="stylesheet"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.proxy.ustclug.org/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-<meta content="从很多意义上讲，Lua语言中的一张表就是一个对象。首先，表与对象一样，可以拥有状态。其次，表与对象一样，拥有一个与其无关的标识(self)；" name="description"/>
-<meta content="article" property="og:type"/>
-<meta content="Lua面向对象编程详解：从原型继承到方法调用" property="og:title"/>
-<meta content="https://lengmo714.top/59502.html" property="og:url"/>
-<meta content="南锋" property="og:site_name"/>
-<meta content="从很多意义上讲，Lua语言中的一张表就是一个对象。首先，表与对象一样，可以拥有状态。其次，表与对象一样，拥有一个与其无关的标识(self)；" property="og:description"/>
-<meta content="zh_CN" property="og:locale"/>
-<meta content="2020-04-24T14:49:17.000Z" property="article:published_time"/>
-<meta content="2024-11-14T17:18:18.000Z" property="article:modified_time"/>
-<meta content="南锋" property="article:author"/>
-<meta content="Lua" property="article:tag"/>
-<meta content="summary" name="twitter:card"/>
-<link href="https://lengmo714.top/59502.html" rel="canonical"/>
+
+  <meta name="description" content="Lua面向对象编程详解：从原型继承到方法调用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua面向对象编程详解：从原型继承到方法调用">
+<meta property="og:url" content="https://lengmo714.top/59502.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="Lua面向对象编程详解：从原型继承到方法调用">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-24T14:49:17.000Z">
+<meta property="article:modified_time" content="2025-03-11T11:10:34.902Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lengmo714.top/59502.html">
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -42,9 +48,11 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Lua面向对象编程详解：从原型继承到方法调用 | 南锋</title>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
-<script>
+
+  <title>Lua面向对象编程详解：从原型继承到方法调用 | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
       if (CONFIG.hostname === location.hostname) {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -52,8 +60,14 @@
         gtag('config', 'G-XDK58GP86Z');
       }
     </script>
-<noscript>
-<style>
+
+
+
+
+
+
+  <noscript>
+  <style>
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -74,285 +88,355 @@
   .use-motion .logo-line-after i { right: initial; }
   </style>
 </noscript>
+
 </head>
-<body itemscope="" itemtype="http://schema.org/WebPage">
-<div class="container use-motion">
-<div class="headband"></div>
-<header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-<div class="header-inner"><div class="site-brand-container">
-<div class="site-nav-toggle">
-<div aria-label="切换导航栏" class="toggle">
-<span class="toggle-line toggle-line-first"></span>
-<span class="toggle-line toggle-line-middle"></span>
-<span class="toggle-line toggle-line-last"></span>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
 </div>
-</div>
-<div class="site-meta">
-<a class="brand" href="/" rel="start">
-<span class="logo-line-before"><i></i></span>
-<h1 class="site-title">南锋</h1>
-<span class="logo-line-after"><i></i></span>
-</a>
-<p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
-</div>
-<div class="site-nav-right">
-<div class="toggle popup-trigger">
-<i class="fa fa-search fa-fw fa-lg"></i>
-</div>
-</div>
-</div>
+
+
+
+
 <nav class="site-nav">
-<ul class="main-menu menu" id="menu">
-<li class="menu-item menu-item-home">
-<a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-</li>
-<li class="menu-item menu-item-about">
-<a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-</li>
-<li class="menu-item menu-item-tags">
-<a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-</li>
-<li class="menu-item menu-item-categories">
-<a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-</li>
-<li class="menu-item menu-item-archives">
-<a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-</li>
-<li class="menu-item menu-item-search">
-<a class="popup-trigger" role="button"><i class="fa fa-search fa-fw"></i>搜索
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
-</li>
-</ul>
+      </li>
+  </ul>
 </nav>
-<div class="search-pop-overlay">
-<div class="popup search-popup">
-<div class="search-header">
-<span class="search-icon">
-<i class="fa fa-search"></i>
-</span>
-<div class="search-input-container">
-<input autocapitalize="off" autocomplete="off" class="search-input" placeholder="搜索..." spellcheck="false" type="search"/>
-</div>
-<span class="popup-btn-close">
-<i class="fa fa-times-circle"></i>
-</span>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
 </div>
 <div id="search-result">
-<div id="no-result">
-<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
 </div>
+
+    </div>
+  </div>
+
 </div>
-</div>
-</div>
-</div>
-</header>
-<div class="reading-progress-bar"></div>
-<a class="book-mark-link book-mark-link-fixed" role="button"></a>
-<main class="main">
-<div class="main-inner">
-<div class="content-wrap">
-<div class="content post posts-expand">
-<article class="post-block" itemscope="" itemtype="http://schema.org/Article" lang="zh-CN">
-<link href="https://lengmo714.top/59502.html" itemprop="mainEntityOfPage"/>
-<span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-<meta content="/images/IMG_3307.JPG" itemprop="image"/>
-<meta content="南锋" itemprop="name"/>
-<meta content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员" itemprop="description"/>
-</span>
-<span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-<meta content="南锋" itemprop="name"/>
-</span>
-<header class="post-header">
-<h1 class="post-title" itemprop="name headline">
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/59502.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
           Lua面向对象编程详解：从原型继承到方法调用
         </h1>
-<div class="post-meta">
-<span class="post-meta-item">
-<span class="post-meta-item-icon">
-<i class="far fa-calendar"></i>
-</span>
-<span class="post-meta-item-text">发表于</span>
-<time datetime="2020-04-24T22:49:17+08:00" itemprop="dateCreated datePublished" title="创建时间：2020-04-24 22:49:17">2020-04-24</time>
-</span>
-<span class="post-meta-item">
-<span class="post-meta-item-icon">
-<i class="far fa-calendar-check"></i>
-</span>
-<span class="post-meta-item-text">更新于</span>
-<time datetime="2024-11-15T01:18:18+08:00" itemprop="dateModified" title="修改时间：2024-11-15 01:18:18">2024-11-15</time>
-</span>
-<span class="post-meta-item">
-<span class="post-meta-item-icon">
-<i class="far fa-folder"></i>
-</span>
-<span class="post-meta-item-text">分类于</span>
-<span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
-</span>
-</span>
-<span class="post-meta-item leancloud_visitors" data-flag-title="Lua面向对象编程详解：从原型继承到方法调用" id="/59502.html" title="阅读次数">
-<span class="post-meta-item-icon">
-<i class="fa fa-eye"></i>
-</span>
-<span class="post-meta-item-text">阅读次数：</span>
-<span class="leancloud-visitors-count"></span>
-</span>
-<span class="post-meta-item">
-<span class="post-meta-item-icon">
-<i class="far fa-comment"></i>
-</span>
-<span class="post-meta-item-text">Valine：</span>
-<a href="/59502.html#valine-comments" itemprop="discussionUrl" title="valine">
-<span class="post-comments-count valine-comment-count" data-xid="/59502.html" itemprop="commentCount"></span>
-</a>
-</span>
-</div>
-</header>
-<div class="post-body" itemprop="articleBody">
-<p>从很多意义上讲，Lua语言中的一张表就是一个对象。首先，表与对象一样，可以拥有状态。其次，表与对象一样，拥有一个与其无关的标识(self)；</p>
-<span id="more"></span>
-<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"></script>
-<p><ins class="adsbygoogle" data-ad-client="ca-pub-3160571902547760" data-ad-format="fluid" data-ad-layout="in-article" data-ad-slot="8630948880" style="display:block; text-align:center;"></ins></p>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-24 22:49:17" itemprop="dateCreated datePublished" datetime="2020-04-24T22:49:17+08:00">2020-04-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-11 19:10:34" itemprop="dateModified" datetime="2025-03-11T19:10:34+08:00">2025-03-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">Lua面向对象编程详解：从原型继承到方法调用</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>从很多意义上讲，Lua语言中的一张表就是一个对象。首先，表与对象一样，可以拥有状态。其次，表与对象一样，拥有一个与其无关的标识(self)；</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
 <p>特别地，两个具有相同值的对象（表）是两个不同的对象，而一个对象可以具有多个不同的值；最后，表与对象一样，具有创建者和被创建位置无关的声明周期。</p>
-<!--more-->
 <p>对象有其自己的操作。表也可以有自己的操作，例如：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/></pre></td><td class="code"><pre><span class="line">Account = {balance = <span class="number">0</span>}</span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account.withdraw</span><span class="params">(v)</span></span></span><br/><span class="line">	Account.balance = Account.balance - v</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Account = &#123;balance = <span class="number">0</span>&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account.withdraw</span><span class="params">(v)</span></span></span><br><span class="line">	Account.balance = Account.balance - v</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>上面的代码创建了一个新函数，并将该函数存入Account对象的withdraw字段。然后，我们就可以进行如下的调用：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">Account.withdraw(<span class="number">100.00</span>)</span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Account.withdraw(<span class="number">100.00</span>)</span><br></pre></td></tr></table></figure>
 <p>这种函数差不多就是所谓的方法了。不过，在函数中使用全局名称Account是一个非常槽糕的编程习惯。首先，这个函数只能针对特定对象工作。其次，即使针对特定的对象，这个函数也只有在对象保存在特定的全局变量中时才能工作。如果我们改变类对象的名称，withdraw就不能工作了：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line">a, Account = Account, <span class="literal">nil</span></span><br/><span class="line">a.withdraw(<span class="number">100.00</span>) 	<span class="comment">-- ERROR!</span></span><br/></pre></td></tr></table></figure>
-<p>这种行为违反对象拥有独立声明周期的原则。<br/>另一种更加有原则的方法是对操作的接受者进行操作。因此，我们的方法需要额外的参数来表示该接受者，这个参数通常被称为self或this:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account.withdraw</span><span class="params">(self,v)</span></span></span><br/><span class="line">	<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance - v</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a, Account = Account, <span class="literal">nil</span></span><br><span class="line">a.withdraw(<span class="number">100.00</span>) 	<span class="comment">-- ERROR!</span></span><br></pre></td></tr></table></figure>
+<p>这种行为违反对象拥有独立声明周期的原则。<br>另一种更加有原则的方法是对操作的接受者进行操作。因此，我们的方法需要额外的参数来表示该接受者，这个参数通常被称为self或this:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account.withdraw</span><span class="params">(self,v)</span></span></span><br><span class="line">	<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance - v</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>此时，当我们调用该方法时，必须指定要操作的对象：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line">a1 = Account; Account = <span class="literal">nil</span></span><br/><span class="line">...</span><br/><span class="line">a1.withdraw(a1,<span class="number">100.00</span>) 		<span class="comment">-- OK</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a1 = Account; Account = <span class="literal">nil</span></span><br><span class="line">...</span><br><span class="line">a1.withdraw(a1,<span class="number">100.00</span>) 		<span class="comment">-- OK</span></span><br></pre></td></tr></table></figure>
 <p>通过使用参数self，可以对多个对象调用相同的方法：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line">a2 = {balance = <span class="number">0</span>, withdraw = Account.withdraw}</span><br/><span class="line">...</span><br/><span class="line">a2.withdraw(a2,<span class="number">260.00</span>)</span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a2 = &#123;balance = <span class="number">0</span>, withdraw = Account.withdraw&#125;</span><br><span class="line">...</span><br><span class="line">a2.withdraw(a2,<span class="number">260.00</span>)</span><br></pre></td></tr></table></figure>
 <p>使用参数self是所有面向对象语言的核心店。大多数面向对象语言都向程序员隐藏了这个机制，从而使得程序员不必显式地声明这个参数（虽然程序员仍然可以在方法内使用self或者this）。Lua语言同样可以使用冒号操作符隐藏该参数。使用冒号操作符，我们可以将上例重写为a2:withdraw(260.00):</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:withdraw</span><span class="params">(v)</span></span></span><br/><span class="line">	<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance -v</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:withdraw</span><span class="params">(v)</span></span></span><br><span class="line">	<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance -v</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>冒号的作用是在一个方法调用中增加一个额外的参数，或在方法的定义中增加一个额外的隐藏行参。冒号只是一种语法机制，虽然很便利，但没有引入任何新的东西。我们可以使用点分语法来定义一个函数，然后用冒号语法调用它，反之亦然，只要能够正确地处理好额外参数即可：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/></pre></td><td class="code"><pre><span class="line">Account = {</span><br/><span class="line">	balance = <span class="number">0</span>,</span><br/><span class="line">	withdraw = <span class="function"><span class="keyword">function</span><span class="params">(self,v)</span></span></span><br/><span class="line">		<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance -v</span><br/><span class="line">	<span class="keyword">end</span></span><br/><span class="line">}</span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:deposit</span><span class="params">(v)</span></span></span><br/><span class="line">	<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance + v</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">Account.deposit(Account,<span class="number">200.00</span>)</span><br/><span class="line">Account:withdraw(<span class="number">100.00</span>)</span><br/></pre></td></tr></table></figure>
-<h2 id="类（class）"><a class="headerlink" href="#类（class）" title="类（class）"></a>类（class）</h2><p>截至目前，我们的对象具有了标识、状态和对状态进行的操作，但还缺乏类体系、继承和私有性。让我们先来解决第一个问题，即应该如何创建多个具有类似行为的对象。更具体地说，我们应该如果创建多个银行账户呢？<br/>大多数面向对象语言提供了类的概念，类在对象的创建中扮演了模子的作用。在这些语言中，每个对象都是某个特定类的实例。Lua语言中没有类的概念；虽然元表的概念在某种程度上与类的概念相似，但是把元表当作类使用在后续会比较麻烦。相反，我们可以参考基于原型的语言中的一些做法来在Lua语言中模拟类，例如Self语言。在这些语言中，对象不属于类。相反，每个对象可以有一个原型。原型也是一种普通的对象，当对象（类的实例）遇到一个为知操作时会首先在原型中查找。要在这种语言中表示一个类，我们只需要创建一个专门被用作其他对象的原型对象即可。类和原型都是一种组织多个对象间共享行为的方式。<br/>在Lua语言中，我们可以使用继承的思想来实现原型。更准确第说，如果有两个对象A和B，要让B成为A的一个原型，只需要：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line"><span class="built_in">setmetatable</span>(A,{<span class="built_in">__index</span> = B})</span><br/></pre></td></tr></table></figure>
-<p>在此之后，A就会在B中查找所有它没有的操作。如果把B看作对象A的类，则只不过是术语上的一个变化。<br/>让我们回到之前银行账户的示例。为了创建其他与Account行为类似的账号，我们可以使用__index元方法让这些新对象从Account中继承这些操作。</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> mt = {<span class="built_in">__index</span> = Account}</span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account.new</span><span class="params">(o)</span></span></span><br/><span class="line">	o = o <span class="keyword">or</span> {}</span><br/><span class="line">	<span class="built_in">setmetatable</span>(o,mt)</span><br/><span class="line">	<span class="keyword">return</span> o</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Account = &#123;</span><br><span class="line">	balance = <span class="number">0</span>,</span><br><span class="line">	withdraw = <span class="function"><span class="keyword">function</span><span class="params">(self,v)</span></span></span><br><span class="line">		<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance -v</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:deposit</span><span class="params">(v)</span></span></span><br><span class="line">	<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance + v</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">Account.deposit(Account,<span class="number">200.00</span>)</span><br><span class="line">Account:withdraw(<span class="number">100.00</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="类（class）"><a href="#类（class）" class="headerlink" title="类（class）"></a>类（class）</h2><p>截至目前，我们的对象具有了标识、状态和对状态进行的操作，但还缺乏类体系、继承和私有性。让我们先来解决第一个问题，即应该如何创建多个具有类似行为的对象。更具体地说，我们应该如果创建多个银行账户呢？<br>大多数面向对象语言提供了类的概念，类在对象的创建中扮演了模子的作用。在这些语言中，每个对象都是某个特定类的实例。Lua语言中没有类的概念；虽然元表的概念在某种程度上与类的概念相似，但是把元表当作类使用在后续会比较麻烦。相反，我们可以参考基于原型的语言中的一些做法来在Lua语言中模拟类，例如Self语言。在这些语言中，对象不属于类。相反，每个对象可以有一个原型。原型也是一种普通的对象，当对象（类的实例）遇到一个为知操作时会首先在原型中查找。要在这种语言中表示一个类，我们只需要创建一个专门被用作其他对象的原型对象即可。类和原型都是一种组织多个对象间共享行为的方式。<br>在Lua语言中，我们可以使用继承的思想来实现原型。更准确第说，如果有两个对象A和B，要让B成为A的一个原型，只需要：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setmetatable</span>(A,&#123;<span class="built_in">__index</span> = B&#125;)</span><br></pre></td></tr></table></figure>
+<p>在此之后，A就会在B中查找所有它没有的操作。如果把B看作对象A的类，则只不过是术语上的一个变化。<br>让我们回到之前银行账户的示例。为了创建其他与Account行为类似的账号，我们可以使用__index元方法让这些新对象从Account中继承这些操作。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> mt = &#123;<span class="built_in">__index</span> = Account&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account.new</span><span class="params">(o)</span></span></span><br><span class="line">	o = o <span class="keyword">or</span> &#123;&#125;</span><br><span class="line">	<span class="built_in">setmetatable</span>(o,mt)</span><br><span class="line">	<span class="keyword">return</span> o</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>在这段代码执行后，当我们创建一个新账户并调用新账户的一个方法时会发生什么呢？</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line">a = Account.new{balance = <span class="number">0</span>}</span><br/><span class="line">a:deposit(<span class="number">100.00</span>)</span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = Account.new&#123;balance = <span class="number">0</span>&#125;</span><br><span class="line">a:deposit(<span class="number">100.00</span>)</span><br></pre></td></tr></table></figure>
 <p>当我们创建一个新账户a时，a会将mt作为其元表。当调用a:deposit(100.00)时，实际上调用的是a.deposit(a,100.00)，冒号只不过是一个语法糖。不过，Lua语言无法在表a中找到字段”deposit”，所以它会在元表的__index中搜索。此时的情况大致如下：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line"><span class="built_in">getmetatable</span>(a).<span class="built_in">__index</span>.deposit(a,<span class="number">100.00</span>)</span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">getmetatable</span>(a).<span class="built_in">__index</span>.deposit(a,<span class="number">100.00</span>)</span><br></pre></td></tr></table></figure>
 <p>a的元表是mt，而mt.__index是Account。因此，上述表达式等价于：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">Account.deposit(a,<span class="number">100.00</span>)</span><br/></pre></td></tr></table></figure>
-<p>即，Lua语言调用了原来的deposit函数，传入了a作为self参数。因此新账户a从Account继承了函数deposit。同样，它还从Account继承了所有的字段。<br/>对于这种模式，我们可以进行两个小改进。第一种改进是，不创建扮演元表角色的新表而是把Account直接用作元表。第二种改进是，对new方法也使用冒号语法。加入了这两个改动后，方法new会变成：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:new</span><span class="params">(o)</span></span></span><br/><span class="line">	o = o <span class="keyword">or</span> {}</span><br/><span class="line">	<span class="built_in">self</span>.<span class="built_in">__index</span> = <span class="built_in">self</span></span><br/><span class="line">	<span class="built_in">setmetatable</span>(o,<span class="built_in">self</span>)</span><br/><span class="line">	<span class="keyword">return</span> o</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
-<p>现在，当我们调用Account:new()时，隐藏的参数self得到的实参是Account，Account.__index等于Account，并且Account被用作新对象的元表。可能看上去第二种修改（冒号语法）并没有得到大大的好处，但实际上当我们在使用类的继承的时候，使用self的优点就会很明显了。<br/>继承不仅可以作用于方法，还可以作用于其他在新账户中没有的字段。因此，一个类不仅可以提供方法，还可以为实例中的字段提供常量和默认量。请注意，在第一版Account的定义中，有一个balance字段的值是0。因此，如果在创建新账户时没有提供初始的余额，那么余额就会继承这个默认值：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line">b = Account:new()</span><br/><span class="line"><span class="built_in">print</span>(balance)			<span class="comment">-- 0</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Account.deposit(a,<span class="number">100.00</span>)</span><br></pre></td></tr></table></figure>
+<p>即，Lua语言调用了原来的deposit函数，传入了a作为self参数。因此新账户a从Account继承了函数deposit。同样，它还从Account继承了所有的字段。<br>对于这种模式，我们可以进行两个小改进。第一种改进是，不创建扮演元表角色的新表而是把Account直接用作元表。第二种改进是，对new方法也使用冒号语法。加入了这两个改动后，方法new会变成：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:new</span><span class="params">(o)</span></span></span><br><span class="line">	o = o <span class="keyword">or</span> &#123;&#125;</span><br><span class="line">	<span class="built_in">self</span>.<span class="built_in">__index</span> = <span class="built_in">self</span></span><br><span class="line">	<span class="built_in">setmetatable</span>(o,<span class="built_in">self</span>)</span><br><span class="line">	<span class="keyword">return</span> o</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>现在，当我们调用Account:new()时，隐藏的参数self得到的实参是Account，Account.__index等于Account，并且Account被用作新对象的元表。可能看上去第二种修改（冒号语法）并没有得到大大的好处，但实际上当我们在使用类的继承的时候，使用self的优点就会很明显了。<br>继承不仅可以作用于方法，还可以作用于其他在新账户中没有的字段。因此，一个类不仅可以提供方法，还可以为实例中的字段提供常量和默认量。请注意，在第一版Account的定义中，有一个balance字段的值是0。因此，如果在创建新账户时没有提供初始的余额，那么余额就会继承这个默认值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b = Account:new()</span><br><span class="line"><span class="built_in">print</span>(balance)			<span class="comment">-- 0</span></span><br></pre></td></tr></table></figure>
 <p>当在b上调用 deposit方法时，由于self就是b，所以等价于：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">b.balance = b.balance + v</span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b.balance = b.balance + v</span><br></pre></td></tr></table></figure>
 <p>表达式b.balance求值后等于零，且该方法给b.balance赋了初始的金额。由于此时b有了它自己的balance字段，因此后续对b.balance的访问就不会再涉及元方法了。</p>
-<h2 id="继承（Inheritance）"><a class="headerlink" href="#继承（Inheritance）" title="继承（Inheritance）"></a>继承（Inheritance）</h2><p>由于类也是对象，因此它们也可以从其他类获得方法。这种行为使得继承（即常见的面向对象的定义）可以很容易地在Lua语言中实现。</p>
+<h2 id="继承（Inheritance）"><a href="#继承（Inheritance）" class="headerlink" title="继承（Inheritance）"></a>继承（Inheritance）</h2><p>由于类也是对象，因此它们也可以从其他类获得方法。这种行为使得继承（即常见的面向对象的定义）可以很容易地在Lua语言中实现。</p>
 <blockquote>
 <p>Account类</p>
 </blockquote>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/></pre></td><td class="code"><pre><span class="line">Account = {balance = <span class="number">0</span>}</span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:new</span><span class="params">(o)</span></span></span><br/><span class="line">	o = o <span class="keyword">or</span> {}</span><br/><span class="line">	<span class="built_in">self</span>.<span class="built_in">__index</span> - <span class="built_in">self</span></span><br/><span class="line">	<span class="built_in">setmetatable</span>(o,<span class="built_in">self</span>)</span><br/><span class="line">	<span class="keyword">return</span> o</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:deposit</span><span class="params">(v)</span></span></span><br/><span class="line">	<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance + v</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:withdraw</span><span class="params">(v)</span></span></span><br/><span class="line">	<span class="keyword">if</span> v &gt; <span class="built_in">self</span>.balance <span class="keyword">then</span> <span class="built_in">error</span> <span class="string">"insufficient funds"</span> <span class="keyword">end</span></span><br/><span class="line">	<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance - v</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Account = &#123;balance = <span class="number">0</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:new</span><span class="params">(o)</span></span></span><br><span class="line">	o = o <span class="keyword">or</span> &#123;&#125;</span><br><span class="line">	<span class="built_in">self</span>.<span class="built_in">__index</span> - <span class="built_in">self</span></span><br><span class="line">	<span class="built_in">setmetatable</span>(o,<span class="built_in">self</span>)</span><br><span class="line">	<span class="keyword">return</span> o</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:deposit</span><span class="params">(v)</span></span></span><br><span class="line">	<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance + v</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:withdraw</span><span class="params">(v)</span></span></span><br><span class="line">	<span class="keyword">if</span> v &gt; <span class="built_in">self</span>.balance <span class="keyword">then</span> <span class="built_in">error</span> <span class="string">&quot;insufficient funds&quot;</span> <span class="keyword">end</span></span><br><span class="line">	<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance - v</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>若想从这个类派生一个子类SpecialAccount以允许客户透支，那么可以先创建一个从基类继承了所有操作的空类：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">SpecialAccount = Account:new()</span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SpecialAccount = Account:new()</span><br></pre></td></tr></table></figure>
 <p>直到现在，SpecialAccount还只是Account的一个实例。下面让我们来见证奇迹：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">s = SpecialAccount:new{limit = <span class="number">1000.00</span>}</span><br/></pre></td></tr></table></figure>
-<p>SpecialAccount就像继承其他方法一样从Account继承了new。不过，现在执行new时，它的self参数指向的是SpeciaAccount。因此，s的元表会是SpecialAccount，其中字段__index的值也是SpecialAccount。因此，s继承自SpecialAccount，而 SpecialAccount又继承自Account。之后，当执行s:deposit(100.00)时，Lua语言在s中找不到deposit字段，就会查找 SpecialAccount，仍找不到deposit字段，就查找Account并最终会在Account中找到deposit的最初实现。<br/>SpecialAccount之所以特殊是因为我们可以重新定义从基类继承的任意方法，只需要编写一个新方法即可：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SpecialAccount:withdraw</span><span class="params">(v)</span></span></span><br/><span class="line">	<span class="keyword">if</span> v - <span class="built_in">self</span>.balance &gt;= <span class="built_in">self</span>:getLimit() <span class="keyword">then</span></span><br/><span class="line">		<span class="built_in">error</span> <span class="string">"insufficient funds"</span></span><br/><span class="line">	<span class="keyword">end</span></span><br/><span class="line">	<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance - v</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SpecialAccount:getLimit</span><span class="params">()</span></span></span><br/><span class="line">	<span class="keyword">return</span> <span class="built_in">self</span>.limit <span class="keyword">or</span> <span class="number">0</span></span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
-<p>现在，当调用s:withdraw(200.00)时，因为Lua语言会在 SpecialAccount中先找到新的withdraw方法，所以不会再从Account中查找。由于s.limit为1000.00（我们创建s时设置了这个值），所以程序会执行取款并使s变成负的余额。<br/>Lua语言中的对象有一个有趣的特行，就是无须为了指定一种新行为而创建一个新类。如果只有单个对象需要某种特殊的行为，那么我们可以直接在该对象中实现在和行为。例如，账户s表示一个特殊的客户，这个客户的透支额度总是其余额的10%，那么可以只修改这个账户：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">s:getLimit</span><span class="params">()</span></span></span><br/><span class="line">	<span class="keyword">return</span> <span class="built_in">self</span>.balance * <span class="number">0.10</span></span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s = SpecialAccount:new&#123;limit = <span class="number">1000.00</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>SpecialAccount就像继承其他方法一样从Account继承了new。不过，现在执行new时，它的self参数指向的是SpeciaAccount。因此，s的元表会是SpecialAccount，其中字段__index的值也是SpecialAccount。因此，s继承自SpecialAccount，而 SpecialAccount又继承自Account。之后，当执行s:deposit(100.00)时，Lua语言在s中找不到deposit字段，就会查找 SpecialAccount，仍找不到deposit字段，就查找Account并最终会在Account中找到deposit的最初实现。<br>SpecialAccount之所以特殊是因为我们可以重新定义从基类继承的任意方法，只需要编写一个新方法即可：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SpecialAccount:withdraw</span><span class="params">(v)</span></span></span><br><span class="line">	<span class="keyword">if</span> v - <span class="built_in">self</span>.balance &gt;= <span class="built_in">self</span>:getLimit() <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">error</span> <span class="string">&quot;insufficient funds&quot;</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance - v</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SpecialAccount:getLimit</span><span class="params">()</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">self</span>.limit <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>现在，当调用s:withdraw(200.00)时，因为Lua语言会在 SpecialAccount中先找到新的withdraw方法，所以不会再从Account中查找。由于s.limit为1000.00（我们创建s时设置了这个值），所以程序会执行取款并使s变成负的余额。<br>Lua语言中的对象有一个有趣的特行，就是无须为了指定一种新行为而创建一个新类。如果只有单个对象需要某种特殊的行为，那么我们可以直接在该对象中实现在和行为。例如，账户s表示一个特殊的客户，这个客户的透支额度总是其余额的10%，那么可以只修改这个账户：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">s:getLimit</span><span class="params">()</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">self</span>.balance * <span class="number">0.10</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>在这段代码后，调用s:withdraw(200.00)还是会执行 SpecialAccount的withdraw方法，但当withdraw调用 self:getLimit时，调用的是上述的定义。</p>
-<h2 id="多重继承（Multiple-Lnheritance）"><a class="headerlink" href="#多重继承（Multiple-Lnheritance）" title="多重继承（Multiple Lnheritance）"></a>多重继承（Multiple Lnheritance）</h2><p>由于Lua语言中的对象不是基本类型，因此在Lua语言中进行面向对象编程时又几种方式。上面缩减的是一种使用__index元方法的做法，也可能是在简易、性能和灵活性方面最均衡的做法。不过尽管如此，还有一些其他的实现对某些特殊的情况可能更加合适。在此，我们会看到允许在Lua语言中实现多重继承的另一种实现。<br/>这种实现的关键在于把一个函数用作__index元方法。请注意，当一个表的元表中的__index字段为一个函数时，当Lua不能在原来的表中找到一个键时就会调用这个函数。基于这一点，就可以让__index元方法在其他期望的任意数量的父类中查找缺失的键。<br/>多重继承以为这一个类可以具有多个超类。因此，我们不应该使用一个（超）类中的方法来创建子类，而是应该定义一个独立的函数createClass来创建子类。函数createClass的参数为新类的所有超类。该函数创建一个表来表示新类，然后设置新类元表中的元方法__index，由元方法实现多重继承。虽然是多重继承，但每个实例仍然属于单个类，并在其中查找所有的方法。因此，类和超类之间的关系不同于类和实例之间的关系。尤其是，一个类不能同时成为其实例和子类的元表。</p>
+<h2 id="多重继承（Multiple-Lnheritance）"><a href="#多重继承（Multiple-Lnheritance）" class="headerlink" title="多重继承（Multiple Lnheritance）"></a>多重继承（Multiple Lnheritance）</h2><p>由于Lua语言中的对象不是基本类型，因此在Lua语言中进行面向对象编程时又几种方式。上面缩减的是一种使用__index元方法的做法，也可能是在简易、性能和灵活性方面最均衡的做法。不过尽管如此，还有一些其他的实现对某些特殊的情况可能更加合适。在此，我们会看到允许在Lua语言中实现多重继承的另一种实现。<br>这种实现的关键在于把一个函数用作__index元方法。请注意，当一个表的元表中的__index字段为一个函数时，当Lua不能在原来的表中找到一个键时就会调用这个函数。基于这一点，就可以让__index元方法在其他期望的任意数量的父类中查找缺失的键。<br>多重继承以为这一个类可以具有多个超类。因此，我们不应该使用一个（超）类中的方法来创建子类，而是应该定义一个独立的函数createClass来创建子类。函数createClass的参数为新类的所有超类。该函数创建一个表来表示新类，然后设置新类元表中的元方法__index，由元方法实现多重继承。虽然是多重继承，但每个实例仍然属于单个类，并在其中查找所有的方法。因此，类和超类之间的关系不同于类和实例之间的关系。尤其是，一个类不能同时成为其实例和子类的元表。</p>
 <blockquote>
 <p>实例：一种多重继承的实现</p>
 </blockquote>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/><span class="line">22</span><br/><span class="line">23</span><br/><span class="line">24</span><br/><span class="line">25</span><br/><span class="line">26</span><br/><span class="line">27</span><br/><span class="line">28</span><br/><span class="line">29</span><br/></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 在表'plist'的列表中查找'k'</span></span><br/><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">search</span> <span class="params">(k,plist)</span></span></span><br/><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>, # plist <span class="keyword">do</span></span><br/><span class="line">		<span class="keyword">local</span> v = plist[i][k]		<span class="comment">-- 尝试第'i'个超类</span></span><br/><span class="line">		<span class="keyword">if</span> v <span class="keyword">then</span> <span class="keyword">return</span> v <span class="keyword">end</span></span><br/><span class="line">	<span class="keyword">end</span></span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createClass</span><span class="params">(...)</span></span></span><br/><span class="line">	<span class="keyword">local</span> c = {}		<span class="comment">-- 新类</span></span><br/><span class="line">	<span class="keyword">local</span> parents = {...} <span class="comment">-- 父类列表</span></span><br/><span class="line"></span><br/><span class="line">	<span class="comment">-- 在父类列表中查找类缺失的方法</span></span><br/><span class="line">	<span class="built_in">setmetatable</span>(c,{<span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span><span class="params">(t,k)</span></span></span><br/><span class="line">		reuturn search(k,parents)</span><br/><span class="line">	<span class="keyword">end</span>})</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">-- 将'c'作为其实例的元表</span></span><br/><span class="line">	c.<span class="built_in">__index</span> = c</span><br/><span class="line"></span><br/><span class="line">	<span class="comment">-- 为新类定义一个新的构造函数</span></span><br/><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">c:new</span><span class="params">(o)</span></span></span><br/><span class="line">		o = o <span class="keyword">or</span> {}</span><br/><span class="line">		<span class="built_in">setmetatable</span>(o,c)</span><br/><span class="line">		<span class="keyword">return</span> o</span><br/><span class="line">	<span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">	<span class="keyword">return</span> c 	<span class="comment">-- 返回新类</span></span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 在表&#x27;plist&#x27;的列表中查找&#x27;k&#x27;</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">search</span> <span class="params">(k,plist)</span></span></span><br><span class="line">	<span class="keyword">for</span> i = <span class="number">1</span>, # plist <span class="keyword">do</span></span><br><span class="line">		<span class="keyword">local</span> v = plist[i][k]		<span class="comment">-- 尝试第&#x27;i&#x27;个超类</span></span><br><span class="line">		<span class="keyword">if</span> v <span class="keyword">then</span> <span class="keyword">return</span> v <span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createClass</span><span class="params">(...)</span></span></span><br><span class="line">	<span class="keyword">local</span> c = &#123;&#125;		<span class="comment">-- 新类</span></span><br><span class="line">	<span class="keyword">local</span> parents = &#123;...&#125; <span class="comment">-- 父类列表</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">-- 在父类列表中查找类缺失的方法</span></span><br><span class="line">	<span class="built_in">setmetatable</span>(c,&#123;<span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span><span class="params">(t,k)</span></span></span><br><span class="line">		reuturn search(k,parents)</span><br><span class="line">	<span class="keyword">end</span>&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="comment">-- 将&#x27;c&#x27;作为其实例的元表</span></span><br><span class="line">	c.<span class="built_in">__index</span> = c</span><br><span class="line"></span><br><span class="line">	<span class="comment">-- 为新类定义一个新的构造函数</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">c:new</span><span class="params">(o)</span></span></span><br><span class="line">		o = o <span class="keyword">or</span> &#123;&#125;</span><br><span class="line">		<span class="built_in">setmetatable</span>(o,c)</span><br><span class="line">		<span class="keyword">return</span> o</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> c 	<span class="comment">-- 返回新类</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>让我们用一个简单地示例来演示 createClass的用法。假设前面提到的类Account和另一个只有两个方法setname和getname的类Named：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/></pre></td><td class="code"><pre><span class="line">Named = {}</span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Named:getname</span><span class="params">()</span></span></span><br/><span class="line">	<span class="keyword">return</span> <span class="built_in">self</span>.name </span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Named:setname</span><span class="params">(n)</span></span></span><br/><span class="line">	<span class="built_in">self</span>.name = n</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Named = &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Named:getname</span><span class="params">()</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">self</span>.name </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Named:setname</span><span class="params">(n)</span></span></span><br><span class="line">	<span class="built_in">self</span>.name = n</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>要创建一个同时继承Account和Named的新类NamedAccount，只需要调用createClass：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">NamedAccount = createClass(Account, Named)</span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NamedAccount = createClass(Account, Named)</span><br></pre></td></tr></table></figure>
 <p>可以像平时一样创建和使用实例：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/></pre></td><td class="code"><pre><span class="line">account = NamedAccount:new{name = <span class="string">"Paul"</span>}</span><br/><span class="line"><span class="built_in">print</span>(account:getname())			<span class="comment">-- Paul</span></span><br/></pre></td></tr></table></figure>
-<p>现在，让我们来学习Lua语言是如何对表达式account:getname()求值的；更确切地说，让我们来学习account[“getname”]的求值过程。首先，Lua语言在account中找不到字段”getname”；因此，它就查找account的元表中的__index字段，在我们的示例中该字段为NamedAccount。由于在NamedAccount中也不存在字段”getname”,所以再从NamedAccount的元表中查找__index字段。由于这个字段是一个函数，因此Lua语言就调用了这个函数（即search）。该函数现在Account中查找”getname”；未找到后，继而在Named中查找并最终在Named中找到了一个非nil的值，也就是最终的搜索结果。<br/>当然，由于这种搜索具有一定的复杂性，因此多重继承的性能不如单继承。一种改进性能的简单做法是将被继承的方法复制到子类中，通过这种技术，类的__index元方法会变成：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/></pre></td><td class="code"><pre><span class="line"><span class="built_in">setmetatable</span>(c,{<span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span><span class="params">(t,k)</span></span></span><br/><span class="line">	<span class="keyword">local</span> v = search(k,parents)</span><br/><span class="line">	t[k] = v</span><br/><span class="line">	<span class="keyword">return</span> v})</span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">account = NamedAccount:new&#123;name = <span class="string">&quot;Paul&quot;</span>&#125;</span><br><span class="line"><span class="built_in">print</span>(account:getname())			<span class="comment">-- Paul</span></span><br></pre></td></tr></table></figure>
+<p>现在，让我们来学习Lua语言是如何对表达式account:getname()求值的；更确切地说，让我们来学习account[“getname”]的求值过程。首先，Lua语言在account中找不到字段”getname”；因此，它就查找account的元表中的__index字段，在我们的示例中该字段为NamedAccount。由于在NamedAccount中也不存在字段”getname”,所以再从NamedAccount的元表中查找__index字段。由于这个字段是一个函数，因此Lua语言就调用了这个函数（即search）。该函数现在Account中查找”getname”；未找到后，继而在Named中查找并最终在Named中找到了一个非nil的值，也就是最终的搜索结果。<br>当然，由于这种搜索具有一定的复杂性，因此多重继承的性能不如单继承。一种改进性能的简单做法是将被继承的方法复制到子类中，通过这种技术，类的__index元方法会变成：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setmetatable</span>(c,&#123;<span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span><span class="params">(t,k)</span></span></span><br><span class="line">	<span class="keyword">local</span> v = search(k,parents)</span><br><span class="line">	t[k] = v</span><br><span class="line">	<span class="keyword">return</span> v&#125;)</span><br></pre></td></tr></table></figure>
 <p>使用了这种技巧后，在第一次访问过被继承的方法后，再访问被继承的方法就会像访问局部方法一样快了。这种技巧的缺点在于当系统开始运行后修改方法的定义就比价困难了，这是因为这些修改不会沿着继承层次向下传播。</p>
-<h2 id="私有性"><a class="headerlink" href="#私有性" title="私有性"></a>私有性</h2><p>许多人认为，私有性是一门面向对象语言不可或缺的一部分：每个对象的状态都应该由它自己控制。在一些诸如C++和java的面向对象中，我们可以控制一个字段（也被称为实例变量）或一个方法是否在对象之外可见。另一种非常流行的面向对象语言Smalltalk，则规定所有的变量都是私有的。而所有的方法都是公有的。第一种面向对象语言Simula，则不提供任何形式的私有性保护。<br/>此前，我们所学习的Lua语言中标准的对象实现方式没有提供私有性机制。一方面，这是使用普通结构来表示对象所带来的后果；另一方面，这也是Lua语言为了避免冗余和人为限制所采取的方法。如果夬不想返回一个对象内的内容，那就不要去访问就是了。一种常见的做法是把所有私有名称的最后加上一个上下画线，这样就能立刻区分出全局名称了。<br/>不过，尽管如此，Lua原因的另外一项设计目标是灵活性，它为程序员提供能够模拟许多不同机制的元机制。虽然在Lua语言中，对象的基本设计没有提供私有性机制，但可以用其他方式来实现具有具有访问控制能力的对象。尽管程序员一般不会用到这种实现，但是了解这种实现还是有好处的，因为这种实现即探索了Lua语言中某些有趣的方面，又可以成为其他更具体问题的良好解决方案。<br/>这种做法的基本思想是通过两个表来表示一个对象：一个表用来保存对象的状态，另一个表用于保存对象的操作（或接口）。我们通过二个表来访问对象本身，即通过组成其接口的操作来访问。为了避免未授权的访问，表示对象状态的表不保存在其他表的字段中，而只保存在方法的闭包中。例如，如果要用这种设计来表示银行账户，那么可以通过下面的工厂函数创建新的对象：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newAccount</span> <span class="params">(initialBalance)</span></span></span><br/><span class="line">	<span class="keyword">local</span> <span class="built_in">self</span> = {balance = initialBalance}</span><br/><span class="line"></span><br/><span class="line">	<span class="keyword">local</span> withdraw = <span class="function"><span class="keyword">function</span><span class="params">(v)</span></span></span><br/><span class="line">		<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance - v</span><br/><span class="line">	<span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">	<span class="keyword">local</span> deposit = <span class="function"><span class="keyword">function</span><span class="params">(v)</span></span></span><br/><span class="line">		<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance + v</span><br/><span class="line">	<span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">	<span class="keyword">local</span> getBalance = <span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="keyword">return</span> <span class="built_in">self</span>.balance <span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line">	<span class="keyword">return</span> {</span><br/><span class="line">		withdraw = withdraw,</span><br/><span class="line">		deposit = deposit,</span><br/><span class="line">		getBalance = getBalance</span><br/><span class="line">	}</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
+<h2 id="私有性"><a href="#私有性" class="headerlink" title="私有性"></a>私有性</h2><p>许多人认为，私有性是一门面向对象语言不可或缺的一部分：每个对象的状态都应该由它自己控制。在一些诸如C++和java的面向对象中，我们可以控制一个字段（也被称为实例变量）或一个方法是否在对象之外可见。另一种非常流行的面向对象语言Smalltalk，则规定所有的变量都是私有的。而所有的方法都是公有的。第一种面向对象语言Simula，则不提供任何形式的私有性保护。<br>此前，我们所学习的Lua语言中标准的对象实现方式没有提供私有性机制。一方面，这是使用普通结构来表示对象所带来的后果；另一方面，这也是Lua语言为了避免冗余和人为限制所采取的方法。如果夬不想返回一个对象内的内容，那就不要去访问就是了。一种常见的做法是把所有私有名称的最后加上一个上下画线，这样就能立刻区分出全局名称了。<br>不过，尽管如此，Lua原因的另外一项设计目标是灵活性，它为程序员提供能够模拟许多不同机制的元机制。虽然在Lua语言中，对象的基本设计没有提供私有性机制，但可以用其他方式来实现具有具有访问控制能力的对象。尽管程序员一般不会用到这种实现，但是了解这种实现还是有好处的，因为这种实现即探索了Lua语言中某些有趣的方面，又可以成为其他更具体问题的良好解决方案。<br>这种做法的基本思想是通过两个表来表示一个对象：一个表用来保存对象的状态，另一个表用于保存对象的操作（或接口）。我们通过二个表来访问对象本身，即通过组成其接口的操作来访问。为了避免未授权的访问，表示对象状态的表不保存在其他表的字段中，而只保存在方法的闭包中。例如，如果要用这种设计来表示银行账户，那么可以通过下面的工厂函数创建新的对象：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newAccount</span> <span class="params">(initialBalance)</span></span></span><br><span class="line">	<span class="keyword">local</span> <span class="built_in">self</span> = &#123;balance = initialBalance&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">local</span> withdraw = <span class="function"><span class="keyword">function</span><span class="params">(v)</span></span></span><br><span class="line">		<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance - v</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">local</span> deposit = <span class="function"><span class="keyword">function</span><span class="params">(v)</span></span></span><br><span class="line">		<span class="built_in">self</span>.balance = <span class="built_in">self</span>.balance + v</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">local</span> getBalance = <span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="keyword">return</span> <span class="built_in">self</span>.balance <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		withdraw = withdraw,</span><br><span class="line">		deposit = deposit,</span><br><span class="line">		getBalance = getBalance</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>首先，这个函数创建了一个用于保存对象内部状态的表，并将其存储在局部变量self中。然后，这个函数创建了对象的方法。最后，这个函数会创建并返回一个外部对象，该对象将方法名与真正的方法实现映射起来。这里的关键在于，这些方法不需要额外的self参数，而是直接访问self变量。由于没有了额外的参数，我们也就无须使用冒号语法来操作这些对象，而是可以像普通函数那样来调用这些方法：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line">acc1 = newAccount(<span class="number">100.00</span>)</span><br/><span class="line">acc1.withdraw(<span class="number">40.00</span>)</span><br/><span class="line"><span class="built_in">print</span>(acc1.getBalance())		<span class="comment">-- 60</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">acc1 = newAccount(<span class="number">100.00</span>)</span><br><span class="line">acc1.withdraw(<span class="number">40.00</span>)</span><br><span class="line"><span class="built_in">print</span>(acc1.getBalance())		<span class="comment">-- 60</span></span><br></pre></td></tr></table></figure>
 <p>这种设计给予了存储在表self中所有内容完成的私有性。当newAccount返回后，就无法直接访问这个表了，我们只能通过在newAccount中创建的函数来访问它。虽然我们的示例只把一个实例变量放到了私有表中，但还有可以将一个对象中的所有私有部分都存入这个表。我们也可以定义私有方法，它们类似于公有方法但不放入接口中。例如，我们的账户可以给余额大于某个值的用户额外的10%的信用额度，但是又不想让用户访问到这些计算细节，就可以将这个功能按以下方法实现：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newAccount</span><span class="params">(initialBalance)</span></span></span><br/><span class="line">	<span class="keyword">local</span> <span class="built_in">self</span> = {</span><br/><span class="line">		balance = initialBalance,</span><br/><span class="line">		LIM	 	= <span class="number">10000.00</span>,</span><br/><span class="line">	}</span><br/><span class="line">	<span class="keyword">local</span> extra = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br/><span class="line">	<span class="keyword">if</span> <span class="built_in">self</span>.balance &gt; <span class="built_in">self</span>.LIM <span class="keyword">then</span></span><br/><span class="line">		<span class="keyword">return</span> <span class="built_in">self</span>.balance*<span class="number">0.10</span></span><br/><span class="line">	<span class="keyword">else</span></span><br/><span class="line">		<span class="keyword">return</span> <span class="number">0</span></span><br/><span class="line">	<span class="keyword">end</span></span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="keyword">local</span> getBalance = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br/><span class="line">	<span class="keyword">return</span> <span class="built_in">self</span>.balance + extra()</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
-<h2 id="单方法对象（Single-method-Object）"><a class="headerlink" href="#单方法对象（Single-method-Object）" title="单方法对象（Single-method Object）"></a>单方法对象（Single-method Object）</h2><p>上述面向对象编程实现的一个特例是对象只有一个方法的情况。在这种情况下，可以不用创建接口表，只要将这个单独的方法以对象的表示形式返回即可。<br/>单方法对象的另一种有趣的情况是，这个方法其实是一个根据不同的参数完成不同任务的分发方法。这种对象的一种原型实现如下：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newObject</span> <span class="params">(value)</span></span></span><br/><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(action , v)</span></span></span><br/><span class="line">		<span class="keyword">if</span> action == <span class="string">"get"</span> <span class="keyword">then</span> <span class="keyword">return</span> value</span><br/><span class="line">		<span class="keyword">elseif</span> action == <span class="string">"set"</span> <span class="keyword">then</span> value = v</span><br/><span class="line">		<span class="keyword">else</span> <span class="built_in">error</span>(<span class="string">"invalid action"</span>)</span><br/><span class="line">		<span class="keyword">end</span></span><br/><span class="line">	<span class="keyword">end</span></span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newAccount</span><span class="params">(initialBalance)</span></span></span><br><span class="line">	<span class="keyword">local</span> <span class="built_in">self</span> = &#123;</span><br><span class="line">		balance = initialBalance,</span><br><span class="line">		LIM	 	= <span class="number">10000.00</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">local</span> extra = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">self</span>.balance &gt; <span class="built_in">self</span>.LIM <span class="keyword">then</span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">self</span>.balance*<span class="number">0.10</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> getBalance = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">self</span>.balance + extra()</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="单方法对象（Single-method-Object）"><a href="#单方法对象（Single-method-Object）" class="headerlink" title="单方法对象（Single-method Object）"></a>单方法对象（Single-method Object）</h2><p>上述面向对象编程实现的一个特例是对象只有一个方法的情况。在这种情况下，可以不用创建接口表，只要将这个单独的方法以对象的表示形式返回即可。<br>单方法对象的另一种有趣的情况是，这个方法其实是一个根据不同的参数完成不同任务的分发方法。这种对象的一种原型实现如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newObject</span> <span class="params">(value)</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(action , v)</span></span></span><br><span class="line">		<span class="keyword">if</span> action == <span class="string">&quot;get&quot;</span> <span class="keyword">then</span> <span class="keyword">return</span> value</span><br><span class="line">		<span class="keyword">elseif</span> action == <span class="string">&quot;set&quot;</span> <span class="keyword">then</span> value = v</span><br><span class="line">		<span class="keyword">else</span> <span class="built_in">error</span>(<span class="string">&quot;invalid action&quot;</span>)</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>其使用方法很简单：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/></pre></td><td class="code"><pre><span class="line">d = newObject(<span class="number">0</span>)</span><br/><span class="line"><span class="built_in">print</span>(d(<span class="string">"get"</span>))   <span class="comment">--- 0 </span></span><br/><span class="line">d(<span class="string">"set"</span>,<span class="number">10</span>)</span><br/><span class="line"><span class="built_in">print</span>(d(<span class="string">"get"</span>))		<span class="comment">-- 10</span></span><br/></pre></td></tr></table></figure>
-<p>这种非传统的对象实现方式是很高效的。虽然d(“set”,10)这样的语法有些奇怪，但也不过只是比传统的d:set(10)多出了两个字符而已。每个对象使用一个闭包，要比使用一个表的开销更低。虽然使用这种方式不能继承，但我们却可以拥有完全的私有性：访问单方法对象中某个成员只能通过该对象所具有的唯一方法进行。<br/>Tcl/Tk对它的窗口部件使用了类似的做法。在Tk中，一个窗口部件的名称就是一个函数，这个函数可以根据它的第一个参数完成所有针对该部件的操作。</p>
-<h2 id="对偶表示（Dual-Repressentation）"><a class="headerlink" href="#对偶表示（Dual-Repressentation）" title="对偶表示（Dual Repressentation）"></a>对偶表示（Dual Repressentation）</h2><p>实现私有性的另一种有趣方式是使用对偶表示。让我们先看一下什么是对偶表示。<br/>通常我们使用键来把属性关联到表，例如：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line"><span class="built_in">table</span>[key] = value</span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d = newObject(<span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span>(d(<span class="string">&quot;get&quot;</span>))   <span class="comment">--- 0 </span></span><br><span class="line">d(<span class="string">&quot;set&quot;</span>,<span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(d(<span class="string">&quot;get&quot;</span>))		<span class="comment">-- 10</span></span><br></pre></td></tr></table></figure>
+<p>这种非传统的对象实现方式是很高效的。虽然d(“set”,10)这样的语法有些奇怪，但也不过只是比传统的d:set(10)多出了两个字符而已。每个对象使用一个闭包，要比使用一个表的开销更低。虽然使用这种方式不能继承，但我们却可以拥有完全的私有性：访问单方法对象中某个成员只能通过该对象所具有的唯一方法进行。<br>Tcl&#x2F;Tk对它的窗口部件使用了类似的做法。在Tk中，一个窗口部件的名称就是一个函数，这个函数可以根据它的第一个参数完成所有针对该部件的操作。</p>
+<h2 id="对偶表示（Dual-Repressentation）"><a href="#对偶表示（Dual-Repressentation）" class="headerlink" title="对偶表示（Dual Repressentation）"></a>对偶表示（Dual Repressentation）</h2><p>实现私有性的另一种有趣方式是使用对偶表示。让我们先看一下什么是对偶表示。<br>通常我们使用键来把属性关联到表，例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">table</span>[key] = value</span><br></pre></td></tr></table></figure>
 <p>不过，我们可以使用对偶表示：把表当作键，同时又把对象本身当作这个表的键：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line">key = {}</span><br/><span class="line">...</span><br/><span class="line">key[<span class="built_in">table</span>] = value</span><br/></pre></td></tr></table></figure>
-<p>这里的关键在于：我们不仅可以通过数值和字符串来索引一个表，还可以通过任何值来索引一个表。尤其是可以使用其他的表来索引一个表。<br/>例如，我们在银行账户的实现中，可以把所有账户的余额放在表balance中，而不是把余额放在每个账户里。我们的withdraw方法会变成：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account.withdraw</span><span class="params">(self,v)</span></span></span><br/><span class="line">	balance[<span class="built_in">self</span>] = balance[<span class="built_in">self</span>] -v</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">key = &#123;&#125;</span><br><span class="line">...</span><br><span class="line">key[<span class="built_in">table</span>] = value</span><br></pre></td></tr></table></figure>
+<p>这里的关键在于：我们不仅可以通过数值和字符串来索引一个表，还可以通过任何值来索引一个表。尤其是可以使用其他的表来索引一个表。<br>例如，我们在银行账户的实现中，可以把所有账户的余额放在表balance中，而不是把余额放在每个账户里。我们的withdraw方法会变成：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account.withdraw</span><span class="params">(self,v)</span></span></span><br><span class="line">	balance[<span class="built_in">self</span>] = balance[<span class="built_in">self</span>] -v</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>这样做的好处在于私有性。即使一个函数可以访问一个账户，但是除非它能够同时访问表balance，否则也不能访问余额。如果表balance是一个在模块Account内部保存的局部变量，那么只有模块内部的函数才能访问它。因此，只有这些函数才能操作账户余额。</p>
 <blockquote>
 <p>示例 使用对偶表示实现账户</p>
 </blockquote>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/><span class="line">6</span><br/><span class="line">7</span><br/><span class="line">8</span><br/><span class="line">9</span><br/><span class="line">10</span><br/><span class="line">11</span><br/><span class="line">12</span><br/><span class="line">13</span><br/><span class="line">14</span><br/><span class="line">15</span><br/><span class="line">16</span><br/><span class="line">17</span><br/><span class="line">18</span><br/><span class="line">19</span><br/><span class="line">20</span><br/><span class="line">21</span><br/></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> balance = {}</span><br/><span class="line">Account = {}</span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:withdraw</span><span class="params">(v)</span></span></span><br/><span class="line">	balance[<span class="built_in">self</span>] = balance[<span class="built_in">self</span>] - v</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:deposit</span><span class="params">(v)</span></span></span><br/><span class="line">	balance[<span class="built_in">self</span>] = balance[<span class="built_in">self</span>] + v</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:balance</span><span class="params">()</span></span></span><br/><span class="line">	<span class="keyword">return</span> balance[<span class="built_in">self</span>]</span><br/><span class="line"><span class="keyword">end</span></span><br/><span class="line"></span><br/><span class="line"><span class="function"><span class="keyword">function</span>  <span class="title">Account:new</span><span class="params">( o )</span></span></span><br/><span class="line">	o = o <span class="keyword">or</span> {}</span><br/><span class="line">	<span class="built_in">setmetatable</span>(o,<span class="built_in">self</span>)</span><br/><span class="line">	<span class="built_in">self</span>.<span class="built_in">__index</span> = <span class="built_in">self</span></span><br/><span class="line">	balance[o] = <span class="number">0</span></span><br/><span class="line">	<span class="keyword">return</span> o</span><br/><span class="line"><span class="keyword">end</span></span><br/></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> balance = &#123;&#125;</span><br><span class="line">Account = &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:withdraw</span><span class="params">(v)</span></span></span><br><span class="line">	balance[<span class="built_in">self</span>] = balance[<span class="built_in">self</span>] - v</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:deposit</span><span class="params">(v)</span></span></span><br><span class="line">	balance[<span class="built_in">self</span>] = balance[<span class="built_in">self</span>] + v</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account:balance</span><span class="params">()</span></span></span><br><span class="line">	<span class="keyword">return</span> balance[<span class="built_in">self</span>]</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>  <span class="title">Account:new</span><span class="params">( o )</span></span></span><br><span class="line">	o = o <span class="keyword">or</span> &#123;&#125;</span><br><span class="line">	<span class="built_in">setmetatable</span>(o,<span class="built_in">self</span>)</span><br><span class="line">	<span class="built_in">self</span>.<span class="built_in">__index</span> = <span class="built_in">self</span></span><br><span class="line">	balance[o] = <span class="number">0</span></span><br><span class="line">	<span class="keyword">return</span> o</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
 <p>我们可以像使用其他类一样使用这个类：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/></pre></td><td class="code"><pre><span class="line">a = Account:new{}</span><br/><span class="line">a:deposit(<span class="number">100.00</span>)</span><br/><span class="line"><span class="built_in">print</span>(a:balance())</span><br/></pre></td></tr></table></figure>
-<p>不过，我们不能恶意修改账户余额。这种实现通过让表balance为模块所私有，保证了它的安全性。<br/>对偶表示无须修改即可实现继承。这种实现方式与标准实现方式在内存和时间开销方面基本相同。新对象需要一个新表，而且再每一个被使用的私有表中需要一个新的元素。访问balance[self]会比访问self.balance稍慢，这是因为后者使用了局部变量而前者使用了外部变量。通常，这种区别是可以忽略的。</p>
-</div>
-<div class="reward-container">
-<div></div>
-<button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = Account:new&#123;&#125;</span><br><span class="line">a:deposit(<span class="number">100.00</span>)</span><br><span class="line"><span class="built_in">print</span>(a:balance())</span><br></pre></td></tr></table></figure>
+<p>不过，我们不能恶意修改账户余额。这种实现通过让表balance为模块所私有，保证了它的安全性。<br>对偶表示无须修改即可实现继承。这种实现方式与标准实现方式在内存和时间开销方面基本相同。新对象需要一个新表，而且再每一个被使用的私有表中需要一个新的元素。访问balance[self]会比访问self.balance稍慢，这是因为后者使用了局部变量而前者使用了外部变量。通常，这种区别是可以忽略的。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
     打赏
   </button>
-<div id="qr" style="display: none;">
-<div style="display: inline-block;">
-<img alt="南锋 微信支付" src="/images/wechat.png"/>
-<p>微信支付</p>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
 </div>
-<div style="display: inline-block;">
-<img alt="南锋 支付宝" src="/images/alipay.png"/>
-<p>支付宝</p>
-</div>
-</div>
-</div>
+
+        
+
 <div>
 <ul class="post-copyright">
-<li class="post-copyright-author">
-<strong>本文作者： </strong>南锋
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
   </li>
-<li class="post-copyright-link">
-<strong>本文链接：</strong>
-<a href="https://lengmo714.top/59502.html" title="Lua面向对象编程详解：从原型继承到方法调用">https://lengmo714.top/59502.html</a>
-</li>
-<li class="post-copyright-license">
-<strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/59502.html" title="Lua面向对象编程详解：从原型继承到方法调用">https://lengmo714.top/59502.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
   </li>
 </ul>
 </div>
-<footer class="post-footer">
-<div class="post-tags">
-<a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
-</div>
-<div class="post-nav">
-<div class="post-nav-item">
-<a href="/62511.html" rel="prev" title="Lua元表与元方法详解：自定义运算与行为控制">
-<i class="fa fa-chevron-left"></i> Lua元表与元方法详解：自定义运算与行为控制
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/62511.html" rel="prev" title="Lua元表与元方法详解：自定义运算与行为控制">
+      <i class="fa fa-chevron-left"></i> Lua元表与元方法详解：自定义运算与行为控制
     </a></div>
-<div class="post-nav-item">
-<a href="/52859.html" rel="next" title="Lua打乱数组排序方法：实现随机数组">
+      <div class="post-nav-item">
+    <a href="/52859.html" rel="next" title="Lua打乱数组排序方法：实现随机数组">
       Lua打乱数组排序方法：实现随机数组 <i class="fa fa-chevron-right"></i>
-</a></div>
-</div>
-</footer>
-</article>
-</div>
-<div class="comments" id="valine-comments"></div>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
 <script>
   window.addEventListener('tabs:register', () => {
     let { activeClass } = CONFIG.comments;
@@ -374,133 +458,177 @@
     });
   }
 </script>
-</div>
-<div class="toggle sidebar-toggle">
-<span class="toggle-line toggle-line-first"></span>
-<span class="toggle-line toggle-line-middle"></span>
-<span class="toggle-line toggle-line-last"></span>
-</div>
-<aside class="sidebar">
-<div class="sidebar-inner">
-<ul class="sidebar-nav motion-element">
-<li class="sidebar-nav-toc">
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
           文章目录
         </li>
-<li class="sidebar-nav-overview">
+        <li class="sidebar-nav-overview">
           站点概览
         </li>
-</ul>
-<!--noindex-->
-<div class="post-toc-wrap sidebar-panel">
-<div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%EF%BC%88class%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">类（class）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%EF%BC%88Inheritance%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">继承（Inheritance）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E9%87%8D%E7%BB%A7%E6%89%BF%EF%BC%88Multiple-Lnheritance%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">多重继承（Multiple Lnheritance）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%81%E6%9C%89%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">私有性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E6%96%B9%E6%B3%95%E5%AF%B9%E8%B1%A1%EF%BC%88Single-method-Object%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">单方法对象（Single-method Object）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E5%81%B6%E8%A1%A8%E7%A4%BA%EF%BC%88Dual-Repressentation%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">对偶表示（Dual Repressentation）</span></a></li></ol></div>
-</div>
-<!--/noindex-->
-<div class="site-overview-wrap sidebar-panel">
-<div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-<img alt="南锋" class="site-author-image" itemprop="image" src="/images/IMG_3307.JPG"/>
-<p class="site-author-name" itemprop="name">南锋</p>
-<div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%EF%BC%88class%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">类（class）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%EF%BC%88Inheritance%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">继承（Inheritance）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E9%87%8D%E7%BB%A7%E6%89%BF%EF%BC%88Multiple-Lnheritance%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">多重继承（Multiple Lnheritance）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%81%E6%9C%89%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">私有性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E6%96%B9%E6%B3%95%E5%AF%B9%E8%B1%A1%EF%BC%88Single-method-Object%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">单方法对象（Single-method Object）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E5%81%B6%E8%A1%A8%E7%A4%BA%EF%BC%88Dual-Repressentation%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">对偶表示（Dual Repressentation）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
 </div>
 <div class="site-state-wrap motion-element">
-<nav class="site-state">
-<div class="site-state-item site-state-posts">
-<a href="/archives/">
-<span class="site-state-item-count">214</span>
-<span class="site-state-item-name">日志</span>
-</a>
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">215</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
 </div>
-<div class="site-state-item site-state-categories">
-<a href="/categories/">
-<span class="site-state-item-count">71</span>
-<span class="site-state-item-name">分类</span></a>
-</div>
-<div class="site-state-item site-state-tags">
-<a href="/tags/">
-<span class="site-state-item-count">71</span>
-<span class="site-state-item-name">标签</span></a>
-</div>
-</nav>
-</div>
-<div class="links-of-author motion-element">
-<span class="links-of-author-item">
-<a href="https://github.com/lengmo714" rel="noopener" target="_blank" title="GitHub → https://github.com/lengmo714"><i class="fab fa-github fa-fw"></i>GitHub</a>
-</span>
-<span class="links-of-author-item">
-<a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-</span>
-<span class="links-of-author-item">
-<a href="https://weibo.com/u/3124723200" rel="noopener" target="_blank" title="Weibo → https://weibo.com/u/3124723200"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
-</span>
-<span class="links-of-author-item">
-<a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank" title="抖音 → https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W"><i class="fa fa-mobile fa-fw"></i>抖音</a>
-</span>
-</div>
-<div class="cc-license motion-element" itemprop="license">
-<a class="cc-opacity" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><img alt="Creative Commons" src="/images/cc-by-nc-sa.svg"/></a>
-</div>
-<div class="links-of-blogroll motion-element">
-<div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
       Links
     </div>
-<ul class="links-of-blogroll-list">
-<li class="links-of-blogroll-item">
-<a href="/Link/" title="/Link/">友情链接</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://blog.csdn.net/Silent_F" rel="noopener" target="_blank" title="https://blog.csdn.net/Silent_F">CSDN</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://lengmo714.top/net/map/index.html" title="https://lengmo714.top/net/map/index.html">足迹</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://mall.jd.com/index-12955410.html" rel="noopener" target="_blank" title="https://mall.jd.com/index-12955410.html">京东小店</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://lengmo714.top/net/Love/baby.html" title="https://lengmo714.top/net/Love/baby.html">恋爱计时</a>
-</li>
-<li class="links-of-blogroll-item">
-<a href="https://lengmo714.top/net/wechat/index.html" title="https://lengmo714.top/net/wechat/index.html">微信对话生成器</a>
-</li>
-</ul>
-</div>
-</div>
-<div class="back-to-top motion-element">
-<i class="fa fa-arrow-up"></i>
-<span>0%</span>
-</div>
-</div>
-</aside>
-<div id="sidebar-dimmer"></div>
-</div>
-</main>
-<footer class="footer">
-<div class="footer-inner">
-<div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
-</div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mall.jd.com/index-12955410.html" title="https:&#x2F;&#x2F;mall.jd.com&#x2F;index-12955410.html" rel="noopener" target="_blank">京东小店</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
 <div class="copyright">
   
-  © 2017 – 
+  &copy; 2017 – 
   <span itemprop="copyrightYear">2025</span>
-<span class="with-love">
-<i class="fa fa-heart"></i>
-</span>
-<span class="author" itemprop="copyrightHolder">南锋</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
 </div>
-</div>
-</footer>
-</div>
-<script src="/lib/anime.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-<script src="/lib/velocity/velocity.min.js"></script>
-<script src="/lib/velocity/velocity.ui.min.js"></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
 <script src="/js/utils.js"></script>
+
 <script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 <script src="/js/bookmark.js"></script>
-<script>
+
+
+
+
+  
+  <script>
     (function(){
       var canonicalURL, curProtocol;
       //Get the <link> tag
@@ -525,42 +653,45 @@
 	    //Assign script content. Replace current URL with the canonical URL
       !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
   </script>
+
+
+
+
+  
 <script src="/js/local-search.js"></script>
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : true,
-      appId      : 't3TkgC71hcBBtINYfsVe8r0R-gzGzoHsz',
-      appKey     : 'SUF3DMDZlFZMDGj3ai9WfgFY',
-      placeholder: "填写QQ邮箱就会使用QQ头像喔~",
-      avatar     : 'mm',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : true,
-      lang       : 'zh-cn' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : true,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
   +  
   
-	<script src="/js/cursor/fireworks.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
+  
+
 </body>
 </html>
-<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"></script>
-<p><ins class="adsbygoogle" data-ad-client="ca-pub-3160571902547760" data-ad-format="fluid" data-ad-layout="in-article" data-ad-slot="8630948880" style="display:block; text-align:center;"></ins></p>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
