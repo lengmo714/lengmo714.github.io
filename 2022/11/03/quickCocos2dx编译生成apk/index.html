@@ -24,7 +24,7 @@
 
   <meta name="description" content="毕业后开始做游戏，一直都是做的ios端的，最近换份新工作，做android端游戏开发。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="quickCocos2dx编译生成apk">
+<meta property="og:title" content="如何在quickCocos2dx中编译并生成APK：完整步骤">
 <meta property="og:url" content="http://example.com/2022/11/03/quickCocos2dx%E7%BC%96%E8%AF%91%E7%94%9F%E6%88%90apk/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="毕业后开始做游戏，一直都是做的ios端的，最近换份新工作，做android端游戏开发。">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xq67FO.png">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xq6Old.png">
 <meta property="article:published_time" content="2022-11-03T15:40:09.000Z">
-<meta property="article:modified_time" content="2024-03-12T01:53:40.580Z">
+<meta property="article:modified_time" content="2024-11-26T09:22:28.608Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="android">
 <meta property="article:tag" content="quick Cocos">
@@ -53,7 +53,7 @@
   };
 </script>
 
-  <title>quickCocos2dx编译生成apk | Hexo</title>
+  <title>如何在quickCocos2dx中编译并生成APK：完整步骤 | Hexo</title>
   
 
 
@@ -226,7 +226,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          quickCocos2dx编译生成apk
+          如何在quickCocos2dx中编译并生成APK：完整步骤
         </h1>
 
         <div class="post-meta">
@@ -243,7 +243,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-11-26 17:22:28" itemprop="dateModified" datetime="2024-11-26T17:22:28+08:00">2024-11-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -282,14 +282,14 @@
 </script>
 
 <h3 id="生成os库"><a href="#生成os库" class="headerlink" title="生成os库"></a>生成os库</h3><p>插件安装好后，就可以开始生成os库<br>网上的教程都说是在<code>frameworks\runtime-src\proj.android</code>下执行什么<code>clean.bat</code>等命令，但是博主新建的项目下面就没有这几个bat文件。于是自己执行了<code>python .\build_native.py</code></p>
-<img src="https://s1.ax1x.com/2022/11/03/xq6X6A.png" alt=""/>
+<img src="https://s1.ax1x.com/2022/11/03/xq6X6A.png" alt="示意图"/>
 执行后报错，说`ndk-build不是内部或外部命令`,将其加入环境变量即可。
 
-<img src="https://s1.ax1x.com/2022/11/03/xq67FO.png" alt=""/>
+<img src="https://s1.ax1x.com/2022/11/03/xq67FO.png" alt="示意图"/>
 
 <p>然后再执行<code>python .\build_native.py</code>命令就可以啦</p>
 <h3 id="更新编译环境"><a href="#更新编译环境" class="headerlink" title="更新编译环境"></a>更新编译环境</h3><p>os库生成好后，执行<code>android update project -p . -t 1</code><br>关于这个网上有不同的说法，有的说不用执行这行命令，有的说是在<code>frameworks\runtime-src\proj.android</code>目录下执行。博主都试了，至少在博主这里行不通。<br>博主这里需要在<code>frameworks\runtime-src\proj.android\src\main</code>下执行，因为需要生成一个<code>build.xml</code>文本。</p>
-<img src="https://s1.ax1x.com/2022/11/03/xq6Old.png" alt=""/>
+<img src="https://s1.ax1x.com/2022/11/03/xq6Old.png" alt="示意图"/>
 
 
 <h3 id="生成apk"><a href="#生成apk" class="headerlink" title="生成apk"></a>生成apk</h3><p>有了<code>build.xml</code>之后就可以生成apk了。<br>在同级目录下执行<code>ant debug</code>,但是博主这里遇到了问题，报如下错误</p>
@@ -331,7 +331,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2022/11/03/quickCocos2dx%E7%BC%96%E8%AF%91%E7%94%9F%E6%88%90apk/" title="quickCocos2dx编译生成apk">http://example.com/2022/11/03/quickCocos2dx编译生成apk/</a>
+    <a href="http://example.com/2022/11/03/quickCocos2dx%E7%BC%96%E8%AF%91%E7%94%9F%E6%88%90apk/" title="如何在quickCocos2dx中编译并生成APK：完整步骤">http://example.com/2022/11/03/quickCocos2dx编译生成apk/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -353,12 +353,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/11/01/vsCode%E8%B0%83%E8%AF%95quick-cocos2dx/" rel="prev" title="vsCode调试quick-cocos2dx">
-      <i class="fa fa-chevron-left"></i> vsCode调试quick-cocos2dx
+    <a href="/2022/11/01/vsCode%E8%B0%83%E8%AF%95quick-cocos2dx/" rel="prev" title="在vsCode中调试Cocos2d-x Lua项目：配置与解决方案">
+      <i class="fa fa-chevron-left"></i> 在vsCode中调试Cocos2d-x Lua项目：配置与解决方案
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/11/06/http%E5%BC%BA%E5%88%B6%E8%B7%B3%E5%88%B0https/" rel="next" title="http强制跳到https">
-      http强制跳到https <i class="fa fa-chevron-right"></i>
+    <a href="/2022/11/06/http%E5%BC%BA%E5%88%B6%E8%B7%B3%E5%88%B0https/" rel="next" title="如何在服务器上强制将HTTP跳转到HTTPS：配置与实施">
+      如何在服务器上强制将HTTP跳转到HTTPS：配置与实施 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -434,16 +434,16 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">177</span>
+          <span class="site-state-item-count">215</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -495,7 +495,7 @@
 <div class="copyright">
   
   &copy; 2022 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

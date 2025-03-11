@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="无意中发现telegram上居然也能发布小程序和游戏了，感觉发现了新大陆一样，自己好玩试了下。参考教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Telegram Mini App 或游戏开发中的Bot设置教程">
+<meta property="og:url" content="http://example.com/2024/06/28/telegram%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="无意中发现telegram上居然也能发布小程序和游戏了，感觉发现了新大陆一样，自己好玩试了下。参考教程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/667e6133d9c307b7e9486bb0.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/667e657ed9c307b7e950201c.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/667e6c98d9c307b7e95bbe1e.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/667e6ea9d9c307b7e960ac34.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/667e7068d9c307b7e9640de7.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/667e7162d9c307b7e965dc7d.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/66836d9fd9c307b7e9f4ad96.png">
+<meta property="article:published_time" content="2024-06-28T06:57:31.000Z">
+<meta property="article:modified_time" content="2024-11-26T09:22:28.624Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="telegram">
+<meta property="article:tag" content="mini APP">
+<meta property="article:tag" content="Game">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/667e6133d9c307b7e9486bb0.png">
+
+<link rel="canonical" href="http://example.com/2024/06/28/telegram%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Telegram Mini App 或游戏开发中的Bot设置教程 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/28/telegram%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Telegram Mini App 或游戏开发中的Bot设置教程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-06-28 14:57:31" itemprop="dateCreated datePublished" datetime="2024-06-28T14:57:31+08:00">2024-06-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-26 17:22:28" itemprop="dateModified" datetime="2024-11-26T17:22:28+08:00">2024-11-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/" itemprop="url" rel="index"><span itemprop="name">telegram</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/" itemprop="url" rel="index"><span itemprop="name">mini APP</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/Game/" itemprop="url" rel="index"><span itemprop="name">Game</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>无意中发现telegram上居然也能发布小程序和游戏了，感觉发现了新大陆一样，自己好玩试了下。<br><a target="_blank" rel="noopener" href="https://grammy.dev/zh/guide/">参考教程</a></p>
+<span id="more"></span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>要在telegram上开发一个<code>mini App</code>或者<code>game</code>，创建一个专属于你的机器人就必不可少了。</p>
+<h3 id="创建bot机器人"><a href="#创建bot机器人" class="headerlink" title="创建bot机器人"></a>创建bot机器人</h3><p>在telegram上搜索<code>@BotFather</code>或者点击该这里<a target="_blank" rel="noopener" href="https://t.me/BotFather">BotFather</a>。<br>如下图：<br><img src="https://pic.imgdb.cn/item/667e6133d9c307b7e9486bb0.png" alt="BotFather对话框"><br>进入对话框后，我们可以选择<code>菜单</code>-&gt; <code>/newbot</code>。或者在输入栏直接输入<code>/newbot</code>来创建机器人，只需要根据它的回复一步一步操作就可以了。</p>
+<h3 id="创建miniApp或者game"><a href="#创建miniApp或者game" class="headerlink" title="创建miniApp或者game"></a>创建miniApp或者game</h3><p>创建好机器人后，再创建miniApp或者game,看你的个人需求。<br>方法和上面创建bot一样，给<code>@BotFather</code>发消息就行了。上面给出的参考教程中也有。</p>
+<h3 id="部署开发环境"><a href="#部署开发环境" class="headerlink" title="部署开发环境"></a>部署开发环境</h3><p>这里的开发环境不是你的miniApp或者game的开发环境，而是用来对bot机器人的。这里可以用<code>Node.js</code>和<code>Deno</code>两种方式开发，我这里用的是<code>Deno</code>。<br>部署方法参考链接<br><a target="_blank" rel="noopener" href="https://deno.com/">Deno教程</a><br>剩下的看教程，这里不多说，直接说重点</p>
+<h3 id="机器人回复用户一个游戏"><a href="#机器人回复用户一个游戏" class="headerlink" title="机器人回复用户一个游戏"></a>机器人回复用户一个游戏</h3><p>1、 创建一个ts脚本，复制粘贴下面内容，注意:<code>TOKEN</code>和<code>GAME_SHORT_NAME</code>需要换成你自己的。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Bot</span>&#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;  <span class="comment">// 这里填写你机器人的token</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">GAME_SHORT_NAME</span> = <span class="string">&#x27;&#x27;</span>;  <span class="comment">// 这里填写你创建游戏的时候给它起的短名</span></span><br><span class="line"><span class="comment">// 创建一个 `Bot` 类的实例，并将你的 bot token 传给它。</span></span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>); </span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">command</span>(<span class="string">&quot;start&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">replyWithGame</span>(<span class="variable constant_">GAME_SHORT_NAME</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">start</span>(); <span class="comment">// 启动机器人</span></span><br></pre></td></tr></table></figure>
+<p>2、打开终端，输入下面命令执行脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno run --allow-net ts脚本.ts</span><br></pre></td></tr></table></figure>
+<p>3、回到tg，给你自己的机器人，注意，不是<code>BotFather</code>，是你自己创建的机器人，发送<code>/start</code>消息，这个时候你就会看到你的机器人给你回了一个游戏的对话框，如下图:<br><img src="https://pic.imgdb.cn/item/667e657ed9c307b7e950201c.png" alt="对话框">;<br>这个时候你会发现，你点击游戏下面的<code>play</code>按钮没有任何反应，这个时候我们需要在上面代码中给按钮添加回调事件。<br>4、给按钮添加回调<br>在上面脚本中加入下面代码：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">GAME_URL</span> = <span class="string">&quot;https://lengmo714.top&quot;</span>;</span><br><span class="line">bot.<span class="title function_">on</span>(<span class="string">&quot;callback_query:game_short_name&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ctx.callbackQuery.game_short_name = &quot;</span>,ctx.<span class="property">callbackQuery</span>.<span class="property">game_short_name</span>)</span><br><span class="line">    <span class="keyword">if</span> (ctx.<span class="property">callbackQuery</span>.<span class="property">game_short_name</span> === <span class="variable constant_">GAME_SHORT_NAME</span>) &#123;</span><br><span class="line">        <span class="keyword">await</span> ctx.<span class="title function_">answerCallbackQuery</span>(&#123; <span class="attr">url</span>: <span class="variable constant_">GAME_URL</span> &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>保存代码后重新执行脚本，再给机器人发送<code>/start</code>,这个时候再点<code>play</code>按钮，你就会发现跳转到你自己提前准备好的游戏链接了。</p>
+<h3 id="机器人回复用户一个miniApp"><a href="#机器人回复用户一个miniApp" class="headerlink" title="机器人回复用户一个miniApp"></a>机器人回复用户一个miniApp</h3><p>1、 创建一个ts脚本，复制粘贴下面内容，注意:<code>TOKEN</code>和跳转到mini app的链接需要换成你自己的。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Bot</span>&#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理 &quot;/start&quot; 命令</span></span><br><span class="line">bot.<span class="title function_">command</span>(<span class="string">&quot;start&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">reply</span>(</span><br><span class="line">        <span class="string">&#x27;&lt;b&gt;Hi!&lt;/b&gt; &lt;i&gt;Welcome&lt;/i&gt; to &lt;a href=&quot;https://lengmo714.top&quot;&gt;grammY&lt;/a&gt;.&#x27;</span>,</span><br><span class="line">        &#123; <span class="attr">parse_mode</span>: <span class="string">&quot;HTML&quot;</span> &#125;,</span><br><span class="line">    )</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
+<p>2、打开终端，输入下面命令执行脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno run --allow-net ts脚本.ts</span><br></pre></td></tr></table></figure>
+<p>3、回到tg，给你自己的机器人，注意，不是<code>BotFather</code>，是你自己创建的机器人，发送<code>/start</code>消息，这个时候你就会看到你的机器人给你回了一个miniapp的对话框，如下图:<br><img src="https://pic.imgdb.cn/item/667e6c98d9c307b7e95bbe1e.png" alt="对话框">;</p>
+<p>4、点击打开应用，就会跳转到你之前设置好的mini app</p>
+<h3 id="添加内联按钮"><a href="#添加内联按钮" class="headerlink" title="添加内联按钮"></a>添加内联按钮</h3><p>比我们在发送<code>/start</code>，需要机器人回复我们一些可选的操作，这个时候我们可以在机器人的回复中添加几个选择按钮，这个就是内联按钮。<br>示例代码：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Bot</span>,<span class="title class_">InlineKeyboard</span>&#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> keyboard = <span class="keyword">new</span> <span class="title class_">InlineKeyboard</span>().<span class="title function_">text</span>(<span class="string">&quot;开始游戏1&quot;</span>, <span class="string">&quot;one&quot;</span>).<span class="title function_">row</span>()</span><br><span class="line">                                    .<span class="title function_">text</span>(<span class="string">&quot;开始游戏2&quot;</span>, <span class="string">&quot;two&quot;</span>).<span class="title function_">row</span>()</span><br><span class="line">                                    .<span class="title function_">text</span>(<span class="string">&quot;开始游戏3&quot;</span>,<span class="string">&quot;three&quot;</span>);</span><br><span class="line"><span class="comment">// 处理 &quot;/start&quot; 命令</span></span><br><span class="line">bot.<span class="title function_">command</span>(<span class="string">&quot;start&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">reply</span>(<span class="string">&quot;请选择你需要点击的按钮&quot;</span>,&#123;</span><br><span class="line">        <span class="attr">reply_markup</span>: keyboard,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
+<p>运行脚本后出现如下图:<br><img src="https://pic.imgdb.cn/item/667e6ea9d9c307b7e960ac34.png" alt="对话框"><br>我们可以发现，这三个按钮时垂直排列，如果我们需要让这三个按钮排成一排，修改上面<code>keyboard</code>中的<code>row()</code>即可，如下代码</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> keyboard = <span class="keyword">new</span> <span class="title class_">InlineKeyboard</span>().<span class="title function_">text</span>(<span class="string">&quot;开始游戏1&quot;</span>, <span class="string">&quot;one&quot;</span>)</span><br><span class="line">                                    .<span class="title function_">text</span>(<span class="string">&quot;开始游戏2&quot;</span>, <span class="string">&quot;two&quot;</span>)</span><br><span class="line">                                    .<span class="title function_">text</span>(<span class="string">&quot;开始游戏3&quot;</span>,<span class="string">&quot;three&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>注意：这里的添加的按钮有好几种类型：<code>.text</code>、<code>.game</code>、<code>.url</code>、<code>webApp</code>目前我只用到这四种，可能还有其他的。</p>
+<h3 id="机器人回复的内容为图片-文字-按钮"><a href="#机器人回复的内容为图片-文字-按钮" class="headerlink" title="机器人回复的内容为图片+文字+按钮"></a>机器人回复的内容为图片+文字+按钮</h3><p>今天在telegram上看见一个非常喜欢的回复，如下图，这是别人的。<br><img src="https://pic.imgdb.cn/item/667e7068d9c307b7e9640de7.png" alt="对话框"><br>是由一个gif动画+文字+三个按钮组成，而且还能获取到发送用户的id。感觉非常nice，于是自己也参考这个做了个类似的，代码如下：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Bot</span>,<span class="title class_">InlineKeyboard</span> &#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TELEGRAM_GAME_URL</span> = <span class="string">&#x27;https://lengmo714.top&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 内联键盘，包含游戏按钮和访问网站按钮</span></span><br><span class="line"><span class="keyword">const</span> keyboard = <span class="keyword">new</span> <span class="title class_">InlineKeyboard</span>()</span><br><span class="line">  .<span class="title function_">url</span>(<span class="string">&quot;开始游戏1&quot;</span>,<span class="variable constant_">TELEGRAM_GAME_URL</span>).<span class="title function_">row</span>()</span><br><span class="line">  .<span class="title function_">url</span>(<span class="string">&quot;开始游戏2&quot;</span>,<span class="variable constant_">TELEGRAM_GAME_URL</span>).<span class="title function_">row</span>()</span><br><span class="line">  .<span class="title function_">url</span>(<span class="string">&quot;开始游戏3&quot;</span>,<span class="variable constant_">TELEGRAM_GAME_URL</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理 /start 命令</span></span><br><span class="line">bot.<span class="title function_">command</span>(<span class="string">&quot;start&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ctx.update.message = &quot;</span>,ctx.<span class="property">update</span>.<span class="property">message</span>.<span class="property">from</span>.<span class="property">first_name</span>);</span><br><span class="line">    <span class="keyword">const</span> gifUrl = <span class="string">&quot;https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> caption = <span class="string">`Hi <span class="subst">$&#123;ctx.update.message.<span class="keyword">from</span>.first_name&#125;</span>!\n\n给你带来一款非常好的游戏\n\n🎰 给你带来一款非常好的游戏\n\n💸 给你带来一款非常好的游戏\n\n🎁 给你带来一款非常好的游戏`</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">replyWithAnimation</span>(gifUrl, &#123;</span><br><span class="line">      <span class="attr">caption</span>: caption,</span><br><span class="line">      <span class="attr">reply_markup</span>: keyboard,</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 处理回调查询</span></span><br><span class="line">bot.<span class="title function_">start</span>(); <span class="comment">// 启动机器人</span></span><br></pre></td></tr></table></figure>
+<p>最后运行如下图：<br><img src="https://pic.imgdb.cn/item/667e7162d9c307b7e965dc7d.png" alt="对话框"></p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>从上图可以看到我们已经创建了3个内联按钮，但是按钮都是用的url方式，按钮的右上角是一个箭头的标识。这里用起来没有什么问题，但是和我找的参考不一样。人家按钮的右上角是两个窗口的标识，这里需要对按钮的类型就行修改就行了，代码如下:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> keyboard = <span class="keyword">new</span> <span class="title class_">InlineKeyboard</span>()</span><br><span class="line">  .<span class="title function_">webApp</span>(<span class="string">&quot;开始游戏&quot;</span>, <span class="variable constant_">TELEGRAM_GAME_URL</span>).<span class="title function_">row</span>()</span><br><span class="line">  .<span class="title function_">webApp</span>(<span class="string">&quot;开始游戏&quot;</span>, <span class="variable constant_">TELEGRAM_GAME_URL</span>).<span class="title function_">row</span>()</span><br><span class="line">  .<span class="title function_">url</span>(<span class="string">&quot;开始游戏&quot;</span>, <span class="variable constant_">TELEGRAM_GAME_URL</span>);</span><br></pre></td></tr></table></figure>
+<p>修改后就可以看到效果如下：<br><img src="https://pic.imgdb.cn/item/66836d9fd9c307b7e9f4ad96.png" alt="对话框"><br>这才是我们最终想要的效果。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2024/06/28/telegram%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/" title="Telegram Mini App 或游戏开发中的Bot设置教程">http://example.com/2024/06/28/telegram小程序开发/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/telegram/" rel="tag"><i class="fa fa-tag"></i> telegram</a>
+              <a href="/tags/mini-APP/" rel="tag"><i class="fa fa-tag"></i> mini APP</a>
+              <a href="/tags/Game/" rel="tag"><i class="fa fa-tag"></i> Game</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/06/17/cocosCreator%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E5%89%AA%E5%88%87%E6%9D%BF%E5%86%85%E5%AE%B9/" rel="prev" title="Cocos Creator 获取手机剪切板内容功能实现教程">
+      <i class="fa fa-chevron-left"></i> Cocos Creator 获取手机剪切板内容功能实现教程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/07/01/telegram%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF/" rel="next" title="Telegram 获取用户信息教程 | 获取头像、ID、用户名和状态">
+      Telegram 获取用户信息教程 | 获取头像、ID、用户名和状态 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAbot%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="nav-number">1.</span> <span class="nav-text">创建bot机器人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAminiApp%E6%88%96%E8%80%85game"><span class="nav-number">2.</span> <span class="nav-text">创建miniApp或者game</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text">部署开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%9B%9E%E5%A4%8D%E7%94%A8%E6%88%B7%E4%B8%80%E4%B8%AA%E6%B8%B8%E6%88%8F"><span class="nav-number">4.</span> <span class="nav-text">机器人回复用户一个游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%9B%9E%E5%A4%8D%E7%94%A8%E6%88%B7%E4%B8%80%E4%B8%AAminiApp"><span class="nav-number">5.</span> <span class="nav-text">机器人回复用户一个miniApp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%86%85%E8%81%94%E6%8C%89%E9%92%AE"><span class="nav-number">6.</span> <span class="nav-text">添加内联按钮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%9B%9E%E5%A4%8D%E7%9A%84%E5%86%85%E5%AE%B9%E4%B8%BA%E5%9B%BE%E7%89%87-%E6%96%87%E5%AD%97-%E6%8C%89%E9%92%AE"><span class="nav-number">7.</span> <span class="nav-text">机器人回复的内容为图片+文字+按钮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96"><span class="nav-number">8.</span> <span class="nav-text">优化</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">215</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

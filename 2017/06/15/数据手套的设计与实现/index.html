@@ -24,7 +24,7 @@
 
   <meta name="description" content="数据手套在人机交互中提供了一种有效的人机交互手段，从数据手套的理论出发，本论文利用一些硬件设备以及软件开发环境，设计了一款可以与机械臂、虚拟手等终端交互的数据手套。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据手套的设计与实现">
+<meta property="og:title" content="数据手套的设计与实现：虚拟现实中的人机交互应用">
 <meta property="og:url" content="http://example.com/2017/06/15/%E6%95%B0%E6%8D%AE%E6%89%8B%E5%A5%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="数据手套在人机交互中提供了一种有效的人机交互手段，从数据手套的理论出发，本论文利用一些硬件设备以及软件开发环境，设计了一款可以与机械臂、虚拟手等终端交互的数据手套。">
@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqy15F.png">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqy8C4.png">
 <meta property="article:published_time" content="2017-06-14T22:27:28.000Z">
-<meta property="article:modified_time" content="2024-03-12T01:53:40.587Z">
+<meta property="article:modified_time" content="2024-11-26T09:22:28.635Z">
 <meta property="article:author" content="南锋">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s1.ax1x.com/2022/11/03/xqy9DP.png">
@@ -63,7 +63,7 @@
   };
 </script>
 
-  <title>数据手套的设计与实现 | Hexo</title>
+  <title>数据手套的设计与实现：虚拟现实中的人机交互应用 | Hexo</title>
   
 
 
@@ -236,7 +236,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          数据手套的设计与实现
+          数据手套的设计与实现：虚拟现实中的人机交互应用
         </h1>
 
         <div class="post-meta">
@@ -253,7 +253,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 09:53:40" itemprop="dateModified" datetime="2024-03-12T09:53:40+08:00">2024-03-12</time>
+                <time title="修改时间：2024-11-26 17:22:28" itemprop="dateModified" datetime="2024-11-26T17:22:28+08:00">2024-11-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -288,13 +288,13 @@
 数据手套软件开发平台为Keil uVision5，所用的开发语言为C语言，在系统调试的时候用到了匿名四轴上位机和串口调试助手，用来对MPU6050六轴传感器和弯曲度传感器进行调试，此外在整个系统中移植了UCOS-II嵌入式实时操作系统，保证了数据在传输时的实时性和高效性。
 UCOS-II嵌入式实时操作系统是一个可移植、可固化的、可裁剪的、占先式多任务实时内核，它适用于多种微处理器，微控制器和数字处理芯片[6]。本系统软件主流程图如图3.1所示：
 <!-- [![xqyk4g.png](https://s1.ax1x.com/2022/11/03/xqyk4g.png)](https://imgse.com/i/xqyk4g) -->
-<img src="https://s1.ax1x.com/2022/11/03/xqyk4g.png" alt="" />
+<img src="https://s1.ax1x.com/2022/11/03/xqyk4g.png" alt="示意图" />
 
 <p>UCOS的原理就是当一个任务A正在执行的时候，如果它释放了CPU的控制权，先对任务A进行现场保护，然后从任务就绪表中查找其他就绪任务去执行，等到任务A的等待时间到了，它可能重新获得CPU控制权，这个时候恢复任务A的现场，从而继续执行任务A，这样看起来就好像是两个任务同时执行了。实际上，任何时候都只有一个任务可以获得CPU控制权。所谓的任务，其实就是一个死循环函数，该函数实现一定的工程，一个工程可以有很多这样的任务，UCOS-II对这些任务进行调度管理，让这些任务可以并发工作。本课题中创建了五个用户任务，分别是led_task，led闪烁提示系统工作状态；gui_task，显示屏实时显示姿态数据；adc_task弯曲度传感器采集手指弯曲信息；mpu6050_task，mpu6050传感器采集姿态信息；hc05_task蓝牙发送数据。<br>弯曲度传感器数据是利用STM32F103单片机接收经过电阻——电压转换电路转换过的弯曲度传感器的电压信号，每只手有五根手指，在单片机上设置五个ADC规则通道，用自带的AD转换电路进行AD转换得到手指的弯曲程度，ADC通道0~4分别代表大拇指、食指、中指、无名指、小指弯曲度的值。通过PC上串口调试助手读出其经过AD转换过后不同弯曲程度时的数值[7]，并对其进行分别量化和判断处理，的到最后的手指弯曲数据。<br>MPU6050传感器的数据可以通过对MPU6050传感器的软件设置可以直接读出传感器采集到的加速度和角速度原始数据，不过这些原始数据，在本课题研究中用处不大，我们期望得到的是姿态数据，也就是欧拉角。首先我们在PC端上通过匿名四轴上位机对MPU6050传感器的原始数据输出波形进行分析并对其进行滤波处理，在此原始数据的基础上还需要通过对加速度计和陀螺仪进行融合计算得出的欧拉角，得到三个轴上的欧拉角，以度为单位。MPU6050搭载有一个运动处理器（DMP），可以将采集到的原始数据直接转换输出四元数，再根据输出的四元数计算出对应的欧拉角。<br>欧拉角到姿态矩阵的转换关系为：</p>
 <!-- [![xqyput.png](https://s1.ax1x.com/2022/11/03/xqyput.png)](https://imgse.com/i/xqyput) -->
-<img src="https://s1.ax1x.com/2022/11/03/xqyput.png" alt=""/>
+<img src="https://s1.ax1x.com/2022/11/03/xqyput.png" alt="示意图"/>
 <!-- [![xqyiE8.png](https://s1.ax1x.com/2022/11/03/xqyiE8.png)](https://imgse.com/i/xqyiE8) -->
-<img src="https://s1.ax1x.com/2022/11/03/xqyiE8.png" alt=""/>
+<img src="https://s1.ax1x.com/2022/11/03/xqyiE8.png" alt="示意图"/>
 
 <!-- [![姿态矩阵T解算得到欧拉角：](https://s1.ax1x.com/2022/11/03/xqyECQ.png)](https://imgse.com/i/xqyECQ) -->
 <img src="https://s1.ax1x.com/2022/11/03/xqyECQ.png" alt="姿态矩阵T解算得到欧拉角" />
@@ -310,17 +310,17 @@ HC-05蓝牙模块式一款高性能的主从一体蓝牙串口模块，可以同
 数据手套与之交互的五轴机械臂为安诺五轴机械臂，这款机械臂的主控芯片为arduino，控制方式是使用现在数字程序中常使用的指令——G代码，机械臂的五个轴从下到上分别是A轴、B轴、C轴、D轴和X轴，每个轴分为正向转动和反向转动，所以控制机械臂只需要十个控制指令即可。本课题在控制的时，五根手指分别控制五个轴，当pitch的值小于20时手指控制机械臂的五个轴正向转动，当pitch的值大于20时，手指控制机械臂的五个轴反向转动。手部首先分别读取五个弯曲传感器的初始值（即五个手指没有弯曲时的值），再给定一个触发条件，当达到这个触发条件时，数据手套发送控制指令。如：pitch的值为15，ADC通道0的初始值为200，触发条件为ADC通道0的值大于300，当ADC通道0的值大于300时，数据手套控制五轴机械臂A轴的正向转动。交互图如图4.1所示。
 
 <!-- [![xqynuq.png](https://s1.ax1x.com/2022/11/03/xqynuq.png)](https://imgse.com/i/xqynuq) -->
-<img src="https://s1.ax1x.com/2022/11/03/xqynuq.png" alt=""/>
+<img src="https://s1.ax1x.com/2022/11/03/xqynuq.png" alt="示意图"/>
 ###4.2 与虚拟手的交互映射
 虚拟手的开发平台为Unity3D，所用的开发语言为C#。数据手套与之交互时所用到的通信协议为：
 0x55+0x53+aacx_t+pitch_s+aacy_t+roll_s+aacz_t+yaw_s+0xaa+finger0+finger1+finger2 +finger3 +finger4 +0xbb共15（byte）,虚拟手接收到数据包后对数据包进行解析，首先是对MPU6050的数据进行解析。MPU6050的数据有16位，其中aacx、aacy、aacz代表高八位，pitch_s、roll_s、yaw_s代表低八位，要得到一个MPU6050的数据，需要将高八位左移八位，然后与第八位进行或运算，具体的计算方法如下：
 
 <!-- [![xqyZgs.png](https://s1.ax1x.com/2022/11/03/xqyZgs.png)](https://imgse.com/i/xqyZgs) -->
-<img src="https://s1.ax1x.com/2022/11/03/xqyZgs.png"  alt=""/>
+<img src="https://s1.ax1x.com/2022/11/03/xqyZgs.png"  alt="示意图"/>
 然后对五跟手指即五个弯曲度传感器的值进行解析。假设接口上所读取到的X，用X来除以0.06，即X/0.06即(a1~a5)为弯曲传感器上的电压值的量化`Vx*3.3/4096（Vx为传感器上的电压）`
 
 <!-- [![xqyevn.png](https://s1.ax1x.com/2022/11/03/xqyevn.png)](https://imgse.com/i/xqyevn) -->
-<img src="https://s1.ax1x.com/2022/11/03/xqyevn.png" alt="" />
+<img src="https://s1.ax1x.com/2022/11/03/xqyevn.png" alt="示意图" />
 根据以上方程便可求出R的阻值。
 R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度成正相关。当手做出某个手势时，主控芯片获取当前五根手指的弯曲数据及手部在空间中的姿态数据，通过蓝牙发送给虚拟手，虚拟手接收到数据后进行解析，然后做出相应的手势。交互图如图4.2、图4.3、图4.4、图4.5、图4.6所示。
 
@@ -332,14 +332,14 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
 <table>
 <thead>
 <tr>
-<th><img src="https://s1.ax1x.com/2022/11/03/xqyQET.png" style="width:300px;height:200px" alt=""/></th>
-<th><img src="https://s1.ax1x.com/2022/11/03/xqyKbV.png" style="width:300px;height:200px" alt=""/></th>
-<th><img src="https://s1.ax1x.com/2022/11/03/xqylUU.png" style="width:300px;height:200px" alt=""/></th>
+<th><img src="https://s1.ax1x.com/2022/11/03/xqyQET.png" style="width:300px;height:200px" alt="示意图"/></th>
+<th><img src="https://s1.ax1x.com/2022/11/03/xqyKbV.png" style="width:300px;height:200px" alt="示意图"/></th>
+<th><img src="https://s1.ax1x.com/2022/11/03/xqylUU.png" style="width:300px;height:200px" alt="示意图"/></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><img src="https://s1.ax1x.com/2022/11/03/xqy15F.png" style="width:300px;height:200px" alt=""/></td>
-<td><img src="https://s1.ax1x.com/2022/11/03/xqy8C4.png" style="width:300px;height:200px" alt=""/></td>
+<td><img src="https://s1.ax1x.com/2022/11/03/xqy15F.png" style="width:300px;height:200px" alt="示意图"/></td>
+<td><img src="https://s1.ax1x.com/2022/11/03/xqy8C4.png" style="width:300px;height:200px" alt="示意图"/></td>
 <td></td>
 </tr>
 </tbody></table>
@@ -382,7 +382,7 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2017/06/15/%E6%95%B0%E6%8D%AE%E6%89%8B%E5%A5%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="数据手套的设计与实现">http://example.com/2017/06/15/数据手套的设计与实现/</a>
+    <a href="http://example.com/2017/06/15/%E6%95%B0%E6%8D%AE%E6%89%8B%E5%A5%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="数据手套的设计与实现：虚拟现实中的人机交互应用">http://example.com/2017/06/15/数据手套的设计与实现/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -399,12 +399,12 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2017/06/15/%E4%B8%A4%E4%B8%AAHC05%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97%E7%9B%B8%E4%BA%92%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/" rel="prev" title="两个HC05蓝牙模块相互之间的通信">
-      <i class="fa fa-chevron-left"></i> 两个HC05蓝牙模块相互之间的通信
+    <a href="/2017/06/15/%E4%B8%A4%E4%B8%AAHC05%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97%E7%9B%B8%E4%BA%92%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/" rel="prev" title="两个HC05蓝牙模块通信步骤：从AT指令设置到数据传输">
+      <i class="fa fa-chevron-left"></i> 两个HC05蓝牙模块通信步骤：从AT指令设置到数据传输
     </a></div>
       <div class="post-nav-item">
-    <a href="/2017/10/07/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E4%BA%A4%E6%8D%A2%E4%BC%A0%E8%BE%93%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/" rel="next" title="通信工程交换传输实习报告">
-      通信工程交换传输实习报告 <i class="fa fa-chevron-right"></i>
+    <a href="/2017/10/07/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E4%BA%A4%E6%8D%A2%E4%BC%A0%E8%BE%93%E5%AE%9E%E4%B9%A0%E6%8A%A5%E5%91%8A/" rel="next" title="通信工程交换传输实习报告：程控交换与光纤传输系统分析">
+      通信工程交换传输实习报告：程控交换与光纤传输系统分析 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -480,16 +480,16 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">177</span>
+          <span class="site-state-item-count">215</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -541,7 +541,7 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
 <div class="copyright">
   
   &copy; 2022 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -24,7 +24,7 @@
 
   <meta name="description" content="本方法适用与任何主题，JVectorMap 是一个优秀的、兼容性强的 jQuery 地图插件。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo添加jVectorMap足迹地图">
+<meta property="og:title" content="Hexo博客集成jVectorMap：实现足迹地图功能">
 <meta property="og:url" content="http://example.com/2022/10/22/HexoNext%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0jVectorMap%E8%B6%B3%E8%BF%B9%E5%9C%B0%E5%9B%BE/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="本方法适用与任何主题，JVectorMap 是一个优秀的、兼容性强的 jQuery 地图插件。">
@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqsHHK.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqs7B6.jpg">
 <meta property="article:published_time" content="2022-10-21T17:12:19.000Z">
-<meta property="article:modified_time" content="2024-05-16T04:01:20.218Z">
+<meta property="article:modified_time" content="2024-11-26T09:22:28.525Z">
 <meta property="article:author" content="南锋">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s1.ax1x.com/2022/11/03/xqsHHK.jpg">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>Hexo添加jVectorMap足迹地图 | Hexo</title>
+  <title>Hexo博客集成jVectorMap：实现足迹地图功能 | Hexo</title>
   
 
 
@@ -223,7 +223,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo添加jVectorMap足迹地图
+          Hexo博客集成jVectorMap：实现足迹地图功能
         </h1>
 
         <div class="post-meta">
@@ -240,7 +240,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-16 12:01:20" itemprop="dateModified" datetime="2024-05-16T12:01:20+08:00">2024-05-16</time>
+                <time title="修改时间：2024-11-26 17:22:28" itemprop="dateModified" datetime="2024-11-26T17:22:28+08:00">2024-11-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -285,7 +285,7 @@
 <a href="http://jvectormap.com/" title="" target="">官方网站,</a>
 
 <p>今天教大家通过 jVectorMap 制作旅行足迹地图，最终的效果可以查看下面的 Demo 演示（中国），并教大家如何将制作好的足迹地图嵌入到我们自己的博客中。</p>
-<a href="https://lengmo714.top/libs/map/index.html" title="" target="">Demo,</a>
+<a href="https://lengmo714.top/net/map/index.html" title="" target="">Demo,</a>
 
 
 <h3 id="获取源码"><a href="#获取源码" class="headerlink" title="获取源码"></a>获取源码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="attr">https</span>:<span class="comment">//github.com/HelloWuJiaYi/jVectorMap-Footprint</span></span><br></pre></td></tr></table></figure>
@@ -310,7 +310,7 @@
 <h3 id="添加足迹位置"><a href="#添加足迹位置" class="headerlink" title="添加足迹位置"></a>添加足迹位置</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">markers</span>: [ <span class="comment">// 足迹位置</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#123;latLng: [经度（保留两位小数）, 纬度（保留两位小数）], name: &#x27;城市名称&#x27;&#125;,</span></span><br><span class="line"></span><br><span class="line">        &#123;<span class="attr">latLng</span>: [<span class="number">39.90</span>, <span class="number">116.41</span>], <span class="attr">name</span>: <span class="string">&#x27;北京&#x27;</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">latLng</span>: [<span class="number">31.24</span>, <span class="number">121.50</span>], <span class="attr">name</span>: <span class="string">&#x27;上海&#x27;</span>&#125;,</span><br><span class="line"></span><br><span class="line">        &#123;<span class="attr">latLng</span>: [<span class="number">46.06</span>, <span class="number">122.06</span>], <span class="attr">name</span>: <span class="string">&#x27;内蒙古 - 乌兰浩特&#x27;</span>&#125;</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure>
 <p>语法：<code>&#123;latLng: [经度（保留两位小数）, 纬度（保留两位小数）], name: &#39;城市名称&#39;&#125;</code>。</p>
 <h3 id="嵌入到博客"><a href="#嵌入到博客" class="headerlink" title="嵌入到博客"></a>嵌入到博客</h3><p>这里介绍作者嵌入到博客中的方法，不一定通用。<br>作者使用的是Hexo静态博客。<br>首先将下载下来的源代码放到blog文件夹下，上传到服务器。<br>再在主题配置文件<code>_config.yml</code>中<code>menu</code>中添加刚刚修改好的<code>index.html</code>在服务器上的文件路径，比如<code>https://abc.com/map/index</code><br>最后将修改后的配置文件上传即可。</p>
-<a href="https://lengmo714.top/libs/map/index.html" title="" target="">笔者效果,</a>
+<a href="https://lengmo714.top/net/map/index.html" title="" target="">笔者效果,</a>
 
 
     </div>
@@ -347,7 +347,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2022/10/22/HexoNext%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0jVectorMap%E8%B6%B3%E8%BF%B9%E5%9C%B0%E5%9B%BE/" title="Hexo添加jVectorMap足迹地图">http://example.com/2022/10/22/HexoNext主题添加jVectorMap足迹地图/</a>
+    <a href="http://example.com/2022/10/22/HexoNext%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0jVectorMap%E8%B6%B3%E8%BF%B9%E5%9C%B0%E5%9B%BE/" title="Hexo博客集成jVectorMap：实现足迹地图功能">http://example.com/2022/10/22/HexoNext主题添加jVectorMap足迹地图/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -364,12 +364,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/10/19/c%E8%AF%AD%E8%A8%80%E9%A2%98%E5%BA%932/" rel="prev" title="C语言大学生考试全面题库2">
-      <i class="fa fa-chevron-left"></i> C语言大学生考试全面题库2
+    <a href="/2022/10/19/c%E8%AF%AD%E8%A8%80%E9%A2%98%E5%BA%932/" rel="prev" title="C语言大学生考试全面题库（2）：经典题目与解答">
+      <i class="fa fa-chevron-left"></i> C语言大学生考试全面题库（2）：经典题目与解答
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/10/22/HexoNext%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E5%BD%92%E6%A1%A3%E9%A1%B5/" rel="next" title="Hexo Next主题美化归档页">
-      Hexo Next主题美化归档页 <i class="fa fa-chevron-right"></i>
+    <a href="/2022/10/22/HexoNext%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E5%BD%92%E6%A1%A3%E9%A1%B5/" rel="next" title="Hexo Next主题归档页美化教程：提升分类与视觉效果">
+      Hexo Next主题归档页美化教程：提升分类与视觉效果 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -445,16 +445,16 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">177</span>
+          <span class="site-state-item-count">215</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -506,7 +506,7 @@
 <div class="copyright">
   
   &copy; 2022 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

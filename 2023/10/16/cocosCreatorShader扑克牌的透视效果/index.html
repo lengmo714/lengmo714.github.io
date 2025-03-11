@@ -22,17 +22,17 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="我这里用的是cocos creator 3.7.2版本，不同版本可能存在差异">
+  <meta name="description" content="我这里用的是Cocos Creator 3.7.2版本，不同版本可能存在差异">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cocosCreator Shader 扑克牌的透视效果">
+<meta property="og:title" content="Cocos Creator教程：使用Shader实现扑克牌透视效果">
 <meta property="og:url" content="http://example.com/2023/10/16/cocosCreatorShader%E6%89%91%E5%85%8B%E7%89%8C%E7%9A%84%E9%80%8F%E8%A7%86%E6%95%88%E6%9E%9C/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="我这里用的是cocos creator 3.7.2版本，不同版本可能存在差异">
+<meta property="og:description" content="我这里用的是Cocos Creator 3.7.2版本，不同版本可能存在差异">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-16T15:30:45.000Z">
-<meta property="article:modified_time" content="2024-05-16T03:38:44.485Z">
+<meta property="article:modified_time" content="2024-11-26T09:22:28.564Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="cocos Creator">
+<meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="TypeScript">
 <meta property="article:tag" content="shader">
 <meta name="twitter:card" content="summary">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>cocosCreator Shader 扑克牌的透视效果 | Hexo</title>
+  <title>Cocos Creator教程：使用Shader实现扑克牌透视效果 | Hexo</title>
   
 
 
@@ -223,7 +223,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          cocosCreator Shader 扑克牌的透视效果
+          Cocos Creator教程：使用Shader实现扑克牌透视效果
         </h1>
 
         <div class="post-meta">
@@ -240,7 +240,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-16 11:38:44" itemprop="dateModified" datetime="2024-05-16T11:38:44+08:00">2024-05-16</time>
+                <time title="修改时间：2024-11-26 17:22:28" itemprop="dateModified" datetime="2024-11-26T17:22:28+08:00">2024-11-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,12 +248,12 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cocos-Creator/" itemprop="url" rel="index"><span itemprop="name">cocos Creator</span></a>
+                  <a href="/categories/Cocos-Creator/" itemprop="url" rel="index"><span itemprop="name">Cocos Creator</span></a>
                 </span>
             </span>
 
           
-            <div class="post-description">我这里用的是cocos creator 3.7.2版本，不同版本可能存在差异</div>
+            <div class="post-description">我这里用的是Cocos Creator 3.7.2版本，不同版本可能存在差异</div>
 
         </div>
       </header>
@@ -264,7 +264,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+        <p>我这里用的是Cocos Creator 3.7.2版本，不同版本可能存在差异</p>
+<span id="more"></span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -276,13 +279,10 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>我这里用的是cocos creator 3.7.2版本，不同版本可能存在差异</p>
-<span id="more"></span>
-
 <blockquote>
 <p>因为使用的第三方图床，导致文中图片丢失，看来以后还是得靠谱的图床了</p>
 </blockquote>
-<h2 id="顶点着色器"><a href="#顶点着色器" class="headerlink" title="顶点着色器"></a>顶点着色器</h2><p>开始实现这个功能，对定点着色器应该有了基本的了解，这里不过多说明。<br>这里我们先看下cocosCreator默认使用的着色器代码：<code>builtin-sprite.effect</code>,可以直接在资源管理器中搜索</p>
+<h2 id="顶点着色器"><a href="#顶点着色器" class="headerlink" title="顶点着色器"></a>顶点着色器</h2><p>开始实现这个功能，对定点着色器应该有了基本的了解，这里不过多说明。<br>这里我们先看下Cocos Creator默认使用的着色器代码：<code>builtin-sprite.effect</code>,可以直接在资源管理器中搜索</p>
 <h3 id="想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标"><a href="#想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标" class="headerlink" title="想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标"></a>想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标</h3><p>但是想要修改，最起码得知道现在的值，做个小测试看一下。让顶点坐标的x值+&#x3D;y值，观察x坐标的变化规律.<br>复制粘贴<code>builtin-sprite.effect</code>文件(必须要复制粘贴，系统最开始的不能被修改)，在复制出来的文件中搜索<code>vec4 pos = vec4(a_position, 1)</code><br>并在该代码后面添加代码<code>pos.x += pos.y;</code>,如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vec4 pos = vec4(a_position, 1);</span><br><span class="line">pos.x += pos.y;</span><br></pre></td></tr></table></figure>
 <p>这里可以看到，蓝色框区域是牌原本显示的边框，底边的x轴没有变化，所以底边的+&#x3D;pos.y这里的y值为0。</p>
@@ -296,11 +296,11 @@
 <p>比如我牌摆在离底边100px的位置，将参与计算的y坐标 减100就行了。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pos.x += (point.x - pos.x) * ((pos.y - 100.) / point.y);</span><br></pre></td></tr></table></figure>
 <h3 id="shader代码"><a href="#shader代码" class="headerlink" title="shader代码"></a>shader代码</h3><p>放一下最终代码，让起点y值和终点坐标都用可变变量，从材质传值进来。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// Copyright (c) 2017-2020 Xiamen Yaji Software Co., Ltd.</span><br><span class="line">CCEffect %&#123;</span><br><span class="line">  techniques:</span><br><span class="line">  - passes:</span><br><span class="line">    - vert: sprite-vs:vert</span><br><span class="line">      frag: sprite-fs:frag</span><br><span class="line">      depthStencilState:</span><br><span class="line">        depthTest: false</span><br><span class="line">        depthWrite: false</span><br><span class="line">      blendState:</span><br><span class="line">        targets:</span><br><span class="line">        - blend: true</span><br><span class="line">          blendSrc: src_alpha</span><br><span class="line">          blendDst: one_minus_src_alpha</span><br><span class="line">          blendDstAlpha: one_minus_src_alpha</span><br><span class="line">      rasterizerState:</span><br><span class="line">        cullMode: none</span><br><span class="line">      properties:</span><br><span class="line">        alphaThreshold: &#123; value: 0.5 &#125;</span><br><span class="line">        u_point: &#123; value: [1,1] &#125;</span><br><span class="line">        u_starty: &#123;value: 0 &#125;</span><br><span class="line">&#125;%</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// Copyright (c) 2017-2020 Xiamen Yaji Software Co., Ltd.</span><br><span class="line">CCEffect %&#123;</span><br><span class="line">  techniques:</span><br><span class="line">  - passes:</span><br><span class="line">  - vert: sprite-vs:vert</span><br><span class="line">      frag: sprite-fs:frag</span><br><span class="line">      depthStencilState:</span><br><span class="line">        depthTest: false</span><br><span class="line">        depthWrite: false</span><br><span class="line">      blendState:</span><br><span class="line">        targets:</span><br><span class="line">  - blend: true</span><br><span class="line">          blendSrc: src_alpha</span><br><span class="line">          blendDst: one_minus_src_alpha</span><br><span class="line">          blendDstAlpha: one_minus_src_alpha</span><br><span class="line">      rasterizerState:</span><br><span class="line">        cullMode: none</span><br><span class="line">      properties:</span><br><span class="line">        alphaThreshold: &#123; value: 0.5 &#125;</span><br><span class="line">        u_point: &#123; value: [1,1] &#125;</span><br><span class="line">        u_starty: &#123;value: 0 &#125;</span><br><span class="line">&#125;%</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">CCProgram sprite-vs %&#123;</span><br><span class="line">  precision highp float;</span><br><span class="line">  #include &lt;builtin/uniforms/cc-global&gt;</span><br><span class="line">  #include &lt;builtin/internal/embedded-alpha&gt;</span><br><span class="line">  #if USE_LOCAL</span><br><span class="line">    #include &lt;builtin/uniforms/cc-local&gt;</span><br><span class="line">  #endif</span><br><span class="line">  #if SAMPLE_FROM_RT</span><br><span class="line">    #include &lt;common/common-define&gt;</span><br><span class="line">  #endif</span><br><span class="line">  in vec3 a_position;</span><br><span class="line">  in vec2 a_texCoord;</span><br><span class="line">  in vec4 a_color;</span><br><span class="line"></span><br><span class="line">  out vec4 color;</span><br><span class="line">  out vec2 uv0;</span><br><span class="line">  uniform Constant&#123;</span><br><span class="line">    vec2 u_point;   // 自己定义的顶点</span><br><span class="line">    float u_starty; // 扑克牌底边离屏幕下边的距离</span><br><span class="line">  &#125;;</span><br><span class="line">  vec4 vert () &#123;</span><br><span class="line">    vec4 pos = vec4(a_position, 1);</span><br><span class="line">    pos.x += (u_point.x - pos.x) * ((pos.y - u_starty) / u_point.y);</span><br><span class="line">    #if USE_LOCAL</span><br><span class="line">      pos = cc_matWorld * pos;</span><br><span class="line">    #endif</span><br><span class="line"></span><br><span class="line">    #if USE_PIXEL_ALIGNMENT</span><br><span class="line">      pos = cc_matView * pos;</span><br><span class="line">      pos.xyz = floor(pos.xyz);</span><br><span class="line">      pos = cc_matProj * pos;</span><br><span class="line">    #else</span><br><span class="line">      pos = cc_matViewProj * pos;</span><br><span class="line">    #endif</span><br><span class="line"></span><br><span class="line">    uv0 = a_texCoord;</span><br><span class="line">    #if SAMPLE_FROM_RT</span><br><span class="line">      CC_HANDLE_RT_SAMPLE_FLIP(uv0);</span><br><span class="line">    #endif</span><br><span class="line">    color = a_color;</span><br><span class="line"></span><br><span class="line">    return pos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;%</span><br><span class="line"></span><br><span class="line">CCProgram sprite-fs %&#123;</span><br><span class="line">  precision highp float;</span><br><span class="line">  #include &lt;builtin/internal/embedded-alpha&gt;</span><br><span class="line">  #include &lt;builtin/internal/alpha-test&gt;</span><br><span class="line"></span><br><span class="line">  in vec4 color;</span><br><span class="line"></span><br><span class="line">  #if USE_TEXTURE</span><br><span class="line">    in vec2 uv0;</span><br><span class="line">    #pragma builtin(local)</span><br><span class="line">    layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;</span><br><span class="line">  #endif</span><br><span class="line"></span><br><span class="line">  vec4 frag () &#123;</span><br><span class="line">    vec4 o = vec4(1, 1, 1, 1);</span><br><span class="line"></span><br><span class="line">    #if USE_TEXTURE</span><br><span class="line">      o *= CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);</span><br><span class="line">      #if IS_GRAY</span><br><span class="line">        float gray  = 0.2126 * o.r + 0.7152 * o.g + 0.0722 * o.b;</span><br><span class="line">        o.r = o.g = o.b = gray;</span><br><span class="line">      #endif</span><br><span class="line">    #endif</span><br><span class="line"></span><br><span class="line">    o *= color;</span><br><span class="line">    ALPHA_TEST(o);</span><br><span class="line">    return o;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;%</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>在cocos creator 中找到精灵默认使用的材质<code>ui-sprite-material.mtl</code>，将材质拷贝出来放在自己的资源文件夹下（必须拷贝出来，不然无法修改）。将上面代码保存为<code>gradient.effect</code>，名字按照自己的想法来。最后修改下面4个地方即可</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>在Cocos Creator 中找到精灵默认使用的材质<code>ui-sprite-material.mtl</code>，将材质拷贝出来放在自己的资源文件夹下（必须拷贝出来，不然无法修改）。将上面代码保存为<code>gradient.effect</code>，名字按照自己的想法来。最后修改下面4个地方即可</p>
 <ol>
 <li>将精灵的”CustomMaterial”属性设置为你刚刚拷贝出来的材质</li>
 <li>将材质的<code>Effect</code>属性设置为刚刚保存的<code>gradient.effect</code>shader文件</li>
@@ -342,7 +342,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2023/10/16/cocosCreatorShader%E6%89%91%E5%85%8B%E7%89%8C%E7%9A%84%E9%80%8F%E8%A7%86%E6%95%88%E6%9E%9C/" title="cocosCreator Shader 扑克牌的透视效果">http://example.com/2023/10/16/cocosCreatorShader扑克牌的透视效果/</a>
+    <a href="http://example.com/2023/10/16/cocosCreatorShader%E6%89%91%E5%85%8B%E7%89%8C%E7%9A%84%E9%80%8F%E8%A7%86%E6%95%88%E6%9E%9C/" title="Cocos Creator教程：使用Shader实现扑克牌透视效果">http://example.com/2023/10/16/cocosCreatorShader扑克牌的透视效果/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -354,7 +354,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> cocos Creator</a>
+              <a href="/tags/Cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> Cocos Creator</a>
               <a href="/tags/TypeScript/" rel="tag"><i class="fa fa-tag"></i> TypeScript</a>
               <a href="/tags/shader/" rel="tag"><i class="fa fa-tag"></i> shader</a>
           </div>
@@ -365,12 +365,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/10/08/%E7%94%A8python%E7%94%BB%E4%B8%80%E5%8F%AA%E8%8D%89%E8%8E%93%E7%86%8A/" rel="prev" title="用python画一只草莓熊">
-      <i class="fa fa-chevron-left"></i> 用python画一只草莓熊
+    <a href="/2023/10/08/%E7%94%A8python%E7%94%BB%E4%B8%80%E5%8F%AA%E8%8D%89%E8%8E%93%E7%86%8A/" rel="prev" title="用Python绘制草莓熊：创意编程教程与完整代码">
+      <i class="fa fa-chevron-left"></i> 用Python绘制草莓熊：创意编程教程与完整代码
     </a></div>
       <div class="post-nav-item">
-    <a href="/2023/11/07/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E5%90%8D/" rel="next" title="批量修改图片名">
-      批量修改图片名 <i class="fa fa-chevron-right"></i>
+    <a href="/2023/11/07/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E5%90%8D/" rel="next" title="Python实现批量修改图片名：添加前缀与完整代码示例">
+      Python实现批量修改图片名：添加前缀与完整代码示例 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -446,16 +446,16 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">177</span>
+          <span class="site-state-item-count">215</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -507,7 +507,7 @@
 <div class="copyright">
   
   &copy; 2022 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

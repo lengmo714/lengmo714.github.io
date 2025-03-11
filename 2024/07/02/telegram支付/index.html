@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="今天开始接入telegram支付，参考教程这个是telegram的官方说明，详细介绍了机器人支付API。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使用Telegram支付功能：Stripe集成教程与实例">
+<meta property="og:url" content="http://example.com/2024/07/02/telegram%E6%94%AF%E4%BB%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="今天开始接入telegram支付，参考教程这个是telegram的官方说明，详细介绍了机器人支付API。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6683fc51d9c307b7e93f6e86.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6683fc9ad9c307b7e9400c1b.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6683fcc4d9c307b7e9406898.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6683fd22d9c307b7e9413852.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6683fd51d9c307b7e9419921.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6683fdf9d9c307b7e942f5bb.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6683ff41d9c307b7e945dc03.png">
+<meta property="article:published_time" content="2024-07-02T13:00:18.000Z">
+<meta property="article:modified_time" content="2024-11-26T09:22:28.626Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="telegram">
+<meta property="article:tag" content="mini APP">
+<meta property="article:tag" content="Game">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/6683fc51d9c307b7e93f6e86.png">
+
+<link rel="canonical" href="http://example.com/2024/07/02/telegram%E6%94%AF%E4%BB%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>如何使用Telegram支付功能：Stripe集成教程与实例 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/02/telegram%E6%94%AF%E4%BB%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何使用Telegram支付功能：Stripe集成教程与实例
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-07-02 21:00:18" itemprop="dateCreated datePublished" datetime="2024-07-02T21:00:18+08:00">2024-07-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-26 17:22:28" itemprop="dateModified" datetime="2024-11-26T17:22:28+08:00">2024-11-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/" itemprop="url" rel="index"><span itemprop="name">telegram</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/" itemprop="url" rel="index"><span itemprop="name">mini APP</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/telegram/mini-APP/Game/" itemprop="url" rel="index"><span itemprop="name">Game</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>今天开始接入telegram支付，<a target="_blank" rel="noopener" href="https://core.telegram.org/bots/payments#getting-a-token">参考教程</a>这个是telegram的官方说明，详细介绍了机器人支付API。</p>
+<span id="more"></span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h3 id="新建机器人"><a href="#新建机器人" class="headerlink" title="新建机器人"></a>新建机器人</h3><p>因为支付是一个单独的系统，所以在做支付的时候单独创建了一个bot，没有用之前的bot了，特意这样将其分开。创建bot的方法和之前不变，这里不过多介绍。</p>
+<h3 id="获取支付token令牌"><a href="#获取支付token令牌" class="headerlink" title="获取支付token令牌"></a>获取支付token令牌</h3><p>机器人创建好后，我们需要获取支付token令牌。步骤如下：<br><strong>1、</strong>在BotFather对话中选择你用来支付的机器人<br><strong>2、</strong>然后选择<code>Payments</code><br><img src="https://pic.imgdb.cn/item/6683fc51d9c307b7e93f6e86.png" alt="然后选择Payments"><br><strong>3、</strong>选择你的支付提供商，我这里选择的是第二个<code>Stripe</code>，你也可以选择其他的，后面的步骤都是在这个选项下进行的。<br><img src="https://pic.imgdb.cn/item/6683fc9ad9c307b7e9400c1b.png" alt="选择你的支付提供商"><br><strong>4、</strong>选择<code>connect Stripe Test</code>连接测试<br><img src="https://pic.imgdb.cn/item/6683fcc4d9c307b7e9406898.png" alt="connect Stripe Test"><br><strong>5、</strong>选择后会跳转到<code>Stripe Test Bot</code>支付提供商的测试机器人，点击<code>Authorize</code>按钮<br><img src="https://pic.imgdb.cn/item/6683fd22d9c307b7e9413852.png" alt="测试机器人"><br><strong>6、</strong>点击后会生成一个链接打开，就能绑定你的bot机器人了。<br><img src="https://pic.imgdb.cn/item/6683fd51d9c307b7e9419921.png" alt="绑定"><br><strong>7、</strong>再回到第3步，你就会看到你的测试token了，<code>-Stripe Test:</code>后面的一串，因为我生成了3次，所以这里有3个。如下图所示：<br><img src="https://pic.imgdb.cn/item/6683fdf9d9c307b7e942f5bb.png" alt="测试token"></p>
+<h3 id="代码逻辑实现"><a href="#代码逻辑实现" class="headerlink" title="代码逻辑实现"></a>代码逻辑实现</h3><p>示例代码：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Bot</span>, <span class="title class_">InlineKeyboard</span>&#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> botToken = <span class="string">&quot;&quot;</span>; <span class="comment">// 你机器人的token</span></span><br><span class="line"><span class="comment">// 创建bot实例</span></span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(botToken);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用测试提供商Token（例如Stripe的测试密钥）</span></span><br><span class="line"><span class="keyword">const</span> providerToken = <span class="string">&quot;&quot;</span>;  <span class="comment">// 提示提供商的token,就是上面第7步看到的</span></span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">command</span>(<span class="string">&quot;start&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> title = <span class="string">&quot;测试产品&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> description = <span class="string">&quot;这是一个测试产品&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> payload = <span class="string">&quot;test_payload&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> startParameter = <span class="string">&quot;test_start&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> currency = <span class="string">&quot;USD&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> prices = [</span><br><span class="line">      &#123; <span class="attr">label</span>: <span class="string">&quot;测试产品&quot;</span>, <span class="attr">amount</span>: <span class="number">100</span>, <span class="attr">currency</span>: currency &#125;</span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">const</span> photoUrl = <span class="string">&quot;https://api.telegram.org/file/botYOUR_BOT_TOKEN/photos/file_0.jpg&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> payloadData = &#123;</span><br><span class="line">      <span class="attr">chat_id</span>: ctx.<span class="property">chat</span>.<span class="property">id</span>,</span><br><span class="line">      <span class="attr">title</span>: title,</span><br><span class="line">      <span class="attr">description</span>: description,</span><br><span class="line">      <span class="attr">payload</span>: payload,</span><br><span class="line">      <span class="attr">provider_token</span>: providerToken,</span><br><span class="line">      <span class="attr">start_parameter</span>: startParameter,</span><br><span class="line">      <span class="attr">currency</span>: currency,</span><br><span class="line">      <span class="attr">prices</span>: prices,</span><br><span class="line">      <span class="attr">photo_url</span>: photoUrl,</span><br><span class="line">      <span class="attr">need_shipping_address</span>: <span class="literal">false</span>, <span class="comment">// 如果不需要配送地址，请设置为 false</span></span><br><span class="line">      <span class="attr">is_flexible</span>: <span class="literal">false</span>, <span class="comment">// 如果价格不可灵活调整，请设置为 false</span></span><br><span class="line">      <span class="attr">send_phone_number_to_provider</span>: <span class="literal">true</span>, <span class="comment">// 将用户的手机号发送给提供商，可选</span></span><br><span class="line">      <span class="attr">send_email_to_provider</span>: <span class="literal">true</span> <span class="comment">// 将用户的邮箱发送给提供商，可选</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">`https://api.telegram.org/bot<span class="subst">$&#123;botToken&#125;</span>/sendInvoice`</span>, &#123;</span><br><span class="line">      <span class="attr">method</span>: <span class="string">&quot;POST&quot;</span>,</span><br><span class="line">      <span class="attr">headers</span>: &#123;</span><br><span class="line">        <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">body</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(payloadData)</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> data = <span class="keyword">await</span> response.<span class="title function_">json</span>();</span><br><span class="line">    <span class="keyword">if</span> (!data.<span class="property">ok</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">`<span class="subst">$&#123;data.error_code&#125;</span>: <span class="subst">$&#123;data.description&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;发票发送成功:&quot;</span>, data);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;发送发票时出错:&quot;</span>, error.<span class="property">message</span>);</span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">reply</span>(<span class="string">&quot;创建发票失败，请重试。&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">on</span>(<span class="string">&quot;pre_checkout_query&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">await</span> ctx.<span class="title function_">answerPreCheckoutQuery</span>(<span class="literal">true</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">on</span>(<span class="string">&quot;message&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (ctx.<span class="property">message</span>.<span class="property">successful_payment</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;支付成功!&quot;</span>, ctx.<span class="property">message</span>.<span class="property">successful_payment</span>);</span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">reply</span>(<span class="string">&quot;支付成功！感谢您的购买。&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
+<p>将上面代码保存为ts文件，然后执行代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno run --allow-net ts脚本.ts</span><br></pre></td></tr></table></figure>
+<p>确保代码正确执行后，回到你创建的支付机器人对话界面，发送<code>/start</code>，将出现如下回复<br><img src="https://pic.imgdb.cn/item/6683ff41d9c307b7e945dc03.png" alt="机器人界面"><br>我这里一片黑色是因为图片没有加载出来，图片下载下来就好了。<br>点击下面的<code>pay</code>按钮就跳转到支付啦~</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2024/07/02/telegram%E6%94%AF%E4%BB%98/" title="如何使用Telegram支付功能：Stripe集成教程与实例">http://example.com/2024/07/02/telegram支付/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/telegram/" rel="tag"><i class="fa fa-tag"></i> telegram</a>
+              <a href="/tags/mini-APP/" rel="tag"><i class="fa fa-tag"></i> mini APP</a>
+              <a href="/tags/Game/" rel="tag"><i class="fa fa-tag"></i> Game</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/07/01/telegram%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF/" rel="prev" title="Telegram 获取用户信息教程 | 获取头像、ID、用户名和状态">
+      <i class="fa fa-chevron-left"></i> Telegram 获取用户信息教程 | 获取头像、ID、用户名和状态
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/07/03/cocosCreator%E6%89%BE%E5%87%BA%E6%9C%AA%E8%A2%AB%E5%BC%95%E7%94%A8%E7%9A%84%E7%85%A7%E7%89%87/" rel="next" title="如何使用 Cocos Creator 查找未使用的图片资源">
+      如何使用 Cocos Creator 查找未使用的图片资源 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="nav-number">1.</span> <span class="nav-text">新建机器人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%94%AF%E4%BB%98token%E4%BB%A4%E7%89%8C"><span class="nav-number">2.</span> <span class="nav-text">获取支付token令牌</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">代码逻辑实现</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">215</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

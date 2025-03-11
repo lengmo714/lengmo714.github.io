@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="在游戏中新增了一个客服功能，要求玩家能够在app内发送图片。测试时发现图片太大，发送出去，于是选择在前端压缩代码。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android开发之图片压缩">
+<meta property="og:url" content="http://example.com/2025/01/11/android%E5%BC%80%E5%8F%91%E4%B9%8B%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在游戏中新增了一个客服功能，要求玩家能够在app内发送图片。测试时发现图片太大，发送出去，于是选择在前端压缩代码。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2025/01/11/android%E5%BC%80%E5%8F%91%E4%B9%8B%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/postImg/imgCompression/1.png">
+<meta property="article:published_time" content="2025-01-11T09:13:50.000Z">
+<meta property="article:modified_time" content="2025-03-11T07:22:52.198Z">
+<meta property="article:author" content="南锋">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2025/01/11/android%E5%BC%80%E5%8F%91%E4%B9%8B%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/postImg/imgCompression/1.png">
+
+<link rel="canonical" href="http://example.com/2025/01/11/android%E5%BC%80%E5%8F%91%E4%B9%8B%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>android开发之图片压缩 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/11/android%E5%BC%80%E5%8F%91%E4%B9%8B%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          android开发之图片压缩
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-01-11 17:13:50" itemprop="dateCreated datePublished" datetime="2025-01-11T17:13:50+08:00">2025-01-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-11 15:22:52" itemprop="dateModified" datetime="2025-03-11T15:22:52+08:00">2025-03-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android-studio/" itemprop="url" rel="index"><span itemprop="name">android studio</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在游戏中新增了一个客服功能，要求玩家能够在app内发送图片。测试时发现图片太大，发送出去，于是选择在前端压缩代码。</p>
+<span id="more"></span>
+<p>测试时发现图片因为太大了，直接被服务器拒绝。报错<code>413 Request Entity Too Large</code>，如下图：<br><img src="postImg/imgCompression/1.png" alt="错误截图" /></p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>使用<code>BitmapFactory</code>和<code>Bitmap</code>类进行图片压缩，并保存压缩后的图片路径，然后在发送的时候发送压缩后的图片。</p>
+<h3 id="方式一：压缩图片质量，并修改图片尺寸"><a href="#方式一：压缩图片质量，并修改图片尺寸" class="headerlink" title="方式一：压缩图片质量，并修改图片尺寸"></a>方式一：压缩图片质量，并修改图片尺寸</h3><p>1、压缩图片路径</p>
+<ul>
+<li>压缩后的图片保存在应用的缓存目录下，文件名添加了<code>compressed_</code>前缀</li>
+</ul>
+<p>2、图片压缩逻辑</p>
+<ul>
+<li>使用<code>BitmapFactory.Options</code>和<code>isSampleSize</code>对图片进行采样缩小</li>
+<li>使用<code>Bitmap.compress()</code>以指定质量保存压缩图片</li>
+</ul>
+<p>3、返回压缩路径</p>
+<ul>
+<li>将压缩后的图片路径通过 JSON 返回，替代原始图片路径。</li>
+</ul>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">handleGalleryResult</span><span class="params">(Intent data)</span> &#123;</span><br><span class="line">    Log.d(<span class="string">&quot;ImageUri&quot;</span>, data.toString());</span><br><span class="line">    <span class="keyword">if</span> (data.getData() != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="type">Uri</span> <span class="variable">selectedImageUri</span> <span class="operator">=</span> data.getData();</span><br><span class="line">        <span class="type">String</span> <span class="variable">originalImagePath</span> <span class="operator">=</span> getPathFromUri(selectedImageUri);</span><br><span class="line">        Log.d(<span class="string">&quot;ImageUri&quot;</span>, <span class="string">&quot;Original Path: &quot;</span> + originalImagePath);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 压缩图片</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">compressedImagePath</span> <span class="operator">=</span> compressImage(originalImagePath);</span><br><span class="line">            Log.d(<span class="string">&quot;ImageUri&quot;</span>, <span class="string">&quot;Compressed Path: &quot;</span> + compressedImagePath);</span><br><span class="line"></span><br><span class="line">            <span class="type">JSONObject</span> <span class="variable">jsonobj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JSONObject</span>();</span><br><span class="line">            jsonobj.put(<span class="string">&quot;ImageUrl&quot;</span>, compressedImagePath); <span class="comment">// 返回压缩后的图片路径</span></span><br><span class="line">            jsonobj.put(<span class="string">&quot;type&quot;</span>, <span class="string">&quot;selectedImageUrl&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> String.format(<span class="string">&quot;NativeAndroid.javaCallback(&#x27;%s&#x27;)&quot;</span>, jsonobj.toString());</span><br><span class="line">            callJsGlobalFunc(str);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> String <span class="title function_">compressImage</span><span class="params">(String imagePath)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="comment">// 设置目标文件路径</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">originalFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(imagePath);</span><br><span class="line">    <span class="type">File</span> <span class="variable">compressedFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(getActivity().getCacheDir(), <span class="string">&quot;compressed_&quot;</span> + originalFile.getName());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加载原始图片</span></span><br><span class="line">    BitmapFactory.<span class="type">Options</span> <span class="variable">options</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BitmapFactory</span>.Options();</span><br><span class="line">    options.inJustDecodeBounds = <span class="literal">true</span>;</span><br><span class="line">    BitmapFactory.decodeFile(imagePath, options);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算压缩比例</span></span><br><span class="line">    options.inSampleSize = calculateInSampleSize(options, <span class="number">800</span>, <span class="number">800</span>); <span class="comment">// 压缩到800x800以内</span></span><br><span class="line">    options.inJustDecodeBounds = <span class="literal">false</span>;</span><br><span class="line">    <span class="type">Bitmap</span> <span class="variable">bitmap</span> <span class="operator">=</span> BitmapFactory.decodeFile(imagePath, options);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存压缩后的图片</span></span><br><span class="line">    <span class="keyword">try</span> (<span class="type">FileOutputStream</span> <span class="variable">fos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(compressedFile)) &#123;</span><br><span class="line">        bitmap.compress(Bitmap.CompressFormat.JPEG, <span class="number">80</span>, fos); <span class="comment">// 质量设置为80%</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 回收Bitmap资源</span></span><br><span class="line">    bitmap.recycle();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> compressedFile.getAbsolutePath();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">calculateInSampleSize</span><span class="params">(BitmapFactory.Options options, <span class="type">int</span> reqWidth, <span class="type">int</span> reqHeight)</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> <span class="variable">height</span> <span class="operator">=</span> options.outHeight;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> <span class="variable">width</span> <span class="operator">=</span> options.outWidth;</span><br><span class="line">    <span class="type">int</span> <span class="variable">inSampleSize</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (height &gt; reqHeight || width &gt; reqWidth) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">halfHeight</span> <span class="operator">=</span> height / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">halfWidth</span> <span class="operator">=</span> width / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> ((halfHeight / inSampleSize) &gt;= reqHeight &amp;&amp; (halfWidth / inSampleSize) &gt;= reqWidth) &#123;</span><br><span class="line">            inSampleSize *= <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> inSampleSize;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方式二：只压缩图片质量，不调整图片尺寸"><a href="#方式二：只压缩图片质量，不调整图片尺寸" class="headerlink" title="方式二：只压缩图片质量，不调整图片尺寸"></a>方式二：只压缩图片质量，不调整图片尺寸</h3><p><strong>关键改动</strong></p>
+<p>1、不调整图片分辨率：</p>
+<ul>
+<li>不使用<code>BitmapFactory.Options</code>或 <code>inSampleSize</code> 来缩小图片。</li>
+<li>直接加载原始图片，并保持其原始尺寸。</li>
+</ul>
+<p>2、仅降低图片质量：</p>
+<ul>
+<li>使用 <code>Bitmap.compress(Bitmap.CompressFormat.JPEG, quality, fos)</code> 减少文件大小。</li>
+<li>参数 <code>quality</code> 设置为 80（可以根据需求调整，范围为 0-100）。</li>
+</ul>
+<p>3、保存路径：</p>
+<ul>
+<li>保存到应用缓存目录，文件名前缀为 compressed_，以便与原始图片区分。<br><strong>注意事项</strong><br>如果图片格式是非 JPEG（如 PNG），可以根据需求替换为 <code>Bitmap.CompressFormat.PNG</code>，但 PNG 不支持质量压缩。</li>
+</ul>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">handleGalleryResult</span><span class="params">(Intent data)</span> &#123;</span><br><span class="line">    Log.d(<span class="string">&quot;ImageUri&quot;</span>, data.toString());</span><br><span class="line">    <span class="keyword">if</span> (data.getData() != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="type">Uri</span> <span class="variable">selectedImageUri</span> <span class="operator">=</span> data.getData();</span><br><span class="line">        <span class="type">String</span> <span class="variable">originalImagePath</span> <span class="operator">=</span> getPathFromUri(selectedImageUri);</span><br><span class="line">        Log.d(<span class="string">&quot;ImageUri&quot;</span>, <span class="string">&quot;Original Path: &quot;</span> + originalImagePath);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 压缩图片</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">compressedImagePath</span> <span class="operator">=</span> compressImageWithoutChangingSize(originalImagePath);</span><br><span class="line">            Log.d(<span class="string">&quot;ImageUri&quot;</span>, <span class="string">&quot;Compressed Path: &quot;</span> + compressedImagePath);</span><br><span class="line"></span><br><span class="line">            <span class="type">JSONObject</span> <span class="variable">jsonobj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JSONObject</span>();</span><br><span class="line">            jsonobj.put(<span class="string">&quot;ImageUrl&quot;</span>, compressedImagePath); <span class="comment">// 返回压缩后的图片路径</span></span><br><span class="line">            jsonobj.put(<span class="string">&quot;type&quot;</span>, <span class="string">&quot;selectedImageUrl&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> String.format(<span class="string">&quot;NativeAndroid.javaCallback(&#x27;%s&#x27;)&quot;</span>, jsonobj.toString());</span><br><span class="line">            callJsGlobalFunc(str);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> String <span class="title function_">compressImageWithoutChangingSize</span><span class="params">(String imagePath)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="comment">// 设置目标文件路径</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">originalFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(imagePath);</span><br><span class="line">    <span class="type">File</span> <span class="variable">compressedFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(getActivity().getCacheDir(), <span class="string">&quot;compressed_&quot;</span> + originalFile.getName());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加载原始图片</span></span><br><span class="line">    <span class="type">Bitmap</span> <span class="variable">bitmap</span> <span class="operator">=</span> BitmapFactory.decodeFile(imagePath);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存压缩后的图片</span></span><br><span class="line">    <span class="keyword">try</span> (<span class="type">FileOutputStream</span> <span class="variable">fos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(compressedFile)) &#123;</span><br><span class="line">        bitmap.compress(Bitmap.CompressFormat.JPEG, <span class="number">80</span>, fos); <span class="comment">// 仅降低质量，保持尺寸不变</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 回收Bitmap资源</span></span><br><span class="line">    bitmap.recycle();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> compressedFile.getAbsolutePath();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="方式三：将图片压缩到指定尺寸和指定大小"><a href="#方式三：将图片压缩到指定尺寸和指定大小" class="headerlink" title="方式三：将图片压缩到指定尺寸和指定大小"></a>方式三：将图片压缩到指定尺寸和指定大小</h3><p>经过前面两种方法测试后，发现部分图片还是会存在问题，因为现在手机的分辨率比较高，很多图片都比较大，如果按照比例压缩，还是可能出现图片太大的情况。我这里是将所有图片压缩到不超过300KB，这个可以根据自己想要的去调。</p>
+<p><strong>思路</strong><br>根据前面两种方式的体验，将压缩的方式修改为循环压缩，每次压缩的比例都会小一点点，直到图片最后的大小小于300KB为止。如果图片原图就小于300KB。则直接不压缩。<br>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">handleGalleryResult</span><span class="params">(Intent data)</span> &#123;</span><br><span class="line">    Log.d(<span class="string">&quot;ImageUri&quot;</span>, data.toString());</span><br><span class="line">    <span class="keyword">if</span> (data.getData() != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="type">Uri</span> <span class="variable">selectedImageUri</span> <span class="operator">=</span> data.getData();</span><br><span class="line">        <span class="type">String</span> <span class="variable">originalImagePath</span> <span class="operator">=</span> getPathFromUri(selectedImageUri);</span><br><span class="line">        Log.d(<span class="string">&quot;ImageUri&quot;</span>, <span class="string">&quot;Original Path: &quot;</span> + originalImagePath);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 检查并压缩图片</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">finalImagePath</span> <span class="operator">=</span> compressAndResizeImage(originalImagePath, <span class="number">300</span> * <span class="number">1024</span>); <span class="comment">// 300KB</span></span><br><span class="line">            Log.d(<span class="string">&quot;ImageUri&quot;</span>, <span class="string">&quot;Final Path: &quot;</span> + finalImagePath);</span><br><span class="line"></span><br><span class="line">            <span class="type">JSONObject</span> <span class="variable">jsonobj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JSONObject</span>();</span><br><span class="line">            jsonobj.put(<span class="string">&quot;ImageUrl&quot;</span>, finalImagePath); <span class="comment">// 返回最终图片路径</span></span><br><span class="line">            jsonobj.put(<span class="string">&quot;type&quot;</span>, <span class="string">&quot;selectedImageUrl&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> String.format(<span class="string">&quot;NativeAndroid.javaCallback(&#x27;%s&#x27;)&quot;</span>, jsonobj.toString());</span><br><span class="line">            callJsGlobalFunc(str);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> String <span class="title function_">compressAndResizeImage</span><span class="params">(String imagePath, <span class="type">long</span> targetSizeInBytes)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="type">File</span> <span class="variable">originalFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(imagePath);</span><br><span class="line">    <span class="type">long</span> <span class="variable">originalSize</span> <span class="operator">=</span> originalFile.length();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果图片小于目标大小，直接返回原始路径</span></span><br><span class="line">    <span class="keyword">if</span> (originalSize &lt;= targetSizeInBytes) &#123;</span><br><span class="line">        Log.d(<span class="string">&quot;ImageCompression&quot;</span>, <span class="string">&quot;Image size is already within the target: &quot;</span> + originalSize + <span class="string">&quot; bytes&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> imagePath;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加载原始图片</span></span><br><span class="line">    BitmapFactory.<span class="type">Options</span> <span class="variable">options</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BitmapFactory</span>.Options();</span><br><span class="line">    options.inJustDecodeBounds = <span class="literal">false</span>; <span class="comment">// 加载完整图片</span></span><br><span class="line">    <span class="type">Bitmap</span> <span class="variable">originalBitmap</span> <span class="operator">=</span> BitmapFactory.decodeFile(imagePath, options);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 缩小图片尺寸到原尺寸的一半</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">newWidth</span> <span class="operator">=</span> options.outWidth / <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">newHeight</span> <span class="operator">=</span> options.outHeight / <span class="number">2</span>;</span><br><span class="line">    <span class="type">Bitmap</span> <span class="variable">resizedBitmap</span> <span class="operator">=</span> Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置目标文件路径</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">compressedFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(getActivity().getCacheDir(), <span class="string">&quot;compressed_&quot;</span> + originalFile.getName());</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">quality</span> <span class="operator">=</span> <span class="number">100</span>; <span class="comment">// 初始质量</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="comment">// 保存压缩图片</span></span><br><span class="line">        <span class="keyword">try</span> (<span class="type">FileOutputStream</span> <span class="variable">fos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(compressedFile)) &#123;</span><br><span class="line">            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, quality, fos);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 检查压缩后的文件大小</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">compressedSize</span> <span class="operator">=</span> compressedFile.length();</span><br><span class="line">        Log.d(<span class="string">&quot;ImageCompression&quot;</span>, <span class="string">&quot;Compressed size: &quot;</span> + compressedSize + <span class="string">&quot; bytes at quality: &quot;</span> + quality);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (compressedSize &lt;= targetSizeInBytes || quality &lt;= <span class="number">10</span>) &#123;</span><br><span class="line">            <span class="comment">// 达到目标大小或质量降低到最低限制</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 减小质量继续压缩</span></span><br><span class="line">        quality -= <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 回收Bitmap资源</span></span><br><span class="line">    originalBitmap.recycle();</span><br><span class="line">    resizedBitmap.recycle();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> compressedFile.getAbsolutePath();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2025/01/11/android%E5%BC%80%E5%8F%91%E4%B9%8B%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" title="android开发之图片压缩">http://example.com/2025/01/11/android开发之图片压缩/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/01/05/%E5%85%B3%E4%BA%8EFCM%E5%AF%BC%E8%87%B4%E6%89%8B%E6%9C%BA%E9%97%AA%E9%80%80%E7%9A%84%E9%97%AE%E9%A2%98/" rel="prev" title="Fetching FCM registration token failed导致手机闪退">
+      <i class="fa fa-chevron-left"></i> Fetching FCM registration token failed导致手机闪退
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/01/11/cocosCreator%E5%8A%A8%E6%80%81%E8%B0%83%E6%95%B4pageView%E4%B8%8B%E9%9D%A2%E7%9A%84%E6%A0%87%E8%AE%B0indicator/" rel="next" title="cocosCreator动态调整pageView下面的标记indicator">
+      cocosCreator动态调整pageView下面的标记indicator <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%EF%BC%8C%E5%B9%B6%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E5%B0%BA%E5%AF%B8"><span class="nav-number">2.</span> <span class="nav-text">方式一：压缩图片质量，并修改图片尺寸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E5%8F%AA%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%EF%BC%8C%E4%B8%8D%E8%B0%83%E6%95%B4%E5%9B%BE%E7%89%87%E5%B0%BA%E5%AF%B8"><span class="nav-number">3.</span> <span class="nav-text">方式二：只压缩图片质量，不调整图片尺寸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%89%EF%BC%9A%E5%B0%86%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%88%B0%E6%8C%87%E5%AE%9A%E5%B0%BA%E5%AF%B8%E5%92%8C%E6%8C%87%E5%AE%9A%E5%A4%A7%E5%B0%8F"><span class="nav-number">4.</span> <span class="nav-text">方式三：将图片压缩到指定尺寸和指定大小</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">215</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://yoursite.com/" title="http:&#x2F;&#x2F;yoursite.com" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
