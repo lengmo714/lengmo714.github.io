@@ -10646,4 +10646,53 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
         <tag>Android</tag>
       </tags>
   </entry>
+  <entry>
+    <title>cocosCreator多语言拓展-传参和富文本</title>
+    <url>/430c113d.html</url>
+    <content><![CDATA[<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>在cocosCreator中，多语言是我们常用到的一个功能。如果仅仅是单纯的文本，我们很好解决，但是我们在项目中经常会遇到要传递参数或者是使用富文本的情况，这个时候就需要进行特殊的处理了。特别是需要传递参数，因为不同语言语法的原因，参数可能在不同的地方，所以我们不能简单的通过<code>%s</code>的形式进行参数传递，下面介绍我这里用到的方法。</p>
+<h3 id="富文本"><a href="#富文本" class="headerlink" title="富文本"></a>富文本</h3><p>富文本也是我们常用的一个功能，这里可以用两种方式实现。</p>
+<ol>
+<li>在翻译文本中直接加上相关的参数，比如颜色，字体大小等。(不推荐)</li>
+<li>使用正则表达式识别自定义标签并转化为富文本格式。(推荐，也是我这里要介绍的)</li>
+</ol>
+<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><p>现在有这么一句话：<code>同意我们的使用条款和隐私政策</code>，我们需要在翻译文本中加上相关的参数，比如颜色。这里我们需要让<code>使用条款</code>和<code>隐私政策</code>变成蓝色，并且可以点击，点击不同字样时，可以跳转到对应的页面。<br>我们可以这样设置我们的翻译文本：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;Terms&quot;</span>:&#123;</span><br><span class="line">    <span class="string">&quot;zh-CN&quot;</span>:[str1]同意我们的[<span class="regexp">/str1][str2]使用条款[/str2]和[str3]隐私政策[/str3],</span></span><br><span class="line"><span class="regexp">    &quot;en-US&quot;:[str1]Agree to our[/str1][str2]Terms[/str2] and [str3]Privacy Policy[/str3]</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>然后再执行下面函数，将返回后的<code>string</code>赋值给我们要使用的富文本即可。例如：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">richText</span>.<span class="property">string</span> = <span class="variable language_">this</span>.<span class="title function_">parseToRichText</span>(<span class="title class_">Lang</span>.<span class="title function_">getText</span>(<span class="string">&quot;Terms&quot;</span>));</span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="title function_">parseToRichText</span>(<span class="attr">text</span>: <span class="built_in">string</span>): <span class="built_in">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> text</span><br><span class="line">        .<span class="title function_">replace</span>(<span class="regexp">/\[str1\](.*?)\[\/str1\]/g</span>, <span class="string">&#x27;&lt;color=#a1a3bfC0&gt;$1&lt;/color&gt;&#x27;</span>)</span><br><span class="line">        .<span class="title function_">replace</span>(<span class="regexp">/\[str2\](.*?)\[\/str2\]/g</span>, <span class="string">&#x27;&lt;color=#1583ff&gt;&lt;u&gt;&lt;on click=&quot;onClick&quot; param=&quot;terms&quot;&gt;$1&lt;/on&gt;&lt;/u&gt;&lt;/color&gt;&#x27;</span>)</span><br><span class="line">        .<span class="title function_">replace</span>(<span class="regexp">/\[str3\](.*?)\[\/str3\]/g</span>, <span class="string">&#x27;&lt;color=#1583ff&gt;&lt;u&gt;&lt;on click=&quot;onClick&quot; param=&quot;privacy&quot;&gt;$1&lt;/on&gt;&lt;/u&gt;&lt;/color&gt;&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="多语言参数传递"><a href="#多语言参数传递" class="headerlink" title="多语言参数传递"></a>多语言参数传递</h3><p>就拿上面的的例子来说，我们希望<code>使用条款</code>和<code>隐私政策</code>通过参数传递的。如果，在你所用的多语言中，这两个词在文本中的位置固定。那么可以通过<code>%s</code>的方式来传递就行了。(这里不使用富文本，单纯的Label)<br>这时的翻译文本可以这么写：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;Terms&quot;</span>:&#123;</span><br><span class="line">    <span class="string">&quot;zh-CN&quot;</span>:同意我们的%s和%s,</span><br><span class="line">    <span class="string">&quot;en-US&quot;</span>:<span class="title class_">Agree</span> to our%s and %s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后再执行下面函数，将返回后的<code>string</code>赋值给我们的Label即可。例如：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">Label</span>.<span class="property">string</span> = <span class="title class_">Lang</span>.<span class="title function_">getText</span>(<span class="string">&quot;Terms&quot;</span>, <span class="string">&quot;使用条款&quot;</span>, <span class="string">&quot;隐私政策&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>有些时候，我们需要传递参数，但是参数的位置在翻译文本中不同，这个时候就需要进行特殊的处理，可以通过使用占位符的方式进行传参。<br>这时的翻译文本可以这么写：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;Terms&quot;</span>:&#123;</span><br><span class="line">    <span class="string">&quot;zh-CN&quot;</span>:同意我们的&#123;term&#125;和&#123;<span class="title class_">Privacy</span>&#125;,</span><br><span class="line">    <span class="string">&quot;en-US&quot;</span>:<span class="title class_">Agree</span> to our &#123;term&#125; and &#123;<span class="title class_">Privacy</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后再执行下面函数，将返回后的<code>string</code>赋值给我们的Label即可。例如：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">Label</span>.<span class="property">string</span> = <span class="title class_">Lang</span>.<span class="title function_">getText</span>(<span class="string">&quot;Terms&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">term</span>: <span class="string">&quot;使用条款&quot;</span>,</span><br><span class="line">    <span class="title class_">Privacy</span>: <span class="string">&quot;隐私政策&quot;</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这里写了一个通用函数，可以兼容上面的两种情况：</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">getText</span>(<span class="attr">key</span>: <span class="built_in">string</span>, ...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">string</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> langConfig = <span class="variable language_">this</span>.<span class="property">config</span>[key]?.[<span class="variable language_">this</span>.<span class="property">curLanguageStr</span>];</span><br><span class="line">	<span class="keyword">if</span> (!langConfig) <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">let</span> template = langConfig;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 判断是命名参数（对象）还是位置参数</span></span><br><span class="line">	<span class="keyword">if</span> (args.<span class="property">length</span> === <span class="number">1</span> &amp;&amp; <span class="keyword">typeof</span> args[<span class="number">0</span>] === <span class="string">&quot;object&quot;</span> &amp;&amp; !<span class="title class_">Array</span>.<span class="title function_">isArray</span>(args[<span class="number">0</span>])) &#123;</span><br><span class="line">		<span class="keyword">const</span> params = args[<span class="number">0</span>] <span class="keyword">as</span> <span class="title class_">Record</span>&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt;;</span><br><span class="line">		<span class="comment">// 命名参数替换 &#123;key&#125;</span></span><br><span class="line">		<span class="keyword">return</span> template.<span class="title function_">replace</span>(<span class="regexp">/\&#123;(\w+)\&#125;/g</span>, <span class="function">(<span class="params">_, key</span>) =&gt;</span> params[key] ?? <span class="string">`&#123;<span class="subst">$&#123;key&#125;</span>&#125;`</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">// 默认位置参数替换 %s</span></span><br><span class="line">		<span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> template.<span class="title function_">replace</span>(<span class="regexp">/%s/g</span>, <span class="function">() =&gt;</span> args[i++] ?? <span class="string">&quot;&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>仅提供一个示例，实际开发中，需要根据实际情况进行修改。</p>
+]]></content>
+      <categories>
+        <category>cocosCreator</category>
+      </categories>
+      <tags>
+        <tag>cocosCreator</tag>
+      </tags>
+  </entry>
 </search>
