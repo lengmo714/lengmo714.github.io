@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://lengmo714.top/postImg/shader/1.jpg">
 <meta property="og:image" content="https://lengmo714.top/postImg/shader/2.jpg">
 <meta property="article:published_time" content="2025-02-27T15:20:49.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.903Z">
+<meta property="article:modified_time" content="2025-05-30T06:59:33.168Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="xCode">
 <meta name="twitter:card" content="summary">
@@ -262,7 +262,7 @@
 
 <p>具体表现为乱码或者是没有想要的效果。Xcode运行时会不断的报同一条日志。<br>具体报错日志：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/Applications/Cocos/Creator/3.7.2/CocosCreator.app/Contents/Resources/resources/3d/engine/native/cocos/renderer/gfx-metal/MTLCommandBuffer.mm: line 906 </span><br><span class="line">10:22:13 [ERROR]: Sampler binding cc_spriteTexture at set 2 binding 11 is not bounded.</span><br><span class="line">10:22:13 [ERROR]: [ERROR] file</span><br></pre></td></tr></table></figure>
-<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>修改<code>effect</code>文件，将<code>binding =</code>的值改为<code>binding = 12</code>，我这里之前是<code>binding = 11</code>。<br>如下图：<br><img data-src="/postImg/shader/1.jpg" alt="image.png"><br><img data-src="/postImg/shader/2.jpg" alt="image.png"></p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>修改<code>effect</code>文件，将<code>binding =</code>的值改为<code>binding = 12</code>，我这里之前是<code>binding = 11</code>。<br>如下图：<br><img data-src="https://lengmo714.top/postImg/shader/1.jpg" alt="image.png"><br><img data-src="https://lengmo714.top/postImg/shader/2.jpg" alt="image.png"></p>
 <h4 id="参考方案"><a href="#参考方案" class="headerlink" title="参考方案"></a>参考方案</h4><p><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/topic/158564">官方链接 https://forum.cocos.org/t/topic/158564</a></p>
 
     </div>
@@ -400,7 +400,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">217</span>
+          <span class="site-state-item-count">218</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
