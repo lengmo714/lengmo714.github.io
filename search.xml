@@ -10768,4 +10768,55 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
         <tag>cocosCreator</tag>
       </tags>
   </entry>
+  <entry>
+    <title>错误对象TypeError null is not an object (evaluating &#39;IX.atlasName&#39;)</title>
+    <url>/5b0704a7.html</url>
+    <content><![CDATA[<p>cocosCreator版本：3.7.2<br>发现这个问题很奇妙，因为在本地测试，已经测试服测试都没有出现过这个问题，只有在线上运行的时候会出现这个问题。一旦出现这个问题，就会导致整个游戏卡死，无法继续进行游戏。</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h2 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h2><p>在游戏场景中使用了很多的字符图集，即将<code>Label</code>的<code>Cache Mode</code>设置成了<code>CHAR</code>，导致生成的纹理图集过大，超过了WebGL支持的最大纹理尺寸，进而引发渲染异常或者直接奔溃。</p>
+<h2 id="如何确认是不是这个问题？"><a href="#如何确认是不是这个问题？" class="headerlink" title="如何确认是不是这个问题？"></a>如何确认是不是这个问题？</h2><p>我们在使用浏览器预览游戏的时候，可以打开控制台，查看是否有有类似下面的问题：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-attr">[Warning]</span> <span class="attribute">Font</span> atlas texture size exceed MAX_TEXTURE_SIZE</span><br></pre></td></tr></table></figure>
+
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ol>
+<li><p>限制缓存图集的大小<br>这个是在网上看到的方法，自己还没有具体去操作</p>
+</li>
+<li><p>切换<code>Label</code>的<code>Cache Mode</code>为<code>NONE</code><br>这个方法存在一定的弊端，游戏性能会下降，因为系统字体每帧都要重新绘制</p>
+</li>
+<li><p>切换为<code>BitemapFont(位图字体)</code><br>如果文字比较固定，建议使用 位图字体（BMFont）：</p>
+</li>
+</ol>
+<ul>
+<li>图集大小可控</li>
+<li>渲染效率高</li>
+<li>不存在缓存爆炸问题<br>适用于：</li>
+<li>文本内容相对静态，或可预知的 UI。</li>
+</ul>
+<ol start="4">
+<li>方案四：动态 Atlas 管理优化<br>可以参考官方动态合图优化：</li>
+</ol>
+<ul>
+<li>文本、图标不要全部合到一个图集里</li>
+<li>分割多个小图集</li>
+<li>动态 <code>Atlas</code> 开启限制图块大小和图集数量</li>
+</ul>
+<h2 id="解决方案对比"><a href="#解决方案对比" class="headerlink" title="解决方案对比"></a>解决方案对比</h2><p>|—|—|<br>|场景|建议方案|<br>|文本非常多，动态多语言|CacheMode &#x3D; None|<br>|UI 固定，少量动态文本|使用 BitmapFont|<br>|中等文本量，有限制图集大小|CacheMode &#x3D; Char + 限制图集尺寸|<br>|场景复杂，动态创建节点多|动态合图优化|</p>
+]]></content>
+      <categories>
+        <category>cocosCreator</category>
+      </categories>
+      <tags>
+        <tag>cocosCreator</tag>
+      </tags>
+  </entry>
 </search>
