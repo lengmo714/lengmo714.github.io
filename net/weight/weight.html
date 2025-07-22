@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>体重记录曲线</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial; margin: 30px; background: #f9f9f9; }
+    h2 { color: #333; }
+    select { font-size: 16px; margin: 10px 0; padding: 5px; }
+    table { border-collapse: collapse; width: 100%; background: #fff; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background-color: #eee; }
+    canvas { margin-top: 40px; }
+  </style>
+</head>
+<body>
+  <h2>📅 彩云孕期体重记录</h2>
+  <label for="monthSelect">选择月份：</label>
+  <select id="monthSelect"></select>
+
+  <table id="dataTable">
+    <thead>
+      <tr><th>日期</th><th>体重（kg）</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <canvas id="weightChart" height="100"></canvas>
+
+  <script>
+    let allData = [];
+
+    // 读取本地 JSON 数据
+    fetch('weight.json')
+      .then(res => res.json())
+      .then(json => {
+        allData = json
+          .filter(d => d.date && !isNaN(d.weight))
+          .sort((a, b) => a.date.localeCompare(b.date));  // 日期升序
+        populateMonthSelect();
+        renderTableAndChart();
+      });
+
+    document.getElementById('monthSelect').addEventListener('change', renderTableAndChart);
+
+    function populateMonthSelect() {
+      const monthSet = new Set(allData.map(d => d.date.slice(0, 7)));
+      const monthSelect = document.getElementById('monthSelect');
+      monthSelect.innerHTML = '';
+
+      // 添加“全部”选项
+      const allOpt = document.createElement('option');
+      allOpt.value = 'all';
+      allOpt.textContent = '全部';
+      monthSelect.appendChild(allOpt);
+
+      [...monthSet].sort().forEach(month => {
+        const opt = document.createElement('option');
+        opt.value = month;
+        opt.textContent = month;
+        monthSelect.appendChild(opt);
+      });
+
+      monthSelect.value = 'all';
+    }
+
+    function renderTableAndChart() {
+      const selectedMonth = document.getElementById('monthSelect').value;
+      const filtered = selectedMonth === 'all'
+        ? allData
+        : allData.filter(d => d.date.startsWith(selectedMonth));
+
+      // 表格
+      const tbody = document.querySelector('#dataTable tbody');
+      tbody.innerHTML = '';
+      filtered.forEach(d => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${d.date}</td><td>${d.weight}</td>`;
+        tbody.appendChild(tr);
+      });
+
+      // 图表
+      renderChart(filtered);
+    }
+
+    let chart = null;
+    function renderChart(data) {
+      const ctx = document.getElementById('weightChart').getContext('2d');
+      const labels = data.map(d => d.date);
+      const weights = data.map(d => d.weight);
+
+      if (chart) chart.destroy();
+
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: '体重 (kg)',
+            data: weights,
+            borderWidth: 2,
+            borderColor: '#3e95cd',
+            backgroundColor: 'rgba(62,149,205,0.2)',
+            fill: true,
+            tension: 0.2,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: true }
+          },
+          scales: {
+            y: {
+              beginAtZero: false,
+              title: { display: true, text: '体重 (kg)' }
+            },
+            x: {
+              title: { display: true, text: '日期' }
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
