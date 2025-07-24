@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>彩云孕期体重记录</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <style>
     body { font-family: Arial; margin: 30px; background: #f9f9f9; }
     h2 { color: #333; }
@@ -31,13 +32,12 @@
   <script>
     let allData = [];
 
-    // 读取本地 JSON 数据
     fetch('weight.json')
       .then(res => res.json())
       .then(json => {
         allData = json
           .filter(d => d.date && !isNaN(d.weight))
-          .sort((a, b) => a.date.localeCompare(b.date));  // 日期升序
+          .sort((a, b) => a.date.localeCompare(b.date));
         populateMonthSelect();
         renderTableAndChart();
       });
@@ -49,7 +49,6 @@
       const monthSelect = document.getElementById('monthSelect');
       monthSelect.innerHTML = '';
 
-      // 添加“全部”选项
       const allOpt = document.createElement('option');
       allOpt.value = 'all';
       allOpt.textContent = '全部';
@@ -71,7 +70,6 @@
         ? allData
         : allData.filter(d => d.date.startsWith(selectedMonth));
 
-      // 表格
       const tbody = document.querySelector('#dataTable tbody');
       tbody.innerHTML = '';
       filtered.forEach(d => {
@@ -80,7 +78,6 @@
         tbody.appendChild(tr);
       });
 
-      // 图表
       renderChart(filtered);
     }
 
@@ -111,18 +108,30 @@
         options: {
           responsive: true,
           plugins: {
-            legend: { display: true }
+            legend: { display: true },
+            datalabels: {
+              anchor: 'end',
+              align: 'top',
+              color: '#333',
+              font: {
+                weight: 'bold'
+              },
+              formatter: function(value) {
+                return value.toFixed(1);
+              }
+            }
           },
           scales: {
             y: {
-              beginAtZero: false,
+              beginAtZero: true,
               title: { display: true, text: '体重 (kg)' }
             },
             x: {
               title: { display: true, text: '日期' }
             }
           }
-        }
+        },
+        plugins: [ChartDataLabels]
       });
     }
   </script>
