@@ -10944,7 +10944,7 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
 <h3 id="分析日志"><a href="#分析日志" class="headerlink" title="分析日志"></a>分析日志</h3><p>自己用手机测试，错误日志如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">signInResult:failed code=com.google.android.gms.common.api.ApiException: 12500: </span><br><span class="line">ApiException&#123;&quot;code&quot;:-1,&quot;err&quot;:&quot;Login failed (12500)&quot;&#125;</span><br></pre></td></tr></table></figure>
 <p><img data-src="https://lengmo714.top/postImg/googleWeb/4.png" alt="错误日志截图"></p>
-<h3 id="错误分析"><a href="#错误分析" class="headerlink" title="错误分析"></a>错误分析</h3><p>有了错误日志就好办了，直接复制粘贴到chatgpt，结果如下：<br><img data-src="https://lengmo714.top/postImg/googleWeb/4.png" alt="chatGPT结果"></p>
+<h3 id="错误分析"><a href="#错误分析" class="headerlink" title="错误分析"></a>错误分析</h3><p>有了错误日志就好办了，直接复制粘贴到chatgpt，结果如下：<br><img data-src="https://lengmo714.top/postImg/googleWeb/5.png" alt="chatGPT结果"></p>
 <h3 id="结论及解决方法"><a href="#结论及解决方法" class="headerlink" title="结论及解决方法"></a>结论及解决方法</h3><p>把所有可能出错的地方都排查了一遍，发现都没问题。从新在<code>Google Cloud控制台</code>填写一边SHA-1,保存刷新就行了。</p>
 <blockquote>
 <p>个人结论：谷歌平台抽风，就刚好只有这个一个应用不能使用，其它的应用都没有问题。关键是什么都没有改，就是单纯的刷新了一下后台就行了。</p>
