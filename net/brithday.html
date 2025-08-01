@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -87,6 +87,141 @@
 
     setInterval(updateCountdown, 1000);
     updateCountdown();
+  </script>
+</body>
+
+</html> -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>彩云生日倒计时</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(135deg, #ffe4ec, #ccefff);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    #countdown {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      max-width: 90%;
+      font-size: 1.5rem;
+      line-height: 1.8;
+      color: #333;
+      white-space: pre-wrap;
+      animation: pulse 2s infinite ease-in-out;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: fadeInScale 1.5s ease forwards, pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.03);
+      }
+    }
+
+    @keyframes fadeInScale {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @media (min-width: 768px) {
+      #countdown {
+        font-size: 2rem;
+        padding: 40px;
+      }
+    }
+
+    .ad-container {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    ins.adsbygoogle {
+      display: block;
+      text-align: center;
+    }
+
+    /* 音乐提示 */
+    #music-tip {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="countdown"></div>
+  <div id="music-tip">🎵 若未自动播放，可点击任意处开启音乐</div>
+
+  <audio id="birthdayMusic" autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/10/26/audio_c4f2955aa0.mp3" type="audio/mpeg">
+    您的浏览器不支持音频播放。
+  </audio>
+
+  <div class="ad-container">
+    <script async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+      crossorigin="anonymous"></script>
+    <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article"
+      data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const birthdayThisYear = new Date(`August 5, ${year} 00:00:00`);
+      let targetDate = now < birthdayThisYear
+        ? birthdayThisYear
+        : new Date(`August 5, ${year + 1} 00:00:00`);
+
+      const timeDiff = targetDate - now;
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      document.getElementById('countdown').innerText =
+        `🎂 大家请注意 🎂\n离我老婆生日还有：\n${days} 天 ${hours} 小时 ${minutes} 分 ${seconds} 秒\n📅 请大家准时送上祝福 💝`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 移动端点击播放音乐兼容
+    document.addEventListener('click', function () {
+      const music = document.getElementById('birthdayMusic');
+      if (music.paused) {
+        music.play().catch(() => { });
+      }
+    });
   </script>
 </body>
 
