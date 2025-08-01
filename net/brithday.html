@@ -1,75 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>彩云生日倒计时</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>彩云生日倒计时</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(135deg, #ffe4ec, #ccefff);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      box-sizing: border-box;
+      text-align: center;
+    }
 
-        #countdown {
-            font-size: 24px;
-        }
-    </style>
+    #countdown {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      max-width: 90%;
+      font-size: 1.5rem;
+      line-height: 1.8;
+      color: #333;
+      white-space: pre-wrap;
+    }
+
+    @media (min-width: 768px) {
+      #countdown {
+        font-size: 2rem;
+        padding: 40px;
+      }
+    }
+
+    .ad-container {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    ins.adsbygoogle {
+      display: block;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
-    <div id="countdown"></div>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-        crossorigin="anonymous"></script>
+  <div id="countdown"></div>
+
+  <div class="ad-container">
+    <script async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+      crossorigin="anonymous"></script>
     <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article"
-        data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins>
+      data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins>
     <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
+      (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-    <script>
-        function updateCountdown() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const birthdayThisYear = new Date(`August 5, ${year} 00:00:00`);
-            let targetDate;
+  </div>
 
-            if (now < birthdayThisYear) {
-                targetDate = birthdayThisYear; // 如果今天日期小于今年生日，倒计时设置为今年的生日
-            } else {
-                targetDate = new Date(`August 5, ${year + 1} 00:00:00`); // 否则，设置为明年的生日
-            }
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const birthdayThisYear = new Date(`August 5, ${year} 00:00:00`);
+      let targetDate = now < birthdayThisYear
+        ? birthdayThisYear
+        : new Date(`August 5, ${year + 1} 00:00:00`);
 
-            const timeDiff = targetDate - now;
-            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+      const timeDiff = targetDate - now;
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-            document.getElementById('countdown').innerText =
-                `大家请注意，离我老婆生日还有: \n ${days} 天 ${hours} 小时 ${minutes} 分 ${seconds} 秒\n 请大家准时送上祝福`;
-        }
+      document.getElementById('countdown').innerText =
+        `🎂 大家请注意 🎂\n离我老婆生日还有：\n${days} 天 ${hours} 小时 ${minutes} 分 ${seconds} 秒\n📅 请大家准时送上祝福 💝`;
+    }
 
-        // Update countdown every second
-        setInterval(updateCountdown, 1000);
-
-        // Initial call to display the countdown immediately
-        updateCountdown();
-    </script>
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-            crossorigin="anonymous"></script>
-       <p><ins class="adsbygoogle"
-            style="display:block; text-align:center;"
-            data-ad-layout="in-article"
-            data-ad-format="fluid"
-            data-ad-client="ca-pub-3160571902547760"
-            data-ad-slot="8630948880"></ins></p>
-       <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-       </script>
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 </body>
 
 </html>
