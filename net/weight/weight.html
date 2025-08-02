@@ -32,15 +32,31 @@
   <script>
     let allData = [];
 
-    fetch('weight.json')
-      .then(res => res.json())
-      .then(json => {
-        allData = json
-          .filter(d => d.date && !isNaN(d.weight))
-          .sort((a, b) => a.date.localeCompare(b.date));
-        populateMonthSelect();
-        renderTableAndChart();
-      });
+    // 修改加载数据函数，处理不存在的月份数据文件
+    function loadData() {
+      const months = Array.from({ length: 12 }, (_, i) => `2025-${(i + 1).toString().padStart(2, '0')}`);
+      const promises = months.map(month => 
+        fetch(`${month}_weight.json`)
+          .then(res => res.ok ? res.json() : Promise.reject(`No data for ${month}`))  // 如果文件不存在，跳过
+          .catch(error => {
+            console.warn(error);  // 打印警告信息
+            return [];  // 返回空数组，跳过该月份
+          })
+      );
+
+      Promise.all(promises)
+        .then(results => {
+          allData = results.flat()
+            .filter(d => d.date && !isNaN(d.weight))
+            .sort((a, b) => a.date.localeCompare(b.date));
+          populateMonthSelect();
+          renderTableAndChart();
+        })
+        .catch(error => console.error('加载数据失败:', error));
+    }
+
+    // 调用加载数据的函数
+    loadData();
 
     document.getElementById('monthSelect').addEventListener('change', renderTableAndChart);
 
