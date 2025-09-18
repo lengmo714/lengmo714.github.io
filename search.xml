@@ -11028,4 +11028,59 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
         <tag>cocosCreator</tag>
       </tags>
   </entry>
+  <entry>
+    <title>tron测试网代币合约部署，这里以TRC20为例</title>
+    <url>/d7156845.html</url>
+    <content><![CDATA[<p>tron测试网代币合约部署，这里以TRC20为例</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ol>
+<li>一个<code>tron</code>钱包</li>
+<li>谷歌浏览器安装插件<code>TronLink</code>,下载地址<a href="https://chrome.google.com/webstore/detail/ibnejdfjmmkpcnlpebklmnkoeoihofec">TronLink谷歌商城下载地址https://chrome.google.com/webstore/detail/ibnejdfjmmkpcnlpebklmnkoeoihofec</a></li>
+<li>tron官网地址<a href="https://tronscan.org/">https://tronscan.org/</a>,我们这里需要使用<a href="https://tronscan.org/">测试地址</a></li>
+</ol>
+<h3 id="获取trx"><a href="#获取trx" class="headerlink" title="获取trx"></a>获取trx</h3><p>先去你的<code>TronLink</code>钱包获取<code>trx</code>的钱包地址<br>打开<a href="https://nileex.io/join/getJoinPage">https://nileex.io/join/getJoinPage</a>获取测试币，在打开的网址中，<code>Get 2000 test coins</code>选项下面输入你的地址，点击<code>Obtain</code>获取测试币。如下图<br><img data-src="https://lengmo714.top/postImg/d7156845/1.png" alt="获取测试币"><br>出现<code>Successflu</code>提示则表示获取成功。注意：一个地址只能获取一次。<br>获取成功后，我们返回钱包，修改当前的网络环境，改为测试网(<em>如果是正式网，是看不到测试币的</em>)<br>点击<code>TronLink</code>最上方的网络，然后改为<code>TRON Nile Testnet</code><br><img data-src="https://lengmo714.top/postImg/d7156845/3.png"><br><img data-src="https://lengmo714.top/postImg/d7156845/4.png"><br>查看测试币是否到账：<br><img data-src="https://lengmo714.top/postImg/d7156845/2.png" alt="是否到账"></p>
+<h3 id="获取TRC20合约代码"><a href="#获取TRC20合约代码" class="headerlink" title="获取TRC20合约代码"></a>获取TRC20合约代码</h3><p><a href="https://github.com/lengmo714/TRC20/tree/main">代码下载地址https://github.com/lengmo714/TRC20/tree/main</a><br>这里面有5份代码，下载到本地后，只需要修改<code>Token.sol</code>文件中的 token 名称、token 符号、精度、发行量即可，分别在下面圈出的位置，这几个数值都是自己自行定义的。<em>建议不要修改精度</em>。<br><img data-src="https://lengmo714.top/postImg/d7156845/5.png" alt="修改示意图"></p>
+<blockquote>
+<p>注意：一定要确保文件格式没错，否则会编译失败。建议不要乱改。</p>
+</blockquote>
+<h3 id="部署合约"><a href="#部署合约" class="headerlink" title="部署合约"></a>部署合约</h3><p><strong>注意：这里的所有操作都是在Nile测试网进行</strong><br>确保所有链接的前面都有<code>nile.</code>即可<br><img data-src="https://lengmo714.top/postImg/d7156845/6.png"></p>
+<p>首先点击右上角<code>Connect Wallet</code>连接我们自己的钱包<br><img data-src="https://lengmo714.top/postImg/d7156845/7.png" alt="连接钱包"><br><img data-src="https://lengmo714.top/postImg/d7156845/8.png" alt="选择钱包"></p>
+<p>然后<a href="https://nile.tronscan.org/#/contracts/contract-compiler">使用tronscan进行部署https://nile.tronscan.org/#/contracts/contract-compiler</a><br>点击<code>Upload Contract File</code>上传我们前面下载好的5个文件。上传完后检查下，是不是5个文件都上传了，无误就点击<code>Comnplie</code>。<br><img data-src="https://lengmo714.top/postImg/d7156845/9.png" alt="上传文件"></p>
+<p>在弹出的选项中，<code>Solidity Compiler Version</code>需要选择<code>v0.5.10+</code>这个版本，选择其它版本会有问题。其它选项不用动，点击<code>Compile</code>。<br><img data-src="https://lengmo714.top/postImg/d7156845/10.png"></p>
+<p>出现下面状态则表示编译成功<br><img data-src="https://lengmo714.top/postImg/d7156845/11.png"><br>随后选择Deploy开始部署</p>
+<p>在弹出的选项中修改最上面的<code>Main Contact</code>为<code>Token</code>，其他的可以保持默认，然后点击<code>Confirm</code><br><img data-src="https://lengmo714.top/postImg/d7156845/12.png"></p>
+<p>这个时候会弹出签名请求，请确认好以下信息，如无误就选择<code>Sign</code>签名。</p>
+<ul>
+<li>是&lt;nile.tronscan.org&gt;的请求</li>
+<li>钱包选择正确</li>
+<li>TRON Nile测试网选择正确<br><img data-src="https://lengmo714.top/postImg/d7156845/13.png"></li>
+</ul>
+<p>如果出现下面错误提示，则表示签名超时，重走上面流程即可。<br><img data-src="https://lengmo714.top/postImg/d7156845/15.png"></p>
+<p>签名成功后，等待部署完成，这里需要等待1~2分钟，如果出现<code>Successful</code>则表示成功。然后记下这个地址。<br><img data-src="https://lengmo714.top/postImg/d7156845/14.png"><br>同样，我们打开<a href="https://nile.tronscan.org/#/tokens/create/Type">tronscan进行录入https://nile.tronscan.org/#/tokens/create/Type</a><br>点击链接进入后，选择<code>TRC20</code>，然后点击<code>Confirm</code><br><img data-src="https://lengmo714.top/postImg/d7156845/16.png"></p>
+<p>在添加界面填写上刚刚获得的新地址，然后添加描述，添加网址和邮箱，有*是必填选项，其他可以选择性填写，确认无误后点击<code>Next</code><br><img data-src="https://lengmo714.top/postImg/d7156845/17.png"></p>
+<p>这里如果遇到了明明是第一次添加，但是提示<code>This address has been recorded....</code>,<br><img data-src="https://lengmo714.top/postImg/d7156845/18.png"><br>就直接点击该提示后面的超链接，然后点击<code>Update Token Information</code>就可以了。<br><img data-src="https://lengmo714.top/postImg/d7156845/19.png"><br>然后最后确认一下填写是否正确，正确就选择 <code>Submit</code>,然后会弹出签名请求，选择签名。</p>
+<p>下面会遇到两种情况，成功添加或者失败添加<br>如果是失败添加，选择Resubmit，成功则跳过该步骤<br><img data-src="https://lengmo714.top/postImg/d7156845/20.png"></p>
+<p>重新之前的步骤，给自己的币添加一个头像，然后再提交就能通过了。成功就是这个样子：<br><img data-src="https://lengmo714.top/postImg/d7156845/21.png"></p>
+<p>点这个<a href="https://nile.tronscan.org/#/token20/TEE1H4NJKcU8SKgf35d5Y4YWvHJckLj5aM">链接https://nile.tronscan.org/#/token20/TEE1H4NJKcU8SKgf35d5Y4YWvHJckLj5aM</a>进去，就可以看到自己发行的币了。<br><img data-src="https://lengmo714.top/postImg/d7156845/22.png"><br>当然你这里看到的会是我的币，你只需要将上面链接后面的参数改为你自己的币的合约地址即可。</p>
+<h3 id="添加自己发行的币到Tronlink中"><a href="#添加自己发行的币到Tronlink中" class="headerlink" title="添加自己发行的币到Tronlink中"></a>添加自己发行的币到Tronlink中</h3><p>回到<code>Tronlink</code>，在主页面点击这个<code>+</code>号<br><img data-src="https://lengmo714.top/postImg/d7156845/23.png"><br>找到最上面的自定义通证<br><img data-src="https://lengmo714.top/postImg/d7156845/24.png"><br>填写你获得的地址，他会自动补全所有的信息，确认没问题点击下一步，然后点击确认即可<br>回到主界面就能看到自己发行的币了<br><img data-src="https://lengmo714.top/postImg/d7156845/25.png"></p>
+<h3 id="验证-TRC20-合约"><a href="#验证-TRC20-合约" class="headerlink" title="验证 TRC20 合约"></a>验证 TRC20 合约</h3><p>依然使用 <a href="https://nile.tronscan.org/#/contracts/verify">tronscan 进行验证https://nile.tronscan.org/#/contracts/verify</a>，按照我给出的图例进行填写，<code>上传合同文件</code>这里选择前面的5份代码即可。<br><img data-src="https://lengmo714.top/postImg/d7156845/26.png"><br>一切准备就绪后选择<code>Verify And Publish</code>,验证成功会有如下显示：<br><img data-src="https://lengmo714.top/postImg/d7156845/27.png"><br>也会在<a href="https://nile.tronscan.org/#/token20/TEE1H4NJKcU8SKgf35d5Y4YWvHJckLj5aM/code">新页面https://nile.tronscan.org/#/token20/TEE1H4NJKcU8SKgf35d5Y4YWvHJckLj5aM/code</a>展示你发行币种合约的详细信息，<br><img data-src="https://lengmo714.top/postImg/d7156845/28.png"><br>在这个地方也可以判断你是否验证成功，如果还没验证，只能看到 Bytecode（16进制的代码） 。验证成功则会显示你上传的源码。</p>
+]]></content>
+      <categories>
+        <category>虚拟币</category>
+      </categories>
+      <tags>
+        <tag>虚拟币</tag>
+      </tags>
+  </entry>
 </search>

@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="tron测试网代币合约部署，这里以TRC20为例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tron测试网代币合约部署，这里以TRC20为例">
+<meta property="og:url" content="https://lengmo714.top/d7156845.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="tron测试网代币合约部署，这里以TRC20为例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/1.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/3.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/4.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/2.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/5.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/6.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/7.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/8.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/9.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/10.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/11.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/12.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/13.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/15.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/14.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/16.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/17.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/18.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/19.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/20.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/21.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/22.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/23.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/24.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/25.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/26.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/27.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/d7156845/28.png">
+<meta property="article:published_time" content="2025-09-18T08:48:20.000Z">
+<meta property="article:modified_time" content="2025-09-18T09:58:24.158Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="虚拟币">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lengmo714.top/postImg/d7156845/1.png">
+
+<link rel="canonical" href="https://lengmo714.top/d7156845.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>tron测试网代币合约部署，这里以TRC20为例 | 南锋</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XDK58GP86Z');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lengmo714.top/d7156845.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_3307.JPG">
+      <meta itemprop="name" content="南锋">
+      <meta itemprop="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          tron测试网代币合约部署，这里以TRC20为例
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%99%9A%E6%8B%9F%E5%B8%81/" itemprop="url" rel="index"><span itemprop="name">虚拟币</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">tron测试网代币合约部署，这里以TRC20为例</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>tron测试网代币合约部署，这里以TRC20为例</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ol>
+<li>一个<code>tron</code>钱包</li>
+<li>谷歌浏览器安装插件<code>TronLink</code>,下载地址<a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/ibnejdfjmmkpcnlpebklmnkoeoihofec">TronLink谷歌商城下载地址https://chrome.google.com/webstore/detail/ibnejdfjmmkpcnlpebklmnkoeoihofec</a></li>
+<li>tron官网地址<a target="_blank" rel="noopener" href="https://tronscan.org/">https://tronscan.org/</a>,我们这里需要使用<a target="_blank" rel="noopener" href="https://tronscan.org/">测试地址</a></li>
+</ol>
+<h3 id="获取trx"><a href="#获取trx" class="headerlink" title="获取trx"></a>获取trx</h3><p>先去你的<code>TronLink</code>钱包获取<code>trx</code>的钱包地址<br>打开<a target="_blank" rel="noopener" href="https://nileex.io/join/getJoinPage">https://nileex.io/join/getJoinPage</a>获取测试币，在打开的网址中，<code>Get 2000 test coins</code>选项下面输入你的地址，点击<code>Obtain</code>获取测试币。如下图<br><img data-src="https://lengmo714.top/postImg/d7156845/1.png" alt="获取测试币"><br>出现<code>Successflu</code>提示则表示获取成功。注意：一个地址只能获取一次。<br>获取成功后，我们返回钱包，修改当前的网络环境，改为测试网(<em>如果是正式网，是看不到测试币的</em>)<br>点击<code>TronLink</code>最上方的网络，然后改为<code>TRON Nile Testnet</code><br><img data-src="https://lengmo714.top/postImg/d7156845/3.png"><br><img data-src="https://lengmo714.top/postImg/d7156845/4.png"><br>查看测试币是否到账：<br><img data-src="https://lengmo714.top/postImg/d7156845/2.png" alt="是否到账"></p>
+<h3 id="获取TRC20合约代码"><a href="#获取TRC20合约代码" class="headerlink" title="获取TRC20合约代码"></a>获取TRC20合约代码</h3><p><a target="_blank" rel="noopener" href="https://github.com/lengmo714/TRC20/tree/main">代码下载地址https://github.com/lengmo714/TRC20/tree/main</a><br>这里面有5份代码，下载到本地后，只需要修改<code>Token.sol</code>文件中的 token 名称、token 符号、精度、发行量即可，分别在下面圈出的位置，这几个数值都是自己自行定义的。<em>建议不要修改精度</em>。<br><img data-src="https://lengmo714.top/postImg/d7156845/5.png" alt="修改示意图"></p>
+<blockquote>
+<p>注意：一定要确保文件格式没错，否则会编译失败。建议不要乱改。</p>
+</blockquote>
+<h3 id="部署合约"><a href="#部署合约" class="headerlink" title="部署合约"></a>部署合约</h3><p><strong>注意：这里的所有操作都是在Nile测试网进行</strong><br>确保所有链接的前面都有<code>nile.</code>即可<br><img data-src="https://lengmo714.top/postImg/d7156845/6.png"></p>
+<p>首先点击右上角<code>Connect Wallet</code>连接我们自己的钱包<br><img data-src="https://lengmo714.top/postImg/d7156845/7.png" alt="连接钱包"><br><img data-src="https://lengmo714.top/postImg/d7156845/8.png" alt="选择钱包"></p>
+<p>然后<a target="_blank" rel="noopener" href="https://nile.tronscan.org/#/contracts/contract-compiler">使用tronscan进行部署https://nile.tronscan.org/#/contracts/contract-compiler</a><br>点击<code>Upload Contract File</code>上传我们前面下载好的5个文件。上传完后检查下，是不是5个文件都上传了，无误就点击<code>Comnplie</code>。<br><img data-src="https://lengmo714.top/postImg/d7156845/9.png" alt="上传文件"></p>
+<p>在弹出的选项中，<code>Solidity Compiler Version</code>需要选择<code>v0.5.10+</code>这个版本，选择其它版本会有问题。其它选项不用动，点击<code>Compile</code>。<br><img data-src="https://lengmo714.top/postImg/d7156845/10.png"></p>
+<p>出现下面状态则表示编译成功<br><img data-src="https://lengmo714.top/postImg/d7156845/11.png"><br>随后选择Deploy开始部署</p>
+<p>在弹出的选项中修改最上面的<code>Main Contact</code>为<code>Token</code>，其他的可以保持默认，然后点击<code>Confirm</code><br><img data-src="https://lengmo714.top/postImg/d7156845/12.png"></p>
+<p>这个时候会弹出签名请求，请确认好以下信息，如无误就选择<code>Sign</code>签名。</p>
+<ul>
+<li>是&lt;nile.tronscan.org&gt;的请求</li>
+<li>钱包选择正确</li>
+<li>TRON Nile测试网选择正确<br><img data-src="https://lengmo714.top/postImg/d7156845/13.png"></li>
+</ul>
+<p>如果出现下面错误提示，则表示签名超时，重走上面流程即可。<br><img data-src="https://lengmo714.top/postImg/d7156845/15.png"></p>
+<p>签名成功后，等待部署完成，这里需要等待1~2分钟，如果出现<code>Successful</code>则表示成功。然后记下这个地址。<br><img data-src="https://lengmo714.top/postImg/d7156845/14.png"><br>同样，我们打开<a target="_blank" rel="noopener" href="https://nile.tronscan.org/#/tokens/create/Type">tronscan进行录入https://nile.tronscan.org/#/tokens/create/Type</a><br>点击链接进入后，选择<code>TRC20</code>，然后点击<code>Confirm</code><br><img data-src="https://lengmo714.top/postImg/d7156845/16.png"></p>
+<p>在添加界面填写上刚刚获得的新地址，然后添加描述，添加网址和邮箱，有*是必填选项，其他可以选择性填写，确认无误后点击<code>Next</code><br><img data-src="https://lengmo714.top/postImg/d7156845/17.png"></p>
+<p>这里如果遇到了明明是第一次添加，但是提示<code>This address has been recorded....</code>,<br><img data-src="https://lengmo714.top/postImg/d7156845/18.png"><br>就直接点击该提示后面的超链接，然后点击<code>Update Token Information</code>就可以了。<br><img data-src="https://lengmo714.top/postImg/d7156845/19.png"><br>然后最后确认一下填写是否正确，正确就选择 <code>Submit</code>,然后会弹出签名请求，选择签名。</p>
+<p>下面会遇到两种情况，成功添加或者失败添加<br>如果是失败添加，选择Resubmit，成功则跳过该步骤<br><img data-src="https://lengmo714.top/postImg/d7156845/20.png"></p>
+<p>重新之前的步骤，给自己的币添加一个头像，然后再提交就能通过了。成功就是这个样子：<br><img data-src="https://lengmo714.top/postImg/d7156845/21.png"></p>
+<p>点这个<a target="_blank" rel="noopener" href="https://nile.tronscan.org/#/token20/TEE1H4NJKcU8SKgf35d5Y4YWvHJckLj5aM">链接https://nile.tronscan.org/#/token20/TEE1H4NJKcU8SKgf35d5Y4YWvHJckLj5aM</a>进去，就可以看到自己发行的币了。<br><img data-src="https://lengmo714.top/postImg/d7156845/22.png"><br>当然你这里看到的会是我的币，你只需要将上面链接后面的参数改为你自己的币的合约地址即可。</p>
+<h3 id="添加自己发行的币到Tronlink中"><a href="#添加自己发行的币到Tronlink中" class="headerlink" title="添加自己发行的币到Tronlink中"></a>添加自己发行的币到Tronlink中</h3><p>回到<code>Tronlink</code>，在主页面点击这个<code>+</code>号<br><img data-src="https://lengmo714.top/postImg/d7156845/23.png"><br>找到最上面的自定义通证<br><img data-src="https://lengmo714.top/postImg/d7156845/24.png"><br>填写你获得的地址，他会自动补全所有的信息，确认没问题点击下一步，然后点击确认即可<br>回到主界面就能看到自己发行的币了<br><img data-src="https://lengmo714.top/postImg/d7156845/25.png"></p>
+<h3 id="验证-TRC20-合约"><a href="#验证-TRC20-合约" class="headerlink" title="验证 TRC20 合约"></a>验证 TRC20 合约</h3><p>依然使用 <a target="_blank" rel="noopener" href="https://nile.tronscan.org/#/contracts/verify">tronscan 进行验证https://nile.tronscan.org/#/contracts/verify</a>，按照我给出的图例进行填写，<code>上传合同文件</code>这里选择前面的5份代码即可。<br><img data-src="https://lengmo714.top/postImg/d7156845/26.png"><br>一切准备就绪后选择<code>Verify And Publish</code>,验证成功会有如下显示：<br><img data-src="https://lengmo714.top/postImg/d7156845/27.png"><br>也会在<a target="_blank" rel="noopener" href="https://nile.tronscan.org/#/token20/TEE1H4NJKcU8SKgf35d5Y4YWvHJckLj5aM/code">新页面https://nile.tronscan.org/#/token20/TEE1H4NJKcU8SKgf35d5Y4YWvHJckLj5aM/code</a>展示你发行币种合约的详细信息，<br><img data-src="https://lengmo714.top/postImg/d7156845/28.png"><br>在这个地方也可以判断你是否验证成功，如果还没验证，只能看到 Bytecode（16进制的代码） 。验证成功则会显示你上传的源码。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/d7156845.html" title="tron测试网代币合约部署，这里以TRC20为例">https://lengmo714.top/d7156845.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E8%99%9A%E6%8B%9F%E5%B8%81/" rel="tag"><i class="fa fa-tag"></i> 虚拟币</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/645ccd2b.html" rel="prev" title="cocosCreator导出后的代码和源码进行对比">
+      <i class="fa fa-chevron-left"></i> cocosCreator导出后的代码和源码进行对比
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96trx"><span class="nav-number">2.</span> <span class="nav-text">获取trx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96TRC20%E5%90%88%E7%BA%A6%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">获取TRC20合约代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%90%88%E7%BA%A6"><span class="nav-number">4.</span> <span class="nav-text">部署合约</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%B7%B1%E5%8F%91%E8%A1%8C%E7%9A%84%E5%B8%81%E5%88%B0Tronlink%E4%B8%AD"><span class="nav-number">5.</span> <span class="nav-text">添加自己发行的币到Tronlink中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81-TRC20-%E5%90%88%E7%BA%A6"><span class="nav-number">6.</span> <span class="nav-text">验证 TRC20 合约</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">225</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lengmo714" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lengmo714" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/842673413@qq.com" title="E-Mail → 842673413@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3124723200" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3124723200" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" title="抖音 → https:&#x2F;&#x2F;www.douyin.com&#x2F;user&#x2F;MS4wLjABAAAAGVvxXoafRJrfCUH8PiT5yO--ToMDJnA_7UpHsFucUuQDDEF4aHy6XOAIedS4rD7W" rel="noopener" target="_blank"><i class="fa fa-mobile fa-fw"></i>抖音</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/Love/baby.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;Love&#x2F;baby.html">恋爱计时</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  +  
+  
+	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
+  
+
+</body>
+</html>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
