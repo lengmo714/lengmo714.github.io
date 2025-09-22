@@ -1,4 +1,4 @@
-System.register(["./application.ef6c2.js"], function (_export, _context) {
+System.register(["./application.dc4e6.js"], function (_export, _context) {
   "use strict";
 
   var Application, canvas, $p, bcr, application;
@@ -8,8 +8,8 @@ System.register(["./application.ef6c2.js"], function (_export, _context) {
   }
 
   return {
-    setters: [function (_applicationEf6c2Js) {
-      Application = _applicationEf6c2Js.Application;
+    setters: [function (_applicationDc4e6Js) {
+      Application = _applicationDc4e6Js.Application;
     }],
     execute: function () {
       canvas = document.getElementById('GameCanvas');
