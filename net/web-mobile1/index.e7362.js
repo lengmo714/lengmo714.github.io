@@ -1,4 +1,4 @@
-System.register(["./application.add6e.js"], function (_export, _context) {
+System.register(["./application.f5ef7.js"], function (_export, _context) {
   "use strict";
 
   var Application, canvas, $p, bcr, application;
@@ -8,8 +8,8 @@ System.register(["./application.add6e.js"], function (_export, _context) {
   }
 
   return {
-    setters: [function (_applicationAdd6eJs) {
-      Application = _applicationAdd6eJs.Application;
+    setters: [function (_applicationF5ef7Js) {
+      Application = _applicationF5ef7Js.Application;
     }],
     execute: function () {
       canvas = document.getElementById('GameCanvas');
