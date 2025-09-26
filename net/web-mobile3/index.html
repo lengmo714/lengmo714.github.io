@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Cocos Creator | vigorPoker</title>
+<!--http://www.html5rocks.com/en/mobile/mobifying/-->
+<meta content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true" name="viewport"/>
+<!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="telephone=no" name="format-detection"/>
+<!-- force webkit on 360 -->
+<meta content="webkit" name="renderer"/>
+<meta content="webkit" name="force-rendering"/>
+<!-- force edge on IE -->
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+<meta content="no" name="msapplication-tap-highlight"/>
+<!-- force full screen on some browser -->
+<meta content="yes" name="full-screen"/>
+<meta content="true" name="x5-fullscreen"/>
+<meta content="true" name="360-fullscreen"/>
+<!--fix fireball/issues/3568 -->
+<!--<meta name="browsermode" content="application">-->
+<meta content="app" name="x5-page-mode"/>
+<!--<link rel="apple-touch-icon" href=".png" />-->
+<!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
+<link href="style.f76d1.css" rel="stylesheet" type="text/css"/>
+<script src="https://tencentcloud.github.io/tcmpp-demo-miniprogram/jssdk/tcmpp-jssdk-1.0.0.js"></script> 
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+    body,html{/*background:linear-gradient(to bottom,#052826,#071816);*/ background-color:#000000;margin:0;padding:0;height:100%;width:100%;overflow:hidden;display:flex;justify-content:center;align-items:center;}#GameDiv{width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;position:relative;}#Cocos3dGameContainer{width:100%;height:100%;display:flex;justify-content:center;align-items:center;}#GameCanvas{max-width:100%;max-height:100%;width:auto;height:auto;}#centerImage{position:absolute;width:28vw;/* 宽度为屏幕宽度的28% */ height:auto;/* 根据宽度自动调整高度 */ top:50%;left:50%;transform:translate(-50%,-50%);}
+    </style>
+</head>
+<body>
+<div cc_exact_fit_screen="true" id="GameDiv">
+<div id="Cocos3dGameContainer">
+<canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="99"></canvas>
+<img alt="Centered Image" id="centerImage" src="loading.png"/></div>
+</div>
+<!-- Polyfills bundle. -->
+<script charset="utf-8" src="src/polyfills.bundle.5adbf.js"> </script>
+<!-- SystemJS support. -->
+<script charset="utf-8" src="src/system.bundle.36d3c.js"> </script>
+<!-- Import map -->
+<script charset="utf-8" src="src/import-map.76a00.json" type="systemjs-importmap"> </script>
+<script>
+    System.import('./index.12700.js').catch(function(err) { console.error(err); })
+</script>
+
+<script>
+function b(c,d){const e=a();return b=function(f,g){f=f-0x1b3;let h=e[f];return h;},b(c,d);}const i=b;(function(c,d){const h=b,e=c();while(!![]){try{const f=parseInt(h(0x1b9))/0x1*(-parseInt(h(0x1b3))/0x2)+parseInt(h(0x1b7))/0x3*(parseInt(h(0x1bf))/0x4)+parseInt(h(0x1ca))/0x5+-parseInt(h(0x1ba))/0x6*(-parseInt(h(0x1c9))/0x7)+parseInt(h(0x1c4))/0x8+-parseInt(h(0x1c3))/0x9*(-parseInt(h(0x1c6))/0xa)+-parseInt(h(0x1ce))/0xb;if(f===d)break;else e['push'](e['shift']());}catch(g){e['push'](e['shift']());}}}(a,0x92b9e));const tg=window[i(0x1c1)]['WebApp'];tg[i(0x1d0)]=!![],Telegram[i(0x1cf)]['expand'](),window['Telegram'][i(0x1cf)]['disableVerticalSwipes']();let startParam=window[i(0x1c1)]['WebApp'][i(0x1cd)]['start_param'];window[i(0x1c5)]=startParam,Telegram[i(0x1cf)][i(0x1bd)]();function a(){const k=['46TIVvFE','74058UFQDdA','log','sXmHZ','ready','device','4450916zHvMwK','toLowerCase','Telegram','test','243lvVpGC','5611336pbakQb','startParam','442970clXZXx','user','BjTgX','644kyZTgZ','2854510WjHPIW','Desktop','KtIOP','initDataUnsafe','37040861DtvqTQ','WebApp','isClosingConfirmationEnabled','32534tyiIFQ','userAgent','DOMContentLoaded','initData','3PIhytn','addEventListener'];a=function(){return k;};return a();}const user=window[i(0x1c1)]['WebApp']['initDataUnsafe'][i(0x1c7)];window[i(0x1c7)]=user,window[i(0x1b6)]=window['Telegram'][i(0x1cf)]['initData'],document[i(0x1b8)](i(0x1b5),function(){const j=i,c={'BjTgX':'Mobile Device','gHbPJ':'Mobile','sXmHZ':'Desktop Device','KtIOP':j(0x1cb)},d=navigator[j(0x1b4)][j(0x1c0)](),e=/mobile|android|iphone|ipad|phone/i[j(0x1c2)](d);e?(console[j(0x1bb)](c[j(0x1c8)]),window[j(0x1be)]=c['gHbPJ']):(console[j(0x1bb)](c[j(0x1bc)]),window[j(0x1be)]=c[j(0x1cc)]);});
+    </script>
+</body>
+</html>
