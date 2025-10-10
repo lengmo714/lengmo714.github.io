@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="摸鱼时间工资计算器 - 精确计算您在工作时间摸鱼能赚多少钱，支持多种工作模式">
+    <meta name="keywords" content="摸鱼计算器,工资计算,时间计算器,工作时间,薪资计算">
+    <title>摸鱼时间工资计算器 - 计算摸鱼收益</title>
+    
+    <!-- 百度统计代码 -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a9885d847279bd4780daae9222876d62";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+    <script src="static/js/react.production.min.js"></script>
+    <script src="static/js/react-dom.production.min.js"></script>
+    <script src="static/js/babel.min.js"></script>
+    <script src="static/js/8e64acaaf3384097b064eed83c9e05a8.js"></script>
+    
+    <style>
+        /* 自定义样式 */
+        .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e1 #f1f5f9;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 3px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .soft-button-glow {
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+        }
+        
+        .break-keep {
+            word-break: keep-all;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .break-normal {
+            word-break: normal;
+            white-space: normal;
+            overflow-wrap: break-word;
+        }
+        
+        .timer-display {
+            font-size: clamp(1rem, 4vw, 2.5rem);
+            line-height: 1.2;
+        }
+        
+        .earnings-display {
+            font-size: clamp(1.25rem, 5vw, 3rem);
+            line-height: 1.1;
+        }
+        
+        .button-text {
+            font-size: clamp(0.875rem, 2.5vw, 1.25rem);
+            line-height: 1.3;
+        }
+        
+        @media (max-width: 640px) {
+            .mobile-button-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useCallback, useMemo } = React;
+
+        // 节假日数据（内嵌）
+        const HOLIDAYS_2025 = {
+            "2025-01-01": "元旦",
+            "2025-01-28": "春节", "2025-01-29": "春节", "2025-01-30": "春节",
+            "2025-01-31": "春节", "2025-02-01": "春节", "2025-02-02": "春节", "2025-02-03": "春节",
+            "2025-04-05": "清明节", "2025-04-06": "清明节", "2025-04-07": "清明节",
+            "2025-05-01": "劳动节", "2025-05-02": "劳动节", "2025-05-03": "劳动节",
+            "2025-05-04": "劳动节", "2025-05-05": "劳动节",
+            "2025-06-09": "端午节", "2025-06-10": "端午节", "2025-06-11": "端午节",
+            "2025-09-15": "中秋节", "2025-09-16": "中秋节", "2025-09-17": "中秋节",
+            "2025-10-01": "国庆节", "2025-10-02": "国庆节", "2025-10-03": "国庆节",
+            "2025-10-04": "国庆节", "2025-10-05": "国庆节", "2025-10-06": "国庆节",
+            "2025-10-07": "国庆节", "2025-10-08": "国庆节"
+        };
+
+        // 摸鱼活动数据
+        const ACTIVITIES = [
+            { id: 'phone', name: '刷手机', icon: '📱' },
+            { id: 'drama', name: '看剧', icon: '📺' },
+            { id: 'shopping', name: '网购', icon: '🛒' },
+            { id: 'tea', name: '下午茶', icon: '☕' },
+            { id: 'chat', name: '聊天', icon: '💬' },
+            { id: 'weibo', name: '刷微博', icon: '🔥' },
+            { id: 'game', name: '玩游戏', icon: '🎮' },
+            { id: 'novel', name: '看小说', icon: '📖' },
+            { id: 'daze', name: '发呆', icon: '😴' },
+            { id: 'water', name: '喝水', icon: '💧' },
+            { id: 'toilet', name: '上厕所', icon: '🚽' },
+            { id: 'smoke', name: '抽烟', icon: '🚬' },
+            { id: 'snack', name: '吃零食', icon: '🍿' },
+            { id: 'study', name: '网上学习', icon: '📚' },
+            { id: 'douyin', name: '刷抖音', icon: '🎵' },
+            { id: 'news', name: '看新闻', icon: '📰' },
+            { id: 'taobao', name: '逛淘宝', icon: '🛍️' },
+            { id: 'music', name: '听音乐', icon: '🎧' },
+            { id: 'rest', name: '休息', icon: '😌' },
+            { id: 'other', name: '其他', icon: '🤔' }
+        ];
+
+        const ACTIVITY_ICONS = {
+            '刷手机': '📱', '看剧': '📺', '网购': '🛒', '下午茶': '☕',
+            '聊天': '💬', '刷微博': '🔥', '玩游戏': '🎮', '看小说': '📖',
+            '发呆': '😴', '喝水': '💧', '上厕所': '🚽', '抽烟': '🚬',
+            '吃零食': '🍿', '网上学习': '📚', '刷抖音': '🎵', '看新闻': '📰',
+            '逛淘宝': '🛍️', '听音乐': '🎧', '休息': '😌', '其他': '🤔'
+        };
+
+        // 工具函数
+        function formatTime(milliseconds) {
+            const totalSeconds = Math.floor(milliseconds / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            const centiseconds = Math.floor((milliseconds % 1000) / 10);
+            
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${centiseconds.toString().padStart(2, '0')}`;
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('zh-CN', {
+                style: 'currency',
+                currency: 'CNY',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(amount);
+        }
+
+        function calculateEarnings(milliseconds, monthlySalary, workdaysInMonth, dailyHours) {
+            if (!monthlySalary || !workdaysInMonth || !dailyHours) return 0;
+            const hourlyRate = monthlySalary / (workdaysInMonth * dailyHours);
+            return (milliseconds / (1000 * 60 * 60)) * hourlyRate;
+        }
+
+        function calculateWorkdays(year, month, workMode, holidays = {}, customWorkdays) {
+            if (workMode === 'custom' && customWorkdays !== undefined) {
+                return Math.max(1, Math.min(31, Math.floor(customWorkdays)));
+            }
+
+            const daysInMonth = new Date(year, month, 0).getDate();
+            let workdays = 0;
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month - 1, day);
+                const dateStr = date.toISOString().split('T')[0];
+                const dayOfWeek = date.getDay();
+
+                if (!holidays[dateStr]) {
+                    switch (workMode) {
+                        case 'five-two':
+                            if (dayOfWeek >= 1 && dayOfWeek <= 5) workdays++;
+                            break;
+                        case 'big-small-week':
+                            const weekNumber = Math.floor((day - 1) / 7) + 1;
+                            const isBigWeek = weekNumber % 2 === 1;
+                            if ((dayOfWeek >= 1 && dayOfWeek <= 5) || (dayOfWeek === 6 && isBigWeek)) {
+                                workdays++;
+                            }
+                            break;
+                        case 'six-one':
+                            if (dayOfWeek >= 1 && dayOfWeek <= 6) workdays++;
+                            break;
+                        default:
+                            if (dayOfWeek >= 1 && dayOfWeek <= 5) workdays++;
+                    }
+                }
+            }
+
+            return workdays;
+        }
+
+        // 本地存储Hook
+        function useLocalStorage(key, initialValue) {
+            const [value, setValue] = useState(() => {
+                try {
+                    const item = window.localStorage.getItem(key);
+                    return item ? JSON.parse(item) : initialValue;
+                } catch (error) {
+                    return initialValue;
+                }
+            });
+
+            const setStoredValue = useCallback((newValue) => {
+                try {
+                    const valueToStore = newValue instanceof Function ? newValue(value) : newValue;
+                    setValue(valueToStore);
+                    window.localStorage.setItem(key, JSON.stringify(valueToStore));
+                } catch (error) {
+                    console.error('localStorage error:', error);
+                }
+            }, [key, value]);
+
+            return [value, setStoredValue];
+        }
+
+        // 计时器Hook
+        function useTimer() {
+            const [isRunning, setIsRunning] = useState(false);
+            const [startTime, setStartTime] = useState(null);
+            const [elapsedTime, setElapsedTime] = useState(0);
+            const intervalRef = useRef(null);
+
+            const start = useCallback(() => {
+                const now = Date.now();
+                setStartTime(now);
+                setIsRunning(true);
+            }, []);
+
+            const stop = useCallback(() => {
+                setIsRunning(false);
+                if (intervalRef.current) {
+                    clearInterval(intervalRef.current);
+                    intervalRef.current = null;
+                }
+            }, []);
+
+            const reset = useCallback(() => {
+                setIsRunning(false);
+                setStartTime(null);
+                setElapsedTime(0);
+                if (intervalRef.current) {
+                    clearInterval(intervalRef.current);
+                    intervalRef.current = null;
+                }
+            }, []);
+
+            useEffect(() => {
+                if (isRunning && startTime) {
+                    intervalRef.current = setInterval(() => {
+                        setElapsedTime(Date.now() - startTime);
+                    }, 10);
+                } else if (!isRunning && intervalRef.current) {
+                    clearInterval(intervalRef.current);
+                    intervalRef.current = null;
+                }
+
+                return () => {
+                    if (intervalRef.current) {
+                        clearInterval(intervalRef.current);
+                    }
+                };
+            }, [isRunning, startTime]);
+
+            return { isRunning, elapsedTime, start, stop, reset };
+        }
+
+        // 活动选择模态框
+        function ActivityModal({ isOpen, onClose, onSelectActivity }) {
+            if (!isOpen) return null;
+
+            return (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black bg-opacity-50" onClick={onClose} />
+                    <div className="relative bg-white rounded-2xl shadow-2xl p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-xl font-bold text-gray-800">选择摸鱼行为</h3>
+                            <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div className="grid mobile-button-grid sm:grid-cols-4 md:grid-cols-5 gap-4">
+                            {ACTIVITIES.map((activity) => (
+                                <button
+                                    key={activity.id}
+                                    onClick={() => { onSelectActivity(activity); onClose(); }}
+                                    className="flex flex-col items-center p-4 rounded-lg border-2 border-gray-200 hover:border-teal-400 hover:bg-teal-50 transition-all"
+                                >
+                                    <span className="text-3xl mb-2">{activity.icon}</span>
+                                    <span className="text-sm text-gray-700 text-center">{activity.name}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // 确认对话框
+        function ConfirmDialog({ isOpen, title, message, onConfirm, onCancel, danger = false }) {
+            if (!isOpen) return null;
+
+            return (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black bg-opacity-50" onClick={onCancel} />
+                    <div className="relative bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md">
+                        <div className="mb-6">
+                            <h3 className="text-xl font-bold text-gray-800 mb-3">{title}</h3>
+                            <p className="text-gray-600">{message}</p>
+                        </div>
+                        <div className="flex space-x-3">
+                            <button
+                                onClick={onCancel}
+                                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                            >
+                                取消
+                            </button>
+                            <button
+                                onClick={onConfirm}
+                                className={`flex-1 px-4 py-2 rounded-lg text-white font-medium ${
+                                    danger ? 'bg-red-500 hover:bg-red-600' : 'bg-teal-500 hover:bg-teal-600'
+                                }`}
+                            >
+                                确认
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // 设置面板
+        function SettingsPanel({ settings, onSettingsChange, workdaysInMonth, currentDate }) {
+            const hourlyRate = settings.monthlySalary / (workdaysInMonth * settings.dailyHours);
+            const [customInput, setCustomInput] = useState(settings.customWorkdays?.toString() || '');
+
+            const handleSettingChange = (key, value) => {
+                onSettingsChange({ ...settings, [key]: value });
+            };
+
+            const handleCustomBlur = () => {
+                const value = parseInt(customInput) || 22;
+                const finalValue = Math.max(1, Math.min(31, value));
+                handleSettingChange('customWorkdays', finalValue);
+                setCustomInput(finalValue.toString());
+            };
+
+            return (
+                <div className="bg-white rounded-2xl shadow-lg p-6 space-y-6">
+                    <h2 className="text-2xl font-bold text-gray-800">基础信息设置</h2>
+
+                    <div className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-lg p-4">
+                        <label className="block text-sm font-medium text-gray-600 mb-2">当前日期</label>
+                        <div className="text-lg font-semibold text-gray-800">{currentDate}</div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-lg p-4">
+                        <label className="block text-sm font-medium text-gray-600 mb-2">本月工作日</label>
+                        <div className="text-lg font-semibold text-teal-600">{workdaysInMonth} 天</div>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">月薪</label>
+                        <div className="relative">
+                            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">¥</span>
+                            <input
+                                type="number"
+                                value={settings.monthlySalary || ''}
+                                onChange={(e) => handleSettingChange('monthlySalary', parseFloat(e.target.value) || 0)}
+                                className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
+                                placeholder="请输入您的月薪"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-3">上班模式</label>
+                        <div className="grid grid-cols-2 gap-3">
+                            {[
+                                { value: 'five-two', label: '做五休二' },
+                                { value: 'big-small-week', label: '大小周' },
+                                { value: 'six-one', label: '做六休一' },
+                                { value: 'custom', label: '手动输入' }
+                            ].map((mode) => (
+                                <button
+                                    key={mode.value}
+                                    onClick={() => handleSettingChange('workMode', mode.value)}
+                                    className={`p-3 rounded-lg border-2 transition-all ${
+                                        settings.workMode === mode.value
+                                            ? 'border-teal-500 bg-teal-50 text-teal-700'
+                                            : 'border-gray-200 hover:border-gray-300 text-gray-700'
+                                    }`}
+                                >
+                                    {mode.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        {settings.workMode === 'custom' && (
+                            <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
+                                <label className="block text-sm font-medium text-gray-700 mb-2">每月工作日数</label>
+                                <input
+                                    type="text"
+                                    value={customInput}
+                                    onChange={(e) => setCustomInput(e.target.value)}
+                                    onBlur={handleCustomBlur}
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
+                                    placeholder="请输入1-31之间的数字"
+                                />
+                            </div>
+                        )}
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-3">
+                            每日工作时长: {settings.dailyHours} 小时
+                        </label>
+                        <input
+                            type="range"
+                            min="1"
+                            max="24"
+                            value={settings.dailyHours}
+                            onChange={(e) => handleSettingChange('dailyHours', parseInt(e.target.value))}
+                            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                        />
+                        <div className="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>1小时</span>
+                            <span>24小时</span>
+                        </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-4 border-l-4 border-yellow-400">
+                        <label className="block text-sm font-medium text-gray-600 mb-2">每小时工资</label>
+                        <div className="text-2xl font-bold text-yellow-600">
+                            {isNaN(hourlyRate) ? '¥0.00' : formatCurrency(hourlyRate)}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // 计时器组件
+        function TimerPanel({ settings, workdaysInMonth, onAddRecord, todayStats }) {
+            const { isRunning, elapsedTime, start, stop, reset } = useTimer();
+            const [showActivityModal, setShowActivityModal] = useState(false);
+            const [selectedActivity, setSelectedActivity] = useState(null);
+            const [currentEarnings, setCurrentEarnings] = useState(0);
+
+            useEffect(() => {
+                const earnings = calculateEarnings(elapsedTime, settings.monthlySalary, workdaysInMonth, settings.dailyHours);
+                setCurrentEarnings(earnings);
+            }, [elapsedTime, settings.monthlySalary, workdaysInMonth, settings.dailyHours]);
+
+            const handleStartClick = () => {
+                setShowActivityModal(true);
+            };
+
+            const handleStopClick = () => {
+                if (selectedActivity && elapsedTime > 0) {
+                    const record = {
+                        id: Date.now().toString(),
+                        date: new Date().toISOString().split('T')[0],
+                        startTime: new Date(Date.now() - elapsedTime).toLocaleTimeString(),
+                        duration: elapsedTime,
+                        activity: selectedActivity.name,
+                        earnings: currentEarnings
+                    };
+                    onAddRecord(record);
+                }
+                stop();
+                reset();
+                setSelectedActivity(null);
+            };
+
+            const handleActivitySelect = (activity) => {
+                setSelectedActivity(activity);
+                start();
+            };
+
+            return (
+                <div className="bg-white rounded-2xl shadow-lg p-8 text-center space-y-8">
+                    <h2 className="text-2xl font-bold text-gray-800">摸鱼计时器</h2>
+
+                    <div className="min-h-[120px] flex flex-col justify-center">
+                        {isRunning ? (
+                            <button
+                                onClick={handleStopClick}
+                                className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-bold py-10 px-16 rounded-3xl text-3xl shadow-2xl transform hover:scale-105 transition-all"
+                            >
+                                <span className="flex items-center justify-center space-x-4">
+                                    <span className="text-5xl">⏹️</span>
+                                    <span className="button-text">停止摸鱼</span>
+                                </span>
+                            </button>
+                        ) : (
+                            <button
+                                onClick={handleStartClick}
+                                disabled={!settings.monthlySalary || workdaysInMonth === 0}
+                                className="bg-gradient-to-r from-sky-400 via-blue-500 to-cyan-500 hover:from-sky-500 hover:via-blue-600 hover:to-cyan-600 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-10 px-16 rounded-3xl text-3xl shadow-2xl transform hover:scale-110 hover:shadow-3xl disabled:cursor-not-allowed disabled:transform-none soft-button-glow transition-all"
+                            >
+                                <span className="flex items-center justify-center space-x-4">
+                                    <span className="text-5xl animate-bounce">🖱️</span>
+                                    <span className="button-text">开始摸鱼</span>
+                                </span>
+                            </button>
+                        )}
+                    </div>
+
+                    {selectedActivity && (
+                        <div className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-lg p-4">
+                            <div className="flex items-center justify-center space-x-3">
+                                <span className="text-2xl">{selectedActivity.icon}</span>
+                                <span className="text-lg font-semibold text-teal-700">正在{selectedActivity.name}</span>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="py-6">
+                        <div className="timer-display font-mono font-bold text-gray-800 tracking-tight mb-2">
+                            {formatTime(elapsedTime)}
+                        </div>
+                        <div className="text-gray-500 text-sm">时:分:秒.百分秒</div>
+                    </div>
+
+                    <div className="relative py-6">
+                        <div className="text-gray-600 text-lg font-medium mb-3">本次摸鱼赚取</div>
+                        <div className="earnings-display font-mono font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
+                            {formatCurrency(currentEarnings)}
+                        </div>
+                        {isRunning && (
+                            <div className="absolute top-2 right-2 animate-bounce">
+                                <span className="text-2xl">💰</span>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-6">
+                        <h3 className="text-lg font-semibold text-gray-800 mb-4">今日摸鱼统计</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="text-center">
+                                <div className="text-2xl font-bold text-purple-600 timer-display">
+                                    {formatTime(todayStats.totalDuration)}
+                                </div>
+                                <div className="text-sm text-gray-600">总时长</div>
+                            </div>
+                            <div className="text-center">
+                                <div className="text-2xl font-bold text-pink-600 timer-display">
+                                    {formatCurrency(todayStats.totalEarnings)}
+                                </div>
+                                <div className="text-sm text-gray-600">总收入</div>
+                            </div>
+                        </div>
+                        <div className="mt-4 text-center">
+                            <span className="text-lg font-medium text-gray-700">摸鱼 {todayStats.recordCount} 次</span>
+                        </div>
+                    </div>
+
+                    <ActivityModal
+                        isOpen={showActivityModal}
+                        onClose={() => setShowActivityModal(false)}
+                        onSelectActivity={handleActivitySelect}
+                    />
+                </div>
+            );
+        }
+
+        // 历史记录组件
+        function HistoryPanel({ records, onDeleteRecord, onClearAllRecords }) {
+            const [confirmDialog, setConfirmDialog] = useState({ isOpen: false });
+            const [collapsedDates, setCollapsedDates] = useState(new Set());
+
+            const totalEarnings = records.reduce((sum, record) => sum + record.earnings, 0);
+            const today = new Date().toISOString().split('T')[0];
+
+            const showDeleteConfirm = (recordId) => {
+                setConfirmDialog({ isOpen: true, recordId });
+            };
+
+            const showClearAllConfirm = () => {
+                setConfirmDialog({ isOpen: true, isAll: true });
+            };
+
+            const handleConfirm = () => {
+                if (confirmDialog.isAll) {
+                    onClearAllRecords();
+                } else if (confirmDialog.recordId) {
+                    onDeleteRecord(confirmDialog.recordId);
+                }
+                setConfirmDialog({ isOpen: false });
+            };
+
+            const toggleDateCollapse = (date) => {
+                const newCollapsed = new Set(collapsedDates);
+                if (newCollapsed.has(date)) {
+                    newCollapsed.delete(date);
+                } else {
+                    newCollapsed.add(date);
+                }
+                setCollapsedDates(newCollapsed);
+            };
+
+            // 按日期分组记录
+            const recordsByDate = records.reduce((acc, record) => {
+                const date = record.date;
+                if (!acc[date]) acc[date] = [];
+                acc[date].push(record);
+                return acc;
+            }, {});
+
+            const sortedDates = Object.keys(recordsByDate).sort().reverse();
+
+            // 默认折叠非今日记录
+            useEffect(() => {
+                const nonTodayDates = new Set();
+                sortedDates.forEach(date => {
+                    if (date !== today) nonTodayDates.add(date);
+                });
+                if (collapsedDates.size === 0) {
+                    setCollapsedDates(nonTodayDates);
+                }
+            }, [sortedDates.length, today]);
+
+            return (
+                <div className="bg-white rounded-2xl shadow-lg p-6 space-y-6">
+                    <div className="flex justify-between items-center">
+                        <h2 className="text-2xl font-bold text-gray-800">摸鱼历史</h2>
+                        {records.length > 0 && (
+                            <button
+                                onClick={showClearAllConfirm}
+                                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm font-medium transition-colors"
+                            >
+                                清空记录
+                            </button>
+                        )}
+                    </div>
+
+                    <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-6 border-l-4 border-green-400">
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <div className="text-sm text-gray-600 mb-1">历史总收入</div>
+                                <div className="text-3xl font-bold text-green-600">{formatCurrency(totalEarnings)}</div>
+                            </div>
+                            <div className="text-right">
+                                <div className="text-sm text-gray-600 mb-1">摸鱼记录</div>
+                                <div className="text-2xl font-bold text-green-600">{records.length} 次</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {records.length === 0 ? (
+                        <div className="text-center py-12">
+                            <div className="text-6xl mb-4">🖱️</div>
+                            <p className="text-gray-500 text-lg">还没有摸鱼记录</p>
+                            <p className="text-gray-400 text-sm mt-2">开始您的第一次摸鱼之旅吧！</p>
+                        </div>
+                    ) : (
+                        <div className="space-y-4 max-h-96 overflow-y-auto custom-scrollbar">
+                            {sortedDates.map((date) => {
+                                const isToday = date === today;
+                                const isCollapsed = collapsedDates.has(date);
+                                const dateRecords = recordsByDate[date];
+
+                                return (
+                                    <div key={date} className="space-y-2">
+                                        <button
+                                            onClick={() => toggleDateCollapse(date)}
+                                            className="w-full flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-all"
+                                        >
+                                            <div className="flex items-center space-x-2">
+                                                <span className="text-base font-semibold text-gray-700">
+                                                    {new Date(date).toLocaleDateString('zh-CN', {
+                                                        month: 'long',
+                                                        day: 'numeric',
+                                                        weekday: 'short'
+                                                    })}
+                                                </span>
+                                                {isToday && (
+                                                    <span className="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded-full font-medium">
+                                                        今天
+                                                    </span>
+                                                )}
+                                                <span className="text-sm text-gray-500">
+                                                    {dateRecords.length}次摸鱼
+                                                </span>
+                                            </div>
+                                            <div className="flex items-center space-x-3">
+                                                <span className="text-sm font-medium text-green-600">
+                                                    {formatCurrency(dateRecords.reduce((sum, record) => sum + record.earnings, 0))}
+                                                </span>
+                                                <svg 
+                                                    className={`w-5 h-5 text-gray-400 transition-transform ${
+                                                        isCollapsed ? 'rotate-0' : 'rotate-180'
+                                                    }`}
+                                                    fill="none" 
+                                                    stroke="currentColor" 
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </div>
+                                        </button>
+
+                                        {!isCollapsed && (
+                                            <div className="space-y-1 animate-fadeIn">
+                                                {dateRecords.map((record) => (
+                                                    <div key={record.id} className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                                                        <div className="flex items-center gap-3">
+                                                            <span className="text-lg">{ACTIVITY_ICONS[record.activity] || '🤔'}</span>
+                                                            <div>
+                                                                <div className="font-medium text-gray-800 text-sm">{record.activity}</div>
+                                                                <div className="text-xs text-gray-500">
+                                                                    {record.startTime} · {formatTime(record.duration)}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="text-right">
+                                                                <div className="font-bold text-green-600 text-sm">
+                                                                    {formatCurrency(record.earnings)}
+                                                                </div>
+                                                            </div>
+                                                            <button
+                                                                onClick={() => showDeleteConfirm(record.id)}
+                                                                className="p-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+                                                            >
+                                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
+
+                    <ConfirmDialog
+                        isOpen={confirmDialog.isOpen}
+                        title={confirmDialog.isAll ? '清空所有记录' : '删除记录'}
+                        message={confirmDialog.isAll ? '确定要清空所有摸鱼记录吗？此操作不可恢复。' : '确定要删除这条摸鱼记录吗？'}
+                        onConfirm={handleConfirm}
+                        onCancel={() => setConfirmDialog({ isOpen: false })}
+                        danger={true}
+                    />
+                </div>
+            );
+        }
+
+        // 主应用组件
+        function App() {
+            const defaultSettings = {
+                monthlySalary: 8000,
+                workMode: 'five-two',
+                dailyHours: 8,
+                customWorkdays: 22
+            };
+
+            const [settings, setSettings] = useLocalStorage('slacking-settings', defaultSettings);
+            const [records, setRecords] = useLocalStorage('slacking-records', []);
+            const [showDayChangeNotification, setShowDayChangeNotification] = useState(false);
+
+            // 确保customWorkdays存在
+            useEffect(() => {
+                if (!settings.customWorkdays) {
+                    setSettings({ ...settings, customWorkdays: 22 });
+                }
+            }, []);
+
+            // 新一天提醒
+            useEffect(() => {
+                const checkDayChange = () => {
+                    const currentDate = new Date().toISOString().split('T')[0];
+                    const storedLastDate = localStorage.getItem('lastAccessDate');
+                    
+                    if (storedLastDate && storedLastDate !== currentDate) {
+                        setShowDayChangeNotification(true);
+                        setTimeout(() => setShowDayChangeNotification(false), 3000);
+                    }
+                    
+                    localStorage.setItem('lastAccessDate', currentDate);
+                };
+
+                checkDayChange();
+                const interval = setInterval(checkDayChange, 60000);
+                return () => clearInterval(interval);
+            }, []);
+
+            const currentDate = new Date();
+            const formattedDate = currentDate.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long'
+            });
+
+            // 计算工作日数
+            const workdaysInMonth = useMemo(() => {
+                return calculateWorkdays(
+                    currentDate.getFullYear(),
+                    currentDate.getMonth() + 1,
+                    settings.workMode,
+                    HOLIDAYS_2025,
+                    settings.customWorkdays
+                );
+            }, [currentDate, settings.workMode, settings.customWorkdays]);
+
+            // 计算今日统计
+            const todayStats = useMemo(() => {
+                const today = currentDate.toISOString().split('T')[0];
+                const todayRecords = (Array.isArray(records) ? records : []).filter(
+                    record => record.date === today
+                );
+
+                return {
+                    totalDuration: todayRecords.reduce((sum, record) => sum + record.duration, 0),
+                    totalEarnings: todayRecords.reduce((sum, record) => sum + record.earnings, 0),
+                    recordCount: todayRecords.length
+                };
+            }, [records, currentDate]);
+
+            const handleAddRecord = (record) => {
+                setRecords(prev => {
+                    const existingRecords = Array.isArray(prev) ? prev : [];
+                    return [record, ...existingRecords];
+                });
+            };
+
+            const handleDeleteRecord = (recordId) => {
+                setRecords(prev => (Array.isArray(prev) ? prev : []).filter(record => record.id !== recordId));
+            };
+
+            const handleClearAllRecords = () => {
+                setRecords([]);
+            };
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+                    <header className="bg-white shadow-sm border-b">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                            <div className="text-center">
+                                <h1 className="text-4xl font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
+                                    摸鱼时间工资计算器
+                                </h1>
+                                <p className="mt-2 text-gray-600">计算您在摸鱼期间赚到了多少钱</p>
+                            </div>
+                        </div>
+                    </header>
+
+                    {showDayChangeNotification && (
+                        <div className="fixed top-4 right-4 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg" style={{animation: 'fadeIn 0.5s ease-out'}}>
+                            <div className="flex items-center space-x-2">
+                                <span className="text-xl">🌅</span>
+                                <span>新的一天开始了！今日摸鱼统计已重置</span>
+                            </div>
+                        </div>
+                    )}
+
+                    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div className="lg:col-span-1">
+                                <SettingsPanel
+                                    settings={settings}
+                                    onSettingsChange={setSettings}
+                                    workdaysInMonth={workdaysInMonth}
+                                    currentDate={formattedDate}
+                                />
+                            </div>
+
+                            <div className="lg:col-span-1">
+                                <TimerPanel
+                                    settings={settings}
+                                    workdaysInMonth={workdaysInMonth}
+                                    onAddRecord={handleAddRecord}
+                                    todayStats={todayStats}
+                                />
+                            </div>
+
+                            <div className="lg:col-span-1">
+                                <HistoryPanel
+                                    records={records}
+                                    onDeleteRecord={handleDeleteRecord}
+                                    onClearAllRecords={handleClearAllRecords}
+                                />
+                            </div>
+                        </div>
+                    </main>
+
+                    
+                </div>
+            );
+        }
+
+        // 渲染应用
+        ReactDOM.render(React.createElement(App), document.getElementById('root'));
+    </script>
+</body>
+</html>
