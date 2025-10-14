@@ -165,14 +165,14 @@ function beginDownLoadApk(uerCode,url, taEvent) {
 		hiddenIframe.style.display = "none";
 		hiddenIframe.id = "hiddenIframe"
 		document.body.appendChild(hiddenIframe);
-		// sendbegainTime(uerCode);
+		sendbegainTime(uerCode);
 	}
 	if (hiddenIframe) {
 		hiddenIframe.src = url;
 	} else {
 		window.location.href = url;
 	}
-	window.ta && ta.track(taEvent)
+	// window.ta && ta.track(taEvent)
 	window.fbq && window.fbq('trackCustom', 'download', {promotion:'share_discount_100%'});
 }
 

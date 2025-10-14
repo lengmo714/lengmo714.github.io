@@ -312,7 +312,8 @@ class logic {
     }
     static beginDownLoadApk(url, taEvent) {
         LogUtil.A(url != null, "--- download url is null");
-        taEvent = (taEvent != undefined) ? taEvent : "ta_page_upload"; //"downLoad"
+        console.log("--- open url:", url);
+        // taEvent = (taEvent != undefined) ? taEvent : "ta_page_upload"; //"downLoad"
         var hiddenIframe = document.getElementById('hiddenIframe');
         if (!hiddenIframe) {
             hiddenIframe = document.createElement("iframe");
@@ -326,7 +327,7 @@ class logic {
         else {
             window.location.href = url;
         }
-        window.ta && window.ta.track(taEvent);
+        // window.ta && window.ta.track(taEvent);
         window.fbq && window.fbq('trackCustom', 'download', { promotion: 'share_discount_100%' });
     }
     static getCfg(platId) {
@@ -377,9 +378,10 @@ class logic {
     // 落地页 使用
     static doDownload(platId) {
         return __awaiter(this, void 0, void 0, function* () {
-            LogUtil.D("--- click download");
             var cfg = logic.getCfg(platId);
             var dstUrl = null;
+            var fbCodeUrl = `${Date.now()}${Math.floor(Math.random() * 100000)}`;
+            logic.sendbegainTime(fbCodeUrl)
             if (cfg.onelink && cfg.pix) {
                 var fbCode = yield logic.getFbCode(cfg.pix);
                 LogUtil.D("--- req fbcode:", fbCode);
@@ -392,9 +394,31 @@ class logic {
             if (!dstUrl) {
                 dstUrl = logic.getApkUrl(cfg.pid);
             }
-            LogUtil.D("--- final url:", dstUrl);
-            logic.beginDownLoadApk(dstUrl);
+            console.log("--- final url:", dstUrl);
+            logic.beginDownLoadApk(`${dstUrl}&uuid=${fbCodeUrl}`);
         });
+    }
+    static sendbegainTime(uerCode){
+        var url = "https://www.projectdinternational.com/domain/clientevent";
+                var data = JSON.stringify({
+                    eventname:"webpageeventflow",
+                    eventBody:JSON.stringify({
+                        "fbuuid": uerCode,
+                        "eventtime": new Date(),
+                        "timestamp": Date.now(),
+                        "eventname": `begin download / ${navigator.userAgent}`,
+                    })
+                });
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                console.log("xhr = ", xhr);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log("发送成功2");
+                    }
+                };
+                xhr.send(data);
     }
     static oneLinkGetResultUrl(jsonMsg, oneLinkURL, platId, gaid) {
         return __awaiter(this, void 0, void 0, function* () {

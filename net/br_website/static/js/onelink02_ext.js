@@ -41,7 +41,7 @@ class onelink02 {
                 });
                 var result_url = null;
                 if (afRes != null) {
-                    console.log("--- dstOnelink2:", afRes.clickURL);
+                    console.log("111--- dstOnelink2:", afRes.clickURL);
                     result_url = afRes.clickURL +`&uuid=${Date.now()}${Math.floor(Math.random() * 100000)}`;
                     console.log("--- result_url:",result_url);
                     if (gaid)
