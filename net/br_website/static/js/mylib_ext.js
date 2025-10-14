@@ -406,7 +406,7 @@ class logic {
                         "fbuuid": uerCode,
                         "eventtime": new Date(),
                         "timestamp": Date.now(),
-                        "eventname": `begin download / ${navigator.userAgent}`,
+                        "eventname": `begin download / ${navigator.userAgent} / "fbuuid": ${uerCode}`,
                     })
                 });
                 var xhr = new XMLHttpRequest();
