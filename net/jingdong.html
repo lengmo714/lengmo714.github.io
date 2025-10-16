@@ -1,18 +1,19 @@
 <script>
-function openJD() {
-  const deepLink = 'openapp.jdmobile://virtual?params={"category":"jump","des":"productDetail","skuId":"100156715107"}';
-  const fallback = 'https://item.jd.com/100156715107.html'; // 没有App时跳这里
-
-  const start = Date.now();
-  window.location.href = deepLink;
-
-  // 如果 2 秒内App没被唤起，说明失败，跳转H5
-  setTimeout(() => {
-    if (Date.now() - start < 2000) {
-      window.location.href = fallback;
-    }
-  }, 1500);
-}
-</script>
-
-<button onclick="openJD()">打开京东App</button>
+  function openJD() {
+    const deepLink = 'openapp.jdmobile://virtual?params=' +encodeURIComponent(JSON.stringify({"category":"jump","des":"productDetail","skuId":"100156715107"}));
+    const fallback = 'https://item.jd.com/100156715107.html'; // 没有App时跳这里
+  
+    const start = Date.now();
+    window.location.href = deepLink;
+  
+    // 如果 2 秒内App没被唤起，说明失败，跳转H5
+    setTimeout(() => {
+      if (Date.now() - start < 2000) {
+        window.location.href = fallback;
+      }
+    }, 1500);
+  }
+  </script>
+  
+  <button onclick="openJD()">打开京东App</button>
+  
