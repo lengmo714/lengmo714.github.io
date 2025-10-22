@@ -67,9 +67,9 @@ function callAppsflyer() {
     }
 }
 
-function getFCMToken() {
+function callFirebase() {
     try {
-        const token = window.AndroidBridge.testFirebase();
+        const token = window.AndroidBridge.getFCMToken();
         log("🔥 调用 Firebase 测试完成 " + token) ;
     } catch (e) {
         log("⚠️ 无法调用 Firebase：" + e);
