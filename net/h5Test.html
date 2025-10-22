@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Android ↔ WebView 测试页</title>
+<style>
+body { font-family: sans-serif; background: #101820; color: #eee; padding: 20px; }
+button { margin: 10px 0; padding: 10px 16px; background: #007AFF; border: none; color: #fff; border-radius: 6px; }
+pre { background: #1e1e1e; padding: 10px; border-radius: 6px; overflow-x: auto; }
+</style>
+</head>
+<body>
+
+<h2>Android 与 WebView 双向通信测试页</h2>
+
+<button onclick="getAndroidId()">获取设备ID</button><br>
+<button onclick="getClipboard()">读取剪切板内容</button><br>
+<button onclick="callAppsflyer()">触发Appsflyer测试</button><br>
+<button onclick="callFirebase()">触发Firebase测试</button><br>
+<button onclick="callGoogleSign()">触发Google登录</button><br>
+<button onclick="sendMsgToAndroid()">发送测试消息</button><br>
+
+<h3>结果输出：</h3>
+<pre id="log"></pre>
+
+<script>
+const logBox = document.getElementById("log");
+function log(msg) {
+    logBox.textContent += msg + "\n";
+    console.log(msg);
+}
+
+// === JS 调用安卓 ===
+function getAndroidId() {
+    try {
+        const id = window.AndroidBridge.getAndroidId();
+        log("📱 AndroidId: " + id);
+    } catch (e) {
+        log("⚠️ 无法调用 getAndroidId：" + e);
+    }
+}
+
+function getClipboard() {
+    try {
+        const clip = window.AndroidBridge.getClipboardText();
+        log("📋 剪切板内容: " + clip);
+    } catch (e) {
+        log("⚠️ 无法调用 getClipboardText：" + e);
+    }
+}
+
+function callAppsflyer() {
+    try {
+        window.AndroidBridge.testAppsflyer();
+        log("🚀 调用 Appsflyer 测试完成");
+    } catch (e) {
+        log("⚠️ 无法调用 Appsflyer：" + e);
+    }
+}
+
+function callFirebase() {
+    try {
+        window.AndroidBridge.testFirebase();
+        log("🔥 调用 Firebase 测试完成");
+    } catch (e) {
+        log("⚠️ 无法调用 Firebase：" + e);
+    }
+}
+
+function callGoogleSign() {
+    try {
+        window.AndroidBridge.googleSignIn();
+        log("🔑 调用 Google 登录");
+    } catch (e) {
+        log("⚠️ 无法调用 Google 登录：" + e);
+    }
+}
+
+function sendMsgToAndroid() {
+    try {
+        window.AndroidBridge.showToast("Hello from Web!");
+        log("📨 发送消息给安卓成功");
+    } catch (e) {
+        log("⚠️ 无法调用 showToast：" + e);
+    }
+}
+
+// === 安卓回调 JS ===
+function onReceiveAndroidData(jsonStr) {
+    log("📥 收到安卓返回数据: " + jsonStr);
+}
+</script>
+</body>
+</html>
