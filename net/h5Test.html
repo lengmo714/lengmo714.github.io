@@ -44,7 +44,7 @@ function getAndroidId() {
 function callafStatus() {
     try {
         const clip = window.AndroidBridge.getStatic();
-        log("📋 剪切板内容: " + clip);
+        log("📋 自然量与非自然量: " + clip);
     } catch (e) {
         log("⚠️ 无法调用 getClipboardText：" + e);
     }
@@ -60,8 +60,8 @@ function getClipboard() {
 
 function callAppsflyer() {
     try {
-        window.AndroidBridge.getAfid();
-        log("🚀 调用 Appsflyer 测试完成");
+        const afid  = window.AndroidBridge.getAfid();
+        log("🚀 获取afid成功: " + afid);
     } catch (e) {
         log("⚠️ 无法调用 Appsflyer：" + e);
     }
@@ -69,8 +69,8 @@ function callAppsflyer() {
 
 function getFCMToken() {
     try {
-        window.AndroidBridge.testFirebase();
-        log("🔥 调用 Firebase 测试完成");
+        const token = window.AndroidBridge.testFirebase();
+        log("🔥 调用 Firebase 测试完成 " + token) ;
     } catch (e) {
         log("⚠️ 无法调用 Firebase：" + e);
     }
