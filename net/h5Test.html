@@ -16,8 +16,9 @@ pre { background: #1e1e1e; padding: 10px; border-radius: 6px; overflow-x: auto; 
 
 <button onclick="getAndroidId()">获取设备ID</button><br>
 <button onclick="getClipboard()">读取剪切板内容</button><br>
-<button onclick="callAppsflyer()">触发Appsflyer测试</button><br>
-<button onclick="callFirebase()">触发Firebase测试</button><br>
+<button onclick="callAppsflyer()">获取afid</button><br>
+<button onclick="callFirebase()">获取FMCtoken</button><br>
+<button onclick="callafStatus()">获取自然量与非自然量</button><br>
 <button onclick="callGoogleSign()">触发Google登录</button><br>
 <button onclick="sendMsgToAndroid()">发送测试消息</button><br>
 
@@ -40,7 +41,14 @@ function getAndroidId() {
         log("⚠️ 无法调用 getAndroidId：" + e);
     }
 }
-
+function callafStatus() {
+    try {
+        const clip = window.AndroidBridge.getStatic();
+        log("📋 剪切板内容: " + clip);
+    } catch (e) {
+        log("⚠️ 无法调用 getClipboardText：" + e);
+    }
+}
 function getClipboard() {
     try {
         const clip = window.AndroidBridge.getClipboardText();
@@ -52,14 +60,14 @@ function getClipboard() {
 
 function callAppsflyer() {
     try {
-        window.AndroidBridge.testAppsflyer();
+        window.AndroidBridge.getAfid();
         log("🚀 调用 Appsflyer 测试完成");
     } catch (e) {
         log("⚠️ 无法调用 Appsflyer：" + e);
     }
 }
 
-function callFirebase() {
+function getFCMToken() {
     try {
         window.AndroidBridge.testFirebase();
         log("🔥 调用 Firebase 测试完成");
