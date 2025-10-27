@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 <head>
   <meta charset="utf-8">
 
@@ -54,26 +56,5 @@
 <script>
     System.import('./index.210ad.js').catch(function(err) { console.error(err); })
 </script>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-<div id="g_id_onload"
-     data-client_id="1093452466561-nd65uo3t3tabvjduk97n1k40ft7ud7vu.apps.googleusercontent.com"
-     data-context="signin"
-     data-callback="handleCredentialResponse">
-</div>
-<div class="g_id_signin"
-     data-type="standard"
-     data-shape="rectangular"
-     data-theme="outline"
-     data-text="signin_with"
-     data-size="large">
-</div>
-
-<script>
-function handleCredentialResponse(response) {
-  console.log("ID Token:", response.credential);
-  // 将 ID Token 发送给你的服务器验证
-}
-</script>
-
 </body>
 </html>
