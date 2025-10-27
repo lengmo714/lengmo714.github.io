@@ -1,4 +1,4 @@
-System.register(["./application.ddfb5.js"], function (_export, _context) {
+System.register(["./application.2662e.js"], function (_export, _context) {
   "use strict";
 
   var Application, canvas, $p, bcr, application;
@@ -8,8 +8,8 @@ System.register(["./application.ddfb5.js"], function (_export, _context) {
   }
 
   return {
-    setters: [function (_applicationDdfb5Js) {
-      Application = _applicationDdfb5Js.Application;
+    setters: [function (_application2662eJs) {
+      Application = _application2662eJs.Application;
     }],
     execute: function () {
       canvas = document.getElementById('GameCanvas');
