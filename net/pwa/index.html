@@ -8,12 +8,7 @@
     <link rel="manifest" href="/net/pwa/manifest.json">
 
     <title>VG·Poker</title>
-    <!-- 强制纯黑状态栏 -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#000000">
-    <meta name="color-scheme" content="dark">
-
+    
     <link rel="apple-touch-icon" href="/net/pwa/icons/icon-192x192.png">
     <link rel="apple-touch-icon" sizes="512x512" href="/net/pwa/icons/icon-512x512.png">
 
@@ -21,33 +16,42 @@
     <link rel="preload" as="image" href="/net/pwa/icons/icon-192x192.png">
     <link rel="preload" as="image" href="/net/pwa/icons/icon-512x512.png">
 
-    <style>
-        html, body {
-          margin: 0;
-          padding: 0;
-          height: 100%;
-          width: 100%;
-          background-color: #000 !important;
-          color: #fff !important;
-        }
-        /* 关键：强制暗色媒体查询 */
-        @media (prefers-color-scheme: light) {
-          html, body {
-            background-color: #000 !important;
-            color: #fff !important;
-          }
-        }
-        body::before {
-          content: "";
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: env(safe-area-inset-top);
-          background: #000;
-          z-index: 9999;
-        }
-      </style>
+
+    <!-- 强制纯黑状态栏 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+
+  @media (prefers-color-scheme: light) {
+    html, body {
+      background-color: #000 !important;
+      color: #fff !important;
+    }
+  }
+
+  /* 刘海安全区纯黑补丁 */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top);
+    background-color: #000;
+    z-index: 9999;
+  }
+</style>
     <script>
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
