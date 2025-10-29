@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="VGPoker, VG.Poker, VG-Poker, best poker platform in the world." />
+    <meta name="keywords" content="VGPoker" />
+
+    <title>VG·Poker</title>
+    <!-- ===============================
+         顶部状态栏 / PWA 样式控制
+         =============================== -->
+    <!-- Android 顶部栏固定为黑色 -->
+    <meta name="theme-color" content="#000000">
+
+    <!-- iOS 顶部状态栏固定为黑底白字（非透明） -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- 防止 iOS 暗色模式反色 -->
+    <meta name="color-scheme" content="only dark">
+
+    <!-- ===============================
+         iOS 图标支持
+         =============================== -->
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png">
+
+    <!-- 预加载图标 -->
+    <link rel="preload" as="image" href="/icons/icon-192x192.png">
+    <link rel="preload" as="image" href="/icons/icon-512x512.png">
+
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        background-color: #000; /* 状态栏取这个颜色 */
+        color: #fff;
+        font-family: sans-serif;
+      }
+
+      body {
+        /* 适配刘海屏安全区 */
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+      }
+
+      /* Safari 独有兜底: 确保背景强制黑色 */
+      @supports (-webkit-touch-callout: none) {
+        body {
+          background-color: #000 !important;
+        }
+      }
+    </style>
+  </head>
+</html>
