@@ -16,11 +16,11 @@
 
     <!-- iOS 顶部状态栏固定为黑底白字（非透明） -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <!-- 防止 iOS 暗色模式反色 -->
     <meta name="color-scheme" content="only dark">
-
+    <meta name="theme-color" content="#000000">
     <!-- ===============================
          iOS 图标支持
          =============================== -->
@@ -32,31 +32,30 @@
     <link rel="preload" as="image" href="/net/pwa/icons/icon-512x512.png">
 
     <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%;
-        background-color: #000; /* 状态栏取这个颜色 */
-        color: #fff;
-        font-family: sans-serif;
-      }
-
-      body {
-        /* 适配刘海屏安全区 */
-        padding-top: env(safe-area-inset-top);
-        padding-bottom: env(safe-area-inset-bottom);
-        padding-left: env(safe-area-inset-left);
-        padding-right: env(safe-area-inset-right);
-      }
-
-      /* Safari 独有兜底: 确保背景强制黑色 */
-      @supports (-webkit-touch-callout: none) {
-        body {
+        html, body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          width: 100%;
           background-color: #000 !important;
+          color: #fff !important;
+          font-family: sans-serif;
+          -webkit-user-select: none;
+          -webkit-touch-callout: none;
         }
-      }
-    </style>
+        @media (prefers-color-scheme: light) {
+          html, body {
+            background-color: #000 !important;
+            color: #fff !important;
+          }
+        }
+        body {
+          padding-top: env(safe-area-inset-top);
+          padding-bottom: env(safe-area-inset-bottom);
+          padding-left: env(safe-area-inset-left);
+          padding-right: env(safe-area-inset-right);
+        }
+      </style>
     <script>
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
