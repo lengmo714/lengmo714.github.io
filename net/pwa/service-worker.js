@@ -5,8 +5,8 @@ const CACHE_NAME = "vgpoker-cache-v1";
 const PRECACHE = [
   "/",
   "/manifest.json",
-  "/icons/icon-192x192.v1.png",
-  "/icons/icon-512x512.v1.png",
+  "/net/pwa/icons/icon-192x192.v1.png",
+  "/net/pwa/icons/icon-512x512.v1.png",
 ];
 
 // 安装阶段：缓存静态资源
