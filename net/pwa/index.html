@@ -18,40 +18,40 @@
 
 
     <!-- 强制纯黑状态栏 -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#000000">
-<meta name="color-scheme" content="dark">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <meta name="color-scheme" content="dark">
 
-<style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    background-color: #000 !important;
-    color: #fff !important;
-  }
-
-  @media (prefers-color-scheme: light) {
-    html, body {
-      background-color: #000 !important;
-      color: #fff !important;
-    }
-  }
-
-  /* 刘海安全区纯黑补丁 */
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: env(safe-area-inset-top);
-    background-color: #000;
-    z-index: 9999;
-  }
-</style>
+    <style>
+        html, body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          background: #000 !important;
+          color: #fff !important;
+        }
+      
+        /* 告诉浏览器：无论 light/dark，都使用 dark 样式 */
+        @media (prefers-color-scheme: light) {
+          html, body {
+            background: #000 !important;
+            color: #fff !important;
+          }
+        }
+      
+        /* 刘海补丁，去掉灰度 */
+        body::before {
+          content: "";
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: env(safe-area-inset-top);
+          background: #000;
+          z-index: 9999;
+        }
+      </style>
     <script>
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
