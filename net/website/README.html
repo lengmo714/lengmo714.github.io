@@ -1,0 +1,21 @@
+<h1 id="Vue-3-TypeScript-Vite"><a href="#Vue-3-TypeScript-Vite" class="headerlink" title="Vue 3 + TypeScript + Vite"></a>Vue 3 + TypeScript + Vite</h1><p>This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 <code>&lt;script setup&gt;</code> SFCs, check out the <a href="https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup">script setup docs</a> to learn more.</p>
+<p>Learn more about the recommended Project Setup and IDE Support in the <a href="https://vuejs.org/guide/typescript/overview.html#project-setup">Vue Docs TypeScript Guide</a>.</p>
+<h1 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h1><p>npm i</p>
+<h1 id="调试命令"><a href="#调试命令" class="headerlink" title="调试命令"></a>调试命令</h1><p>npm run dev</p>
+<h1 id="构建命令"><a href="#构建命令" class="headerlink" title="构建命令"></a>构建命令</h1><p>npm run build</p>
+<h1 id="构建说明"><a href="#构建说明" class="headerlink" title="构建说明"></a>构建说明</h1><h1 id="目录说明"><a href="#目录说明" class="headerlink" title="目录说明"></a>目录说明</h1><p>&#x2F;src<br>    &#x2F;config 项目主要配置<br>    &#x2F;language 多语言模块<br>    &#x2F;layout 项目基本布局<br>    &#x2F;stores 状态管理<br>    &#x2F;utils 工具集<br>    &#x2F;views 页面<br>    App.vue 页面入口<br>    main.ts 脚本入口<br>    package.json 依赖管理<br>    vite.config.ts 构建配置</p>
+<h1 id="页面标题"><a href="#页面标题" class="headerlink" title="页面标题"></a>页面标题</h1><p>页面logo 放在&#x2F;public里，对应文件&#x2F;index.html 网站名字，logo都可在里面进行配置</p>
+<h1 id="SEO配置"><a href="#SEO配置" class="headerlink" title="SEO配置"></a>SEO配置</h1><p>文件&#x2F;index.html里面的meta标签，已经声明好了，description是网站说明，keywords是网站关键字，具体内容填写content即可</p>
+<h1 id="网页配置"><a href="#网页配置" class="headerlink" title="网页配置"></a>网页配置</h1><p>官网主要文案，图标，banner等等配置都在 &#x2F;config 中可以找到，相关配置 文件中有注释说明</p>
+<h1 id="子目录部署"><a href="#子目录部署" class="headerlink" title="子目录部署"></a>子目录部署</h1><ol>
+<li>修改vite.config.ts 下的base 配置为子目录</li>
+<li>同步修改&#x2F;config&#x2F;conf_page.ts 下的global.base_url 同步vite.config.ts下的base配置</li>
+</ol>
+<p>例： <a href="http://www.baidu.com/rgame">www.baidu.com/rgame</a> 为网站根目录<br>vite.config.ts文件需配置为 base:’&#x2F;rgame’<br>&#x2F;config&#x2F;conf_page.ts文件需配置为 base_url:’&#x2F;rgame’</p>
+<h1 id="多环境配置"><a href="#多环境配置" class="headerlink" title="多环境配置"></a>多环境配置</h1><ol>
+<li>package.json 新增命令（如：”build:prod01”: “vite build –mode prod01”）</li>
+<li>新增 .env.prod01 文件，增加环境变量 NODE_ENV</li>
+<li>项目中使用 import.meta.env.VITE_USER_NODE_ENV 读取(NODE_ENV 对应 VITE_USER_NODE_ENV)</li>
+</ol>
+<h1 id="多语言配置查询"><a href="#多语言配置查询" class="headerlink" title="多语言配置查询"></a>多语言配置查询</h1><p>路径：src&#x2F;language&#x2F;lang&#x2F;${语言}.json</p>
+<h1 id="各个渠道下载统一方法"><a href="#各个渠道下载统一方法" class="headerlink" title="各个渠道下载统一方法"></a>各个渠道下载统一方法</h1><p>路径：src&#x2F;utils&#x2F;logicTool.ts</p>
