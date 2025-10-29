@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="VGPoker, VG.Poker, VG-Poker, best poker platform in the world." />
     <meta name="keywords" content="VGPoker" />
+    <link rel="manifest" href="/net/pwa/manifest.json">
 
     <title>VG·Poker</title>
     <!-- ===============================
@@ -56,5 +57,14 @@
         }
       }
     </style>
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/net/pwa/service-worker.js')
+              .then(reg => console.log('SW registered:', reg))
+              .catch(err => console.error('SW registration failed:', err));
+          });
+        }
+        </script>
   </head>
 </html>
