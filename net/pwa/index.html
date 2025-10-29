@@ -9,10 +9,10 @@
 
     <title>VG·Poker</title>
     <!-- 强制纯黑状态栏 -->
-    <meta name="theme-color" content="#000000">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="color-scheme" content="dark light">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <meta name="color-scheme" content="dark">
 
     <link rel="apple-touch-icon" href="/net/pwa/icons/icon-192x192.png">
     <link rel="apple-touch-icon" sizes="512x512" href="/net/pwa/icons/icon-512x512.png">
@@ -27,20 +27,16 @@
           padding: 0;
           height: 100%;
           width: 100%;
-          background-color: #000000 !important;
-          color: #ffffff !important;
-          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+          background-color: #000 !important;
+          color: #fff !important;
         }
-    
-        /* 不管用户系统是 light 还是 dark，都固定黑底 */
+        /* 关键：强制暗色媒体查询 */
         @media (prefers-color-scheme: light) {
           html, body {
-            background-color: #000000 !important;
-            color: #ffffff !important;
+            background-color: #000 !important;
+            color: #fff !important;
           }
         }
-    
-        /* 刘海安全区补丁：防止上方露白 */
         body::before {
           content: "";
           position: fixed;
@@ -48,7 +44,7 @@
           left: 0;
           right: 0;
           height: env(safe-area-inset-top);
-          background: #000000;
+          background: #000;
           z-index: 9999;
         }
       </style>
