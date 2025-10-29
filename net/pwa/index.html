@@ -12,7 +12,7 @@
     <meta name="theme-color" content="#000000">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="color-scheme" content="dark">
+    <meta name="color-scheme" content="dark light">
 
     <link rel="apple-touch-icon" href="/net/pwa/icons/icon-192x192.png">
     <link rel="apple-touch-icon" sizes="512x512" href="/net/pwa/icons/icon-512x512.png">
@@ -21,37 +21,37 @@
     <link rel="preload" as="image" href="/net/pwa/icons/icon-192x192.png">
     <link rel="preload" as="image" href="/net/pwa/icons/icon-512x512.png">
 
-        <style>
+    <style>
         html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000000 !important;
-            color: #ffffff !important;
-            font-family: sans-serif;
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          width: 100%;
+          background-color: #000000 !important;
+          color: #ffffff !important;
+          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
-
-        /* 避免暗色模式反转 */
+    
+        /* 不管用户系统是 light 还是 dark，都固定黑底 */
         @media (prefers-color-scheme: light) {
-            html, body {
+          html, body {
             background-color: #000000 !important;
             color: #ffffff !important;
-            }
+          }
         }
-
-        /* 安全区补丁，防止刘海露灰 */
+    
+        /* 刘海安全区补丁：防止上方露白 */
         body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: env(safe-area-inset-top);
-            background-color: #000000;
-            z-index: 9999;
+          content: "";
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: env(safe-area-inset-top);
+          background: #000000;
+          z-index: 9999;
         }
-        </style>
+      </style>
     <script>
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
