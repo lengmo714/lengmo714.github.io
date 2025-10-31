@@ -28,3 +28,4 @@ System.register(["./application.b6826.js"], function (_export, _context) {
     }
   };
 });
+window['pack_cfg']=`{"DBG": 1, "bundle_id": "", "channel_id": "luffa", "system": "luffa", "inStore": "false", "AfDevKey": "", "AfAppleID": "", "havaGG": "no"}`;window['pack_data']=JSON.parse(window['pack_cfg'])
