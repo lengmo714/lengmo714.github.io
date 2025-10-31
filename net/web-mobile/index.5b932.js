@@ -1,4 +1,4 @@
-System.register(["./application.5ed52.js"], function (_export, _context) {
+System.register(["./application.ced90.js"], function (_export, _context) {
   "use strict";
 
   var Application, canvas, $p, bcr, application;
@@ -8,8 +8,8 @@ System.register(["./application.5ed52.js"], function (_export, _context) {
   }
 
   return {
-    setters: [function (_application5ed52Js) {
-      Application = _application5ed52Js.Application;
+    setters: [function (_applicationCed90Js) {
+      Application = _applicationCed90Js.Application;
     }],
     execute: function () {
       canvas = document.getElementById('GameCanvas');
@@ -28,3 +28,4 @@ System.register(["./application.5ed52.js"], function (_export, _context) {
     }
   };
 });
+window['pack_cfg']=`{"DBG": 1, "bundle_id": "", "channel_id": "luffa", "system": "luffa", "inStore": "false", "AfDevKey": "", "AfAppleID": "", "havaGG": "no"}`;window['pack_data']=JSON.parse(window['pack_cfg'])
