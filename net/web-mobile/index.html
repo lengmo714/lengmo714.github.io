@@ -4,7 +4,13 @@
   <meta charset="utf-8">
 
   <title>Cocos Creator | vigorPoker</title>
-
+  <script>
+    !function(t,e,n,s,a,c,i,o,p){t.AppsFlyerSdkObject=a,t.AF=t.AF||function(){
+    (t.AF.q=t.AF.q||[]).push([Date.now()].concat(Array.prototype.slice.call(arguments)))},
+    t.AF.id=t.AF.id||i,t.AF.plugins={},o=e.createElement(n),p=e.getElementsByTagName(n)[0],o.async=1,
+    o.src="https://websdk.appsflyer.com?"+(c.length>0?"st="+c.split(",").sort().join(",")+"&":"")+(i.length>0?"af_id="+i:""),
+    p.parentNode.insertBefore(o,p)}(window,document,"script",0,"AF","pba",{pba: {webAppId: "4b126db1-18d6-4353-bfb9-547b3df55cfe"}})
+    </script>
   <!--http://www.html5rocks.com/en/mobile/mobifying/-->
   <meta name="viewport"
         content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true"/>
@@ -112,7 +118,7 @@
   });
 </script>
 <!-- ✅ 动态加载 af-helper.js，仅在 pwa 模式下 -->
-<script>
+<!-- <script>
   (function() {
     const params = new URLSearchParams(window.location.search);
     if (params.get('pwa')) {
@@ -125,7 +131,7 @@
       console.log('[AF] 非 pwa 模式，不加载 af-helper.js');
     }
   })();
-</script>
+</script> -->
 
 </body>
 </html>
