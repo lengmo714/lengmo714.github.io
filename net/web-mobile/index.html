@@ -11,6 +11,35 @@
     o.src="https://websdk.appsflyer.com?"+(c.length>0?"st="+c.split(",").sort().join(",")+"&":"")+(i.length>0?"af_id="+i:""),
     p.parentNode.insertBefore(o,p)}(window,document,"script",0,"AF","pba",{pba: {webAppId: "4b126db1-18d6-4353-bfb9-547b3df55cfe"}})
     </script>
+    <script>
+      (function() {
+        function initAF(retry = 0) {
+          if (!window.AF || typeof AF !== 'function') {
+            if (retry < 10) {
+              console.warn('[AF] SDK 未加载，重试中...', retry);
+              return setTimeout(() => initAF(retry + 1), 1000);
+            }
+            console.error('[AF] SDK 加载失败');
+            return;
+          }
+      
+          console.log('[AF] 初始化中...');
+          AF('pba', 'start', { webAppId: '4b126db1-18d6-4353-bfb9-547b3df55cfe' });
+      
+          AF('pba', 'getAFUID', (afid) => {
+            console.log('[AF] AFID =', afid);
+            if (afid) localStorage.setItem('af_id', afid);
+          });
+      
+          AF('pba', 'getAttribution', (attr) => {
+            console.log('[AF] 归因数据 =', attr);
+            if (attr) localStorage.setItem('af_attr', JSON.stringify(attr));
+          });
+        }
+      
+        window.addEventListener('load', () => initAF());
+      })();
+      </script>
   <!--http://www.html5rocks.com/en/mobile/mobifying/-->
   <meta name="viewport"
         content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true"/>
@@ -117,40 +146,5 @@
     document.body.appendChild(img);
   });
 </script>
-<script>
-  (function() {
-    // 检查 SDK 是否加载成功
-    function initAF() {
-      if (!window.AF) {
-        console.warn('[AF] SDK 尚未加载，重试中...');
-        return setTimeout(initAF, 1000);
-      }
-  
-      console.log('[AF] 初始化中...');
-      AF('pba', 'start', {
-        webAppId: '4b126db1-18d6-4353-bfb9-547b3df55cfe', // 你自己的 webAppId
-      });
-  
-      // 获取当前访客的 AF ID
-      AF('pba', 'getAFUID', (afid) => {
-        console.log('[AF] AFID =', afid);
-        if (afid) localStorage.setItem('af_id', afid);
-      });
-  
-      // 获取归因信息
-      AF('pba', 'getAttribution', (attr) => {
-        console.log('[AF] 归因数据 =', attr);
-        if (attr) {
-          localStorage.setItem('af_attr', JSON.stringify(attr));
-        }
-      });
-    }
-  
-    // 延迟执行，确保 SDK 加载完成
-    window.addEventListener('load', initAF);
-  })();
-  </script>
-  
-
 </body>
 </html>
