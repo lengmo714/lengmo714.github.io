@@ -1,4 +1,4 @@
-System.register(["./application.c834d.js"], function (_export, _context) {
+System.register(["./application.699a9.js"], function (_export, _context) {
   "use strict";
 
   var Application, canvas, $p, bcr, application;
@@ -8,8 +8,8 @@ System.register(["./application.c834d.js"], function (_export, _context) {
   }
 
   return {
-    setters: [function (_applicationC834dJs) {
-      Application = _applicationC834dJs.Application;
+    setters: [function (_application699a9Js) {
+      Application = _application699a9Js.Application;
     }],
     execute: function () {
       canvas = document.getElementById('GameCanvas');
@@ -28,4 +28,3 @@ System.register(["./application.c834d.js"], function (_export, _context) {
     }
   };
 });
-window['pack_cfg']=`{"DBG": 1, "bundle_id": "", "channel_id": "luffa", "system": "luffa", "inStore": "false", "AfDevKey": "", "AfAppleID": "", "havaGG": "no"}`;window['pack_data']=JSON.parse(window['pack_cfg'])
