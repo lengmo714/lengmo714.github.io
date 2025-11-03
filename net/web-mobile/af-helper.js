@@ -1,61 +1,84 @@
+// =======================================================
 // af-helper.js
-// 自动初始化并执行 AppsFlyer Web SDK 归因流程（PWA 专用）
+// AppsFlyer Web SDK 自动加载 + 归因数据收集 + 激活事件上报（PWA专用）
+// =======================================================
 
-(function () {
+(function (t, e, n, s, a, c, i, o, p) {
   const WEB_APP_ID = "4b126db1-18d6-4353-bfb9-547b3df55cfe"; // ⚠️ 替换为你的 AppsFlyer Web(PBA) 应用 ID
-  const STORAGE_KEY_INIT = "AF_INIT_DONE";
+  const STORAGE_KEY_INIT = "AF_INIT_DONE"; // 本地标记是否已上报激活事件
 
-  function loadScript(src) {
-    return new Promise((resolve, reject) => {
-      const s = document.createElement("script");
-      s.src = src;
-      s.async = false; // ⚠️ 保证按顺序执行
-      s.onload = resolve;
-      s.onerror = reject;
-      document.head.appendChild(s);
-    });
+  // ---------- 1. 初始化 AF 全局对象（官方模板逻辑） ----------
+  t.AppsFlyerSdkObject = a;
+  t.AF = t.AF || function () {
+    (t.AF.q = t.AF.q || []).push([Date.now()].concat([].slice.call(arguments)));
+  };
+  t.AF.id = t.AF.id || i;
+  t.AF.plugins = {};
+
+  o = e.createElement(n);
+  p = e.getElementsByTagName(n)[0];
+  o.async = 1;
+
+  // ---------- 2. 多节点加载策略 ----------
+  // 默认使用香港节点，如果失败自动回退到主站点
+  const baseUrls = [
+    "https://websdk-hk.appsflyer.com",
+    "https://websdk.appsflyer.com"
+  ];
+
+  function tryLoad(index) {
+    if (index >= baseUrls.length) {
+      console.error("[AF] ❌ 所有节点加载失败，请检查网络或 CSP 策略");
+      return;
+    }
+
+    o.src =
+      baseUrls[index] +
+      "?" +
+      (c.length > 0 ? "st=" + c.split(",").sort().join(",") + "&" : "") +
+      (i.length > 0 ? "af_id=" + encodeURIComponent(JSON.stringify(i)) : "");
+
+    o.onload = () => {
+      console.log("[AF] ✅ SDK 加载成功:", baseUrls[index]);
+      initAfterLoad();
+    };
+
+    o.onerror = () => {
+      console.warn("[AF] ⚠️ 节点加载失败:", baseUrls[index]);
+      tryLoad(index + 1);
+    };
+
+    p.parentNode.insertBefore(o, p);
   }
 
-  function log(...args) {
-    console.log("[AF]", ...args);
-  }
-
-  async function initAF() {
+  // ---------- 3. SDK 加载完成后的逻辑 ----------
+  function initAfterLoad() {
     try {
-      log("加载 AppsFlyer Web SDK...");
-
-      // ✅ 必须是完整路径（注意：非 .com 结尾！）
-      await loadScript("https://websdk.appsflyer.com/websdk/latest/appsflyer.js");
-
-      if (typeof AF === "undefined") {
-        throw new Error("AF 未定义，SDK 未正确加载");
-      }
-
-      // ✅ 初始化 PBA（People-Based Attribution）
       AF("pba", "start", { pba: { webAppId: WEB_APP_ID } }, () => {
-        log("SDK 初始化完成");
+        console.log("[AF] 🚀 SDK 初始化完成");
         runAttribution();
       });
     } catch (err) {
-      console.error("[AF] SDK 加载失败:", err);
+      console.error("[AF] ❌ SDK 初始化异常:", err);
     }
   }
 
+  // ---------- 4. 获取 AFID + 归因数据 + 激活上报 ----------
   function runAttribution() {
     try {
-      // 获取 afid
+      // 获取 AFID
       AF("pba", "getAppsFlyerUID", (uid) => {
-        log("AFID:", uid);
+        console.log("[AF] 🆔 AFID:", uid);
         localStorage.setItem("AFID", uid);
       });
 
       // 获取归因数据
       AF("pba", "getData", (data) => {
-        log("归因数据:", data);
+        console.log("[AF] 📊 归因数据:", data);
         localStorage.setItem("AF_ATTR", JSON.stringify(data));
       });
 
-      // 上报激活事件（只上报一次）
+      // 激活事件上报（只执行一次）
       if (!localStorage.getItem(STORAGE_KEY_INIT)) {
         AF("pba", "event", {
           eventType: "CUSTOM",
@@ -63,15 +86,18 @@
           eventValue: { source: "pwa_auto" },
         });
         localStorage.setItem(STORAGE_KEY_INIT, "1");
-        log("激活事件已上报");
+        console.log("[AF] 🎯 激活事件已上报");
       } else {
-        log("已上报过激活事件，跳过");
+        console.log("[AF] 🔁 已上报过激活事件，跳过");
       }
-    } catch (e) {
-      console.error("[AF] runAttribution 出错:", e);
+    } catch (err) {
+      console.error("[AF] ⚠️ runAttribution 出错:", err);
     }
   }
 
-  // ---------- 自动执行 ----------
-  window.addEventListener("load", initAF);
-})();
+  // ---------- 5. 启动加载流程 ----------
+  tryLoad(0);
+
+})(window, document, "script", 0, "AF", "pba", {
+  pba: { webAppId: "4b126db1-18d6-4353-bfb9-547b3df55cfe" },
+});
