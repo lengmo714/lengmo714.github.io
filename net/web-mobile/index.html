@@ -10,8 +10,6 @@
     t.AF.id=t.AF.id||i,t.AF.plugins={},o=e.createElement(n),p=e.getElementsByTagName(n)[0],o.async=1,
     o.src="https://websdk.appsflyer.com?"+(c.length>0?"st="+c.split(",").sort().join(",")+"&":"")+(i.length>0?"af_id="+i:""),
     p.parentNode.insertBefore(o,p)}(window,document,"script",0,"AF","pba",{pba: {webAppId: "4b126db1-18d6-4353-bfb9-547b3df55cfe"}})
-    AF("pba", "getAppsFlyerUID", (uid) => console.log("AFID:", uid));
-    AF("pba", "getData", (data) => console.log("归因数据:", data));
     </script>
   <!--http://www.html5rocks.com/en/mobile/mobifying/-->
   <meta name="viewport"
@@ -119,21 +117,40 @@
     document.body.appendChild(img);
   });
 </script>
-<!-- ✅ 动态加载 af-helper.js，仅在 pwa 模式下 -->
-<!-- <script>
+<script>
   (function() {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('pwa')) {
-      const script = document.createElement('script');
-      script.src = './af-helper.js';
-      script.defer = true;
-      document.body.appendChild(script);
-      console.log('[AF] 已检测到 pwa 参数，正在加载 af-helper.js');
-    } else {
-      console.log('[AF] 非 pwa 模式，不加载 af-helper.js');
+    // 检查 SDK 是否加载成功
+    function initAF() {
+      if (!window.AF) {
+        console.warn('[AF] SDK 尚未加载，重试中...');
+        return setTimeout(initAF, 1000);
+      }
+  
+      console.log('[AF] 初始化中...');
+      AF('pba', 'start', {
+        webAppId: '4b126db1-18d6-4353-bfb9-547b3df55cfe', // 你自己的 webAppId
+      });
+  
+      // 获取当前访客的 AF ID
+      AF('pba', 'getAFUID', (afid) => {
+        console.log('[AF] AFID =', afid);
+        if (afid) localStorage.setItem('af_id', afid);
+      });
+  
+      // 获取归因信息
+      AF('pba', 'getAttribution', (attr) => {
+        console.log('[AF] 归因数据 =', attr);
+        if (attr) {
+          localStorage.setItem('af_attr', JSON.stringify(attr));
+        }
+      });
     }
+  
+    // 延迟执行，确保 SDK 加载完成
+    window.addEventListener('load', initAF);
   })();
-</script> -->
+  </script>
+  
 
 </body>
 </html>
