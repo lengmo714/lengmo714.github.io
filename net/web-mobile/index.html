@@ -35,21 +35,6 @@
 
   <link rel="stylesheet" type="text/css" href="style.f76d1.css"/>
   <script src="https://websdk.appsflyer.com/websdk/latest/appsflyer.js"></script>
-  <!-- ✅ 动态加载 af-helper.js，仅在 pwa 模式下 -->
-<script>
-  (function() {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('pwa')) {
-      const script = document.createElement('script');
-      script.src = './af-helper.js';
-      script.defer = true;
-      document.body.appendChild(script);
-      console.log('[AF] 已检测到 pwa 参数，正在加载 af-helper.js');
-    } else {
-      console.log('[AF] 非 pwa 模式，不加载 af-helper.js');
-    }
-  })();
-</script>
 </head>
 <body>
   <div id="GameDiv" cc_exact_fit_screen="true">
@@ -127,7 +112,21 @@
     document.body.appendChild(img);
   });
 </script>
-
+<!-- ✅ 动态加载 af-helper.js，仅在 pwa 模式下 -->
+<script>
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('pwa')) {
+      const script = document.createElement('script');
+      script.src = './af-helper.js';
+      script.defer = true;
+      document.body.appendChild(script);
+      console.log('[AF] 已检测到 pwa 参数，正在加载 af-helper.js');
+    } else {
+      console.log('[AF] 非 pwa 模式，不加载 af-helper.js');
+    }
+  })();
+</script>
 
 </body>
 </html>
