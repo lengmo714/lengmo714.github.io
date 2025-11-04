@@ -112,32 +112,49 @@
   });
 </script>
 <script>
-  !function (t, e, n, s, a, c, i, o, p) {
-    t.AppsFlyerSdkObject = a;
-    t.AF = t.AF || function () {
-      (t.AF.q = t.AF.q || []).push([Date.now()].concat(Array.prototype.slice.call(arguments)))
-    },
-    t.AF.id = t.AF.id || i,
-    t.AF.plugins = {},
-    o = e.createElement(n),
-    p = e.getElementsByTagName(n)[0],
-    o.async = 1,
-    o.src = "https://websdk.appsflyer.com?"+Math.random(),
-    p.parentNode.insertBefore(o, p)
-  }(window, document, "script", 0, "AF", 0, "4b126db1-18d6-4353-bfb9-547b3df55cfe");
-
-  AF('init', {
-    app_id: "com.your.bundleid",      // 任意唯一值
-    dev_key: "4b126db1-18d6-4353-bfb9-547b3df55cfe",     // 从 AppsFlyer 控制台拿到
-    app_name: "VG Poker PWA",
-    platform: "web"
-  });
-
-  // 加载 SDK 后开始请求
-  window.addEventListener('load', () => {
-    AF('start');
-  });
-</script>
+  (function() {
+    // 初始化 AppsFlyer
+    !function (t, e, n, s, a, c, i, o, p) {
+      t.AppsFlyerSdkObject = a;
+      t.AF = t.AF || function () {
+        (t.AF.q = t.AF.q || []).push([Date.now()].concat(Array.prototype.slice.call(arguments)))
+      },
+      t.AF.id = t.AF.id || i;
+      t.AF.plugins = {};
+      o = e.createElement(n);
+      p = e.getElementsByTagName(n)[0];
+      o.async = 1;
+      o.src = "https://websdk.appsflyer.com?" + Math.random();
+      o.onload = function() {
+        console.log('[AF] SDK 加载完成');
+        startAF(); // <-- 真正初始化在这里
+      };
+      p.parentNode.insertBefore(o, p);
+    }(window, document, "script", 0, "AF", 0, "4b126db1-18d6-4353-bfb9-547b3df55cfe");
+  
+    function startAF() {
+      AF('init', {
+        dev_key: '4b126db1-18d6-4353-bfb9-547b3df55cfe',
+        app_id: 'com.vgpoker.pwa',
+        app_name: 'VGPoker PWA',
+        platform: 'web'
+      });
+  
+      AF('start');
+  
+      AF('pba', 'getAFUID', (afid) => {
+        console.log('[AF] AFID =', afid);
+        localStorage.setItem('af_id', afid);
+      });
+  
+      AF('pba', 'getAttribution', (attr) => {
+        console.log('[AF] 归因数据 =', attr);
+        if (attr) localStorage.setItem('af_attr', JSON.stringify(attr));
+      });
+    }
+  })();
+  </script>
+  
 
 </body>
 </html>
