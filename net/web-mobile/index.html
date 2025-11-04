@@ -126,6 +126,12 @@
     document.body.appendChild(img);
   });
   window.addEventListener('load', () => {
+    AF('init', {
+      devKey: '4b126db1-18d6-4353-bfb9-547b3df55cfe',
+      appId: '4b126db1-18d6-4353-bfb9-547b3df55cfe',   // 在AF后台的 app id（web应用的 site id）
+      name: 'VGPoker',
+      appStoreUrl: 'https://your-onelink-url.com', // 可选
+    });
   // 获取 AFID
   AF('pba', 'getAFUID', (afid) => {
     console.log('[AF] AFID =', afid);
