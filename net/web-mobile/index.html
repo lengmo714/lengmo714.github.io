@@ -135,13 +135,6 @@
         console.log('[AF] 归因数据 =', attr);
         if (attr) localStorage.setItem('af_attr', JSON.stringify(attr));
       });
-
-      // 上报一次激活事件
-      AF('pba', 'event', {
-        eventType: 'CUSTOM',
-        eventName: 'af_app_opened',
-        eventValue: {}
-      });
     }
   }, 1000);
 });
