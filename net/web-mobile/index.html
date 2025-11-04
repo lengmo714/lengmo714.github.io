@@ -5,15 +5,6 @@
 
   <title>Cocos Creator | vigorPoker</title>
 
-
-  <script>
-    !function(t,e,n,s,a,c,i,o,p){t.AppsFlyerSdkObject=a,t.AF=t.AF||function(){
-    (t.AF.q=t.AF.q||[]).push([Date.now()].concat(Array.prototype.slice.call(arguments)))},
-    t.AF.id=t.AF.id||i,t.AF.plugins={},o=e.createElement(n),p=e.getElementsByTagName(n)[0],o.async=1,
-    o.src="https://websdk.appsflyer.com?"+(c.length>0?"st="+c.split(",").sort().join(",")+"&":"")+(i.length>0?"af_id="+i:""),
-    p.parentNode.insertBefore(o,p)}(window,document,"script",0,"AF","pba",{pba: {webAppId: "4b126db1-18d6-4353-bfb9-547b3df55cfe"}})
-    </script>
-
   <!--http://www.html5rocks.com/en/mobile/mobifying/-->
   <meta name="viewport"
         content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true"/>
@@ -62,6 +53,21 @@
 
 <script>
     System.import('./index.81c02.js').catch(function(err) { console.error(err); })
+</script>
+<script>
+  !function(t,e,n,s,a,c,i,o,p){
+    t.AppsFlyerSdkObject=a;
+    t.AF=t.AF||function(){
+      (t.AF.q=t.AF.q||[]).push([Date.now()].concat(Array.prototype.slice.call(arguments)))
+    };
+    t.AF.id=t.AF.id||i;
+    t.AF.plugins={};
+    o=e.createElement(n);
+    p=e.getElementsByTagName(n)[0];
+    o.async=1;
+    o.src="https://websdk.appsflyer.com?st=pba";
+    p.parentNode.insertBefore(o,p);
+  }(window,document,"script",0,"AF");
 </script>
 
 
@@ -120,24 +126,19 @@
     document.body.appendChild(img);
   });
   window.addEventListener('load', () => {
-  // 检查 SDK 是否就绪
-  const waitAF = setInterval(() => {
-    if (typeof AF === 'function') {
-      clearInterval(waitAF);
-      console.log('[AF] SDK 已加载，开始获取 AFUID');
+  // 获取 AFID
+  AF('pba', 'getAFUID', (afid) => {
+    console.log('[AF] AFID =', afid);
+    localStorage.setItem('af_id', afid);
+  });
 
-      AF('pba', 'getAFUID', (afid) => {
-        console.log('[AF] 回调触发，AFUID =', afid);
-        if (afid) localStorage.setItem('af_id', afid);
-      });
-
-      AF('pba', 'getAttribution', (attr) => {
-        console.log('[AF] 归因数据 =', attr);
-        if (attr) localStorage.setItem('af_attr', JSON.stringify(attr));
-      });
-    }
-  }, 1000);
+  // 获取归因数据
+  AF('pba', 'getAttribution', (attr) => {
+    console.log('[AF] 归因数据 =', attr);
+    localStorage.setItem('af_attr', JSON.stringify(attr));
+  });
 });
+
 </script>
 
 </body>
