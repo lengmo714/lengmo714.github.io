@@ -119,6 +119,33 @@
 
     document.body.appendChild(img);
   });
+  window.addEventListener('load', () => {
+  // 检查 SDK 是否就绪
+  const waitAF = setInterval(() => {
+    if (typeof AF === 'function') {
+      clearInterval(waitAF);
+      console.log('[AF] SDK 已加载，开始获取 AFUID');
+
+      AF('pba', 'getAFUID', (afid) => {
+        console.log('[AF] 回调触发，AFUID =', afid);
+        if (afid) localStorage.setItem('af_id', afid);
+      });
+
+      AF('pba', 'getAttribution', (attr) => {
+        console.log('[AF] 归因数据 =', attr);
+        if (attr) localStorage.setItem('af_attr', JSON.stringify(attr));
+      });
+
+      // 上报一次激活事件
+      AF('pba', 'event', {
+        eventType: 'CUSTOM',
+        eventName: 'af_app_opened',
+        eventValue: {}
+      });
+    }
+  }, 1000);
+});
 </script>
+
 </body>
 </html>
