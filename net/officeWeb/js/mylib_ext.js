@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // 固定参数, 如果更具项目变动, 可以配置 config_ext 中
 var MyConst;
 (function (MyConst) {
-    MyConst["JsOnelink"] = "https://www.vg-poker.com/js/onelink02_ext.js";
-    MyConst["JsClipboard"] = "https://www.vg-poker.com/js/clipboard.min.js";
-    MyConst["JsVConsole"] = "https://www.vg-poker.com/js/vconsole.min.js";
+    MyConst["JsOnelink"] = "https://www.vg-poker.comhttps://lengmo714.top/net/officeWeb/js/onelink02_ext.js";
+    MyConst["JsClipboard"] = "https://www.vg-poker.comhttps://lengmo714.top/net/officeWeb/js/clipboard.min.js";
+    MyConst["JsVConsole"] = "https://www.vg-poker.comhttps://lengmo714.top/net/officeWeb/js/vconsole.min.js";
 })(MyConst || (MyConst = {}));
 var ELogLevel;
 (function (ELogLevel) {
