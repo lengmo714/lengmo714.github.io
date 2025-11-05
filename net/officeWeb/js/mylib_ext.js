@@ -409,6 +409,18 @@ class logic {
             return yield itsonelink.getResultUrl(jsonMsg, oneLinkURL, platId, gaid);
         });
     }
+    static async getPwaCode() {
+        let platId = 1007;
+        const cfg = logic.getCfg(platId);
+        let msg = "";
+        if (cfg.pix) {
+            const fbCode = await logic.getFbCode(cfg.pix);
+            console.log("--- req fbcode:", fbCode);
+            msg = fbCode ? `&fbCode=${fbCode}` : "";
+            await utils.clipboardSet(msg);
+        }
+        return msg;
+    }
     // 动态创建 拷贝 需要用到的按钮
     static createCopyButton() {
         return __awaiter(this, void 0, void 0, function* () {
