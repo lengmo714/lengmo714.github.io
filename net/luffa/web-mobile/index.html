@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Cocos Creator | vigorPoker</title>
+  <title>VG Poker</title>
 
   <!--http://www.html5rocks.com/en/mobile/mobifying/-->
   <meta name="viewport"
@@ -34,6 +34,10 @@
   <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
 
   <link rel="stylesheet" type="text/css" href="style.f76d1.css"/>
+
+
+    <script src="https://tencentcloud.github.io/tcmpp-demo-miniprogram/jssdk/tcmpp-jssdk-1.0.0.js"></script> 
+    
 </head>
 <body>
   <div id="GameDiv" cc_exact_fit_screen="true">
@@ -42,6 +46,12 @@
       </div>
     </div>
   
+<script src="./vconsole.min.9e84b.js"></script>
+<script type="text/javascript">
+    // open web debugger console
+    window.VConsole && (window.vConsole = new VConsole());
+</script>
+
 <!-- Polyfills bundle. -->
 <script src="src/polyfills.bundle.5adbf.js" charset="utf-8"> </script>
 
@@ -52,22 +62,7 @@
 <script src="src/import-map.76a00.json" type="systemjs-importmap" charset="utf-8"> </script>
 
 <script>
-    System.import('./index.81c02.js').catch(function(err) { console.error(err); })
-</script>
-<script>
-  !function(t,e,n,s,a,c,i,o,p){
-    t.AppsFlyerSdkObject=a;
-    t.AF=t.AF||function(){
-      (t.AF.q=t.AF.q||[]).push([Date.now()].concat(Array.prototype.slice.call(arguments)))
-    };
-    t.AF.id=t.AF.id||i;
-    t.AF.plugins={};
-    o=e.createElement(n);
-    p=e.getElementsByTagName(n)[0];
-    o.async=1;
-    o.src="https://websdk.appsflyer.com?st=pba";
-    p.parentNode.insertBefore(o,p);
-  }(window,document,"script",0,"AF");
+    System.import('./index.e6417.js').catch(function(err) { console.error(err); })
 </script>
 
 
@@ -80,7 +75,7 @@
   async function onCall(msg) {
     var txt = decodeURIComponent(msg);
     var data = JSON.parse(txt);
-        if(data.ReqId == 1){
+    if(data.ReqId == 1){
       window["FCMtoken"] = data.Msg;
     }else if(data.ReqId == 2){
       const customEvent = new CustomEvent("googleInfoH5", {
@@ -88,13 +83,10 @@
       });
       window.dispatchEvent(customEvent);
     }
-    //alert(data.ReqId + " : " + data.Msg); 
   }
 
   async function download() {
-    let data = {
-      ReqId: 1,
-    };
+    let data = { ReqId: 1 };
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
     iframe.src = `uniwebview://message?call=${encodeURIComponent(JSON.stringify(data))}`;
@@ -110,11 +102,7 @@
     const img = document.createElement('img');
     img.id = 'loadimg';
     img.alt = 'Centered Image';
-    if (searchParams.get('pwa')) {
-      img.src = 'loading_pwa.png';
-    } else {
-      img.src = 'loading.png';
-    }
+    img.src = 'loading_pwa.png';
     img.style.position = 'absolute';
     img.style.top = '0';
     img.style.left = '0';
@@ -122,29 +110,8 @@
     img.style.height = '100%';
     img.style.objectFit = 'cover';
     img.style.zIndex = 999;
-
     document.body.appendChild(img);
   });
-  window.addEventListener('load', () => {
-    AF('init', {
-      devKey: '4b126db1-18d6-4353-bfb9-547b3df55cfe',
-      appId: '4b126db1-18d6-4353-bfb9-547b3df55cfe',   // 在AF后台的 app id（web应用的 site id）
-      name: 'VGPoker',
-      appStoreUrl: 'https://your-onelink-url.com', // 可选
-    });
-  // 获取 AFID
-  AF('pba', 'getAFUID', (afid) => {
-    console.log('[AF] AFID =', afid);
-    localStorage.setItem('af_id', afid);
-  });
-
-  // 获取归因数据
-  AF('pba', 'getAttribution', (attr) => {
-    console.log('[AF] 归因数据 =', attr);
-    localStorage.setItem('af_attr', JSON.stringify(attr));
-  });
-});
-
 </script>
 
 </body>
