@@ -11227,4 +11227,36 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
         <tag>android</tag>
       </tags>
   </entry>
+  <entry>
+    <title>前端开发中IOS设备判断踩坑</title>
+    <url>/f1e76f08.html</url>
+    <content><![CDATA[<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我们在前端开发中，会遇到一些判断设备类型的问题，比如判断是否是IOS设备，判断是否是安卓设备等等。</p>
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><p>以前一般只会对浏览器的ua进行判断，比如下面代码</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">/iPhone|iPad|iPod/i.<span class="title function_">test</span>(navigator.<span class="property">userAgent</span>);</span><br></pre></td></tr></table></figure>
+
+<p>但是在现在的新ipad上你会发现，很多时候没有将ipad识别为一个IOS设备，而是将其识别成了MAC设备。这是因为<code>iPad OS 13+ </code>会把 UA 改成 <code>MacIntel</code>，这里就看个人需求了，如果对ipad要求不高的就无所谓</p>
+<p>我们可以用下面方法去判断</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getDeviceType</span>(<span class="params"></span>): <span class="string">&#x27;Android&#x27;</span> | <span class="string">&#x27;IOS&#x27;</span> | <span class="string">&#x27;unknown&#x27;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> ua = navigator.<span class="property">userAgent</span> || navigator.<span class="property">vendor</span> || (<span class="variable language_">window</span> <span class="keyword">as</span> any).<span class="property">opera</span>;</span><br><span class="line">    <span class="keyword">const</span> platform = (navigator <span class="keyword">as</span> any).<span class="property">platform</span>;</span><br><span class="line">    <span class="keyword">const</span> maxTouchPoints = navigator.<span class="property">maxTouchPoints</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/android/i</span>.<span class="title function_">test</span>(ua)) <span class="keyword">return</span> <span class="string">&#x27;Android&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/iPad|iPhone|iPod/</span>.<span class="title function_">test</span>(ua)) <span class="keyword">return</span> <span class="string">&#x27;IOS&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (platform === <span class="string">&#x27;MacIntel&#x27;</span> &amp;&amp; maxTouchPoints &gt; <span class="number">1</span>) <span class="keyword">return</span> <span class="string">&#x27;IOS&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;unknown&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为<code>iPad OS 13+ </code>虽然会把 UA 改成 <code>MacIntel</code>，但是依旧支持触控，所以我们能够通过这个条件来进行判断。</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
 </search>
