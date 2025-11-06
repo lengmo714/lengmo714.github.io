@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>Redirect to Safari</title>
+  <script>
+    (function() {
+      // 获取当前完整 URL（包括参数）
+      const currentUrl = window.location.href;
+
+      // 获取 User-Agent 判断环境
+      const ua = navigator.userAgent.toLowerCase();
+      const isIOS = /iphone|ipad|ipod/.test(ua);
+      const isSafari = /safari/.test(ua) && !/crios|fxios|edgios|fbav|fban|instagram|line|mqqbrowser|micromessenger|telegram/.test(ua);
+
+      // 如果是 iOS 且不是 Safari，则强制跳转到 Safari
+      if (isIOS && !isSafari) {
+        // 在 iOS 中唤起 Safari 的方式是直接使用 location.href
+        // 注意：Telegram、微信内置浏览器会拦截部分跳转，需延时执行
+        setTimeout(() => {
+          window.location.href = currentUrl;
+        }, 100);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <p>正在检查您的浏览器环境...</p>
+</body>
+</html>
