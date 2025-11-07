@@ -2208,7 +2208,7 @@
              console.log("[PWA] 准备执行 localStorage 逻辑前");
             try {
                 localStorage.setItem("vgp_params", window.location.search + (window.fbCode || ""));
-                console.log("[PWA] ✅ 写入成功", payload);
+                console.log("[PWA] ✅ 写入成功", window.location.search + (window.fbCode || ""));
                 } catch (err) {
                 console.error("[PWA] ❌ 写入失败:", err);
             }
