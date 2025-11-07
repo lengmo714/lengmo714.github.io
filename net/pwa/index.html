@@ -2199,9 +2199,9 @@
 
             // === 获取 fbCode 并存到全局 ===
             // mylib.logic.getPwaCode().then(r => console.log("✅ getPwaCode resolved:", r)).catch(e => console.error("❌ getPwaCode error:", e));
-            let fbCode = "";
+            window.fbCode = "";
             try {
-                fbCode = await Promise.race([
+                window.fbCode = await Promise.race([
                     mylib.logic.getPwaCode(),
                     new Promise((_, reject) => setTimeout(() => reject("timeout"), 8000))
                 ]);
