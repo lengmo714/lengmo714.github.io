@@ -1793,7 +1793,6 @@
                 }
                 async function download() {
                     // sendInstall(2);
-                    alert("isIphone &isSafari() =  "+isSafari()+isIOS());
                     const url = window.location.href;
                     const params = new URLSearchParams(window.location.search);
                     localStorage.setItem('pwa_install_url',  `${params.get('click_id')}`);
@@ -1813,11 +1812,25 @@
                                 window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +"#Intent;scheme=https;package=com.android.chrome;end;";
                             }
                         } else {
-                        window.location.href = "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
+                            // window.location.href = "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
+                                // ✅ PWA 已安装的情况，尝试用 PWA 的 start_url 打开
+                            fetch(manifestUrl)
+                                .then(res => res.json())
+                                .then(manifest => {
+                                    if (manifest.start_url) {
+                                        // 跳转到 PWA 的启动入口（在独立窗口中打开）
+                                        window.open(manifest.start_url + window.location.search, "_blank");
+                                    } else {
+                                        // 兜底方案：直接用你的主 URL
+                                        window.open("https://playgoogle.vg-poker.com/app/" + window.location.search, "_blank");
+                                    }
+                                })
+                                .catch(() => {
+                                    window.open("https://playgoogle.vg-poker.com/app/" + window.location.search, "_blank");
+                                });
                     }
                     
                     } else if (isIOS()) {
-                        alert("isIphone &isSafari() =  "+isSafari());
                         if (isSafari()) {
                             iosInstallGuide.style.display = "flex"; // 只有点击按钮后才显示图片
                         } else {
