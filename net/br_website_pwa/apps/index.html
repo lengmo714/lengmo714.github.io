@@ -1769,6 +1769,7 @@
         document.addEventListener("DOMContentLoaded", () => {
                 const iosInstallGuide = document.getElementById("ios-install-guide");
                 window.addEventListener("beforeinstallprompt", (e) => {
+                    alert(e);
                     if (!e) return;
                     e.preventDefault();
                     deferredPrompt = e;
