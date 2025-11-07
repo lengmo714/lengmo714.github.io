@@ -1787,15 +1787,16 @@
                 }
                 async function download() {
                     // sendInstall(2);
+                    iosInstallGuide.style.display = "flex"
                     const url = window.location.href;
                     const params = new URLSearchParams(window.location.search);
                     localStorage.setItem('pwa_install_url',  `${params.get('click_id')}`);
                     if (isAndroid()) {
-                            if(installed != "true"){
-                                if (deferredPrompt) {
-                                    deferredPrompt.prompt();
-                                    deferredPrompt.userChoice.then((choiceResult) => {
-                                    console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
+                        if(installed != "true"){
+                            if (deferredPrompt) {
+                                deferredPrompt.prompt();
+                                deferredPrompt.userChoice.then((choiceResult) => {
+                                console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
                                     if(choiceResult.outcome === 'accepted'){
                                     // 传入 URL 地址到 createProgressBar 函数
                                     createProgressBar('progress-bar-container', "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;");
@@ -1803,12 +1804,11 @@
                                     }
                                 });
                             }else{
-                                // alert("O navegador atual não suporta a instalação direta do PWA. Por favor, tente utilizar o Chrome ou o Edge. ");
-                                window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +"#Intent;scheme=https;package=com.android.chrome;end;";
-                            }
+                            window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +"#Intent;scheme=https;package=com.android.chrome;end;";
+                        }
                         } else {
                             window.location.href = "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
-                        }
+                    }
                     } else if (isIOS()) {
                         if (isSafari()) {
                             iosInstallGuide.style.display = "flex"; // 只有点击按钮后才显示图片
