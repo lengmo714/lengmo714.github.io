@@ -2210,6 +2210,9 @@
             };
             const encoded = encodeURIComponent(JSON.stringify(p));
             // const manifestURL = `https://www.domainprojectd.com/fb/click_info?p=${encoded}`;
+            const path = location.pathname.endsWith('/')
+                ? location.pathname + 'index.html'
+                : location.pathname;
             const manifestData = {
                     lang: "en-US",
                     name: "VG Poker",
@@ -2217,18 +2220,18 @@
                     description: "A poker game application",
                     start_url: location.origin + location.pathname + location.search, // 自动带参数
                     display: "standalone",
-                    scope: location.pathname.replace(/[^/]+$/, ''), // 自动取当前目录为 scope
+                    scope: location.origin + location.pathname.substring(0, location.pathname.lastIndexOf('/') + 1), // 当前目录
                     theme_color: "#000000",
                     background_color: "#000000",
                     orientation: "portrait",
                     icons: [
                         {
-                            src: "net/pwa/icons/icon-192x192.png",
+                            src: location.origin + "/net/pwa/icons/icon-192x192.png",
                             sizes: "192x192",
                             type: "image/png"
                         },
                         {
-                            src: "net/pwa/icons/icon-512x512.png",
+                            src: location.origin + "/net/pwa/icons/icon-512x512.png",
                             sizes: "512x512",
                             type: "image/png"
                         }
