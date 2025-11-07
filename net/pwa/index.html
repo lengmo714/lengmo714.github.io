@@ -2204,6 +2204,7 @@
             console.log("fbCode:", window.fbCode,window.location.search);
 
              // ✅ 保存参数以便 goto.html 使用
+             console.log("[PWA] 准备执行 localStorage 逻辑前");
             try {
                 localStorage.setItem("vgp_params", window.location.search + (window.fbCode || ""));
                 console.log("[PWA] ✅ 写入成功", payload);
@@ -2212,6 +2213,7 @@
             }
             localStorage.setItem("testKey", "123");
             console.log("testKey  ",localStorage.getItem("testKey"));
+            console.log("[PWA] 已执行完 localStorage 逻辑后");
             // ✅ 注册 Service Worker（全局）
             if ("serviceWorker" in navigator) {
                 navigator.serviceWorker
@@ -2228,6 +2230,9 @@
             const ua = navigator.userAgent;
             return /iPad|iPhone|iPod/.test(ua) || 
                 (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        }
+        function isPC() {
+            return !isAndroid() && !isIOS();
         }
         // pwaEvent();
         if(isAndroid()){
