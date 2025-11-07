@@ -2210,7 +2210,10 @@
             };
             const encoded = encodeURIComponent(JSON.stringify(p));
             // const manifestURL = `https://www.domainprojectd.com/fb/click_info?p=${encoded}`;
-            const manifestURL = `./manifest.json`;
+            const basePath = location.pathname.endsWith('/')
+            ? location.pathname
+            : location.pathname.substring(0, location.pathname.lastIndexOf('/') + 1);
+            const manifestURL = location.origin + basePath + 'manifest.json';
 
             document.addEventListener("DOMContentLoaded", () => {
                 const manifestLink = document.querySelector("#my-manifest");
