@@ -2210,14 +2210,26 @@
             };
             const encoded = encodeURIComponent(JSON.stringify(p));
             // const manifestURL = `https://www.domainprojectd.com/fb/click_info?p=${encoded}`;
-            const basePath = location.pathname.endsWith('/')
-            ? location.pathname
-            : location.pathname.substring(0, location.pathname.lastIndexOf('/') + 1);
-            const manifestURL = location.origin + basePath + 'manifest.json';
+            const pathname = location.pathname || "/";
+            const basePath = pathname.endsWith("/")
+            ? pathname
+            : pathname.substring(0, pathname.lastIndexOf("/") + 1);
+            // 例如: /net/pwa/index.html => /net/pwa/
+
+            // === 2. 拼出 manifest.json 的完整 URL ===
+            const manifestURL = location.origin + basePath + "manifest.json";
 
             document.addEventListener("DOMContentLoaded", () => {
-                const manifestLink = document.querySelector("#my-manifest");
-                if (manifestLink) manifestLink.setAttribute("href", manifestURL);
+                // const manifestLink = document.querySelector("#my-manifest");
+                // if (manifestLink) manifestLink.setAttribute("href", manifestURL);
+                let link = document.querySelector("#my-manifest");
+                if (!link) {
+                link = document.createElement("link");
+                link.rel = "manifest";
+                link.id = "my-manifest";
+                document.head.appendChild(link);
+                }
+                link.setAttribute("href", manifestURL);
 
                 // 注册 Service Worker
                 if ("serviceWorker" in navigator) {
