@@ -10,11 +10,11 @@ function createProgressBar(containerId, url) {
     container.innerHTML = `
       <div class="container">
         <div class="image">
-          <div id="install-text" class="install-text">Instalando</div>
+          <div id="install-text" class="install-text"></div>
           <div class="progress-bar">
             <div id="progress" class="progress">0%</div>
           </div>
-          <button id="new-btn" class="new-btn">Abra o aplicativo</button>
+          <button id="new-btn" class="new-btn">打开应用</button>
         </div>
       </div>
     `;
@@ -23,7 +23,7 @@ function createProgressBar(containerId, url) {
     let installText = document.getElementById('install-text');
     let newBtn = document.getElementById('new-btn');
     let progressValue = 0;
-    let duration = 10000; // 进度条的持续时间（10秒）
+    let duration = 5000; // 进度条的持续时间（5秒）
     let intervalTime = 50; // 更新进度的时间间隔
     let increment = 100 / (duration / intervalTime);
   

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>进度条示例</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      text-align: center;
+    }
+    .image {
+      width: 100%;
+      height: 150px;
+      background-image: url('ios-install-guide.png');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .install-text {
+      font-size: 16px;
+      color: #9ecf16;
+      position: absolute;
+      top: 20%; /* 垂直居中 */
+      transform: translateY(-50%); /* 修正位置 */
+      z-index: 2;
+      width: 100%;
+    }
+    .progress-bar {
+      width: 80%;
+      height: 40px;
+      background-color: #ddd;
+      border-radius: 20px;
+      overflow: hidden;
+      position: absolute;
+      bottom: 20px;
+      z-index: 1;
+      left: 10%; /* 居中对齐 */
+    }
+    .progress {
+      width: 0;
+      height: 100%;
+      background-color: #4caf50;
+      border-radius: 20px;
+      text-align: center;
+      color: white;
+      line-height: 40px;
+    }
+    .new-btn {
+      display: none;
+      position: absolute;
+      bottom: 20px;
+      left: 10%;
+      width: 80%;
+      height: 40px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      z-index: 3; /* 按钮在进度条之上 */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="image">
+      <div id="install-text" class="install-text">安装中</div>
+      <div class="progress-bar">
+        <div id="progress" class="progress">0%</div>
+      </div>
+      <button id="new-btn" class="new-btn" onclick="newButtonClicked()">新的按钮</button>
+    </div>
+  </div>
+
+  <script>
+    let progress = document.getElementById('progress');
+    let installText = document.getElementById('install-text');
+    let newBtn = document.getElementById('new-btn');
+    let progressValue = 0;
+    let duration = 10000;
+    let intervalTime = 50;
+    let increment = 100 / (duration / intervalTime);
+
+    let interval = setInterval(function() {
+      progressValue += increment;
+      progress.style.width = progressValue + '%';
+      progress.innerHTML = Math.round(progressValue) + '%';
+
+      if (progressValue >= 100) {
+        clearInterval(interval);
+        installText.innerHTML = '安装已完成';
+        setTimeout(function() {
+          progress.style.display = 'none';
+          newBtn.style.display = 'inline-block';
+        }, 500);
+      }
+    }, intervalTime);
+
+    function newButtonClicked() {
+      alert('新的按钮被点击了！');
+    }
+  </script>
+
+</body>
+</html>

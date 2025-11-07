@@ -1,107 +1,102 @@
 /* 页面内容样式 */
 .content {
-    text-align: center;
-    margin-top: 50px;
-  }
-  
-  /* 开始按钮样式 */
-  .start-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  /* 进度条界面（默认隐藏） */
-  .progress-overlay {
-    display: none; /* 初始隐藏 */
-    position: fixed; /* 让它浮动在页面上 */
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6); /* 半透明黑色背景 */
-    z-index: 1000; /* 确保它覆盖其他内容 */
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* 进度条容器 */
-  .container {
-    width: 330px;
-    height: 240px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    position: relative;
-  }
-  
-  /* 进度条样式 */
-  .image {
-    width: 100%;
-    height: 220px;
-    background-image: url('UI_Downland_Popus_Background.png');
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  .install-text {
-    font-size: 48px;
-    color: #9ecf16;
-    position: absolute;
-    top: 20%;
-    transform: translateY(-50%);
-    z-index: 2;
-    width: 100%;
-  }
-  
-  .progress-bar {
-    width: 80%;
-    height: 50px;
-    background-color: #ddd;
-    border-radius: 25px;
-    overflow: hidden;
-    position: absolute;
-    bottom: 20px;
-    left: 10%;
-  }
-  
-  .progress {
-    width: 0;
-    height: 100%;
-    background-color: #4caf50;
-    border-radius: 40px;
-    text-align: center;
-    color: white;
-    /* line-height: 80px; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* 完成后的按钮 */
-  .new-btn {
-    display: none;
-    position: absolute;
-    bottom: 20px;
-    left: 10%;
-    width: 80%;
-    height: 50px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 24px;
-    z-index: 3;
-  }
-  
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* 开始按钮样式 */
+.start-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 进度条界面（默认隐藏） */
+.progress-overlay {
+  display: none; /* 初始隐藏 */
+  position: fixed; /* 让它浮动在页面上 */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6); /* 半透明黑色背景 */
+  z-index: 1000; /* 确保它覆盖其他内容 */
+  justify-content: center;
+  align-items: center;
+}
+
+/* 进度条容器 */
+.container {
+  width: 300px;
+  height: 150px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+}
+
+/* 进度条样式 */
+.image {
+  width: 70%;
+  height: 150px;
+  /* background-image: url('ios-install-guide.png'); */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.install-text {
+  font-size: 16px;
+  color: #9ecf16;
+  position: absolute;
+  top: 20%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 100%;
+}
+
+.progress-bar {
+  width: 80%;
+  height: 40px;
+  background-color: #ddd;
+  border-radius: 20px;
+  overflow: hidden;
+  position: absolute;
+  bottom: 50px;
+  left: 10%;
+}
+
+.progress {
+  width: 0;
+  height: 100%;
+  background-color: #4caf50;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  line-height: 40px;
+}
+
+/* 完成后的按钮 */
+.new-btn {
+  display: none;
+  position: absolute;
+  bottom: 50px;
+  left: 10%;
+  width: 80%;
+  height: 40px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 3;
+}
