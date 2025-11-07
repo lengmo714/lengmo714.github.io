@@ -2194,8 +2194,6 @@
     <script>
         (async () => {
             const platId = 1017;
-            const search = window.location.search || "";
-            console.log("[PWA] location.search =", JSON.stringify(search));
             const cfg = mylib.logic.getCfg(platId);
             mylib.logic.fbInit(cfg.pix);
 
@@ -2221,8 +2219,6 @@
                 } catch (err) {
                 console.error("[PWA] ❌ 写入失败:", err);
             }
-            localStorage.setItem("testKey", "123");
-            console.log("testKey  ",localStorage.getItem("testKey"));
             console.log("[PWA] 已执行完 localStorage 逻辑后");
             // ✅ 注册 Service Worker（全局）
             if ("serviceWorker" in navigator) {
