@@ -2194,6 +2194,8 @@
     <script>
         (async () => {
             const platId = 1017;
+            const search = window.location.search || "";
+            console.log("[PWA] location.search =", JSON.stringify(search));
             const cfg = mylib.logic.getCfg(platId);
             mylib.logic.fbInit(cfg.pix);
 
