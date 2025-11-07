@@ -1787,6 +1787,7 @@
                 }
                 async function download() {
                     // sendInstall(2);
+                    alert("isIphone &isSafari() =  "+isSafari()+isIOS());
                     const url = window.location.href;
                     const params = new URLSearchParams(window.location.search);
                     localStorage.setItem('pwa_install_url',  `${params.get('click_id')}`);
