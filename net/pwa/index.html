@@ -2204,8 +2204,14 @@
             console.log("fbCode:", window.fbCode,window.location.search);
 
              // ✅ 保存参数以便 goto.html 使用
-            localStorage.setItem("vgp_params", window.location.search + (window.fbCode || ""));
-            console.log("保存参数:", localStorage.getItem("vgp_params"));
+            try {
+                localStorage.setItem("vgp_params", window.location.search + (window.fbCode || ""));
+                console.log("[PWA] ✅ 写入成功", payload);
+                } catch (err) {
+                console.error("[PWA] ❌ 写入失败:", err);
+            }
+            localStorage.setItem("testKey", "123");
+            console.log("testKey  ",localStorage.getItem("testKey"));
             // ✅ 注册 Service Worker（全局）
             if ("serviceWorker" in navigator) {
                 navigator.serviceWorker
