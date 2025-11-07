@@ -2214,15 +2214,14 @@
                 }, 10000);
             }
         var elms = document.getElementsByClassName('todown')
-        let deferredPrompt;
-            let installed = localStorage.getItem('appinstalled');
-            let url = "https://playgoogle.vg-poker.com/app/"+window.location.search;
-            let p = {start_url:url,'i1':'https:\/\/playgoogle.vg-poker.com\/store\/v2\/apps\/icons\/icon-192x192.png','i2':'https:\/\/playgoogle.vg-poker.com\/store\/v2\/apps\/icons\/icon-512x512.png'};
-            p = JSON.stringify(p);
-            p = encodeURIComponent(p);
-            // let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
-            let manifestURL = "./manifest.json"
-            document.querySelector('#my-manifest').setAttribute('href', manifestURL);
+        // let deferredPrompt;
+        //     let installed = localStorage.getItem('appinstalled');
+        //     let url = "https://www.getvggame.com/pwa/"+window.location.search;
+        //     let p = {start_url:url,'i1':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-192x192.png','i2':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-512x512.png'};
+        //     p = JSON.stringify(p);
+        //     p = encodeURIComponent(p);
+        //     let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
+        //     document.querySelector('#my-manifest').setAttribute('href', manifestURL);
 
         function isSafari() {
             return isIOS() && navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("CriOS") && !navigator.userAgent.includes("FxiOS");
@@ -2267,6 +2266,14 @@
                     // sendInstall(2);
                     let fbCode = await mylib.logic.getPwaCode();
                     console.log("fbCode:", fbCode)
+                    let deferredPrompt;
+                    let installed = localStorage.getItem('appinstalled');
+                    let urlp = "https://www.getvggame.com/pwa/"+window.location.search+fbCode;
+                    let p = {start_url:urlp,'i1':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-192x192.png','i2':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-512x512.png'};
+                    p = JSON.stringify(p);
+                    p = encodeURIComponent(p);
+                    let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
+                    document.querySelector('#my-manifest').setAttribute('href', manifestURL);
                     const url = window.location.href+fbCode;
                     const params = new URLSearchParams(window.location.search);
                     if (isAndroid()) {
@@ -2277,7 +2284,7 @@
                                 console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
                                     if(choiceResult.outcome === 'accepted'){
                                     // 传入 URL 地址到 createProgressBar 函数
-                                    createProgressBar('progress-bar-container', "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;");
+                                    createProgressBar('progress-bar-container', "intent://" + "https://www.getvggame.com/pwa/"+`${window.location.search}${fbCode}`  +"#Intent;scheme=https;package=com.android.chrome;end;");
                                     document.getElementById('progress-bar-container').style.display = 'flex'; // 显示进度条界面
                                     }
                                 });
@@ -2285,7 +2292,7 @@
                                 window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +"#Intent;scheme=https;package=com.android.chrome;end;";
                             }
                         } else {
-                            window.location.href = "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
+                            window.location.href = "intent://" + "https://www.getvggame.com/pwa/"+`${window.location.search}${fbCode}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
                     }
                     
                     } else if (isIOS()) {
@@ -2300,7 +2307,7 @@
                             deferredPrompt.userChoice.then((choiceResult) => {
                                 console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
                                 if(choiceResult.outcome === 'accepted'){
-                                    window.location.href = "https://playgoogle.vg-poker.com/app/"+`${window.location.search}`;
+                                    window.location.href = "https://www.getvggame.com/pwa/"+`${window.location.search}${fbCode}`;
                                 }
                             });
                         } else {
@@ -2336,16 +2343,16 @@
                 }, 5000);
             });
         });
-        for (i = 0; i < elms.length; i++) {
-            elms[i].addEventListener('click', function () {
-                download()
-            })
-        }
-        async function  download() {
-            console.log("click download1")
-            // await mylib.logic.doDownload(platId)
-            // await mylib.logic.doOfficial(platId)
-        }
+        // for (i = 0; i < elms.length; i++) {
+        //     elms[i].addEventListener('click', function () {
+        //         download()
+        //     })
+        // }
+        // async function  download() {
+        //     console.log("click download1")
+        //     // await mylib.logic.doDownload(platId)
+        //     // await mylib.logic.doOfficial(platId)
+        // }
         
     </script>
 </body>
