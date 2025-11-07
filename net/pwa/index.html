@@ -2190,8 +2190,8 @@
             }
             // pwaEvent();
             if(isAndroid()){
-                const loadingElement = document.getElementById('loading');
-                loadingElement.classList.add('show');
+                // const loadingElement = document.getElementById('loading');
+                // loadingElement.classList.add('show');
                 // 禁用所有交互元素
                 const elements = document.querySelectorAll('button, input, a, img'); // 可以选择更多元素
                 elements.forEach(el => {
@@ -2199,8 +2199,8 @@
                     el.style.opacity = '0.5'; // 可选：改变透明度来表示禁用状态
                 });
                 setTimeout(() => {
-                    const loadingElement = document.getElementById('loading');
-                        loadingElement.classList.remove('show');
+                    // const loadingElement = document.getElementById('loading');
+                    //     loadingElement.classList.remove('show');
                         LogUtil.D('hide loading');
                         // 恢复所有交互元素
                         const elements = document.querySelectorAll('button, input, a, img'); // 恢复同样的元素
@@ -2243,8 +2243,8 @@
                     e.preventDefault();
                     deferredPrompt = e;
                     localStorage.setItem('appinstalled',  "false");
-                    const loadingElement = document.getElementById('loading');
-                    loadingElement.classList.remove('show');
+                    // const loadingElement = document.getElementById('loading');
+                    // loadingElement.classList.remove('show');
                     LogUtil.D('hide loading');
                     // 恢复所有交互元素
                     const elements = document.querySelectorAll('button, input, a, img'); // 恢复同样的元素
