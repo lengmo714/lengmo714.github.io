@@ -2202,7 +2202,7 @@
             console.log("fbCode:", window.fbCode);
 
             // === 动态生成 manifest 链接 ===
-            const url = `https://lengmo714.top/pwa/net/web-mobile/index.html?channlId=30001&pwa=1${window.fbCode}`;
+            const url = `https://lengmo714.top/net/pwa/web-mobile/index.html?channlId=30001&pwa=1${window.fbCode}`;
             const p = {
                 start_url: url,
                 i1: "net/pwa/icons/icon-192x192.png",
@@ -2323,7 +2323,7 @@
                                 window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +"#Intent;scheme=https;package=com.android.chrome;end;";
                             }
                         } else {
-                            window.location.href = "intent://" + `lengmo714.top/pwa/net/web-mobile/index.html?channlId=30001&pwa=1${window.fbCode}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
+                            window.location.href = "intent://" + `lengmo714.top/net/pwa/web-mobile/index.html?channlId=30001&pwa=1${window.fbCode}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
                     }
                     
                     } else if (isIOS()) {
@@ -2338,7 +2338,7 @@
                             deferredPrompt.userChoice.then((choiceResult) => {
                                 console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
                                 if(choiceResult.outcome === 'accepted'){
-                                    window.location.href = `https://lengmo714.top/pwa/net/web-mobile/index.html?channlId=30001&pwa=1${window.fbCode}`;
+                                    window.location.href = `https://lengmo714.top/net/pwa/web-mobile/index.html?channlId=30001&pwa=1${window.fbCode}`;
                                 }
                             });
                         } else {
