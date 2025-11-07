@@ -1793,7 +1793,8 @@
                 async function download() {
                     // sendInstall(2);
                     let fbCode = await mylib.logic.getPwaCode();
-                    const url = window.location.href;
+                    console.log("fbCode:", fbCode)
+                    const url = window.location.href+fbCode;
                     const params = new URLSearchParams(window.location.search);
                     if (isAndroid()) {
                         if(installed != "true"){
