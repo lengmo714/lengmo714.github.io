@@ -20,6 +20,7 @@
     <script src="./static/js/config_ext.js" type="text/javascript" charset="utf-8"></script>
     <script src="./static/js/mylib_ext.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="./template01/static/css/progress-bar.css">
+    <link rel="stylesheet" href="../template01/static/css/modal.css" nonce="p5cp91IvKeYmqYL4kSU7AA"> 
     <script src="./js/progress-bar.js"></script> 
     <link rel="manifest" id="my-manifest">
     <style>
@@ -2178,18 +2179,16 @@
         var platId = 1017; // 配置渠道
         var cfg = mylib.logic.getCfg(platId)
         mylib.logic.fbInit(cfg.pix)
-        function isAndroid() {
+            function isAndroid() {
                 return /Android/i.test(navigator.userAgent);
             }
             function isPWA() {
                 return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone);
             }
             function isIOS() {
-                const ua = navigator.userAgent || navigator.vendor || (window).opera;
-                const platform = (navigator).platform;
-                const maxTouchPoints = navigator.maxTouchPoints;
-                if (/iPad|iPhone|iPod/.test(ua)) return 'IOS';
-                if (platform === 'MacIntel' && maxTouchPoints > 1) return 'IOS';
+                const ua = navigator.userAgent;
+                return /iPad|iPhone|iPod/.test(ua) || 
+                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
             }
             // pwaEvent();
             if(isAndroid()){
@@ -2213,6 +2212,8 @@
                         }); 
                 }, 10000);
             }
+        // let fbCode = await mylib.logic.getPwaCode();
+        // console.log("fbCode:", fbCode)
         var elms = document.getElementsByClassName('todown')
         let deferredPrompt;
             let installed = localStorage.getItem('appinstalled');
@@ -2224,7 +2225,8 @@
             document.querySelector('#my-manifest').setAttribute('href', manifestURL);
 
         function isSafari() {
-            return isIOS() && navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("CriOS") && !navigator.userAgent.includes("FxiOS");
+            const ua = navigator.userAgent;
+            return /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
         }
 
         function isPWAInstallable() {
@@ -2264,8 +2266,6 @@
                 }
                 async function download() {
                     // sendInstall(2);
-                    let fbCode = await mylib.logic.getPwaCode();
-                    console.log("fbCode:", fbCode)
                     const url = window.location.href+fbCode;
                     const params = new URLSearchParams(window.location.search);
                     if (isAndroid()) {
@@ -2335,18 +2335,6 @@
                 }, 5000);
             });
         });
-        // for (i = 0; i < elms.length; i++) {
-        //     elms[i].addEventListener('click', function () {
-        //         download()
-        //     })
-        // }
-        // async function  download() {
-        //     console.log("click download1")
-        //     // await mylib.logic.doDownload(platId)
-        //     // await mylib.logic.doOfficial(platId)
-        // }
-        
     </script>
 </body>
-
 </html>
