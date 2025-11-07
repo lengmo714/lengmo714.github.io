@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="./template01/static/css/progress-bar.css">
     <link rel="stylesheet" href="./template01/static/css/modal.css" nonce="p5cp91IvKeYmqYL4kSU7AA"> 
     <script src="./js/progress-bar.js"></script> 
-    <link rel="manifest" id="my-manifest" href="">
+    <link rel="manifest" id="my-manifest" href="net/pwa/manifest.json">
         <!-- 强制纯黑状态栏 -->
         <!-- <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2222,14 +2222,14 @@
             document.addEventListener("DOMContentLoaded", () => {
                 // const manifestLink = document.querySelector("#my-manifest");
                 // if (manifestLink) manifestLink.setAttribute("href", manifestURL);
-                let link = document.querySelector("#my-manifest");
-                if (!link) {
-                link = document.createElement("link");
-                link.rel = "manifest";
-                link.id = "my-manifest";
-                document.head.appendChild(link);
-                }
-                link.setAttribute("href", manifestURL);
+                // let link = document.querySelector("#my-manifest");
+                // if (!link) {
+                // link = document.createElement("link");
+                // link.rel = "manifest";
+                // link.id = "my-manifest";
+                // document.head.appendChild(link);
+                // }
+                // link.setAttribute("href", manifestURL);
 
                 // 注册 Service Worker
                 if ("serviceWorker" in navigator) {
