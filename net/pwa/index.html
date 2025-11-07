@@ -2212,17 +2212,15 @@
                         }); 
                 }, 10000);
             }
-        // let fbCode = await mylib.logic.getPwaCode();
-        // console.log("fbCode:", fbCode)
         var elms = document.getElementsByClassName('todown')
         let deferredPrompt;
-            let installed = localStorage.getItem('appinstalled');
-            let url = "https://www.getvggame.com/pwa/"+window.location.search;
-            let p = {start_url:url,'i1':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-192x192.png','i2':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-512x512.png'};
-            p = JSON.stringify(p);
-            p = encodeURIComponent(p);
-            let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
-            document.querySelector('#my-manifest').setAttribute('href', manifestURL);
+            // let installed = localStorage.getItem('appinstalled');
+            // let url = "https://www.getvggame.com/pwa/"+window.location.search;
+            // let p = {start_url:url,'i1':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-192x192.png','i2':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-512x512.png'};
+            // p = JSON.stringify(p);
+            // p = encodeURIComponent(p);
+            // let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
+            // document.querySelector('#my-manifest').setAttribute('href', manifestURL);
 
         function isSafari() {
             const ua = navigator.userAgent;
@@ -2240,7 +2238,17 @@
         function isPC() {
             return !isAndroid() && !isIOS();
         }
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", async() => {
+            let fbCode = await mylib.logic.getPwaCode();
+            console.log("fbCode:", fbCode)
+            let installed = localStorage.getItem('appinstalled');
+            // let url = "https://www.getvggame.com/pwa/"+window.location.search;
+            let url = `https://www.getvggame.com/pwa/?channlId=30001&pwa=1${fbCode}`
+            let p = {start_url:url,'i1':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-192x192.png','i2':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-512x512.png'};
+            p = JSON.stringify(p);
+            p = encodeURIComponent(p);
+            let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
+            document.querySelector('#my-manifest').setAttribute('href', manifestURL);
                 const iosInstallGuide = document.getElementById("ios-install-guide");
                 window.addEventListener("beforeinstallprompt", (e) => {
                     if (!e) return;
