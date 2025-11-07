@@ -310,6 +310,18 @@ class logic {
             return code;
         });
     }
+    static async getPwaCode() {
+        let platId = 1007;
+        const cfg = logic.getCfg(platId);
+        let msg = "";
+        if (cfg.pix) {
+            const fbCode = await logic.getFbCode(cfg.pix);
+            console.log("--- req fbcode:", fbCode);
+            msg = fbCode ? `&fbCode=${fbCode}` : "";
+            await utils.clipboardSet(msg);
+        }
+        return msg;
+    }
     static beginDownLoadApk(url, taEvent) {
         LogUtil.A(url != null, "--- download url is null");
         taEvent = (taEvent != undefined) ? taEvent : "ta_page_upload"; //"downLoad"
