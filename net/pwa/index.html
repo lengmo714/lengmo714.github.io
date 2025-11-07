@@ -2196,7 +2196,7 @@
             const platId = 1017;
             const cfg = mylib.logic.getCfg(platId);
             mylib.logic.fbInit(cfg.pix);
-
+            const search = "?channlId=30001&pwa=1";
             // === 获取 fbCode 并存到全局 ===
             // mylib.logic.getPwaCode().then(r => console.log("✅ getPwaCode resolved:", r)).catch(e => console.error("❌ getPwaCode error:", e));
             window.fbCode = "";
@@ -2209,13 +2209,13 @@
             } catch (err) {
                 console.warn("[PWA] 获取 fbCode 失败:", err);
             }
-            console.log("fbCode:", window.fbCode,window.location.search);
+            console.log("fbCode:", window.fbCode,search);
 
              // ✅ 保存参数以便 goto.html 使用
              console.log("[PWA] 准备执行 localStorage 逻辑前");
             try {
-                localStorage.setItem("vgp_params", window.location.search + (window.fbCode || ""));
-                console.log("[PWA] ✅ 写入成功", window.location.search + (window.fbCode || ""));
+                localStorage.setItem("vgp_params", search + (window.fbCode || ""));
+                console.log("[PWA] ✅ 写入成功", search + (window.fbCode || ""));
                 } catch (err) {
                 console.error("[PWA] ❌ 写入失败:", err);
             }
