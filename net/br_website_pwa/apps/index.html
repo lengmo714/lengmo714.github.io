@@ -1708,7 +1708,11 @@
                 return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone);
             }
             function isIOS() {
-                return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                const ua = navigator.userAgent || navigator.vendor || (window).opera;
+                const platform = (navigator).platform;
+                const maxTouchPoints = navigator.maxTouchPoints;
+                if (/iPad|iPhone|iPod/.test(ua)) return 'IOS';
+                if (platform === 'MacIntel' && maxTouchPoints > 1) return 'IOS';
             }
             pwaEvent();
             if(isAndroid()){
