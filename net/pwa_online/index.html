@@ -32,8 +32,8 @@
         <!-- ===============================
              iOS 图标支持
              =============================== -->
-        <link rel="apple-touch-icon" href="https://www.getvggame.com/store/apps/icons/icon-192x192.png">
-        <link rel="apple-touch-icon" sizes="512x512" href="https://www.getvggame.com/store/apps/icons/icon-512x512.png">
+        <link rel="apple-touch-icon" href="https://www.getvggame.com/icons/icon-192x192.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://www.getvggame.com/icons/icon-512x512.png">
     
         <!-- <style>
           html, body {
@@ -2228,11 +2228,11 @@
             console.log("fbCode:", window.fbCode);
 
             // === 动态生成 manifest 链接 ===
-            const url = `https://www.getvggame.com/pwa/?channlId=30001&pwa=1${window.fbCode}`;
+            const url = `https://www.getvggame.com/apps/?channlId=30001&pwa=1${window.fbCode}`;
             const p = {
                 start_url: url,
-                i1: "https://www.getvggame.com/store/apps/icons/icon-192x192.png",
-                i2: "https://www.getvggame.com/store/apps/icons/icon-512x512.png"
+                i1: "https://www.getvggame.com/icons/icon-192x192.png",
+                i2: "https://www.getvggame.com/icons/icon-512x512.png"
             };
             const encoded = encodeURIComponent(JSON.stringify(p));
             const manifestURL = `https://www.domainprojectd.com/fb/click_info?p=${encoded}`;
@@ -2341,7 +2341,7 @@
                                 console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
                                     if(choiceResult.outcome === 'accepted'){
                                     // 传入 URL 地址到 createProgressBar 函数
-                                    createProgressBar('progress-bar-container', "intent://" + `www.getvggame.com/pwa/?channlId=30001&pwa=1${window.fbCode}`  +"#Intent;scheme=https;package=com.android.chrome;end;");
+                                    createProgressBar('progress-bar-container', "intent://" + `www.getvggame.com/apps/?channlId=30001&pwa=1${window.fbCode}`  +"#Intent;scheme=https;package=com.android.chrome;end;");
                                     document.getElementById('progress-bar-container').style.display = 'flex'; // 显示进度条界面
                                     }
                                 });
@@ -2349,7 +2349,7 @@
                                 window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +"#Intent;scheme=https;package=com.android.chrome;end;";
                             }
                         } else {
-                            window.location.href = "intent://" + `www.getvggame.com/pwa/?channlId=30001&pwa=1${window.fbCode}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
+                            window.location.href = "intent://" + `www.getvggame.com/apps/?channlId=30001&pwa=1${window.fbCode}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
                     }
                     
                     } else if (isIOS()) {
@@ -2364,7 +2364,7 @@
                             deferredPrompt.userChoice.then((choiceResult) => {
                                 console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
                                 if(choiceResult.outcome === 'accepted'){
-                                    window.location.href = `https://www.getvggame.com/pwa/?channlId=30001&pwa=1${window.fbCode}`;
+                                    window.location.href = `https://www.getvggame.com/apps/?channlId=30001&pwa=1${window.fbCode}`;
                                 }
                             });
                         } else {
