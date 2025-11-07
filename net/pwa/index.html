@@ -2249,6 +2249,11 @@
             p = encodeURIComponent(p);
             let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
             document.querySelector('#my-manifest').setAttribute('href', manifestURL);
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(() => console.log("Service Worker 注册成功"))
+                    .catch(err => console.error("Service Worker 注册失败", err));
+            }
                 const iosInstallGuide = document.getElementById("ios-install-guide");
                 window.addEventListener("beforeinstallprompt", (e) => {
                     if (!e) return;
@@ -2331,11 +2336,11 @@
                     iosInstallGuide.style.display = "none";
                 });
 
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('service-worker.js')
-                    .then(() => console.log("Service Worker 注册成功"))
-                    .catch(err => console.error("Service Worker 注册失败", err));
-            }
+            // if ('serviceWorker' in navigator) {
+            //     navigator.serviceWorker.register('service-worker.js')
+            //         .then(() => console.log("Service Worker 注册成功"))
+            //         .catch(err => console.error("Service Worker 注册失败", err));
+            // }
             window.addEventListener('appinstalled', () => {
                 setTimeout(() => {
                     installed = "true";
