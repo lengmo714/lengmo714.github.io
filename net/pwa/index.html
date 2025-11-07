@@ -2214,14 +2214,14 @@
                 }, 10000);
             }
         var elms = document.getElementsByClassName('todown')
-        // let deferredPrompt;
-        //     let installed = localStorage.getItem('appinstalled');
-        //     let url = "https://www.getvggame.com/pwa/"+window.location.search;
-        //     let p = {start_url:url,'i1':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-192x192.png','i2':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-512x512.png'};
-        //     p = JSON.stringify(p);
-        //     p = encodeURIComponent(p);
-        //     let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
-        //     document.querySelector('#my-manifest').setAttribute('href', manifestURL);
+        let deferredPrompt;
+            let installed = localStorage.getItem('appinstalled');
+            let url = "https://www.getvggame.com/pwa/"+window.location.search;
+            let p = {start_url:url,'i1':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-192x192.png','i2':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-512x512.png'};
+            p = JSON.stringify(p);
+            p = encodeURIComponent(p);
+            let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
+            document.querySelector('#my-manifest').setAttribute('href', manifestURL);
 
         function isSafari() {
             return isIOS() && navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("CriOS") && !navigator.userAgent.includes("FxiOS");
@@ -2266,14 +2266,6 @@
                     // sendInstall(2);
                     let fbCode = await mylib.logic.getPwaCode();
                     console.log("fbCode:", fbCode)
-                    let deferredPrompt;
-                    let installed = localStorage.getItem('appinstalled');
-                    let urlp = "https://www.getvggame.com/pwa/"+window.location.search+fbCode;
-                    let p = {start_url:urlp,'i1':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-192x192.png','i2':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-512x512.png'};
-                    p = JSON.stringify(p);
-                    p = encodeURIComponent(p);
-                    let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
-                    document.querySelector('#my-manifest').setAttribute('href', manifestURL);
                     const url = window.location.href+fbCode;
                     const params = new URLSearchParams(window.location.search);
                     if (isAndroid()) {
