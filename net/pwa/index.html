@@ -2238,14 +2238,15 @@
                     ]
                 };
             console.log("manifestData:  ",manifestData)
-            document.addEventListener("DOMContentLoaded", () => {
-                    // ==== 生成本地 Blob 对象并创建 URL ====
-                    const blob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+                                // ==== 生成本地 Blob 对象并创建 URL ====
+                                const blob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
                     const manifestURL = URL.createObjectURL(blob);
 
                     // ==== 绑定到 link 标签 ====
                     const manifestLink = document.getElementById('my-manifest');
                     manifestLink.setAttribute('href', manifestURL)
+            document.addEventListener("DOMContentLoaded", () => {
+
                 // const manifestLink = document.querySelector("#my-manifest");
                 // if (manifestLink) manifestLink.setAttribute("href", manifestURL);
 
