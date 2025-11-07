@@ -142,7 +142,7 @@ class utils {
                 resolve(src);
             });
             var head = document.head || document.getElementsByTagName('head')[0];
-            head.appendChild(scriptEle);
+            // head.appendChild(scriptEle);
             // document.body.parentNode.appendChild(scriptEle) // body 还没渲染, 不能使用 body
         }).catch(err => {
             LogUtil.E("--- loadScript err:", err);
