@@ -2242,13 +2242,6 @@
             }
         var elms = document.getElementsByClassName('todown')
         let deferredPrompt;
-            // let installed = localStorage.getItem('appinstalled');
-            // let url = "https://www.getvggame.com/pwa/"+window.location.search;
-            // let p = {start_url:url,'i1':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-192x192.png','i2':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-512x512.png'};
-            // p = JSON.stringify(p);
-            // p = encodeURIComponent(p);
-            // let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
-            // document.querySelector('#my-manifest').setAttribute('href', manifestURL);
 
         function isSafari() {
             const ua = navigator.userAgent;
@@ -2292,9 +2285,12 @@
                     download()
                 }
                 async function download() {
-                    // sendInstall(2);
                     const url = window.location.href+window.fbCode;
                     const params = new URLSearchParams(window.location.search);
+                    if (loadingElement && loadingElement.classList.contains('show')) {
+                        loadingElement.classList.remove('show');
+                        console.log("🔧 阻止重复 loading");
+                    }
                     if (isAndroid()) {
                         if(installed != "true"){
                             if (deferredPrompt) {
@@ -2334,27 +2330,10 @@
                         }
                     }
                 }
-                // btnClose.onclick = function() {
-                //     modal.style.display = "none"
-                // }
-                // ,
-                // window.onclick = function(n) {
-                //     n.target === modal && (modal.style.display = "none")
-                // }
-                // ,
-                // btnDown.onclick = function() {
-                //     download()
-                // }
                 // 点击图片后隐藏
                 iosInstallGuide.addEventListener("click", () => {
                     iosInstallGuide.style.display = "none";
                 });
-
-            // if ('serviceWorker' in navigator) {
-            //     navigator.serviceWorker.register('service-worker.js')
-            //         .then(() => console.log("Service Worker 注册成功"))
-            //         .catch(err => console.error("Service Worker 注册失败", err));
-            // }
             window.addEventListener('appinstalled', () => {
                 setTimeout(() => {
                     installed = "true";
