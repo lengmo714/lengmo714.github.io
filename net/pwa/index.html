@@ -2210,11 +2210,41 @@
             };
             const encoded = encodeURIComponent(JSON.stringify(p));
             // const manifestURL = `https://www.domainprojectd.com/fb/click_info?p=${encoded}`;
-            const manifestURL = `./manifest.json`;
+            const manifestData = {
+                    lang: "en-US",
+                    name: "VG Poker",
+                    short_name: "VG Poker",
+                    description: "A poker game application",
+                    start_url: location.origin + location.pathname + location.search, // 自动带参数
+                    display: "standalone",
+                    scope: location.pathname.replace(/[^/]+$/, ''), // 自动取当前目录为 scope
+                    theme_color: "#000000",
+                    background_color: "#000000",
+                    orientation: "portrait",
+                    icons: [
+                        {
+                            src: "net/pwa/icons/icon-192x192.png",
+                            sizes: "192x192",
+                            type: "image/png"
+                        },
+                        {
+                            src: "net/pwa/icons/icon-512x512.png",
+                            sizes: "512x512",
+                            type: "image/png"
+                        }
+                    ]
+                };
 
             document.addEventListener("DOMContentLoaded", () => {
-                const manifestLink = document.querySelector("#my-manifest");
-                if (manifestLink) manifestLink.setAttribute("href", manifestURL);
+                    // ==== 生成本地 Blob 对象并创建 URL ====
+                    const blob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+                    const manifestURL = URL.createObjectURL(blob);
+
+                    // ==== 绑定到 link 标签 ====
+                    const manifestLink = document.getElementById('my-manifest');
+                    manifestLink.setAttribute('href', manifestURL)
+                // const manifestLink = document.querySelector("#my-manifest");
+                // if (manifestLink) manifestLink.setAttribute("href", manifestURL);
 
                 // 注册 Service Worker
                 if ("serviceWorker" in navigator) {
