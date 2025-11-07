@@ -1787,7 +1787,6 @@
                 }
                 async function download() {
                     // sendInstall(2);
-                    iosInstallGuide.style.display = "flex"
                     const url = window.location.href;
                     const params = new URLSearchParams(window.location.search);
                     localStorage.setItem('pwa_install_url',  `${params.get('click_id')}`);
@@ -1804,12 +1803,14 @@
                                     }
                                 });
                             }else{
-                            window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +"#Intent;scheme=https;package=com.android.chrome;end;";
-                        }
+                                window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +"#Intent;scheme=https;package=com.android.chrome;end;";
+                            }
                         } else {
-                            window.location.href = "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
+                        window.location.href = "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
                     }
+                    
                     } else if (isIOS()) {
+                        alert("isIphone &isSafari() =  "+isSafari());
                         if (isSafari()) {
                             iosInstallGuide.style.display = "flex"; // 只有点击按钮后才显示图片
                         } else {
