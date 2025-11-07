@@ -2177,10 +2177,10 @@
     <!-- 进度条界面，默认隐藏 -->
     <div id="progress-bar-container" class="progress-overlay">
     <script>
-        var platId = 1017; // 配置渠道
-        var cfg = mylib.logic.getCfg(platId)
-        mylib.logic.fbInit(cfg.pix)
         (async () => {
+            var platId = 1017; // 配置渠道
+            var cfg = mylib.logic.getCfg(platId)
+            mylib.logic.fbInit(cfg.pix)
             let fbCode = await mylib.logic.getPwaCode();
             console.log("fbCode:", fbCode)
             let url = `https://www.getvggame.com/pwa/?channlId=30001&pwa=1${fbCode}`
