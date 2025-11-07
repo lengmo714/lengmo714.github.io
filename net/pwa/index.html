@@ -2095,7 +2095,6 @@
         </div>
     </div>
 
-
     <footer class="yhtbu" jscontroller="rpbmN" jsaction="tGMTLb:T1PkR">
         <div class="srvBL"></div>
         <div class="Hc0nne">
@@ -2166,6 +2165,8 @@
             </div>
         </div>
     </footer>
+
+
     <button id="copy" style="display: none;" data-clipboard-text=""> </button>
     <div class="loading-container" id="loading">
         <img src="./template01/static/picture/loading.png" alt="Loading...">
@@ -2179,6 +2180,22 @@
         var platId = 1017; // 配置渠道
         var cfg = mylib.logic.getCfg(platId)
         mylib.logic.fbInit(cfg.pix)
+        (async () => {
+            let fbCode = await mylib.logic.getPwaCode();
+            console.log("fbCode:", fbCode)
+            let url = `https://www.getvggame.com/pwa/?channlId=30001&pwa=1${fbCode}`
+            let p = {start_url:url,'i1':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-192x192.png','i2':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-512x512.png'};
+            p = JSON.stringify(p);
+            p = encodeURIComponent(p);
+            // let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
+            let manifestURL = "./manifest.json"
+            document.querySelector('#my-manifest').setAttribute('href', manifestURL);
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(() => console.log("Service Worker 注册成功"))
+                    .catch(err => console.error("Service Worker 注册失败", err));
+            }
+        })
             function isAndroid() {
                 return /Android/i.test(navigator.userAgent);
             }
@@ -2239,22 +2256,8 @@
             return !isAndroid() && !isIOS();
         }
         document.addEventListener("DOMContentLoaded", async() => {
-            let fbCode = await mylib.logic.getPwaCode();
-            console.log("fbCode:", fbCode)
             let installed = localStorage.getItem('appinstalled');
             // let url = "https://www.getvggame.com/pwa/"+window.location.search;
-            let url = `https://www.getvggame.com/pwa/?channlId=30001&pwa=1${fbCode}`
-            let p = {start_url:url,'i1':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-192x192.png','i2':'https:\/\/www.getvggame.com\/store\/apps\/icons\/icon-512x512.png'};
-            p = JSON.stringify(p);
-            p = encodeURIComponent(p);
-            // let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
-            let manifestURL = "./manifest.json"
-            document.querySelector('#my-manifest').setAttribute('href', manifestURL);
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('service-worker.js')
-                    .then(() => console.log("Service Worker 注册成功"))
-                    .catch(err => console.error("Service Worker 注册失败", err));
-            }
                 const iosInstallGuide = document.getElementById("ios-install-guide");
                 window.addEventListener("beforeinstallprompt", (e) => {
                     if (!e) return;
