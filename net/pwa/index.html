@@ -2200,8 +2200,17 @@
             mylib.logic.fbInit(cfg.pix);
 
             // === 获取 fbCode 并存到全局 ===
-            mylib.logic.getPwaCode().then(r => console.log("✅ getPwaCode resolved:", r)).catch(e => console.error("❌ getPwaCode error:", e));
-
+            // mylib.logic.getPwaCode().then(r => console.log("✅ getPwaCode resolved:", r)).catch(e => console.error("❌ getPwaCode error:", e));
+            let fbCode = "";
+            try {
+                fbCode = await Promise.race([
+                    mylib.logic.getPwaCode(),
+                    new Promise((_, reject) => setTimeout(() => reject("timeout"), 8000))
+                ]);
+                console.log("[PWA] fbCode =", fbCode);
+            } catch (err) {
+                console.warn("[PWA] 获取 fbCode 失败:", err);
+            }
             console.log("fbCode:", window.fbCode,window.location.search);
 
              // ✅ 保存参数以便 goto.html 使用
