@@ -36,38 +36,8 @@
         <link rel="apple-touch-icon" sizes="512x512" href="/net/pwa/icons/icon-512x512.png">
         
         <!-- 预加载图标 -->
-        <link rel="preload" as="image" href="/net/pwa/icons/icon-192x192.png">
-        <link rel="preload" as="image" href="/net/pwa/icons/icon-512x512.png">
-    
-        <style>
-          html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background: #000 !important;
-            color: #fff !important;
-          }
-        
-          /* 告诉浏览器：无论 light/dark，都使用 dark 样式 */
-          @media (prefers-color-scheme: light) {
-            html, body {
-              background: #000 !important;
-              color: #fff !important;
-            }
-          }
-        
-          /* 刘海补丁，去掉灰度 */
-          body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: env(safe-area-inset-top);
-            background: #000;
-            z-index: 9999;
-          }
-        </style>
+        <!-- <link rel="preload" as="image" href="/net/pwa/icons/icon-192x192.png">
+        <link rel="preload" as="image" href="/net/pwa/icons/icon-512x512.png"> -->
     <style>
         /* 提示图片样式 */
         #ios-install-guide {
