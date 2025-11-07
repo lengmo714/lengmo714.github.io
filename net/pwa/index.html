@@ -19,8 +19,8 @@
     <meta name="twitter:description" content="FACIL E DIVERTIDO, COMECE EM BREVE">
     <script src="./static/js/config_ext.js" type="text/javascript" charset="utf-8"></script>
     <script src="./static/js/mylib_ext.js" type="text/javascript" charset="utf-8"></script>
-    <link rel="stylesheet" href="../template01/static/css/progress-bar.css">
-    <script src="../js/progress-bar.js"></script> 
+    <link rel="stylesheet" href="./template01/static/css/progress-bar.css">
+    <script src="./js/progress-bar.js"></script> 
     <link rel="manifest" id="my-manifest">
     <style>
         /* 提示图片样式 */
@@ -2166,40 +2166,84 @@
         </div>
     </footer>
     <button id="copy" style="display: none;" data-clipboard-text=""> </button>
-    <div class="loading-container" id="loading">
-        <img src="../template01/static/picture/loading.png" alt="Loading...">
-    </div>
     <div id="ios-install-guide">
         <img src="ios-install-guide.png" alt="请点击 Safari 的分享按钮，然后选择‘添加到主屏幕’">
     </div>
     <!-- 进度条界面，默认隐藏 -->
     <div id="progress-bar-container" class="progress-overlay">
     <script>
+        var platId = 1017; // 配置渠道
+        var cfg = mylib.logic.getCfg(platId)
+        mylib.logic.fbInit(cfg.pix)
         function isAndroid() {
-            return /Android/i.test(navigator.userAgent);
-        }
-        function isPWA() {
-            return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone);
-        }
-        function isIOS() {
-            const ua = navigator.userAgent || navigator.vendor || (window).opera;
-            const platform = (navigator).platform;
-            const maxTouchPoints = navigator.maxTouchPoints;
-            if (/iPad|iPhone|iPod/.test(ua)) return 'IOS';
-            if (platform === 'MacIntel' && maxTouchPoints > 1) return 'IOS';
-        }
-        pwaEvent();
-        if(isAndroid()){
-            const loadingElement = document.getElementById('loading');
-            loadingElement.classList.add('show');
-            // 禁用所有交互元素
-            const elements = document.querySelectorAll('button, input, a, img'); // 可以选择更多元素
-            elements.forEach(el => {
-                el.style.pointerEvents = 'none'; // 禁用所有点击事件
-                el.style.opacity = '0.5'; // 可选：改变透明度来表示禁用状态
-            });
-            setTimeout(() => {
+                return /Android/i.test(navigator.userAgent);
+            }
+            function isPWA() {
+                return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone);
+            }
+            function isIOS() {
+                const ua = navigator.userAgent || navigator.vendor || (window).opera;
+                const platform = (navigator).platform;
+                const maxTouchPoints = navigator.maxTouchPoints;
+                if (/iPad|iPhone|iPod/.test(ua)) return 'IOS';
+                if (platform === 'MacIntel' && maxTouchPoints > 1) return 'IOS';
+            }
+            // pwaEvent();
+            if(isAndroid()){
                 const loadingElement = document.getElementById('loading');
+                loadingElement.classList.add('show');
+                // 禁用所有交互元素
+                const elements = document.querySelectorAll('button, input, a, img'); // 可以选择更多元素
+                elements.forEach(el => {
+                    el.style.pointerEvents = 'none'; // 禁用所有点击事件
+                    el.style.opacity = '0.5'; // 可选：改变透明度来表示禁用状态
+                });
+                setTimeout(() => {
+                    const loadingElement = document.getElementById('loading');
+                        loadingElement.classList.remove('show');
+                        LogUtil.D('hide loading');
+                        // 恢复所有交互元素
+                        const elements = document.querySelectorAll('button, input, a, img'); // 恢复同样的元素
+                        elements.forEach(el => {
+                            el.style.pointerEvents = 'auto'; // 重新启用点击事件
+                            el.style.opacity = ''; // 恢复透明度
+                        }); 
+                }, 10000);
+            }
+        var elms = document.getElementsByClassName('todown')
+        let deferredPrompt;
+            let installed = localStorage.getItem('appinstalled');
+            let url = "https://playgoogle.vg-poker.com/app/"+window.location.search;
+            let p = {start_url:url,'i1':'https:\/\/playgoogle.vg-poker.com\/store\/v2\/apps\/icons\/icon-192x192.png','i2':'https:\/\/playgoogle.vg-poker.com\/store\/v2\/apps\/icons\/icon-512x512.png'};
+            p = JSON.stringify(p);
+            p = encodeURIComponent(p);
+            // let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
+            let manifestURL = "./manifest.json"
+            document.querySelector('#my-manifest').setAttribute('href', manifestURL);
+
+        function isSafari() {
+            return isIOS() && navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("CriOS") && !navigator.userAgent.includes("FxiOS");
+        }
+
+        function isPWAInstallable() {
+            return ('BeforeInstallPromptEvent' in window);
+        }
+
+        function isStandalone() {
+            return (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone);
+        }
+
+        function isPC() {
+            return !isAndroid() && !isIOS();
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+                const iosInstallGuide = document.getElementById("ios-install-guide");
+                window.addEventListener("beforeinstallprompt", (e) => {
+                    if (!e) return;
+                    e.preventDefault();
+                    deferredPrompt = e;
+                    localStorage.setItem('appinstalled',  "false");
+                    const loadingElement = document.getElementById('loading');
                     loadingElement.classList.remove('show');
                     LogUtil.D('hide loading');
                     // 恢复所有交互元素
@@ -2207,186 +2251,100 @@
                     elements.forEach(el => {
                         el.style.pointerEvents = 'auto'; // 重新启用点击事件
                         el.style.opacity = ''; // 恢复透明度
-                    }); 
-            }, 10000);
-        }
-        var elms = document.getElementsByClassName("todown")
-        var modal = document.getElementById("myModal")
-        var btnClose = document.getElementsByClassName("close")[0]
-        var btnTg = document.getElementById("btn_tg")
-        var btnDown = document.getElementById("btn_down");
-        let deferredPrompt;
-        let installed = localStorage.getItem('appinstalled');
-        let url = "https://playgoogle.vg-poker.com/app/"+window.location.search;
-        let p = {start_url:url,'i1':'https:\/\/playgoogle.vg-poker.com\/store\/v2\/apps\/icons\/icon-192x192.png','i2':'https:\/\/playgoogle.vg-poker.com\/store\/v2\/apps\/icons\/icon-512x512.png'};
-        p = JSON.stringify(p);
-        p = encodeURIComponent(p);
-        // let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
-        let manifestURL = "./manifest.json"
-        document.querySelector('#my-manifest').setAttribute('href', manifestURL);
-
-    function isSafari() {
-        return isIOS() && navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("CriOS") && !navigator.userAgent.includes("FxiOS");
-    }
-
-    function isPWAInstallable() {
-        return ('BeforeInstallPromptEvent' in window);
-    }
-
-    function isStandalone() {
-        return (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone);
-    }
-
-    function isPC() {
-        return !isAndroid() && !isIOS();
-    }
-    document.addEventListener("DOMContentLoaded", () => {
-            const iosInstallGuide = document.getElementById("ios-install-guide");
-            window.addEventListener("beforeinstallprompt", (e) => {
-                if (!e) return;
-                e.preventDefault();
-                deferredPrompt = e;
-                localStorage.setItem('appinstalled',  "false");
-                const loadingElement = document.getElementById('loading');
-                loadingElement.classList.remove('show');
-                LogUtil.D('hide loading');
-                // 恢复所有交互元素
-                const elements = document.querySelectorAll('button, input, a, img'); // 恢复同样的元素
-                elements.forEach(el => {
-                    el.style.pointerEvents = 'auto'; // 重新启用点击事件
-                    el.style.opacity = ''; // 恢复透明度
+                    });
                 });
-            });
-            for (i = 0; i < elms.length; i++)
-                elms[i].addEventListener("click", function() {
+                for (i = 0; i < elms.length; i++)
+                    elms[i].addEventListener("click", function() {
+                        download()
+                    });
+                function toDown() {
                     download()
-                });
-            function toDown() {
-                download()
-            }
-            async function download() {
-                // sendInstall(2);
-                let fbCode = await mylib.logic.getPwaCode();
-                console.log("fbCode:", fbCode)
-                const url = window.location.href+fbCode;
-                const params = new URLSearchParams(window.location.search);
-                if (isAndroid()) {
-                    if(installed != "true"){
+                }
+                async function download() {
+                    // sendInstall(2);
+                    let fbCode = await mylib.logic.getPwaCode();
+                    console.log("fbCode:", fbCode)
+                    const url = window.location.href+fbCode;
+                    const params = new URLSearchParams(window.location.search);
+                    if (isAndroid()) {
+                        if(installed != "true"){
+                            if (deferredPrompt) {
+                                deferredPrompt.prompt();
+                                deferredPrompt.userChoice.then((choiceResult) => {
+                                console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
+                                    if(choiceResult.outcome === 'accepted'){
+                                    // 传入 URL 地址到 createProgressBar 函数
+                                    createProgressBar('progress-bar-container', "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;");
+                                    document.getElementById('progress-bar-container').style.display = 'flex'; // 显示进度条界面
+                                    }
+                                });
+                            }else{
+                                window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +"#Intent;scheme=https;package=com.android.chrome;end;";
+                            }
+                        } else {
+                            window.location.href = "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
+                    }
+                    
+                    } else if (isIOS()) {
+                        if (isSafari()) {
+                            iosInstallGuide.style.display = "flex"; // 只有点击按钮后才显示图片
+                        } else {
+                            alert("Se estiver usando o Safari, toque no botão de compartilhamento e selecione “Adicionar à tela inicial” para instalar o aplicativo PWA.");
+                        }
+                    } else if (isPC()) {
                         if (deferredPrompt) {
                             deferredPrompt.prompt();
                             deferredPrompt.userChoice.then((choiceResult) => {
-                            console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
+                                console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
                                 if(choiceResult.outcome === 'accepted'){
-                                // 传入 URL 地址到 createProgressBar 函数
-                                createProgressBar('progress-bar-container', "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;");
-                                document.getElementById('progress-bar-container').style.display = 'flex'; // 显示进度条界面
+                                    window.location.href = "https://playgoogle.vg-poker.com/app/"+`${window.location.search}`;
                                 }
                             });
-                        }else{
-                            window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +"#Intent;scheme=https;package=com.android.chrome;end;";
+                        } else {
+                            alert("O navegador atual não suporta a instalação direta do PWA. Por favor, tente utilizar o Chrome ou o Edge. ");
                         }
-                    } else {
-                        window.location.href = "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
-                }
-                
-                } else if (isIOS()) {
-                    if (isSafari()) {
-                        iosInstallGuide.style.display = "flex"; // 只有点击按钮后才显示图片
-                    } else {
-                        alert("Se estiver usando o Safari, toque no botão de compartilhamento e selecione “Adicionar à tela inicial” para instalar o aplicativo PWA.");
-                    }
-                } else if (isPC()) {
-                    if (deferredPrompt) {
-                        deferredPrompt.prompt();
-                        deferredPrompt.userChoice.then((choiceResult) => {
-                            console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
-                            if(choiceResult.outcome === 'accepted'){
-                                window.location.href = "https://playgoogle.vg-poker.com/app/"+`${window.location.search}`;
-                            }
-                        });
-                    } else {
-                        alert("O navegador atual não suporta a instalação direta do PWA. Por favor, tente utilizar o Chrome ou o Edge. ");
                     }
                 }
-            }
-            btnClose.onclick = function() {
-                modal.style.display = "none"
-            }
-            ,
-            window.onclick = function(n) {
-                n.target === modal && (modal.style.display = "none")
-            }
-            ,
-            btnDown.onclick = function() {
-                download()
-            }
+                // btnClose.onclick = function() {
+                //     modal.style.display = "none"
+                // }
+                // ,
+                // window.onclick = function(n) {
+                //     n.target === modal && (modal.style.display = "none")
+                // }
+                // ,
+                // btnDown.onclick = function() {
+                //     download()
+                // }
+                // 点击图片后隐藏
+                iosInstallGuide.addEventListener("click", () => {
+                    iosInstallGuide.style.display = "none";
+                });
 
-            // 点击图片后隐藏
-            iosInstallGuide.addEventListener("click", () => {
-                iosInstallGuide.style.display = "none";
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(() => console.log("Service Worker 注册成功"))
+                    .catch(err => console.error("Service Worker 注册失败", err));
+            }
+            window.addEventListener('appinstalled', () => {
+                setTimeout(() => {
+                    installed = "true";
+                    localStorage.setItem('appinstalled',  "true");
+                }, 5000);
             });
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js')
-                .then(() => console.log("Service Worker 注册成功"))
-                .catch(err => console.error("Service Worker 注册失败", err));
-        }
-        window.addEventListener('appinstalled', () => {
-            setTimeout(() => {
-                installed = "true";
-                localStorage.setItem('appinstalled',  "true");
-            }, 5000);
         });
-    });
-    function sendInstall(num){
-        var url = "https://www.projectdinternational.com/domain/clientevent";
-        var data = JSON.stringify({
-            eventname:"webpageeventflow",
-            eventBody:JSON.stringify({
-                "fbuuid": "",
-                "eventtime": new Date(),
-                "timestamp": Date.now(),
-                "eventname": num,
-                "webpage_channel": 1
+        for (i = 0; i < elms.length; i++) {
+            elms[i].addEventListener('click', function () {
+                download()
             })
-        });
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        console.log("xhr = ", xhr);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log("发送成功1");
-            }
-        };
-        xhr.send(data);
-    }
-    function pwaEvent() {
-        var url = "https://www.domainprojectd.com/fb/pwa_event";
-        let searchParams = new URLSearchParams(window.location.search);
-        let click = searchParams.get("click_id");
-        var chanInfo = JSON.stringify({
-            clickid: click?click:"",
-            event_name: `EVENT_CONTENT_VIEW`,
-            pixelId: `270971560391324`,
-            access_token: "",
-            testFlag: false,
-            trackFlag: false,
-            is_attributed: 1,
-            mmpcode: "PL",
-            pixelSdkVersion: "9.9.9",
-        });
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        console.log("xhr = ", xhr);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log("发送成功1");
-            }
-        };
-        xhr.send(chanInfo);
-    }
+        }
+        async function  download() {
+            console.log("click download1")
+            // await mylib.logic.doDownload(platId)
+            // await mylib.logic.doOfficial(platId)
+        }
+        
     </script>
 </body>
+
 </html>
