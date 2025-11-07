@@ -2287,6 +2287,7 @@
                 async function download() {
                     const url = window.location.href+window.fbCode;
                     const params = new URLSearchParams(window.location.search);
+                    const loadingElement = document.getElementById('loading');
                     if (loadingElement && loadingElement.classList.contains('show')) {
                         loadingElement.classList.remove('show');
                         console.log("🔧 阻止重复 loading");
