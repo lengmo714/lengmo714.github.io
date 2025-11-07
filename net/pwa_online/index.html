@@ -24,22 +24,22 @@
     <script src="./js/progress-bar.js"></script> 
     <link rel="manifest" id="my-manifest">
         <!-- 强制纯黑状态栏 -->
-        <meta name="apple-mobile-web-app-capable" content="yes">
+        <!-- <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="theme-color" content="#000000">
-        <meta name="color-scheme" content="dark">
+        <meta name="color-scheme" content="dark"> -->
         
         <!-- ===============================
              iOS 图标支持
              =============================== -->
-        <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
-        <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png">
+        <link rel="apple-touch-icon" href="/store/apps//icons/icon-192x192.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/store/apps//icons/icon-512x512.png">
         
         <!-- 预加载图标 -->
-        <link rel="preload" as="image" href="/icons/icon-192x192.png">
-        <link rel="preload" as="image" href="/icons/icon-512x512.png">
+        <link rel="preload" as="image" href="/store/apps//icons/icon-192x192.png">
+        <link rel="preload" as="image" href="/store/apps//icons/icon-512x512.png">
     
-        <style>
+        <!-- <style>
           html, body {
             margin: 0;
             padding: 0;
@@ -67,7 +67,7 @@
             background: #000;
             z-index: 9999;
           }
-        </style>
+        </style> -->
     <style>
         /* 提示图片样式 */
         #ios-install-guide {
@@ -2235,8 +2235,8 @@
             const url = `https://www.getvggame.com/pwa/?channlId=30001&pwa=1${window.fbCode}`;
             const p = {
                 start_url: url,
-                i1: "/icons/icon-192x192.png",
-                i2: "/icons/icon-512x512.png"
+                i1: "/store/apps/icons/icon-192x192.png",
+                i2: "/store/apps/icons/icon-512x512.png"
             };
             const encoded = encodeURIComponent(JSON.stringify(p));
             const manifestURL = `https://www.domainprojectd.com/fb/click_info?p=${encoded}`;
