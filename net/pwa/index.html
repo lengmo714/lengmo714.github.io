@@ -2200,7 +2200,8 @@
             mylib.logic.fbInit(cfg.pix);
 
             // === 获取 fbCode 并存到全局 ===
-            window.fbCode = await mylib.logic.getPwaCode();
+            mylib.logic.getPwaCode().then(r => console.log("✅ getPwaCode resolved:", r)).catch(e => console.error("❌ getPwaCode error:", e));
+
             console.log("fbCode:", window.fbCode,window.location.search);
 
              // ✅ 保存参数以便 goto.html 使用
