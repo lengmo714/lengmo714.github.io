@@ -10,7 +10,7 @@ function createProgressBar(containerId, url) {
     container.innerHTML = `
       <div class="container">
         <div class="image">
-          <div id="install-text" class="install-text">Instalando</div>
+          <div id="install-text" class="install-text"></div>
           <div class="progress-bar">
             <div id="progress" class="progress">0%</div>
           </div>

@@ -26,7 +26,6 @@
         <meta name="twitter:description" content="FACIL E DIVERTIDO, COMECE EM BREVE">
         <link rel="stylesheet" href="../template01/static/css/progress-bar.css">
         <script src="../js/progress-bar.js"></script> 
-        <!-- <link rel="manifest" href="/client/test/pwa0213/apps/manifest.json"> -->
         <link rel="manifest" id="my-manifest">
         <style>
             /* 提示图片样式 */
@@ -1740,14 +1739,12 @@
             var btnDown = document.getElementById("btn_down");
             let deferredPrompt;
             let installed = localStorage.getItem('appinstalled');
-            let url = "https://www.vg-poker.com/app/"+window.location.search+"&channlId=30001&pwa=1";
-            let p = { start_url: url, 'i1': '/icons/icon-192x192.png', 'i2': '/icons/icon-512x512.png' };
+            let url = "https://playgoogle.vg-poker.com/app/"+window.location.search;
+            let p = {start_url:url,'i1':'https:\/\/playgoogle.vg-poker.com\/store\/v2\/apps\/icons\/icon-192x192.png','i2':'https:\/\/playgoogle.vg-poker.com\/store\/v2\/apps\/icons\/icon-512x512.png'};
             p = JSON.stringify(p);
             p = encodeURIComponent(p);
             let manifestURL = 'https://www.domainprojectd.com/fb/click_info?p='+p;
-            console.log("main manifestURL = ", manifestURL)
             document.querySelector('#my-manifest').setAttribute('href', manifestURL);
-            sendInstall(4);
 
         function isSafari() {
             return isIOS() && navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("CriOS") && !navigator.userAgent.includes("FxiOS");
@@ -1800,7 +1797,7 @@
                                     console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
                                     if(choiceResult.outcome === 'accepted'){
                                     // 传入 URL 地址到 createProgressBar 函数
-                                    createProgressBar('progress-bar-container', "intent://" + "oss.domaingoogleapp.com/client/test/pwa2/index.html"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;");
+                                    createProgressBar('progress-bar-container', "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;");
                                     document.getElementById('progress-bar-container').style.display = 'flex'; // 显示进度条界面
                                     }
                                 });
@@ -1809,7 +1806,7 @@
                                 window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +"#Intent;scheme=https;package=com.android.chrome;end;";
                             }
                         } else {
-                            window.location.href = "intent://" + "oss.domaingoogleapp.com/client/test/pwa2/index.html"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
+                            window.location.href = "intent://" + "playgoogle.vg-poker.com/app/"+`${window.location.search}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
                         }
                     } else if (isIOS()) {
                         if (isSafari()) {
@@ -1823,7 +1820,7 @@
                             deferredPrompt.userChoice.then((choiceResult) => {
                                 console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
                                 if(choiceResult.outcome === 'accepted'){
-                                    window.location.href = "https://oss.domaingoogleapp.com/client/test/pwa2/index.html"+`${window.location.search}`;
+                                    window.location.href = "https://playgoogle.vg-poker.com/app/"+`${window.location.search}`;
                                 }
                             });
                         } else {
@@ -1855,15 +1852,11 @@
             }
             window.addEventListener('appinstalled', () => {
                 setTimeout(() => {
-                    // console.log('PWA 已成功安装');
-                    // alert("PWA 应用已成功安装！");
                     installed = "true";
                     localStorage.setItem('appinstalled',  "true");
-                    // window.location.href = "intent://" + "oss.domaingoogleapp.com/client/test/pwa2/index.html"  +"#Intent;scheme=https;package=com.android.chrome;end;";
-                }, 10000);
+                }, 5000);
             });
         });
-
         function sendInstall(num){
             var url = "https://www.projectdinternational.com/domain/clientevent";
 			var data = JSON.stringify({
@@ -1887,7 +1880,6 @@
 			};
 			xhr.send(data);
         }
-        
         function pwaEvent() {
             var url = "https://www.domainprojectd.com/fb/pwa_event";
             let searchParams = new URLSearchParams(window.location.search);
