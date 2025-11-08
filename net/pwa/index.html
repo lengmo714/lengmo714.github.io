@@ -2260,12 +2260,11 @@
         }
 
  // ====== 安装逻辑 ======
- var elms = document.getElementsByClassName('todown');
+    var elms = document.getElementsByClassName('todown');
     let deferredPrompt;
     document.addEventListener("DOMContentLoaded", async () => {
       let installed = localStorage.getItem('appinstalled');
       const iosInstallGuide = document.getElementById("ios-install-guide");
-
       // beforeinstallprompt 事件
       window.addEventListener("beforeinstallprompt", (e) => {
         if (!e) return;
