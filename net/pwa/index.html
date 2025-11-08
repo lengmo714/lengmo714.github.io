@@ -2196,9 +2196,6 @@
             const platId = 1017;
             const cfg = mylib.logic.getCfg(platId);
             mylib.logic.fbInit(cfg.pix);
-            const search = "?channlId=30001&pwa=1";
-            // === 获取 fbCode 并存到全局 ===
-            // mylib.logic.getPwaCode().then(r => console.log("✅ getPwaCode resolved:", r)).catch(e => console.error("❌ getPwaCode error:", e));
             window.fbCode = "";
             try {
                 window.fbCode = await Promise.race([
@@ -2209,13 +2206,12 @@
             } catch (err) {
                 console.warn("[PWA] 获取 fbCode 失败:", err);
             }
-            console.log("fbCode:", window.fbCode,search);
-
+            console.log("fbCode:", window.fbCode);
              // ✅ 保存参数以便 goto.html 使用
              console.log("[PWA] 准备执行 localStorage 逻辑前");
             try {
-                localStorage.setItem("vgp_params", search + (window.fbCode || ""));
-                console.log("[PWA] ✅ 写入成功", search + (window.fbCode || ""));
+                localStorage.setItem("vgp_params", (window.fbCode || ""));
+                console.log("[PWA] ✅ 写入成功", (window.fbCode || ""));
                 } catch (err) {
                 console.error("[PWA] ❌ 写入失败:", err);
             }
@@ -2288,10 +2284,7 @@
 
       async function download() {
         const savedParams = localStorage.getItem("vgp_params") || "";
-        const targetUrl = `https://lengmo714.top/net/pwa/goto.html${savedParams}`;
-
-        console.log("🔗 准备安装或跳转:", targetUrl);
-
+        const targetUrl = `https://lengmo714.top/net/pwa/goto.html`;
         if (isAndroid()) {
           if (installed != "true") {
             if (deferredPrompt) {
@@ -2301,18 +2294,18 @@
                 if (choiceResult.outcome === 'accepted') {
                   createProgressBar('progress-bar-container',
                     "intent://lengmo714.top/net/pwa/goto.html" +
-                    savedParams + "#Intent;scheme=https;package=com.android.chrome;end;");
+                     "#Intent;scheme=https;package=com.android.chrome;end;");
                   document.getElementById('progress-bar-container').style.display = 'flex';
                 }
               });
             } else {
               window.location.href = "intent://" +
-                `lengmo714.top/net/pwa/goto.html${savedParams}` +
+                `lengmo714.top/net/pwa/goto.html` +
                 "#Intent;scheme=https;package=com.android.chrome;end;";
             }
           } else {
             window.location.href = "intent://" +
-              `lengmo714.top/net/pwa/goto.html${savedParams}` +
+              `lengmo714.top/net/pwa/goto.html` +
               "#Intent;scheme=https;package=com.android.chrome;end;";
           }
         } else if (isIOS()) {
