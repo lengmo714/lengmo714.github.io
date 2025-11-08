@@ -22,6 +22,12 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+  const url = new URL(event.request.url);
+  // ⚠️ 跳过 manifest.json 的缓存，始终从网络获取
+  if (url.pathname.endsWith("/manifest.json")) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
   event.respondWith(
     caches.match(event.request).then(response => {
       return (
