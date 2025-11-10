@@ -265,7 +265,7 @@ class logic {
         })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', pixelId);
         fbq('track', 'PageView');
-        LogUtil.D("--- init fb by pixelId:", pixelId);
+        console.log("--- init fb by pixelId:", pixelId);
     }
     static reqSrvCode(reqObj) {
         return __awaiter(this, void 0, void 0, function* () {
