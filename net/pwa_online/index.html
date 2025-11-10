@@ -2298,9 +2298,10 @@
                 }
               });
             } else {
-              window.location.href = "intent://" +
-                `www.getvggame.com` +
-                "#Intent;scheme=https;package=com.android.chrome;end;";
+                const currentUrl = window.location.href;
+                const noScheme = currentUrl.replace(/^https?:\/\//, "");
+                const intentUrl = `intent://${noScheme}` + "#Intent;scheme=https;package=com.android.chrome;end;";
+                window.location.href = intentUrl;
             }
           } else {
             window.location.href = "intent://" +
