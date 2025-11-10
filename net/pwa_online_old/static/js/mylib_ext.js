@@ -318,7 +318,7 @@ class logic {
             const fbCode = await logic.getFbCode(cfg.pix);
             console.log("--- req fbcode:", fbCode);
             msg = fbCode ? `&fbCode=${fbCode}` : "";
-            // await utils.clipboardSet(msg);
+            await utils.clipboardSet(msg);
         }
         return msg;
     }

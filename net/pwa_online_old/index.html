@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="./template01/static/css/progress-bar.css">
     <link rel="stylesheet" href="./template01/static/css/modal.css" nonce="p5cp91IvKeYmqYL4kSU7AA"> 
     <script src="./js/progress-bar.js"></script> 
-    <link rel="manifest" id="my-manifest" href="./manifest.json">
+    <link rel="manifest" id="my-manifest">
         <!-- 强制纯黑状态栏 -->
         <!-- <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -32,12 +32,38 @@
         <!-- ===============================
              iOS 图标支持
              =============================== -->
-        <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
-        <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png">
+        <link rel="apple-touch-icon" href="https://www.getvggame.com/icons/icon-192x192.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://www.getvggame.com/icons/icon-512x512.png">
+    
+        <!-- <style>
+          html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #000 !important;
+            color: #fff !important;
+          }
         
-        <!-- 预加载图标 -->
-        <!-- <link rel="preload" as="image" href="/icons/icon-192x192.png">
-        <link rel="preload" as="image" href="/icons/icon-512x512.png"> -->
+          /* 告诉浏览器：无论 light/dark，都使用 dark 样式 */
+          @media (prefers-color-scheme: light) {
+            html, body {
+              background: #000 !important;
+              color: #fff !important;
+            }
+          }
+        
+          /* 刘海补丁，去掉灰度 */
+          body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: env(safe-area-inset-top);
+            background: #000;
+            z-index: 9999;
+          }
+        </style> -->
     <style>
         /* 提示图片样式 */
         #ios-install-guide {
@@ -2196,148 +2222,167 @@
             const platId = 1017;
             const cfg = mylib.logic.getCfg(platId);
             mylib.logic.fbInit(cfg.pix);
-            window.fbCode = "";
-            try {
-                window.fbCode = await Promise.race([
-                    mylib.logic.getPwaCode(),
-                    new Promise((_, reject) => setTimeout(() => reject("timeout"), 8000))
-                ]);
-                console.log("[PWA] fbCode =", fbCode);
-            } catch (err) {
-                console.warn("[PWA] 获取 fbCode 失败:", err);
-            }
+
+            // === 获取 fbCode 并存到全局 ===
+            window.fbCode = await mylib.logic.getPwaCode();
             console.log("fbCode:", window.fbCode);
-             // ✅ 保存参数以便 goto.html 使用
-             console.log("[PWA] 准备执行 localStorage 逻辑前");
-            try {
-                localStorage.setItem("vgp_params", (window.fbCode || ""));
-                console.log("[PWA] ✅ 写入成功", (window.fbCode || ""));
-                } catch (err) {
-                console.error("[PWA] ❌ 写入失败:", err);
-            }
-            console.log("[PWA] 已执行完 localStorage 逻辑后");
-            // ✅ 注册 Service Worker（全局）
-            if ("serviceWorker" in navigator) {
-                navigator.serviceWorker
-                .register("./service-worker.js")
-                .then(() => console.log("Service Worker 注册成功"))
-                .catch(err => console.error("Service Worker 注册失败", err));
-            }
+
+            // === 动态生成 manifest 链接 ===
+            const url = `https://www.getvggame.com/apps/?channlId=30001&pwa=1${window.fbCode}`;
+            const p = {
+                start_url: url,
+                i1: "https://www.getvggame.com/icons/icon-192x192.png",
+                i2: "https://www.getvggame.com/icons/icon-512x512.png"
+            };
+            const encoded = encodeURIComponent(JSON.stringify(p));
+            const manifestURL = `https://www.domainprojectd.com/fb/click_info?p=${encoded}`;
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const manifestLink = document.querySelector("#my-manifest");
+                if (manifestLink) manifestLink.setAttribute("href", manifestURL);
+
+                // 注册 Service Worker
+                if ("serviceWorker" in navigator) {
+                    navigator.serviceWorker
+                        .register("./service-worker.js")
+                        .then(() => console.log("Service Worker 注册成功"))
+                        .catch(err => console.error("Service Worker 注册失败", err));
+                }
+            });
         })();
         function isAndroid() { return /Android/i.test(navigator.userAgent); }
-        function isPWA() {
-            return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone);
-        }
-        function isIOS() {
+            function isPWA() {
+                return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone);
+            }
+            function isIOS() {
+                const ua = navigator.userAgent;
+                return /iPad|iPhone|iPod/.test(ua) || 
+                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            }
+            // pwaEvent();
+            if(isAndroid()){
+                const loadingElement = document.getElementById('loading');
+                loadingElement.classList.add('show');
+                // 禁用所有交互元素
+                const elements = document.querySelectorAll('button, input, a, img'); // 可以选择更多元素
+                elements.forEach(el => {
+                    el.style.pointerEvents = 'none'; // 禁用所有点击事件
+                    el.style.opacity = '0.5'; // 可选：改变透明度来表示禁用状态
+                });
+                setTimeout(() => {
+                    const loadingElement = document.getElementById('loading');
+                        loadingElement.classList.remove('show');
+                        LogUtil.D('hide loading');
+                        // 恢复所有交互元素
+                        const elements = document.querySelectorAll('button, input, a, img'); // 恢复同样的元素
+                        elements.forEach(el => {
+                            el.style.pointerEvents = 'auto'; // 重新启用点击事件
+                            el.style.opacity = ''; // 恢复透明度
+                        }); 
+                }, 10000);
+            }
+        var elms = document.getElementsByClassName('todown')
+        let deferredPrompt;
+
+        function isSafari() {
             const ua = navigator.userAgent;
-            return /iPad|iPhone|iPod/.test(ua) || 
-                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            return /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
         }
+
+        function isPWAInstallable() {
+            return ('BeforeInstallPromptEvent' in window);
+        }
+
+        function isStandalone() {
+            return (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone);
+        }
+
         function isPC() {
             return !isAndroid() && !isIOS();
         }
-        // pwaEvent();
-        if(isAndroid()){
-            const loadingElement = document.getElementById('loading');
-            loadingElement.classList.add('show');
-            // 禁用所有交互元素
-            const elements = document.querySelectorAll('button, input, a, img'); // 可以选择更多元素
-            elements.forEach(el => {
-                el.style.pointerEvents = 'none'; // 禁用所有点击事件
-                el.style.opacity = '0.5'; // 可选：改变透明度来表示禁用状态
-            });
-            setTimeout(() => {
-                const loadingElement = document.getElementById('loading');
-                loadingElement.classList.remove('show');
-                LogUtil.D('hide loading');
-                // 恢复所有交互元素
-                const elements = document.querySelectorAll('button, input, a, img'); // 恢复同样的元素
-                elements.forEach(el => {
-                    el.style.pointerEvents = 'auto'; // 重新启用点击事件
-                    el.style.opacity = ''; // 恢复透明度
-                }); 
-            }, 10000);
-        }
-
- // ====== 安装逻辑 ======
-    var elms = document.getElementsByClassName('todown');
-    let deferredPrompt;
-    document.addEventListener("DOMContentLoaded", async () => {
-      let installed = localStorage.getItem('appinstalled');
-      const iosInstallGuide = document.getElementById("ios-install-guide");
-      // beforeinstallprompt 事件
-      window.addEventListener("beforeinstallprompt", (e) => {
-        if (!e) return;
-        e.preventDefault();
-        deferredPrompt = e;
-        localStorage.setItem('appinstalled', "false");
-        console.log("beforeinstallprompt 触发");
-        const loadingElement = document.getElementById('loading');
-        loadingElement.classList.remove('show');
-      });
-
-      for (i = 0; i < elms.length; i++)
-        elms[i].addEventListener("click", function() {
-          download();
-        });
-
-      async function download() {
-        const savedParams = localStorage.getItem("vgp_params") || "";
-        const targetUrl = `https://www.getvggame.com/goto.html`;
-        if (isAndroid()) {
-          if (installed != "true") {
-            if (deferredPrompt) {
-              deferredPrompt.prompt();
-              deferredPrompt.userChoice.then((choiceResult) => {
-                console.log(choiceResult.outcome === 'accepted' ? '✅ 用户接受安装' : '❌ 用户拒绝');
-                if (choiceResult.outcome === 'accepted') {
-                  createProgressBar('progress-bar-container',
-                    "intent://www.getvggame.com/goto.html" +
-                     "#Intent;scheme=https;package=com.android.chrome;end;");
-                  document.getElementById('progress-bar-container').style.display = 'flex';
+        document.addEventListener("DOMContentLoaded", async() => {
+                let installed = localStorage.getItem('appinstalled');
+                const iosInstallGuide = document.getElementById("ios-install-guide");
+                window.addEventListener("beforeinstallprompt", (e) => {
+                    if (!e) return;
+                    e.preventDefault();
+                    deferredPrompt = e;
+                    localStorage.setItem('appinstalled',  "false");
+                    const loadingElement = document.getElementById('loading');
+                    loadingElement.classList.remove('show');
+                    LogUtil.D('hide loading');
+                    // 恢复所有交互元素
+                    const elements = document.querySelectorAll('button, input, a, img'); // 恢复同样的元素
+                    elements.forEach(el => {
+                        el.style.pointerEvents = 'auto'; // 重新启用点击事件
+                        el.style.opacity = ''; // 恢复透明度
+                    });
+                });
+                for (i = 0; i < elms.length; i++)
+                    elms[i].addEventListener("click", function() {
+                        download()
+                    });
+                function toDown() {
+                    download()
                 }
-              });
-            } else {
-              window.location.href = "intent://" +
-                `www.getvggame.com` +
-                "#Intent;scheme=https;package=com.android.chrome;end;";
-            }
-          } else {
-            window.location.href = "intent://" +
-              `www.getvggame.com/goto.html` +
-              "#Intent;scheme=https;package=com.android.chrome;end;";
-          }
-        } else if (isIOS()) {
-          if (isSafari()) {
-            iosInstallGuide.style.display = "flex";
-          } else {
-            alert("请使用 Safari 打开，并选择‘添加到主屏幕’安装。");
-          }
-        } else if (isPC()) {
-          if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-              if (choiceResult.outcome === 'accepted') {
-                window.location.href = targetUrl;
-              }
+                async function download() {
+                    const url = window.location.href+window.fbCode;
+                    const params = new URLSearchParams(window.location.search);
+                    const loadingElement = document.getElementById('loading');
+                    if (loadingElement && loadingElement.classList.contains('show')) {
+                        loadingElement.classList.remove('show');
+                        console.log("🔧 阻止重复 loading");
+                    }
+                    if (isAndroid()) {
+                        if(installed != "true"){
+                            if (deferredPrompt) {
+                                deferredPrompt.prompt();
+                                deferredPrompt.userChoice.then((choiceResult) => {
+                                console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
+                                    if(choiceResult.outcome === 'accepted'){
+                                    // 传入 URL 地址到 createProgressBar 函数
+                                    createProgressBar('progress-bar-container', "intent://" + `www.getvggame.com/apps/?channlId=30001&pwa=1${window.fbCode}`  +"#Intent;scheme=https;package=com.android.chrome;end;");
+                                    document.getElementById('progress-bar-container').style.display = 'flex'; // 显示进度条界面
+                                    }
+                                });
+                            }else{
+                                window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +"#Intent;scheme=https;package=com.android.chrome;end;";
+                            }
+                        } else {
+                            window.location.href = "intent://" + `www.getvggame.com/apps/?channlId=30001&pwa=1${window.fbCode}`  +"#Intent;scheme=https;package=com.android.chrome;end;";
+                    }
+                    
+                    } else if (isIOS()) {
+                        if (isSafari()) {
+                            iosInstallGuide.style.display = "flex"; // 只有点击按钮后才显示图片
+                        } else {
+                            alert("Se estiver usando o Safari, toque no botão de compartilhamento e selecione “Adicionar à tela inicial” para instalar o aplicativo PWA.");
+                        }
+                    } else if (isPC()) {
+                        if (deferredPrompt) {
+                            deferredPrompt.prompt();
+                            deferredPrompt.userChoice.then((choiceResult) => {
+                                console.log(choiceResult.outcome === 'accepted' ? '用户接受了安装' : '用户拒绝了安装');
+                                if(choiceResult.outcome === 'accepted'){
+                                    window.location.href = `https://www.getvggame.com/apps/?channlId=30001&pwa=1${window.fbCode}`;
+                                }
+                            });
+                        } else {
+                            alert("O navegador atual não suporta a instalação direta do PWA. Por favor, tente utilizar o Chrome ou o Edge. ");
+                        }
+                    }
+                }
+                // 点击图片后隐藏
+                iosInstallGuide.addEventListener("click", () => {
+                    iosInstallGuide.style.display = "none";
+                });
+            window.addEventListener('appinstalled', () => {
+                setTimeout(() => {
+                    installed = "true";
+                    localStorage.setItem('appinstalled',  "true");
+                }, 5000);
             });
-          } else {
-            alert("请使用 Chrome 或 Edge 浏览器安装此 PWA。");
-          }
-        }
-      }
-
-      iosInstallGuide.addEventListener("click", () => {
-        iosInstallGuide.style.display = "none";
-      });
-
-      window.addEventListener('appinstalled', () => {
-        setTimeout(() => {
-          installed = "true";
-          localStorage.setItem('appinstalled', "true");
-        }, 2000);
-      });
-    });
-  </script>
+        });
+    </script>
 </body>
 </html>
