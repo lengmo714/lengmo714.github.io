@@ -341,6 +341,10 @@ class logic {
         window.ta && window.ta.track(taEvent);
         window.fbq && window.fbq('trackCustom', 'download', { promotion: 'share_discount_100%' });
     }
+
+    static upDownload(){
+        window.fbq && window.fbq('trackCustom', 'download', { promotion: 'share_discount_100%' });
+    }
     static getCfg(platId) {
         LogUtil.D(`--- platId: ${platId}`);
         LogUtil.A(itscfg != null, "--- no itscfg"); // 暂时不通过参数传入

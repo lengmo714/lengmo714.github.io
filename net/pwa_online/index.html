@@ -2282,6 +2282,7 @@
         });
 
       async function download() {
+        mylib.logic.upDownload();
         const savedParams = localStorage.getItem("vgp_params") || "";
         const targetUrl = `https://www.getvggame.com/goto.html`;
         if (isAndroid()) {
