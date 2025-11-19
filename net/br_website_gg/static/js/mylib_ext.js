@@ -564,8 +564,8 @@ class logic {
                 var msg = JSON.stringify({ "ggId": ggId });
                 yield utils.clipboardSet(msg);
                 var gaid = utils.getArg("gaid"); // 测试参数
-                // dstUrl = yield logic.oneLinkGetResultUrl(msg, cfg.onelink, cfg.adsId, gaid);
-                dstUrl = yield logic.oneLinkGetResultUrl(msg, cfg.onelink, "", gaid);
+                dstUrl = yield logic.oneLinkGetResultUrl(msg, cfg.onelink, cfg.adsId, gaid);
+                // dstUrl = yield logic.oneLinkGetResultUrl(msg, cfg.onelink, "", gaid);
                 LogUtil.D("--- dst onelink url:", dstUrl);
             }
             if (!dstUrl) {
