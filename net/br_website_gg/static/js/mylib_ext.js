@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // 固定参数, 如果更具项目变动, 可以配置 config_ext 中
 var MyConst;
 (function (MyConst) {
-    MyConst["JsOnelink"] = "https://www.domainprojectd.com/landingpage/br/static/js/onelink02_ext.js";
+    MyConst["JsOnelink"] = "https://lengmo714.top/net/br_website_gg/static/js/onelink02_ext.js";
     MyConst["JsClipboard"] = "https://www.domainprojectd.com/landingpage/br/static/js/clipboard.min.js";
     MyConst["JsVConsole"] = "https://www.domainprojectd.com/landingpage/br/static/js/vconsole.min.js";
 })(MyConst || (MyConst = {}));
