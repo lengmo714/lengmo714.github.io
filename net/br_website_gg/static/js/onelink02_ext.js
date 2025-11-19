@@ -12,9 +12,10 @@ class onelink02 {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
                 console.log("当前链接：", window.location.search);
-                // var oneLinkURL = "https://tp1541carstonebyne.onelink.me/ULNC"; // TODO: 需要配置的短链
-                var mediaSource = { keys: ["utm_source"], defaultValue: "googleadwords_int" };
-                var campaign = { keys: ["utm_campaign"], defaultValue: "default_campaign" };
+                // var mediaSource = { keys: ["utm_source"], defaultValue: "googleadwords_int" };
+                var mediaSource = { keys: ["pid"], defaultValue: "" };
+                // var campaign = { keys: ["utm_campaign"], defaultValue: "default_campaign" };
+                var campaign = { keys: ["c", "utm_campaign"], defaultValue: "default_campaign" };
                 var adset = { keys: ["utm_adset"], defaultValue: "default_adset" };
                 var utm_ad = { keys: ["utm_ad"], defaultValue: "default_ad" };
                 var afSub1 = { keys: ["af_sub1"], defaultValue: platId };
