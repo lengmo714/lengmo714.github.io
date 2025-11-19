@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>waitting</title>
+  <script src="./js/config_ext.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/mylib_ext.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+  <script>
+    var platId = mylib.utils.getArg('af_sub1');
+    console.log("--- deeplink af_sub1:", platId);
+    window.location.href = mylib.logic.getApkUrl(platId)
+  </script>
+</body>
+
+</html>
