@@ -312,7 +312,6 @@ class logic {
     }
     static beginDownLoadApk(url, taEvent) {
         LogUtil.A(url != null, "--- download url is null");
-        taEvent = (taEvent != undefined) ? taEvent : "ta_page_upload"; //"downLoad"
         var hiddenIframe = document.getElementById('hiddenIframe');
         if (!hiddenIframe) {
             hiddenIframe = document.createElement("iframe");
@@ -326,7 +325,6 @@ class logic {
         else {
             window.location.href = url;
         }
-        // window.ta && window.ta.track(taEvent);
         window.fbq && window.fbq('trackCustom', 'download', { promotion: 'share_discount_100%' });
     }
     static getCfg(platId) {
@@ -548,7 +546,7 @@ static googleDoDownload(platId) {
             dstUrl = logic.getApkUrl(cfg.pid);
         }
         console.log("--- final url:", dstUrl);
-        logic.beginggDownLoadApk(`${dstUrl}&uuid=${ggUrl}`);
+        logic.beginggDownLoadApk(`${dstUrl}`);
     });
 }
 static getGclid() {
@@ -565,10 +563,9 @@ static getGclid() {
 
     return null;
 }
-static beginggDownLoadApk(url, taEvent) {
+static beginggDownLoadApk(url) {
     LogUtil.A(url != null, "--- download url is null");
     console.log("--- open url:", url);
-    // taEvent = (taEvent != undefined) ? taEvent : "ta_page_upload"; //"downLoad"
     var hiddenIframe = document.getElementById('hiddenIframe');
     if (!hiddenIframe) {
         hiddenIframe = document.createElement("iframe");
