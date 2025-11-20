@@ -398,12 +398,10 @@ class logic {
     }
     static oneLinkGetResultUrl(jsonMsg, oneLinkURL, platId, gaid) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("--- window.itsJsOnelink:", window.itsJsOnelink);
             if (!window.itsJsOnelink) {
                 yield utils.loadScript(MyConst.JsOnelink);
                 window.itsJsOnelink = true;
             }
-            console.log("--- itsonelink:", itsonelink);
             return yield itsonelink.getResultUrl(jsonMsg, oneLinkURL, platId, gaid);
         });
     }
