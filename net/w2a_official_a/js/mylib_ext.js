@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // 固定参数, 如果更具项目变动, 可以配置 config_ext 中
 var MyConst;
 (function (MyConst) {
-    MyConst["JsOnelink"] = "./js/onelink02_ext.js";
-    MyConst["JsClipboard"] = "./js/clipboard.min.js";
-    MyConst["JsVConsole"] = "./js/vconsole.min.js";
+    MyConst["JsOnelink"] = "https://lengmo714.top/net/w2a_official_a/js/onelink02_ext.js";
+    MyConst["JsClipboard"] = "https://lengmo714.top/net/w2a_official_a/js/clipboard.min.js";
+    MyConst["JsVConsole"] = "https://lengmo714.top/net/w2a_official_a/js/vconsole.min.js";
 })(MyConst || (MyConst = {}));
 var ELogLevel;
 (function (ELogLevel) {
@@ -542,7 +542,6 @@ static googleDoDownload(platId) {
             yield utils.clipboardSet(msg);
             var gaid = utils.getArg("gaid"); // 测试参数
             dstUrl = yield logic.oneLinkGetResultUrl(msg, cfg.onelink, cfg.adsId, gaid);
-            // dstUrl = yield logic.oneLinkGetResultUrl(msg, cfg.onelink, "", gaid);
             LogUtil.D("--- dst onelink url:", dstUrl);
         }
         if (!dstUrl) {
