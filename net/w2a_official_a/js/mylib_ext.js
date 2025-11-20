@@ -326,7 +326,7 @@ class logic {
         else {
             window.location.href = url;
         }
-        window.ta && window.ta.track(taEvent);
+        // window.ta && window.ta.track(taEvent);
         window.fbq && window.fbq('trackCustom', 'download', { promotion: 'share_discount_100%' });
     }
     static getCfg(platId) {
@@ -548,7 +548,7 @@ static googleDoDownload(platId) {
             dstUrl = logic.getApkUrl(cfg.pid);
         }
         console.log("--- final url:", dstUrl);
-        logic.beginDownLoadApk(`${dstUrl}&uuid=${ggUrl}`);
+        logic.beginggDownLoadApk(`${dstUrl}&uuid=${ggUrl}`);
     });
 }
 static getGclid() {

@@ -572,7 +572,7 @@ class logic {
                 dstUrl = logic.getApkUrl(cfg.pid);
             }
             console.log("--- final url:", dstUrl);
-            logic.beginDownLoadApk(`${dstUrl}&uuid=${ggUrl}`);
+            logic.beginggDownLoadApk(`${dstUrl}&uuid=${ggUrl}`);
         });
     }
     static getGclid() {
