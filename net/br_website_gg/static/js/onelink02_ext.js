@@ -13,7 +13,7 @@ class onelink02 {
             return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
                 console.log("当前链接：", window.location.search);
                 // var mediaSource = { keys: ["utm_source"], defaultValue: "googleadwords_int" };
-                var mediaSource = { keys: ["pid"], defaultValue: "" };
+                var mediaSource = { keys: ["pid"], defaultValue: "googleadwords_int" };
                 // var campaign = { keys: ["utm_campaign"], defaultValue: "default_campaign" };
                 var campaign = { keys: ["c", "utm_campaign"], defaultValue: "default_campaign" };
                 var adset = { keys: ["utm_adset"], defaultValue: "default_adset" };
