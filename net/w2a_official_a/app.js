@@ -288,13 +288,14 @@ createApp({
       this.download()
       this.clientevent(4) //安卓下载下
     },
+
     download(){
       console.log('this.getDeviceType():', this.getDeviceType())
       if (this.getDeviceType() === 'Android') {
         this.showLoading(); //开始加载动画
         var platId = 1017
         var cfg = window.mylib.logic.getCfg(platId)
-        window.mylib.logic.initGoogleAds(cfg.adsId)
+        // window.mylib.logic.initGoogleAds(cfg.adsId)
         window.mylib.logic.googleDoDownload(platId)
        // 至少显示 5 秒
        setTimeout(() => {
