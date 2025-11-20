@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // 固定参数, 如果更具项目变动, 可以配置 config_ext 中
 var MyConst;
 (function (MyConst) {
-    MyConst["JsOnelink"] = "https://www.getvggame.com/apps/store/static/js/onelink02_ext.js";
-    MyConst["JsClipboard"] = "https://www.getvggame.com/apps/store/static/js/clipboard.min.js";
-    MyConst["JsVConsole"] = "https://www.getvggame.com/apps/store/static/js/vconsole.min.js";
+    MyConst["JsOnelink"] = "./js/onelink02_ext.js";
+    MyConst["JsClipboard"] = "./js/clipboard.min.js";
+    MyConst["JsVConsole"] = "./js/vconsole.min.js";
 })(MyConst || (MyConst = {}));
 var ELogLevel;
 (function (ELogLevel) {
@@ -312,8 +312,7 @@ class logic {
     }
     static beginDownLoadApk(url, taEvent) {
         LogUtil.A(url != null, "--- download url is null");
-        console.log("--- open url:", url);
-        // taEvent = (taEvent != undefined) ? taEvent : "ta_page_upload"; //"downLoad"
+        taEvent = (taEvent != undefined) ? taEvent : "ta_page_upload"; //"downLoad"
         var hiddenIframe = document.getElementById('hiddenIframe');
         if (!hiddenIframe) {
             hiddenIframe = document.createElement("iframe");
@@ -327,7 +326,7 @@ class logic {
         else {
             window.location.href = url;
         }
-        // window.ta && window.ta.track(taEvent);
+        window.ta && window.ta.track(taEvent);
         window.fbq && window.fbq('trackCustom', 'download', { promotion: 'share_discount_100%' });
     }
     static getCfg(platId) {
@@ -377,55 +376,36 @@ class logic {
     }
     // 落地页 使用
     static doDownload(platId) {
+        console.log('download start')
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('--- click download')
             var cfg = logic.getCfg(platId);
             var dstUrl = null;
-            var fbCodeUrl = `${Date.now()}${Math.floor(Math.random() * 100000)}`;
-            logic.sendbegainTime(fbCodeUrl)
             if (cfg.onelink && cfg.pix) {
                 var fbCode = yield logic.getFbCode(cfg.pix);
-                LogUtil.D("--- req fbcode:", fbCode);
+                console.log("--- req fbcode:", fbCode);
                 var msg = fbCode != null ? JSON.stringify({ "FbCode": fbCode }) : "";
                 yield utils.clipboardSet(msg);
-                var gaid = utils.getArg("gaid"); // 测试参数
+                var gaid = utils.getArg("gaid"); // doDownload测试参数
+                console.log("--- gaid:", gaid);
                 dstUrl = yield logic.oneLinkGetResultUrl(msg, cfg.onelink, cfg.pid, gaid);
-                LogUtil.D("--- dst onelink url:", dstUrl);
+                console.log("--- dst onelink url:", dstUrl);
             }
             if (!dstUrl) {
                 dstUrl = logic.getApkUrl(cfg.pid);
             }
             console.log("--- final url:", dstUrl);
-            logic.beginDownLoadApk(`${dstUrl}&uuid=${fbCodeUrl}`);
+            logic.beginDownLoadApk(dstUrl);
         });
-    }
-    static sendbegainTime(uerCode){
-        var url = "https://www.projectdinternational.com/domain/clientevent";
-                var data = JSON.stringify({
-                    eventname:"webpageeventflow",
-                    eventBody:JSON.stringify({
-                        "fbuuid": uerCode,
-                        "eventtime": new Date(),
-                        "timestamp": Date.now(),
-                        "eventname": `fbuuid: ${uerCode}`,
-                    })
-                });
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", url, true);
-                xhr.setRequestHeader("Content-Type", "application/json");
-                console.log("xhr = ", xhr);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        console.log("发送成功2");
-                    }
-                };
-                xhr.send(data);
     }
     static oneLinkGetResultUrl(jsonMsg, oneLinkURL, platId, gaid) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("--- window.itsJsOnelink:", window.itsJsOnelink);
             if (!window.itsJsOnelink) {
                 yield utils.loadScript(MyConst.JsOnelink);
                 window.itsJsOnelink = true;
             }
+            console.log("--- itsonelink:", itsonelink);
             return yield itsonelink.getResultUrl(jsonMsg, oneLinkURL, platId, gaid);
         });
     }
@@ -468,7 +448,6 @@ class logic {
     static doOfficial(platId) {
         return __awaiter(this, void 0, void 0, function* () {
             LogUtil.D("--- click doOfficial");
-            var fbCodeUrl = `${Date.now()}${Math.floor(Math.random() * 100000)}`;
             // 渠道号 和 代理 id
             var agentUid = utils.getArg("agentuid");
             platId = platId || utils.ParseNum(utils.getArg("platId"));
@@ -493,7 +472,7 @@ class logic {
                 dstUrl = logic.getApkUrl(cfg.pid);
             }
             LogUtil.D("--- final url:", dstUrl);
-            logic.beginDownLoadApk(`${dstUrl}&uuid=${fbCodeUrl}`);
+            logic.beginDownLoadApk(dstUrl);
         });
     }
     // 官网 使用
@@ -535,93 +514,92 @@ class logic {
             el.style.opacity = ''; // 恢复透明度
         });
     }
-
     static initGoogleAds(adsId){
-            // 创建 script
-        const script = document.createElement("script");
-        script.async = true;
-        script.src = `https://www.googletagmanager.com/gtag/js?id=${adsId}`;
-        document.head.appendChild(script);
+        // 创建 script
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${adsId}`;
+    document.head.appendChild(script);
 
-        // 初始化 DataLayer
-        window.dataLayer = window.dataLayer || [];
-        window.gtag = function(){ window.dataLayer.push(arguments); }
+    // 初始化 DataLayer
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ window.dataLayer.push(arguments); }
 
-        // 启动
-        gtag('js', new Date());
-        gtag('config', adsId);
-    }
-    static googleDoDownload(platId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            var cfg = logic.getCfg(platId);
-            var dstUrl = null;
-            var ggUrl = `${Date.now()}${Math.floor(Math.random() * 100000)}`;
-            logic.sendbegainTime(ggUrl)
-            const gclid = logic.getGclid();
-            if (cfg.onelink && cfg.adsId) {
-                var ggId = gclid ? gclid : "";
-                LogUtil.D("--- req ggId:", ggId);
-                var msg = JSON.stringify({ "ggId": ggId });
-                yield utils.clipboardSet(msg);
-                var gaid = utils.getArg("gaid"); // 测试参数
-                dstUrl = yield logic.oneLinkGetResultUrl(msg, cfg.onelink, cfg.adsId, gaid);
-                // dstUrl = yield logic.oneLinkGetResultUrl(msg, cfg.onelink, "", gaid);
-                LogUtil.D("--- dst onelink url:", dstUrl);
-            }
-            if (!dstUrl) {
-                dstUrl = logic.getApkUrl(cfg.pid);
-            }
-            console.log("--- final url:", dstUrl);
-            logic.beginDownLoadApk(`${dstUrl}&uuid=${ggUrl}`);
-        });
-    }
-    static getGclid() {
-        const p = new URLSearchParams(location.search);
-        // 普通格式
-        if (p.get("gclid")) return p.get("gclid");
-        // Google 新格式 _gl
-        const gl = p.get("_gl");
-        if (gl) {
-            const parts = gl.split("*");
-            const idx = parts.indexOf("gclid");
-            if (idx !== -1 && parts[idx+1]) return parts[idx+1];
+    // 启动
+    gtag('js', new Date());
+    gtag('config', adsId);
+}
+static googleDoDownload(platId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var cfg = logic.getCfg(platId);
+        var dstUrl = null;
+        var ggUrl = `${Date.now()}${Math.floor(Math.random() * 100000)}`;
+        logic.sendbegainTime(ggUrl)
+        const gclid = logic.getGclid();
+        if (cfg.onelink && cfg.adsId) {
+            var ggId = gclid ? gclid : "";
+            LogUtil.D("--- req ggId:", ggId);
+            var msg = JSON.stringify({ "ggId": ggId });
+            yield utils.clipboardSet(msg);
+            var gaid = utils.getArg("gaid"); // 测试参数
+            dstUrl = yield logic.oneLinkGetResultUrl(msg, cfg.onelink, cfg.adsId, gaid);
+            // dstUrl = yield logic.oneLinkGetResultUrl(msg, cfg.onelink, "", gaid);
+            LogUtil.D("--- dst onelink url:", dstUrl);
         }
-    
-        return null;
+        if (!dstUrl) {
+            dstUrl = logic.getApkUrl(cfg.pid);
+        }
+        console.log("--- final url:", dstUrl);
+        logic.beginDownLoadApk(`${dstUrl}&uuid=${ggUrl}`);
+    });
+}
+static getGclid() {
+    const p = new URLSearchParams(location.search);
+    // 普通格式
+    if (p.get("gclid")) return p.get("gclid");
+    // Google 新格式 _gl
+    const gl = p.get("_gl");
+    if (gl) {
+        const parts = gl.split("*");
+        const idx = parts.indexOf("gclid");
+        if (idx !== -1 && parts[idx+1]) return parts[idx+1];
     }
-    static beginggDownLoadApk(url, taEvent) {
-        LogUtil.A(url != null, "--- download url is null");
-        console.log("--- open url:", url);
-        // taEvent = (taEvent != undefined) ? taEvent : "ta_page_upload"; //"downLoad"
-        var hiddenIframe = document.getElementById('hiddenIframe');
-        if (!hiddenIframe) {
-            hiddenIframe = document.createElement("iframe");
-            hiddenIframe.style.display = "none";
-            hiddenIframe.id = "hiddenIframe";
-            document.body.appendChild(hiddenIframe);
-        }
-        if (hiddenIframe) {
-            hiddenIframe.src = url;
-        }
-        else {
-            window.location.href = url;
-        }
-        gtag('event', 'conversion', {
-            'send_to': 'AW-17720999397/aTRbCOTp88IbEOX7g4JC'
-        });
+
+    return null;
+}
+static beginggDownLoadApk(url, taEvent) {
+    LogUtil.A(url != null, "--- download url is null");
+    console.log("--- open url:", url);
+    // taEvent = (taEvent != undefined) ? taEvent : "ta_page_upload"; //"downLoad"
+    var hiddenIframe = document.getElementById('hiddenIframe');
+    if (!hiddenIframe) {
+        hiddenIframe = document.createElement("iframe");
+        hiddenIframe.style.display = "none";
+        hiddenIframe.id = "hiddenIframe";
+        document.body.appendChild(hiddenIframe);
     }
-    static gtag_report_conversion(url) {
-        var callback = function () {
-          if (typeof(url) != 'undefined') {
-            window.location = url;
-          }
-        };
-        gtag('event', 'conversion', {
-            'send_to': 'AW-17720999397/RzixCP348sIbEOX7g4JC',
-            'event_callback': callback
-        });
-        return false;
+    if (hiddenIframe) {
+        hiddenIframe.src = url;
+    }
+    else {
+        window.location.href = url;
+    }
+    gtag('event', 'conversion', {
+        'send_to': 'AW-17720999397/aTRbCOTp88IbEOX7g4JC'
+    });
+}
+static gtag_report_conversion(url) {
+    var callback = function () {
+      if (typeof(url) != 'undefined') {
+        window.location = url;
       }
+    };
+    gtag('event', 'conversion', {
+        'send_to': 'AW-17720999397/RzixCP348sIbEOX7g4JC',
+        'event_callback': callback
+    });
+    return false;
+  }
 }
 (function () {
     return __awaiter(this, void 0, void 0, function* () {
