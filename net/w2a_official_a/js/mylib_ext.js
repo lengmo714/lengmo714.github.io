@@ -534,7 +534,6 @@ static googleDoDownload(platId) {
         var cfg = logic.getCfg(platId);
         var dstUrl = null;
         var ggUrl = `${Date.now()}${Math.floor(Math.random() * 100000)}`;
-        logic.sendbegainTime(ggUrl)
         const gclid = logic.getGclid();
         if (cfg.onelink && cfg.adsId) {
             var ggId = gclid ? gclid : "";
