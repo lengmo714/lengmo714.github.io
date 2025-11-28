@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="VGPoker, VG.Poker, VG-Poker, best poker platform in the world." />
+    <meta name="keywords" content="VGPoker" />
+
+    <title>VG·Poker</title>
+    <link rel="icon" href="/assets/favicon-C9xGTWlR.ico">
+
+    <!-- 强制纯黑状态栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <meta name="color-scheme" content="dark">
+    
+    <!-- ===============================
+         iOS 图标支持
+         =============================== -->
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png">
+    
+    <!-- 预加载图标 -->
+    <link rel="preload" as="image" href="/icons/icon-192x192.png">
+    <link rel="preload" as="image" href="/icons/icon-512x512.png">
+
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #000 !important;
+        color: #fff !important;
+      }
+    
+      /* 告诉浏览器：无论 light/dark，都使用 dark 样式 */
+      @media (prefers-color-scheme: light) {
+        html, body {
+          background: #000 !important;
+          color: #fff !important;
+        }
+      }
+    
+      /* 刘海补丁，去掉灰度 */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: env(safe-area-inset-top);
+        background: #000;
+        z-index: 9999;
+      }
+    </style>
+    <!-- <div id="ios-install-guide" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.8); justify-content: center; align-items: center; z-index: 9999;">
+      <img src="ios-install-guide.png" alt="Click the Safari share button and select 'Add to Home Screen'" 
+           style="max-width: 100%; max-height: 100%; border-radius: 10px;">
+    </div> -->
+    <script type="module" crossorigin src="/assets/index-BJGHj_RV.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-AZfkIu7b.css">
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="/js/config_ext.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/mylib_ext.js" type="text/javascript" charset="utf-8"></script> 
+
+    <script>
+      var platId = 1017
+      const params = new URLSearchParams(window.location.search);
+      // 获取 share 参数的值
+      const shareValue = params.get('share'); 
+      console.log("shareValue = ",shareValue);
+      if(shareValue){
+          if(shareValue == "A"){
+              platId = 1017;
+          }else if(shareValue == "B"){
+              platId = 1018;
+          }
+      }
+      var cfg = mylib.logic.getCfg(platId);
+      mylib.logic.fbInit(cfg.pix);
+    </script>
+  </body>
+</html>
