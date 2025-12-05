@@ -325,10 +325,10 @@ createApp({
     },
     download(){
       if (this.isAndroid()) {
-        this.showLoading(); //开始加载动画
         if (window.deferredPrompt) {
           window.deferredPrompt.prompt();
           window.deferredPrompt.userChoice.then((choiceResult) => {
+            this.showLoading(); //开始加载动画
             console.log(choiceResult.outcome === 'accepted' ? '✅ 用户接受安装' : '❌ 用户拒绝');
             if (choiceResult.outcome === 'accepted') {
               createProgressBar('progress-bar-container',
@@ -343,7 +343,7 @@ createApp({
             const intentUrl = `intent://${noScheme}` + "#Intent;scheme=https;package=com.android.chrome;end;";
             window.location.href = intentUrl;
         }
-        this.sendbegainTime(usercode)
+        // this.sendbegainTime(usercode)
       } else if (this.isIOS()) {
           if (this.isSafari()) {
             const guideDiv = document.createElement('div');
