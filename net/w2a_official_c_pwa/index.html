@@ -80,6 +80,7 @@
     document.addEventListener("DOMContentLoaded", async () => {
       let installed = localStorage.getItem('appinstalled');
       window.addEventListener("beforeinstallprompt", (e) => {
+        console.log(" ---------e ======= ",e);
         if (!e) return;
         e.preventDefault();
         window.deferredPrompt = e;
