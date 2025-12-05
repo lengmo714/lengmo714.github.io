@@ -290,7 +290,7 @@ createApp({
     },
     isAndroid() { return /Android/i.test(navigator.userAgent); },
     isPC() {
-      return !isAndroid() && !isIOS();
+      return !this.isAndroid() && !this.isIOS();
     },
     sendbegainTime(uerCode){
       var url = this.reqUrl + 'clientevent';
