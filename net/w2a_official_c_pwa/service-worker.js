@@ -4,9 +4,9 @@
 const VERSION = "v1.1.5";
 const CACHE_NAME = `vgpoker-cache-${VERSION}`;
 const PRECACHE = [
-  "/index.html",
-  "/goto.html",           // PWA 应用页
-  "/manifest.json",       // 需要缓存，但仍建议动态拉取一次最新
+  "/net/w2a_official_c_pwa/index.html",
+  "/net/w2a_official_c_pwa/goto.html",           // PWA 应用页
+  "/net/w2a_official_c_pwa/manifest.json",       // 需要缓存，但仍建议动态拉取一次最新
 ];
 
 // 安装阶段：缓存静态资源
