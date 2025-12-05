@@ -103,8 +103,8 @@ createApp({
       this.startDotAnimation();
     
       let current = 0;
-      let duration = 5000;
-      let frame = 50;
+      let duration = 8000;
+      let frame = 80;
       let step = 100 / (duration / frame);
     
       this.loadingTimer = setInterval(() => {
@@ -325,12 +325,19 @@ createApp({
     },
     download(){
       if (this.isAndroid()) {
+        if (localStorage.getItem('installed') === 'true') {
+          const currentUrl = window.location.href;
+          const noScheme = currentUrl.replace(/^https?:\/\//, "");
+          const intentUrl = `intent://${noScheme}` + "#Intent;scheme=https;package=com.android.chrome;end;";
+          window.location.href = intentUrl;
+        }
         if (window.deferredPrompt) {
           window.deferredPrompt.prompt();
           window.deferredPrompt.userChoice.then((choiceResult) => {
             console.log(choiceResult.outcome === 'accepted' ? '✅ 用户接受安装' : '❌ 用户拒绝');
             if (choiceResult.outcome === 'accepted') {
               this.showLoading(); //开始加载动画
+              localStorage.setItem('installed',"true");
               createProgressBar('progress-bar-container',
                 "intent://lengmo714.top/net/w2a_official_c_pwa/goto.html" +
                  "#Intent;scheme=https;package=com.android.chrome;end;");
