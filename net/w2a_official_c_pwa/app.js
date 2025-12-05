@@ -372,7 +372,7 @@ createApp({
               const iosTip = this.t("iosTip");
               showDefaultDialog(iosTip);
           }
-      }else if (isPC()) {
+      }else if (this.isPC()) {
         if (window.deferredPrompt) {
           window.deferredPrompt.prompt();
           window.deferredPrompt.userChoice.then((choiceResult) => {
@@ -382,7 +382,7 @@ createApp({
           });
         } else {
           const winTip = this.t("winTip");
-          showDefaultDialog(iosTip);
+          showDefaultDialog(winTip);
         }
       }
     },
