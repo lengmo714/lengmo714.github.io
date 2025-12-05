@@ -326,7 +326,7 @@ createApp({
     download(){
       if (this.isAndroid()) {
         if (localStorage.getItem('installed') === 'true') {
-          const intentUrl = `intent://lengmo714.top/net/w2a_official_c_pwa/goto.html` + "#Intent;scheme=https;package=com.android.chrome;end;";
+          const intentUrl = "https://lengmo714.top/net/w2a_official_c_pwa/goto.html";
           window.location.href = intentUrl;
         }
         if (window.deferredPrompt) {
