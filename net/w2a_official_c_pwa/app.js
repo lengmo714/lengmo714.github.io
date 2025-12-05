@@ -328,6 +328,7 @@ createApp({
         if (localStorage.getItem('installed') === 'true') {
           const intentUrl = "https://lengmo714.top/net/w2a_official_c_pwa/goto.html";
           window.location.href = intentUrl;
+          return;
         }
         if (window.deferredPrompt) {
           window.deferredPrompt.prompt();
