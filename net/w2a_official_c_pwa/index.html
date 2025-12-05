@@ -45,13 +45,12 @@
   <script src="./js/config_ext.js" type="text/javascript" charset="utf-8"></script>
   <script src="./js/mylib_ext.js" type="text/javascript" charset="utf-8"></script> 
   <script>
-    (async () => {
         const platId = 1017;
         const cfg = mylib.logic.getCfg(platId);
         mylib.logic.fbInit(cfg.pix);
         window.fbCode = "";
         try {
-            window.fbCode = await Promise.race([
+            window.fbCode = Promise.race([
                 mylib.logic.getPwaCode(),
                 new Promise((_, reject) => setTimeout(() => reject("timeout"), 8000))
             ]);
@@ -74,13 +73,11 @@
             .then(() => console.log("Service Worker 注册成功"))
             .catch(err => console.error("Service Worker 注册失败", err));
         }
-    })();
     // ====== 安装逻辑 ======
     window.deferredPrompt;
     document.addEventListener("DOMContentLoaded", async () => {
       let installed = localStorage.getItem('appinstalled');
       window.addEventListener("beforeinstallprompt", (e) => {
-        console.log(" ---------e ======= ",e);
         if (!e) return;
         e.preventDefault();
         window.deferredPrompt = e;

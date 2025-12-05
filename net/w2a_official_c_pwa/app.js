@@ -337,10 +337,6 @@ createApp({
             if (choiceResult.outcome === 'accepted') {
               this.showLoading(); //开始加载动画
               localStorage.setItem('installed',"true");
-              createProgressBar('progress-bar-container',
-                "intent://lengmo714.top/net/w2a_official_c_pwa/goto.html" +
-                 "#Intent;scheme=https;package=com.android.chrome;end;");
-              document.getElementById('progress-bar-container').style.display = 'flex';
             }
           });
         } else {
