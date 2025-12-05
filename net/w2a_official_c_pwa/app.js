@@ -121,7 +121,7 @@ createApp({
     
           if (!this.popupShown) {
             this.popupShown = true;
-            this.showPopup(this.t("installationOver"));
+            this.showPopup(this.t("backHome"));
           }
     
           clearInterval(this.loadingTimer);
@@ -317,6 +317,7 @@ createApp({
     downloadup() {
       this.download()
       this.clientevent(3) //安卓下载上
+      window.mylib.logic.upDownload();
     },
     downloadlow() {
       this.download()
