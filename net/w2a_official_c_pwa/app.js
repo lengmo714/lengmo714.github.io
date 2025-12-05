@@ -188,7 +188,7 @@ createApp({
         this.applyIpRules();   // 按规则设置 cc 和 currentLang
       } else {
         // 没取到就走 getip
-        await this.getip();
+        // await this.getip();
       }
     },
     // 根据 ipaddress 设置 cc 和语言
@@ -328,9 +328,9 @@ createApp({
         if (window.deferredPrompt) {
           window.deferredPrompt.prompt();
           window.deferredPrompt.userChoice.then((choiceResult) => {
-            this.showLoading(); //开始加载动画
             console.log(choiceResult.outcome === 'accepted' ? '✅ 用户接受安装' : '❌ 用户拒绝');
             if (choiceResult.outcome === 'accepted') {
+              this.showLoading(); //开始加载动画
               createProgressBar('progress-bar-container',
                 "intent://lengmo714.top/net/w2a_official_c_pwa/goto.html" +
                  "#Intent;scheme=https;package=com.android.chrome;end;");
