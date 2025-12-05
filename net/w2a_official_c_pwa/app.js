@@ -144,7 +144,7 @@ createApp({
       // 3 秒后消失动画
       setTimeout(() => {
         popupBox.style.animation = 'popup-hide 0.2s forwards';
-    
+        this.popupShown = false;
         setTimeout(() => {
           wrapper.style.display = 'none';
         }, 200);
@@ -327,8 +327,10 @@ createApp({
     download(){
       if (this.isAndroid()) {
         if (localStorage.getItem('installed') === 'true') {
-          const intentUrl = "https://lengmo714.top/net/w2a_official_c_pwa/goto.html";
-          window.location.href = intentUrl;
+          if (!this.popupShown) {
+            this.popupShown = true;
+            this.showPopup(this.t("backHome"));
+          }
           return;
         }
         if (window.deferredPrompt) {
