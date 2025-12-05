@@ -370,7 +370,7 @@ createApp({
             document.body.appendChild(guideDiv);
           } else {
               const iosTip = this.t("iosTip");
-              showDefaultDialog(iosTip);
+              alert(iosTip);
           }
       }else if (this.isPC()) {
         if (window.deferredPrompt) {
@@ -382,7 +382,7 @@ createApp({
           });
         } else {
           const winTip = this.t("winTip");
-          showDefaultDialog(winTip);
+          alert(winTip);
         }
       }
     },
