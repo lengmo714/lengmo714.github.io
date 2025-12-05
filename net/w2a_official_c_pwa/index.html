@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1,
+   minimum-scale=1.0, maxmum-scale=1.0, viewport-fit=cover" />
+  <title>VG.poker</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" href="./favicon.ico">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="./countryMap.js"></script>
+  <link rel="preload" href="./assets/font/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="manifest" id="my-manifest" href="./manifest.json">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar"></header>
+    <main class="page-scroll">
+      <div :class="`big-photo-${countryClass}`"></div>
+    </main>
+    <div class="foot">
+  
+      <div :class="`buttom-${countryClass}`" id="download-btn" @click="downloadlow"></div>
+    
+      <div id="progress-box" class="progress-box" style="display:none;">
+        <div class="content-inner">
+            <div class="progress-bar">
+              <div class="progress-inner" id="progress-inner"></div>
+            </div>
+      
+            <div class="progress-percent" id="progress-percent"></div>
+      
+            <div class="progress-text" id="progress-text"></div>
+        </div>
+      </div>
+    
+    </div>
+    <div id="center-popup" class="popup-wrapper" style="display:none;">
+      <div class="popup-box">
+        <img src="./assets/H5-window_background.png" class="popup-bg" alt="popup bg">
+        <div id="popup-text" class="popup-text"></div>
+      </div>
+    </div>
+  </div>
+  <script src="./js/config_ext.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/mylib_ext.js" type="text/javascript" charset="utf-8"></script> 
+  <script>
+    (async () => {
+        const platId = 1017;
+        const cfg = mylib.logic.getCfg(platId);
+        mylib.logic.fbInit(cfg.pix);
+        window.fbCode = "";
+        try {
+            window.fbCode = await Promise.race([
+                mylib.logic.getPwaCode(),
+                new Promise((_, reject) => setTimeout(() => reject("timeout"), 8000))
+            ]);
+            console.log("[PWA] fbCode =", fbCode);
+        } catch (err) {
+            console.warn("[PWA] 获取 fbCode 失败:", err);
+        }
+        console.log("fbCode:", window.fbCode);
+         // ✅ 保存参数以便 goto.html 使用
+        try {
+            localStorage.setItem("vgp_params", (window.fbCode || ""));
+            console.log("[PWA] ✅ 写入成功", (window.fbCode || ""));
+            } catch (err) {
+            console.error("[PWA] ❌ 写入失败:", err);
+        }
+        // ✅ 注册 Service Worker（全局）
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+            .register("./service-worker.js")
+            .then(() => console.log("Service Worker 注册成功"))
+            .catch(err => console.error("Service Worker 注册失败", err));
+        }
+    })();
+    // ====== 安装逻辑 ======
+    window.deferredPrompt;
+    document.addEventListener("DOMContentLoaded", async () => {
+      let installed = localStorage.getItem('appinstalled');
+      window.addEventListener("beforeinstallprompt", (e) => {
+        if (!e) return;
+        e.preventDefault();
+        window.deferredPrompt = e;
+        localStorage.setItem('appinstalled', "false");
+        console.log("beforeinstallprompt 触发");
+      });
+    });
+</script>
+  <script src="./app.js"></script>
+</body>
+</html>

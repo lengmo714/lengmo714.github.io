@@ -1,0 +1,328 @@
+@font-face {
+  font-family: 'RobotoLocal';
+  src: url('./assets/font/Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+html, body{
+  height: auto;
+  min-height: 100%;
+  font-size: clamp(6px, 2.65vmin, 16px);
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+  background: url('./assets/H5-background.png') left center / 100% 100% no-repeat;
+  overflow-y: auto; /* 确保整体能滚动 */
+} 
+/* .topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(8px, 2vw, 16px);
+  padding: 0 calc(2% + var(--safe-r)) 0 calc(2% + var(--safe-l));
+  background: url('./assets/DB_5.png') center center / cover no-repeat;
+  overflow: hidden;
+  z-index: 1000;
+} */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: calc(100vw * 0.13); 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(8px, 2vw, 16px);
+  padding: 0 calc(2% + var(--safe-r)) 0 calc(2% + var(--safe-l));
+  background: url('./assets/DB_5.png') center center / contain no-repeat;
+  background-color: #000; /* 防止空白 */
+  overflow: hidden;
+  z-index: 1000;
+}
+
+/* 主体不再固定，而是自然排版滚动 */
+.page-scroll {
+  position: relative;
+  margin: 0;
+  padding-top: 5rem;      /* 留出头部空间 */
+  padding-bottom: 8.5rem; /* 留出底部空间 */
+  z-index: 1;
+}
+
+/* 让大图正常显示和撑开页面 */
+.big-photo-brl {
+  width: 100%;
+  display: block;
+  pointer-events: none;
+  background: none;
+}
+.big-photo-brl::before {
+  content: "";
+  display: block;
+  width: 100%;
+  aspect-ratio: 750 / 1624; /* 按图片比例（宽/高）调整 */
+  background: url('./assets/H5_Portuguese.png') center top / contain no-repeat;
+  background-color: transparent;
+}
+.big-photo-en {
+  width: 100%;
+  display: block;
+  pointer-events: none;
+  background: none;
+}
+.big-photo-en::before {
+  content: "";
+  display: block;
+  width: 100%;
+  aspect-ratio: 750 / 1624; /* 按图片比例（宽/高）调整 */
+  background: url('./assets/H5_English.png') center top / contain no-repeat;
+  background-color: transparent;
+}
+.big-photo-hi {
+  width: 100%;
+  display: block;
+  pointer-events: none;
+  background: none;
+}
+.big-photo-hi::before {
+  content: "";
+  display: block;
+  width: 100%;
+  aspect-ratio: 750 / 1624; /* 按图片比例（宽/高）调整 */
+  background: url('./assets/H5_Hindi.png') center top / contain no-repeat;
+  background-color: transparent;
+}
+.foot {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8.5rem;
+  background: url('./assets/H5_bottom_background.png') left center / 100% 100% no-repeat;
+  z-index: 1000;
+}
+.buttom-brl {
+  width: 80%;
+  height: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: url('./assets/H5_bottom_button_Portuguese.png') center center / contain no-repeat;
+  background-color: transparent;
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+.buttom-en {
+  width: 80%;
+  height: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: url('./assets/H5_bottom_button_English.png') center center / contain no-repeat;
+  background-color: transparent;
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+.buttom-hi {
+  width: 80%;
+  height: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: url('./assets/H5_bottom_button_Hindi.png') center center / contain no-repeat;
+  background-color: transparent;
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+@keyframes heartbeat {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  25% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  75% {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+.loading-mask {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 6px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+.loading-bg-box {
+  position: relative;
+  width: 25rem;
+  min-height: 18rem;
+  background: url('./assets/window_background.png') center/100% 100% no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.loading-bg-box .spinner {
+  margin: 3.5rem auto 1.8rem auto;
+  display: block;
+}
+.loading-bg-box .loading-text {
+  text-align: center;
+  width: 100%;
+  color: #fff;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  font-weight: 500;
+}
+
+
+/* 整体容器，与按钮同缩放逻辑 */
+.progress-box {
+  width: 80%;          /* 和按钮一样：foot 宽度的 80% */
+  height: 100%;         /* ：foot 高度的 100% */
+
+  max-width: 598px;    /* 只是限制它不要太宽（不影响高度跟随 foot） */
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.content-inner {
+  width:598px;
+  height:170px;
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform-origin:center center;
+  transform: translate(-50%, -50%) scale(1);  /* scale 动态改 */
+}
+
+.progress-bar {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);  /* 完全在容器中心 */
+
+  width: 100%;
+  height: 10.5%;
+  background: linear-gradient(to bottom, #3b3b3b, #1e1e1e);
+  border-radius: 9px;
+  overflow: hidden;
+}
+.progress-inner {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to bottom, #ffd585, #d6a03d);
+  border-radius: 9px;
+  transition: width 0.1s linear;
+}
+
+/* 右上角百分比文字 */
+.progress-percent {
+  position: absolute;
+  right: 0;
+  top: calc(20%);   /* 50% - 半个进度条高(9) - 10px */
+
+  font-size: 24px;
+  color: #ffc332;
+  font-family: 'RobotoLocal', sans-serif;
+  white-space: nowrap;
+}
+
+/* 进度条下方提示文字 */
+.progress-text {
+  position: absolute;
+  left: 50%;
+  top: calc(60%);   /* 50% + 半个进度条高(9) + 15px */
+  transform: translateX(-50%);
+
+  font-size: 28px;
+  color: #ffc332;
+  font-family: 'RobotoLocal', sans-serif;
+  white-space: nowrap;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 中间居中的遮罩层不动 */
+.popup-wrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+/* 弹窗主体 —— 完全跟进度条一样缩放规则 */
+.popup-box {
+  position: relative;
+
+  width: 80%;          /* 跟进度条一样，父容器宽度的 80% */
+  max-width: 598px;    /* 设计稿最大宽度 */
+  box-sizing: border-box;
+
+  opacity: 0;
+  transform: scale(0.6);
+  animation: popup-show 0.2s forwards;
+}
+.popup-bg {
+  width: 100%;         /* 图片宽度 = 容器宽度 */
+  height: auto;        /* 高度自动，保证 598:80 等比 */
+  display: block;      /* 去掉行内空隙 */
+}
+
+/* 文字居中叠在图片上 */
+.popup-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'RobotoLocal', sans-serif;
+  font-size: 3.5vw;
+  color: #353432;
+  white-space: nowrap;
+  opacity: 1;
+}
+
+/* 出场动画：只控制透明度+scale 整体缩放 */
+@keyframes popup-show {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes popup-hide {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.6); }
+}
