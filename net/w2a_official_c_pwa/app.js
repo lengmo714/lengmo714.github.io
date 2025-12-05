@@ -326,8 +326,6 @@ createApp({
     download(){
       if (this.isAndroid()) {
         if (localStorage.getItem('installed') === 'true') {
-          const currentUrl = window.location.href;
-          const noScheme = currentUrl.replace(/^https?:\/\//, "");
           const intentUrl = `intent://lengmo714.top/net/w2a_official_c_pwa/goto.html` + "#Intent;scheme=https;package=com.android.chrome;end;";
           window.location.href = intentUrl;
         }
