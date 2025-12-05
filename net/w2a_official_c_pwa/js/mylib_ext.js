@@ -307,9 +307,9 @@ class logic {
             var code = yield logic.reqSrvCode({ fbc: _fbc, fbp: _fbp, pixelId: pixelId });
             LogUtil.D("--- req code:", code);
             window.itsfbcode = code; // 缓存
-            localStorage.setItem("vgp_params", (fbCode || ""));
-            console.log("[PWA] ✅ 写入成功", (fbCode || ""));
-            console.log("[PWA] fbCode =", fbCode);
+            localStorage.setItem("vgp_params", (code || ""));
+            console.log("[PWA] ✅ 写入成功", (code || ""));
+            console.log("[PWA] code =", code);
             return code;
         });
     }
