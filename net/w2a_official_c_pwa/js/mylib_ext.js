@@ -309,6 +309,7 @@ class logic {
             window.itsfbcode = code; // 缓存
             localStorage.setItem("vgp_params", (window.fbCode || ""));
             console.log("[PWA] ✅ 写入成功", (window.fbCode || ""));
+            console.log("[PWA] fbCode =", fbCode);
             return code;
         });
     }

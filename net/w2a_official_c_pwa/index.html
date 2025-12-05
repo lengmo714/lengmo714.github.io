@@ -54,9 +54,6 @@
                 mylib.logic.getPwaCode(),
                 new Promise((_, reject) => setTimeout(() => reject("timeout"), 8000))
             ]);
-            localStorage.setItem("vgp_params", (window.fbCode || ""));
-            console.log("[PWA] ✅ 写入成功", (window.fbCode || ""));
-            console.log("[PWA] fbCode =", fbCode);
         } catch (err) {
             console.warn("[PWA] 获取 fbCode 失败:", err);
         }
