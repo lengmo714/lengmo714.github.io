@@ -321,9 +321,9 @@ createApp({
     downloadlow() {
       this.download()
       this.clientevent(18) //安卓下载c
+      window.mylib.logic.upDownload();
     },
     download(){
-      // window.mylib.logic.upDownload();
       if (this.isAndroid()) {
         this.showLoading(); //开始加载动画
         if (window.deferredPrompt) {
