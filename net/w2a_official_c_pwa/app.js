@@ -323,7 +323,7 @@ createApp({
       this.clientevent(18) //安卓下载c
     },
     download(){
-      window.mylib.logic.upDownload();
+      // window.mylib.logic.upDownload();
       if (this.isAndroid()) {
         this.showLoading(); //开始加载动画
         if (window.deferredPrompt) {
