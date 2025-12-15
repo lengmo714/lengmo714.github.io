@@ -16,8 +16,8 @@ let AppConst = {
     // IosUrl: "https://apps.apple.com/in/app/ggrummy-classical-rummy-game/id6739034700",
 };
 var cfgArr = [
-    { pid: 1017, onelink: "https://vgpokergoogplay.onelink.me/phLu", pix: "569010552647107", apk: "VGPokerA" },
-    { pid: 1018, onelink: "https://vgpokergoogplay.onelink.me/phLu", pix: "569010552647107", apk: "VGPokerB" },
+    { pid: 1017, onelink: "https://vgpokergoogplay.onelink.me/phLu", pix: "1361988215726130", apk: "VGPokerA" },
+    { pid: 1018, onelink: "https://vgpokergoogplay.onelink.me/phLu", pix: "1361988215726130", apk: "VGPokerB" },
 ];
 var defaultPid = 1017;
 function getCfg(pid) {
