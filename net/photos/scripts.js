@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.thumbnail').forEach(img => {
         img.addEventListener('click', () => {
             modal.style.display = "block";
-            modalImg.src = img.src;
+            modalImg.src = img.dataset.full || img.src;
             captionText.innerHTML = img.alt;
         });
     });

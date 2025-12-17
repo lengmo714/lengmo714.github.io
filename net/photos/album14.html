@@ -1,49 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小椰子的成长</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="scripts.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小椰子的成长</title>
+  <style>
+    body { margin:0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+    h1 { text-align:center; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+      padding: 10px;
+    }
+    .item {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #f3f3f3;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .modal {
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.9);
+      align-items:center;
+      justify-content:center;
+    }
+    .modal img { max-width:90%; max-height:90%; }
+  </style>
 </head>
-
 <body>
-    <h1>小椰子的成长</h1>
-    <div class="gallery">
-        <img src="https://lengmo714.top/baby/1.JPEG" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/2.JPEG" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/3.JPEG" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/4.JPG" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/5.JPG" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/6.JPG" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/7.JPG" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/8.JPG" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/9.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/10.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/11.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/12.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/13.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/14.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/15.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/16.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/17.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/18.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/19.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/20.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/21.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/22.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/23.jpg" alt="" class="thumbnail" loading="lazy">
-        <img src="https://lengmo714.top/baby/24.jpg" alt="" class="thumbnail" loading="lazy">
-        <video src="https://lengmo714.top/baby/25.MOV" controls preload="none" poster="https://lengmo714.top/baby/24.jpg"></video>
-        <!-- Add more photos as needed -->
-    </div>
-    <div id="modal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modal-img">
-        <div id="caption"></div>
-    </div>
-</body>
+<h1 id="title"></h1>
+<div id="gallery" class="gallery"></div>
 
+<div id="modal" class="modal">
+  <img id="modalImg" />
+</div>
+
+<script>
+// ===== 配置 =====
+const ALBUM_JSON = 'album14/album14.json';
+const PAGE_SIZE = 24; // 一屏渲染数量
+
+let photos = [];
+let index = 0;
+
+const gallery = document.getElementById('gallery');
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modalImg');
+
+fetch(ALBUM_JSON)
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById('title').innerText = data.title;
+    photos = data.photos;
+    renderNext();
+    observer.observe(sentinel);
+  });
+
+function renderNext() {
+  const slice = photos.slice(index, index + PAGE_SIZE);
+  slice.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'item';
+    const img = document.createElement('img');
+    img.src = p.thumb;
+    div.appendChild(img);
+    div.onclick = () => {
+      modal.style.display = 'flex';
+      modalImg.src = p.full;
+    };
+    gallery.appendChild(div);
+  });
+  index += PAGE_SIZE;
+}
+
+// ===== 虚拟加载触发器 =====
+const sentinel = document.createElement('div');
+gallery.after(sentinel);
+
+const observer = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting && index < photos.length) {
+    renderNext();
+  }
+});
+
+modal.onclick = () => modal.style.display = 'none';
+</script>
+</body>
 </html>
