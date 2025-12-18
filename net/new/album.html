@@ -35,14 +35,11 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: blur(12px); /* 初始模糊 */
-      transition: filter .4s ease;
       visibility: hidden; /* 初始隐藏，避免闪烁 */
     }
 
-    /* 图片加载完成后，去掉模糊 */
+    /* 图片加载完成后，显示图片 */
     .photo img.loaded {
-      filter: blur(0);
       visibility: visible;
     }
 
@@ -94,11 +91,11 @@
         }
 
         img.dataset.loaded = '1';
-        img.src = img.dataset.thumb;
+        img.src = img.dataset.thumb + '?t=' + new Date().getTime();;
 
         img.onload = () => {
-          img.classList.add('loaded');
-        }
+            img.classList.add('loaded');
+        };
 
         io.unobserve(img);
       });
@@ -114,12 +111,8 @@
 
           const img = document.createElement('img');
 
-          /* 1️⃣ 加载缩略图时显示低质量模糊图 */
-          fetch(item.blur)
-            .then(r => r.text())
-            .then(b64 => {
-              img.src = 'data:image/jpeg;base64,' + b64;
-            });
+          /* 1️⃣ 直接加载缩略图，不使用模糊 */
+          img.src = item.thumb;
 
           /* 2️⃣ thumb 放在 dataset 里，点击加载 full */
           img.dataset.thumb = item.thumb;
