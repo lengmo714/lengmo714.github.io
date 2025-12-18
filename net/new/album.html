@@ -77,55 +77,51 @@
     const viewer = document.getElementById('viewer')
     const viewerImg = document.getElementById('viewerImg')
 
-    /* ===== 懒加载观察器 ===== */
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
+   /* ===== 懒加载优化 ===== */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
 
-        const img = entry.target;
+    const img = entry.target;
 
-        // 防止重复加载
-        if (img.dataset.loaded === '1') {
-          io.unobserve(img);
-          return;
-        }
+    // 防止重复加载
+    if (img.dataset.loaded === '1') {
+      io.unobserve(img);
+      return;
+    }
 
-        img.dataset.loaded = '1';
-        img.src = img.dataset.thumb + '?t=' + new Date().getTime();;
+    img.dataset.loaded = '1';
+    img.src = img.dataset.src;  // 从 data-src 加载大图
 
-        img.onload = () => {
-            img.classList.add('loaded');
-        };
+    img.onload = () => {
+      img.classList.add('loaded');
+    };
 
-        io.unobserve(img);
-      });
-    }, { rootMargin: '200px' });
+    io.unobserve(img);
+  });
+}, { rootMargin: '200px' });
 
-    /* ===== 加载相册 JSON ===== */
-    fetch(`data/${albumId}.json`)
-      .then(res => res.json())
-      .then(list => {
-        list.forEach(item => {
-          const box = document.createElement('div');
-          box.className = 'photo';
+fetch(`data/${albumId}.json`)
+  .then(res => res.json())
+  .then(list => {
+    list.forEach(item => {
+      const box = document.createElement('div');
+      box.className = 'photo';
 
-          const img = document.createElement('img');
+      const img = document.createElement('img');
 
-          /* 1️⃣ 直接加载缩略图，不使用模糊 */
-          img.src = item.thumb;
+      /* 缩略图直接加载 */
+      img.src = item.thumb;
+      img.dataset.src = item.full; // 真实图片放在 data-src 中
 
-          /* 2️⃣ thumb 放在 dataset 里，点击加载 full */
-          img.dataset.thumb = item.thumb;
+      img.onclick = () => openViewer(item.full);
+      
+      io.observe(img);
+      box.appendChild(img);
+      grid.appendChild(box);
+    });
+  })
 
-          /* 3️⃣ 点击才加载 full */
-          img.onclick = () => openViewer(item.full);
-
-          // 观察器开始观察图片
-          io.observe(img);
-          box.appendChild(img);
-          grid.appendChild(box);
-        });
-      })
 
     /* ===== 查看大图 ===== */
     function openViewer(url) {
