@@ -6,9 +6,7 @@
   <title>相册</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -17,19 +15,16 @@
       font-family: -apple-system, BlinkMacSystemFont;
     }
 
-    /* 滚动容器 */
     .scroll {
       height: 100vh;
       overflow-y: auto;
     }
 
-    /* 用来撑起总高度 */
     .spacer {
       position: relative;
       width: 100%;
     }
 
-    /* 实际渲染的 grid */
     .grid {
       position: absolute;
       left: 0;
@@ -53,7 +48,6 @@
       display: block;
     }
 
-    /* ===== 大图查看 ===== */
     .viewer {
       position: fixed;
       inset: 0;
@@ -73,116 +67,139 @@
 
 <body>
 
-  <div class="scroll" id="scroll">
-    <div class="spacer" id="spacer">
-      <div class="grid" id="grid"></div>
-    </div>
+<div class="scroll" id="scroll">
+  <div class="spacer" id="spacer">
+    <div class="grid" id="grid"></div>
   </div>
+</div>
 
-  <div class="viewer" id="viewer">
-    <img id="viewerImg" />
-  </div>
+<div class="viewer" id="viewer">
+  <img id="viewerImg" />
+</div>
 
-  <script>
-    const params = new URLSearchParams(location.search);
-    const albumId = params.get('id');
+<script>
+  const params = new URLSearchParams(location.search);
+  const albumId = params.get('id');
 
-    const scroll = document.getElementById('scroll');
-    const spacer = document.getElementById('spacer');
-    const grid = document.getElementById('grid');
+  const scroll = document.getElementById('scroll');
+  const spacer = document.getElementById('spacer');
+  const grid = document.getElementById('grid');
 
-    const viewer = document.getElementById('viewer');
-    const viewerImg = document.getElementById('viewerImg');
+  const viewer = document.getElementById('viewer');
+  const viewerImg = document.getElementById('viewerImg');
 
-    const ITEM_SIZE = 160 + 6; // 图片尺寸 + gap（近似即可）
-    const BUFFER_ROWS = 2;     // 上下多渲染几行，防止闪烁
+  const ITEM_SIZE = 160 + 6;
+  const BUFFER_ROWS = 2;
 
-    let list = [];
-    let columns = 2;
-    let rows = 0;
+  let list = [];
+  let columns = 2;
+  let rows = 0;
 
-    function calcColumns() {
-      columns = Math.floor(window.innerWidth / ITEM_SIZE);
-      columns = Math.max(columns, 2);
+  // 👉 大图缓存
+  const fullImageCache = new Map();
+
+  function calcColumns() {
+    columns = Math.floor(window.innerWidth / ITEM_SIZE);
+    columns = Math.max(columns, 2);
+  }
+
+  function updateSpacer() {
+    rows = Math.ceil(list.length / columns);
+    spacer.style.height = rows * ITEM_SIZE + 'px';
+  }
+
+  function preloadFull(url) {
+    if (fullImageCache.has(url)) return;
+
+    const img = new Image();
+    img.onload = () => {
+      fullImageCache.set(url, img);
+    };
+    img.src = url;
+  }
+
+  function render() {
+    const scrollTop = scroll.scrollTop;
+    const viewHeight = scroll.clientHeight;
+
+    const startRow = Math.max(
+      0,
+      Math.floor(scrollTop / ITEM_SIZE) - BUFFER_ROWS
+    );
+
+    const endRow = Math.min(
+      rows,
+      Math.ceil((scrollTop + viewHeight) / ITEM_SIZE) + BUFFER_ROWS
+    );
+
+    const startIndex = startRow * columns;
+    const endIndex = Math.min(list.length, endRow * columns);
+
+    grid.style.top = startRow * ITEM_SIZE + 'px';
+    grid.innerHTML = '';
+
+    for (let i = startIndex; i < endIndex; i++) {
+      const item = list[i];
+      const div = document.createElement('div');
+      div.className = 'photo';
+
+      const img = document.createElement('img');
+      img.loading = 'lazy';
+      img.src = item.thumb;
+
+      // ✅ 小图加载完成后，预加载大图
+      img.onload = () => {
+        preloadFull(item.full);
+      };
+
+      img.onclick = () => openViewer(item.full);
+
+      div.appendChild(img);
+      grid.appendChild(div);
     }
+  }
 
-    function updateSpacer() {
-      rows = Math.ceil(list.length / columns);
-      spacer.style.height = rows * ITEM_SIZE + 'px';
-    }
-
-    function render() {
-      const scrollTop = scroll.scrollTop;
-      const viewHeight = scroll.clientHeight;
-
-      const startRow = Math.max(
-        0,
-        Math.floor(scrollTop / ITEM_SIZE) - BUFFER_ROWS
-      );
-
-      const endRow = Math.min(
-        rows,
-        Math.ceil((scrollTop + viewHeight) / ITEM_SIZE) + BUFFER_ROWS
-      );
-
-      const startIndex = startRow * columns;
-      const endIndex = Math.min(list.length, endRow * columns);
-
-      grid.style.top = startRow * ITEM_SIZE + 'px';
-      grid.innerHTML = '';
-
-      for (let i = startIndex; i < endIndex; i++) {
-        const item = list[i];
-        const div = document.createElement('div');
-        div.className = 'photo';
-
-        const img = document.createElement('img');
-        img.loading = 'lazy';
-        img.src = item.thumb;
-
-        img.onclick = () => openViewer(item.full);
-
-        div.appendChild(img);
-        grid.appendChild(div);
-      }
-    }
-
-    fetch(`data/${albumId}.json`)
-      .then(res => res.json())
-      .then(data => {
-        list = data;
-        calcColumns();
-        updateSpacer();
-        render();
-      });
-
-    scroll.addEventListener('scroll', () => {
-      requestAnimationFrame(render);
-    });
-
-    window.addEventListener('resize', () => {
+  fetch(`data/${albumId}.json`)
+    .then(res => res.json())
+    .then(data => {
+      list = data;
       calcColumns();
       updateSpacer();
       render();
     });
 
-    /* ===== 查看大图 ===== */
-    function openViewer(url) {
-      viewer.style.display = 'flex';
-      viewerImg.src = '';
+  scroll.addEventListener('scroll', () => {
+    requestAnimationFrame(render);
+  });
 
+  window.addEventListener('resize', () => {
+    calcColumns();
+    updateSpacer();
+    render();
+  });
+
+  function openViewer(url) {
+    viewer.style.display = 'flex';
+
+    // ✅ 优先使用已缓存的大图
+    if (fullImageCache.has(url)) {
+      viewerImg.src = fullImageCache.get(url).src;
+    } else {
+      viewerImg.src = '';
       const img = new Image();
       img.onload = () => {
         viewerImg.src = url;
+        fullImageCache.set(url, img);
       };
       img.src = url;
     }
+  }
 
-    viewer.onclick = () => {
-      viewer.style.display = 'none';
-      viewerImg.src = '';
-    };
-  </script>
+  viewer.onclick = () => {
+    viewer.style.display = 'none';
+    viewerImg.src = '';
+  };
+</script>
 
 </body>
 </html>
