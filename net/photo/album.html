@@ -17,7 +17,23 @@
       font-family: -apple-system, BlinkMacSystemFont;
     }
 
+    /* 滚动容器 */
+    .scroll {
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    /* 用来撑起总高度 */
+    .spacer {
+      position: relative;
+      width: 100%;
+    }
+
+    /* 实际渲染的 grid */
     .grid {
+      position: absolute;
+      left: 0;
+      width: 100%;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 6px;
@@ -57,7 +73,11 @@
 
 <body>
 
-  <div class="grid" id="grid"></div>
+  <div class="scroll" id="scroll">
+    <div class="spacer" id="spacer">
+      <div class="grid" id="grid"></div>
+    </div>
+  </div>
 
   <div class="viewer" id="viewer">
     <img id="viewerImg" />
@@ -67,49 +87,84 @@
     const params = new URLSearchParams(location.search);
     const albumId = params.get('id');
 
+    const scroll = document.getElementById('scroll');
+    const spacer = document.getElementById('spacer');
     const grid = document.getElementById('grid');
+
     const viewer = document.getElementById('viewer');
     const viewerImg = document.getElementById('viewerImg');
 
-    /* ===== 极简懒加载：只负责设置 src ===== */
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
+    const ITEM_SIZE = 160 + 6; // 图片尺寸 + gap（近似即可）
+    const BUFFER_ROWS = 2;     // 上下多渲染几行，防止闪烁
 
-        const img = entry.target;
+    let list = [];
+    let columns = 2;
+    let rows = 0;
 
-        if (img.src) {
-          io.unobserve(img);
-          return;
-        }
+    function calcColumns() {
+      columns = Math.floor(window.innerWidth / ITEM_SIZE);
+      columns = Math.max(columns, 2);
+    }
 
-        img.src = img.dataset.src;
-        io.unobserve(img);
-      });
-    }, {
-      rootMargin: '100px'
-    });
+    function updateSpacer() {
+      rows = Math.ceil(list.length / columns);
+      spacer.style.height = rows * ITEM_SIZE + 'px';
+    }
+
+    function render() {
+      const scrollTop = scroll.scrollTop;
+      const viewHeight = scroll.clientHeight;
+
+      const startRow = Math.max(
+        0,
+        Math.floor(scrollTop / ITEM_SIZE) - BUFFER_ROWS
+      );
+
+      const endRow = Math.min(
+        rows,
+        Math.ceil((scrollTop + viewHeight) / ITEM_SIZE) + BUFFER_ROWS
+      );
+
+      const startIndex = startRow * columns;
+      const endIndex = Math.min(list.length, endRow * columns);
+
+      grid.style.top = startRow * ITEM_SIZE + 'px';
+      grid.innerHTML = '';
+
+      for (let i = startIndex; i < endIndex; i++) {
+        const item = list[i];
+        const div = document.createElement('div');
+        div.className = 'photo';
+
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.src = item.thumb;
+
+        img.onclick = () => openViewer(item.full);
+
+        div.appendChild(img);
+        grid.appendChild(div);
+      }
+    }
 
     fetch(`data/${albumId}.json`)
       .then(res => res.json())
-      .then(list => {
-        list.forEach(item => {
-          const box = document.createElement('div');
-          box.className = 'photo';
-
-          const img = document.createElement('img');
-
-          /* 浏览器原生 lazy + observer 兜底 */
-          img.loading = 'lazy';
-          img.dataset.src = item.thumb;
-
-          img.onclick = () => openViewer(item.full);
-
-          io.observe(img);
-          box.appendChild(img);
-          grid.appendChild(box);
-        });
+      .then(data => {
+        list = data;
+        calcColumns();
+        updateSpacer();
+        render();
       });
+
+    scroll.addEventListener('scroll', () => {
+      requestAnimationFrame(render);
+    });
+
+    window.addEventListener('resize', () => {
+      calcColumns();
+      updateSpacer();
+      render();
+    });
 
     /* ===== 查看大图 ===== */
     function openViewer(url) {
