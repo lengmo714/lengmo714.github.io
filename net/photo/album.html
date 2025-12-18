@@ -35,12 +35,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      visibility: hidden; /* 初始隐藏，避免闪烁 */
-    }
-
-    /* 图片加载完成后，显示图片 */
-    .photo img.loaded {
-      visibility: visible;
+      visibility: block; /* 初始隐藏，避免闪烁 */
     }
 
     /* ===== 大图查看 ===== */
@@ -78,50 +73,42 @@
     const viewerImg = document.getElementById('viewerImg')
 
    /* ===== 懒加载优化 ===== */
-const io = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
 
-    const img = entry.target;
+        const img = entry.target;
 
-    // 防止重复加载
-    if (img.dataset.loaded === '1') {
-      io.unobserve(img);
-      return;
-    }
+        if (img.src) {
+          io.unobserve(img);
+          return;
+        }
 
-    img.dataset.loaded = '1';
-    img.src = img.dataset.src;  // 从 data-src 加载大图
-
-    img.onload = () => {
-      img.classList.add('loaded');
-    };
-
-    io.unobserve(img);
-  });
-}, { rootMargin: '200px' });
-
-fetch(`data/${albumId}.json`)
-  .then(res => res.json())
-  .then(list => {
-    list.forEach(item => {
-      const box = document.createElement('div');
-      box.className = 'photo';
-
-      const img = document.createElement('img');
-
-      /* 缩略图直接加载 */
-      img.src = item.thumb;
-      img.dataset.src = item.full; // 真实图片放在 data-src 中
-
-      img.onclick = () => openViewer(item.full);
-      
-      io.observe(img);
-      box.appendChild(img);
-      grid.appendChild(box);
+        img.src = img.dataset.src;
+        io.unobserve(img);
+      });
+    }, {
+      rootMargin: '100px'
     });
-  })
 
+    fetch(`data/${albumId}.json`)
+      .then(res => res.json())
+      .then(list => {
+        list.forEach(item => {
+          const box = document.createElement('div');
+          box.className = 'photo';
+
+          const img = document.createElement('img');
+          img.loading = 'lazy';
+          img.dataset.src = item.thumb;
+
+          img.onclick = () => openViewer(item.full);
+
+          io.observe(img);
+          box.appendChild(img);
+          grid.appendChild(box);
+        });
+      });
 
     /* ===== 查看大图 ===== */
     function openViewer(url) {
