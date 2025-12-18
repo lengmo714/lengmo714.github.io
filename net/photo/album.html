@@ -19,13 +19,12 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 6px;
       padding: 6px;
     }
 
     .photo {
-      position: relative;
       background: #1a1a1a;
       aspect-ratio: 1 / 1;
       overflow: hidden;
@@ -35,7 +34,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      visibility: block; /* 初始隐藏，避免闪烁 */
+      display: block;
     }
 
     /* ===== 大图查看 ===== */
@@ -65,14 +64,14 @@
   </div>
 
   <script>
-    const params = new URLSearchParams(location.search)
-    const albumId = params.get('id')
+    const params = new URLSearchParams(location.search);
+    const albumId = params.get('id');
 
-    const grid = document.getElementById('grid')
-    const viewer = document.getElementById('viewer')
-    const viewerImg = document.getElementById('viewerImg')
+    const grid = document.getElementById('grid');
+    const viewer = document.getElementById('viewer');
+    const viewerImg = document.getElementById('viewerImg');
 
-   /* ===== 懒加载优化 ===== */
+    /* ===== 极简懒加载：只负责设置 src ===== */
     const io = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
@@ -99,6 +98,8 @@
           box.className = 'photo';
 
           const img = document.createElement('img');
+
+          /* 浏览器原生 lazy + observer 兜底 */
           img.loading = 'lazy';
           img.dataset.src = item.thumb;
 
@@ -125,7 +126,7 @@
     viewer.onclick = () => {
       viewer.style.display = 'none';
       viewerImg.src = '';
-    }
+    };
   </script>
 
 </body>
