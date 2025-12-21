@@ -39,6 +39,8 @@
       background: #1a1a1a;
       aspect-ratio: 1 / 1;
       overflow: hidden;
+      position: relative;
+      cursor: pointer;
     }
 
     .photo img {
@@ -46,6 +48,24 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .photo:hover img {
+      transform: scale(1.05);
+    }
+
+    .photo.loading::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
     }
 
     .viewer {
@@ -58,9 +78,137 @@
       z-index: 999;
     }
 
+    .viewer.active {
+      display: flex;
+    }
+
+    .viewer-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .viewer img {
       max-width: 100%;
       max-height: 100%;
+      object-fit: contain;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .viewer-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      opacity: 0.8;
+    }
+
+    .viewer-nav:hover {
+      background: rgba(0,0,0,0.8);
+      opacity: 1;
+    }
+
+    .viewer-nav.prev {
+      left: -80px;
+    }
+
+    .viewer-nav.next {
+      right: -80px;
+    }
+
+    .viewer-nav.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .viewer-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all 0.3s ease;
+    }
+
+    .viewer-close:hover {
+      background: rgba(0,0,0,0.8);
+    }
+
+    .viewer-info {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    .loading-indicator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* 移动端优化 */
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 4px;
+        padding: 4px;
+      }
+
+      .viewer-nav.prev {
+        left: 10px;
+      }
+
+      .viewer-nav.next {
+        right: 10px;
+      }
+
+      .viewer-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -74,7 +222,14 @@
 </div>
 
 <div class="viewer" id="viewer">
-  <img id="viewerImg" />
+  <div class="viewer-content">
+    <div class="loading-indicator" id="viewerLoading" style="display: none;"></div>
+    <img id="viewerImg" />
+    <button class="viewer-nav prev" id="prevBtn">‹</button>
+    <button class="viewer-nav next" id="nextBtn">›</button>
+    <button class="viewer-close" id="closeBtn">×</button>
+    <div class="viewer-info" id="viewerInfo"></div>
+  </div>
 </div>
 
 <script>
@@ -87,16 +242,25 @@
 
   const viewer = document.getElementById('viewer');
   const viewerImg = document.getElementById('viewerImg');
+  const viewerLoading = document.getElementById('viewerLoading');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const viewerInfo = document.getElementById('viewerInfo');
 
   const ITEM_SIZE = 160 + 6;
   const BUFFER_ROWS = 2;
+  const PRELOAD_COUNT = 3; // 预加载当前图片前后各几张
 
   let list = [];
   let columns = 2;
   let rows = 0;
+  let currentImageIndex = -1;
 
-  // 👉 大图缓存
-  const fullImageCache = new Map();
+  // 🚀 增强的图片缓存系统
+  const imageCache = new Map();
+  const preloadQueue = [];
+  let isPreloading = false;
 
   function calcColumns() {
     columns = Math.floor(window.innerWidth / ITEM_SIZE);
@@ -108,14 +272,35 @@
     spacer.style.height = rows * ITEM_SIZE + 'px';
   }
 
-  function preloadFull(url) {
-    if (fullImageCache.has(url)) return;
+  // 🚀 智能预加载策略
+  function preloadImage(index) {
+    if (index < 0 || index >= list.length) return;
+    
+    const item = list[index];
+    if (imageCache.has(item.full)) return;
+
+    preloadQueue.push(index);
+    processPreloadQueue();
+  }
+
+  function processPreloadQueue() {
+    if (isPreloading || preloadQueue.length === 0) return;
+    
+    isPreloading = true;
+    const index = preloadQueue.shift();
+    const item = list[index];
 
     const img = new Image();
     img.onload = () => {
-      fullImageCache.set(url, img);
+      imageCache.set(item.full, img);
+      isPreloading = false;
+      processPreloadQueue();
     };
-    img.src = url;
+    img.onerror = () => {
+      isPreloading = false;
+      processPreloadQueue();
+    };
+    img.src = item.full;
   }
 
   function render() {
@@ -141,33 +326,166 @@
     for (let i = startIndex; i < endIndex; i++) {
       const item = list[i];
       const div = document.createElement('div');
-      div.className = 'photo';
+      div.className = 'photo loading';
 
       const img = document.createElement('img');
       img.loading = 'lazy';
       img.src = item.thumb;
 
-      // ✅ 小图加载完成后，预加载大图
+      // 🚀 小图加载完成后，预加载周围的大图
       img.onload = () => {
-        preloadFull(item.full);
+        div.classList.remove('loading');
+        // 预加载当前图片周围的大图
+        for (let j = Math.max(0, i - PRELOAD_COUNT); j <= Math.min(list.length - 1, i + PRELOAD_COUNT); j++) {
+          preloadImage(j);
+        }
       };
 
-      img.onclick = () => openViewer(item.full);
+      img.onerror = () => {
+        div.classList.remove('loading');
+        img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23333"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" fill="%23999" font-size="12"%3E加载失败%3C/text%3E%3C/svg%3E';
+      };
+
+      img.onclick = () => openViewer(i);
 
       div.appendChild(img);
       grid.appendChild(div);
     }
   }
 
-  fetch(`data/${albumId}.json`)
-    .then(res => res.json())
-    .then(data => {
-      list = data;
-      calcColumns();
-      updateSpacer();
-      render();
-    });
+  function openViewer(index) {
+    if (index < 0 || index >= list.length) return;
+    
+    currentImageIndex = index;
+    const item = list[index];
+    
+    viewer.classList.add('active');
+    viewerLoading.style.display = 'block';
+    viewerImg.style.display = 'none';
+    
+    updateViewerInfo();
+    updateNavigationButtons();
 
+    // 🚀 使用缓存的图片或加载新图片
+    if (imageCache.has(item.full)) {
+      displayCachedImage(item.full);
+    } else {
+      loadImageAndDisplay(item.full);
+    }
+  }
+
+  function displayCachedImage(url) {
+    const cachedImg = imageCache.get(url);
+    viewerImg.src = cachedImg.src;
+    viewerImg.style.display = 'block';
+    viewerLoading.style.display = 'none';
+  }
+
+  function loadImageAndDisplay(url) {
+    const img = new Image();
+    img.onload = () => {
+      viewerImg.src = url;
+      viewerImg.style.display = 'block';
+      viewerLoading.style.display = 'none';
+      imageCache.set(url, img);
+    };
+    img.onerror = () => {
+      viewerLoading.style.display = 'none';
+      viewerInfo.textContent = '图片加载失败';
+    };
+    img.src = url;
+  }
+
+  function updateViewerInfo() {
+    if (currentImageIndex >= 0 && currentImageIndex < list.length) {
+      viewerInfo.textContent = `${currentImageIndex + 1} / ${list.length}`;
+    }
+  }
+
+  function updateNavigationButtons() {
+    prevBtn.classList.toggle('disabled', currentImageIndex <= 0);
+    nextBtn.classList.toggle('disabled', currentImageIndex >= list.length - 1);
+  }
+
+  function navigatePrevious() {
+    if (currentImageIndex > 0) {
+      openViewer(currentImageIndex - 1);
+    }
+  }
+
+  function navigateNext() {
+    if (currentImageIndex < list.length - 1) {
+      openViewer(currentImageIndex + 1);
+    }
+  }
+
+  function closeViewer() {
+    viewer.classList.remove('active');
+    viewerImg.src = '';
+    currentImageIndex = -1;
+  }
+
+  // 🚀 键盘导航
+  document.addEventListener('keydown', (e) => {
+    if (!viewer.classList.contains('active')) return;
+    
+    switch(e.key) {
+      case 'ArrowLeft':
+      case 'a':
+      case 'A':
+        e.preventDefault();
+        navigatePrevious();
+        break;
+      case 'ArrowRight':
+      case 'd':
+      case 'D':
+        e.preventDefault();
+        navigateNext();
+        break;
+      case 'Escape':
+        e.preventDefault();
+        closeViewer();
+        break;
+    }
+  });
+
+  // 🚀 触摸手势支持
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  viewer.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  viewer.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) < swipeThreshold) return;
+
+    if (diff > 0) {
+      // 向左滑动 - 下一张
+      navigateNext();
+    } else {
+      // 向右滑动 - 上一张
+      navigatePrevious();
+    }
+  }
+
+  // 按钮事件
+  prevBtn.addEventListener('click', navigatePrevious);
+  nextBtn.addEventListener('click', navigateNext);
+  closeBtn.addEventListener('click', closeViewer);
+
+  // 阻止图片拖拽
+  viewerImg.addEventListener('dragstart', (e) => e.preventDefault());
+
+  // 滚动和窗口大小变化事件
   scroll.addEventListener('scroll', () => {
     requestAnimationFrame(render);
   });
@@ -178,27 +496,27 @@
     render();
   });
 
-  function openViewer(url) {
-    viewer.style.display = 'flex';
-
-    // ✅ 优先使用已缓存的大图
-    if (fullImageCache.has(url)) {
-      viewerImg.src = fullImageCache.get(url).src;
-    } else {
-      viewerImg.src = '';
-      const img = new Image();
-      img.onload = () => {
-        viewerImg.src = url;
-        fullImageCache.set(url, img);
-      };
-      img.src = url;
-    }
-  }
-
-  viewer.onclick = () => {
-    viewer.style.display = 'none';
-    viewerImg.src = '';
-  };
+  // 加载数据
+  fetch(`data/${albumId}.json`)
+    .then(res => {
+      if (!res.ok) throw new Error('相册数据加载失败');
+      return res.json();
+    })
+    .then(data => {
+      list = data;
+      calcColumns();
+      updateSpacer();
+      render();
+      
+      // 预加载前几张图片
+      for (let i = 0; i < Math.min(PRELOAD_COUNT * 2, list.length); i++) {
+        preloadImage(i);
+      }
+    })
+    .catch(error => {
+      console.error('加载相册失败:', error);
+      grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 50px; color: #999;">相册加载失败，请稍后重试</div>';
+    });
 </script>
 
 </body>
