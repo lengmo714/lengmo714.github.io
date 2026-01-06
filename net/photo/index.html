@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>我们的相册</title>
+
+<style>
+body {
+  margin: 0;
+  background: #0f0f0f;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  padding: 12px;
+}
+.album {
+  cursor: pointer;
+}
+.album img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.album h3 {
+  margin: 6px 0 0;
+  font-size: 14px;
+}
+.album p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  opacity: .6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="grid" id="grid"></div>
+
+<script>
+fetch('albums.json')
+  .then(r => r.json())
+  .then(albums => {
+    const grid = document.getElementById('grid')
+    albums.forEach(a => {
+      const div = document.createElement('div')
+      div.className = 'album'
+      div.innerHTML = `
+        <img src="${a.cover}">
+        <h3>${a.title}</h3>
+        <p>${a.count} 张</p>
+      `
+      div.onclick = () => {
+        location.href = `album.html?id=${a.id}`
+      }
+      grid.appendChild(div)
+    })
+  })
+</script>
+
+</body>
+</html>

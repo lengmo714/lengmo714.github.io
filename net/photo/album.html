@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>相册</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #0f0f0f;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont;
+    }
+
+    .scroll {
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .spacer {
+      position: relative;
+      width: 100%;
+    }
+
+    .grid {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 6px;
+      padding: 6px;
+    }
+
+    .photo {
+      background: #1a1a1a;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .viewer {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .viewer img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="scroll" id="scroll">
+  <div class="spacer" id="spacer">
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+
+<div class="viewer" id="viewer">
+  <img id="viewerImg" />
+</div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const albumId = params.get('id');
+
+  const scroll = document.getElementById('scroll');
+  const spacer = document.getElementById('spacer');
+  const grid = document.getElementById('grid');
+
+  const viewer = document.getElementById('viewer');
+  const viewerImg = document.getElementById('viewerImg');
+
+  const ITEM_SIZE = 160 + 6;
+  const BUFFER_ROWS = 2;
+
+  let list = [];
+  let columns = 2;
+  let rows = 0;
+
+  // 👉 大图缓存
+  const fullImageCache = new Map();
+
+  function calcColumns() {
+    columns = Math.floor(window.innerWidth / ITEM_SIZE);
+    columns = Math.max(columns, 2);
+  }
+
+  function updateSpacer() {
+    rows = Math.ceil(list.length / columns);
+    spacer.style.height = rows * ITEM_SIZE + 'px';
+  }
+
+  function preloadFull(url) {
+    if (fullImageCache.has(url)) return;
+
+    const img = new Image();
+    img.onload = () => {
+      fullImageCache.set(url, img);
+    };
+    img.src = url;
+  }
+
+  function render() {
+    const scrollTop = scroll.scrollTop;
+    const viewHeight = scroll.clientHeight;
+
+    const startRow = Math.max(
+      0,
+      Math.floor(scrollTop / ITEM_SIZE) - BUFFER_ROWS
+    );
+
+    const endRow = Math.min(
+      rows,
+      Math.ceil((scrollTop + viewHeight) / ITEM_SIZE) + BUFFER_ROWS
+    );
+
+    const startIndex = startRow * columns;
+    const endIndex = Math.min(list.length, endRow * columns);
+
+    grid.style.top = startRow * ITEM_SIZE + 'px';
+    grid.innerHTML = '';
+
+    for (let i = startIndex; i < endIndex; i++) {
+      const item = list[i];
+      const div = document.createElement('div');
+      div.className = 'photo';
+
+      const img = document.createElement('img');
+      img.loading = 'lazy';
+      img.src = item.thumb;
+
+      // ✅ 小图加载完成后，预加载大图
+      img.onload = () => {
+        preloadFull(item.full);
+      };
+
+      img.onclick = () => openViewer(item.full);
+
+      div.appendChild(img);
+      grid.appendChild(div);
+    }
+  }
+
+  fetch(`data/${albumId}.json`)
+    .then(res => res.json())
+    .then(data => {
+      list = data;
+      calcColumns();
+      updateSpacer();
+      render();
+    });
+
+  scroll.addEventListener('scroll', () => {
+    requestAnimationFrame(render);
+  });
+
+  window.addEventListener('resize', () => {
+    calcColumns();
+    updateSpacer();
+    render();
+  });
+
+  function openViewer(url) {
+    viewer.style.display = 'flex';
+
+    // ✅ 优先使用已缓存的大图
+    if (fullImageCache.has(url)) {
+      viewerImg.src = fullImageCache.get(url).src;
+    } else {
+      viewerImg.src = '';
+      const img = new Image();
+      img.onload = () => {
+        viewerImg.src = url;
+        fullImageCache.set(url, img);
+      };
+      img.src = url;
+    }
+  }
+
+  viewer.onclick = () => {
+    viewer.style.display = 'none';
+    viewerImg.src = '';
+  };
+</script>
+
+</body>
+</html>
