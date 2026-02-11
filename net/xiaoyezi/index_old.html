@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>小椰子·喝奶/睡觉记录</title>
+  <style>
+    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif; margin:0; padding:16px; background:#fafafa; }
+    .card { background:#fff; border:1px solid #eee; border-radius:14px; padding:14px; margin:12px 0; box-shadow:0 1px 6px rgba(0,0,0,.03); }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    button { padding:10px 12px; border-radius:12px; border:1px solid #ddd; background:#fff; cursor:pointer; }
+    button.primary { border-color:#111; }
+    button.danger { border-color:#b42318; color:#b42318; }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    input { padding:10px 12px; border-radius:12px; border:1px solid #ddd; width:100%; box-sizing:border-box; }
+    .muted { color:#666; font-size:13px; }
+    .dangerText { color:#b42318; }
+    .kpi { display:flex; gap:12px; flex-wrap:wrap; }
+    .kpi .item { flex:1; min-width:160px; background:#fff; border:1px solid #eee; border-radius:14px; padding:12px; }
+    .list { margin:0; padding-left:18px; }
+    .tag { display:inline-block; padding:2px 8px; border:1px solid #eee; border-radius:999px; font-size:12px; color:#444; background:#fcfcfc; }
+    dialog { border:none; border-radius:14px; width:min(92vw, 460px); box-shadow:0 10px 30px rgba(0,0,0,.15); }
+    dialog::backdrop { background: rgba(0,0,0,.25); }
+    .dlg-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:12px; flex-wrap:wrap; }
+    .mini-actions { display:flex; gap:8px; margin-top:6px; flex-wrap:wrap; }
+    .mini-actions button { padding:6px 10px; border-radius:10px; font-size:12px; }
+  </style>
+</head>
+<body>
+  <h2 style="margin:6px 0 2px;">小椰子·喝奶 / 睡觉记录</h2>
+  <div class="muted">登录后使用（无注册）。支持：按天汇总、历史查询、修改奶量、删除（二次确认）。</div>
+
+  <!-- Supabase SDK（UMD，避免 +esm 超时） -->
+  <script src="./supabase.js"></script>
+
+  <!-- 登录卡片 -->
+  <div class="card" id="authCard">
+    <div class="row">
+      <div style="flex:1; min-width:220px;">
+        <div class="muted" style="margin-bottom:6px;">邮箱</div>
+        <input id="email" type="email" placeholder="你在后台添加的邮箱" autocomplete="username" />
+      </div>
+      <div style="flex:1; min-width:220px;">
+        <div class="muted" style="margin-bottom:6px;">密码</div>
+        <input id="password" type="password" placeholder="你在后台设置的密码" autocomplete="current-password" />
+      </div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+      <button class="primary" id="btnSignIn">登录</button>
+      <button id="btnSignOut" disabled>退出</button>
+      <span class="muted" id="authState">未登录</span>
+    </div>
+    <div class="muted dangerText" id="errBox" style="margin-top:10px; display:none;"></div>
+  </div>
+
+  <!-- 主功能区 -->
+  <div id="app" style="display:none;">
+    <div class="card">
+      <div class="row" style="justify-content:space-between;">
+        <div style="flex:1; min-width:240px;">
+          <div class="muted" style="margin-bottom:6px;">查询日期</div>
+          <input id="datePicker" type="date" />
+        </div>
+        <div style="min-width:140px;">
+          <div class="muted" style="margin-bottom:6px;">&nbsp;</div>
+          <button class="primary" id="btnLoad">查询/刷新</button>
+        </div>
+      </div>
+
+      <div class="muted" style="margin-top:10px;">
+        进行中状态：
+        <span id="inProgressFeed" class="tag">喝奶：无</span>
+        <span id="inProgressSleep" class="tag">睡觉：无</span>
+      </div>
+    </div>
+
+    <div class="kpi">
+      <div class="item">
+        <div class="muted">当天总奶量</div>
+        <div style="font-size:22px; font-weight:700;" id="sumMilk">0 ml</div>
+      </div>
+      <div class="item">
+        <div class="muted">当天喝奶总时长</div>
+        <div style="font-size:22px; font-weight:700;" id="sumFeedDur">0 分钟</div>
+      </div>
+      <div class="item">
+        <div class="muted">当天睡觉总时长</div>
+        <div style="font-size:22px; font-weight:700;" id="sumSleepDur">0 分钟</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <button id="btnStartFeed">开始喝奶</button>
+        <button id="btnEndFeed">结束喝奶</button>
+        <button id="btnStartSleep">开始睡觉</button>
+        <button id="btnEndSleep">结束睡觉</button>
+      </div>
+      <div class="muted" style="margin-top:10px;">
+        开始时间存在 localStorage，刷新不丢。结束喝奶弹窗输入奶量；结束睡觉直接记录。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 10px;">明细：喝奶</h3>
+      <ol class="list" id="feedList"></ol>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 10px;">明细：睡觉</h3>
+      <ol class="list" id="sleepList"></ol>
+    </div>
+  </div>
+
+  <!-- 结束喝奶弹窗 -->
+  <dialog id="dlgMilk">
+    <div style="font-size:16px; font-weight:700; margin-bottom:8px;">结束喝奶</div>
+    <div class="muted" id="dlgMilkHint" style="margin-bottom:10px;"></div>
+    <div class="muted" style="margin-bottom:6px;">请输入本次奶量（ml）</div>
+    <input id="milkAmount" type="number" min="0" step="1" placeholder="例如 90" />
+    <div class="dlg-actions">
+      <button id="dlgCancel">取消</button>
+      <button class="primary" id="dlgOk">确定</button>
+    </div>
+  </dialog>
+
+  <!-- 修改奶量弹窗 -->
+  <dialog id="dlgEditMilk">
+    <div style="font-size:16px; font-weight:700; margin-bottom:8px;">修改奶量</div>
+    <div class="muted" id="dlgEditHint" style="margin-bottom:10px;"></div>
+    <div class="muted" style="margin-bottom:6px;">新的奶量（ml）</div>
+    <input id="editMilkAmount" type="number" min="0" step="1" />
+    <div class="dlg-actions">
+      <button id="dlgEditCancel">取消</button>
+      <button class="primary" id="dlgEditOk">保存</button>
+    </div>
+  </dialog>
+
+  <!-- 删除二次确认弹窗 -->
+  <dialog id="dlgConfirmDel">
+    <div style="font-size:16px; font-weight:700; margin-bottom:8px;">确认删除？</div>
+    <div class="muted" id="dlgDelHint" style="margin-bottom:10px;"></div>
+    <div class="dlg-actions">
+      <button id="dlgDelCancel">取消</button>
+      <button class="danger" id="dlgDelOk">确认删除</button>
+    </div>
+  </dialog>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function showErr(msg) {
+      const box = $("errBox");
+      box.style.display = msg ? "block" : "none";
+      box.textContent = msg || "";
+    }
+
+    // 1) SDK 是否加载成功
+    if (!window.supabase || !window.supabase.createClient) {
+      showErr("Supabase SDK 未加载成功（unpkg 可能不可访问/被拦截）。建议把 supabase.min.js 下载到本地并用本地路径引用。");
+      throw new Error("Supabase SDK not loaded");
+    }
+    const { createClient } = window.supabase;
+
+    // ===== 你只需要改这里两行 =====
+    const SUPABASE_URL = "https://madkaswxeemmcxazmbqy.supabase.co";
+    // ⚠️ 这里强烈建议换成 Project Settings → API → anon public（通常是 eyJ... 开头的 JWT）
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1hZGthc3d4ZWVtbWN4YXptYnF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAyODU5MjAsImV4cCI6MjA4NTg2MTkyMH0.F36tP6lbW-Vdkl-pe9eq40yFUGgWaN5EDBs-BV8W2jc";
+    // =============================
+
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: false,
+      storage: window.localStorage,
+      storageKey: "babylog-auth"
+    }
+  });
+
+
+    function pad2(n) { return String(n).padStart(2, "0"); }
+    function formatTime(d) { return `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`; }
+    function formatRange(startAt, endAt) { return `${formatTime(startAt)} - ${formatTime(endAt)}`; }
+    function secToMinText(sec) { const m = Math.max(0, Math.round(sec / 60)); return `${m} 分钟`; }
+    function dayRange(dateStr) {
+      const start = new Date(dateStr + "T00:00:00");
+      const end = new Date(dateStr + "T23:59:59.999");
+      return { start, end };
+    }
+
+    // 进行中状态（防误触/刷新）
+    const LS_KEYS = {
+      feedStart: "baby_feed_start_ms",
+      sleepStart: "baby_sleep_start_ms"
+    };
+
+    function getInProgressStart(key) {
+      const v = localStorage.getItem(key);
+      const ms = v ? Number(v) : 0;
+      return ms > 0 ? new Date(ms) : null;
+    }
+    function setInProgressStart(key, dateOrNull) {
+      if (!dateOrNull) localStorage.removeItem(key);
+      else localStorage.setItem(key, String(dateOrNull.getTime()));
+      renderInProgress();
+    }
+    function setTag(tagEl, label, active) {
+      tagEl.textContent = label;
+      tagEl.style.borderColor = active ? "#111" : "#eee";
+      tagEl.style.color = active ? "#111" : "#444";
+      tagEl.style.background = active ? "#fff" : "#fcfcfc";
+    }
+    function renderInProgress() {
+      const fs = getInProgressStart(LS_KEYS.feedStart);
+      const ss = getInProgressStart(LS_KEYS.sleepStart);
+
+      setTag($("inProgressFeed"), fs ? `喝奶：进行中（${formatTime(fs)}）` : "喝奶：无", !!fs);
+      setTag($("inProgressSleep"), ss ? `睡觉：进行中（${formatTime(ss)}）` : "睡觉：无", !!ss);
+
+      $("btnStartFeed").disabled = !!fs;
+      $("btnEndFeed").disabled = !fs;
+      $("btnStartSleep").disabled = !!ss;
+      $("btnEndSleep").disabled = !ss;
+    }
+
+    // 当前用户
+    async function requireUser() {
+      const { data, error } = await sb.auth.getUser();
+      if (error) throw error;
+      if (!data.user) throw new Error("未登录或会话已失效");
+      return data.user;
+    }
+
+    // 写入
+    async function saveFeed(startAt, endAt, amountMl) {
+      const user = await requireUser();
+      const durationSec = Math.max(0, Math.floor((endAt - startAt) / 1000));
+      const { error } = await sb.from("feed_logs").insert({
+        user_id: user.id,
+        start_at: startAt.toISOString(),
+        end_at: endAt.toISOString(),
+        duration_sec: durationSec,
+        amount_ml: Number(amountMl) || 0
+      });
+      if (error) throw error;
+    }
+
+    async function saveSleep(startAt, endAt) {
+      const user = await requireUser();
+      const durationSec = Math.max(0, Math.floor((endAt - startAt) / 1000));
+      const { error } = await sb.from("sleep_logs").insert({
+        user_id: user.id,
+        start_at: startAt.toISOString(),
+        end_at: endAt.toISOString(),
+        duration_sec: durationSec
+      });
+      if (error) throw error;
+    }
+
+    // 修改奶量
+    async function updateMilkAmount(id, newAmountMl) {
+      const user = await requireUser();
+      const { error } = await sb
+        .from("feed_logs")
+        .update({ amount_ml: Number(newAmountMl) || 0 })
+        .eq("id", id)
+        .eq("user_id", user.id);
+      if (error) throw error;
+    }
+
+    // 删除
+    async function deleteFeed(id) {
+      const user = await requireUser();
+      const { error } = await sb
+        .from("feed_logs")
+        .delete()
+        .eq("id", id)
+        .eq("user_id", user.id);
+      if (error) throw error;
+    }
+
+    async function deleteSleep(id) {
+      const user = await requireUser();
+      const { error } = await sb
+        .from("sleep_logs")
+        .delete()
+        .eq("id", id)
+        .eq("user_id", user.id);
+      if (error) throw error;
+    }
+
+    // 查询某天
+    async function loadDay(dateStr) {
+      const user = await requireUser();
+      showErr("");
+      const { start, end } = dayRange(dateStr);
+
+      const [feedRes, sleepRes] = await Promise.all([
+      sb.from("feed_logs")
+          .select("id,start_at,end_at,duration_sec,amount_ml")
+          .eq("user_id", user.id)
+          .gte("start_at", start.toISOString())
+          .lte("start_at", end.toISOString())
+          .order("start_at", { ascending: true }),
+          sb.from("sleep_logs")
+          .select("id,start_at,end_at,duration_sec")
+          .eq("user_id", user.id)
+          .gte("start_at", start.toISOString())
+          .lte("start_at", end.toISOString())
+          .order("start_at", { ascending: true })
+      ]);
+
+      if (feedRes.error) throw feedRes.error;
+      if (sleepRes.error) throw sleepRes.error;
+
+      const feeds = feedRes.data ?? [];
+      const sleeps = sleepRes.data ?? [];
+
+      let sumMilk = 0, sumFeedSec = 0, sumSleepSec = 0;
+      feeds.forEach(r => { sumMilk += Number(r.amount_ml || 0); sumFeedSec += Number(r.duration_sec || 0); });
+      sleeps.forEach(r => { sumSleepSec += Number(r.duration_sec || 0); });
+
+      $("sumMilk").textContent = `${sumMilk} ml`;
+      $("sumFeedDur").textContent = secToMinText(sumFeedSec);
+      $("sumSleepDur").textContent = secToMinText(sumSleepSec);
+
+      renderFeedList(feeds);
+      renderSleepList(sleeps);
+    }
+
+    // 明细渲染
+    function renderFeedList(feeds) {
+      const ol = $("feedList");
+      ol.innerHTML = "";
+      if (!feeds.length) {
+        const li = document.createElement("li");
+        li.className = "muted";
+        li.textContent = "当天暂无喝奶记录";
+        ol.appendChild(li);
+        return;
+      }
+
+      feeds.forEach(r => {
+        const startAt = new Date(r.start_at);
+        const endAt = new Date(r.end_at);
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <div><span class="tag">喝奶</span> ${formatRange(startAt, endAt)}</div>
+          <div class="muted">时长：${secToMinText(r.duration_sec || 0)} ｜ 奶量：<b>${r.amount_ml || 0}</b> ml</div>
+          <div class="mini-actions">
+            <button data-act="edit" data-id="${r.id}">修改奶量</button>
+            <button class="danger" data-act="del" data-id="${r.id}">删除</button>
+          </div>
+        `;
+        ol.appendChild(li);
+      });
+
+      ol.querySelectorAll("button[data-act]").forEach(btn => {
+        btn.onclick = () => {
+          const act = btn.getAttribute("data-act");
+          const id = btn.getAttribute("data-id");
+          const row = feeds.find(x => String(x.id) === String(id));
+          if (!row) return;
+          if (act === "edit") openEditMilk(id, row);
+          if (act === "del") openConfirmDelete({ kind: "feed", id, hint: "删除这条喝奶记录？删除后不可恢复。" });
+        };
+      });
+    }
+
+    function renderSleepList(sleeps) {
+      const ol = $("sleepList");
+      ol.innerHTML = "";
+      if (!sleeps.length) {
+        const li = document.createElement("li");
+        li.className = "muted";
+        li.textContent = "当天暂无睡觉记录";
+        ol.appendChild(li);
+        return;
+      }
+
+      sleeps.forEach(r => {
+        const startAt = new Date(r.start_at);
+        const endAt = new Date(r.end_at);
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <div><span class="tag">睡觉</span> ${formatRange(startAt, endAt)}</div>
+          <div class="muted">时长：${secToMinText(r.duration_sec || 0)}</div>
+          <div class="mini-actions">
+            <button class="danger" data-act="del" data-id="${r.id}">删除</button>
+          </div>
+        `;
+        ol.appendChild(li);
+      });
+
+      ol.querySelectorAll("button[data-act='del']").forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute("data-id");
+          openConfirmDelete({ kind: "sleep", id, hint: "删除这条睡觉记录？删除后不可恢复。" });
+        };
+      });
+    }
+
+    // 登录/退出 UI
+    async function refreshAuthUI() {
+      showErr("");
+
+      const { data, error } = await sb.auth.getSession();
+      if (error) {
+        console.error("getSession error:", error);
+        showErr("会话读取失败：" + (error.message || JSON.stringify(error)));
+      }
+
+      const session = data?.session ?? null;
+
+      console.log("refreshAuthUI session:", session);
+
+      // ✅ 登录成功就隐藏登录卡片
+      $("app").style.display = session ? "block" : "none";
+      $("authCard").style.display = session ? "none" : "block";
+
+      $("btnSignOut").disabled = !session;
+      $("authState").textContent = session ? `已登录：${session.user.email}` : "未登录";
+
+      renderInProgress();
+
+      if (session) {
+        const todayStr = new Date().toISOString().slice(0,10);
+        if (!$("datePicker").value) $("datePicker").value = todayStr;
+        await loadDay($("datePicker").value);
+      }
+    }
+
+    $("btnSignIn").onclick = async () => {
+  try {
+    showErr("");
+    const email = $("email").value.trim();
+    const password = $("password").value;
+
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    console.log("signIn data:", data, "error:", error);
+    console.log("localStorage babylog-auth =", localStorage.getItem("babylog-auth"));
+    console.log("localStorage keys =", Object.keys(localStorage).filter(k => k.includes("auth") || k.includes("sb-") || k.includes("babylog")));
+
+    if (error) throw error;
+
+    const s = await sb.auth.getSession();
+    console.log("after signIn getSession:", s);
+
+    await refreshAuthUI();
+  } catch (e) {
+    console.error("login failed:", e);
+    showErr("登录失败：" + (e?.message ?? String(e)));
+  }
+};
+
+
+
+    $("btnSignOut").onclick = async () => {
+      try {
+        showErr("");
+        await sb.auth.signOut();
+        await refreshAuthUI();
+      } catch (e) {
+        console.error("signout failed:", e);
+        showErr("退出失败：" + (e?.message ?? String(e)));
+      }
+    };
+
+    sb.auth.onAuthStateChange(async () => {
+      try { await refreshAuthUI(); }
+      catch (e) { showErr("状态刷新失败：" + (e?.message ?? String(e))); }
+    });
+
+    // 查询
+    $("btnLoad").onclick = async () => {
+      try { await loadDay($("datePicker").value); }
+      catch (e) { showErr("查询失败：" + (e?.message ?? String(e))); }
+    };
+
+    // 四按钮
+    $("btnStartFeed").onclick = () => setInProgressStart(LS_KEYS.feedStart, new Date());
+    $("btnStartSleep").onclick = () => setInProgressStart(LS_KEYS.sleepStart, new Date());
+
+    $("btnEndFeed").onclick = () => {
+      const startAt = getInProgressStart(LS_KEYS.feedStart);
+      if (!startAt) return;
+      const now = new Date();
+      const sec = Math.max(0, Math.floor((now - startAt) / 1000));
+      $("dlgMilkHint").textContent = `本次喝奶：${formatRange(startAt, now)}（约 ${secToMinText(sec)}）`;
+      $("milkAmount").value = "";
+      $("dlgMilk").showModal();
+    };
+
+    $("dlgCancel").onclick = () => $("dlgMilk").close();
+    $("dlgOk").onclick = async () => {
+      try {
+        showErr("");
+        const startAt = getInProgressStart(LS_KEYS.feedStart);
+        if (!startAt) { $("dlgMilk").close(); return; }
+        const endAt = new Date();
+        const amountMl = Number($("milkAmount").value || 0);
+        if (!Number.isFinite(amountMl) || amountMl < 0) { showErr("奶量请输入合法数字（>=0）。"); return; }
+
+        await saveFeed(startAt, endAt, amountMl);
+        setInProgressStart(LS_KEYS.feedStart, null);
+        $("dlgMilk").close();
+        await loadDay($("datePicker").value);
+      } catch (e) {
+        showErr("写入失败：" + (e?.message ?? String(e)));
+      }
+    };
+
+    $("btnEndSleep").onclick = async () => {
+      try {
+        showErr("");
+        const startAt = getInProgressStart(LS_KEYS.sleepStart);
+        if (!startAt) return;
+        const endAt = new Date();
+        await saveSleep(startAt, endAt);
+        setInProgressStart(LS_KEYS.sleepStart, null);
+        await loadDay($("datePicker").value);
+      } catch (e) {
+        showErr("写入失败：" + (e?.message ?? String(e)));
+      }
+    };
+
+    // 修改奶量弹窗
+    let editingFeedId = null;
+    function openEditMilk(id, row) {
+      editingFeedId = id;
+      const startAt = new Date(row.start_at);
+      const endAt = new Date(row.end_at);
+      $("dlgEditHint").textContent = `${formatRange(startAt, endAt)}（当前 ${row.amount_ml || 0} ml）`;
+      $("editMilkAmount").value = String(row.amount_ml ?? 0);
+      $("dlgEditMilk").showModal();
+    }
+    $("dlgEditCancel").onclick = () => $("dlgEditMilk").close();
+    $("dlgEditOk").onclick = async () => {
+      try {
+        showErr("");
+        const v = Number($("editMilkAmount").value || 0);
+        if (!Number.isFinite(v) || v < 0) { showErr("奶量请输入合法数字（>=0）。"); return; }
+        if (!editingFeedId) { $("dlgEditMilk").close(); return; }
+
+        await updateMilkAmount(editingFeedId, v);
+        $("dlgEditMilk").close();
+        editingFeedId = null;
+        await loadDay($("datePicker").value);
+      } catch (e) {
+        showErr("修改失败：" + (e?.message ?? String(e)));
+      }
+    };
+
+    // 删除二次确认弹窗
+    let pendingDelete = null; // {kind, id}
+    function openConfirmDelete({ kind, id, hint }) {
+      pendingDelete = { kind, id };
+      $("dlgDelHint").textContent = hint;
+      $("dlgConfirmDel").showModal();
+    }
+    $("dlgDelCancel").onclick = () => { pendingDelete = null; $("dlgConfirmDel").close(); };
+    $("dlgDelOk").onclick = async () => {
+      try {
+        showErr("");
+        if (!pendingDelete) { $("dlgConfirmDel").close(); return; }
+        const { kind, id } = pendingDelete;
+
+        if (kind === "feed") await deleteFeed(id);
+        else await deleteSleep(id);
+
+        pendingDelete = null;
+        $("dlgConfirmDel").close();
+        await loadDay($("datePicker").value);
+      } catch (e) {
+        showErr("删除失败：" + (e?.message ?? String(e)));
+      }
+    };
+    (async () => {
+      const hasTokenKey = Object.keys(localStorage).some(k => k.includes("auth-token") || k.includes("sb-"));
+      const { data } = await sb.auth.getSession();
+      const hasSession = !!data?.session;
+
+      // ✅ 有 token 但读不出 session，说明缓存坏/不匹配，直接清掉
+      if (hasTokenKey && !hasSession) {
+        console.warn("token exists but session missing -> clear local session");
+        try { await sb.auth.signOut(); } catch (_) {}
+      }
+    })();
+
+    // 启动
+    $("datePicker").value = new Date().toISOString().slice(0, 10);
+    renderInProgress();
+    refreshAuthUI().catch(e => showErr("初始化失败：" + (e?.message ?? String(e))));
+  </script>
+</body>
+</html>
