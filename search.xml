@@ -11366,4 +11366,38 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
         <category>android studio</category>
       </categories>
   </entry>
+  <entry>
+    <title>ios.xcodeproj 64-bit mach-o member &#39;utils.o&#39; not 8-byte aligned in &#39;/Applications/Cocos/Creator/3.7.2/CocosCreator.app/Contents/Resources/resources/3d/engine/native/external/ios/libs/libwebp.a&#39;</title>
+    <url>/7930163d.html</url>
+    <content><![CDATA[<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>Xcode版本：26.4 (17E192)<br>Cocos版本：3.7.2</p>
+<p>今天导出ios工程后，运行发现出现这个标题所示的错误提示，导致工程无法通过编译。刚开始还很纳闷，怎么突然这样子了，什么东西都没有改。</p>
+<p>后面问了AI才知道，原来这是因为** Cocos Creator 3.7.2 自带的 libwebp.a 和较新的 Xcode&#x2F;链接器兼容性冲突**，然后突然想起周五手欠，更新了Xcode。</p>
+<blockquote>
+<p>小提示：大家在开发过程中尽量少去升级这些开发平台，很容易踩到隐形的坑。</p>
+</blockquote>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><a href="https://forum.cocos.org/t/topic/174886/3">参考链接https://forum.cocos.org/t/topic/174886/3</a><br>我这里用的是上面介绍的第二种方案，修复的那套。<br>打开终端，进入<code>libwebp.a</code>库所在的文件夹路径，<br>执行下面命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">lipo libwebp.a -thin arm64 -output libwebp_fixed.a</span><br><span class="line"><span class="built_in">mv</span> libwebp_fixed.a libwebp.a</span><br></pre></td></tr></table></figure>
+<p>执行完命令后，回到Xcode清除缓存后运行就可以了。</p>
+<p>这里修复后，<code>libwebp.a</code>的文件大小为<code>321KB</code></p>
+]]></content>
+      <categories>
+        <category>cocosCreator</category>
+      </categories>
+      <tags>
+        <tag>cocosCreator</tag>
+        <tag>ios</tag>
+      </tags>
+  </entry>
 </search>
