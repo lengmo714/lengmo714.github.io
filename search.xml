@@ -11431,6 +11431,37 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
   <entry>
     <title>cocosCreator导出的ios应用显示顶部状态栏</title>
     <url>/5e764de5.html</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>这里我们首先要区分两个东西：<br><strong>1、顶部状态栏：</strong>就是现实时间、电量、信号的那一条<br><strong>2、顶部导航栏：</strong>就是IOS常见那种带返回按钮、标题的<code>UINavigationBar</code><br>这里，我们要现实的是第一个，因为我们导出应用默认是隐藏掉状态栏的。我们现在是一个竖屏游戏，产品要求显示出来，我们就的照做。</p>
+<h3 id="修改ViewControllor"><a href="#修改ViewControllor" class="headerlink" title="修改ViewControllor"></a>修改ViewControllor</h3><p>找到下面2个方法，直接替换成我这里给出的代码，如果没有直接添加就行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- (BOOL)prefersStatusBarHidden &#123;</span><br><span class="line">    return NO;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (UIStatusBarStyle)preferredStatusBarStyle &#123;</span><br><span class="line">    return UIStatusBarStyleDarkContent; // 浅色背景用这个</span><br><span class="line">    // return UIStatusBarStyleLightContent; // 深色背景用这个</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查Info-plist"><a href="#检查Info-plist" class="headerlink" title="检查Info.plist"></a>检查Info.plist</h3><p>确保没有把状态栏全局禁掉</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>UIViewControllerBasedStatusBarAppearance<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>建议是 <code>true</code>，这样由控制器自己决定状态栏是否显示。<br>如果你看到：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>UIStatusBarHidden<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>把它删掉，或者改成：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>UIStatusBarHidden<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">false</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的步骤都做完后，清除缓存，重新编译运行就可以啦～</p>
+]]></content>
+      <categories>
+        <category>cocosCreator</category>
+      </categories>
+      <tags>
+        <tag>cocosCreator</tag>
+        <tag>ios</tag>
+      </tags>
   </entry>
 </search>
