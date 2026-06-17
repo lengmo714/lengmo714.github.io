@@ -11534,4 +11534,39 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
         <tag>ios</tag>
       </tags>
   </entry>
+  <entry>
+    <title>安卓手机如何直接安装aab包</title>
+    <url>/53dce82e.html</url>
+    <content><![CDATA[<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>众所周知AAB不能像APK一样直接点安装，必须先转换成APK再安装。</p>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><p><strong>下载Bundletool</strong><br><a href="https://github.com/google/bundletool/releases">Bundletool下载地址</a></p>
+<p><strong>生成apks文件</strong><br>将前面下载的<code>Bundletool</code>工具和<code>aab</code>文件放在同一目录下，然后再打开终端，执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">java -jar bundletool.jar build-apks --bundle=app-release.aab --output=app.apks --mode=universal</span><br></pre></td></tr></table></figure>
+<p>如下图<br><img data-src="/postImg/53dce82e/1.png"><br>注意这里的INFO输入只是一个提示，告诉你这个apk是用的你电脑里debug的签名文件。<br>执行之后就会在你上面指定的路径下生成一个<code>app.apks</code>文件。<br><img data-src="/postImg/53dce82e/2.png"></p>
+<p><strong>安装到手机(adb安装)</strong><br>1、打开手机USB调试功能,在电脑终端输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">adb devices</span><br></pre></td></tr></table></figure>
+<p>如果是向下图一样，就表示电脑连上手机了，且USB调试可以用<br><img data-src="/postImg/53dce82e/3.png"></p>
+<p>然后执行命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">java -jar bundletool.jar install-apks --apks=app.apks</span><br></pre></td></tr></table></figure>
+<p>在手机上点安装就可以了。</p>
+<p><strong>安装到手机(解压安装)</strong><br>如果你上面adb安装不会，或者说你要把apk发送给一个不懂技术的人，那行，可以直接对<code>app.apks</code>文件进行解压。<br>将文件后缀改为<code>.zip</code>，然后解压，解压之后会有2个文件<code>toc.pb</code>和<code>universal.apk</code><br><img data-src="/postImg/53dce82e/4.png"><br>直接把apk发送给别人即可。</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
 </search>
