@@ -11569,4 +11569,65 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
         <tag>Android</tag>
       </tags>
   </entry>
+  <entry>
+    <title>IOS开发过程中Swift兼容库问题</title>
+    <url>/40cf3e63.html</url>
+    <content><![CDATA[<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>今天在给IOS工程接入AdMob广告时，遇到下面问题<br><img data-src="/postImg/40cf3e63/1.png">;</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Undefined symbol: __swift_FORCE_LOAD_$_swiftCompatibility51</span><br><span class="line">Undefined symbol: __swift_FORCE_LOAD_$_swiftCompatibility56</span><br><span class="line">Undefined symbol: __swift_FORCE_LOAD_$_swiftCompatibilityConcurrency</span><br></pre></td></tr></table></figure>
+<p>其实这三个是同一类问题：工程里用了Swift&#x2F;Swift编译产物，但最终链接阶段没有把对应的Swift Compatibility库带进去。<br>这里不是代码错误，只需要加几个库即可。</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>把这几个<code>.tbd</code>加到<strong>主App Target的Link binary With Libraries</strong><br>具体方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">主App Target</span><br><span class="line">→ Build Phases</span><br><span class="line">→ Link Binary With Libraries</span><br><span class="line">→ +</span><br><span class="line">→ 搜索 libswiftCompatibility51.tbd</span><br><span class="line">→ 选择 Apple SDKs 下的结果</span><br></pre></td></tr></table></figure>
+<p>如果你点<code>+</code>搜索出来有三个同名结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Project</span><br><span class="line">Apple SDKs</span><br><span class="line">Developer Frameworks</span><br></pre></td></tr></table></figure>
+<p>优先选择<code>Apple SDKs</code>不要选<code>Project</code>，那个通常是工程里已有的引用，不一定指向当前 Xcode SDK 的正确 <code>.tbd</code> 文件。</p>
+<p>加完之后建议执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Product → Clean Build Folder</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>如果你在用方法一的时候点<code>+</code>没有可以选择的，可以改用方法二<br>直接用<code>Other Linker Flags</code>加，最省事<br>打开：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">主Target</span><br><span class="line">→ Build Settings</span><br><span class="line">→ Other Linker Flags</span><br></pre></td></tr></table></figure>
+<p>加上这三行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$(inherited)</span><br><span class="line">-lswiftCompatibility51</span><br><span class="line">-lswiftCompatibility56</span><br><span class="line">-lswiftCompatibilityConcurrency</span><br></pre></td></tr></table></figure>
+<p><img data-src="/postImg/40cf3e63/2.png">;<br>注意是加到主Target,不是Pods，也不是Project。<br>然后再确认：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Always Embed Swift Standard Libraries = YES</span><br></pre></td></tr></table></figure>
+
+<p>到这里，如果不出意外的意外，你会遇到这个问题<code>library &#39;swiftCompatibility51&#39; not found</code><br><img data-src="/postImg/40cf3e63/4.png">;<br>这里在下面路径</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Build Settings</span><br><span class="line">→ Library Search Paths</span><br></pre></td></tr></table></figure>
+<p><img data-src="/postImg/40cf3e63/3.png">;<br>加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$(inherited)</span><br><span class="line">$(SDKROOT)/usr/lib/swift</span><br><span class="line">$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)</span><br></pre></td></tr></table></figure>
+<p><em>温馨小提示：这些地方如果不太好找，可以直接搜索关键词，很快就能跳出来</em></p>
+<p>到这里，你的工程完成编译是没什么问题了。</p>
+<h3 id="后续bug"><a href="#后续bug" class="headerlink" title="后续bug"></a>后续bug</h3><p>上面是解决不能编译问题，在运行的时候又遇到了<code>Failed to look up symbolic reference at 0x102b818e7 - offset 470721 - symbol symbolic _____Sg ScP in</code>这个问题，直接导致应用卡死。</p>
+<p>这个其实也是兼容的问题，和上面区别在于一个都不能编译，一个是在使用相关功能的时候才会出现。</p>
+<p>解决方法，重点检查下面几个地方<br>1、主 Target 里继续检查：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Build Settings -&gt; Runpath Search Paths</span><br></pre></td></tr></table></figure>
+<p>确保有：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$(inherited)</span><br><span class="line">/usr/lib/swift</span><br></pre></td></tr></table></figure>
+<p>Google 的手动接入说明里也要求添加 <code>/usr/lib/swift</code> 到 <code>Runpath Search Paths</code>，并且 <code>Other Linker Flags</code> 加 <code>-ObjC</code>。<a href="https://developers.google.com/ad-manager/mobile-ads-sdk/ios/quick-start?hl=zh-cn">Google Ad Manager</a></p>
+<p>再检查</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Build Settings -&gt; Other Linker Flags</span><br></pre></td></tr></table></figure>
+<p>确保有：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$(inherited)</span><br><span class="line">-ObjC</span><br></pre></td></tr></table></figure>
+
+<p>我这里是因为少了一点东西，加上后就没问题了，代码也能够正常运行。</p>
+]]></content>
+      <categories>
+        <category>cocosCreator</category>
+      </categories>
+      <tags>
+        <tag>cocosCreator</tag>
+        <tag>ios</tag>
+      </tags>
+  </entry>
 </search>
