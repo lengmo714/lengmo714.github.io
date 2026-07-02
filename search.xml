@@ -11630,4 +11630,36 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
         <tag>ios</tag>
       </tags>
   </entry>
+  <entry>
+    <title>ios版本构建Build不对的问题</title>
+    <url>/237d72c8.html</url>
+    <content><![CDATA[<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
+     crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3160571902547760"
+     data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<p>这两天在构建ios版本的时候发现一个严重的问题，我发布到后台的版本和我自己本地构建的版本对应不上。</p>
+<p>如图，<br><img data-src="/postImg/237d72c8/1.png"><br>我Archive出来的版本都一样，刚开始我没有在意，结果今天我准备正儿八经提审的时候，发现<em>找不到</em>我的昨天上传的包了，因为我昨天构建的是下面这样子的<br><img data-src="/postImg/237d72c8/2.png"><br>结果我在后台找不到版本和构建为<code>1.0.0(8)</code>的这个包，这时候才意识到问题。</p>
+<p>仔细检查一番发现，原来是我在这里修改的<code>Build=8</code>没有生效到最终<code>.app</code>的<code>Info.plist</code>文件里。</p>
+<p><strong>解决步骤：</strong><br>1、找到我们Archives真正使用的Info.plist<br>进入<code>Build Setting</code>,搜索<code>Info.plist File</code>。</p>
+<p>2、直接用编辑器打开Info.plist，我个人习惯看XML格式的文件。<br>查找<code>CFBundleShortVersionString</code>和<code>CFBundleVersion</code>两个关键词。修改这两个值即可。<br>比如我这里就改成了</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>CFBundleVersion<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>8<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>但是这样每次Archive都要去手动修改就比较麻烦，建议修改成</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>CFBundleVersion<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>$(CURRENT_PROJECT_VERSION)<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这样就可以一劳永逸了。</p>
+]]></content>
+      <categories>
+        <category>cocosCreator</category>
+      </categories>
+      <tags>
+        <tag>cocosCreator</tag>
+        <tag>ios</tag>
+      </tags>
+  </entry>
 </search>
