@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>彩云生日倒计时</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: "Segoe UI", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(135deg, #ffe4ec, #ccefff);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    #countdown {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      max-width: 90%;
+      font-size: 1.5rem;
+      line-height: 1.8;
+      color: #333;
+      white-space: pre-wrap;
+      animation: fadeInScale 1.5s ease forwards, pulse 2s infinite ease-in-out;
+      opacity: 0;
+      transform: scale(0.8);
+      z-index: 10;
+      position: relative;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #ff4f81;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.03);
+      }
+    }
+
+    @keyframes fadeInScale {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @media (min-width: 768px) {
+      #countdown {
+        font-size: 2rem;
+        padding: 40px;
+      }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="countdown"></div>
+
+  <canvas id="particleCanvas"></canvas>
+
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const birthdayThisYear = new Date(`August 5, ${year} 00:00:00`);
+      
+      // 判断是否是生日当天（年月日都相等）
+      if (
+        now.getFullYear() === birthdayThisYear.getFullYear() &&
+        now.getMonth() === birthdayThisYear.getMonth() &&
+        now.getDate() === birthdayThisYear.getDate()
+      ) {
+        document.getElementById('countdown').innerHTML = `🎉 生日快乐！🎉<br>祝你幸福安康，天天开心！💖`;
+        return;
+      }
+
+      let targetDate = now < birthdayThisYear
+        ? birthdayThisYear
+        : new Date(`August 5, ${year + 1} 00:00:00`);
+
+      const timeDiff = targetDate - now;
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      const span = (num) => `<span class="highlight">${num}</span>`;
+
+      document.getElementById('countdown').innerHTML =
+        `🎂 大家请注意 🎂<br>离我老婆生日还有：<br>${span(days)} 天 ${span(hours)} 小时 ${span(minutes)} 分 ${span(seconds)} 秒<br>📅 请大家准时送上祝福 💝`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 粒子星星 + 烟花逻辑保留
+    const canvas = document.getElementById("particleCanvas");
+    const ctx = canvas.getContext("2d");
+    let w, h;
+    const particles = [];
+
+    function resizeCanvas() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor(x, y, speed, radius, color) {
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+        this.radius = radius;
+        this.color = color;
+        this.alpha = 1;
+        this.angle = Math.random() * 2 * Math.PI;
+      }
+
+      update() {
+        this.x += Math.cos(this.angle) * this.speed;
+        this.y += Math.sin(this.angle) * this.speed;
+        this.alpha -= 0.01;
+      }
+
+      draw(ctx) {
+        ctx.beginPath();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function spawnFirework() {
+      const x = Math.random() * w;
+      const y = Math.random() * h / 2;
+      const count = 30 + Math.random() * 20;
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle(x, y, Math.random() * 3, 2 + Math.random() * 2, `hsl(${Math.random() * 360},100%,60%)`));
+      }
+    }
+
+    setInterval(spawnFirework, 1500);
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach((p, i) => {
+        p.update();
+        p.draw(ctx);
+        if (p.alpha <= 0) particles.splice(i, 1);
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+
+</html>

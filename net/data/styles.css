@@ -1,0 +1,72 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 5px;
+    /* 减少填充，使表格显得更紧凑 */
+    text-align: left;
+    font-size: 15px;
+    /* 修改字体大小为原来的一半 */
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.increase {
+    background-color: red;
+    color: white;
+}
+
+.decrease {
+    background-color: green;
+    color: white;
+}
+
+.arrow {
+    font-weight: bold;
+    margin-left: 4px;
+}
+
+/* 新增返回顶部按钮样式 */
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 20px;
+    /* 调整按钮距离底部的距离 */
+    right: 20px;
+    /* 调整按钮距离右侧的距离 */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1000;
+    /* 确保按钮位于其他内容之上 */
+}
+
+#scrollToTopBtn:hover {
+    background-color: #0056b3;
+}
+
+#chartsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    /* 设置曲线图和饼状图之间的间距 */
+}
+
+#pieChartContainer {
+    width: 400px;
+    height: 300px;
+}
+
+#lineChartContainer {
+    width: 600px;
+    height: 400px;
+    display: none;
+}
