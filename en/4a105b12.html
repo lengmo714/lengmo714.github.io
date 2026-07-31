@@ -22,16 +22,16 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Why Xcode copies shared cache symbols from an iPhone and why the first transfer can take a long time.">
+  <meta name="description" content="Understand why Xcode copies shared cache symbols from an iPhone, why the first transfer takes time, and what to check when device preparation appears stuck.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Understanding “Copying Shared Cache Symbols” in Xcode">
+<meta property="og:title" content="Xcode Stuck on ‘Copying Shared Cache Symbols’: Causes and Fixes">
 <meta property="og:url" content="https://lengmo714.top/en/4a105b12.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Why Xcode copies shared cache symbols from an iPhone and why the first transfer can take a long time.">
+<meta property="og:description" content="Understand why Xcode copies shared cache symbols from an iPhone, why the first transfer takes time, and what to check when device preparation appears stuck.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lengmo714.top/postImg/4a105b12/1.png">
 <meta property="article:published_time" content="2026-03-23T09:21:52.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:03:31.856Z">
+<meta property="article:modified_time" content="2026-07-31T08:34:41.797Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Xcode">
 <meta property="article:tag" content="iOS Development">
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/4a105b12.html#article","headline":"Understanding “Copying Shared Cache Symbols” in Xcode","description":"Why Xcode copies shared cache symbols from an iPhone and why the first transfer can take a long time.","datePublished":"2026-03-23T09:21:52.000Z","dateModified":"2026-07-30T04:03:31.856Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/4a105b12.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["iOS Development"],"keywords":"Xcode, iOS Development","wordCount":117,"image":["https://lengmo714.top/postImg/4a105b12/1.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/4a105b12.html#article","headline":"Xcode Stuck on ‘Copying Shared Cache Symbols’: Causes and Fixes","description":"Understand why Xcode copies shared cache symbols from an iPhone, why the first transfer takes time, and what to check when device preparation appears stuck.","datePublished":"2026-03-23T09:21:52.000Z","dateModified":"2026-07-31T08:34:41.797Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/4a105b12.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["iOS Development"],"keywords":"Xcode, iOS Development","wordCount":123,"image":["https://lengmo714.top/postImg/4a105b12/1.png"]}</script>
 
 
 
@@ -66,7 +66,7 @@
   };
 </script>
 
-  <title>Understanding “Copying Shared Cache Symbols” in Xcode | 南锋</title>
+  <title>Xcode Stuck on ‘Copying Shared Cache Symbols’: Causes and Fixes | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +247,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Understanding “Copying Shared Cache Symbols” in Xcode
+          Xcode Stuck on ‘Copying Shared Cache Symbols’: Causes and Fixes
         </h1>
 
         <div class="post-meta">
@@ -262,7 +262,7 @@
             </span>
 
           
-            <div class="post-description">Why Xcode copies shared cache symbols from an iPhone and why the first transfer can take a long time.</div>
+            <div class="post-description">Understand why Xcode copies shared cache symbols from an iPhone, why the first transfer takes time, and what to check when device preparation appears stuck.</div>
 
         </div>
       </header>
@@ -278,11 +278,11 @@
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
 <p>When using a particular iPhone for on-device testing for the first time—especially after updating it to a new iOS version—Xcode may display this message:</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Copying shared cache symbols from xxx iPhone (2) (36% completed)</span><br><span class="line">Xcode will continue when the operation completes</span><br></pre></td></tr></table></figure>
+<h2 id="Copying-Shared-Cache-Symbols-Message"><a href="#Copying-Shared-Cache-Symbols-Message" class="headerlink" title="Copying Shared Cache Symbols Message"></a>Copying Shared Cache Symbols Message</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Copying shared cache symbols from xxx iPhone (2) (36% completed)</span><br><span class="line">Xcode will continue when the operation completes</span><br></pre></td></tr></table></figure>
 
 <p><img src="/postImg/4a105b12/1.png" alt="Xcode copying shared cache symbols" decoding="async" loading="eager" fetchpriority="high"></p>
 <p>There is no need to panic. Xcode is copying system symbols from the iPhone. It uses these symbols later for breakpoint debugging, crash-log symbolication, and analysis of system call stacks.</p>
-<h3 id="Why-does-it-take-so-long"><a href="#Why-does-it-take-so-long" class="headerlink" title="Why does it take so long?"></a>Why does it take so long?</h3><p>The first transfer can be slow. Its duration depends on the amount of data on the device, the cable’s transfer speed, and the performance of the Mac. Leave the phone connected and wait for Xcode to finish.</p>
+<h2 id="Why-Copying-Shared-Cache-Symbols-Takes-So-Long"><a href="#Why-Copying-Shared-Cache-Symbols-Takes-So-Long" class="headerlink" title="Why Copying Shared Cache Symbols Takes So Long"></a>Why Copying Shared Cache Symbols Takes So Long</h2><p>The first transfer can be slow. Its duration depends on the amount of data on the device, the cable’s transfer speed, and the performance of the Mac. Leave the phone connected and wait for Xcode to finish.</p>
 
     </div>
 
@@ -318,7 +318,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/4a105b12.html" title="Understanding “Copying Shared Cache Symbols” in Xcode">https://lengmo714.top/en/4a105b12.html</a>
+    <a href="https://lengmo714.top/en/4a105b12.html" title="Xcode Stuck on ‘Copying Shared Cache Symbols’: Causes and Fixes">https://lengmo714.top/en/4a105b12.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -339,12 +339,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/eff95905.html" rel="prev" title="cocosCreator教程:如何创建圆形遮罩(Shader)">
-      <i class="fa fa-chevron-left"></i> cocosCreator教程:如何创建圆形遮罩(Shader)
+    <a href="/eff95905.html" rel="prev" title="Cocos Creator Shader 圆形遮罩：Effect、Material 与片元裁剪">
+      <i class="fa fa-chevron-left"></i> Cocos Creator Shader 圆形遮罩：Effect、Material 与片元裁剪
     </a></div>
       <div class="post-nav-item">
-    <a href="/4a105b12.html" rel="next" title="Copying shared cache symbols from xxx iPhone">
-      Copying shared cache symbols from xxx iPhone <i class="fa fa-chevron-right"></i>
+    <a href="/4a105b12.html" rel="next" title="Xcode 卡在 Copying Shared Cache Symbols：原因、耗时与处理方法">
+      Xcode 卡在 Copying Shared Cache Symbols：原因、耗时与处理方法 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -404,7 +404,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-does-it-take-so-long"><span class="nav-number">1.</span> <span class="nav-text">Why does it take so long?</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Copying-Shared-Cache-Symbols-Message"><span class="nav-number">1.</span> <span class="nav-text">Copying Shared Cache Symbols Message</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-Copying-Shared-Cache-Symbols-Takes-So-Long"><span class="nav-number">2.</span> <span class="nav-text">Why Copying Shared Cache Symbols Takes So Long</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -431,13 +431,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Lua数值类型详解：浮点数、整数与算术运算">
+  <meta name="description" content="介绍 Lua 整数与浮点数、科学计数法和十六进制数值，讲解除法、取模、类型转换、随机数、表示范围、浮点精度和运算符优先级。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lua数值类型详解：浮点数、整数与算术运算">
+<meta property="og:title" content="Lua 数值教程：整数、浮点数、算术运算、随机数和精度">
 <meta property="og:url" content="https://lengmo714.top/63692.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Lua数值类型详解：浮点数、整数与算术运算">
+<meta property="og:description" content="介绍 Lua 整数与浮点数、科学计数法和十六进制数值，讲解除法、取模、类型转换、随机数、表示范围、浮点精度和运算符优先级。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-06T15:56:01.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T08:38:51.128Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta name="twitter:card" content="summary">
@@ -47,10 +47,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/63692.html#article","headline":"Lua数值类型详解：浮点数、整数与算术运算","description":"Lua数值类型详解：浮点数、整数与算术运算","datePublished":"2020-04-06T15:56:01.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/63692.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["编程语言"],"keywords":"Lua","wordCount":461,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/63692.html#article","headline":"Lua 数值教程：整数、浮点数、算术运算、随机数和精度","description":"介绍 Lua 整数与浮点数、科学计数法和十六进制数值，讲解除法、取模、类型转换、随机数、表示范围、浮点精度和运算符优先级。","datePublished":"2020-04-06T15:56:01.000Z","dateModified":"2026-07-31T08:38:51.128Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/63692.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["编程语言"],"keywords":"Lua","wordCount":462}</script>
 
 
 
@@ -66,7 +63,7 @@
   };
 </script>
 
-  <title>Lua数值类型详解：浮点数、整数与算术运算 | 南锋</title>
+  <title>Lua 数值教程：整数、浮点数、算术运算、随机数和精度 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +244,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Lua数值类型详解：浮点数、整数与算术运算
+          Lua 数值教程：整数、浮点数、算术运算、随机数和精度
         </h1>
 
         <div class="post-meta">
@@ -262,7 +259,7 @@
             </span>
 
           
-            <div class="post-description">Lua数值类型详解：浮点数、整数与算术运算</div>
+            <div class="post-description">介绍 Lua 整数与浮点数、科学计数法和十六进制数值，讲解除法、取模、类型转换、随机数、表示范围、浮点精度和运算符优先级。</div>
 
         </div>
       </header>
@@ -273,7 +270,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>我们可以使用科学计数法（一个可选的十进制部分外加一个可选的十进制指数部分）书写数值常量，例如：</p>
+        <h2 id="Lua-整数、浮点数和数值字面量"><a href="#Lua-整数、浮点数和数值字面量" class="headerlink" title="Lua 整数、浮点数和数值字面量"></a>Lua 整数、浮点数和数值字面量</h2><p>我们可以使用科学计数法（一个可选的十进制部分外加一个可选的十进制指数部分）书写数值常量，例如：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">4</span>             <span class="comment">--4</span></span><br><span class="line">&gt; <span class="number">0.4</span>			<span class="comment">--0.4</span></span><br><span class="line">&gt; <span class="number">4.57e-3</span>		<span class="comment">--0.00457</span></span><br><span class="line">&gt; <span class="number">0.3e12</span>		<span class="comment">--3.0000000000.0</span></span><br><span class="line">&gt; <span class="number">5E+20</span>			<span class="comment">--5e+20</span></span><br></pre></td></tr></table></figure>
 <p>具有十进制小数或者指数的数值会被当做浮点型值，否则会被当做整数值。<br>整型数和浮点数的类型都是<code>number</code>：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">type</span>(<span class="number">3</span>)			<span class="comment">--number</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="number">3.5</span>)			<span class="comment">--number</span></span><br><span class="line">&gt;<span class="built_in">type</span>(<span class="number">3.0</span>)			<span class="comment">--number</span></span><br></pre></td></tr></table></figure>
@@ -384,7 +381,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/63692.html" title="Lua数值类型详解：浮点数、整数与算术运算">https://lengmo714.top/63692.html</a>
+    <a href="https://lengmo714.top/63692.html" title="Lua 数值教程：整数、浮点数、算术运算、随机数和精度">https://lengmo714.top/63692.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -404,12 +401,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/63692.html" rel="prev" title="Numbers and Arithmetic in Lua">
-      <i class="fa fa-chevron-left"></i> Numbers and Arithmetic in Lua
+    <a href="/en/63692.html" rel="prev" title="Lua Numbers: Integers, Floats, Arithmetic, Randomness and Precision">
+      <i class="fa fa-chevron-left"></i> Lua Numbers: Integers, Floats, Arithmetic, Randomness and Precision
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/57396.html" rel="next" title="Strings in Lua">
-      Strings in Lua <i class="fa fa-chevron-right"></i>
+    <a href="/en/57396.html" rel="next" title="Lua Strings: Literals, Concatenation, Bytes and UTF-8">
+      Lua Strings: Literals, Concatenation, Bytes and UTF-8 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -469,7 +466,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">算术运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97"><span class="nav-number">2.</span> <span class="nav-text">关系运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%BA%93"><span class="nav-number">3.</span> <span class="nav-text">数学库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%95%B0%E5%8F%91%E7%94%9F%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">随机数发生器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E8%AF%81%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">取证函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E8%8C%83%E5%9B%B4"><span class="nav-number">4.</span> <span class="nav-text">表示范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%83%AF%E4%BE%8B"><span class="nav-number">5.</span> <span class="nav-text">惯例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">6.</span> <span class="nav-text">运算符优先级</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lua-%E6%95%B4%E6%95%B0%E3%80%81%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8C%E6%95%B0%E5%80%BC%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">Lua 整数、浮点数和数值字面量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97"><span class="nav-number">2.</span> <span class="nav-text">算术运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">关系运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%BA%93"><span class="nav-number">4.</span> <span class="nav-text">数学库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%95%B0%E5%8F%91%E7%94%9F%E5%99%A8"><span class="nav-number">4.1.</span> <span class="nav-text">随机数发生器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E8%AF%81%E5%87%BD%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">取证函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E8%8C%83%E5%9B%B4"><span class="nav-number">5.</span> <span class="nav-text">表示范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%83%AF%E4%BE%8B"><span class="nav-number">6.</span> <span class="nav-text">惯例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">7.</span> <span class="nav-text">运算符优先级</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -496,13 +493,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

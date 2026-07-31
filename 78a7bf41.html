@@ -22,16 +22,16 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Telegram 获取用户信息教程">
+  <meta name="description" content="使用 grammY 和 Telegram Bot API 获取用户 ID、姓名、username、群成员状态及头像文件路径，并拼接可访问的 profile photo URL。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Telegram 获取用户信息教程 | 获取头像、ID、用户名和状态">
+<meta property="og:title" content="Telegram Bot 获取用户资料：ID、用户名、成员状态与头像 URL">
 <meta property="og:url" content="https://lengmo714.top/78a7bf41.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Telegram 获取用户信息教程">
+<meta property="og:description" content="使用 grammY 和 Telegram Bot API 获取用户 ID、姓名、username、群成员状态及头像文件路径，并拼接可访问的 profile photo URL。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6682669ad9c307b7e99b11e9.png">
 <meta property="article:published_time" content="2024-07-01T08:11:05.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T10:08:11.252Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="telegram">
 <meta property="article:tag" content="mini APP">
@@ -51,7 +51,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/78a7bf41.html#article","headline":"Telegram 获取用户信息教程 | 获取头像、ID、用户名和状态","description":"Telegram 获取用户信息教程","datePublished":"2024-07-01T08:11:05.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/78a7bf41.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["telegram","mini APP","Game"],"keywords":"telegram, mini APP, Game","wordCount":242,"image":["https://pic.imgdb.cn/item/6682669ad9c307b7e99b11e9.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/78a7bf41.html#article","headline":"Telegram Bot 获取用户资料：ID、用户名、成员状态与头像 URL","description":"使用 grammY 和 Telegram Bot API 获取用户 ID、姓名、username、群成员状态及头像文件路径，并拼接可访问的 profile photo URL。","datePublished":"2024-07-01T08:11:05.000Z","dateModified":"2026-07-31T10:08:11.252Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/78a7bf41.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["telegram","mini APP","Game"],"keywords":"telegram, mini APP, Game","wordCount":242,"image":["https://pic.imgdb.cn/item/6682669ad9c307b7e99b11e9.png"]}</script>
 
 
 
@@ -67,7 +67,7 @@
   };
 </script>
 
-  <title>Telegram 获取用户信息教程 | 获取头像、ID、用户名和状态 | 南锋</title>
+  <title>Telegram Bot 获取用户资料：ID、用户名、成员状态与头像 URL | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +248,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Telegram 获取用户信息教程 | 获取头像、ID、用户名和状态
+          Telegram Bot 获取用户资料：ID、用户名、成员状态与头像 URL
         </h1>
 
         <div class="post-meta">
@@ -271,7 +271,7 @@
             </span>
 
           
-            <div class="post-description">Telegram 获取用户信息教程</div>
+            <div class="post-description">使用 grammY 和 Telegram Bot API 获取用户 ID、姓名、username、群成员状态及头像文件路径，并拼接可访问的 profile photo URL。</div>
 
         </div>
       </header>
@@ -290,7 +290,7 @@
 </script>
 
 <p>参考教程<a target="_blank" rel="noopener" href="https://grammy.dev/ref/">参考教程</a>,telegram已经给我们提供非常多的api，我们在获取用户信息的时候只需要调用对应的api即可。</p>
-<h3 id="获取用户信息"><a href="#获取用户信息" class="headerlink" title="获取用户信息"></a>获取用户信息</h3><p>获取用户信息，我这里主要是获取了用户的头像、id、用户名、名字和状态。<br>用到2个api，<code>getChatMember</code>和<code>getUserProfilePhotos</code>。<br>用法分别如下：<br><strong>获取用户头像：</strong></p>
+<h2 id="获取用户资料"><a href="#获取用户资料" class="headerlink" title="获取用户资料"></a>获取用户资料</h2><p>获取用户信息，我这里主要是获取了用户的头像、id、用户名、名字和状态。<br>用到2个api，<code>getChatMember</code>和<code>getUserProfilePhotos</code>。<br>用法分别如下：<br><strong>获取用户头像：</strong></p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化头像URL为空字符串</span></span><br><span class="line"><span class="keyword">let</span> photoUrl = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="comment">// 获取用户头像信息</span></span><br><span class="line">  <span class="keyword">const</span> profilePhotos = <span class="keyword">await</span> bot.<span class="property">api</span>.<span class="title function_">getUserProfilePhotos</span>(userId, &#123; <span class="attr">limit</span>: <span class="number">1</span> &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (profilePhotos.<span class="property">total_count</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> fileId = profilePhotos.<span class="property">photos</span>[<span class="number">0</span>][<span class="number">0</span>].<span class="property">file_id</span>;</span><br><span class="line">    <span class="keyword">const</span> file = <span class="keyword">await</span> bot.<span class="property">api</span>.<span class="title function_">getFile</span>(fileId);</span><br><span class="line">    photoUrl = <span class="string">`https://api.telegram.org/file/bot<span class="subst">$&#123;TOKEN&#125;</span>/<span class="subst">$&#123;file.file_path&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;获取头像失败: &quot;</span>, error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>获取用户登录信息:</strong></p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> userInfo = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> id = <span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> name = <span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> chatMember = <span class="keyword">await</span> bot.<span class="property">api</span>.<span class="title function_">getChatMember</span>(ctx.<span class="property">chat</span>.<span class="property">id</span>, userId);</span><br><span class="line">  id = chatMember.<span class="property">user</span>.<span class="property">id</span>;</span><br><span class="line">  name = chatMember.<span class="property">user</span>.<span class="property">first_name</span>;</span><br><span class="line">  userInfo = <span class="string">`用户信息:\nID: <span class="subst">$&#123;chatMember.user.id&#125;</span>\n名字: <span class="subst">$&#123;chatMember.user.first_name&#125;</span>\n用户名: <span class="subst">$&#123;chatMember.user.username&#125;</span>\n状态: <span class="subst">$&#123;chatMember.status&#125;</span>`</span>;</span><br><span class="line">&#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;获取用户信息失败: &quot;</span>, error);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (photoUrl) &#123;</span><br><span class="line">  <span class="keyword">await</span> ctx.<span class="title function_">reply</span>(<span class="string">`头像链接: <span class="subst">$&#123;photoUrl&#125;</span>`</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="keyword">await</span> ctx.<span class="title function_">reply</span>(<span class="string">&quot;未能获取你的头像。&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">await</span> ctx.<span class="title function_">reply</span>(userInfo || <span class="string">&quot;未能获取你的用户信息。&quot;</span>);</span><br></pre></td></tr></table></figure>
@@ -298,7 +298,7 @@
 <p><strong>完整代码</strong></p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Bot</span>, <span class="title class_">InlineKeyboard</span> &#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;  <span class="comment">// bot机器人的token</span></span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理 /start 命令</span></span><br><span class="line">bot.<span class="title function_">command</span>(<span class="string">&quot;start&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> firstName = ctx.<span class="property">update</span>.<span class="property">message</span>.<span class="property">from</span>.<span class="property">first_name</span>;</span><br><span class="line">  <span class="keyword">const</span> userId = ctx.<span class="property">from</span>.<span class="property">id</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 初始化头像URL为空字符串</span></span><br><span class="line">  <span class="keyword">let</span> photoUrl = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 获取用户头像信息</span></span><br><span class="line">    <span class="keyword">const</span> profilePhotos = <span class="keyword">await</span> bot.<span class="property">api</span>.<span class="title function_">getUserProfilePhotos</span>(userId, &#123; <span class="attr">limit</span>: <span class="number">1</span> &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (profilePhotos.<span class="property">total_count</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> fileId = profilePhotos.<span class="property">photos</span>[<span class="number">0</span>][<span class="number">0</span>].<span class="property">file_id</span>;</span><br><span class="line">      <span class="keyword">const</span> file = <span class="keyword">await</span> bot.<span class="property">api</span>.<span class="title function_">getFile</span>(fileId);</span><br><span class="line">      photoUrl = <span class="string">`https://api.telegram.org/file/bot<span class="subst">$&#123;TOKEN&#125;</span>/<span class="subst">$&#123;file.file_path&#125;</span>`</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;获取头像失败: &quot;</span>, error);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取用户登录信息</span></span><br><span class="line">  <span class="keyword">let</span> userInfo = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="keyword">let</span> id = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">let</span> name = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> chatMember = <span class="keyword">await</span> bot.<span class="property">api</span>.<span class="title function_">getChatMember</span>(ctx.<span class="property">chat</span>.<span class="property">id</span>, userId);</span><br><span class="line">    id = chatMember.<span class="property">user</span>.<span class="property">id</span>;</span><br><span class="line">    name = chatMember.<span class="property">user</span>.<span class="property">first_name</span>;</span><br><span class="line">    userInfo = <span class="string">`用户信息:\nID: <span class="subst">$&#123;chatMember.user.id&#125;</span>\n名字: <span class="subst">$&#123;chatMember.user.first_name&#125;</span>\n用户名: <span class="subst">$&#123;chatMember.user.username&#125;</span>\n状态: <span class="subst">$&#123;chatMember.status&#125;</span>`</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;获取用户信息失败: &quot;</span>, error);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (photoUrl) &#123;</span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">reply</span>(<span class="string">`头像链接: <span class="subst">$&#123;photoUrl&#125;</span>`</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">reply</span>(<span class="string">&quot;未能获取你的头像。&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">await</span> ctx.<span class="title function_">reply</span>(userInfo || <span class="string">&quot;未能获取你的用户信息。&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 启动机器人</span></span><br><span class="line">bot.<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
 
-<h3 id="运行代码看先现象"><a href="#运行代码看先现象" class="headerlink" title="运行代码看先现象"></a>运行代码看先现象</h3><p>执行下面命令，运动代码</p>
+<h2 id="运行代码并检查结果"><a href="#运行代码并检查结果" class="headerlink" title="运行代码并检查结果"></a>运行代码并检查结果</h2><p>执行下面命令，运动代码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno run --allow-net ts脚本.ts</span><br></pre></td></tr></table></figure>
 
 <p>回到和机器人的对话界面，发送<code>/start</code>，我们就可以看到机器人返回的用户登录信息和头像了，如下图：<br><img src="https://pic.imgdb.cn/item/6682669ad9c307b7e99b11e9.png" alt="对话框" decoding="async" loading="eager" fetchpriority="high">;</p>
@@ -337,7 +337,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/78a7bf41.html" title="Telegram 获取用户信息教程 | 获取头像、ID、用户名和状态">https://lengmo714.top/78a7bf41.html</a>
+    <a href="https://lengmo714.top/78a7bf41.html" title="Telegram Bot 获取用户资料：ID、用户名、成员状态与头像 URL">https://lengmo714.top/78a7bf41.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -359,12 +359,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/6e79860b.html" rel="prev" title="Setting Up a Bot for Telegram Mini App and Game Development">
-      <i class="fa fa-chevron-left"></i> Setting Up a Bot for Telegram Mini App and Game Development
+    <a href="/en/6e79860b.html" rel="prev" title="Telegram Mini App Bot Setup: BotFather, grammY, Deno and Inline Buttons">
+      <i class="fa fa-chevron-left"></i> Telegram Mini App Bot Setup: BotFather, grammY, Deno and Inline Buttons
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/78a7bf41.html" rel="next" title="Getting Telegram User Profile Information with grammY">
-      Getting Telegram User Profile Information with grammY <i class="fa fa-chevron-right"></i>
+    <a href="/en/78a7bf41.html" rel="next" title="Get Telegram User Profiles with grammY: ID, Status and Photo URL">
+      Get Telegram User Profiles with grammY: ID, Status and Photo URL <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -424,7 +424,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">获取用户信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E4%BB%A3%E7%A0%81%E7%9C%8B%E5%85%88%E7%8E%B0%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">运行代码看先现象</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E8%B5%84%E6%96%99"><span class="nav-number">1.</span> <span class="nav-text">获取用户资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%B9%B6%E6%A3%80%E6%9F%A5%E7%BB%93%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">运行代码并检查结果</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -451,13 +451,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

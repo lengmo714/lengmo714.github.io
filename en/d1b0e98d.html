@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Common reasons the texture-cache size in Cocos Creator differs from an image&#39;s file size.">
+  <meta name="description" content="Understand why Cocos Creator texture memory differs from PNG or JPG size, including decoded pixel formats, mipmaps, texture compression, dynamic atlases, and GPU allocation.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Why Cocos Creator Texture Memory Differs from Image File Size">
+<meta property="og:title" content="Why Cocos Creator Texture Memory Exceeds PNG or JPG File Size">
 <meta property="og:url" content="https://lengmo714.top/en/d1b0e98d.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Common reasons the texture-cache size in Cocos Creator differs from an image&#39;s file size.">
+<meta property="og:description" content="Understand why Cocos Creator texture memory differs from PNG or JPG size, including decoded pixel formats, mipmaps, texture compression, dynamic atlases, and GPU allocation.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-12-02T14:46:25.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:28:38.295Z">
+<meta property="article:modified_time" content="2026-07-31T08:30:41.969Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="Texture Optimization">
@@ -48,10 +48,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/d1b0e98d.html#article","headline":"Why Cocos Creator Texture Memory Differs from Image File Size","description":"Common reasons the texture-cache size in Cocos Creator differs from an image's file size.","datePublished":"2023-12-02T14:46:25.000Z","dateModified":"2026-07-30T04:28:38.295Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/d1b0e98d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Game Development"],"keywords":"Cocos Creator, Texture Optimization","wordCount":221,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/d1b0e98d.html#article","headline":"Why Cocos Creator Texture Memory Exceeds PNG or JPG File Size","description":"Understand why Cocos Creator texture memory differs from PNG or JPG size, including decoded pixel formats, mipmaps, texture compression, dynamic atlases, and GPU allocation.","datePublished":"2023-12-02T14:46:25.000Z","dateModified":"2026-07-31T08:30:41.969Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/d1b0e98d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Game Development"],"keywords":"Cocos Creator, Texture Optimization","wordCount":230}</script>
 
 
 
@@ -67,7 +64,7 @@
   };
 </script>
 
-  <title>Why Cocos Creator Texture Memory Differs from Image File Size | 南锋</title>
+  <title>Why Cocos Creator Texture Memory Exceeds PNG or JPG File Size | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +245,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Why Cocos Creator Texture Memory Differs from Image File Size
+          Why Cocos Creator Texture Memory Exceeds PNG or JPG File Size
         </h1>
 
         <div class="post-meta">
@@ -263,7 +260,7 @@
             </span>
 
           
-            <div class="post-description">Common reasons the texture-cache size in Cocos Creator differs from an image's file size.</div>
+            <div class="post-description">Understand why Cocos Creator texture memory differs from PNG or JPG size, including decoded pixel formats, mipmaps, texture compression, dynamic atlases, and GPU allocation.</div>
 
         </div>
       </header>
@@ -275,10 +272,10 @@
 
       
         <p>In Cocos Creator, the amount of memory used by a cached texture may differ significantly from the image file’s size on disk. Several types of processing and optimization can explain the difference.</p>
-<h3 id="Compression"><a href="#Compression" class="headerlink" title="Compression"></a>Compression</h3><p>Game engines may use GPU texture-compression formats such as ETC, PVRTC, or ASTC. Each format has a different memory cost and platform support profile. Also remember that a compressed PNG or JPEG file on disk may expand into a much larger uncompressed pixel format in memory.</p>
-<h3 id="Mipmaps"><a href="#Mipmaps" class="headerlink" title="Mipmaps"></a>Mipmaps</h3><p>The engine may generate progressively smaller versions of the original texture. Mipmaps improve rendering quality and sampling at a distance, but the additional levels consume more texture memory.</p>
-<h3 id="Texture-format"><a href="#Texture-format" class="headerlink" title="Texture format"></a>Texture format</h3><p>Formats such as RGBA8888 and RGB565 require different numbers of bytes per pixel. The format selected for a target platform therefore affects the final memory usage.</p>
-<h3 id="Dynamic-batching-and-atlases"><a href="#Dynamic-batching-and-atlases" class="headerlink" title="Dynamic batching and atlases"></a>Dynamic batching and atlases</h3><p>Cocos Creator may combine smaller textures or sprite frames into a larger atlas to reduce draw calls. Padding, atlas dimensions, and duplicated or retained source textures can make the reported cache size differ from any individual image.</p>
+<h2 id="Compressed-Files-and-Decoded-Texture-Memory"><a href="#Compressed-Files-and-Decoded-Texture-Memory" class="headerlink" title="Compressed Files and Decoded Texture Memory"></a>Compressed Files and Decoded Texture Memory</h2><p>Game engines may use GPU texture-compression formats such as ETC, PVRTC, or ASTC. Each format has a different memory cost and platform support profile. Also remember that a compressed PNG or JPEG file on disk may expand into a much larger uncompressed pixel format in memory.</p>
+<h2 id="Mipmap-Memory-Overhead"><a href="#Mipmap-Memory-Overhead" class="headerlink" title="Mipmap Memory Overhead"></a>Mipmap Memory Overhead</h2><p>The engine may generate progressively smaller versions of the original texture. Mipmaps improve rendering quality and sampling at a distance, but the additional levels consume more texture memory.</p>
+<h2 id="Texture-and-Pixel-Formats"><a href="#Texture-and-Pixel-Formats" class="headerlink" title="Texture and Pixel Formats"></a>Texture and Pixel Formats</h2><p>Formats such as RGBA8888 and RGB565 require different numbers of bytes per pixel. The format selected for a target platform therefore affects the final memory usage.</p>
+<h2 id="Dynamic-Batching-and-Atlases"><a href="#Dynamic-Batching-and-Atlases" class="headerlink" title="Dynamic Batching and Atlases"></a>Dynamic Batching and Atlases</h2><p>Cocos Creator may combine smaller textures or sprite frames into a larger atlas to reduce draw calls. Padding, atlas dimensions, and duplicated or retained source textures can make the reported cache size differ from any individual image.</p>
 <p>Use the browser or platform developer tools and the engine’s profiler to inspect actual texture memory. The precise result depends on the Cocos Creator version, target platform, import settings, and build configuration, so consult the documentation for the version used by your project when investigating a specific case.</p>
 
     </div>
@@ -315,7 +312,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/d1b0e98d.html" title="Why Cocos Creator Texture Memory Differs from Image File Size">https://lengmo714.top/en/d1b0e98d.html</a>
+    <a href="https://lengmo714.top/en/d1b0e98d.html" title="Why Cocos Creator Texture Memory Exceeds PNG or JPG File Size">https://lengmo714.top/en/d1b0e98d.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -336,12 +333,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/d1b0e98d.html" rel="prev" title="cocosCreator纹理缓存与图片大小差异解析与优化策略">
-      <i class="fa fa-chevron-left"></i> cocosCreator纹理缓存与图片大小差异解析与优化策略
+    <a href="/d1b0e98d.html" rel="prev" title="Cocos Creator 纹理内存为什么大于图片文件：格式、Mipmap 与图集分析">
+      <i class="fa fa-chevron-left"></i> Cocos Creator 纹理内存为什么大于图片文件：格式、Mipmap 与图集分析
     </a></div>
       <div class="post-nav-item">
-    <a href="/3344996d.html" rel="next" title="cocosCreator教程：如何监听EditBox输入事件并处理用户输入">
-      cocosCreator教程：如何监听EditBox输入事件并处理用户输入 <i class="fa fa-chevron-right"></i>
+    <a href="/en/3344996d.html" rel="next" title="Cocos Creator EditBox Events: Begin, Text Changed and Editing Ended">
+      Cocos Creator EditBox Events: Begin, Text Changed and Editing Ended <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -401,7 +398,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Compression"><span class="nav-number">1.</span> <span class="nav-text">Compression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mipmaps"><span class="nav-number">2.</span> <span class="nav-text">Mipmaps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Texture-format"><span class="nav-number">3.</span> <span class="nav-text">Texture format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-batching-and-atlases"><span class="nav-number">4.</span> <span class="nav-text">Dynamic batching and atlases</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Compressed-Files-and-Decoded-Texture-Memory"><span class="nav-number">1.</span> <span class="nav-text">Compressed Files and Decoded Texture Memory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mipmap-Memory-Overhead"><span class="nav-number">2.</span> <span class="nav-text">Mipmap Memory Overhead</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Texture-and-Pixel-Formats"><span class="nav-number">3.</span> <span class="nav-text">Texture and Pixel Formats</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-Batching-and-Atlases"><span class="nav-number">4.</span> <span class="nav-text">Dynamic Batching and Atlases</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -428,13 +425,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

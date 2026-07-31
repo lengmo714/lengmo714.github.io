@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="How Lua&#39;s colon syntax defines and calls methods by supplying an implicit self argument.">
+  <meta name="description" content="Understand Lua dot and colon syntax, how the colon supplies an implicit self argument, equivalent method definitions and calls, and common parameter mismatch errors.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Difference Between Dot and Colon Syntax in Lua">
+<meta property="og:title" content="Lua Dot vs Colon Syntax: self, Method Definitions and Calls">
 <meta property="og:url" content="https://lengmo714.top/en/3247.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="How Lua&#39;s colon syntax defines and calls methods by supplying an implicit self argument.">
+<meta property="og:description" content="Understand Lua dot and colon syntax, how the colon supplies an implicit self argument, equivalent method definitions and calls, and common parameter mismatch errors.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-03-17T05:09:04.000Z">
-<meta property="article:modified_time" content="2026-07-30T05:40:51.470Z">
+<meta property="article:modified_time" content="2026-07-31T08:38:02.734Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta name="twitter:card" content="summary">
@@ -47,10 +47,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/3247.html#article","headline":"The Difference Between Dot and Colon Syntax in Lua","description":"How Lua's colon syntax defines and calls methods by supplying an implicit self argument.","datePublished":"2019-03-17T05:09:04.000Z","dateModified":"2026-07-30T05:40:51.470Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/3247.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Programming Languages"],"keywords":"Lua","wordCount":165,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/3247.html#article","headline":"Lua Dot vs Colon Syntax: self, Method Definitions and Calls","description":"Understand Lua dot and colon syntax, how the colon supplies an implicit self argument, equivalent method definitions and calls, and common parameter mismatch errors.","datePublished":"2019-03-17T05:09:04.000Z","dateModified":"2026-07-31T08:38:02.734Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/3247.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Programming Languages"],"keywords":"Lua","wordCount":174}</script>
 
 
 
@@ -66,7 +63,7 @@
   };
 </script>
 
-  <title>The Difference Between Dot and Colon Syntax in Lua | 南锋</title>
+  <title>Lua Dot vs Colon Syntax: self, Method Definitions and Calls | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +244,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          The Difference Between Dot and Colon Syntax in Lua
+          Lua Dot vs Colon Syntax: self, Method Definitions and Calls
         </h1>
 
         <div class="post-meta">
@@ -262,7 +259,7 @@
             </span>
 
           
-            <div class="post-description">How Lua's colon syntax defines and calls methods by supplying an implicit self argument.</div>
+            <div class="post-description">Understand Lua dot and colon syntax, how the colon supplies an implicit self argument, equivalent method definitions and calls, and common parameter mismatch errors.</div>
 
         </div>
       </header>
@@ -273,8 +270,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Lua’s colon syntax is shorthand for passing the receiver as the first argument, conventionally named <code>self</code>.</p>
-<p>These definitions are equivalent:</p>
+        <h2 id="Dot-and-Colon-Syntax-in-Lua"><a href="#Dot-and-Colon-Syntax-in-Lua" class="headerlink" title="Dot and Colon Syntax in Lua"></a>Dot and Colon Syntax in Lua</h2><p>Lua’s colon syntax is shorthand for passing the receiver as the first argument, conventionally named <code>self</code>.</p>
+<h2 id="Equivalent-Method-Definitions-and-Calls"><a href="#Equivalent-Method-Definitions-and-Calls" class="headerlink" title="Equivalent Method Definitions and Calls"></a>Equivalent Method Definitions and Calls</h2><p>These definitions are equivalent:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene:onCreate</span><span class="params">()</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">self</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MainScene.onCreate</span><span class="params">(self)</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">self</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
 <p>These calls are also equivalent:</p>
@@ -323,7 +320,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/3247.html" title="The Difference Between Dot and Colon Syntax in Lua">https://lengmo714.top/en/3247.html</a>
+    <a href="https://lengmo714.top/en/3247.html" title="Lua Dot vs Colon Syntax: self, Method Definitions and Calls">https://lengmo714.top/en/3247.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -343,12 +340,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/39939.html" rel="prev" title="pip问题Traceback (most recent call last)">
-      <i class="fa fa-chevron-left"></i> pip问题Traceback (most recent call last)
+    <a href="/39939.html" rel="prev" title="pip 启动 Traceback 修复：确认解释器并重新安装 pip">
+      <i class="fa fa-chevron-left"></i> pip 启动 Traceback 修复：确认解释器并重新安装 pip
     </a></div>
       <div class="post-nav-item">
-    <a href="/3247.html" rel="next" title="Lua中“.”和“:”区别">
-      Lua中“.”和“:”区别 <i class="fa fa-chevron-right"></i>
+    <a href="/3247.html" rel="next" title="Lua 点号与冒号的区别：self 参数、方法定义和调用方式">
+      Lua 点号与冒号的区别：self 参数、方法定义和调用方式 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -408,6 +405,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dot-and-Colon-Syntax-in-Lua"><span class="nav-number">1.</span> <span class="nav-text">Dot and Colon Syntax in Lua</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Equivalent-Method-Definitions-and-Calls"><span class="nav-number">2.</span> <span class="nav-text">Equivalent Method Definitions and Calls</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -434,13 +432,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

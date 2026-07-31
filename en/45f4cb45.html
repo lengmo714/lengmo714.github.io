@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Replace placeholders such as {0} and {1} with arguments in a TypeScript formatting function.">
+  <meta name="description" content="Build a TypeScript format-string helper that replaces indexed placeholders such as {0} and {1} with variadic arguments while handling repeats and missing values.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Implementing Indexed String Formatting in TypeScript">
+<meta property="og:title" content="TypeScript String Formatting with {0} and {1} Indexed Placeholders">
 <meta property="og:url" content="https://lengmo714.top/en/45f4cb45.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Replace placeholders such as {0} and {1} with arguments in a TypeScript formatting function.">
+<meta property="og:description" content="Build a TypeScript format-string helper that replaces indexed placeholders such as {0} and {1} with variadic arguments while handling repeats and missing values.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-05-16T13:30:21.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:38:46.802Z">
+<meta property="article:modified_time" content="2026-07-31T12:08:48.515Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="TypeScript">
 <meta name="twitter:card" content="summary">
@@ -47,10 +47,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/45f4cb45.html#article","headline":"Implementing Indexed String Formatting in TypeScript","description":"Replace placeholders such as {0} and {1} with arguments in a TypeScript formatting function.","datePublished":"2023-05-16T13:30:21.000Z","dateModified":"2026-07-30T04:38:46.802Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/45f4cb45.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["TypeScript"],"keywords":"TypeScript","wordCount":88,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/45f4cb45.html#article","headline":"TypeScript String Formatting with {0} and {1} Indexed Placeholders","description":"Build a TypeScript format-string helper that replaces indexed placeholders such as {0} and {1} with variadic arguments while handling repeats and missing values.","datePublished":"2023-05-16T13:30:21.000Z","dateModified":"2026-07-31T12:08:48.515Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/45f4cb45.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["TypeScript"],"keywords":"TypeScript","wordCount":88}</script>
 
 
 
@@ -66,7 +63,7 @@
   };
 </script>
 
-  <title>Implementing Indexed String Formatting in TypeScript | 南锋</title>
+  <title>TypeScript String Formatting with {0} and {1} Indexed Placeholders | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +244,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Implementing Indexed String Formatting in TypeScript
+          TypeScript String Formatting with {0} and {1} Indexed Placeholders
         </h1>
 
         <div class="post-meta">
@@ -262,7 +259,7 @@
             </span>
 
           
-            <div class="post-description">Replace placeholders such as {0} and {1} with arguments in a TypeScript formatting function.</div>
+            <div class="post-description">Build a TypeScript format-string helper that replaces indexed placeholders such as {0} and {1} with variadic arguments while handling repeats and missing values.</div>
 
         </div>
       </header>
@@ -311,7 +308,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/45f4cb45.html" title="Implementing Indexed String Formatting in TypeScript">https://lengmo714.top/en/45f4cb45.html</a>
+    <a href="https://lengmo714.top/en/45f4cb45.html" title="TypeScript String Formatting with {0} and {1} Indexed Placeholders">https://lengmo714.top/en/45f4cb45.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -331,12 +328,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/45f4cb45.html" rel="prev" title="TypeScript实现字符串格式化：自定义format.string方法">
-      <i class="fa fa-chevron-left"></i> TypeScript实现字符串格式化：自定义format.string方法
+    <a href="/en/628b7aeb.html" rel="prev" title="Safely Free Windows Disk Space: Temporary Files, Storage Sense and Cleanup">
+      <i class="fa fa-chevron-left"></i> Safely Free Windows Disk Space: Temporary Files, Storage Sense and Cleanup
     </a></div>
       <div class="post-nav-item">
-    <a href="/9233548f.html" rel="next" title="cocosCreator在B类中监听A类建立长连接发送和接收的数据">
-      cocosCreator在B类中监听A类建立长连接发送和接收的数据 <i class="fa fa-chevron-right"></i>
+    <a href="/45f4cb45.html" rel="next" title="TypeScript 字符串格式化：实现 {0}、{1} 索引占位符">
+      TypeScript 字符串格式化：实现 {0}、{1} 索引占位符 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -422,13 +419,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

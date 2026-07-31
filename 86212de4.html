@@ -22,32 +22,19 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="如何在HexoNext主题中添加相册功能">
+  <meta name="description" content="在 Hexo NexT 博客添加独立相册页面，通过主题菜单创建入口，将可移植 HTML 相册放入 source 目录，并使用 iframe 或弹窗嵌入展示。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何在HexoNext主题中添加相册功能">
+<meta property="og:title" content="Hexo NexT 添加相册：独立 HTML、菜单入口与 iframe 嵌入">
 <meta property="og:url" content="https://lengmo714.top/86212de4.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="如何在HexoNext主题中添加相册功能">
+<meta property="og:description" content="在 Hexo NexT 博客添加独立相册页面，通过主题菜单创建入口，将可移植 HTML 相册放入 source 目录，并使用 iframe 或弹窗嵌入展示。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-10T05:38:33.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:26:29.002Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="ios">
-<meta property="article:tag" content="android">
-<meta property="article:tag" content="游戏开发">
-<meta property="article:tag" content="quick-cocos">
-<meta property="article:tag" content="游戏上架">
-<meta property="article:tag" content="cocoscreater">
-<meta property="article:tag" content="c语言">
-<meta property="article:tag" content="C++">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="cocos2dx">
-<meta property="article:tag" content="Lua">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="数据手套">
-<meta property="article:tag" content="嵌入式开发">
-<meta property="article:tag" content="stem32">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="NexT">
+<meta property="article:tag" content="相册">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://lengmo714.top/86212de4.html">
@@ -62,10 +49,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/86212de4.html#article","headline":"如何在HexoNext主题中添加相册功能","description":"如何在HexoNext主题中添加相册功能","datePublished":"2024-06-10T05:38:33.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/86212de4.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo"],"keywords":"","wordCount":301,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/86212de4.html#article","headline":"Hexo NexT 添加相册：独立 HTML、菜单入口与 iframe 嵌入","description":"在 Hexo NexT 博客添加独立相册页面，通过主题菜单创建入口，将可移植 HTML 相册放入 source 目录，并使用 iframe 或弹窗嵌入展示。","datePublished":"2024-06-10T05:38:33.000Z","dateModified":"2026-07-31T09:26:29.002Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/86212de4.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo"],"keywords":"Hexo, NexT, 相册","wordCount":305}</script>
 
 
 
@@ -81,7 +65,7 @@
   };
 </script>
 
-  <title>如何在HexoNext主题中添加相册功能 | 南锋</title>
+  <title>Hexo NexT 添加相册：独立 HTML、菜单入口与 iframe 嵌入 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -262,7 +246,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          如何在HexoNext主题中添加相册功能
+          Hexo NexT 添加相册：独立 HTML、菜单入口与 iframe 嵌入
         </h1>
 
         <div class="post-meta">
@@ -277,7 +261,7 @@
             </span>
 
           
-            <div class="post-description">如何在HexoNext主题中添加相册功能</div>
+            <div class="post-description">在 Hexo NexT 博客添加独立相册页面，通过主题菜单创建入口，将可移植 HTML 相册放入 source 目录，并使用 iframe 或弹窗嵌入展示。</div>
 
         </div>
       </header>
@@ -300,14 +284,14 @@
 <p>改为<code>next</code>主题后，有些自己想要的功能没有，比如相册。在网上查了好多资料，也有人实现了，但是都比较麻烦，或者不是自己想要的效果。于是自己换了种思路，直接用<code>html</code>的方式实现，再加入到博客中。这样以后不管换什么主题，相册功能都可以直接移植，非常的方便。</p>
 <a href="https://lengmo714.top/photos/" title target>笔者效果,</a>
 
-<h3 id="在博客左侧添加相册选项"><a href="#在博客左侧添加相册选项" class="headerlink" title="在博客左侧添加相册选项"></a>在博客左侧添加相册选项</h3><p>1、在命令行输入命令：</p>
+<h2 id="在-NexT-菜单添加相册入口"><a href="#在-NexT-菜单添加相册入口" class="headerlink" title="在 NexT 菜单添加相册入口"></a>在 NexT 菜单添加相册入口</h2><p>1、在命令行输入命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page 相册</span><br></pre></td></tr></table></figure>
 <p>2、修改主题配置文件<code>_config.yml</code><br>在<code>menu:</code>下添加下面这行</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">相册: /photos/ || fa fa-camera</span><br></pre></td></tr></table></figure>
 <p>3、修改站点下<code>source/photos/index.md</code>文件，添加下面内容</p>
 <figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">style</span>=<span class="string">&quot;max-width: 100%&quot;</span> <span class="attr">frameborder</span>=<span class="string">&quot;no&quot;</span> <span class="attr">border</span>=<span class="string">&quot;0&quot;</span> <span class="attr">marginwidth</span>=<span class="string">&quot;0&quot;</span> <span class="attr">marginheight</span>=<span class="string">&quot;0&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">height</span>=<span class="string">&quot;750px&quot;</span><span class="attr">src</span>=<span class="string">/net/photos/index.html</span>&gt;</span></span><span class="language-xml"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p><code>src=</code>后面接你放相册的地址，这里是想对于<code>next/source</code>的相对位置。其绝对位置为<code>next/source/net/photos/index.html</code>，这里改为你自己的位置即可。</p>
-<h3 id="创建相册"><a href="#创建相册" class="headerlink" title="创建相册"></a>创建相册</h3><p>相册有一二级目录，在一级目录点击图片会进入二级相册，进入二级相册后点击相应的图片会有放大效果。<br>1、在<code>next/source/net</code>创建<code>photos</code>文件夹。<br>2、创建<code>scripts.js</code>文件</p>
+<h2 id="创建并嵌入独立-HTML-相册"><a href="#创建并嵌入独立-HTML-相册" class="headerlink" title="创建并嵌入独立 HTML 相册"></a>创建并嵌入独立 HTML 相册</h2><p>相册有一二级目录，在一级目录点击图片会进入二级相册，进入二级相册后点击相应的图片会有放大效果。<br>1、在<code>next/source/net</code>创建<code>photos</code>文件夹。<br>2、创建<code>scripts.js</code>文件</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> modal = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;modal&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> modalImg = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;modal-img&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> captionText = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;caption&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> close = <span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&quot;close&quot;</span>)[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;.thumbnail&#x27;</span>).<span class="title function_">forEach</span>(<span class="function"><span class="params">img</span> =&gt;</span> &#123;</span><br><span class="line">        img.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            modal.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&quot;block&quot;</span>;</span><br><span class="line">            modalImg.<span class="property">src</span> = img.<span class="property">src</span>;</span><br><span class="line">            captionText.<span class="property">innerHTML</span> = img.<span class="property">alt</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    close.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        modal.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&quot;none&quot;</span>;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (event.<span class="property">target</span> == modal) &#123;</span><br><span class="line">            modal.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&quot;none&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>3、创建<code>styles.css</code>文件</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: Arial, sans-serif;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.album</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">justify-content</span>: center;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.album-cover</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.album-cover</span> <span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">object-fit</span>: cover;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.gallery</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">    <span class="attribute">justify-content</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.thumbnail</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">object-fit</span>: cover;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">transition</span>: transform <span class="number">0.2s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.thumbnail</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(<span class="number">1.1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.modal</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">    <span class="attribute">position</span>: fixed;</span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">padding-top</span>: <span class="number">60px</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: auto;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.9</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.modal-content</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: auto;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">80%</span>;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">700px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#caption</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: auto;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">80%</span>;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">700px</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#ccc</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.close</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">right</span>: <span class="number">35px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#f1f1f1</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">transition</span>: <span class="number">0.3s</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.close</span><span class="selector-pseudo">:hover</span>,</span><br><span class="line"><span class="selector-class">.close</span><span class="selector-pseudo">:focus</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#bbb</span>;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -351,7 +335,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/86212de4.html" title="如何在HexoNext主题中添加相册功能">https://lengmo714.top/86212de4.html</a>
+    <a href="https://lengmo714.top/86212de4.html" title="Hexo NexT 添加相册：独立 HTML、菜单入口与 iframe 嵌入">https://lengmo714.top/86212de4.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -360,6 +344,12 @@
 </div>
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/tags/NexT/" rel="tag"><i class="fa fa-tag"></i> NexT</a>
+              <a href="/tags/%E7%9B%B8%E5%86%8C/" rel="tag"><i class="fa fa-tag"></i> 相册</a>
+          </div>
 
         
 
@@ -367,12 +357,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/343880cb.html" rel="prev" title="Chrome调试手机网页的详细步骤与注意事项">
-      <i class="fa fa-chevron-left"></i> Chrome调试手机网页的详细步骤与注意事项
+    <a href="/343880cb.html" rel="prev" title="Chrome 远程调试 Android 手机网页：USB Debugging 与 chrome://inspect">
+      <i class="fa fa-chevron-left"></i> Chrome 远程调试 Android 手机网页：USB Debugging 与 chrome://inspect
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/86212de4.html" rel="next" title="Adding a Portable Photo Gallery to Hexo NexT">
-      Adding a Portable Photo Gallery to Hexo NexT <i class="fa fa-chevron-right"></i>
+    <a href="/en/86212de4.html" rel="next" title="Add a Photo Gallery to Hexo NexT with Standalone HTML and iframe">
+      Add a Photo Gallery to Hexo NexT with Standalone HTML and iframe <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -432,7 +422,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E5%8D%9A%E5%AE%A2%E5%B7%A6%E4%BE%A7%E6%B7%BB%E5%8A%A0%E7%9B%B8%E5%86%8C%E9%80%89%E9%A1%B9"><span class="nav-number">1.</span> <span class="nav-text">在博客左侧添加相册选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%B8%E5%86%8C"><span class="nav-number">2.</span> <span class="nav-text">创建相册</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8-NexT-%E8%8F%9C%E5%8D%95%E6%B7%BB%E5%8A%A0%E7%9B%B8%E5%86%8C%E5%85%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">在 NexT 菜单添加相册入口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%B9%B6%E5%B5%8C%E5%85%A5%E7%8B%AC%E7%AB%8B-HTML-%E7%9B%B8%E5%86%8C"><span class="nav-number">2.</span> <span class="nav-text">创建并嵌入独立 HTML 相册</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -459,13 +449,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

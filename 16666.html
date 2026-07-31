@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Lua编程中的控制结构：if、while、for循环的使用方法">
+  <meta name="description" content="介绍 Lua 条件与循环控制结构，包括 if、while、repeat until、数值 for、泛型 for、break、return 和 goto，并说明真假值判断规则。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lua编程中的控制结构：if、while、for循环的使用方法">
+<meta property="og:title" content="Lua 控制结构教程：if、while、repeat、for、break 和 goto">
 <meta property="og:url" content="https://lengmo714.top/16666.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Lua编程中的控制结构：if、while、for循环的使用方法">
+<meta property="og:description" content="介绍 Lua 条件与循环控制结构，包括 if、while、repeat until、数值 for、泛型 for、break、return 和 goto，并说明真假值判断规则。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-13T13:02:21.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T08:51:24.138Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta name="twitter:card" content="summary">
@@ -47,10 +47,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/16666.html#article","headline":"Lua编程中的控制结构：if、while、for循环的使用方法","description":"Lua编程中的控制结构：if、while、for循环的使用方法","datePublished":"2020-04-13T13:02:21.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/16666.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["编程语言"],"keywords":"Lua","wordCount":197,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/16666.html#article","headline":"Lua 控制结构教程：if、while、repeat、for、break 和 goto","description":"介绍 Lua 条件与循环控制结构，包括 if、while、repeat until、数值 for、泛型 for、break、return 和 goto，并说明真假值判断规则。","datePublished":"2020-04-13T13:02:21.000Z","dateModified":"2026-07-31T08:51:24.138Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/16666.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["编程语言"],"keywords":"Lua","wordCount":207}</script>
 
 
 
@@ -66,7 +63,7 @@
   };
 </script>
 
-  <title>Lua编程中的控制结构：if、while、for循环的使用方法 | 南锋</title>
+  <title>Lua 控制结构教程：if、while、repeat、for、break 和 goto | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +244,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Lua编程中的控制结构：if、while、for循环的使用方法
+          Lua 控制结构教程：if、while、repeat、for、break 和 goto
         </h1>
 
         <div class="post-meta">
@@ -262,7 +259,7 @@
             </span>
 
           
-            <div class="post-description">Lua编程中的控制结构：if、while、for循环的使用方法</div>
+            <div class="post-description">介绍 Lua 条件与循环控制结构，包括 if、while、repeat until、数值 for、泛型 for、break、return 和 goto，并说明真假值判断规则。</div>
 
         </div>
       </header>
@@ -281,21 +278,21 @@
 </script>
 
 <p>控制结构的条件表达式的结果可以是任何值。Lua语言将所有不是false和nil的值当做真。</p>
-<h3 id="if-then-else"><a href="#if-then-else" class="headerlink" title="if then else"></a>if then else</h3><p>if 语句先测试其条件，并根据条件是否满足执行相应的then部分或else部分。else部分是可选的。</p>
+<h2 id="if、elseif-和-else-条件判断"><a href="#if、elseif-和-else-条件判断" class="headerlink" title="if、elseif 和 else 条件判断"></a>if、elseif 和 else 条件判断</h2><p>if 语句先测试其条件，并根据条件是否满足执行相应的then部分或else部分。else部分是可选的。</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> a&lt;<span class="number">0</span> <span class="keyword">then</span> a == <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> a &lt;b <span class="keyword">then</span> <span class="keyword">return</span> a <span class="keyword">else</span> <span class="keyword">return</span> b <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> line &gt; MAXLINES <span class="keyword">then</span></span><br><span class="line">	showpage()</span><br><span class="line">	line = <span class="number">0</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
 <p>如果要编写嵌套的if语句，可以使用elseif。它类似于在else后面紧跟一个if，但可以避免重复使用end：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> op == <span class="string">&quot;+&quot;</span> <span class="keyword">then</span></span><br><span class="line">	r = a + b</span><br><span class="line"><span class="keyword">elseif</span> op == <span class="string">&quot;-&quot;</span> <span class="keyword">then</span></span><br><span class="line">	r = a - b</span><br><span class="line"><span class="keyword">elseif</span> op == <span class="string">&quot;*&quot;</span> <span class="keyword">then</span></span><br><span class="line">	r = a * b</span><br><span class="line"><span class="keyword">elseif</span> op == <span class="string">&quot;/&quot;</span> <span class="keyword">then</span></span><br><span class="line">	r = a / b</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">error</span>(<span class="string">&quot;invalid operation&quot;</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>由于Lua语言不支持switch语句，所以这种一连串的else-if语句比较常见。</p>
-<h3 id="while"><a href="#while" class="headerlink" title="while"></a>while</h3><p>当条件为真时while循环会重复执行其循环体。Lua语言先测试while语句的条件，若条件为假则循环结束；否则，Lua会执行循环体并不断地重复这个过程。</p>
+<h2 id="while-和-repeat-until-循环"><a href="#while-和-repeat-until-循环" class="headerlink" title="while 和 repeat until 循环"></a>while 和 repeat until 循环</h2><p>当条件为真时while循环会重复执行其循环体。Lua语言先测试while语句的条件，若条件为假则循环结束；否则，Lua会执行循环体并不断地重复这个过程。</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> i = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> a[i] <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(a[i])</span><br><span class="line">	i = i + <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="repeat"><a href="#repeat" class="headerlink" title="repeat"></a>repeat</h3><p>repeat-until语句会重复执行其循环体知道条件为真时结束。由于条件测试在循环体之后执行，所以循环体至少会执行一次。</p>
+<h3 id="repeat-until"><a href="#repeat-until" class="headerlink" title="repeat until"></a>repeat until</h3><p>repeat-until语句会重复执行其循环体知道条件为真时结束。由于条件测试在循环体之后执行，所以循环体至少会执行一次。</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 输出第一个非空的行</span></span><br><span class="line"><span class="keyword">local</span> line </span><br><span class="line"><span class="keyword">repeat</span></span><br><span class="line">	line = <span class="built_in">io</span>.<span class="built_in">read</span>()</span><br><span class="line"><span class="keyword">until</span> line ~= <span class="string">&quot; &quot;</span></span><br><span class="line"><span class="built_in">print</span>(line)</span><br></pre></td></tr></table></figure>
 <p>和大多数其他编程语言不同，在Lua语言中，循环体内声明的局部变量的作用于包括测试条件：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 使用Newton-Raphson法计算&quot;x&quot;的平方根</span></span><br><span class="line"><span class="keyword">local</span> sqr = x / <span class="number">2</span></span><br><span class="line"><span class="keyword">repeat</span> </span><br><span class="line">	sqr = (sqr + x / sqr) /<span class="number">2</span></span><br><span class="line">	<span class="keyword">local</span> <span class="built_in">error</span> = <span class="built_in">math</span>.<span class="built_in">abs</span>(sqr^<span class="number">2</span> - x)</span><br><span class="line"><span class="keyword">until</span> <span class="built_in">error</span> &lt; x/ <span class="number">10000</span>  <span class="comment">-- 局部变量&#x27;error&#x27;此时仍然可见</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="数值型for"><a href="#数值型for" class="headerlink" title="数值型for"></a>数值型for</h3><p>for 语句有两种形式：数值型for和泛型for。<br>数值型for的语法如下：</p>
+<h2 id="数值型-for-循环"><a href="#数值型-for-循环" class="headerlink" title="数值型 for 循环"></a>数值型 for 循环</h2><p>for 语句有两种形式：数值型for和泛型for。<br>数值型for的语法如下：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> var = exp1 , exp2, exp3 <span class="keyword">do</span></span><br><span class="line">	something</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>在这种循环中，var的值从exp1变化到exp2之前的每次循环会执行something。并且在每次循环结束后将步长exp3增加到var上。第三个表达式exp3是可选的，若不存在，Lua语言会默认步长值为1.如果不想给循环设置上限，可以使用常量math.huge:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, <span class="built_in">math</span>.<span class="built_in">huge</span> <span class="keyword">do</span> </span><br><span class="line">	<span class="keyword">if</span> (<span class="number">0.3</span>*i^<span class="number">3</span> - <span class="number">20</span>*i^<span class="number">2</span> - <span class="number">500</span> &gt;= <span class="number">0</span> ) <span class="keyword">then</span></span><br><span class="line">		pirnt(i)</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
@@ -304,7 +301,7 @@
 <p>如果需要在循环结束后使用控制变量的值，则必须将控制变量的值保存到另一个变量中：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 在一个列表中寻找一个值</span></span><br><span class="line"><span class="keyword">local</span> found = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span> , #a <span class="keyword">do</span></span><br><span class="line">	<span class="keyword">if</span> a[i] &lt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">		found = i</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(found)</span><br></pre></td></tr></table></figure>
 <p>最后，不要改变控制变量的值，随意改变控制变量的值可能产生不可预知的结果。如果要在循环正常结束前停止for，那么可以使用break语句。</p>
-<h3 id="泛型for"><a href="#泛型for" class="headerlink" title="泛型for"></a>泛型for</h3><p>泛型for遍历迭代函数返回的所有值。例如我们已经在很多示例中看到过的pairs、ipairs和io.lines等。虽然泛型for看似简单，但它的功能非常强大。使用恰当的迭代器可以在保证代码可读性的情况下遍历几乎所有的数据结构。<br>当然，我们也可以自己编写迭代器。尽管泛型for的使用很简单，但编写迭代函数却有不少细节需要注意。<br>与数值型for不同，泛型for可以使用多个变量，这些变量在每次循环时都会更新。当第一个变量变为nil时，循环终止。像数值型for一样，控制变量时循环体中的局部变量，我们也不应该在循环中改变其值。</p>
+<h2 id="泛型-for-循环"><a href="#泛型-for-循环" class="headerlink" title="泛型 for 循环"></a>泛型 for 循环</h2><p>泛型for遍历迭代函数返回的所有值。例如我们已经在很多示例中看到过的pairs、ipairs和io.lines等。虽然泛型for看似简单，但它的功能非常强大。使用恰当的迭代器可以在保证代码可读性的情况下遍历几乎所有的数据结构。<br>当然，我们也可以自己编写迭代器。尽管泛型for的使用很简单，但编写迭代函数却有不少细节需要注意。<br>与数值型for不同，泛型for可以使用多个变量，这些变量在每次循环时都会更新。当第一个变量变为nil时，循环终止。像数值型for一样，控制变量时循环体中的局部变量，我们也不应该在循环中改变其值。</p>
 
     </div>
 
@@ -340,7 +337,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/16666.html" title="Lua编程中的控制结构：if、while、for循环的使用方法">https://lengmo714.top/16666.html</a>
+    <a href="https://lengmo714.top/16666.html" title="Lua 控制结构教程：if、while、repeat、for、break 和 goto">https://lengmo714.top/16666.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -360,12 +357,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/16666.html" rel="prev" title="Control Structures in Lua">
-      <i class="fa fa-chevron-left"></i> Control Structures in Lua
+    <a href="/en/16666.html" rel="prev" title="Lua Control Structures: if, while, repeat, for, break and goto">
+      <i class="fa fa-chevron-left"></i> Lua Control Structures: if, while, repeat, for, break and goto
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/57636.html" rel="next" title="Understanding Closures in Lua">
-      Understanding Closures in Lua <i class="fa fa-chevron-right"></i>
+    <a href="/en/57636.html" rel="next" title="Lua Closures: Lexical Scope, Captured Variables and Higher-Order Functions">
+      Lua Closures: Lexical Scope, Captured Variables and Higher-Order Functions <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -425,7 +422,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#if-then-else"><span class="nav-number">1.</span> <span class="nav-text">if then else</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#while"><span class="nav-number">2.</span> <span class="nav-text">while</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#repeat"><span class="nav-number">3.</span> <span class="nav-text">repeat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E5%9E%8Bfor"><span class="nav-number">4.</span> <span class="nav-text">数值型for</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8Bfor"><span class="nav-number">5.</span> <span class="nav-text">泛型for</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#if%E3%80%81elseif-%E5%92%8C-else-%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD"><span class="nav-number">1.</span> <span class="nav-text">if、elseif 和 else 条件判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while-%E5%92%8C-repeat-until-%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.</span> <span class="nav-text">while 和 repeat until 循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#repeat-until"><span class="nav-number">2.1.</span> <span class="nav-text">repeat until</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E5%9E%8B-for-%E5%BE%AA%E7%8E%AF"><span class="nav-number">3.</span> <span class="nav-text">数值型 for 循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B-for-%E5%BE%AA%E7%8E%AF"><span class="nav-number">4.</span> <span class="nav-text">泛型 for 循环</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -452,13 +449,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

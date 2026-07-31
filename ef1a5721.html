@@ -22,17 +22,17 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="谷歌登录突然失效且错误码为12500">
+  <meta name="description" content="解决 Android 应用长期正常运行后 Google Sign-In 突然返回 ApiException 12500 的问题，重点检查 OAuth 客户端、SHA-1、应用签名和 Google Cloud 配置。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="谷歌登录突然失效且错误码为12500">
+<meta property="og:title" content="Android Google Sign-In 登录失败 Error 12500 原因及解决方法">
 <meta property="og:url" content="https://lengmo714.top/ef1a5721.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="谷歌登录突然失效且错误码为12500">
+<meta property="og:description" content="解决 Android 应用长期正常运行后 Google Sign-In 突然返回 ApiException 12500 的问题，重点检查 OAuth 客户端、SHA-1、应用签名和 Google Cloud 配置。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lengmo714.top/postImg/googleWeb/4.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/googleWeb/5.png">
 <meta property="article:published_time" content="2025-07-30T07:07:20.000Z">
-<meta property="article:modified_time" content="2025-07-30T09:06:22.000Z">
+<meta property="article:modified_time" content="2026-07-31T08:06:38.459Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/ef1a5721.html#article","headline":"谷歌登录突然失效且错误码为12500","description":"谷歌登录突然失效且错误码为12500","datePublished":"2025-07-30T07:07:20.000Z","dateModified":"2025-07-30T09:06:22.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/ef1a5721.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Android"],"keywords":"Android","wordCount":17,"image":["https://lengmo714.top/postImg/googleWeb/4.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/ef1a5721.html#article","headline":"Android Google Sign-In 登录失败 Error 12500 原因及解决方法","description":"解决 Android 应用长期正常运行后 Google Sign-In 突然返回 ApiException 12500 的问题，重点检查 OAuth 客户端、SHA-1、应用签名和 Google Cloud 配置。","datePublished":"2025-07-30T07:07:20.000Z","dateModified":"2026-07-31T08:06:38.459Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/ef1a5721.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Android"],"keywords":"Android","wordCount":26,"image":["https://lengmo714.top/postImg/googleWeb/4.png"]}</script>
 
 
 
@@ -66,7 +66,7 @@
   };
 </script>
 
-  <title>谷歌登录突然失效且错误码为12500 | 南锋</title>
+  <title>Android Google Sign-In 登录失败 Error 12500 原因及解决方法 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +247,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          谷歌登录突然失效且错误码为12500
+          Android Google Sign-In 登录失败 Error 12500 原因及解决方法
         </h1>
 
         <div class="post-meta">
@@ -262,7 +262,7 @@
             </span>
 
           
-            <div class="post-description">谷歌登录突然失效且错误码为12500</div>
+            <div class="post-description">解决 Android 应用长期正常运行后 Google Sign-In 突然返回 ApiException 12500 的问题，重点检查 OAuth 客户端、SHA-1、应用签名和 Google Cloud 配置。</div>
 
         </div>
       </header>
@@ -279,12 +279,12 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>一直在上线稳定运行的应用，突然有大批量的用户反馈说谷歌登录无法使用。当时整个人直接懵掉了，这个应用都好久没更新了，理论上不会出现这种问题。</p>
-<h3 id="分析日志"><a href="#分析日志" class="headerlink" title="分析日志"></a>分析日志</h3><p>自己用手机测试，错误日志如下：</p>
+<h2 id="Google-Sign-In-Error-12500-问题现象"><a href="#Google-Sign-In-Error-12500-问题现象" class="headerlink" title="Google Sign-In Error 12500 问题现象"></a>Google Sign-In Error 12500 问题现象</h2><p>一直在上线稳定运行的应用，突然有大批量的用户反馈说谷歌登录无法使用。当时整个人直接懵掉了，这个应用都好久没更新了，理论上不会出现这种问题。</p>
+<h2 id="ApiException-12500-错误日志"><a href="#ApiException-12500-错误日志" class="headerlink" title="ApiException 12500 错误日志"></a>ApiException 12500 错误日志</h2><p>自己用手机测试，错误日志如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">signInResult:failed code=com.google.android.gms.common.api.ApiException: 12500: </span><br><span class="line">ApiException&#123;&quot;code&quot;:-1,&quot;err&quot;:&quot;Login failed (12500)&quot;&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://lengmo714.top/postImg/googleWeb/4.png" alt="错误日志截图" decoding="async" loading="eager" fetchpriority="high"></p>
-<h3 id="错误分析"><a href="#错误分析" class="headerlink" title="错误分析"></a>错误分析</h3><p>有了错误日志就好办了，直接复制粘贴到chatgpt，结果如下：<br><img src="https://lengmo714.top/postImg/googleWeb/5.png" alt="chatGPT结果" decoding="async" loading="lazy"></p>
-<h3 id="结论及解决方法"><a href="#结论及解决方法" class="headerlink" title="结论及解决方法"></a>结论及解决方法</h3><p>把所有可能出错的地方都排查了一遍，发现都没问题。从新在<code>Google Cloud控制台</code>填写一边SHA-1,保存刷新就行了。</p>
+<h2 id="Google-登录突然失效的原因"><a href="#Google-登录突然失效的原因" class="headerlink" title="Google 登录突然失效的原因"></a>Google 登录突然失效的原因</h2><p>有了错误日志就好办了，直接复制粘贴到chatgpt，结果如下：<br><img src="https://lengmo714.top/postImg/googleWeb/5.png" alt="chatGPT结果" decoding="async" loading="lazy"></p>
+<h2 id="Error-12500-的解决方法"><a href="#Error-12500-的解决方法" class="headerlink" title="Error 12500 的解决方法"></a>Error 12500 的解决方法</h2><p>把所有可能出错的地方都排查了一遍，发现都没问题。从新在<code>Google Cloud控制台</code>填写一边SHA-1,保存刷新就行了。</p>
 <blockquote>
 <p>个人结论：谷歌平台抽风，就刚好只有这个一个应用不能使用，其它的应用都没有问题。关键是什么都没有改，就是单纯的刷新了一下后台就行了。</p>
 </blockquote>
@@ -323,7 +323,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/ef1a5721.html" title="谷歌登录突然失效且错误码为12500">https://lengmo714.top/ef1a5721.html</a>
+    <a href="https://lengmo714.top/ef1a5721.html" title="Android Google Sign-In 登录失败 Error 12500 原因及解决方法">https://lengmo714.top/ef1a5721.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -347,8 +347,8 @@
       <i class="fa fa-chevron-left"></i> Beyond Compare5 授权密钥已被吊销
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/ef1a5721.html" rel="next" title="Fixing Google Sign-In Error 12500 on Android">
-      Fixing Google Sign-In Error 12500 on Android <i class="fa fa-chevron-right"></i>
+    <a href="/en/ef1a5721.html" rel="next" title="Fix Google Sign-In Error 12500 and ApiException 12500 on Android">
+      Fix Google Sign-In Error 12500 and ApiException 12500 on Android <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -408,7 +408,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E6%97%A5%E5%BF%97"><span class="nav-number">2.</span> <span class="nav-text">分析日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">错误分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">结论及解决方法</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Google-Sign-In-Error-12500-%E9%97%AE%E9%A2%98%E7%8E%B0%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">Google Sign-In Error 12500 问题现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ApiException-12500-%E9%94%99%E8%AF%AF%E6%97%A5%E5%BF%97"><span class="nav-number">2.</span> <span class="nav-text">ApiException 12500 错误日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Google-%E7%99%BB%E5%BD%95%E7%AA%81%E7%84%B6%E5%A4%B1%E6%95%88%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">3.</span> <span class="nav-text">Google 登录突然失效的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Error-12500-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">Error 12500 的解决方法</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -435,13 +435,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

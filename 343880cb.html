@@ -22,17 +22,17 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Chrome调试手机网页的详细步骤与注意事项">
+  <meta name="description" content="通过 USB 连接 Android 手机与电脑，开启开发者选项和 USB 调试，并使用 Chrome chrome:&#x2F;&#x2F;inspect 检查手机端网页和 WebView。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Chrome调试手机网页的详细步骤与注意事项">
+<meta property="og:title" content="Chrome 远程调试 Android 手机网页：USB Debugging 与 chrome:&#x2F;&#x2F;inspect">
 <meta property="og:url" content="https://lengmo714.top/343880cb.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Chrome调试手机网页的详细步骤与注意事项">
+<meta property="og:description" content="通过 USB 连接 Android 手机与电脑，开启开发者选项和 USB 调试，并使用 Chrome chrome:&#x2F;&#x2F;inspect 检查手机端网页和 WebView。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/66586a1dd9c307b7e993fcc5.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/66586a21d9c307b7e99411a9.png">
 <meta property="article:published_time" content="2024-05-30T12:00:13.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:34:55.712Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="前端开发">
 <meta name="twitter:card" content="summary">
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/343880cb.html#article","headline":"Chrome调试手机网页的详细步骤与注意事项","description":"Chrome调试手机网页的详细步骤与注意事项","datePublished":"2024-05-30T12:00:13.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/343880cb.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["前端开发"],"keywords":"前端开发","wordCount":14,"image":["https://pic.imgdb.cn/item/66586a1dd9c307b7e993fcc5.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/343880cb.html#article","headline":"Chrome 远程调试 Android 手机网页：USB Debugging 与 chrome://inspect","description":"通过 USB 连接 Android 手机与电脑，开启开发者选项和 USB 调试，并使用 Chrome chrome://inspect 检查手机端网页和 WebView。","datePublished":"2024-05-30T12:00:13.000Z","dateModified":"2026-07-31T09:34:55.712Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/343880cb.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["前端开发"],"keywords":"前端开发","wordCount":18,"image":["https://pic.imgdb.cn/item/66586a1dd9c307b7e993fcc5.png"]}</script>
 
 
 
@@ -66,7 +66,7 @@
   };
 </script>
 
-  <title>Chrome调试手机网页的详细步骤与注意事项 | 南锋</title>
+  <title>Chrome 远程调试 Android 手机网页：USB Debugging 与 chrome://inspect | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +247,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Chrome调试手机网页的详细步骤与注意事项
+          Chrome 远程调试 Android 手机网页：USB Debugging 与 chrome://inspect
         </h1>
 
         <div class="post-meta">
@@ -262,7 +262,7 @@
             </span>
 
           
-            <div class="post-description">Chrome调试手机网页的详细步骤与注意事项</div>
+            <div class="post-description">通过 USB 连接 Android 手机与电脑，开启开发者选项和 USB 调试，并使用 Chrome chrome://inspect 检查手机端网页和 WebView。</div>
 
         </div>
       </header>
@@ -273,17 +273,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h3><p>1、 PC端安装好chrmoe浏览器<br>2、 安卓手机安装好chrmoe浏览器<br>3、 数据线</p>
+        <h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>1、 PC端安装好chrmoe浏览器<br>2、 安卓手机安装好chrmoe浏览器<br>3、 数据线</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h3 id="手机打开调试模式"><a href="#手机打开调试模式" class="headerlink" title="手机打开调试模式"></a>手机打开调试模式</h3><p>进入手机设置，找到开发者模式，然后启用USB调试</p>
-<h3 id="打开PC端chrome调试功能"><a href="#打开PC端chrome调试功能" class="headerlink" title="打开PC端chrome调试功能"></a>打开PC端chrome调试功能</h3><p>1、点击chrmoe右上角的3个点点<br>2、选择扩展程序，选择管理扩展程序<br>3、管理扩展程序右上角有一个<code>开发者模式</code>的开关，将开发者模式打开<br>如下图：<br><img src="https://pic.imgdb.cn/item/66586a1dd9c307b7e993fcc5.png" alt="示意图" decoding="async" loading="eager" fetchpriority="high"></p>
-<h3 id="浏览器连接手机"><a href="#浏览器连接手机" class="headerlink" title="浏览器连接手机"></a>浏览器连接手机</h3><p>1、打开浏览器，输入网址<code>chrome://inspect/#devices</code><br>2、手机通过数据线连上电脑，选择<code>允许访问手机文件</code><br>3、刷新浏览器，就会出现下面界面，如果没有出现，等一会儿再刷新，只要手机成功连上电脑，就一定会出现下面界面<br><img src="https://pic.imgdb.cn/item/66586a21d9c307b7e99411a9.png" alt="示意图" decoding="async" loading="lazy"><br>4、点击<code>inspect</code>即可调试手机网页啦~</p>
-<h3 id="其它说明"><a href="#其它说明" class="headerlink" title="其它说明"></a>其它说明</h3><p>1、该界面如没有没有出现<code>Remote Target</code>，说明手机没有连接成功，只要连接成功，哪怕手机没有打开浏览器，也会出现对应手机的型号。<br>2、手机打开<code>Chrome</code>浏览器，就会有图中框框中的内容，浏览器页面越多，框框里的内容就越多，而且每一条下面都会显示你打开的网址，选择自己要调试的网页就行。<br>3、需要科学上网，可以自行下载梯子，也可以修改本地<code>host</code>文件。</p>
+<h2 id="手机开启-USB-调试"><a href="#手机开启-USB-调试" class="headerlink" title="手机开启 USB 调试"></a>手机开启 USB 调试</h2><p>进入手机设置，找到开发者模式，然后启用USB调试</p>
+<h2 id="打开电脑端-Chrome-调试功能"><a href="#打开电脑端-Chrome-调试功能" class="headerlink" title="打开电脑端 Chrome 调试功能"></a>打开电脑端 Chrome 调试功能</h2><p>1、点击chrmoe右上角的3个点点<br>2、选择扩展程序，选择管理扩展程序<br>3、管理扩展程序右上角有一个<code>开发者模式</code>的开关，将开发者模式打开<br>如下图：<br><img src="https://pic.imgdb.cn/item/66586a1dd9c307b7e993fcc5.png" alt="示意图" decoding="async" loading="eager" fetchpriority="high"></p>
+<h2 id="在浏览器中连接手机"><a href="#在浏览器中连接手机" class="headerlink" title="在浏览器中连接手机"></a>在浏览器中连接手机</h2><p>1、打开浏览器，输入网址<code>chrome://inspect/#devices</code><br>2、手机通过数据线连上电脑，选择<code>允许访问手机文件</code><br>3、刷新浏览器，就会出现下面界面，如果没有出现，等一会儿再刷新，只要手机成功连上电脑，就一定会出现下面界面<br><img src="https://pic.imgdb.cn/item/66586a21d9c307b7e99411a9.png" alt="示意图" decoding="async" loading="lazy"><br>4、点击<code>inspect</code>即可调试手机网页啦~</p>
+<h2 id="其他说明"><a href="#其他说明" class="headerlink" title="其他说明"></a>其他说明</h2><p>1、该界面如没有没有出现<code>Remote Target</code>，说明手机没有连接成功，只要连接成功，哪怕手机没有打开浏览器，也会出现对应手机的型号。<br>2、手机打开<code>Chrome</code>浏览器，就会有图中框框中的内容，浏览器页面越多，框框里的内容就越多，而且每一条下面都会显示你打开的网址，选择自己要调试的网页就行。<br>3、需要科学上网，可以自行下载梯子，也可以修改本地<code>host</code>文件。</p>
 
     </div>
 
@@ -319,7 +319,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/343880cb.html" title="Chrome调试手机网页的详细步骤与注意事项">https://lengmo714.top/343880cb.html</a>
+    <a href="https://lengmo714.top/343880cb.html" title="Chrome 远程调试 Android 手机网页：USB Debugging 与 chrome:&#x2F;&#x2F;inspect">https://lengmo714.top/343880cb.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -339,12 +339,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/343880cb.html" rel="prev" title="Debugging Android Chrome from a PC">
-      <i class="fa fa-chevron-left"></i> Debugging Android Chrome from a PC
+    <a href="/en/343880cb.html" rel="prev" title="Chrome Remote Debugging for Android: USB and chrome://inspect">
+      <i class="fa fa-chevron-left"></i> Chrome Remote Debugging for Android: USB and chrome://inspect
     </a></div>
       <div class="post-nav-item">
-    <a href="/86212de4.html" rel="next" title="如何在HexoNext主题中添加相册功能">
-      如何在HexoNext主题中添加相册功能 <i class="fa fa-chevron-right"></i>
+    <a href="/86212de4.html" rel="next" title="Hexo NexT 添加相册：独立 HTML、菜单入口与 iframe 嵌入">
+      Hexo NexT 添加相册：独立 HTML、菜单入口与 iframe 嵌入 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -404,7 +404,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">前期准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E6%9C%BA%E6%89%93%E5%BC%80%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">手机打开调试模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80PC%E7%AB%AFchrome%E8%B0%83%E8%AF%95%E5%8A%9F%E8%83%BD"><span class="nav-number">3.</span> <span class="nav-text">打开PC端chrome调试功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BF%9E%E6%8E%A5%E6%89%8B%E6%9C%BA"><span class="nav-number">4.</span> <span class="nav-text">浏览器连接手机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E8%AF%B4%E6%98%8E"><span class="nav-number">5.</span> <span class="nav-text">其它说明</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">前期准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E6%9C%BA%E5%BC%80%E5%90%AF-USB-%E8%B0%83%E8%AF%95"><span class="nav-number">2.</span> <span class="nav-text">手机开启 USB 调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E7%94%B5%E8%84%91%E7%AB%AF-Chrome-%E8%B0%83%E8%AF%95%E5%8A%9F%E8%83%BD"><span class="nav-number">3.</span> <span class="nav-text">打开电脑端 Chrome 调试功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E8%BF%9E%E6%8E%A5%E6%89%8B%E6%9C%BA"><span class="nav-number">4.</span> <span class="nav-text">在浏览器中连接手机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%AF%B4%E6%98%8E"><span class="nav-number">5.</span> <span class="nav-text">其他说明</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -431,13 +431,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

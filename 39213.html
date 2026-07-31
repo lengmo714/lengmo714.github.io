@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Cocos2dx Lua节点层级管理:使用setLocalZOrder控制层级显示">
+  <meta name="description" content="介绍 Cocos2d-x Lua 使用 setLocalZOrder 调整同一父节点下的渲染顺序，说明 Z Order 数值、同值节点顺序和不同场景树分支的限制。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cocos2dx Lua节点层级管理：使用setLocalZOrder控制层级显示">
+<meta property="og:title" content="Cocos2d-x Lua 节点渲染顺序：setLocalZOrder 与同级 Z Order">
 <meta property="og:url" content="https://lengmo714.top/39213.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Cocos2dx Lua节点层级管理:使用setLocalZOrder控制层级显示">
+<meta property="og:description" content="介绍 Cocos2d-x Lua 使用 setLocalZOrder 调整同一父节点下的渲染顺序，说明 Z Order 数值、同值节点顺序和不同场景树分支的限制。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-31T03:03:30.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:00:26.776Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta property="article:tag" content="Cocos2dx">
@@ -48,10 +48,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/39213.html#article","headline":"Cocos2dx Lua节点层级管理：使用setLocalZOrder控制层级显示","description":"Cocos2dx Lua节点层级管理:使用setLocalZOrder控制层级显示","datePublished":"2021-08-31T03:03:30.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/39213.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"Lua, Cocos2dx","wordCount":8,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/39213.html#article","headline":"Cocos2d-x Lua 节点渲染顺序：setLocalZOrder 与同级 Z Order","description":"介绍 Cocos2d-x Lua 使用 setLocalZOrder 调整同一父节点下的渲染顺序，说明 Z Order 数值、同值节点顺序和不同场景树分支的限制。","datePublished":"2021-08-31T03:03:30.000Z","dateModified":"2026-07-31T09:00:26.776Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/39213.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"Lua, Cocos2dx","wordCount":14}</script>
 
 
 
@@ -67,7 +64,7 @@
   };
 </script>
 
-  <title>Cocos2dx Lua节点层级管理：使用setLocalZOrder控制层级显示 | 南锋</title>
+  <title>Cocos2d-x Lua 节点渲染顺序：setLocalZOrder 与同级 Z Order | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +245,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Cocos2dx Lua节点层级管理：使用setLocalZOrder控制层级显示
+          Cocos2d-x Lua 节点渲染顺序：setLocalZOrder 与同级 Z Order
         </h1>
 
         <div class="post-meta">
@@ -263,7 +260,7 @@
             </span>
 
           
-            <div class="post-description">Cocos2dx Lua节点层级管理:使用setLocalZOrder控制层级显示</div>
+            <div class="post-description">介绍 Cocos2d-x Lua 使用 setLocalZOrder 调整同一父节点下的渲染顺序，说明 Z Order 数值、同值节点顺序和不同场景树分支的限制。</div>
 
         </div>
       </header>
@@ -280,7 +277,7 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>Cocos2dx-lua如何设置节点层级</p>
+<h2 id="使用-setLocalZOrder-调整同级节点"><a href="#使用-setLocalZOrder-调整同级节点" class="headerlink" title="使用 setLocalZOrder 调整同级节点"></a>使用 setLocalZOrder 调整同级节点</h2><p>Cocos2d-x Lua 可以通过 <code>setLocalZOrder</code> 调整同一父节点下的渲染顺序。</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node:setLocalZOrder(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 <p>说明：括号中的数字越大，表示层级越高。高层级的节点会覆盖在低层级节点上</p>
 
@@ -318,7 +315,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/39213.html" title="Cocos2dx Lua节点层级管理：使用setLocalZOrder控制层级显示">https://lengmo714.top/39213.html</a>
+    <a href="https://lengmo714.top/39213.html" title="Cocos2d-x Lua 节点渲染顺序：setLocalZOrder 与同级 Z Order">https://lengmo714.top/39213.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -343,8 +340,8 @@
       <i class="fa fa-chevron-left"></i> Truncating Long UTF-8 Label Text with an Ellipsis in Lua
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/39213.html" rel="next" title="Controlling Node Order in Cocos2d-x Lua">
-      Controlling Node Order in Cocos2d-x Lua <i class="fa fa-chevron-right"></i>
+    <a href="/en/39213.html" rel="next" title="Cocos2d-x Lua Render Order: setLocalZOrder and Sibling Nodes">
+      Cocos2d-x Lua Render Order: setLocalZOrder and Sibling Nodes <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -404,6 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-setLocalZOrder-%E8%B0%83%E6%95%B4%E5%90%8C%E7%BA%A7%E8%8A%82%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">使用 setLocalZOrder 调整同级节点</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -430,13 +428,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

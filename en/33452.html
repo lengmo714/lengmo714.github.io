@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Creating frame-by-frame animation from a sprite sheet or a Cocos Studio timeline in Cocos2d-x 3.17.">
+  <meta name="description" content="Create frame animation in Cocos2d-x 3.17 Lua from plist sprite frames and Animation actions, or load and play a Cocos Studio timeline on a UI node.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Frame Animations in Cocos2d-x with Lua">
+<meta property="og:title" content="Cocos2d-x Lua Frame Animation: Sprite Sheets and Studio Timelines">
 <meta property="og:url" content="https://lengmo714.top/en/33452.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Creating frame-by-frame animation from a sprite sheet or a Cocos Studio timeline in Cocos2d-x 3.17.">
+<meta property="og:description" content="Create frame animation in Cocos2d-x 3.17 Lua from plist sprite frames and Animation actions, or load and play a Cocos Studio timeline on a UI node.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-03-08T08:46:08.000Z">
-<meta property="article:modified_time" content="2026-07-30T05:40:51.899Z">
+<meta property="article:modified_time" content="2026-07-31T08:57:06.201Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta property="article:tag" content="Cocos2d-x">
@@ -48,10 +48,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/33452.html#article","headline":"Frame Animations in Cocos2d-x with Lua","description":"Creating frame-by-frame animation from a sprite sheet or a Cocos Studio timeline in Cocos2d-x 3.17.","datePublished":"2019-03-08T08:46:08.000Z","dateModified":"2026-07-30T05:40:51.899Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/33452.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Game Development"],"keywords":"Lua, Cocos2d-x","wordCount":198,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/33452.html#article","headline":"Cocos2d-x Lua Frame Animation: Sprite Sheets and Studio Timelines","description":"Create frame animation in Cocos2d-x 3.17 Lua from plist sprite frames and Animation actions, or load and play a Cocos Studio timeline on a UI node.","datePublished":"2019-03-08T08:46:08.000Z","dateModified":"2026-07-31T08:57:06.201Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/33452.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Game Development"],"keywords":"Lua, Cocos2d-x","wordCount":198}</script>
 
 
 
@@ -67,7 +64,7 @@
   };
 </script>
 
-  <title>Frame Animations in Cocos2d-x with Lua | 南锋</title>
+  <title>Cocos2d-x Lua Frame Animation: Sprite Sheets and Studio Timelines | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +245,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Frame Animations in Cocos2d-x with Lua
+          Cocos2d-x Lua Frame Animation: Sprite Sheets and Studio Timelines
         </h1>
 
         <div class="post-meta">
@@ -263,7 +260,7 @@
             </span>
 
           
-            <div class="post-description">Creating frame-by-frame animation from a sprite sheet or a Cocos Studio timeline in Cocos2d-x 3.17.</div>
+            <div class="post-description">Create frame animation in Cocos2d-x 3.17 Lua from plist sprite frames and Animation actions, or load and play a Cocos Studio timeline on a UI node.</div>
 
         </div>
       </header>
@@ -318,7 +315,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/33452.html" title="Frame Animations in Cocos2d-x with Lua">https://lengmo714.top/en/33452.html</a>
+    <a href="https://lengmo714.top/en/33452.html" title="Cocos2d-x Lua Frame Animation: Sprite Sheets and Studio Timelines">https://lengmo714.top/en/33452.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -339,12 +336,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/33452.html" rel="prev" title="Cocos2dx使用帧动画">
-      <i class="fa fa-chevron-left"></i> Cocos2dx使用帧动画
+    <a href="/33452.html" rel="prev" title="Cocos2d-x Lua 帧动画：SpriteFrame 序列与 Cocos Studio 时间轴">
+      <i class="fa fa-chevron-left"></i> Cocos2d-x Lua 帧动画：SpriteFrame 序列与 Cocos Studio 时间轴
     </a></div>
       <div class="post-nav-item">
-    <a href="/19849.html" rel="next" title="解决pip安装ipython时的SyntaxError invalid syntax错误">
-      解决pip安装ipython时的SyntaxError invalid syntax错误 <i class="fa fa-chevron-right"></i>
+    <a href="/19849.html" rel="next" title="pip install 出现 SyntaxError invalid syntax：不要在 Python Shell 中运行 pip">
+      pip install 出现 SyntaxError invalid syntax：不要在 Python Shell 中运行 pip <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -431,13 +428,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

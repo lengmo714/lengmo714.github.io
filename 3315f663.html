@@ -22,18 +22,18 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="如何在quickCocos2dx中编译并生成APK：完整步骤">
+  <meta name="description" content="记录旧版 quick-Cocos2d-x Android 项目的构建流程，包括匹配 JDK、SDK、NDK 和 Ant 版本，编译原生库、更新工程并生成 APK。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何在quickCocos2dx中编译并生成APK：完整步骤">
+<meta property="og:title" content="quick-Cocos2d-x 编译 Android APK：NDK、原生库与 Ant 工程">
 <meta property="og:url" content="https://lengmo714.top/3315f663.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="如何在quickCocos2dx中编译并生成APK：完整步骤">
+<meta property="og:description" content="记录旧版 quick-Cocos2d-x Android 项目的构建流程，包括匹配 JDK、SDK、NDK 和 Ant 版本，编译原生库、更新工程并生成 APK。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xq6X6A.png">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xq67FO.png">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xq6Old.png">
 <meta property="article:published_time" content="2022-11-03T15:40:09.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:43:51.117Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="android">
 <meta property="article:tag" content="quick Cocos">
@@ -52,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/3315f663.html#article","headline":"如何在quickCocos2dx中编译并生成APK：完整步骤","description":"如何在quickCocos2dx中编译并生成APK：完整步骤","datePublished":"2022-11-03T15:40:09.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/3315f663.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"android, quick Cocos","wordCount":24,"image":["https://s1.ax1x.com/2022/11/03/xq6X6A.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/3315f663.html#article","headline":"quick-Cocos2d-x 编译 Android APK：NDK、原生库与 Ant 工程","description":"记录旧版 quick-Cocos2d-x Android 项目的构建流程，包括匹配 JDK、SDK、NDK 和 Ant 版本，编译原生库、更新工程并生成 APK。","datePublished":"2022-11-03T15:40:09.000Z","dateModified":"2026-07-31T09:43:51.117Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/3315f663.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"android, quick Cocos","wordCount":27,"image":["https://s1.ax1x.com/2022/11/03/xq6X6A.png"]}</script>
 
 
 
@@ -68,7 +68,7 @@
   };
 </script>
 
-  <title>如何在quickCocos2dx中编译并生成APK：完整步骤 | 南锋</title>
+  <title>quick-Cocos2d-x 编译 Android APK：NDK、原生库与 Ant 工程 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -249,7 +249,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          如何在quickCocos2dx中编译并生成APK：完整步骤
+          quick-Cocos2d-x 编译 Android APK：NDK、原生库与 Ant 工程
         </h1>
 
         <div class="post-meta">
@@ -264,7 +264,7 @@
             </span>
 
           
-            <div class="post-description">如何在quickCocos2dx中编译并生成APK：完整步骤</div>
+            <div class="post-description">记录旧版 quick-Cocos2d-x Android 项目的构建流程，包括匹配 JDK、SDK、NDK 和 Ant 版本，编译原生库、更新工程并生成 APK。</div>
 
         </div>
       </header>
@@ -276,25 +276,25 @@
 
       
         <p>毕业后开始做游戏，一直都是做的ios端的，最近换份新工作，做android端游戏开发。<br>android端+quickCocos这简直就是个坑啊，都2天了，一个开发环境都还没有搭建好。废话不多说，开始介绍博主遇到的坑吧~</p>
-<h3 id="首先就是各种插件的安装"><a href="#首先就是各种插件的安装" class="headerlink" title="首先就是各种插件的安装"></a>首先就是各种插件的安装</h3><p>什么jdk、android-ndk、adt什么的，网上有教程，这里就不细说了，但是千万要注意版本~</p>
+<h2 id="安装兼容版本的构建工具"><a href="#安装兼容版本的构建工具" class="headerlink" title="安装兼容版本的构建工具"></a>安装兼容版本的构建工具</h2><p>什么jdk、android-ndk、adt什么的，网上有教程，这里就不细说了，但是千万要注意版本~</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h3 id="生成os库"><a href="#生成os库" class="headerlink" title="生成os库"></a>生成os库</h3><p>插件安装好后，就可以开始生成os库<br>网上的教程都说是在<code>frameworks\runtime-src\proj.android</code>下执行什么<code>clean.bat</code>等命令，但是博主新建的项目下面就没有这几个bat文件。于是自己执行了<code>python .\build_native.py</code></p>
+<h2 id="编译原生库"><a href="#编译原生库" class="headerlink" title="编译原生库"></a>编译原生库</h2><p>插件安装好后，就可以开始生成os库<br>网上的教程都说是在<code>frameworks\runtime-src\proj.android</code>下执行什么<code>clean.bat</code>等命令，但是博主新建的项目下面就没有这几个bat文件。于是自己执行了<code>python .\build_native.py</code></p>
 <img src="https://s1.ax1x.com/2022/11/03/xq6X6A.png" alt="示意图" decoding="async" loading="eager" fetchpriority="high">
 执行后报错，说`ndk-build不是内部或外部命令`,将其加入环境变量即可。
 
 <img src="https://s1.ax1x.com/2022/11/03/xq67FO.png" alt="示意图" decoding="async" loading="lazy">
 
 <p>然后再执行<code>python .\build_native.py</code>命令就可以啦</p>
-<h3 id="更新编译环境"><a href="#更新编译环境" class="headerlink" title="更新编译环境"></a>更新编译环境</h3><p>os库生成好后，执行<code>android update project -p . -t 1</code><br>关于这个网上有不同的说法，有的说不用执行这行命令，有的说是在<code>frameworks\runtime-src\proj.android</code>目录下执行。博主都试了，至少在博主这里行不通。<br>博主这里需要在<code>frameworks\runtime-src\proj.android\src\main</code>下执行，因为需要生成一个<code>build.xml</code>文本。</p>
+<h2 id="更新-Android-编译工程"><a href="#更新-Android-编译工程" class="headerlink" title="更新 Android 编译工程"></a>更新 Android 编译工程</h2><p>os库生成好后，执行<code>android update project -p . -t 1</code><br>关于这个网上有不同的说法，有的说不用执行这行命令，有的说是在<code>frameworks\runtime-src\proj.android</code>目录下执行。博主都试了，至少在博主这里行不通。<br>博主这里需要在<code>frameworks\runtime-src\proj.android\src\main</code>下执行，因为需要生成一个<code>build.xml</code>文本。</p>
 <img src="https://s1.ax1x.com/2022/11/03/xq6Old.png" alt="示意图" decoding="async" loading="lazy">
 
 
-<h3 id="生成apk"><a href="#生成apk" class="headerlink" title="生成apk"></a>生成apk</h3><p>有了<code>build.xml</code>之后就可以生成apk了。<br>在同级目录下执行<code>ant debug</code>,但是博主这里遇到了问题，报如下错误</p>
+<h2 id="生成-APK"><a href="#生成-APK" class="headerlink" title="生成 APK"></a>生成 APK</h2><p>有了<code>build.xml</code>之后就可以生成apk了。<br>在同级目录下执行<code>ant debug</code>,但是博主这里遇到了问题，报如下错误</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[javac]错误：不再支持源选项5。请使用7或者更高版本</span><br><span class="line">[jabac]错误：不再支持目标选项5。请使用7或者更高版本</span><br></pre></td></tr></table></figure>
 <p>目前博主还没找到解决方法，等解决了再回来补充。有懂的大佬也可以指点指点</p>
 <p>第一次接触安卓开发，很多不懂，还希望懂的大佬多多指教</p>
@@ -333,7 +333,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/3315f663.html" title="如何在quickCocos2dx中编译并生成APK：完整步骤">https://lengmo714.top/3315f663.html</a>
+    <a href="https://lengmo714.top/3315f663.html" title="quick-Cocos2d-x 编译 Android APK：NDK、原生库与 Ant 工程">https://lengmo714.top/3315f663.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -354,12 +354,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/3315f663.html" rel="prev" title="Building an APK from a Legacy quick-Cocos2d-x Project">
-      <i class="fa fa-chevron-left"></i> Building an APK from a Legacy quick-Cocos2d-x Project
+    <a href="/en/3315f663.html" rel="prev" title="Build a Legacy quick-Cocos2d-x APK: NDK, Native Libraries and Ant">
+      <i class="fa fa-chevron-left"></i> Build a Legacy quick-Cocos2d-x APK: NDK, Native Libraries and Ant
     </a></div>
       <div class="post-nav-item">
-    <a href="/f4442f9c.html" rel="next" title="如何在服务器上强制将HTTP跳转到HTTPS：配置与实施">
-      如何在服务器上强制将HTTP跳转到HTTPS：配置与实施 <i class="fa fa-chevron-right"></i>
+    <a href="/f4442f9c.html" rel="next" title="Nginx 强制 HTTP 跳转 HTTPS：301 重定向与 TLS 配置">
+      Nginx 强制 HTTP 跳转 HTTPS：301 重定向与 TLS 配置 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -419,7 +419,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A6%96%E5%85%88%E5%B0%B1%E6%98%AF%E5%90%84%E7%A7%8D%E6%8F%92%E4%BB%B6%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">首先就是各种插件的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90os%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">生成os库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text">更新编译环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90apk"><span class="nav-number">4.</span> <span class="nav-text">生成apk</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%85%BC%E5%AE%B9%E7%89%88%E6%9C%AC%E7%9A%84%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">安装兼容版本的构建工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%8E%9F%E7%94%9F%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">编译原生库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-Android-%E7%BC%96%E8%AF%91%E5%B7%A5%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">更新 Android 编译工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90-APK"><span class="nav-number">4.</span> <span class="nav-text">生成 APK</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -446,13 +446,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

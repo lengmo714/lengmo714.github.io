@@ -22,16 +22,16 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="如何在服务器上强制将HTTP跳转到HTTPS">
+  <meta name="description" content="为域名安装 TLS 证书，配置独立的 Nginx 80 和 443 server 块，将 HTTP 请求永久 301 重定向到 HTTPS，并检查域名和端口设置。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何在服务器上强制将HTTP跳转到HTTPS：配置与实施">
+<meta property="og:title" content="Nginx 强制 HTTP 跳转 HTTPS：301 重定向与 TLS 配置">
 <meta property="og:url" content="https://lengmo714.top/f4442f9c.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="如何在服务器上强制将HTTP跳转到HTTPS">
+<meta property="og:description" content="为域名安装 TLS 证书，配置独立的 Nginx 80 和 443 server 块，将 HTTP 请求永久 301 重定向到 HTTPS，并检查域名和端口设置。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/06/xj0uLt.md.jpg">
 <meta property="article:published_time" content="2022-11-06T15:19:04.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T10:14:28.720Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="http">
 <meta property="article:tag" content="https">
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/f4442f9c.html#article","headline":"如何在服务器上强制将HTTP跳转到HTTPS：配置与实施","description":"如何在服务器上强制将HTTP跳转到HTTPS","datePublished":"2022-11-06T15:19:04.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/f4442f9c.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["https"],"keywords":"http, https","wordCount":64,"image":["https://s1.ax1x.com/2022/11/06/xj0uLt.md.jpg"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/f4442f9c.html#article","headline":"Nginx 强制 HTTP 跳转 HTTPS：301 重定向与 TLS 配置","description":"为域名安装 TLS 证书，配置独立的 Nginx 80 和 443 server 块，将 HTTP 请求永久 301 重定向到 HTTPS，并检查域名和端口设置。","datePublished":"2022-11-06T15:19:04.000Z","dateModified":"2026-07-31T10:14:28.720Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/f4442f9c.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["https"],"keywords":"http, https","wordCount":68,"image":["https://s1.ax1x.com/2022/11/06/xj0uLt.md.jpg"]}</script>
 
 
 
@@ -66,7 +66,7 @@
   };
 </script>
 
-  <title>如何在服务器上强制将HTTP跳转到HTTPS：配置与实施 | 南锋</title>
+  <title>Nginx 强制 HTTP 跳转 HTTPS：301 重定向与 TLS 配置 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +247,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          如何在服务器上强制将HTTP跳转到HTTPS：配置与实施
+          Nginx 强制 HTTP 跳转 HTTPS：301 重定向与 TLS 配置
         </h1>
 
         <div class="post-meta">
@@ -262,7 +262,7 @@
             </span>
 
           
-            <div class="post-description">如何在服务器上强制将HTTP跳转到HTTPS</div>
+            <div class="post-description">为域名安装 TLS 证书，配置独立的 Nginx 80 和 443 server 块，将 HTTP 请求永久 301 重定向到 HTTPS，并检查域名和端口设置。</div>
 
         </div>
       </header>
@@ -281,8 +281,8 @@
 </script>
 
 <p>做法很简单</p>
-<h3 id="下载ssl证书"><a href="#下载ssl证书" class="headerlink" title="下载ssl证书"></a>下载ssl证书</h3><p>下载nginx的ssl证书，没有的需要先去申请，网上很多教程，这里就不介绍了</p>
-<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>打开云服务器终端，修改<code>nginx.conf</code>配置，输入命令<br><code>vim /etc/nginx/nginx.conf</code><br>将下面代码复制粘贴到原有的配置的<code>server&#123;&#125;</code>下面</p>
+<h2 id="获取并部署-TLS-证书"><a href="#获取并部署-TLS-证书" class="headerlink" title="获取并部署 TLS 证书"></a>获取并部署 TLS 证书</h2><p>下载nginx的ssl证书，没有的需要先去申请，网上很多教程，这里就不介绍了</p>
+<h2 id="配置-Nginx-重定向"><a href="#配置-Nginx-重定向" class="headerlink" title="配置 Nginx 重定向"></a>配置 Nginx 重定向</h2><p>打开云服务器终端，修改<code>nginx.conf</code>配置，输入命令<br><code>vim /etc/nginx/nginx.conf</code><br>将下面代码复制粘贴到原有的配置的<code>server&#123;&#125;</code>下面</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">        listen <span class="number">443</span> ssl;</span><br><span class="line">        server_name localhost;  <span class="comment"># localhost修改为您证书绑定的域名。</span></span><br><span class="line">        ssl_certificate cert/domain_name.top.pem;   <span class="comment">#将domain_name.pem替换成您证书的文件名。</span></span><br><span class="line">        ssl_certificate_key cert/domain_name.top.key;   <span class="comment">#将domain_name.key替换成您证书的密钥文件名。</span></span><br><span class="line">        ssl_session_timeout 5m;</span><br><span class="line">        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;  <span class="comment">#使用此加密套件。</span></span><br><span class="line">        ssl_protocols TLSv1 TLSv1<span class="number">.1</span> TLSv1<span class="number">.2</span>;   <span class="comment">#使用该协议进行配置。</span></span><br><span class="line">        ssl_prefer_server_ciphers on;</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass   http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">80</span>;  <span class="comment">#选填你的端口号</span></span><br><span class="line">            proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            proxy_set_header Host $host;</span><br><span class="line">            proxy_set_header Upgrade-Insecure-Requests <span class="number">1</span>;</span><br><span class="line">            proxy_set_header X-Forwarded-Proto https;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>复制好后，按<code>esc</code>键，然后按<code>shift + :</code>键，输入<code>x</code>保存退出<br>再在终端输入<code>nginx -s reload</code>重启nginx服务即可<br><img src="https://s1.ax1x.com/2022/11/06/xj0uLt.md.jpg" alt="示意图" decoding="async" loading="eager" fetchpriority="high"></p>
 
@@ -320,7 +320,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/f4442f9c.html" title="如何在服务器上强制将HTTP跳转到HTTPS：配置与实施">https://lengmo714.top/f4442f9c.html</a>
+    <a href="https://lengmo714.top/f4442f9c.html" title="Nginx 强制 HTTP 跳转 HTTPS：301 重定向与 TLS 配置">https://lengmo714.top/f4442f9c.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -341,12 +341,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/3315f663.html" rel="prev" title="如何在quickCocos2dx中编译并生成APK：完整步骤">
-      <i class="fa fa-chevron-left"></i> 如何在quickCocos2dx中编译并生成APK：完整步骤
+    <a href="/3315f663.html" rel="prev" title="quick-Cocos2d-x 编译 Android APK：NDK、原生库与 Ant 工程">
+      <i class="fa fa-chevron-left"></i> quick-Cocos2d-x 编译 Android APK：NDK、原生库与 Ant 工程
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/f4442f9c.html" rel="next" title="Redirecting HTTP to HTTPS with Nginx">
-      Redirecting HTTP to HTTPS with Nginx <i class="fa fa-chevron-right"></i>
+    <a href="/en/f4442f9c.html" rel="next" title="Nginx HTTP to HTTPS Redirect: 301 Server Blocks and TLS Setup">
+      Nginx HTTP to HTTPS Redirect: 301 Server Blocks and TLS Setup <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -406,7 +406,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDssl%E8%AF%81%E4%B9%A6"><span class="nav-number">1.</span> <span class="nav-text">下载ssl证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">修改配置文件</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%B9%B6%E9%83%A8%E7%BD%B2-TLS-%E8%AF%81%E4%B9%A6"><span class="nav-number">1.</span> <span class="nav-text">获取并部署 TLS 证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Nginx-%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">2.</span> <span class="nav-text">配置 Nginx 重定向</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -433,13 +433,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

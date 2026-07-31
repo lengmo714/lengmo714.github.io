@@ -22,22 +22,24 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="IOS开发过程中Swift兼容库问题">
+  <meta name="description" content="解决 Xcode 编译 iOS 项目出现 Undefined symbol swiftCompatibility51、swiftCompatibility56、swiftCompatibilityConcurrency，以及 library swiftCompatibility51 not found 等错误。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IOS开发过程中Swift兼容库问题">
+<meta property="og:title" content="Xcode Undefined symbol swiftCompatibility51 &#x2F; 56 &#x2F; Concurrency 解决方法">
 <meta property="og:url" content="https://lengmo714.top/40cf3e63.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="IOS开发过程中Swift兼容库问题">
+<meta property="og:description" content="解决 Xcode 编译 iOS 项目出现 Undefined symbol swiftCompatibility51、swiftCompatibility56、swiftCompatibilityConcurrency，以及 library swiftCompatibility51 not found 等错误。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lengmo714.top/postImg/40cf3e63/1.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/40cf3e63/2.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/40cf3e63/4.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/40cf3e63/3.png">
 <meta property="article:published_time" content="2026-06-24T11:12:50.000Z">
-<meta property="article:modified_time" content="2026-06-24T12:01:45.131Z">
+<meta property="article:modified_time" content="2026-07-31T07:55:57.515Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="cocosCreator">
-<meta property="article:tag" content="ios">
+<meta property="article:tag" content="Xcode">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="swiftCompatibility51">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://lengmo714.top/postImg/40cf3e63/1.png">
 
@@ -53,7 +55,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/40cf3e63.html#article","headline":"IOS开发过程中Swift兼容库问题","description":"IOS开发过程中Swift兼容库问题","datePublished":"2026-06-24T11:12:50.000Z","dateModified":"2026-06-24T12:01:45.131Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/40cf3e63.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, ios","wordCount":137,"image":["https://lengmo714.top/postImg/40cf3e63/1.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/40cf3e63.html#article","headline":"Xcode Undefined symbol swiftCompatibility51 / 56 / Concurrency 解决方法","description":"解决 Xcode 编译 iOS 项目出现 Undefined symbol swiftCompatibility51、swiftCompatibility56、swiftCompatibilityConcurrency，以及 library swiftCompatibility51 not found 等错误。","datePublished":"2026-06-24T11:12:50.000Z","dateModified":"2026-07-31T07:55:57.515Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/40cf3e63.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"Xcode, iOS, Swift, swiftCompatibility51","wordCount":169,"image":["https://lengmo714.top/postImg/40cf3e63/1.png"]}</script>
 
 
 
@@ -69,7 +71,7 @@
   };
 </script>
 
-  <title>IOS开发过程中Swift兼容库问题 | 南锋</title>
+  <title>Xcode Undefined symbol swiftCompatibility51 / 56 / Concurrency 解决方法 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -250,7 +252,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          IOS开发过程中Swift兼容库问题
+          Xcode Undefined symbol swiftCompatibility51 / 56 / Concurrency 解决方法
         </h1>
 
         <div class="post-meta">
@@ -265,7 +267,7 @@
             </span>
 
           
-            <div class="post-description">IOS开发过程中Swift兼容库问题</div>
+            <div class="post-description">解决 Xcode 编译 iOS 项目出现 Undefined symbol swiftCompatibility51、swiftCompatibility56、swiftCompatibilityConcurrency，以及 library swiftCompatibility51 not found 等错误。</div>
 
         </div>
       </header>
@@ -282,10 +284,11 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>今天在给IOS工程接入AdMob广告时，遇到下面问题<br><img src="/postImg/40cf3e63/1.png" decoding="async" loading="eager" fetchpriority="high" alt="IOS开发过程中Swift兼容库问题 — 图片 1">;</p>
+<p>在 iOS 工程接入 AdMob 等包含 Swift 编译产物的 SDK 后，Xcode 链接阶段可能出现 swiftCompatibility51、swiftCompatibility56 或 swiftCompatibilityConcurrency 的 Undefined symbol 错误。这通常表示最终链接时没有正确找到 Swift Compatibility Libraries。</p>
+<h2 id="swiftCompatibility51-错误现象"><a href="#swiftCompatibility51-错误现象" class="headerlink" title="swiftCompatibility51 错误现象"></a>swiftCompatibility51 错误现象</h2><p><img src="/postImg/40cf3e63/1.png" decoding="async" loading="eager" fetchpriority="high" alt="Xcode Undefined symbol swiftCompatibility51 / 56 / Concurrency 解决方法 — swiftCompatibility51 错误现象">;</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Undefined symbol: __swift_FORCE_LOAD_$_swiftCompatibility51</span><br><span class="line">Undefined symbol: __swift_FORCE_LOAD_$_swiftCompatibility56</span><br><span class="line">Undefined symbol: __swift_FORCE_LOAD_$_swiftCompatibilityConcurrency</span><br></pre></td></tr></table></figure>
 <p>其实这三个是同一类问题：工程里用了Swift&#x2F;Swift编译产物，但最终链接阶段没有把对应的Swift Compatibility库带进去。<br>这里不是代码错误，只需要加几个库即可。</p>
-<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>把这几个<code>.tbd</code>加到<strong>主App Target的Link binary With Libraries</strong><br>具体方法：</p>
+<h2 id="方法一：添加-libswiftCompatibility-tbd"><a href="#方法一：添加-libswiftCompatibility-tbd" class="headerlink" title="方法一：添加 libswiftCompatibility .tbd"></a>方法一：添加 libswiftCompatibility .tbd</h2><p>把这几个<code>.tbd</code>加到<strong>主App Target的Link binary With Libraries</strong><br>具体方法：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">主App Target</span><br><span class="line">→ Build Phases</span><br><span class="line">→ Link Binary With Libraries</span><br><span class="line">→ +</span><br><span class="line">→ 搜索 libswiftCompatibility51.tbd</span><br><span class="line">→ 选择 Apple SDKs 下的结果</span><br></pre></td></tr></table></figure>
 <p>如果你点<code>+</code>搜索出来有三个同名结果：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Project</span><br><span class="line">Apple SDKs</span><br><span class="line">Developer Frameworks</span><br></pre></td></tr></table></figure>
@@ -293,20 +296,20 @@
 <p>加完之后建议执行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Product → Clean Build Folder</span><br></pre></td></tr></table></figure>
 
-<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>如果你在用方法一的时候点<code>+</code>没有可以选择的，可以改用方法二<br>直接用<code>Other Linker Flags</code>加，最省事<br>打开：</p>
+<h2 id="方法二：配置-Other-Linker-Flags"><a href="#方法二：配置-Other-Linker-Flags" class="headerlink" title="方法二：配置 Other Linker Flags"></a>方法二：配置 Other Linker Flags</h2><p>如果你在用方法一的时候点<code>+</code>没有可以选择的，可以改用方法二<br>直接用<code>Other Linker Flags</code>加，最省事<br>打开：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">主Target</span><br><span class="line">→ Build Settings</span><br><span class="line">→ Other Linker Flags</span><br></pre></td></tr></table></figure>
 <p>加上这三行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(inherited)</span><br><span class="line">-lswiftCompatibility51</span><br><span class="line">-lswiftCompatibility56</span><br><span class="line">-lswiftCompatibilityConcurrency</span><br></pre></td></tr></table></figure>
-<p><img src="/postImg/40cf3e63/2.png" decoding="async" loading="lazy" alt="IOS开发过程中Swift兼容库问题 — 方法二">;<br>注意是加到主Target,不是Pods，也不是Project。<br>然后再确认：</p>
+<p><img src="/postImg/40cf3e63/2.png" decoding="async" loading="lazy" alt="Xcode Undefined symbol swiftCompatibility51 / 56 / Concurrency 解决方法 — 方法二：配置 Other Linker Flags">;<br>注意是加到主Target,不是Pods，也不是Project。<br>然后再确认：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Always Embed Swift Standard Libraries = YES</span><br></pre></td></tr></table></figure>
 
-<p>到这里，如果不出意外的意外，你会遇到这个问题<code>library &#39;swiftCompatibility51&#39; not found</code><br><img src="/postImg/40cf3e63/4.png" decoding="async" loading="lazy" alt="IOS开发过程中Swift兼容库问题 — 方法二">;<br>这里在下面路径</p>
+<p>到这里，如果不出意外的意外，你会遇到这个问题<code>library &#39;swiftCompatibility51&#39; not found</code><br><img src="/postImg/40cf3e63/4.png" decoding="async" loading="lazy" alt="Xcode Undefined symbol swiftCompatibility51 / 56 / Concurrency 解决方法 — 方法二：配置 Other Linker Flags">;<br>这里在下面路径</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Build Settings</span><br><span class="line">→ Library Search Paths</span><br></pre></td></tr></table></figure>
-<p><img src="/postImg/40cf3e63/3.png" decoding="async" loading="lazy" alt="IOS开发过程中Swift兼容库问题 — 方法二">;<br>加</p>
+<p><img src="/postImg/40cf3e63/3.png" decoding="async" loading="lazy" alt="Xcode Undefined symbol swiftCompatibility51 / 56 / Concurrency 解决方法 — 方法二：配置 Other Linker Flags">;<br>加</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(inherited)</span><br><span class="line">$(SDKROOT)/usr/lib/swift</span><br><span class="line">$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)</span><br></pre></td></tr></table></figure>
 <p><em>温馨小提示：这些地方如果不太好找，可以直接搜索关键词，很快就能跳出来</em></p>
 <p>到这里，你的工程完成编译是没什么问题了。</p>
-<h3 id="后续bug"><a href="#后续bug" class="headerlink" title="后续bug"></a>后续bug</h3><p>上面是解决不能编译问题，在运行的时候又遇到了<code>Failed to look up symbolic reference at 0x102b818e7 - offset 470721 - symbol symbolic _____Sg ScP in</code>这个问题，直接导致应用卡死。</p>
+<h2 id="Failed-to-look-up-symbolic-reference-运行时错误"><a href="#Failed-to-look-up-symbolic-reference-运行时错误" class="headerlink" title="Failed to look up symbolic reference 运行时错误"></a>Failed to look up symbolic reference 运行时错误</h2><p>上面是解决不能编译问题，在运行的时候又遇到了<code>Failed to look up symbolic reference at 0x102b818e7 - offset 470721 - symbol symbolic _____Sg ScP in</code>这个问题，直接导致应用卡死。</p>
 <p>这个其实也是兼容的问题，和上面区别在于一个都不能编译，一个是在使用相关功能的时候才会出现。</p>
 <p>解决方法，重点检查下面几个地方<br>1、主 Target 里继续检查：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Build Settings -&gt; Runpath Search Paths</span><br></pre></td></tr></table></figure>
@@ -354,7 +357,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/40cf3e63.html" title="IOS开发过程中Swift兼容库问题">https://lengmo714.top/40cf3e63.html</a>
+    <a href="https://lengmo714.top/40cf3e63.html" title="Xcode Undefined symbol swiftCompatibility51 &#x2F; 56 &#x2F; Concurrency 解决方法">https://lengmo714.top/40cf3e63.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -365,8 +368,10 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/cocosCreator/" rel="tag"><i class="fa fa-tag"></i> cocosCreator</a>
-              <a href="/tags/ios/" rel="tag"><i class="fa fa-tag"></i> ios</a>
+              <a href="/tags/Xcode/" rel="tag"><i class="fa fa-tag"></i> Xcode</a>
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/swiftCompatibility51/" rel="tag"><i class="fa fa-tag"></i> swiftCompatibility51</a>
           </div>
 
         
@@ -375,12 +380,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/40cf3e63.html" rel="prev" title="Fixing Swift Compatibility Library Errors in an iOS Project">
-      <i class="fa fa-chevron-left"></i> Fixing Swift Compatibility Library Errors in an iOS Project
+    <a href="/en/40cf3e63.html" rel="prev" title="Fix Xcode Undefined Symbol swiftCompatibility51, 56 and Concurrency Errors">
+      <i class="fa fa-chevron-left"></i> Fix Xcode Undefined Symbol swiftCompatibility51, 56 and Concurrency Errors
     </a></div>
       <div class="post-nav-item">
-    <a href="/237d72c8.html" rel="next" title="ios版本构建Build不对的问题">
-      ios版本构建Build不对的问题 <i class="fa fa-chevron-right"></i>
+    <a href="/237d72c8.html" rel="next" title="Xcode Archive 后 Build 版本号不生效：CFBundleVersion 解决方法">
+      Xcode Archive 后 Build 版本号不生效：CFBundleVersion 解决方法 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -440,7 +445,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-number">1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-number">2.</span> <span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E7%BB%ADbug"><span class="nav-number">3.</span> <span class="nav-text">后续bug</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#swiftCompatibility51-%E9%94%99%E8%AF%AF%E7%8E%B0%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">swiftCompatibility51 错误现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E6%B7%BB%E5%8A%A0-libswiftCompatibility-tbd"><span class="nav-number">2.</span> <span class="nav-text">方法一：添加 libswiftCompatibility .tbd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E9%85%8D%E7%BD%AE-Other-Linker-Flags"><span class="nav-number">3.</span> <span class="nav-text">方法二：配置 Other Linker Flags</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Failed-to-look-up-symbolic-reference-%E8%BF%90%E8%A1%8C%E6%97%B6%E9%94%99%E8%AF%AF"><span class="nav-number">4.</span> <span class="nav-text">Failed to look up symbolic reference 运行时错误</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -467,13 +472,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

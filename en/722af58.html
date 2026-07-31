@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Create a reusable DrawNode line helper that can be positioned beneath a text label.">
+  <meta name="description" content="Add an underline beneath a Cocos2d-x Lua label with DrawNode and drawSegment by wrapping endpoints, color, width, scale, and positioning in a reusable helper.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Drawing an Underline Beneath Text in Cocos2d-x Lua">
+<meta property="og:title" content="Cocos2d-x Lua Text Underline: Draw a Reusable DrawNode Segment">
 <meta property="og:url" content="https://lengmo714.top/en/722af58.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Create a reusable DrawNode line helper that can be positioned beneath a text label.">
+<meta property="og:description" content="Add an underline beneath a Cocos2d-x Lua label with DrawNode and drawSegment by wrapping endpoints, color, width, scale, and positioning in a reusable helper.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-03-21T03:45:03.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:41:14.635Z">
+<meta property="article:modified_time" content="2026-07-31T09:00:26.652Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta property="article:tag" content="Cocos2d-x">
@@ -48,10 +48,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/722af58.html#article","headline":"Drawing an Underline Beneath Text in Cocos2d-x Lua","description":"Create a reusable DrawNode line helper that can be positioned beneath a text label.","datePublished":"2023-03-21T03:45:03.000Z","dateModified":"2026-07-30T04:41:14.635Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/722af58.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Game Development"],"keywords":"Lua, Cocos2d-x","wordCount":159,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/722af58.html#article","headline":"Cocos2d-x Lua Text Underline: Draw a Reusable DrawNode Segment","description":"Add an underline beneath a Cocos2d-x Lua label with DrawNode and drawSegment by wrapping endpoints, color, width, scale, and positioning in a reusable helper.","datePublished":"2023-03-21T03:45:03.000Z","dateModified":"2026-07-31T09:00:26.652Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/722af58.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Game Development"],"keywords":"Lua, Cocos2d-x","wordCount":163}</script>
 
 
 
@@ -67,7 +64,7 @@
   };
 </script>
 
-  <title>Drawing an Underline Beneath Text in Cocos2d-x Lua | 南锋</title>
+  <title>Cocos2d-x Lua Text Underline: Draw a Reusable DrawNode Segment | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +245,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Drawing an Underline Beneath Text in Cocos2d-x Lua
+          Cocos2d-x Lua Text Underline: Draw a Reusable DrawNode Segment
         </h1>
 
         <div class="post-meta">
@@ -263,7 +260,7 @@
             </span>
 
           
-            <div class="post-description">Create a reusable DrawNode line helper that can be positioned beneath a text label.</div>
+            <div class="post-description">Add an underline beneath a Cocos2d-x Lua label with DrawNode and drawSegment by wrapping endpoints, color, width, scale, and positioning in a reusable helper.</div>
 
         </div>
       </header>
@@ -274,7 +271,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>An underline is simply a short line positioned below the text. The following helper creates a <code>DrawNode</code> containing a segment between two points:</p>
+        <h2 id="Draw-an-Underline-with-DrawNode"><a href="#Draw-an-Underline-with-DrawNode" class="headerlink" title="Draw an Underline with DrawNode"></a>Draw an Underline with DrawNode</h2><p>An underline is simply a short line positioned below the text. The following helper creates a <code>DrawNode</code> containing a segment between two points:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Creates and returns a line DrawNode.</span></span><br><span class="line"><span class="comment">-- @param points  &#123;&#123;x1, y1&#125;, &#123;x2, y2&#125;&#125;</span></span><br><span class="line"><span class="comment">-- @param params  Optional borderColor, borderWidth, and scale</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">display.newLine</span><span class="params">(points, params)</span></span></span><br><span class="line">    <span class="keyword">local</span> radius</span><br><span class="line">    <span class="keyword">local</span> borderColor</span><br><span class="line">    <span class="keyword">local</span> scale</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> params <span class="keyword">then</span></span><br><span class="line">        borderColor = cc.c4f(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">        radius = <span class="number">0.5</span></span><br><span class="line">        scale = <span class="number">1.0</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        borderColor = params.borderColor <span class="keyword">or</span> cc.c4f(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">        radius = (params.borderWidth <span class="keyword">and</span> params.borderWidth / <span class="number">2</span>) <span class="keyword">or</span> <span class="number">0.5</span></span><br><span class="line">        scale = checknumber(params.scale <span class="keyword">or</span> <span class="number">1.0</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> scaledPoints = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i, point <span class="keyword">in</span> <span class="built_in">ipairs</span>(points) <span class="keyword">do</span></span><br><span class="line">        scaledPoints[i] = cc.p(point[<span class="number">1</span>] * scale, point[<span class="number">2</span>] * scale)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> drawNode = cc.DrawNode:<span class="built_in">create</span>()</span><br><span class="line">    drawNode:drawSegment(</span><br><span class="line">        scaledPoints[<span class="number">1</span>],</span><br><span class="line">        scaledPoints[<span class="number">2</span>],</span><br><span class="line">        radius,</span><br><span class="line">        borderColor</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> drawNode</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
 <p>Example:</p>
@@ -316,7 +313,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/722af58.html" title="Drawing an Underline Beneath Text in Cocos2d-x Lua">https://lengmo714.top/en/722af58.html</a>
+    <a href="https://lengmo714.top/en/722af58.html" title="Cocos2d-x Lua Text Underline: Draw a Reusable DrawNode Segment">https://lengmo714.top/en/722af58.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -337,12 +334,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/722af58.html" rel="prev" title="Cocos2dx Lua：为文字添加下划线的实现">
-      <i class="fa fa-chevron-left"></i> Cocos2dx Lua：为文字添加下划线的实现
+    <a href="/722af58.html" rel="prev" title="Cocos2d-x Lua 文字下划线：使用 DrawNode 绘制可复用线段">
+      <i class="fa fa-chevron-left"></i> Cocos2d-x Lua 文字下划线：使用 DrawNode 绘制可复用线段
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/9b2c87ad.html" rel="next" title="Adding Touch Events to Multiple Sprites in Cocos Creator">
-      Adding Touch Events to Multiple Sprites in Cocos Creator <i class="fa fa-chevron-right"></i>
+    <a href="/9b2c87ad.html" rel="next" title="Cocos Creator 多个 Sprite 共用触摸事件：识别点击节点并解绑">
+      Cocos Creator 多个 Sprite 共用触摸事件：识别点击节点并解绑 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -402,6 +399,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Draw-an-Underline-with-DrawNode"><span class="nav-number">1.</span> <span class="nav-text">Draw an Underline with DrawNode</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -428,13 +426,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

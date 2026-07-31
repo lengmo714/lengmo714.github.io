@@ -22,17 +22,17 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Create a circular sprite mask with a custom effect and material in Cocos Creator 3.7.2.">
+  <meta name="description" content="Create a circular Sprite mask in Cocos Creator 3.7.2 with a custom effect, material and fragment shader that clips pixels outside a UV-space radius.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Creating a Circular Mask with a Shader in Cocos Creator">
+<meta property="og:title" content="Cocos Creator Circular Mask Shader: Effect, Material and Fragment Clipping">
 <meta property="og:url" content="https://lengmo714.top/en/eff95905.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Create a circular sprite mask with a custom effect and material in Cocos Creator 3.7.2.">
+<meta property="og:description" content="Create a circular Sprite mask in Cocos Creator 3.7.2 with a custom effect, material and fragment shader that clips pixels outside a UV-space radius.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lengmo714.top/postImg/eff95905/2.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/eff95905/1.png">
 <meta property="article:published_time" content="2026-03-09T03:11:06.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:03:31.995Z">
+<meta property="article:modified_time" content="2026-07-31T09:15:51.671Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="TypeScript">
@@ -52,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/eff95905.html#article","headline":"Creating a Circular Mask with a Shader in Cocos Creator","description":"Create a circular sprite mask with a custom effect and material in Cocos Creator 3.7.2.","datePublished":"2026-03-09T03:11:06.000Z","dateModified":"2026-07-30T04:03:31.995Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/eff95905.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript, Shader","wordCount":408,"image":["https://lengmo714.top/postImg/eff95905/2.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/eff95905.html#article","headline":"Cocos Creator Circular Mask Shader: Effect, Material and Fragment Clipping","description":"Create a circular Sprite mask in Cocos Creator 3.7.2 with a custom effect, material and fragment shader that clips pixels outside a UV-space radius.","datePublished":"2026-03-09T03:11:06.000Z","dateModified":"2026-07-31T09:15:51.671Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/eff95905.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript, Shader","wordCount":410,"image":["https://lengmo714.top/postImg/eff95905/2.png"]}</script>
 
 
 
@@ -68,7 +68,7 @@
   };
 </script>
 
-  <title>Creating a Circular Mask with a Shader in Cocos Creator | 南锋</title>
+  <title>Cocos Creator Circular Mask Shader: Effect, Material and Fragment Clipping | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -249,7 +249,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Creating a Circular Mask with a Shader in Cocos Creator
+          Cocos Creator Circular Mask Shader: Effect, Material and Fragment Clipping
         </h1>
 
         <div class="post-meta">
@@ -264,7 +264,7 @@
             </span>
 
           
-            <div class="post-description">Create a circular sprite mask with a custom effect and material in Cocos Creator 3.7.2.</div>
+            <div class="post-description">Create a circular Sprite mask in Cocos Creator 3.7.2 with a custom effect, material and fragment shader that clips pixels outside a UV-space radius.</div>
 
         </div>
       </header>
@@ -281,13 +281,13 @@
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
 <p>An earlier article explained how to create a circle with the Mask component: <a href="https://lengmo714.top/661b115d.html">Creating a Circular Mask in Cocos Creator</a>. This article achieves the same visual result with a shader. The two approaches can produce different draw-call behavior.</p>
-<h3 id="1-Create-circle-mask-effect"><a href="#1-Create-circle-mask-effect" class="headerlink" title="1. Create circle-mask.effect"></a>1. Create <code>circle-mask.effect</code></h3><p>Paste in the following effect:</p>
+<h2 id="Create-circle-mask-effect"><a href="#Create-circle-mask-effect" class="headerlink" title="Create circle-mask.effect"></a>Create circle-mask.effect</h2><p>Paste in the following effect:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">// Copyright (c) 2017-2020 Xiamen Yaji Software Co., Ltd.</span><br><span class="line">CCEffect %&#123;</span><br><span class="line">  techniques:</span><br><span class="line">  - passes:</span><br><span class="line">    - vert: sprite-vs:vert</span><br><span class="line">      frag: sprite-fs:frag</span><br><span class="line">      depthStencilState:</span><br><span class="line">        depthTest: false</span><br><span class="line">        depthWrite: false</span><br><span class="line">      blendState:</span><br><span class="line">        targets:</span><br><span class="line">        - blend: true</span><br><span class="line">          blendSrc: src_alpha</span><br><span class="line">          blendDst: one_minus_src_alpha</span><br><span class="line">          blendDstAlpha: one_minus_src_alpha</span><br><span class="line">      rasterizerState:</span><br><span class="line">        cullMode: none</span><br><span class="line">      properties:</span><br><span class="line">        alphaThreshold: &#123; value: 0.5 &#125;</span><br><span class="line">        radius: &#123; value: 0.5, editor: &#123; tooltip: &quot;Circle radius (0–0.5; 0.5 touches the edges)&quot; &#125; &#125;</span><br><span class="line">        softness: &#123; value: 0.003, editor: &#123; tooltip: &quot;Edge feathering; smaller values produce a harder edge&quot; &#125; &#125;</span><br><span class="line">&#125;%</span><br><span class="line"></span><br><span class="line">CCProgram sprite-vs %&#123;</span><br><span class="line">  precision highp float;</span><br><span class="line">  #include &lt;builtin/uniforms/cc-global&gt;</span><br><span class="line">  #if USE_LOCAL</span><br><span class="line">    #include &lt;builtin/uniforms/cc-local&gt;</span><br><span class="line">  #endif</span><br><span class="line">  #if SAMPLE_FROM_RT</span><br><span class="line">    #include &lt;common/common-define&gt;</span><br><span class="line">  #endif</span><br><span class="line">  in vec3 a_position;</span><br><span class="line">  in vec2 a_texCoord;</span><br><span class="line">  in vec4 a_color;</span><br><span class="line"></span><br><span class="line">  out vec4 color;</span><br><span class="line">  out vec2 uv0;</span><br><span class="line"></span><br><span class="line">  vec4 vert () &#123;</span><br><span class="line">    vec4 pos = vec4(a_position, 1);</span><br><span class="line">    #if USE_LOCAL</span><br><span class="line">      pos = cc_matWorld * pos;</span><br><span class="line">    #endif</span><br><span class="line">    #if USE_PIXEL_ALIGNMENT</span><br><span class="line">      pos = cc_matView * pos;</span><br><span class="line">      pos.xyz = floor(pos.xyz);</span><br><span class="line">      pos = cc_matProj * pos;</span><br><span class="line">    #else</span><br><span class="line">      pos = cc_matViewProj * pos;</span><br><span class="line">    #endif</span><br><span class="line">    uv0 = a_texCoord;</span><br><span class="line">    #if SAMPLE_FROM_RT</span><br><span class="line">      CC_HANDLE_RT_SAMPLE_FLIP(uv0);</span><br><span class="line">    #endif</span><br><span class="line">    color = a_color;</span><br><span class="line">    return pos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;%</span><br><span class="line"></span><br><span class="line">CCProgram sprite-fs %&#123;</span><br><span class="line">  precision highp float;</span><br><span class="line">  #include &lt;builtin/internal/embedded-alpha&gt;</span><br><span class="line">  #include &lt;builtin/internal/alpha-test&gt;</span><br><span class="line">  in vec4 color;</span><br><span class="line"></span><br><span class="line">  #if USE_TEXTURE</span><br><span class="line">    in vec2 uv0;</span><br><span class="line">    #pragma builtin(local)</span><br><span class="line">    layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;</span><br><span class="line">  #endif</span><br><span class="line"></span><br><span class="line">  uniform Constant &#123;</span><br><span class="line">    float radius;</span><br><span class="line">    float softness;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  vec4 frag () &#123;</span><br><span class="line">    vec4 o = vec4(1, 1, 1, 1);</span><br><span class="line">    #if USE_TEXTURE</span><br><span class="line">      o *= CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);</span><br><span class="line">      #if IS_GRAY</span><br><span class="line">        float gray = 0.2126 * o.r + 0.7152 * o.g + 0.0722 * o.b;</span><br><span class="line">        o.r = o.g = o.b = gray;</span><br><span class="line">      #endif</span><br><span class="line">    #endif</span><br><span class="line">    o *= color;</span><br><span class="line"></span><br><span class="line">    #if USE_TEXTURE</span><br><span class="line">      vec2 center = vec2(0.5, 0.5);</span><br><span class="line">      float dist = distance(uv0, center);</span><br><span class="line">      float a = smoothstep(radius, radius - softness, dist);</span><br><span class="line">      o.a *= a;</span><br><span class="line">      if (o.a &lt;= 0.001) discard;</span><br><span class="line">    #endif</span><br><span class="line"></span><br><span class="line">    ALPHA_TEST(o);</span><br><span class="line">    return o;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;%</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-Create-a-material"><a href="#2-Create-a-material" class="headerlink" title="2. Create a material"></a>2. Create a material</h3><p>Create a material and select <code>circle-mask.effect</code> in its <code>Effect</code> field.</p>
-<h3 id="3-Assign-the-material"><a href="#3-Assign-the-material" class="headerlink" title="3. Assign the material"></a>3. Assign the material</h3><p>On the sprite node’s Sprite component, assign the <code>circle-mask.mtl</code> material:</p>
+<h2 id="Create-a-Material"><a href="#Create-a-Material" class="headerlink" title="Create a Material"></a>Create a Material</h2><p>Create a material and select <code>circle-mask.effect</code> in its <code>Effect</code> field.</p>
+<h2 id="Assign-the-Material-to-a-Sprite"><a href="#Assign-the-Material-to-a-Sprite" class="headerlink" title="Assign the Material to a Sprite"></a>Assign the Material to a Sprite</h2><p>On the sprite node’s Sprite component, assign the <code>circle-mask.mtl</code> material:</p>
 <p><img src="/postImg/eff95905/2.png" alt="Assign the material" decoding="async" loading="eager" fetchpriority="high"></p>
-<h3 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h3><ol>
+<h2 id="Shader-Mask-Notes"><a href="#Shader-Mask-Notes" class="headerlink" title="Shader Mask Notes"></a>Shader Mask Notes</h2><ol>
 <li><p>If the image becomes solid white after assigning the material, enable <code>USE TEXTURE</code> in the material.</p>
 <p><img src="/postImg/eff95905/1.png" alt="Enable USE TEXTURE" decoding="async" loading="lazy"></p>
 </li>
@@ -331,7 +331,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/eff95905.html" title="Creating a Circular Mask with a Shader in Cocos Creator">https://lengmo714.top/en/eff95905.html</a>
+    <a href="https://lengmo714.top/en/eff95905.html" title="Cocos Creator Circular Mask Shader: Effect, Material and Fragment Clipping">https://lengmo714.top/en/eff95905.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -353,12 +353,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/1369ddb7.html" rel="prev" title="Safari调试手机网页的详细步骤">
-      <i class="fa fa-chevron-left"></i> Safari调试手机网页的详细步骤
+    <a href="/1369ddb7.html" rel="prev" title="Safari 远程调试 iPhone 网页：Web Inspector 与 Mac 开发菜单">
+      <i class="fa fa-chevron-left"></i> Safari 远程调试 iPhone 网页：Web Inspector 与 Mac 开发菜单
     </a></div>
       <div class="post-nav-item">
-    <a href="/eff95905.html" rel="next" title="cocosCreator教程:如何创建圆形遮罩(Shader)">
-      cocosCreator教程:如何创建圆形遮罩(Shader) <i class="fa fa-chevron-right"></i>
+    <a href="/eff95905.html" rel="next" title="Cocos Creator Shader 圆形遮罩：Effect、Material 与片元裁剪">
+      Cocos Creator Shader 圆形遮罩：Effect、Material 与片元裁剪 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -418,7 +418,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Create-circle-mask-effect"><span class="nav-number">1.</span> <span class="nav-text">1. Create circle-mask.effect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Create-a-material"><span class="nav-number">2.</span> <span class="nav-text">2. Create a material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Assign-the-material"><span class="nav-number">3.</span> <span class="nav-text">3. Assign the material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Notes"><span class="nav-number">4.</span> <span class="nav-text">Notes</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-circle-mask-effect"><span class="nav-number">1.</span> <span class="nav-text">Create circle-mask.effect</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-a-Material"><span class="nav-number">2.</span> <span class="nav-text">Create a Material</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Assign-the-Material-to-a-Sprite"><span class="nav-number">3.</span> <span class="nav-text">Assign the Material to a Sprite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shader-Mask-Notes"><span class="nav-number">4.</span> <span class="nav-text">Shader Mask Notes</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -445,13 +445,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

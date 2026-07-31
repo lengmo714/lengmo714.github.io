@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Markdown转Word教程：高效方法与实用工具">
+  <meta name="description" content="使用 Pandoc 将 Markdown 转换为 Word DOCX，介绍命令行参数和 pypandoc Python 脚本，并说明图片、输出路径、参考样式和 Pandoc 安装要求。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Markdown转Word教程：高效方法与实用工具">
+<meta property="og:title" content="Markdown 转 Word DOCX：Pandoc 命令与 pypandoc 脚本">
 <meta property="og:url" content="https://lengmo714.top/b4b7357d.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Markdown转Word教程：高效方法与实用工具">
+<meta property="og:description" content="使用 Pandoc 将 Markdown 转换为 Word DOCX，介绍命令行参数和 pypandoc Python 脚本，并说明图片、输出路径、参考样式和 Pandoc 安装要求。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-19T04:39:00.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:24:48.935Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Markdown">
 <meta property="article:tag" content="Word">
@@ -48,10 +48,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/b4b7357d.html#article","headline":"Markdown转Word教程：高效方法与实用工具","description":"Markdown转Word教程：高效方法与实用工具","datePublished":"2023-12-19T04:39:00.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/b4b7357d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["技术"],"keywords":"Markdown, Word","wordCount":81,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/b4b7357d.html#article","headline":"Markdown 转 Word DOCX：Pandoc 命令与 pypandoc 脚本","description":"使用 Pandoc 将 Markdown 转换为 Word DOCX，介绍命令行参数和 pypandoc Python 脚本，并说明图片、输出路径、参考样式和 Pandoc 安装要求。","datePublished":"2023-12-19T04:39:00.000Z","dateModified":"2026-07-31T09:24:48.935Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/b4b7357d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["技术"],"keywords":"Markdown, Word","wordCount":86}</script>
 
 
 
@@ -67,7 +64,7 @@
   };
 </script>
 
-  <title>Markdown转Word教程：高效方法与实用工具 | 南锋</title>
+  <title>Markdown 转 Word DOCX：Pandoc 命令与 pypandoc 脚本 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +245,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Markdown转Word教程：高效方法与实用工具
+          Markdown 转 Word DOCX：Pandoc 命令与 pypandoc 脚本
         </h1>
 
         <div class="post-meta">
@@ -263,7 +260,7 @@
             </span>
 
           
-            <div class="post-description">Markdown转Word教程：高效方法与实用工具</div>
+            <div class="post-description">使用 Pandoc 将 Markdown 转换为 Word DOCX，介绍命令行参数和 pypandoc Python 脚本，并说明图片、输出路径、参考样式和 Pandoc 安装要求。</div>
 
         </div>
       </header>
@@ -281,10 +278,10 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h3 id="使用脚本"><a href="#使用脚本" class="headerlink" title="使用脚本"></a>使用脚本</h3><p>使用Python脚本将Markdown文本转换为Word文本的方法。你需要安装<code>pypandoc</code>库，它是一个与Pandoc文档转换器交互的Python库。<br>示例代码：</p>
+<h2 id="使用-pypandoc-Python-脚本"><a href="#使用-pypandoc-Python-脚本" class="headerlink" title="使用 pypandoc Python 脚本"></a>使用 pypandoc Python 脚本</h2><p>使用Python脚本将Markdown文本转换为Word文本的方法。你需要安装<code>pypandoc</code>库，它是一个与Pandoc文档转换器交互的Python库。<br>示例代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pypandoc</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">markdown_to_word</span>(<span class="params">markdown_text, output_path</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># Convert Markdown to Word</span></span><br><span class="line">        output = pypandoc.convert_text(markdown_text, <span class="string">&#x27;docx&#x27;</span>, <span class="built_in">format</span>=<span class="string">&#x27;md&#x27;</span>, outputfile=output_path)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Conversion successful. Word document saved at: <span class="subst">&#123;output_path&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Error during conversion: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 输入Markdown文本</span></span><br><span class="line">    markdown_text = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    # Markdown to Word</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    This is a sample Markdown text.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  - Item 1</span></span><br><span class="line"><span class="string">  - Item 2</span></span><br><span class="line"><span class="string">  - Item 3</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置输出Word文档路径</span></span><br><span class="line">    output_path = <span class="string">&quot;output.docx&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用函数进行转换</span></span><br><span class="line">    markdown_to_word(markdown_text, output_path)</span><br></pre></td></tr></table></figure>
 <p>将上述脚本中的<code>markdown_text</code>替换为你的Markdown文本，然后运行脚本。转换后的Word文档将保存在指定的输出路径中。请注意，这个方法依赖于Pandoc，因此你需要安装Pandoc并确保它在系统路径中。</p>
-<h3 id="转换工具-推荐"><a href="#转换工具-推荐" class="headerlink" title="转换工具(推荐)"></a>转换工具(推荐)</h3><p>有许多在线和离线工具可以帮助我们将Markdown文本转换为Word文档。其中一些工具包括：</p>
+<h2 id="使用-Pandoc-命令直接转换"><a href="#使用-Pandoc-命令直接转换" class="headerlink" title="使用 Pandoc 命令直接转换"></a>使用 Pandoc 命令直接转换</h2><p>有许多在线和离线工具可以帮助我们将Markdown文本转换为Word文档。其中一些工具包括：</p>
 <ol>
 <li><strong>Pandoc:</strong><br>Pandoc是一个强大的文档转换工具，支持多种文本格式之间的转换，包括Markdown到Word。你可以使用如下命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pandoc input.md -o output.docx</span><br></pre></td></tr></table></figure></li>
 </ol>
@@ -323,7 +320,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/b4b7357d.html" title="Markdown转Word教程：高效方法与实用工具">https://lengmo714.top/b4b7357d.html</a>
+    <a href="https://lengmo714.top/b4b7357d.html" title="Markdown 转 Word DOCX：Pandoc 命令与 pypandoc 脚本">https://lengmo714.top/b4b7357d.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -344,12 +341,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/b4b7357d.html" rel="prev" title="How to Convert Markdown to a Word Document">
-      <i class="fa fa-chevron-left"></i> How to Convert Markdown to a Word Document
+    <a href="/f8d1933c.html" rel="prev" title="微信风格对话生成器：制作演示用聊天界面与截图">
+      <i class="fa fa-chevron-left"></i> 微信风格对话生成器：制作演示用聊天界面与截图
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/9d7c5e64.html" rel="next" title="Getting Started with Particle Effects in Cocos Creator 3.7.2">
-      Getting Started with Particle Effects in Cocos Creator 3.7.2 <i class="fa fa-chevron-right"></i>
+    <a href="/en/b4b7357d.html" rel="next" title="Convert Markdown to Word DOCX with Pandoc or pypandoc">
+      Convert Markdown to Word DOCX with Pandoc or pypandoc <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -409,7 +406,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%84%9A%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">使用脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7-%E6%8E%A8%E8%8D%90"><span class="nav-number">2.</span> <span class="nav-text">转换工具(推荐)</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-pypandoc-Python-%E8%84%9A%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">使用 pypandoc Python 脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Pandoc-%E5%91%BD%E4%BB%A4%E7%9B%B4%E6%8E%A5%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">使用 Pandoc 命令直接转换</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -436,13 +433,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

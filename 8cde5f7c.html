@@ -22,16 +22,16 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="cocosCreator实现一个验证码弹窗验证功能">
+  <meta name="description" content="使用一个隐藏 EditBox 驱动六个验证码显示框，在 Cocos Creator 中实现 6 位验证码的连续输入、整段粘贴和连续删除。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cocosCreator实现一个验证码弹窗验证功能">
+<meta property="og:title" content="Cocos Creator 6 位验证码弹窗：连续输入、粘贴与删除">
 <meta property="og:url" content="https://lengmo714.top/8cde5f7c.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="cocosCreator实现一个验证码弹窗验证功能">
+<meta property="og:description" content="使用一个隐藏 EditBox 驱动六个验证码显示框，在 Cocos Creator 中实现 6 位验证码的连续输入、整段粘贴和连续删除。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/66def5e3d9c307b7e94ee90c.gif">
 <meta property="article:published_time" content="2024-09-09T13:20:49.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:34:55.569Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="cocosCreator">
 <meta name="twitter:card" content="summary">
@@ -49,7 +49,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/8cde5f7c.html#article","headline":"cocosCreator实现一个验证码弹窗验证功能","description":"cocosCreator实现一个验证码弹窗验证功能","datePublished":"2024-09-09T13:20:49.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/8cde5f7c.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":75,"image":["https://pic.imgdb.cn/item/66def5e3d9c307b7e94ee90c.gif"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/8cde5f7c.html#article","headline":"Cocos Creator 6 位验证码弹窗：连续输入、粘贴与删除","description":"使用一个隐藏 EditBox 驱动六个验证码显示框，在 Cocos Creator 中实现 6 位验证码的连续输入、整段粘贴和连续删除。","datePublished":"2024-09-09T13:20:49.000Z","dateModified":"2026-07-31T09:34:55.569Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/8cde5f7c.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":75,"image":["https://pic.imgdb.cn/item/66def5e3d9c307b7e94ee90c.gif"]}</script>
 
 
 
@@ -65,7 +65,7 @@
   };
 </script>
 
-  <title>cocosCreator实现一个验证码弹窗验证功能 | 南锋</title>
+  <title>Cocos Creator 6 位验证码弹窗：连续输入、粘贴与删除 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -246,7 +246,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          cocosCreator实现一个验证码弹窗验证功能
+          Cocos Creator 6 位验证码弹窗：连续输入、粘贴与删除
         </h1>
 
         <div class="post-meta">
@@ -261,7 +261,7 @@
             </span>
 
           
-            <div class="post-description">cocosCreator实现一个验证码弹窗验证功能</div>
+            <div class="post-description">使用一个隐藏 EditBox 驱动六个验证码显示框，在 Cocos Creator 中实现 6 位验证码的连续输入、整段粘贴和连续删除。</div>
 
         </div>
       </header>
@@ -279,11 +279,11 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>引擎版本: cocosCreator 2.7.2<br>开发语言: ts</p>
-<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><p><img src="https://pic.imgdb.cn/item/66def5e3d9c307b7e94ee90c.gif" alt="效果图" decoding="async" loading="eager" fetchpriority="high"></p>
-<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p><strong>1、</strong> 在弹窗界面放置6个输入框的精灵，每个精灵添加一个Label的子节点，放置一个EditBox。<br><strong>2、</strong> 给6个输入框添加点击事件，不管点击哪个框，都聚焦到EditBox，触发EditBox的输入。<br><strong>3、</strong> 监听EditBox的内容变更，将更新后的文本绘制到对应的输入框的Label上</p>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p><strong>1、</strong> 无法单独修改某一个输入框中的文本</p>
-<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><p>监听代码</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>引擎版本: cocosCreator 2.7.2<br>开发语言: ts</p>
+<h2 id="效果预览"><a href="#效果预览" class="headerlink" title="效果预览"></a>效果预览</h2><p><img src="https://pic.imgdb.cn/item/66def5e3d9c307b7e94ee90c.gif" alt="效果图" decoding="async" loading="eager" fetchpriority="high"></p>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p><strong>1、</strong> 在弹窗界面放置6个输入框的精灵，每个精灵添加一个Label的子节点，放置一个EditBox。<br><strong>2、</strong> 给6个输入框添加点击事件，不管点击哪个框，都聚焦到EditBox，触发EditBox的输入。<br><strong>3、</strong> 监听EditBox的内容变更，将更新后的文本绘制到对应的输入框的Label上</p>
+<h2 id="已知限制"><a href="#已知限制" class="headerlink" title="已知限制"></a>已知限制</h2><p><strong>1、</strong> 无法单独修改某一个输入框中的文本</p>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>监听代码</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">_view</span>.<span class="property">_EditBoxC_input</span>.<span class="property">node</span>.<span class="title function_">on</span>(<span class="string">&#x27;text-changed&#x27;</span>, <span class="variable language_">this</span>.<span class="property">input</span>, <span class="variable language_">this</span>);  <span class="comment">// 监听EditBox内容变更</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">_view</span>.<span class="property">_LayC_input</span>.<span class="property">node</span>.<span class="property">children</span>.<span class="title function_">map</span>(<span class="function">(<span class="params">v, i</span>) =&gt;</span> &#123;</span><br><span class="line">    v.<span class="title function_">on</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_END</span>, <span class="variable language_">this</span>.<span class="property">inputImg</span>.<span class="title function_">bind</span>(<span class="variable language_">this</span>, i), <span class="variable language_">this</span>);   <span class="comment">// 6个输入框的点击事件</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>EditBox监听</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="title function_">input</span>(<span class="params">event</span>) &#123;</span><br><span class="line">     <span class="keyword">let</span> inputText = event.<span class="property">string</span>;</span><br><span class="line">     <span class="variable language_">this</span>.<span class="property">_view</span>.<span class="property">_LayC_input</span>.<span class="property">node</span>.<span class="property">children</span>.<span class="title function_">map</span>(<span class="function">(<span class="params">v, i</span>) =&gt;</span> &#123;</span><br><span class="line">          v.<span class="title function_">getChildByName</span>(<span class="string">&quot;Label&quot;</span>).<span class="property">active</span> = <span class="literal">true</span>;</span><br><span class="line">          <span class="keyword">if</span> (inputText[i]) &#123;</span><br><span class="line">               v.<span class="title function_">getChildByName</span>(<span class="string">&quot;Label&quot;</span>).<span class="title function_">getComponent</span>(<span class="title class_">Label</span>).<span class="property">string</span> = inputText[i];</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               v.<span class="title function_">getChildByName</span>(<span class="string">&quot;Label&quot;</span>).<span class="title function_">getComponent</span>(<span class="title class_">Label</span>).<span class="property">string</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -326,7 +326,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/8cde5f7c.html" title="cocosCreator实现一个验证码弹窗验证功能">https://lengmo714.top/8cde5f7c.html</a>
+    <a href="https://lengmo714.top/8cde5f7c.html" title="Cocos Creator 6 位验证码弹窗：连续输入、粘贴与删除">https://lengmo714.top/8cde5f7c.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -346,12 +346,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2f9dcd90.html" rel="prev" title="cocosCreator实现每日首次登录功能 | 游戏开发教程">
-      <i class="fa fa-chevron-left"></i> cocosCreator实现每日首次登录功能 | 游戏开发教程
+    <a href="/2f9dcd90.html" rel="prev" title="Cocos Creator 每日首次登录判断：localStorage 日期比较">
+      <i class="fa fa-chevron-left"></i> Cocos Creator 每日首次登录判断：localStorage 日期比较
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/8cde5f7c.html" rel="next" title="Building a Six-Digit Verification Code Dialog in Cocos Creator">
-      Building a Six-Digit Verification Code Dialog in Cocos Creator <i class="fa fa-chevron-right"></i>
+    <a href="/en/8cde5f7c.html" rel="next" title="Cocos Creator Six-Digit Verification Dialog: Typing, Paste and Delete">
+      Cocos Creator Six-Digit Verification Dialog: Typing, Paste and Delete <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -411,7 +411,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E9%A2%84%E8%A7%88"><span class="nav-number">2.</span> <span class="nav-text">效果预览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%B2%E7%9F%A5%E9%99%90%E5%88%B6"><span class="nav-number">4.</span> <span class="nav-text">已知限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -438,13 +438,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

@@ -22,34 +22,21 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Entry name &#39;classes.dex&#39; collided">
+  <meta name="description" content="Android Studio 打包 Release 时出现 Entry name classes.dex collided，通常由陈旧或重复构建产物引起，可清理 Gradle 输出和缓存后重新构建。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决Android Studio打包错误：Entry name &#39;classes.dex&#39; collided">
+<meta property="og:title" content="Android Entry name classes.dex collided：清理重复 DEX 构建产物">
 <meta property="og:url" content="https://lengmo714.top/680185d4.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Entry name &#39;classes.dex&#39; collided">
+<meta property="og:description" content="Android Studio 打包 Release 时出现 Entry name classes.dex collided，通常由陈旧或重复构建产物引起，可清理 Gradle 输出和缓存后重新构建。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/662a68b60ea9cb14030fd7e0.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/662a68b70ea9cb14030fd825.png">
 <meta property="article:published_time" content="2024-04-25T12:38:30.000Z">
-<meta property="article:modified_time" content="2024-11-15T16:22:28.000Z">
+<meta property="article:modified_time" content="2026-07-31T12:09:17.512Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="ios">
-<meta property="article:tag" content="android">
-<meta property="article:tag" content="游戏开发">
-<meta property="article:tag" content="quick-cocos">
-<meta property="article:tag" content="游戏上架">
-<meta property="article:tag" content="cocoscreater">
-<meta property="article:tag" content="c语言">
-<meta property="article:tag" content="C++">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="cocos2dx">
-<meta property="article:tag" content="Lua">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="数据手套">
-<meta property="article:tag" content="嵌入式开发">
-<meta property="article:tag" content="stem32">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="Android Studio">
+<meta property="article:tag" content="Gradle">
+<meta property="article:tag" content="DEX">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pic.imgdb.cn/item/662a68b60ea9cb14030fd7e0.png">
 
@@ -65,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/680185d4.html#article","headline":"解决Android Studio打包错误：Entry name 'classes.dex' collided","description":"Entry name 'classes.dex' collided","datePublished":"2024-04-25T12:38:30.000Z","dateModified":"2024-11-15T16:22:28.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/680185d4.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":[],"keywords":"","wordCount":12,"image":["https://pic.imgdb.cn/item/662a68b60ea9cb14030fd7e0.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/680185d4.html#article","headline":"Android Entry name classes.dex collided：清理重复 DEX 构建产物","description":"Android Studio 打包 Release 时出现 Entry name classes.dex collided，通常由陈旧或重复构建产物引起，可清理 Gradle 输出和缓存后重新构建。","datePublished":"2024-04-25T12:38:30.000Z","dateModified":"2026-07-31T12:09:17.512Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/680185d4.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Android Development"],"keywords":"Android Studio, Gradle, DEX","wordCount":12,"image":["https://pic.imgdb.cn/item/662a68b60ea9cb14030fd7e0.png"]}</script>
 
 
 
@@ -81,7 +68,7 @@
   };
 </script>
 
-  <title>解决Android Studio打包错误：Entry name 'classes.dex' collided | 南锋</title>
+  <title>Android Entry name classes.dex collided：清理重复 DEX 构建产物 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -262,13 +249,22 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          解决Android Studio打包错误：Entry name 'classes.dex' collided
+          Android Entry name classes.dex collided：清理重复 DEX 构建产物
         </h1>
 
         <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android-Development/" itemprop="url" rel="index"><span itemprop="name">Android Development</span></a>
+                </span>
+            </span>
 
           
-            <div class="post-description">Entry name 'classes.dex' collided</div>
+            <div class="post-description">Android Studio 打包 Release 时出现 Entry name classes.dex collided，通常由陈旧或重复构建产物引起，可清理 Gradle 输出和缓存后重新构建。</div>
 
         </div>
       </header>
@@ -324,7 +320,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/680185d4.html" title="解决Android Studio打包错误：Entry name &#39;classes.dex&#39; collided">https://lengmo714.top/680185d4.html</a>
+    <a href="https://lengmo714.top/680185d4.html" title="Android Entry name classes.dex collided：清理重复 DEX 构建产物">https://lengmo714.top/680185d4.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -333,6 +329,12 @@
 </div>
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android-Studio/" rel="tag"><i class="fa fa-tag"></i> Android Studio</a>
+              <a href="/tags/Gradle/" rel="tag"><i class="fa fa-tag"></i> Gradle</a>
+              <a href="/tags/DEX/" rel="tag"><i class="fa fa-tag"></i> DEX</a>
+          </div>
 
         
 
@@ -340,12 +342,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/680185d4.html" rel="prev" title="Fixing “Entry Name classes.dex Collided” in Android Studio">
-      <i class="fa fa-chevron-left"></i> Fixing “Entry Name classes.dex Collided” in Android Studio
+    <a href="/en/680185d4.html" rel="prev" title="Fix Android Entry Name classes.dex Collided by Cleaning Build Outputs">
+      <i class="fa fa-chevron-left"></i> Fix Android Entry Name classes.dex Collided by Cleaning Build Outputs
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/1b5fdeff.html" rel="next" title="Pausing, Resuming, and Restarting Spine Animation in Cocos Creator">
-      Pausing, Resuming, and Restarting Spine Animation in Cocos Creator <i class="fa fa-chevron-right"></i>
+    <a href="/en/1b5fdeff.html" rel="next" title="Cocos Creator Spine Pause, Resume and Restart with sp.Skeleton">
+      Cocos Creator Spine Pause, Resume and Restart with sp.Skeleton <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -431,13 +433,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

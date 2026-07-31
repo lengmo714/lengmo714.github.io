@@ -22,17 +22,19 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Python实现微信自动消息发送：如何用脚本自动发送信息给好友">
+  <meta name="description" content="使用 Python itchat 登录微信、按昵称查找联系人并发送一条经用户确认的提醒消息，附运行说明及避免骚扰、限频和账号风险提示。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python实现微信自动消息发送：如何用脚本自动发送信息给好友">
+<meta property="og:title" content="Python itchat 发送微信提醒：登录、查找联系人与单次消息示例">
 <meta property="og:url" content="https://lengmo714.top/20289.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Python实现微信自动消息发送：如何用脚本自动发送信息给好友">
+<meta property="og:description" content="使用 Python itchat 登录微信、按昵称查找联系人并发送一条经用户确认的提醒消息，附运行说明及避免骚扰、限频和账号风险提示。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-29T07:52:01.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:43:50.855Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="python">
+<meta property="article:tag" content="微信">
+<meta property="article:tag" content="itchat">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://lengmo714.top/20289.html">
@@ -47,10 +49,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/20289.html#article","headline":"Python实现微信自动消息发送：如何用脚本自动发送信息给好友","description":"Python实现微信自动消息发送：如何用脚本自动发送信息给好友","datePublished":"2022-03-29T07:52:01.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/20289.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["日常代码"],"keywords":"python","wordCount":25,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/20289.html#article","headline":"Python itchat 发送微信提醒：登录、查找联系人与单次消息示例","description":"使用 Python itchat 登录微信、按昵称查找联系人并发送一条经用户确认的提醒消息，附运行说明及避免骚扰、限频和账号风险提示。","datePublished":"2022-03-29T07:52:01.000Z","dateModified":"2026-07-31T09:43:50.855Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/20289.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["日常代码"],"keywords":"python, 微信, itchat","wordCount":25}</script>
 
 
 
@@ -66,7 +65,7 @@
   };
 </script>
 
-  <title>Python实现微信自动消息发送：如何用脚本自动发送信息给好友 | 南锋</title>
+  <title>Python itchat 发送微信提醒：登录、查找联系人与单次消息示例 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +246,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Python实现微信自动消息发送：如何用脚本自动发送信息给好友
+          Python itchat 发送微信提醒：登录、查找联系人与单次消息示例
         </h1>
 
         <div class="post-meta">
@@ -262,7 +261,7 @@
             </span>
 
           
-            <div class="post-description">Python实现微信自动消息发送：如何用脚本自动发送信息给好友</div>
+            <div class="post-description">使用 Python itchat 登录微信、按昵称查找联系人并发送一条经用户确认的提醒消息，附运行说明及避免骚扰、限频和账号风险提示。</div>
 
         </div>
       </header>
@@ -284,6 +283,7 @@
 </blockquote>
 <p>微信需要能够登录网页版微信才能使用</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> itchat</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;扫一下弹出来的二维码&#x27;</span>)</span><br><span class="line">itchat.auto_login(hotReload = <span class="literal">True</span>)</span><br><span class="line">boom_remark_name = <span class="built_in">input</span>(<span class="string">&#x27;输入你要发消息的人的微信备注，按回车键继续：&#x27;</span>)</span><br><span class="line">message = <span class="built_in">input</span>(<span class="string">&#x27;输入你要发送的内容，按回车键开始发送：&#x27;</span>)</span><br><span class="line">boom_obj = itchat.search_friends(remarkName = boom_remark_name)[<span class="number">0</span>][<span class="string">&#x27;UserName&#x27;</span>]</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">	time.sleep(<span class="number">0.5</span>)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&#x27;消息已经发送&#x27;</span>)</span><br><span class="line">	itchat.send_msg(msg=message, toUserName=boom_obj)</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -318,7 +318,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/20289.html" title="Python实现微信自动消息发送：如何用脚本自动发送信息给好友">https://lengmo714.top/20289.html</a>
+    <a href="https://lengmo714.top/20289.html" title="Python itchat 发送微信提醒：登录、查找联系人与单次消息示例">https://lengmo714.top/20289.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -330,6 +330,8 @@
           
           <div class="post-tags">
               <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+              <a href="/tags/%E5%BE%AE%E4%BF%A1/" rel="tag"><i class="fa fa-tag"></i> 微信</a>
+              <a href="/tags/itchat/" rel="tag"><i class="fa fa-tag"></i> itchat</a>
           </div>
 
         
@@ -338,12 +340,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/8861.html" rel="prev" title="Building an End-of-Workday Countdown with Tkinter">
-      <i class="fa fa-chevron-left"></i> Building an End-of-Workday Countdown with Tkinter
+    <a href="/en/8861.html" rel="prev" title="Python Tkinter Workday Countdown: Live Timer, Reminder and Scheduling">
+      <i class="fa fa-chevron-left"></i> Python Tkinter Workday Countdown: Live Timer, Reminder and Scheduling
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/20289.html" rel="next" title="Sending a One-Time WeChat Reminder with Python">
-      Sending a One-Time WeChat Reminder with Python <i class="fa fa-chevron-right"></i>
+    <a href="/en/20289.html" rel="next" title="Send a One-Time WeChat Reminder with Python and itchat">
+      Send a One-Time WeChat Reminder with Python and itchat <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -429,13 +431,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="数据手套的设计与实现：虚拟现实中的人机交互应用">
+  <meta name="description" content="基于 STM32F103、弯曲传感器、MPU6050、HC-05 和 TFT 设计数据手套，结合 µC&#x2F;OS-II 实现机械臂控制与虚拟手动作映射。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据手套的设计与实现：虚拟现实中的人机交互应用">
+<meta property="og:title" content="基于 STM32 的数据手套设计：弯曲传感器、MPU6050 与蓝牙">
 <meta property="og:url" content="https://lengmo714.top/33907.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="数据手套的设计与实现：虚拟现实中的人机交互应用">
+<meta property="og:description" content="基于 STM32F103、弯曲传感器、MPU6050、HC-05 和 TFT 设计数据手套，结合 µC&#x2F;OS-II 实现机械臂控制与虚拟手动作映射。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqy9DP.png">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqyuD0.png">
@@ -45,24 +45,11 @@
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqy15F.png">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqy8C4.png">
 <meta property="article:published_time" content="2017-06-14T22:27:28.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:34:14.667Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="ios">
-<meta property="article:tag" content="android">
-<meta property="article:tag" content="游戏开发">
-<meta property="article:tag" content="quick-cocos">
-<meta property="article:tag" content="游戏上架">
-<meta property="article:tag" content="cocoscreater">
-<meta property="article:tag" content="c语言">
-<meta property="article:tag" content="C++">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="cocos2dx">
-<meta property="article:tag" content="Lua">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="数据手套">
-<meta property="article:tag" content="嵌入式开发">
-<meta property="article:tag" content="stem32">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="STM32">
+<meta property="article:tag" content="传感器">
+<meta property="article:tag" content="人机交互">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s1.ax1x.com/2022/11/03/xqy9DP.png">
 
@@ -78,7 +65,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/33907.html#article","headline":"数据手套的设计与实现：虚拟现实中的人机交互应用","description":"数据手套的设计与实现：虚拟现实中的人机交互应用","datePublished":"2017-06-14T22:27:28.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/33907.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["嵌入式开发"],"keywords":"","wordCount":37,"image":["https://s1.ax1x.com/2022/11/03/xqy9DP.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/33907.html#article","headline":"基于 STM32 的数据手套设计：弯曲传感器、MPU6050 与蓝牙","description":"基于 STM32F103、弯曲传感器、MPU6050、HC-05 和 TFT 设计数据手套，结合 µC/OS-II 实现机械臂控制与虚拟手动作映射。","datePublished":"2017-06-14T22:27:28.000Z","dateModified":"2026-07-31T09:34:14.667Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/33907.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["嵌入式开发"],"keywords":"STM32, 传感器, 人机交互","wordCount":37,"image":["https://s1.ax1x.com/2022/11/03/xqy9DP.png"]}</script>
 
 
 
@@ -94,7 +81,7 @@
   };
 </script>
 
-  <title>数据手套的设计与实现：虚拟现实中的人机交互应用 | 南锋</title>
+  <title>基于 STM32 的数据手套设计：弯曲传感器、MPU6050 与蓝牙 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -275,7 +262,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          数据手套的设计与实现：虚拟现实中的人机交互应用
+          基于 STM32 的数据手套设计：弯曲传感器、MPU6050 与蓝牙
         </h1>
 
         <div class="post-meta">
@@ -290,7 +277,7 @@
             </span>
 
           
-            <div class="post-description">数据手套的设计与实现：虚拟现实中的人机交互应用</div>
+            <div class="post-description">基于 STM32F103、弯曲传感器、MPU6050、HC-05 和 TFT 设计数据手套，结合 µC/OS-II 实现机械臂控制与虚拟手动作映射。</div>
 
         </div>
       </header>
@@ -406,7 +393,7 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/33907.html" title="数据手套的设计与实现：虚拟现实中的人机交互应用">https://lengmo714.top/33907.html</a>
+    <a href="https://lengmo714.top/33907.html" title="基于 STM32 的数据手套设计：弯曲传感器、MPU6050 与蓝牙">https://lengmo714.top/33907.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -415,6 +402,12 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
 </div>
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/STM32/" rel="tag"><i class="fa fa-tag"></i> STM32</a>
+              <a href="/tags/%E4%BC%A0%E6%84%9F%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 传感器</a>
+              <a href="/tags/%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92/" rel="tag"><i class="fa fa-tag"></i> 人机交互</a>
+          </div>
 
         
 
@@ -422,12 +415,12 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/56859.html" rel="prev" title="Connecting Two HC-05 Bluetooth Modules">
-      <i class="fa fa-chevron-left"></i> Connecting Two HC-05 Bluetooth Modules
+    <a href="/en/56859.html" rel="prev" title="HC-05 Master-Slave Communication: AT Setup, Pairing and UART Test">
+      <i class="fa fa-chevron-left"></i> HC-05 Master-Slave Communication: AT Setup, Pairing and UART Test
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/33907.html" rel="next" title="Design and Implementation of a Sensor Data Glove">
-      Design and Implementation of a Sensor Data Glove <i class="fa fa-chevron-right"></i>
+    <a href="/en/33907.html" rel="next" title="STM32 Sensor Data Glove: Flex Sensors, MPU6050 and Bluetooth">
+      STM32 Sensor Data Glove: Flex Sensors, MPU6050 and Bluetooth <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -514,13 +507,13 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

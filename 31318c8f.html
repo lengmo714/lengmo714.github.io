@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="cocosCreator动态刷新Label">
+  <meta name="description" content="解决 Cocos Creator 修改 Label.string 后 UITransform 尺寸仍是旧值的问题，对比等待下一帧和调用 updateRenderData(true) 后立即读取 contentSize。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cocosCreator动态刷新Label长度的两种解决方法">
+<meta property="og:title" content="Cocos Creator 修改 Label 后尺寸未更新：updateRenderData 与下一帧读取">
 <meta property="og:url" content="https://lengmo714.top/31318c8f.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="cocosCreator动态刷新Label">
+<meta property="og:description" content="解决 Cocos Creator 修改 Label.string 后 UITransform 尺寸仍是旧值的问题，对比等待下一帧和调用 updateRenderData(true) 后立即读取 contentSize。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-23T16:00:43.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:10:35.630Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="cocosCreator">
 <meta name="twitter:card" content="summary">
@@ -47,10 +47,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/31318c8f.html#article","headline":"cocosCreator动态刷新Label长度的两种解决方法","description":"cocosCreator动态刷新Label","datePublished":"2024-01-23T16:00:43.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/31318c8f.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":13,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/31318c8f.html#article","headline":"Cocos Creator 修改 Label 后尺寸未更新：updateRenderData 与下一帧读取","description":"解决 Cocos Creator 修改 Label.string 后 UITransform 尺寸仍是旧值的问题，对比等待下一帧和调用 updateRenderData(true) 后立即读取 contentSize。","datePublished":"2024-01-23T16:00:43.000Z","dateModified":"2026-07-31T09:10:35.630Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/31318c8f.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":17}</script>
 
 
 
@@ -66,7 +63,7 @@
   };
 </script>
 
-  <title>cocosCreator动态刷新Label长度的两种解决方法 | 南锋</title>
+  <title>Cocos Creator 修改 Label 后尺寸未更新：updateRenderData 与下一帧读取 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +244,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          cocosCreator动态刷新Label长度的两种解决方法
+          Cocos Creator 修改 Label 后尺寸未更新：updateRenderData 与下一帧读取
         </h1>
 
         <div class="post-meta">
@@ -262,7 +259,7 @@
             </span>
 
           
-            <div class="post-description">cocosCreator动态刷新Label</div>
+            <div class="post-description">解决 Cocos Creator 修改 Label.string 后 UITransform 尺寸仍是旧值的问题，对比等待下一帧和调用 updateRenderData(true) 后立即读取 contentSize。</div>
 
         </div>
       </header>
@@ -279,9 +276,10 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>在游戏开发的过程中，<code>Label</code>是一个常用的组件，而且在使用的过程中也是经常动态的修改<code>Label</code>并获取其长度。<br>但是我们在获取长度的时候会发现，获取到的字符长度是修改前的，并非修改后我们想要获取的那个字符的长度。</p>
+<h2 id="修改-Label-后立即获取最新尺寸"><a href="#修改-Label-后立即获取最新尺寸" class="headerlink" title="修改 Label 后立即获取最新尺寸"></a>修改 Label 后立即获取最新尺寸</h2><p>在游戏开发过程中，经常需要动态修改 <code>Label</code> 并获取更新后的尺寸。<br>但是我们在获取长度的时候会发现，获取到的字符长度是修改前的，并非修改后我们想要获取的那个字符的长度。</p>
 <p>这时有两个办法可以解决：<br><strong>1</strong> 使用定时器<br>使用定时器，在下一帧的时候刷新<code>Label</code>并获取它的长度<br><strong>2</strong> 使用<code>updateRenderData(true)</code>刷新（推荐使用该方法）<br>示例代码：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">label.<span class="property">node</span>.<span class="title function_">getComponent</span>(<span class="title class_">Label</span>).<span class="title function_">updateRenderData</span>(<span class="literal">true</span>);</span><br><span class="line"><span class="keyword">let</span> size = label.<span class="property">node</span>.<span class="title function_">getComponent</span>(<span class="title class_">UITransform</span>);</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -316,7 +314,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/31318c8f.html" title="cocosCreator动态刷新Label长度的两种解决方法">https://lengmo714.top/31318c8f.html</a>
+    <a href="https://lengmo714.top/31318c8f.html" title="Cocos Creator 修改 Label 后尺寸未更新：updateRenderData 与下一帧读取">https://lengmo714.top/31318c8f.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -336,12 +334,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/31318c8f.html" rel="prev" title="Refreshing Label Size in Cocos Creator">
-      <i class="fa fa-chevron-left"></i> Refreshing Label Size in Cocos Creator
+    <a href="/en/31318c8f.html" rel="prev" title="Cocos Creator Label Size Not Updated: updateRenderData and Next Frame">
+      <i class="fa fa-chevron-left"></i> Cocos Creator Label Size Not Updated: updateRenderData and Next Frame
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/db08b38f.html" rel="next" title="Fixing getGFXTexture Null Errors in Cocos Creator">
-      Fixing getGFXTexture Null Errors in Cocos Creator <i class="fa fa-chevron-right"></i>
+    <a href="/en/db08b38f.html" rel="next" title="Fix Cocos Creator Cannot Read Properties of Null (reading getGFXTexture)">
+      Fix Cocos Creator Cannot Read Properties of Null (reading getGFXTexture) <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -401,6 +399,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-Label-%E5%90%8E%E7%AB%8B%E5%8D%B3%E8%8E%B7%E5%8F%96%E6%9C%80%E6%96%B0%E5%B0%BA%E5%AF%B8"><span class="nav-number">1.</span> <span class="nav-text">修改 Label 后立即获取最新尺寸</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -427,13 +426,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

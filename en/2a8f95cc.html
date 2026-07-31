@@ -22,17 +22,17 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Restore Cocos Creator hot-update search paths during iOS startup so the app loads the updated code after restarting.">
+  <meta name="description" content="Fix a Cocos Creator 3.x iOS hot update that reaches 100% but still loads old code after restart by restoring the hot-update search paths correctly.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Fixing a Cocos Creator iOS Hot Update That Still Runs Old Code">
+<meta property="og:title" content="Cocos Creator iOS Hot Update Completes but Still Runs Old Code: How to Fix It">
 <meta property="og:url" content="https://lengmo714.top/en/2a8f95cc.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Restore Cocos Creator hot-update search paths during iOS startup so the app loads the updated code after restarting.">
+<meta property="og:description" content="Fix a Cocos Creator 3.x iOS hot update that reaches 100% but still loads old code after restart by restoring the hot-update search paths correctly.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lengmo714.top/postImg/2a8f95cc/1.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/2a8f95cc/2.png">
 <meta property="article:published_time" content="2026-06-17T07:18:59.000Z">
-<meta property="article:modified_time" content="2026-07-30T03:58:25.400Z">
+<meta property="article:modified_time" content="2026-07-31T07:57:34.656Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="iOS">
@@ -52,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/2a8f95cc.html#article","headline":"Fixing a Cocos Creator iOS Hot Update That Still Runs Old Code","description":"Restore Cocos Creator hot-update search paths during iOS startup so the app loads the updated code after restarting.","datePublished":"2026-06-17T07:18:59.000Z","dateModified":"2026-07-30T03:58:25.400Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/2a8f95cc.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, iOS, Hot Update","wordCount":328,"image":["https://lengmo714.top/postImg/2a8f95cc/1.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/2a8f95cc.html#article","headline":"Cocos Creator iOS Hot Update Completes but Still Runs Old Code: How to Fix It","description":"Fix a Cocos Creator 3.x iOS hot update that reaches 100% but still loads old code after restart by restoring the hot-update search paths correctly.","datePublished":"2026-06-17T07:18:59.000Z","dateModified":"2026-07-31T07:57:34.656Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/2a8f95cc.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, iOS, Hot Update","wordCount":333,"image":["https://lengmo714.top/postImg/2a8f95cc/1.png"]}</script>
 
 
 
@@ -68,7 +68,7 @@
   };
 </script>
 
-  <title>Fixing a Cocos Creator iOS Hot Update That Still Runs Old Code | 南锋</title>
+  <title>Cocos Creator iOS Hot Update Completes but Still Runs Old Code: How to Fix It | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -249,7 +249,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Fixing a Cocos Creator iOS Hot Update That Still Runs Old Code
+          Cocos Creator iOS Hot Update Completes but Still Runs Old Code: How to Fix It
         </h1>
 
         <div class="post-meta">
@@ -264,7 +264,7 @@
             </span>
 
           
-            <div class="post-description">Restore Cocos Creator hot-update search paths during iOS startup so the app loads the updated code after restarting.</div>
+            <div class="post-description">Fix a Cocos Creator 3.x iOS hot update that reaches 100% but still loads old code after restart by restoring the hot-update search paths correctly.</div>
 
         </div>
       </header>
@@ -279,8 +279,8 @@
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-<p>This hot-update implementation was already working correctly on Android, so I reused it on iOS without much concern. The update reached 100%, and I was happy when the app restarted—until I realized that it was still running the old code.</p>
-<h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><h3 id="Common-Cocos-3-x-issue-point-the-update-path-at-the-assets-root"><a href="#Common-Cocos-3-x-issue-point-the-update-path-at-the-assets-root" class="headerlink" title="Common Cocos 3.x issue: point the update path at the assets root"></a>Common Cocos 3.x issue: point the update path at the assets root</h3><p>My source path was <code>-s $&#123;path.join(result.dest, resdir)&#125;</code>:</p>
+<p>A hot-update implementation that worked on Android reached 100% and restarted successfully on iOS, but the game continued running old code. The updated files may already be on disk; the usual cause is that iOS startup did not restore the hot-update search paths before loading bundled resources.</p>
+<h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><h2 id="Check-the-Cocos-Creator-3-x-Hot-Update-Directory"><a href="#Check-the-Cocos-Creator-3-x-Hot-Update-Directory" class="headerlink" title="Check the Cocos Creator 3.x Hot-Update Directory"></a>Check the Cocos Creator 3.x Hot-Update Directory</h2><p>My source path was <code>-s $&#123;path.join(result.dest, resdir)&#125;</code>:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.<span class="property">onAfterBuild</span> = <span class="keyword">function</span> (<span class="params">options, result</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> resdir = <span class="string">&#x27;assets&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (fs.<span class="title function_">existsSync</span>(path.<span class="title function_">join</span>(result.<span class="property">dest</span>, <span class="string">&#x27;data&#x27;</span>))) &#123;</span><br><span class="line">        resdir = <span class="string">&#x27;data&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> cmd = <span class="string">`node version_generator.js -v <span class="subst">$&#123;game_version&#125;</span> -u https://lengmo714/<span class="subst">$&#123;game_version&#125;</span>/ -s <span class="subst">$&#123;path.join(result.dest, resdir)&#125;</span> -d <span class="subst">$&#123;path.join(Editor.Project.path, <span class="string">&quot;assets\\resources&quot;</span>)&#125;</span>`</span></span><br><span class="line"></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="string">&quot;Hot update path:&quot;</span>, cmd);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">exec</span>(cmd, &#123; <span class="attr">cwd</span>: <span class="title class_">Editor</span>.<span class="property">Project</span>.<span class="property">path</span> &#125;, <span class="function">(<span class="params">err, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!err) <span class="keyword">return</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>On iOS, the build path is usually:</p>
@@ -293,7 +293,7 @@
 <p><img src="/postImg/2a8f95cc/1.png" alt="Incorrect hot-update path" decoding="async" loading="eager" fetchpriority="high"></p>
 <p>After correcting it, the path was right:</p>
 <p><img src="/postImg/2a8f95cc/2.png" alt="Correct hot-update path" decoding="async" loading="lazy"></p>
-<h3 id="The-key-issue"><a href="#The-key-issue" class="headerlink" title="The key issue"></a>The key issue</h3><p>Correcting the path did not solve the problem, which meant it was not the root cause. The update-completion code was:</p>
+<h2 id="Restore-searchPaths-After-the-App-Restarts"><a href="#Restore-searchPaths-After-the-App-Restarts" class="headerlink" title="Restore searchPaths After the App Restarts"></a>Restore searchPaths After the App Restarts</h2><p>Correcting the path did not solve the problem, which meant it was not the root cause. The update-completion code was:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">_am</span>.<span class="title function_">setEventCallback</span>(<span class="literal">null</span>!);</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">_updateListener</span> = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> searchPaths = jsb.<span class="property">fileUtils</span>.<span class="title function_">getSearchPaths</span>();</span><br><span class="line"><span class="keyword">var</span> newPaths = <span class="variable language_">this</span>.<span class="property">_am</span>.<span class="title function_">getLocalManifest</span>().<span class="title function_">getSearchPaths</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;---- newPaths&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(newPaths));</span><br><span class="line"><span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">unshift</span>.<span class="title function_">apply</span>(searchPaths, newPaths);</span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;HotUpdateSearchPaths&#x27;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(searchPaths));</span><br><span class="line">jsb.<span class="property">fileUtils</span>.<span class="title function_">setSearchPaths</span>(searchPaths);</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    game.<span class="title function_">restart</span>();</span><br><span class="line">&#125;, <span class="number">100</span>)</span><br></pre></td></tr></table></figure>
 
 <p>I called <code>setSearchPaths</code> only when the update finished. After the restart, I did not restore those paths early in the game startup process, so iOS continued loading the old code.</p>
@@ -336,7 +336,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/2a8f95cc.html" title="Fixing a Cocos Creator iOS Hot Update That Still Runs Old Code">https://lengmo714.top/en/2a8f95cc.html</a>
+    <a href="https://lengmo714.top/en/2a8f95cc.html" title="Cocos Creator iOS Hot Update Completes but Still Runs Old Code: How to Fix It">https://lengmo714.top/en/2a8f95cc.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -358,12 +358,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2a8f95cc.html" rel="prev" title="cocosCreator导出IOS工程热更后依然走旧逻辑的问题">
-      <i class="fa fa-chevron-left"></i> cocosCreator导出IOS工程热更后依然走旧逻辑的问题
+    <a href="/2a8f95cc.html" rel="prev" title="Cocos Creator 3.x iOS 热更新成功后仍运行旧代码的解决方法">
+      <i class="fa fa-chevron-left"></i> Cocos Creator 3.x iOS 热更新成功后仍运行旧代码的解决方法
     </a></div>
       <div class="post-nav-item">
-    <a href="/53dce82e.html" rel="next" title="安卓手机如何直接安装aab包">
-      安卓手机如何直接安装aab包 <i class="fa fa-chevron-right"></i>
+    <a href="/53dce82e.html" rel="next" title="Android AAB 怎么安装到手机：Bundletool 转 APKS / Universal APK 教程">
+      Android AAB 怎么安装到手机：Bundletool 转 APKS / Universal APK 教程 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -423,7 +423,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Troubleshooting"><span class="nav-number">1.</span> <span class="nav-text">Troubleshooting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Common-Cocos-3-x-issue-point-the-update-path-at-the-assets-root"><span class="nav-number">1.1.</span> <span class="nav-text">Common Cocos 3.x issue: point the update path at the assets root</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-key-issue"><span class="nav-number">1.2.</span> <span class="nav-text">The key issue</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Troubleshooting"><span class="nav-number">1.</span> <span class="nav-text">Troubleshooting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Check-the-Cocos-Creator-3-x-Hot-Update-Directory"><span class="nav-number">2.</span> <span class="nav-text">Check the Cocos Creator 3.x Hot-Update Directory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Restore-searchPaths-After-the-App-Restarts"><span class="nav-number">3.</span> <span class="nav-text">Restore searchPaths After the App Restarts</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -450,13 +450,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

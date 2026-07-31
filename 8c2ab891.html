@@ -22,33 +22,20 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="如何在HTML文件的指定位置插入文本">
+  <meta name="description" content="使用 Python BeautifulSoup 自动修改 Cocos Creator 导出的 index.html，在指定标签前后插入脚本、样式和加载节点，并处理重复执行问题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何在HTML文件的指定位置插入文本 | 实用技巧">
+<meta property="og:title" content="Python BeautifulSoup 修改 HTML：插入脚本、样式与加载节点">
 <meta property="og:url" content="https://lengmo714.top/8c2ab891.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="如何在HTML文件的指定位置插入文本">
+<meta property="og:description" content="使用 Python BeautifulSoup 自动修改 Cocos Creator 导出的 index.html，在指定标签前后插入脚本、样式和加载节点，并处理重复执行问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png">
 <meta property="article:published_time" content="2024-07-16T12:34:02.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T10:10:38.278Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="ios">
-<meta property="article:tag" content="android">
-<meta property="article:tag" content="游戏开发">
-<meta property="article:tag" content="quick-cocos">
-<meta property="article:tag" content="游戏上架">
-<meta property="article:tag" content="cocoscreater">
-<meta property="article:tag" content="c语言">
-<meta property="article:tag" content="C++">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="cocos2dx">
-<meta property="article:tag" content="Lua">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="数据手套">
-<meta property="article:tag" content="嵌入式开发">
-<meta property="article:tag" content="stem32">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="HTML">
+<meta property="article:tag" content="BeautifulSoup">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png">
 
@@ -64,7 +51,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/8c2ab891.html#article","headline":"如何在HTML文件的指定位置插入文本 | 实用技巧","description":"如何在HTML文件的指定位置插入文本","datePublished":"2024-07-16T12:34:02.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/8c2ab891.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["日常代码","Python应用"],"keywords":"","wordCount":320,"image":["https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/8c2ab891.html#article","headline":"Python BeautifulSoup 修改 HTML：插入脚本、样式与加载节点","description":"使用 Python BeautifulSoup 自动修改 Cocos Creator 导出的 index.html，在指定标签前后插入脚本、样式和加载节点，并处理重复执行问题。","datePublished":"2024-07-16T12:34:02.000Z","dateModified":"2026-07-31T10:10:38.278Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/8c2ab891.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["日常代码","Python应用"],"keywords":"Python, HTML, BeautifulSoup","wordCount":321,"image":["https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png"]}</script>
 
 
 
@@ -80,7 +67,7 @@
   };
 </script>
 
-  <title>如何在HTML文件的指定位置插入文本 | 实用技巧 | 南锋</title>
+  <title>Python BeautifulSoup 修改 HTML：插入脚本、样式与加载节点 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -261,7 +248,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          如何在HTML文件的指定位置插入文本 | 实用技巧
+          Python BeautifulSoup 修改 HTML：插入脚本、样式与加载节点
         </h1>
 
         <div class="post-meta">
@@ -280,7 +267,7 @@
             </span>
 
           
-            <div class="post-description">如何在HTML文件的指定位置插入文本</div>
+            <div class="post-description">使用 Python BeautifulSoup 自动修改 Cocos Creator 导出的 index.html，在指定标签前后插入脚本、样式和加载节点，并处理重复执行问题。</div>
 
         </div>
       </header>
@@ -299,15 +286,15 @@
 </script>
 
 <p>要在 HTML 文件的指定位置插入指定的文本，可以使用 <code>Python</code> 的 <code>BeautifulSoup</code> 库。</p>
-<h3 id="安装库"><a href="#安装库" class="headerlink" title="安装库"></a>安装库</h3><p>首先，安装 <code>BeautifulSoup</code> 和 <code>lxml</code>：</p>
+<h2 id="安装-BeautifulSoup"><a href="#安装-BeautifulSoup" class="headerlink" title="安装 BeautifulSoup"></a>安装 BeautifulSoup</h2><p>首先，安装 <code>BeautifulSoup</code> 和 <code>lxml</code>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install BeautifulSoup</span><br></pre></td></tr></table></figure>
 
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>我这里是在<code>index.html</code>中的<code>&lt;head&gt;</code>和<code>&lt;body&gt;</code>中添加了一些代码。完整代码如下：</p>
+<h2 id="完整脚本"><a href="#完整脚本" class="headerlink" title="完整脚本"></a>完整脚本</h2><p>我这里是在<code>index.html</code>中的<code>&lt;head&gt;</code>和<code>&lt;body&gt;</code>中添加了一些代码。完整代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">insert_code_in_html</span>(<span class="params">file_path</span>):</span><br><span class="line">    head_code = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    &lt;script src=&quot;https://telegram.org/js/telegram-web-app.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">    &lt;style&gt;</span></span><br><span class="line"><span class="string">        body, html &#123;</span></span><br><span class="line"><span class="string">            height: 100%;</span></span><br><span class="line"><span class="string">            margin: 0;</span></span><br><span class="line"><span class="string">            display: flex;</span></span><br><span class="line"><span class="string">            justify-content: center;</span></span><br><span class="line"><span class="string">            align-items: center;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        #GameDiv &#123;</span></span><br><span class="line"><span class="string">            display: flex;</span></span><br><span class="line"><span class="string">            justify-content: center;</span></span><br><span class="line"><span class="string">            align-items: center;</span></span><br><span class="line"><span class="string">            width: 100%;</span></span><br><span class="line"><span class="string">            height: 100%;</span></span><br><span class="line"><span class="string">            position: absolute;</span></span><br><span class="line"><span class="string">            top: 0;</span></span><br><span class="line"><span class="string">            left: 0;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        #Cocos3dGameContainer &#123;</span></span><br><span class="line"><span class="string">            width: 100%;</span></span><br><span class="line"><span class="string">            height: 100%;</span></span><br><span class="line"><span class="string">            display: flex;</span></span><br><span class="line"><span class="string">            justify-content: center;</span></span><br><span class="line"><span class="string">            align-items: center;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        #GameCanvas &#123;</span></span><br><span class="line"><span class="string">            width: 100%;</span></span><br><span class="line"><span class="string">            height: 100%;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        #loading-animation &#123;</span></span><br><span class="line"><span class="string">            display: flex;</span></span><br><span class="line"><span class="string">            justify-content: center;</span></span><br><span class="line"><span class="string">            align-items: center;</span></span><br><span class="line"><span class="string">            position: absolute;</span></span><br><span class="line"><span class="string">            top: calc(50% - 200px);</span></span><br><span class="line"><span class="string">            left: 50%;</span></span><br><span class="line"><span class="string">            transform: translate(-50%, -50%);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        #loading-text &#123;</span></span><br><span class="line"><span class="string">            display: flex;</span></span><br><span class="line"><span class="string">            justify-content: center;</span></span><br><span class="line"><span class="string">            align-items: center;</span></span><br><span class="line"><span class="string">            color: white;</span></span><br><span class="line"><span class="string">            font-size: 20px;</span></span><br><span class="line"><span class="string">            position: absolute;</span></span><br><span class="line"><span class="string">            top: calc(50% - 80px);</span></span><br><span class="line"><span class="string">            left: 50%;</span></span><br><span class="line"><span class="string">            transform: translate(-50%, -50%);</span></span><br><span class="line"><span class="string">            width: 80%;</span></span><br><span class="line"><span class="string">            text-align: center;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &lt;/style&gt;</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    body_code = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    &lt;div id=&quot;loading-animation&quot;&gt;</span></span><br><span class="line"><span class="string">        &lt;img src=&quot;web.png&quot; alt=&quot;Loading...&quot; style=&quot;width: 100%; height: 100%;&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;div id=&quot;loading-text&quot;&gt;Loading may take a few seconds for the first time. Please be patient.&lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;script&gt;</span></span><br><span class="line"><span class="string">        const tg = window.Telegram.WebApp;</span></span><br><span class="line"><span class="string">        tg.isClosingConfirmationEnabled = true;</span></span><br><span class="line"><span class="string">    &lt;/script&gt;</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 读取 HTML 文件内容</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        soup = BeautifulSoup(file, <span class="string">&#x27;lxml&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在 &lt;head&gt; 中插入代码</span></span><br><span class="line">    <span class="keyword">if</span> soup.head:</span><br><span class="line">        soup.head.append(BeautifulSoup(head_code, <span class="string">&#x27;html.parser&#x27;</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;&lt;head&gt; 标签未找到。&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在 &lt;body&gt; 中插入代码</span></span><br><span class="line">    <span class="keyword">if</span> soup.body:</span><br><span class="line">        soup.body.append(BeautifulSoup(body_code, <span class="string">&#x27;html.parser&#x27;</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;&lt;body&gt; 标签未找到。&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将修改后的 HTML 写回文件</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        file.write(<span class="built_in">str</span>(soup))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例用法</span></span><br><span class="line">file_path = <span class="string">&#x27;web-mobile/index.html&#x27;</span></span><br><span class="line">insert_code_in_html(file_path)</span><br></pre></td></tr></table></figure>
 <p>由于自己太懒，连代码都不想运行，于是乎，直接将上面python脚本导出了一个<code>.exe</code>可执行文件，每次只要双击改执行文件就行了。</p>
-<h3 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h3><p>运行的时候报下面错：</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>运行的时候报下面错：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;.\html.py&quot;, line 1, in &lt;module&gt;</span><br><span class="line">    from bs4 import BeautifulSoup</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\__init__.py&quot;, line 37, in &lt;module&gt;</span><br><span class="line">    from .builder import (</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\builder\__init__.py&quot;, line 9, in &lt;module&gt;</span><br><span class="line">    from bs4.element import (</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\element.py&quot;, line 13, in &lt;module&gt;</span><br><span class="line">    from bs4.formatter import (</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\formatter.py&quot;, line 1, in &lt;module&gt;</span><br><span class="line">    from bs4.dammit import EntitySubstitution</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\dammit.py&quot;, line 12, in &lt;module&gt;</span><br><span class="line">    from html.entities import codepoint2name</span><br><span class="line">  File &quot;E:\Project_D_tg\build\html.py&quot;, line 1, in &lt;module&gt;</span><br><span class="line">    from bs4 import BeautifulSoup</span><br><span class="line">ImportError: cannot import name &#x27;BeautifulSoup&#x27; from partially initialized module &#x27;bs4&#x27; (most likely due to a circular import) (C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\__init__.py)</span><br></pre></td></tr></table></figure>
-<p>如下图：<br><img src="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png" decoding="async" loading="eager" fetchpriority="high" alt="如何在HTML文件的指定位置插入文本 | 实用技巧 — 踩坑"></p>
+<p>如下图：<br><img src="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png" decoding="async" loading="eager" fetchpriority="high" alt="Python BeautifulSoup 修改 HTML：插入脚本、样式与加载节点 — 常见问题"></p>
 <p><strong>解决方案：</strong> python文件名的问题，因为我的python脚本命名为<code>html.py</code>，这里的<code>html</code>和代码里面的<code>html</code>冲突，所以导致报错，这里只需要修改python的文件名即可。</p>
 <blockquote>
 <p>好吧，表示自己第一次遇到这种因为文件名报错的情况。</p>
@@ -347,7 +334,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/8c2ab891.html" title="如何在HTML文件的指定位置插入文本 | 实用技巧">https://lengmo714.top/8c2ab891.html</a>
+    <a href="https://lengmo714.top/8c2ab891.html" title="Python BeautifulSoup 修改 HTML：插入脚本、样式与加载节点">https://lengmo714.top/8c2ab891.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -356,6 +343,12 @@
 </div>
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/HTML/" rel="tag"><i class="fa fa-tag"></i> HTML</a>
+              <a href="/tags/BeautifulSoup/" rel="tag"><i class="fa fa-tag"></i> BeautifulSoup</a>
+          </div>
 
         
 
@@ -363,12 +356,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/39e5712d.html" rel="prev" title="Fixing Stale Cache in a Telegram Web App Built with Cocos Creator">
-      <i class="fa fa-chevron-left"></i> Fixing Stale Cache in a Telegram Web App Built with Cocos Creator
+    <a href="/en/39e5712d.html" rel="prev" title="Fix Stale Telegram Web App Assets with Cocos Creator MD5 Cache">
+      <i class="fa fa-chevron-left"></i> Fix Stale Telegram Web App Assets with Cocos Creator MD5 Cache
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/8c2ab891.html" rel="next" title="Inserting Content into HTML with Beautiful Soup">
-      Inserting Content into HTML with Beautiful Soup <i class="fa fa-chevron-right"></i>
+    <a href="/en/8c2ab891.html" rel="next" title="Edit HTML with Python Beautiful Soup: Insert Scripts, Styles and Markup">
+      Edit HTML with Python Beautiful Soup: Insert Scripts, Styles and Markup <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -428,7 +421,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">安装库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B8%A9%E5%9D%91"><span class="nav-number">3.</span> <span class="nav-text">踩坑</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-BeautifulSoup"><span class="nav-number">1.</span> <span class="nav-text">安装 BeautifulSoup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E8%84%9A%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">完整脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">常见问题</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -455,13 +448,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

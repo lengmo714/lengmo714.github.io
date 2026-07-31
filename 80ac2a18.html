@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="如何使用Telegram支付功能">
+  <meta name="description" content="使用 Telegram Bot Payments 接入 Stripe，获取支付 Provider Token，通过 grammY 发送 invoice，并处理 pre_checkout_query 与 successful_payment 回调。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何使用Telegram支付功能：Stripe集成教程与实例">
+<meta property="og:title" content="Telegram Bot Payments：Stripe Token、Invoice 与支付回调">
 <meta property="og:url" content="https://lengmo714.top/80ac2a18.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="如何使用Telegram支付功能">
+<meta property="og:description" content="使用 Telegram Bot Payments 接入 Stripe，获取支付 Provider Token，通过 grammY 发送 invoice，并处理 pre_checkout_query 与 successful_payment 回调。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6683fc51d9c307b7e93f6e86.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6683fc9ad9c307b7e9400c1b.png">
@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/6683fdf9d9c307b7e942f5bb.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6683ff41d9c307b7e945dc03.png">
 <meta property="article:published_time" content="2024-07-02T13:00:18.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T10:07:24.548Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="telegram">
 <meta property="article:tag" content="mini APP">
@@ -57,7 +57,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/80ac2a18.html#article","headline":"如何使用Telegram支付功能：Stripe集成教程与实例","description":"如何使用Telegram支付功能","datePublished":"2024-07-02T13:00:18.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/80ac2a18.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["telegram","mini APP","Game"],"keywords":"telegram, mini APP, Game","wordCount":184,"image":["https://pic.imgdb.cn/item/6683fc51d9c307b7e93f6e86.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/80ac2a18.html#article","headline":"Telegram Bot Payments：Stripe Token、Invoice 与支付回调","description":"使用 Telegram Bot Payments 接入 Stripe，获取支付 Provider Token，通过 grammY 发送 invoice，并处理 pre_checkout_query 与 successful_payment 回调。","datePublished":"2024-07-02T13:00:18.000Z","dateModified":"2026-07-31T10:07:24.548Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/80ac2a18.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["telegram","mini APP","Game"],"keywords":"telegram, mini APP, Game","wordCount":188,"image":["https://pic.imgdb.cn/item/6683fc51d9c307b7e93f6e86.png"]}</script>
 
 
 
@@ -73,7 +73,7 @@
   };
 </script>
 
-  <title>如何使用Telegram支付功能：Stripe集成教程与实例 | 南锋</title>
+  <title>Telegram Bot Payments：Stripe Token、Invoice 与支付回调 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -254,7 +254,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          如何使用Telegram支付功能：Stripe集成教程与实例
+          Telegram Bot Payments：Stripe Token、Invoice 与支付回调
         </h1>
 
         <div class="post-meta">
@@ -277,7 +277,7 @@
             </span>
 
           
-            <div class="post-description">如何使用Telegram支付功能</div>
+            <div class="post-description">使用 Telegram Bot Payments 接入 Stripe，获取支付 Provider Token，通过 grammY 发送 invoice，并处理 pre_checkout_query 与 successful_payment 回调。</div>
 
         </div>
       </header>
@@ -295,9 +295,9 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h3 id="新建机器人"><a href="#新建机器人" class="headerlink" title="新建机器人"></a>新建机器人</h3><p>因为支付是一个单独的系统，所以在做支付的时候单独创建了一个bot，没有用之前的bot了，特意这样将其分开。创建bot的方法和之前不变，这里不过多介绍。</p>
-<h3 id="获取支付token令牌"><a href="#获取支付token令牌" class="headerlink" title="获取支付token令牌"></a>获取支付token令牌</h3><p>机器人创建好后，我们需要获取支付token令牌。步骤如下：<br><strong>1、</strong>在BotFather对话中选择你用来支付的机器人<br><strong>2、</strong>然后选择<code>Payments</code><br><img src="https://pic.imgdb.cn/item/6683fc51d9c307b7e93f6e86.png" alt="然后选择Payments" decoding="async" loading="eager" fetchpriority="high"><br><strong>3、</strong>选择你的支付提供商，我这里选择的是第二个<code>Stripe</code>，你也可以选择其他的，后面的步骤都是在这个选项下进行的。<br><img src="https://pic.imgdb.cn/item/6683fc9ad9c307b7e9400c1b.png" alt="选择你的支付提供商" decoding="async" loading="lazy"><br><strong>4、</strong>选择<code>connect Stripe Test</code>连接测试<br><img src="https://pic.imgdb.cn/item/6683fcc4d9c307b7e9406898.png" alt="connect Stripe Test" decoding="async" loading="lazy"><br><strong>5、</strong>选择后会跳转到<code>Stripe Test Bot</code>支付提供商的测试机器人，点击<code>Authorize</code>按钮<br><img src="https://pic.imgdb.cn/item/6683fd22d9c307b7e9413852.png" alt="测试机器人" decoding="async" loading="lazy"><br><strong>6、</strong>点击后会生成一个链接打开，就能绑定你的bot机器人了。<br><img src="https://pic.imgdb.cn/item/6683fd51d9c307b7e9419921.png" alt="绑定" decoding="async" loading="lazy"><br><strong>7、</strong>再回到第3步，你就会看到你的测试token了，<code>-Stripe Test:</code>后面的一串，因为我生成了3次，所以这里有3个。如下图所示：<br><img src="https://pic.imgdb.cn/item/6683fdf9d9c307b7e942f5bb.png" alt="测试token" decoding="async" loading="lazy"></p>
-<h3 id="代码逻辑实现"><a href="#代码逻辑实现" class="headerlink" title="代码逻辑实现"></a>代码逻辑实现</h3><p>示例代码：</p>
+<h2 id="创建机器人"><a href="#创建机器人" class="headerlink" title="创建机器人"></a>创建机器人</h2><p>因为支付是一个单独的系统，所以在做支付的时候单独创建了一个bot，没有用之前的bot了，特意这样将其分开。创建bot的方法和之前不变，这里不过多介绍。</p>
+<h2 id="获取-Stripe-支付-Token"><a href="#获取-Stripe-支付-Token" class="headerlink" title="获取 Stripe 支付 Token"></a>获取 Stripe 支付 Token</h2><p>机器人创建好后，我们需要获取支付token令牌。步骤如下：<br><strong>1、</strong>在BotFather对话中选择你用来支付的机器人<br><strong>2、</strong>然后选择<code>Payments</code><br><img src="https://pic.imgdb.cn/item/6683fc51d9c307b7e93f6e86.png" alt="然后选择Payments" decoding="async" loading="eager" fetchpriority="high"><br><strong>3、</strong>选择你的支付提供商，我这里选择的是第二个<code>Stripe</code>，你也可以选择其他的，后面的步骤都是在这个选项下进行的。<br><img src="https://pic.imgdb.cn/item/6683fc9ad9c307b7e9400c1b.png" alt="选择你的支付提供商" decoding="async" loading="lazy"><br><strong>4、</strong>选择<code>connect Stripe Test</code>连接测试<br><img src="https://pic.imgdb.cn/item/6683fcc4d9c307b7e9406898.png" alt="connect Stripe Test" decoding="async" loading="lazy"><br><strong>5、</strong>选择后会跳转到<code>Stripe Test Bot</code>支付提供商的测试机器人，点击<code>Authorize</code>按钮<br><img src="https://pic.imgdb.cn/item/6683fd22d9c307b7e9413852.png" alt="测试机器人" decoding="async" loading="lazy"><br><strong>6、</strong>点击后会生成一个链接打开，就能绑定你的bot机器人了。<br><img src="https://pic.imgdb.cn/item/6683fd51d9c307b7e9419921.png" alt="绑定" decoding="async" loading="lazy"><br><strong>7、</strong>再回到第3步，你就会看到你的测试token了，<code>-Stripe Test:</code>后面的一串，因为我生成了3次，所以这里有3个。如下图所示：<br><img src="https://pic.imgdb.cn/item/6683fdf9d9c307b7e942f5bb.png" alt="测试token" decoding="async" loading="lazy"></p>
+<h2 id="grammY-支付代码"><a href="#grammY-支付代码" class="headerlink" title="grammY 支付代码"></a>grammY 支付代码</h2><p>示例代码：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Bot</span>, <span class="title class_">InlineKeyboard</span>&#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> botToken = <span class="string">&quot;&quot;</span>; <span class="comment">// 你机器人的token</span></span><br><span class="line"><span class="comment">// 创建bot实例</span></span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(botToken);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用测试提供商Token（例如Stripe的测试密钥）</span></span><br><span class="line"><span class="keyword">const</span> providerToken = <span class="string">&quot;&quot;</span>;  <span class="comment">// 提示提供商的token,就是上面第7步看到的</span></span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">command</span>(<span class="string">&quot;start&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> title = <span class="string">&quot;测试产品&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> description = <span class="string">&quot;这是一个测试产品&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> payload = <span class="string">&quot;test_payload&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> startParameter = <span class="string">&quot;test_start&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> currency = <span class="string">&quot;USD&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> prices = [</span><br><span class="line">      &#123; <span class="attr">label</span>: <span class="string">&quot;测试产品&quot;</span>, <span class="attr">amount</span>: <span class="number">100</span>, <span class="attr">currency</span>: currency &#125;</span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">const</span> photoUrl = <span class="string">&quot;https://api.telegram.org/file/botYOUR_BOT_TOKEN/photos/file_0.jpg&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> payloadData = &#123;</span><br><span class="line">      <span class="attr">chat_id</span>: ctx.<span class="property">chat</span>.<span class="property">id</span>,</span><br><span class="line">      <span class="attr">title</span>: title,</span><br><span class="line">      <span class="attr">description</span>: description,</span><br><span class="line">      <span class="attr">payload</span>: payload,</span><br><span class="line">      <span class="attr">provider_token</span>: providerToken,</span><br><span class="line">      <span class="attr">start_parameter</span>: startParameter,</span><br><span class="line">      <span class="attr">currency</span>: currency,</span><br><span class="line">      <span class="attr">prices</span>: prices,</span><br><span class="line">      <span class="attr">photo_url</span>: photoUrl,</span><br><span class="line">      <span class="attr">need_shipping_address</span>: <span class="literal">false</span>, <span class="comment">// 如果不需要配送地址，请设置为 false</span></span><br><span class="line">      <span class="attr">is_flexible</span>: <span class="literal">false</span>, <span class="comment">// 如果价格不可灵活调整，请设置为 false</span></span><br><span class="line">      <span class="attr">send_phone_number_to_provider</span>: <span class="literal">true</span>, <span class="comment">// 将用户的手机号发送给提供商，可选</span></span><br><span class="line">      <span class="attr">send_email_to_provider</span>: <span class="literal">true</span> <span class="comment">// 将用户的邮箱发送给提供商，可选</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">`https://api.telegram.org/bot<span class="subst">$&#123;botToken&#125;</span>/sendInvoice`</span>, &#123;</span><br><span class="line">      <span class="attr">method</span>: <span class="string">&quot;POST&quot;</span>,</span><br><span class="line">      <span class="attr">headers</span>: &#123;</span><br><span class="line">        <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">body</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(payloadData)</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> data = <span class="keyword">await</span> response.<span class="title function_">json</span>();</span><br><span class="line">    <span class="keyword">if</span> (!data.<span class="property">ok</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">`<span class="subst">$&#123;data.error_code&#125;</span>: <span class="subst">$&#123;data.description&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;发票发送成功:&quot;</span>, data);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;发送发票时出错:&quot;</span>, error.<span class="property">message</span>);</span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">reply</span>(<span class="string">&quot;创建发票失败，请重试。&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">on</span>(<span class="string">&quot;pre_checkout_query&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">await</span> ctx.<span class="title function_">answerPreCheckoutQuery</span>(<span class="literal">true</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">on</span>(<span class="string">&quot;message&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (ctx.<span class="property">message</span>.<span class="property">successful_payment</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;支付成功!&quot;</span>, ctx.<span class="property">message</span>.<span class="property">successful_payment</span>);</span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">reply</span>(<span class="string">&quot;支付成功！感谢您的购买。&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
 <p>将上面代码保存为ts文件，然后执行代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno run --allow-net ts脚本.ts</span><br></pre></td></tr></table></figure>
@@ -337,7 +337,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/80ac2a18.html" title="如何使用Telegram支付功能：Stripe集成教程与实例">https://lengmo714.top/80ac2a18.html</a>
+    <a href="https://lengmo714.top/80ac2a18.html" title="Telegram Bot Payments：Stripe Token、Invoice 与支付回调">https://lengmo714.top/80ac2a18.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -359,12 +359,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/78a7bf41.html" rel="prev" title="Getting Telegram User Profile Information with grammY">
-      <i class="fa fa-chevron-left"></i> Getting Telegram User Profile Information with grammY
+    <a href="/en/78a7bf41.html" rel="prev" title="Get Telegram User Profiles with grammY: ID, Status and Photo URL">
+      <i class="fa fa-chevron-left"></i> Get Telegram User Profiles with grammY: ID, Status and Photo URL
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/80ac2a18.html" rel="next" title="Implementing Telegram Bot Payments with grammY">
-      Implementing Telegram Bot Payments with grammY <i class="fa fa-chevron-right"></i>
+    <a href="/en/80ac2a18.html" rel="next" title="Telegram Bot Payments with grammY: Invoice, Pre-Checkout and Success">
+      Telegram Bot Payments with grammY: Invoice, Pre-Checkout and Success <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -424,7 +424,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="nav-number">1.</span> <span class="nav-text">新建机器人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%94%AF%E4%BB%98token%E4%BB%A4%E7%89%8C"><span class="nav-number">2.</span> <span class="nav-text">获取支付token令牌</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">代码逻辑实现</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="nav-number">1.</span> <span class="nav-text">创建机器人</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-Stripe-%E6%94%AF%E4%BB%98-Token"><span class="nav-number">2.</span> <span class="nav-text">获取 Stripe 支付 Token</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#grammY-%E6%94%AF%E4%BB%98%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">grammY 支付代码</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -451,13 +451,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

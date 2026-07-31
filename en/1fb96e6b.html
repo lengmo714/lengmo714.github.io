@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Create an iOS development certificate, register an App ID and test device, and generate a provisioning profile.">
+  <meta name="description" content="Generate a CSR, create an iOS development certificate and App ID in Apple Developer, register a test device, and build a matching provisioning profile.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="How to Create an iOS Development Certificate">
+<meta property="og:title" content="Create an iOS Development Certificate: CSR, App ID, Device and Profile">
 <meta property="og:url" content="https://lengmo714.top/en/1fb96e6b.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Create an iOS development certificate, register an App ID and test device, and generate a provisioning profile.">
+<meta property="og:description" content="Generate a CSR, create an iOS development certificate and App ID in Apple Developer, register a test device, and build a matching provisioning profile.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lengmo714.top/postImg/1fb96e6b/1.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/1fb96e6b/2.png">
@@ -54,7 +54,7 @@
 <meta property="og:image" content="https://lengmo714.top/postImg/1fb96e6b/23.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/1fb96e6b/24.png">
 <meta property="article:published_time" content="2026-04-16T12:17:49.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:01:52.231Z">
+<meta property="article:modified_time" content="2026-07-31T10:01:26.142Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Xcode">
 <meta property="article:tag" content="iOS">
@@ -73,7 +73,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/1fb96e6b.html#article","headline":"How to Create an iOS Development Certificate","description":"Create an iOS development certificate, register an App ID and test device, and generate a provisioning profile.","datePublished":"2026-04-16T12:17:49.000Z","dateModified":"2026-07-30T04:01:52.231Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/1fb96e6b.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["iOS Development"],"keywords":"Xcode, iOS","wordCount":332,"image":["https://lengmo714.top/postImg/1fb96e6b/1.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/1fb96e6b.html#article","headline":"Create an iOS Development Certificate: CSR, App ID, Device and Profile","description":"Generate a CSR, create an iOS development certificate and App ID in Apple Developer, register a test device, and build a matching provisioning profile.","datePublished":"2026-04-16T12:17:49.000Z","dateModified":"2026-07-31T10:01:26.142Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/1fb96e6b.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["iOS Development"],"keywords":"Xcode, iOS","wordCount":332,"image":["https://lengmo714.top/postImg/1fb96e6b/1.png"]}</script>
 
 
 
@@ -89,7 +89,7 @@
   };
 </script>
 
-  <title>How to Create an iOS Development Certificate | 南锋</title>
+  <title>Create an iOS Development Certificate: CSR, App ID, Device and Profile | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -270,7 +270,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          How to Create an iOS Development Certificate
+          Create an iOS Development Certificate: CSR, App ID, Device and Profile
         </h1>
 
         <div class="post-meta">
@@ -285,7 +285,7 @@
             </span>
 
           
-            <div class="post-description">Create an iOS development certificate, register an App ID and test device, and generate a provisioning profile.</div>
+            <div class="post-description">Generate a CSR, create an iOS development certificate and App ID in Apple Developer, register a test device, and build a matching provisioning profile.</div>
 
         </div>
       </header>
@@ -321,7 +321,7 @@
 <p>Double-click it to import it into Keychain Access:</p>
 <p><img src="/postImg/1fb96e6b/10.png" alt="Import into Keychain" decoding="async" loading="lazy"></p>
 <p>If a trust warning appears, open the certificate in Keychain Access and configure it as trusted.</p>
-<h3 id="Create-an-identifier-App-ID"><a href="#Create-an-identifier-App-ID" class="headerlink" title="Create an identifier (App ID)"></a>Create an identifier (App ID)</h3><p>Click the <code>+</code> button under Identifiers:</p>
+<h2 id="Create-an-Identifier-App-ID"><a href="#Create-an-Identifier-App-ID" class="headerlink" title="Create an Identifier (App ID)"></a>Create an Identifier (App ID)</h2><p>Click the <code>+</code> button under Identifiers:</p>
 <p><img src="/postImg/1fb96e6b/11.png" alt="Create an identifier" decoding="async" loading="lazy"></p>
 <p>Choose <code>App IDs</code>, then continue:</p>
 <p><img src="/postImg/1fb96e6b/12.png" alt="Choose App IDs" decoding="async" loading="lazy"></p>
@@ -337,12 +337,12 @@
 <p><img src="/postImg/1fb96e6b/15.png" alt="Choose the Bundle ID type" decoding="async" loading="lazy"></p>
 <p>Confirm the information and click Register. The new identifier will appear in the Identifiers list:</p>
 <p><img src="/postImg/1fb96e6b/16.png" alt="Registered identifier" decoding="async" loading="lazy"></p>
-<h3 id="Register-a-test-device"><a href="#Register-a-test-device" class="headerlink" title="Register a test device"></a>Register a test device</h3><p>Add a new device:</p>
+<h2 id="Register-a-Test-Device"><a href="#Register-a-Test-Device" class="headerlink" title="Register a Test Device"></a>Register a Test Device</h2><p>Add a new device:</p>
 <p><img src="/postImg/1fb96e6b/17.png" alt="Add a test device" decoding="async" loading="lazy"></p>
 <p>Verify the information and click Register:</p>
 <p><img src="/postImg/1fb96e6b/18.png" alt="Register the device" decoding="async" loading="lazy"></p>
 <p>The device now appears in the Devices list.</p>
-<h3 id="Create-a-provisioning-profile"><a href="#Create-a-provisioning-profile" class="headerlink" title="Create a provisioning profile"></a>Create a provisioning profile</h3><p>Create a new profile:</p>
+<h2 id="Create-a-Provisioning-Profile"><a href="#Create-a-Provisioning-Profile" class="headerlink" title="Create a Provisioning Profile"></a>Create a Provisioning Profile</h2><p>Create a new profile:</p>
 <p><img src="/postImg/1fb96e6b/19.png" alt="Create a provisioning profile" decoding="async" loading="lazy"></p>
 <p>Choose the profile type appropriate for your project:</p>
 <p><img src="/postImg/1fb96e6b/20.png" alt="Choose the profile type" decoding="async" loading="lazy"></p>
@@ -389,7 +389,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/1fb96e6b.html" title="How to Create an iOS Development Certificate">https://lengmo714.top/en/1fb96e6b.html</a>
+    <a href="https://lengmo714.top/en/1fb96e6b.html" title="Create an iOS Development Certificate: CSR, App ID, Device and Profile">https://lengmo714.top/en/1fb96e6b.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -410,12 +410,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/b87ddd87.html" rel="prev" title="How to Find an iPhone UDID">
-      <i class="fa fa-chevron-left"></i> How to Find an iPhone UDID
+    <a href="/en/b87ddd87.html" rel="prev" title="How to Find an iPhone UDID in Finder for Device Registration">
+      <i class="fa fa-chevron-left"></i> How to Find an iPhone UDID in Finder for Device Registration
     </a></div>
       <div class="post-nav-item">
-    <a href="/1fb96e6b.html" rel="next" title="IOS开发:如何申请开发者证书">
-      IOS开发:如何申请开发者证书 <i class="fa fa-chevron-right"></i>
+    <a href="/1fb96e6b.html" rel="next" title="iOS 开发证书申请：CSR、App ID、测试设备与描述文件">
+      iOS 开发证书申请：CSR、App ID、测试设备与描述文件 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -475,7 +475,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-an-identifier-App-ID"><span class="nav-number">1.</span> <span class="nav-text">Create an identifier (App ID)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Register-a-test-device"><span class="nav-number">2.</span> <span class="nav-text">Register a test device</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-provisioning-profile"><span class="nav-number">3.</span> <span class="nav-text">Create a provisioning profile</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-an-Identifier-App-ID"><span class="nav-number">1.</span> <span class="nav-text">Create an Identifier (App ID)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Register-a-Test-Device"><span class="nav-number">2.</span> <span class="nav-text">Register a Test Device</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-a-Provisioning-Profile"><span class="nav-number">3.</span> <span class="nav-text">Create a Provisioning Profile</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -502,13 +502,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

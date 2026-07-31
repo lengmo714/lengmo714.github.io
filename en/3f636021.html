@@ -22,17 +22,17 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Fix repeated Metal sampler binding errors and broken shader rendering in a Cocos Creator iOS build.">
+  <meta name="description" content="Fix the Xcode Metal error Sampler binding cc_spriteTexture at set 2 binding 11 is not bounded and corrupted shader rendering in a Cocos Creator iOS build.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Fixing “Sampler Binding cc_spriteTexture Is Not Bounded”">
+<meta property="og:title" content="Fix Cocos Creator Sampler Binding cc_spriteTexture Is Not Bounded in Xcode">
 <meta property="og:url" content="https://lengmo714.top/en/3f636021.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Fix repeated Metal sampler binding errors and broken shader rendering in a Cocos Creator iOS build.">
+<meta property="og:description" content="Fix the Xcode Metal error Sampler binding cc_spriteTexture at set 2 binding 11 is not bounded and corrupted shader rendering in a Cocos Creator iOS build.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lengmo714.top/postImg/shader/1.jpg">
 <meta property="og:image" content="https://lengmo714.top/postImg/shader/2.jpg">
 <meta property="article:published_time" content="2025-02-27T15:20:49.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:08:51.493Z">
+<meta property="article:modified_time" content="2026-07-31T08:05:43.488Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="Xcode">
@@ -52,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/3f636021.html#article","headline":"Fixing “Sampler Binding cc_spriteTexture Is Not Bounded”","description":"Fix repeated Metal sampler binding errors and broken shader rendering in a Cocos Creator iOS build.","datePublished":"2025-02-27T15:20:49.000Z","dateModified":"2026-07-30T04:08:51.493Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/3f636021.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Xcode"],"keywords":"Cocos Creator, Xcode, Shader","wordCount":87,"image":["https://lengmo714.top/postImg/shader/1.jpg"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/3f636021.html#article","headline":"Fix Cocos Creator Sampler Binding cc_spriteTexture Is Not Bounded in Xcode","description":"Fix the Xcode Metal error Sampler binding cc_spriteTexture at set 2 binding 11 is not bounded and corrupted shader rendering in a Cocos Creator iOS build.","datePublished":"2025-02-27T15:20:49.000Z","dateModified":"2026-07-31T08:05:43.488Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/3f636021.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Xcode"],"keywords":"Cocos Creator, Xcode, Shader","wordCount":91,"image":["https://lengmo714.top/postImg/shader/1.jpg"]}</script>
 
 
 
@@ -68,7 +68,7 @@
   };
 </script>
 
-  <title>Fixing “Sampler Binding cc_spriteTexture Is Not Bounded” | 南锋</title>
+  <title>Fix Cocos Creator Sampler Binding cc_spriteTexture Is Not Bounded in Xcode | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -249,7 +249,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Fixing “Sampler Binding cc_spriteTexture Is Not Bounded”
+          Fix Cocos Creator Sampler Binding cc_spriteTexture Is Not Bounded in Xcode
         </h1>
 
         <div class="post-meta">
@@ -264,7 +264,7 @@
             </span>
 
           
-            <div class="post-description">Fix repeated Metal sampler binding errors and broken shader rendering in a Cocos Creator iOS build.</div>
+            <div class="post-description">Fix the Xcode Metal error Sampler binding cc_spriteTexture at set 2 binding 11 is not bounded and corrupted shader rendering in a Cocos Creator iOS build.</div>
 
         </div>
       </header>
@@ -288,7 +288,7 @@
 <p>The shader rendered corrupted output or failed to produce the expected effect, while Xcode repeatedly logged:</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/Applications/Cocos/Creator/3.7.2/CocosCreator.app/Contents/Resources/resources/3d/engine/native/cocos/renderer/gfx-metal/MTLCommandBuffer.mm: line 906</span><br><span class="line">10:22:13 [ERROR]: Sampler binding cc_spriteTexture at set 2 binding 11 is not bounded.</span><br><span class="line">10:22:13 [ERROR]: [ERROR] file</span><br></pre></td></tr></table></figure>
 
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>Open the effect file and change the sampler from <code>binding = 11</code> to <code>binding = 12</code>.</p>
+<h2 id="Fix-the-cc-spriteTexture-Sampler-Binding"><a href="#Fix-the-cc-spriteTexture-Sampler-Binding" class="headerlink" title="Fix the cc_spriteTexture Sampler Binding"></a>Fix the cc_spriteTexture Sampler Binding</h2><p>Open the effect file and change the sampler from <code>binding = 11</code> to <code>binding = 12</code>.</p>
 <p><img src="https://lengmo714.top/postImg/shader/1.jpg" alt="Original binding" decoding="async" loading="eager" fetchpriority="high"></p>
 <p><img src="https://lengmo714.top/postImg/shader/2.jpg" alt="Corrected binding" decoding="async" loading="lazy"></p>
 <p>See the related <a target="_blank" rel="noopener" href="https://forum.cocos.org/t/topic/158564">Cocos forum discussion</a> for additional context.</p>
@@ -327,7 +327,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/3f636021.html" title="Fixing “Sampler Binding cc_spriteTexture Is Not Bounded”">https://lengmo714.top/en/3f636021.html</a>
+    <a href="https://lengmo714.top/en/3f636021.html" title="Fix Cocos Creator Sampler Binding cc_spriteTexture Is Not Bounded in Xcode">https://lengmo714.top/en/3f636021.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -349,12 +349,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/7903be95.html" rel="prev" title="Fixing “run cmake failed” in Scripted Cocos Creator iOS Builds">
-      <i class="fa fa-chevron-left"></i> Fixing “run cmake failed” in Scripted Cocos Creator iOS Builds
+    <a href="/en/7903be95.html" rel="prev" title="Fix Cocos Creator run cmake failed and xcodebuild Not Found on iOS">
+      <i class="fa fa-chevron-left"></i> Fix Cocos Creator run cmake failed and xcodebuild Not Found on iOS
     </a></div>
       <div class="post-nav-item">
-    <a href="/3f636021.html" rel="next" title="Sampler binding cc_spriteTexture at set 2 binding 11 is not bounded">
-      Sampler binding cc_spriteTexture at set 2 binding 11 is not bounded <i class="fa fa-chevron-right"></i>
+    <a href="/3f636021.html" rel="next" title="Cocos Creator Xcode 报错 Sampler binding cc_spriteTexture is not bounded 解决方法">
+      Cocos Creator Xcode 报错 Sampler binding cc_spriteTexture is not bounded 解决方法 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -414,7 +414,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution"><span class="nav-number">1.</span> <span class="nav-text">Solution</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fix-the-cc-spriteTexture-Sampler-Binding"><span class="nav-number">1.</span> <span class="nav-text">Fix the cc_spriteTexture Sampler Binding</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -441,13 +441,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

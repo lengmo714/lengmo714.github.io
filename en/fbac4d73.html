@@ -22,19 +22,19 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Reduce Android image dimensions and JPEG quality before upload, including a loop that targets a maximum file size.">
+  <meta name="description" content="Fix Android 413 upload errors by resizing Bitmap dimensions with inSampleSize, reducing JPEG quality, and looping until the compressed file meets a target size limit.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Compressing Images in Android Before Upload">
+<meta property="og:title" content="Android Image Upload Compression: Bitmap Size, JPEG Quality and File Limit">
 <meta property="og:url" content="https://lengmo714.top/en/fbac4d73.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Reduce Android image dimensions and JPEG quality before upload, including a loop that targets a maximum file size.">
+<meta property="og:description" content="Fix Android 413 upload errors by resizing Bitmap dimensions with inSampleSize, reducing JPEG quality, and looping until the compressed file meets a target size limit.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lengmo714.top/postImg/imgCompression/1.png">
 <meta property="article:published_time" content="2025-01-11T09:13:50.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:13:35.044Z">
+<meta property="article:modified_time" content="2026-07-31T09:26:29.885Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="Java">
 <meta property="article:tag" content="Android">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://lengmo714.top/postImg/imgCompression/1.png">
 
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/fbac4d73.html#article","headline":"Compressing Images in Android Before Upload","description":"Reduce Android image dimensions and JPEG quality before upload, including a loop that targets a maximum file size.","datePublished":"2025-01-11T09:13:50.000Z","dateModified":"2026-07-30T04:13:35.044Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/fbac4d73.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Android Studio"],"keywords":"Java, Android","wordCount":300,"image":["https://lengmo714.top/postImg/imgCompression/1.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/fbac4d73.html#article","headline":"Android Image Upload Compression: Bitmap Size, JPEG Quality and File Limit","description":"Fix Android 413 upload errors by resizing Bitmap dimensions with inSampleSize, reducing JPEG quality, and looping until the compressed file meets a target size limit.","datePublished":"2025-01-11T09:13:50.000Z","dateModified":"2026-07-31T09:26:29.885Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/fbac4d73.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Android Studio"],"keywords":"Android, Java","wordCount":303,"image":["https://lengmo714.top/postImg/imgCompression/1.png"]}</script>
 
 
 
@@ -66,7 +66,7 @@
   };
 </script>
 
-  <title>Compressing Images in Android Before Upload | 南锋</title>
+  <title>Android Image Upload Compression: Bitmap Size, JPEG Quality and File Limit | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +247,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Compressing Images in Android Before Upload
+          Android Image Upload Compression: Bitmap Size, JPEG Quality and File Limit
         </h1>
 
         <div class="post-meta">
@@ -262,7 +262,7 @@
             </span>
 
           
-            <div class="post-description">Reduce Android image dimensions and JPEG quality before upload, including a loop that targets a maximum file size.</div>
+            <div class="post-description">Fix Android 413 upload errors by resizing Bitmap dimensions with inSampleSize, reducing JPEG quality, and looping until the compressed file meets a target size limit.</div>
 
         </div>
       </header>
@@ -279,11 +279,11 @@
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-<h3 id="Resize-and-reduce-quality"><a href="#Resize-and-reduce-quality" class="headerlink" title="Resize and reduce quality"></a>Resize and reduce quality</h3><p>Use <code>BitmapFactory.Options.inSampleSize</code> to decode a smaller bitmap, then save it into the app cache as JPEG:</p>
+<h2 id="Resize-the-Bitmap-and-Reduce-JPEG-Quality"><a href="#Resize-the-Bitmap-and-Reduce-JPEG-Quality" class="headerlink" title="Resize the Bitmap and Reduce JPEG Quality"></a>Resize the Bitmap and Reduce JPEG Quality</h2><p>Use <code>BitmapFactory.Options.inSampleSize</code> to decode a smaller bitmap, then save it into the app cache as JPEG:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String <span class="title function_">compressImage</span><span class="params">(String imagePath)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="type">File</span> <span class="variable">original</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(imagePath);</span><br><span class="line">    <span class="type">File</span> <span class="variable">output</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(getActivity().getCacheDir(), <span class="string">&quot;compressed_&quot;</span> + original.getName());</span><br><span class="line"></span><br><span class="line">    BitmapFactory.<span class="type">Options</span> <span class="variable">options</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BitmapFactory</span>.Options();</span><br><span class="line">    options.inJustDecodeBounds = <span class="literal">true</span>;</span><br><span class="line">    BitmapFactory.decodeFile(imagePath, options);</span><br><span class="line">    options.inSampleSize = calculateInSampleSize(options, <span class="number">800</span>, <span class="number">800</span>);</span><br><span class="line">    options.inJustDecodeBounds = <span class="literal">false</span>;</span><br><span class="line">    <span class="type">Bitmap</span> <span class="variable">bitmap</span> <span class="operator">=</span> BitmapFactory.decodeFile(imagePath, options);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> (<span class="type">FileOutputStream</span> <span class="variable">stream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(output)) &#123;</span><br><span class="line">        bitmap.compress(Bitmap.CompressFormat.JPEG, <span class="number">80</span>, stream);</span><br><span class="line">    &#125;</span><br><span class="line">    bitmap.recycle();</span><br><span class="line">    <span class="keyword">return</span> output.getAbsolutePath();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">calculateInSampleSize</span><span class="params">(BitmapFactory.Options options, <span class="type">int</span> width, <span class="type">int</span> height)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">sample</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">halfHeight</span> <span class="operator">=</span> options.outHeight / <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">halfWidth</span> <span class="operator">=</span> options.outWidth / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">while</span> (halfHeight / sample &gt;= height &amp;&amp; halfWidth / sample &gt;= width) sample *= <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">return</span> sample;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="Reduce-quality-without-resizing"><a href="#Reduce-quality-without-resizing" class="headerlink" title="Reduce quality without resizing"></a>Reduce quality without resizing</h3><p>Decode the original bitmap and call <code>bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)</code>. This preserves dimensions but reduces JPEG quality. PNG does not support the same lossy quality setting.</p>
-<h3 id="Target-a-maximum-file-size"><a href="#Target-a-maximum-file-size" class="headerlink" title="Target a maximum file size"></a>Target a maximum file size</h3><p>High-resolution images can remain too large. The following approach returns small originals unchanged, resizes large images to half dimensions, and lowers JPEG quality until the output is at most 300 KB or reaches the minimum quality:</p>
+<h2 id="Reduce-Quality-without-Resizing"><a href="#Reduce-Quality-without-Resizing" class="headerlink" title="Reduce Quality without Resizing"></a>Reduce Quality without Resizing</h2><p>Decode the original bitmap and call <code>bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)</code>. This preserves dimensions but reduces JPEG quality. PNG does not support the same lossy quality setting.</p>
+<h2 id="Target-a-Maximum-File-Size"><a href="#Target-a-Maximum-File-Size" class="headerlink" title="Target a Maximum File Size"></a>Target a Maximum File Size</h2><p>High-resolution images can remain too large. The following approach returns small originals unchanged, resizes large images to half dimensions, and lowers JPEG quality until the output is at most 300 KB or reaches the minimum quality:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String <span class="title function_">compressAndResizeImage</span><span class="params">(String imagePath, <span class="type">long</span> targetBytes)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="type">File</span> <span class="variable">original</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(imagePath);</span><br><span class="line">    <span class="keyword">if</span> (original.length() &lt;= targetBytes) <span class="keyword">return</span> imagePath;</span><br><span class="line"></span><br><span class="line">    <span class="type">Bitmap</span> <span class="variable">source</span> <span class="operator">=</span> BitmapFactory.decodeFile(imagePath);</span><br><span class="line">    <span class="type">Bitmap</span> <span class="variable">resized</span> <span class="operator">=</span> Bitmap.createScaledBitmap(source, source.getWidth() / <span class="number">2</span>, source.getHeight() / <span class="number">2</span>, <span class="literal">true</span>);</span><br><span class="line">    <span class="type">File</span> <span class="variable">output</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(getActivity().getCacheDir(), <span class="string">&quot;compressed_&quot;</span> + original.getName());</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">quality</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">FileOutputStream</span> <span class="variable">stream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(output)) &#123;</span><br><span class="line">            resized.compress(Bitmap.CompressFormat.JPEG, quality, stream);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (output.length() &lt;= targetBytes || quality &lt;= <span class="number">10</span>) <span class="keyword">break</span>;</span><br><span class="line">        quality -= <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    source.recycle();</span><br><span class="line">    resized.recycle();</span><br><span class="line">    <span class="keyword">return</span> output.getAbsolutePath();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>Call it with <code>compressAndResizeImage(path, 300 * 1024)</code> and upload the returned path.</p>
@@ -322,7 +322,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/fbac4d73.html" title="Compressing Images in Android Before Upload">https://lengmo714.top/en/fbac4d73.html</a>
+    <a href="https://lengmo714.top/en/fbac4d73.html" title="Android Image Upload Compression: Bitmap Size, JPEG Quality and File Limit">https://lengmo714.top/en/fbac4d73.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -333,8 +333,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
               <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           </div>
 
         
@@ -343,12 +343,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/a31729da.html" rel="prev" title="Preventing FCM Token Failures from Crashing an Android App">
-      <i class="fa fa-chevron-left"></i> Preventing FCM Token Failures from Crashing an Android App
+    <a href="/en/a31729da.html" rel="prev" title="Fix Android FCM Registration Token Failed and SERVICE_NOT_AVAILABLE Crashes">
+      <i class="fa fa-chevron-left"></i> Fix Android FCM Registration Token Failed and SERVICE_NOT_AVAILABLE Crashes
     </a></div>
       <div class="post-nav-item">
-    <a href="/fbac4d73.html" rel="next" title="android开发之图片压缩">
-      android开发之图片压缩 <i class="fa fa-chevron-right"></i>
+    <a href="/fbac4d73.html" rel="next" title="Android 图片上传压缩：Bitmap 尺寸、JPEG 质量与目标文件大小">
+      Android 图片上传压缩：Bitmap 尺寸、JPEG 质量与目标文件大小 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -408,7 +408,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Resize-and-reduce-quality"><span class="nav-number">1.</span> <span class="nav-text">Resize and reduce quality</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reduce-quality-without-resizing"><span class="nav-number">2.</span> <span class="nav-text">Reduce quality without resizing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Target-a-maximum-file-size"><span class="nav-number">3.</span> <span class="nav-text">Target a maximum file size</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Resize-the-Bitmap-and-Reduce-JPEG-Quality"><span class="nav-number">1.</span> <span class="nav-text">Resize the Bitmap and Reduce JPEG Quality</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reduce-Quality-without-Resizing"><span class="nav-number">2.</span> <span class="nav-text">Reduce Quality without Resizing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Target-a-Maximum-File-Size"><span class="nav-number">3.</span> <span class="nav-text">Target a Maximum File Size</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -435,13 +435,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

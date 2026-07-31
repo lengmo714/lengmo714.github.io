@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="The difference between Java print and println and how each affects line breaks.">
+  <meta name="description" content="Compare Java System.out.print and System.out.println, including automatic line breaks, consecutive output formatting, string concatenation, and runnable console examples.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="System.out.println vs. System.out.print in Java">
+<meta property="og:title" content="Java System.out.print vs println: Line Breaks, Formatting and Examples">
 <meta property="og:url" content="https://lengmo714.top/en/774329ab.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="The difference between Java print and println and how each affects line breaks.">
+<meta property="og:description" content="Compare Java System.out.print and System.out.println, including automatic line breaks, consecutive output formatting, string concatenation, and runnable console examples.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-02-22T01:50:55.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:44:25.133Z">
+<meta property="article:modified_time" content="2026-07-31T08:34:42.054Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -47,10 +47,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/774329ab.html#article","headline":"System.out.println vs. System.out.print in Java","description":"The difference between Java print and println and how each affects line breaks.","datePublished":"2023-02-22T01:50:55.000Z","dateModified":"2026-07-30T04:44:25.133Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/774329ab.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Programming Languages"],"keywords":"Java","wordCount":80,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/774329ab.html#article","headline":"Java System.out.print vs println: Line Breaks, Formatting and Examples","description":"Compare Java System.out.print and System.out.println, including automatic line breaks, consecutive output formatting, string concatenation, and runnable console examples.","datePublished":"2023-02-22T01:50:55.000Z","dateModified":"2026-07-31T08:34:42.054Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/774329ab.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Programming Languages"],"keywords":"Java","wordCount":102}</script>
 
 
 
@@ -66,7 +63,7 @@
   };
 </script>
 
-  <title>System.out.println vs. System.out.print in Java | 南锋</title>
+  <title>Java System.out.print vs println: Line Breaks, Formatting and Examples | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +244,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          System.out.println vs. System.out.print in Java
+          Java System.out.print vs println: Line Breaks, Formatting and Examples
         </h1>
 
         <div class="post-meta">
@@ -262,7 +259,7 @@
             </span>
 
           
-            <div class="post-description">The difference between Java print and println and how each affects line breaks.</div>
+            <div class="post-description">Compare Java System.out.print and System.out.println, including automatic line breaks, consecutive output formatting, string concatenation, and runnable console examples.</div>
 
         </div>
       </header>
@@ -273,7 +270,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>The visible difference is simple:</p>
+        <h2 id="The-Difference-Between-print-and-println"><a href="#The-Difference-Between-print-and-println" class="headerlink" title="The Difference Between print and println"></a>The Difference Between print and println</h2><p>The visible difference is simple: <code>println</code> adds a line terminator after its value, while <code>print</code> leaves the cursor on the current line.</p>
 <ul>
 <li><code>System.out.println()</code> writes its value and then ends the line.</li>
 <li><code>System.out.print()</code> writes its value without automatically ending the line.</li>
@@ -329,7 +326,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/774329ab.html" title="System.out.println vs. System.out.print in Java">https://lengmo714.top/en/774329ab.html</a>
+    <a href="https://lengmo714.top/en/774329ab.html" title="Java System.out.print vs println: Line Breaks, Formatting and Examples">https://lengmo714.top/en/774329ab.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -349,12 +346,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/774329ab.html" rel="prev" title="Java中System.out.println与System.out.print的区别与使用场景">
-      <i class="fa fa-chevron-left"></i> Java中System.out.println与System.out.print的区别与使用场景
+    <a href="/774329ab.html" rel="prev" title="Java System.out.print 与 println 的区别：换行、输出格式和示例">
+      <i class="fa fa-chevron-left"></i> Java System.out.print 与 println 的区别：换行、输出格式和示例
     </a></div>
       <div class="post-nav-item">
-    <a href="/ea538f2a.html" rel="next" title="Java基础语法详解：从类与方法到注释与标识符">
-      Java基础语法详解：从类与方法到注释与标识符 <i class="fa fa-chevron-right"></i>
+    <a href="/ea538f2a.html" rel="next" title="Java 基础语法入门：类、main 方法、标识符、注释和关键字">
+      Java 基础语法入门：类、main 方法、标识符、注释和关键字 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -414,6 +411,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Difference-Between-print-and-println"><span class="nav-number">1.</span> <span class="nav-text">The Difference Between print and println</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -440,13 +438,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

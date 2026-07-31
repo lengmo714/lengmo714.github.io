@@ -22,16 +22,16 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Cocos2dx-lua虚拟摇杆方向控制">
+  <meta name="description" content="使用 Cocos2d-x Lua 实现触摸虚拟摇杆，计算触点相对中心的方向和长度，将摇杆限制在半径内，并输出归一化向量控制角色移动。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cocos2dx-lua虚拟摇杆方向控制">
+<meta property="og:title" content="Cocos2d-x Lua 虚拟摇杆：触摸方向、归一化向量和移动半径">
 <meta property="og:url" content="https://lengmo714.top/56592.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Cocos2dx-lua虚拟摇杆方向控制">
+<meta property="og:description" content="使用 Cocos2d-x Lua 实现触摸虚拟摇杆，计算触点相对中心的方向和长度，将摇杆限制在半径内，并输出归一化向量控制角色移动。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6643416b0ea9cb1403bc72f0.png">
 <meta property="article:published_time" content="2019-01-22T03:53:34.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:00:26.026Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta property="article:tag" content="Cocos2dx">
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/56592.html#article","headline":"Cocos2dx-lua虚拟摇杆方向控制","description":"Cocos2dx-lua虚拟摇杆方向控制","datePublished":"2019-01-22T03:53:34.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/56592.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"Lua, Cocos2dx","wordCount":264,"image":["https://pic.imgdb.cn/item/6643416b0ea9cb1403bc72f0.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/56592.html#article","headline":"Cocos2d-x Lua 虚拟摇杆：触摸方向、归一化向量和移动半径","description":"使用 Cocos2d-x Lua 实现触摸虚拟摇杆，计算触点相对中心的方向和长度，将摇杆限制在半径内，并输出归一化向量控制角色移动。","datePublished":"2019-01-22T03:53:34.000Z","dateModified":"2026-07-31T09:00:26.026Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/56592.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"Lua, Cocos2dx","wordCount":264,"image":["https://pic.imgdb.cn/item/6643416b0ea9cb1403bc72f0.png"]}</script>
 
 
 
@@ -66,7 +66,7 @@
   };
 </script>
 
-  <title>Cocos2dx-lua虚拟摇杆方向控制 | 南锋</title>
+  <title>Cocos2d-x Lua 虚拟摇杆：触摸方向、归一化向量和移动半径 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +247,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Cocos2dx-lua虚拟摇杆方向控制
+          Cocos2d-x Lua 虚拟摇杆：触摸方向、归一化向量和移动半径
         </h1>
 
         <div class="post-meta">
@@ -262,7 +262,7 @@
             </span>
 
           
-            <div class="post-description">Cocos2dx-lua虚拟摇杆方向控制</div>
+            <div class="post-description">使用 Cocos2d-x Lua 实现触摸虚拟摇杆，计算触点相对中心的方向和长度，将摇杆限制在半径内，并输出归一化向量控制角色移动。</div>
 
         </div>
       </header>
@@ -273,7 +273,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在游戏开发中，很多时候都需要控制游戏角色的移动，比如王者荣耀中对英雄的控制，我们可以做一个虚拟摇杆来实现</p>
+        <h2 id="虚拟摇杆的触摸和方向计算"><a href="#虚拟摇杆的触摸和方向计算" class="headerlink" title="虚拟摇杆的触摸和方向计算"></a>虚拟摇杆的触摸和方向计算</h2><p>在游戏开发中，经常需要通过虚拟摇杆控制角色移动。摇杆需要将触摸位置转换成方向和移动距离。</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
@@ -317,7 +317,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/56592.html" title="Cocos2dx-lua虚拟摇杆方向控制">https://lengmo714.top/56592.html</a>
+    <a href="https://lengmo714.top/56592.html" title="Cocos2d-x Lua 虚拟摇杆：触摸方向、归一化向量和移动半径">https://lengmo714.top/56592.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -338,12 +338,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/49721.html" rel="prev" title="Secure Hot Updates for Cocos2d-x Lua Games">
-      <i class="fa fa-chevron-left"></i> Secure Hot Updates for Cocos2d-x Lua Games
+    <a href="/en/49721.html" rel="prev" title="Cocos2d-x Lua Hot Updates: Manifests, Verification, Search Paths and Recovery">
+      <i class="fa fa-chevron-left"></i> Cocos2d-x Lua Hot Updates: Manifests, Verification, Search Paths and Recovery
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/56592.html" rel="next" title="Controlling Movement with a Virtual Joystick in Cocos2d-x Lua">
-      Controlling Movement with a Virtual Joystick in Cocos2d-x Lua <i class="fa fa-chevron-right"></i>
+    <a href="/en/56592.html" rel="next" title="Cocos2d-x Lua Virtual Joystick: Touch Direction, Radius and Movement">
+      Cocos2d-x Lua Virtual Joystick: Touch Direction, Radius and Movement <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -403,6 +403,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%91%87%E6%9D%86%E7%9A%84%E8%A7%A6%E6%91%B8%E5%92%8C%E6%96%B9%E5%90%91%E8%AE%A1%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">虚拟摇杆的触摸和方向计算</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -429,13 +430,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

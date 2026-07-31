@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Reorder sibling nodes and adjust their rendering order with setSiblingIndex in Cocos Creator.">
+  <meta name="description" content="Reorder Cocos Creator sibling nodes with setSiblingIndex and getSiblingIndex, calculate a target index, understand relative rendering order, and respect parent boundaries.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Changing Node Order with setSiblingIndex in Cocos Creator">
+<meta property="og:title" content="Cocos Creator setSiblingIndex: Reorder Sibling Nodes and Rendering">
 <meta property="og:url" content="https://lengmo714.top/en/d23c2fe2.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Reorder sibling nodes and adjust their rendering order with setSiblingIndex in Cocos Creator.">
+<meta property="og:description" content="Reorder Cocos Creator sibling nodes with setSiblingIndex and getSiblingIndex, calculate a target index, understand relative rendering order, and respect parent boundaries.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-09-11T16:12:33.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:32:51.182Z">
+<meta property="article:modified_time" content="2026-07-31T09:08:25.328Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="TypeScript">
@@ -48,10 +48,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/d23c2fe2.html#article","headline":"Changing Node Order with setSiblingIndex in Cocos Creator","description":"Reorder sibling nodes and adjust their rendering order with setSiblingIndex in Cocos Creator.","datePublished":"2023-09-11T16:12:33.000Z","dateModified":"2026-07-30T04:32:51.182Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/d23c2fe2.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript","wordCount":113,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/d23c2fe2.html#article","headline":"Cocos Creator setSiblingIndex: Reorder Sibling Nodes and Rendering","description":"Reorder Cocos Creator sibling nodes with setSiblingIndex and getSiblingIndex, calculate a target index, understand relative rendering order, and respect parent boundaries.","datePublished":"2023-09-11T16:12:33.000Z","dateModified":"2026-07-31T09:08:25.328Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/d23c2fe2.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript","wordCount":113}</script>
 
 
 
@@ -67,7 +64,7 @@
   };
 </script>
 
-  <title>Changing Node Order with setSiblingIndex in Cocos Creator | 南锋</title>
+  <title>Cocos Creator setSiblingIndex: Reorder Sibling Nodes and Rendering | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +245,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Changing Node Order with setSiblingIndex in Cocos Creator
+          Cocos Creator setSiblingIndex: Reorder Sibling Nodes and Rendering
         </h1>
 
         <div class="post-meta">
@@ -263,7 +260,7 @@
             </span>
 
           
-            <div class="post-description">Reorder sibling nodes and adjust their rendering order with setSiblingIndex in Cocos Creator.</div>
+            <div class="post-description">Reorder Cocos Creator sibling nodes with setSiblingIndex and getSiblingIndex, calculate a target index, understand relative rendering order, and respect parent boundaries.</div>
 
         </div>
       </header>
@@ -315,7 +312,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/d23c2fe2.html" title="Changing Node Order with setSiblingIndex in Cocos Creator">https://lengmo714.top/en/d23c2fe2.html</a>
+    <a href="https://lengmo714.top/en/d23c2fe2.html" title="Cocos Creator setSiblingIndex: Reorder Sibling Nodes and Rendering">https://lengmo714.top/en/d23c2fe2.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -336,12 +333,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/d23c2fe2.html" rel="prev" title="如何在cocosCreator中使用setSiblingIndex调整节点层级">
-      <i class="fa fa-chevron-left"></i> 如何在cocosCreator中使用setSiblingIndex调整节点层级
+    <a href="/d23c2fe2.html" rel="prev" title="Cocos Creator setSiblingIndex：调整同级节点顺序和渲染层级">
+      <i class="fa fa-chevron-left"></i> Cocos Creator setSiblingIndex：调整同级节点顺序和渲染层级
     </a></div>
       <div class="post-nav-item">
-    <a href="/7c5264c2.html" rel="next" title="cocosCreator教程：加载远程资源的方法与最佳实践">
-      cocosCreator教程：加载远程资源的方法与最佳实践 <i class="fa fa-chevron-right"></i>
+    <a href="/7c5264c2.html" rel="next" title="Cocos Creator assetManager.loadRemote：图片、音频、文本与本地文件">
+      Cocos Creator assetManager.loadRemote：图片、音频、文本与本地文件 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -427,13 +424,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

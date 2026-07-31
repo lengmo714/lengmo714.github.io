@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Examples for loading remote images, device files, audio, and text with Cocos Creator&#39;s assetManager.">
+  <meta name="description" content="Use Cocos Creator assetManager.loadRemote for images with or without extensions, absolute device files, remote audio, and text while specifying asset types.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Loading Remote Assets in Cocos Creator">
+<meta property="og:title" content="Cocos Creator assetManager.loadRemote: Images, Audio, Text and Device Files">
 <meta property="og:url" content="https://lengmo714.top/en/7c5264c2.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Examples for loading remote images, device files, audio, and text with Cocos Creator&#39;s assetManager.">
+<meta property="og:description" content="Use Cocos Creator assetManager.loadRemote for images with or without extensions, absolute device files, remote audio, and text while specifying asset types.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-09-11T16:14:16.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:32:51.044Z">
+<meta property="article:modified_time" content="2026-07-31T10:08:11.625Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="TypeScript">
@@ -48,10 +48,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/7c5264c2.html#article","headline":"Loading Remote Assets in Cocos Creator","description":"Examples for loading remote images, device files, audio, and text with Cocos Creator's assetManager.","datePublished":"2023-09-11T16:14:16.000Z","dateModified":"2026-07-30T04:32:51.044Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/7c5264c2.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript","wordCount":190,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/7c5264c2.html#article","headline":"Cocos Creator assetManager.loadRemote: Images, Audio, Text and Device Files","description":"Use Cocos Creator assetManager.loadRemote for images with or without extensions, absolute device files, remote audio, and text while specifying asset types.","datePublished":"2023-09-11T16:14:16.000Z","dateModified":"2026-07-31T10:08:11.625Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/7c5264c2.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript","wordCount":190}</script>
 
 
 
@@ -67,7 +64,7 @@
   };
 </script>
 
-  <title>Loading Remote Assets in Cocos Creator | 南锋</title>
+  <title>Cocos Creator assetManager.loadRemote: Images, Audio, Text and Device Files | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +245,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Loading Remote Assets in Cocos Creator
+          Cocos Creator assetManager.loadRemote: Images, Audio, Text and Device Files
         </h1>
 
         <div class="post-meta">
@@ -263,7 +260,7 @@
             </span>
 
           
-            <div class="post-description">Examples for loading remote images, device files, audio, and text with Cocos Creator's assetManager.</div>
+            <div class="post-description">Use Cocos Creator assetManager.loadRemote for images with or without extensions, absolute device files, remote audio, and text while specifying asset types.</div>
 
         </div>
       </header>
@@ -274,17 +271,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Image-URL-with-a-file-extension"><a href="#Image-URL-with-a-file-extension" class="headerlink" title="Image URL with a file extension"></a>Image URL with a file extension</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> remoteUrl = <span class="string">&quot;https://unknown.org/someres.png&quot;</span>;</span><br><span class="line">assetManager.<span class="property">loadRemote</span>&lt;<span class="title class_">ImageAsset</span>&gt;(remoteUrl, <span class="keyword">function</span> (<span class="params">err, imageAsset</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">const</span> spriteFrame = <span class="keyword">new</span> <span class="title class_">SpriteFrame</span>();</span><br><span class="line">    <span class="keyword">const</span> texture = <span class="keyword">new</span> <span class="title class_">Texture2D</span>();</span><br><span class="line">    texture.<span class="property">image</span> = imageAsset;</span><br><span class="line">    spriteFrame.<span class="property">texture</span> = texture;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+        <h2 id="Image-URL-with-a-File-Extension"><a href="#Image-URL-with-a-File-Extension" class="headerlink" title="Image URL with a File Extension"></a>Image URL with a File Extension</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> remoteUrl = <span class="string">&quot;https://unknown.org/someres.png&quot;</span>;</span><br><span class="line">assetManager.<span class="property">loadRemote</span>&lt;<span class="title class_">ImageAsset</span>&gt;(remoteUrl, <span class="keyword">function</span> (<span class="params">err, imageAsset</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">const</span> spriteFrame = <span class="keyword">new</span> <span class="title class_">SpriteFrame</span>();</span><br><span class="line">    <span class="keyword">const</span> texture = <span class="keyword">new</span> <span class="title class_">Texture2D</span>();</span><br><span class="line">    texture.<span class="property">image</span> = imageAsset;</span><br><span class="line">    spriteFrame.<span class="property">texture</span> = texture;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<h3 id="Image-URL-without-a-file-extension"><a href="#Image-URL-without-a-file-extension" class="headerlink" title="Image URL without a file extension"></a>Image URL without a file extension</h3><p>When the URL does not include the image suffix, specify the remote file type explicitly:</p>
+<h2 id="Image-URL-Without-a-File-Extension"><a href="#Image-URL-Without-a-File-Extension" class="headerlink" title="Image URL Without a File Extension"></a>Image URL Without a File Extension</h2><p>When the URL does not include the image suffix, specify the remote file type explicitly:</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> remoteUrl = <span class="string">&quot;https://unknown.org/emoji?id=124982374&quot;</span>;</span><br><span class="line">assetManager.<span class="property">loadRemote</span>&lt;<span class="title class_">ImageAsset</span>&gt;(remoteUrl, &#123; <span class="attr">ext</span>: <span class="string">&#x27;.png&#x27;</span> &#125;, <span class="keyword">function</span> (<span class="params">err, imageAsset</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">const</span> spriteFrame = <span class="keyword">new</span> <span class="title class_">SpriteFrame</span>();</span><br><span class="line">    <span class="keyword">const</span> texture = <span class="keyword">new</span> <span class="title class_">Texture2D</span>();</span><br><span class="line">    texture.<span class="property">image</span> = imageAsset;</span><br><span class="line">    spriteFrame.<span class="property">texture</span> = texture;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<h3 id="Load-a-file-from-an-absolute-device-path"><a href="#Load-a-file-from-an-absolute-device-path" class="headerlink" title="Load a file from an absolute device path"></a>Load a file from an absolute device path</h3><p>This can be used for a resource stored on the device, such as an image selected from the photo library:</p>
+<h2 id="Load-a-File-from-an-Absolute-Device-Path"><a href="#Load-a-File-from-an-Absolute-Device-Path" class="headerlink" title="Load a File from an Absolute Device Path"></a>Load a File from an Absolute Device Path</h2><p>This can be used for a resource stored on the device, such as an image selected from the photo library:</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> absolutePath = <span class="string">&quot;/data/data/some/path/to/image.png&quot;</span>;</span><br><span class="line">assetManager.<span class="property">loadRemote</span>&lt;<span class="title class_">ImageAsset</span>&gt;(absolutePath, <span class="keyword">function</span> (<span class="params">err, imageAsset</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">const</span> spriteFrame = <span class="keyword">new</span> <span class="title class_">SpriteFrame</span>();</span><br><span class="line">    <span class="keyword">const</span> texture = <span class="keyword">new</span> <span class="title class_">Texture2D</span>();</span><br><span class="line">    texture.<span class="property">image</span> = imageAsset;</span><br><span class="line">    spriteFrame.<span class="property">texture</span> = texture;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<h3 id="Remote-audio"><a href="#Remote-audio" class="headerlink" title="Remote audio"></a>Remote audio</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> remoteUrl = <span class="string">&quot;https://unknown.org/sound.mp3&quot;</span>;</span><br><span class="line">assetManager.<span class="title function_">loadRemote</span>(remoteUrl, <span class="keyword">function</span> (<span class="params">err, audioClip</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// Play the audio clip.</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Remote-Audio"><a href="#Remote-Audio" class="headerlink" title="Remote Audio"></a>Remote Audio</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> remoteUrl = <span class="string">&quot;https://unknown.org/sound.mp3&quot;</span>;</span><br><span class="line">assetManager.<span class="title function_">loadRemote</span>(remoteUrl, <span class="keyword">function</span> (<span class="params">err, audioClip</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// Play the audio clip.</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<h3 id="Remote-text"><a href="#Remote-text" class="headerlink" title="Remote text"></a>Remote text</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> remoteUrl = <span class="string">&quot;https://unknown.org/skill.txt&quot;</span>;</span><br><span class="line">assetManager.<span class="title function_">loadRemote</span>(remoteUrl, <span class="keyword">function</span> (<span class="params">err, textAsset</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// Use the loaded text.</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Remote-Text"><a href="#Remote-Text" class="headerlink" title="Remote Text"></a>Remote Text</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> remoteUrl = <span class="string">&quot;https://unknown.org/skill.txt&quot;</span>;</span><br><span class="line">assetManager.<span class="title function_">loadRemote</span>(remoteUrl, <span class="keyword">function</span> (<span class="params">err, textAsset</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// Use the loaded text.</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>Production code should handle errors, validate asset types, use HTTPS, and release resources when they are no longer needed.</p>
 
@@ -322,7 +319,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/7c5264c2.html" title="Loading Remote Assets in Cocos Creator">https://lengmo714.top/en/7c5264c2.html</a>
+    <a href="https://lengmo714.top/en/7c5264c2.html" title="Cocos Creator assetManager.loadRemote: Images, Audio, Text and Device Files">https://lengmo714.top/en/7c5264c2.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -343,12 +340,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/7c5264c2.html" rel="prev" title="cocosCreator教程：加载远程资源的方法与最佳实践">
-      <i class="fa fa-chevron-left"></i> cocosCreator教程：加载远程资源的方法与最佳实践
+    <a href="/7c5264c2.html" rel="prev" title="Cocos Creator assetManager.loadRemote：图片、音频、文本与本地文件">
+      <i class="fa fa-chevron-left"></i> Cocos Creator assetManager.loadRemote：图片、音频、文本与本地文件
     </a></div>
       <div class="post-nav-item">
-    <a href="/661b115d.html" rel="next" title="cocosCreator教程：如何创建圆形遮罩（Mask）">
-      cocosCreator教程：如何创建圆形遮罩（Mask） <i class="fa fa-chevron-right"></i>
+    <a href="/en/661b115d.html" rel="next" title="Cocos Creator Circular Mask with Graphics and TypeScript">
+      Cocos Creator Circular Mask with Graphics and TypeScript <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -408,7 +405,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Image-URL-with-a-file-extension"><span class="nav-number">1.</span> <span class="nav-text">Image URL with a file extension</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Image-URL-without-a-file-extension"><span class="nav-number">2.</span> <span class="nav-text">Image URL without a file extension</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Load-a-file-from-an-absolute-device-path"><span class="nav-number">3.</span> <span class="nav-text">Load a file from an absolute device path</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Remote-audio"><span class="nav-number">4.</span> <span class="nav-text">Remote audio</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Remote-text"><span class="nav-number">5.</span> <span class="nav-text">Remote text</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Image-URL-with-a-File-Extension"><span class="nav-number">1.</span> <span class="nav-text">Image URL with a File Extension</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Image-URL-Without-a-File-Extension"><span class="nav-number">2.</span> <span class="nav-text">Image URL Without a File Extension</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Load-a-File-from-an-Absolute-Device-Path"><span class="nav-number">3.</span> <span class="nav-text">Load a File from an Absolute Device Path</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Remote-Audio"><span class="nav-number">4.</span> <span class="nav-text">Remote Audio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Remote-Text"><span class="nav-number">5.</span> <span class="nav-text">Remote Text</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -435,13 +432,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

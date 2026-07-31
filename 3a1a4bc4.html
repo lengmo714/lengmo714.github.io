@@ -22,17 +22,17 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="cocosCreator解决Chrome浏览器跨域问题">
+  <meta name="description" content="Cocos Creator Web 开发遇到跨域时应优先配置服务端 CORS；仅在本地临时调试中使用独立 Chrome 用户目录和禁用安全检查，避免日常浏览复用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决cocosCreator Chrome跨域问题：开发环境配置详解">
+<meta property="og:title" content="Cocos Creator Chrome 跨域调试：优先配置 CORS 与隔离测试配置">
 <meta property="og:url" content="https://lengmo714.top/3a1a4bc4.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="cocosCreator解决Chrome浏览器跨域问题">
+<meta property="og:description" content="Cocos Creator Web 开发遇到跨域时应优先配置服务端 CORS；仅在本地临时调试中使用独立 Chrome 用户目录和禁用安全检查，避免日常浏览复用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s1.ax1x.com/2023/04/13/ppxRCpq.png">
 <meta property="og:image" content="https://s1.ax1x.com/2023/04/13/ppxRP10.png">
 <meta property="article:published_time" content="2023-04-13T13:57:58.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T12:04:05.927Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="cocosCreator">
 <meta property="article:tag" content="TypeScript">
@@ -52,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/3a1a4bc4.html#article","headline":"解决cocosCreator Chrome跨域问题：开发环境配置详解","description":"cocosCreator解决Chrome浏览器跨域问题","datePublished":"2023-04-13T13:57:58.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/3a1a4bc4.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, TypeScript, Cocos","wordCount":15,"image":["https://s1.ax1x.com/2023/04/13/ppxRCpq.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/3a1a4bc4.html#article","headline":"Cocos Creator Chrome 跨域调试：优先配置 CORS 与隔离测试配置","description":"Cocos Creator Web 开发遇到跨域时应优先配置服务端 CORS；仅在本地临时调试中使用独立 Chrome 用户目录和禁用安全检查，避免日常浏览复用。","datePublished":"2023-04-13T13:57:58.000Z","dateModified":"2026-07-31T12:04:05.927Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/3a1a4bc4.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, TypeScript, Cocos","wordCount":16,"image":["https://s1.ax1x.com/2023/04/13/ppxRCpq.png"]}</script>
 
 
 
@@ -68,7 +68,7 @@
   };
 </script>
 
-  <title>解决cocosCreator Chrome跨域问题：开发环境配置详解 | 南锋</title>
+  <title>Cocos Creator Chrome 跨域调试：优先配置 CORS 与隔离测试配置 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -249,7 +249,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          解决cocosCreator Chrome跨域问题：开发环境配置详解
+          Cocos Creator Chrome 跨域调试：优先配置 CORS 与隔离测试配置
         </h1>
 
         <div class="post-meta">
@@ -264,7 +264,7 @@
             </span>
 
           
-            <div class="post-description">cocosCreator解决Chrome浏览器跨域问题</div>
+            <div class="post-description">Cocos Creator Web 开发遇到跨域时应优先配置服务端 CORS；仅在本地临时调试中使用独立 Chrome 用户目录和禁用安全检查，避免日常浏览复用。</div>
 
         </div>
       </header>
@@ -284,7 +284,7 @@
 
 <p>对于前端来说，本地开发很经常会遇到跨域问题。这种问题可以交给服务器去解决，但是有个更简单的方法就是讲浏览器设置为可跨域的。</p>
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7019171779478290463">参考链接</a></p>
-<h2 id="windows平台"><a href="#windows平台" class="headerlink" title="windows平台"></a>windows平台</h2><p>右击打开属性，找到<code>目标</code>字段，并在目标字段后面加上参数：</p>
+<h2 id="Windows-本地临时调试"><a href="#Windows-本地临时调试" class="headerlink" title="Windows 本地临时调试"></a>Windows 本地临时调试</h2><p>右击打开属性，找到<code>目标</code>字段，并在目标字段后面加上参数：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">--disable-web-security</span> <span class="attr">--user-data-dir</span>=D:\ChromeData\MyChromeDevUserData</span><br></pre></td></tr></table></figure>
 <p>如下图所示：<br><img src="https://s1.ax1x.com/2023/04/13/ppxRCpq.png" style="width:300px;height:500px" alt="示意图" decoding="async" loading="eager" fetchpriority="high"></p>
 <p>再打开Google chrome，如下图则表示Chrome浏览器设置跨域成功（出现红色框框的文字提示，可能是英文）<br><img src="https://s1.ax1x.com/2023/04/13/ppxRP10.png" style="width:500px;height:200px" alt="示意图" decoding="async" loading="lazy"></p>
@@ -326,7 +326,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/3a1a4bc4.html" title="解决cocosCreator Chrome跨域问题：开发环境配置详解">https://lengmo714.top/3a1a4bc4.html</a>
+    <a href="https://lengmo714.top/3a1a4bc4.html" title="Cocos Creator Chrome 跨域调试：优先配置 CORS 与隔离测试配置">https://lengmo714.top/3a1a4bc4.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -348,12 +348,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/250edf34.html" rel="prev" title="Dynamically Changing Sprite Images in Cocos Creator">
-      <i class="fa fa-chevron-left"></i> Dynamically Changing Sprite Images in Cocos Creator
+    <a href="/en/250edf34.html" rel="prev" title="Change SpriteFrame Dynamically in Cocos Creator with resources.load">
+      <i class="fa fa-chevron-left"></i> Change SpriteFrame Dynamically in Cocos Creator with resources.load
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/3a1a4bc4.html" rel="next" title="Testing Cocos Creator Across Origins in Chrome">
-      Testing Cocos Creator Across Origins in Chrome <i class="fa fa-chevron-right"></i>
+    <a href="/en/3a1a4bc4.html" rel="next" title="Cocos Creator Chrome CORS Debugging with Server Headers and Isolated Profile">
+      Cocos Creator Chrome CORS Debugging with Server Headers and Isolated Profile <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -413,7 +413,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#windows%E5%B9%B3%E5%8F%B0"><span class="nav-number">1.</span> <span class="nav-text">windows平台</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-%E6%9C%AC%E5%9C%B0%E4%B8%B4%E6%97%B6%E8%B0%83%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">Windows 本地临时调试</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -440,13 +440,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

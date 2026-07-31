@@ -22,36 +22,23 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="解决Facebook密钥散列生成失败的openssl未识别问题">
+  <meta name="description" content="Windows 生成 Facebook Android Key Hash 时提示无法识别 openssl，可安装可信 OpenSSL 发行版、将 bin 加入 PATH，并在新终端验证命令。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决Facebook密钥散列生成失败的openssl未识别问题 | Windows环境安装教程">
+<meta property="og:title" content="Windows 无法识别 openssl：安装、PATH 配置与 Facebook Key Hash">
 <meta property="og:url" content="https://lengmo714.top/7da3d242.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="解决Facebook密钥散列生成失败的openssl未识别问题">
+<meta property="og:description" content="Windows 生成 Facebook Android Key Hash 时提示无法识别 openssl，可安装可信 OpenSSL 发行版、将 bin 加入 PATH，并在新终端验证命令。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6643241b0ea9cb140389b7e7.png">
 <meta property="og:image" content="https://code.google.com/archive/p/openssl-for-windows/downloads">
 <meta property="og:image" content="https://pic.imgdb.cn/item/664324200ea9cb140389bd42.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/664324230ea9cb140389bff7.png">
 <meta property="article:published_time" content="2024-05-14T08:44:30.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T12:08:47.523Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="ios">
-<meta property="article:tag" content="android">
-<meta property="article:tag" content="游戏开发">
-<meta property="article:tag" content="quick-cocos">
-<meta property="article:tag" content="游戏上架">
-<meta property="article:tag" content="cocoscreater">
-<meta property="article:tag" content="c语言">
-<meta property="article:tag" content="C++">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="cocos2dx">
-<meta property="article:tag" content="Lua">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="数据手套">
-<meta property="article:tag" content="嵌入式开发">
-<meta property="article:tag" content="stem32">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="Facebook">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="OpenSSL">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pic.imgdb.cn/item/6643241b0ea9cb140389b7e7.png">
 
@@ -67,7 +54,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/7da3d242.html#article","headline":"解决Facebook密钥散列生成失败的openssl未识别问题 | Windows环境安装教程","description":"解决Facebook密钥散列生成失败的openssl未识别问题","datePublished":"2024-05-14T08:44:30.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/7da3d242.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":[],"keywords":"","wordCount":13,"image":["https://pic.imgdb.cn/item/6643241b0ea9cb140389b7e7.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/7da3d242.html#article","headline":"Windows 无法识别 openssl：安装、PATH 配置与 Facebook Key Hash","description":"Windows 生成 Facebook Android Key Hash 时提示无法识别 openssl，可安装可信 OpenSSL 发行版、将 bin 加入 PATH，并在新终端验证命令。","datePublished":"2024-05-14T08:44:30.000Z","dateModified":"2026-07-31T12:08:47.523Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/7da3d242.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["开发工具的使用"],"keywords":"Facebook, Windows, OpenSSL","wordCount":13,"image":["https://pic.imgdb.cn/item/6643241b0ea9cb140389b7e7.png"]}</script>
 
 
 
@@ -83,7 +70,7 @@
   };
 </script>
 
-  <title>解决Facebook密钥散列生成失败的openssl未识别问题 | Windows环境安装教程 | 南锋</title>
+  <title>Windows 无法识别 openssl：安装、PATH 配置与 Facebook Key Hash | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -264,13 +251,22 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          解决Facebook密钥散列生成失败的openssl未识别问题 | Windows环境安装教程
+          Windows 无法识别 openssl：安装、PATH 配置与 Facebook Key Hash
         </h1>
 
         <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">开发工具的使用</span></a>
+                </span>
+            </span>
 
           
-            <div class="post-description">解决Facebook密钥散列生成失败的openssl未识别问题</div>
+            <div class="post-description">Windows 生成 Facebook Android Key Hash 时提示无法识别 openssl，可安装可信 OpenSSL 发行版、将 bin 加入 PATH，并在新终端验证命令。</div>
 
         </div>
       </header>
@@ -288,8 +284,8 @@
 </script>
 
 <p>项目需要集成<code>Facebook第三方登录</code>，在<code>生成秘钥散列</code>的时候出现了下面问题：<br><img src="https://pic.imgdb.cn/item/6643241b0ea9cb140389b7e7.png" alt="示意图" decoding="async" loading="eager" fetchpriority="high"></p>
-<h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><p>本地环境没有安装openssl库</p>
-<h3 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h3><p>安装openssl-for-windows库即可</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>本地环境没有安装openssl库</p>
+<h2 id="安装与配置方法"><a href="#安装与配置方法" class="headerlink" title="安装与配置方法"></a>安装与配置方法</h2><p>安装openssl-for-windows库即可</p>
 <h4 id="下载链接："><a href="#下载链接：" class="headerlink" title="下载链接："></a>下载链接：</h4><p><img src="https://code.google.com/archive/p/openssl-for-windows/downloads" alt="openssl-for-windows" decoding="async" loading="lazy"></p>
 <p>下载好后，添加到本地环境系统变量<br><img src="https://pic.imgdb.cn/item/664324200ea9cb140389bd42.png" alt="示意图" decoding="async" loading="lazy"></p>
 <p>双击Path项，添加<code>D:\android\openssl-0.9.8e_X64\bin</code>将这个路径改成自己的文件路径。<br>打开终端，输入<code>openssl version</code>，如果出现下图所示的内容即代表安装成功<br><img src="https://pic.imgdb.cn/item/664324230ea9cb140389bff7.png" alt="示意图" decoding="async" loading="lazy"><br>回到<code>Android studio</code>重新生成散列密钥即可。</p>
@@ -328,7 +324,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/7da3d242.html" title="解决Facebook密钥散列生成失败的openssl未识别问题 | Windows环境安装教程">https://lengmo714.top/7da3d242.html</a>
+    <a href="https://lengmo714.top/7da3d242.html" title="Windows 无法识别 openssl：安装、PATH 配置与 Facebook Key Hash">https://lengmo714.top/7da3d242.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -337,6 +333,12 @@
 </div>
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Facebook/" rel="tag"><i class="fa fa-tag"></i> Facebook</a>
+              <a href="/tags/Windows/" rel="tag"><i class="fa fa-tag"></i> Windows</a>
+              <a href="/tags/OpenSSL/" rel="tag"><i class="fa fa-tag"></i> OpenSSL</a>
+          </div>
 
         
 
@@ -344,12 +346,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/1b5fdeff.html" rel="prev" title="cocosCreator使用spine骨骼动画暂停、继续、重新播放动画">
-      <i class="fa fa-chevron-left"></i> cocosCreator使用spine骨骼动画暂停、继续、重新播放动画
+    <a href="/1b5fdeff.html" rel="prev" title="Cocos Creator Spine 动画暂停、继续与重播：paused 和 setAnimation">
+      <i class="fa fa-chevron-left"></i> Cocos Creator Spine 动画暂停、继续与重播：paused 和 setAnimation
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/7da3d242.html" rel="next" title="Installing OpenSSL on Windows for Facebook Key Hashes">
-      Installing OpenSSL on Windows for Facebook Key Hashes <i class="fa fa-chevron-right"></i>
+    <a href="/en/7da3d242.html" rel="next" title="Windows OpenSSL Not Recognized: Install, Configure PATH and Verify">
+      Windows OpenSSL Not Recognized: Install, Configure PATH and Verify <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -409,7 +411,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9B%A0%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">原因：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">解决方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">下载链接：</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">安装与配置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="nav-number">2.0.1.</span> <span class="nav-text">下载链接：</span></a></li></ol></li></ol></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -436,13 +438,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

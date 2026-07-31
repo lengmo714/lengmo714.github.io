@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="telegram获取用户发送的消息并上报给服务器">
+  <meta name="description" content="使用 grammY 在 Deno 中监听 Telegram Bot 文本消息，提取用户和消息字段，并通过 fetch 以 JSON 请求上报到应用服务器 API。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="telegram获取用户发送的消息并上报给服务器">
+<meta property="og:title" content="Telegram Bot 接收消息并上报服务器：grammY、Deno 与 fetch JSON">
 <meta property="og:url" content="https://lengmo714.top/75509731.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="telegram获取用户发送的消息并上报给服务器">
+<meta property="og:description" content="使用 grammY 在 Deno 中监听 Telegram Bot 文本消息，提取用户和消息字段，并通过 fetch 以 JSON 请求上报到应用服务器 API。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-12T06:09:02.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:43:51.648Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="telegram">
 <meta property="article:tag" content="mini APP">
@@ -49,10 +49,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/75509731.html#article","headline":"telegram获取用户发送的消息并上报给服务器","description":"telegram获取用户发送的消息并上报给服务器","datePublished":"2024-07-12T06:09:02.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/75509731.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["telegram","mini APP","Game"],"keywords":"telegram, mini APP, Game","wordCount":106,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/75509731.html#article","headline":"Telegram Bot 接收消息并上报服务器：grammY、Deno 与 fetch JSON","description":"使用 grammY 在 Deno 中监听 Telegram Bot 文本消息，提取用户和消息字段，并通过 fetch 以 JSON 请求上报到应用服务器 API。","datePublished":"2024-07-12T06:09:02.000Z","dateModified":"2026-07-31T09:43:51.648Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/75509731.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["telegram","mini APP","Game"],"keywords":"telegram, mini APP, Game","wordCount":106}</script>
 
 
 
@@ -68,7 +65,7 @@
   };
 </script>
 
-  <title>telegram获取用户发送的消息并上报给服务器 | 南锋</title>
+  <title>Telegram Bot 接收消息并上报服务器：grammY、Deno 与 fetch JSON | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -249,7 +246,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          telegram获取用户发送的消息并上报给服务器
+          Telegram Bot 接收消息并上报服务器：grammY、Deno 与 fetch JSON
         </h1>
 
         <div class="post-meta">
@@ -272,7 +269,7 @@
             </span>
 
           
-            <div class="post-description">telegram获取用户发送的消息并上报给服务器</div>
+            <div class="post-description">使用 grammY 在 Deno 中监听 Telegram Bot 文本消息，提取用户和消息字段，并通过 fetch 以 JSON 请求上报到应用服务器 API。</div>
 
         </div>
       </header>
@@ -290,8 +287,8 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>bot接收到用户发送的消息，然后将消息转发给服务器，从而达到我们的目的</p>
-<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Bot</span>, <span class="title class_">InlineKeyboard</span> &#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;  <span class="comment">//你的机器人token</span></span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>);</span><br><span class="line"><span class="keyword">const</span> serverUrl = <span class="string">&quot;&quot;</span>; <span class="comment">// 你的服务器地址</span></span><br><span class="line">bot.<span class="title function_">on</span>(<span class="string">&quot;message:text&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> messageText = ctx.<span class="property">message</span>.<span class="property">text</span>;</span><br><span class="line">  <span class="keyword">const</span> chatId = ctx.<span class="property">message</span>.<span class="property">chat</span>.<span class="property">id</span>;</span><br><span class="line">  <span class="keyword">const</span> firstName = ctx.<span class="property">update</span>.<span class="property">message</span>.<span class="property">from</span>.<span class="property">first_name</span>;</span><br><span class="line">  <span class="keyword">const</span> eventtime = (<span class="keyword">await</span> <span class="title function_">getCurrentTime</span>()).<span class="title function_">toString</span>();</span><br><span class="line">  <span class="keyword">const</span> payload = &#123;</span><br><span class="line">      <span class="attr">uid</span>: chatId,</span><br><span class="line">      <span class="attr">message</span>: messageText,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 将数据发送到服务器</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(serverUrl, &#123;</span><br><span class="line">      <span class="attr">method</span>: <span class="string">&quot;POST&quot;</span>,</span><br><span class="line">      <span class="attr">headers</span>: &#123;</span><br><span class="line">        <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">body</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(payload),</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!response.<span class="property">ok</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">`HTTP error! status: <span class="subst">$&#123;response.status&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 解析服务器响应</span></span><br><span class="line">    <span class="keyword">const</span> responseData = <span class="keyword">await</span> response.<span class="title function_">json</span>();</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;服务器响应:&quot;</span>, responseData);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;发送消息到服务器失败:&quot;</span>, error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 启动机器人</span></span><br><span class="line">bot.<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p>bot接收到用户发送的消息，然后将消息转发给服务器，从而达到我们的目的</p>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Bot</span>, <span class="title class_">InlineKeyboard</span> &#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;  <span class="comment">//你的机器人token</span></span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>);</span><br><span class="line"><span class="keyword">const</span> serverUrl = <span class="string">&quot;&quot;</span>; <span class="comment">// 你的服务器地址</span></span><br><span class="line">bot.<span class="title function_">on</span>(<span class="string">&quot;message:text&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> messageText = ctx.<span class="property">message</span>.<span class="property">text</span>;</span><br><span class="line">  <span class="keyword">const</span> chatId = ctx.<span class="property">message</span>.<span class="property">chat</span>.<span class="property">id</span>;</span><br><span class="line">  <span class="keyword">const</span> firstName = ctx.<span class="property">update</span>.<span class="property">message</span>.<span class="property">from</span>.<span class="property">first_name</span>;</span><br><span class="line">  <span class="keyword">const</span> eventtime = (<span class="keyword">await</span> <span class="title function_">getCurrentTime</span>()).<span class="title function_">toString</span>();</span><br><span class="line">  <span class="keyword">const</span> payload = &#123;</span><br><span class="line">      <span class="attr">uid</span>: chatId,</span><br><span class="line">      <span class="attr">message</span>: messageText,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 将数据发送到服务器</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(serverUrl, &#123;</span><br><span class="line">      <span class="attr">method</span>: <span class="string">&quot;POST&quot;</span>,</span><br><span class="line">      <span class="attr">headers</span>: &#123;</span><br><span class="line">        <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">body</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(payload),</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!response.<span class="property">ok</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">`HTTP error! status: <span class="subst">$&#123;response.status&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 解析服务器响应</span></span><br><span class="line">    <span class="keyword">const</span> responseData = <span class="keyword">await</span> response.<span class="title function_">json</span>();</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;服务器响应:&quot;</span>, responseData);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;发送消息到服务器失败:&quot;</span>, error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 启动机器人</span></span><br><span class="line">bot.<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -327,7 +324,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/75509731.html" title="telegram获取用户发送的消息并上报给服务器">https://lengmo714.top/75509731.html</a>
+    <a href="https://lengmo714.top/75509731.html" title="Telegram Bot 接收消息并上报服务器：grammY、Deno 与 fetch JSON">https://lengmo714.top/75509731.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -349,12 +346,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/8baa366.html" rel="prev" title="Enabling Close Confirmation in a Telegram Mini App">
-      <i class="fa fa-chevron-left"></i> Enabling Close Confirmation in a Telegram Mini App
+    <a href="/en/8baa366.html" rel="prev" title="Telegram Mini App Close Confirmation with enableClosingConfirmation">
+      <i class="fa fa-chevron-left"></i> Telegram Mini App Close Confirmation with enableClosingConfirmation
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/75509731.html" rel="next" title="Forwarding Telegram Bot Messages to a Server">
-      Forwarding Telegram Bot Messages to a Server <i class="fa fa-chevron-right"></i>
+    <a href="/en/75509731.html" rel="next" title="Forward Telegram Bot Messages to a Server with grammY, Deno and fetch">
+      Forward Telegram Bot Messages to a Server with grammY, Deno and fetch <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -414,7 +411,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">代码如下：</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">完整代码</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -441,13 +438,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

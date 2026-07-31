@@ -22,35 +22,22 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="最近新换了个博客主题，matery，感觉这个主题还挺好看的">
+  <meta name="description" content="修改 Hexo Matery 主题分类页 EJS 模板，将分类标签改为笔记本风格卡片，并通过 CSS 添加颜色、层叠、悬停和翻页动画效果。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo博客使用Matery主题进行分类页美化">
+<meta property="og:title" content="Hexo Matery 分类页美化：EJS 卡片结构与 CSS 笔记本动画">
 <meta property="og:url" content="https://lengmo714.top/f223ff9c.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="最近新换了个博客主题，matery，感觉这个主题还挺好看的">
+<meta property="og:description" content="修改 Hexo Matery 主题分类页 EJS 模板，将分类标签改为笔记本风格卡片，并通过 CSS 添加颜色、层叠、悬停和翻页动画效果。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqs36I.png">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqs11A.png">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xqs8Xt.png">
 <meta property="article:published_time" content="2022-10-29T15:04:50.000Z">
-<meta property="article:modified_time" content="2024-11-14T17:42:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T12:06:38.874Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="ios">
-<meta property="article:tag" content="android">
-<meta property="article:tag" content="游戏开发">
-<meta property="article:tag" content="quick-cocos">
-<meta property="article:tag" content="游戏上架">
-<meta property="article:tag" content="cocoscreater">
-<meta property="article:tag" content="c语言">
-<meta property="article:tag" content="C++">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="cocos2dx">
-<meta property="article:tag" content="Lua">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="数据手套">
-<meta property="article:tag" content="嵌入式开发">
-<meta property="article:tag" content="stem32">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="Matery">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s1.ax1x.com/2022/11/03/xqs36I.png">
 
@@ -66,7 +53,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/f223ff9c.html#article","headline":"Hexo博客使用Matery主题进行分类页美化","description":"最近新换了个博客主题，matery，感觉这个主题还挺好看的","datePublished":"2022-10-29T15:04:50.000Z","dateModified":"2024-11-14T17:42:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/f223ff9c.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo"],"keywords":"","wordCount":392,"image":["https://s1.ax1x.com/2022/11/03/xqs36I.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/f223ff9c.html#article","headline":"Hexo Matery 分类页美化：EJS 卡片结构与 CSS 笔记本动画","description":"修改 Hexo Matery 主题分类页 EJS 模板，将分类标签改为笔记本风格卡片，并通过 CSS 添加颜色、层叠、悬停和翻页动画效果。","datePublished":"2022-10-29T15:04:50.000Z","dateModified":"2026-07-31T12:06:38.874Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/f223ff9c.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo"],"keywords":"Hexo, CSS, Matery","wordCount":392,"image":["https://s1.ax1x.com/2022/11/03/xqs36I.png"]}</script>
 
 
 
@@ -82,7 +69,7 @@
   };
 </script>
 
-  <title>Hexo博客使用Matery主题进行分类页美化 | 南锋</title>
+  <title>Hexo Matery 分类页美化：EJS 卡片结构与 CSS 笔记本动画 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -263,7 +250,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo博客使用Matery主题进行分类页美化
+          Hexo Matery 分类页美化：EJS 卡片结构与 CSS 笔记本动画
         </h1>
 
         <div class="post-meta">
@@ -278,7 +265,7 @@
             </span>
 
           
-            <div class="post-description">最近新换了个博客主题，matery，感觉这个主题还挺好看的</div>
+            <div class="post-description">修改 Hexo Matery 主题分类页 EJS 模板，将分类标签改为笔记本风格卡片，并通过 CSS 添加颜色、层叠、悬停和翻页动画效果。</div>
 
         </div>
       </header>
@@ -349,7 +336,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/f223ff9c.html" title="Hexo博客使用Matery主题进行分类页美化">https://lengmo714.top/f223ff9c.html</a>
+    <a href="https://lengmo714.top/f223ff9c.html" title="Hexo Matery 分类页美化：EJS 卡片结构与 CSS 笔记本动画">https://lengmo714.top/f223ff9c.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -358,6 +345,12 @@
 </div>
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"></i> CSS</a>
+              <a href="/tags/Matery/" rel="tag"><i class="fa fa-tag"></i> Matery</a>
+          </div>
 
         
 
@@ -369,8 +362,8 @@
       <i class="fa fa-chevron-left"></i> 解决SSH远程登录失败：密码验证错误与连接调试
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/f223ff9c.html" rel="next" title="Styling the Category Page in Hexo’s Matery Theme">
-      Styling the Category Page in Hexo’s Matery Theme <i class="fa fa-chevron-right"></i>
+    <a href="/en/f223ff9c.html" rel="next" title="Style Hexo Matery Categories with EJS Cards and Notebook CSS Animation">
+      Style Hexo Matery Categories with EJS Cards and Notebook CSS Animation <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -457,13 +450,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

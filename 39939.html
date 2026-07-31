@@ -22,19 +22,19 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="pip问题Traceback (most recent call last)">
+  <meta name="description" content="针对 Python 3.7 环境执行 pip 时出现的启动 Traceback，说明如何确认 pip 对应的解释器，并优先通过 ensurepip 或重新安装安全修复。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pip问题Traceback (most recent call last)">
+<meta property="og:title" content="pip 启动 Traceback 修复：确认解释器并重新安装 pip">
 <meta property="og:url" content="https://lengmo714.top/39939.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="pip问题Traceback (most recent call last)">
+<meta property="og:description" content="针对 Python 3.7 环境执行 pip 时出现的启动 Traceback，说明如何确认 pip 对应的解释器，并优先通过 ensurepip 或重新安装安全修复。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/664340940ea9cb1403bb81b5.png">
-<meta property="og:image" content="https://pic.imgdb.cn/item/664340940ea9cb1403bb8198.png">
 <meta property="article:published_time" content="2019-03-16T15:20:20.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:45:18.994Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="python">
+<meta property="article:tag" content="pip">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pic.imgdb.cn/item/664340940ea9cb1403bb81b5.png">
 
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/39939.html#article","headline":"pip问题Traceback (most recent call last)","description":"pip问题Traceback (most recent call last)","datePublished":"2019-03-16T15:20:20.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/39939.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["常见bug"],"keywords":"python","wordCount":12,"image":["https://pic.imgdb.cn/item/664340940ea9cb1403bb81b5.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/39939.html#article","headline":"pip 启动 Traceback 修复：确认解释器并重新安装 pip","description":"针对 Python 3.7 环境执行 pip 时出现的启动 Traceback，说明如何确认 pip 对应的解释器，并优先通过 ensurepip 或重新安装安全修复。","datePublished":"2019-03-16T15:20:20.000Z","dateModified":"2026-07-31T09:45:18.994Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/39939.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["常见bug"],"keywords":"python, pip","wordCount":50,"image":["https://pic.imgdb.cn/item/664340940ea9cb1403bb81b5.png"]}</script>
 
 
 
@@ -66,7 +66,7 @@
   };
 </script>
 
-  <title>pip问题Traceback (most recent call last) | 南锋</title>
+  <title>pip 启动 Traceback 修复：确认解释器并重新安装 pip | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +247,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          pip问题Traceback (most recent call last)
+          pip 启动 Traceback 修复：确认解释器并重新安装 pip
         </h1>
 
         <div class="post-meta">
@@ -262,7 +262,7 @@
             </span>
 
           
-            <div class="post-description">pip问题Traceback (most recent call last)</div>
+            <div class="post-description">针对 Python 3.7 环境执行 pip 时出现的启动 Traceback，说明如何确认 pip 对应的解释器，并优先通过 ensurepip 或重新安装安全修复。</div>
 
         </div>
       </header>
@@ -273,7 +273,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>刚刚在用pip安装ipython时，遇到了下面这个错误</p>
+        <h2 id="问题现象"><a href="#问题现象" class="headerlink" title="问题现象"></a>问题现象</h2><p>刚刚在用 pip 安装 ipython 时，遇到了下面这个错误。</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
@@ -281,9 +281,16 @@
 </script>
 
 <blockquote>
-<p>笔者这里用的是python3.7.2版本</p>
+<p>当时使用的是 Python 3.7.2。旧版本已停止维护，条件允许时建议升级到受支持的 Python 版本。</p>
 </blockquote>
-<p><img src="https://pic.imgdb.cn/item/664340940ea9cb1403bb81b5.png" alt="在这里插入图片描述" decoding="async" loading="eager" fetchpriority="high"><br>解决方案如下：打开python 的安装路径，到<code>python3.7\Lib\site-packages\pip</code>路径下，打开<br><code>__main__.py</code>文件，修改最后一行，<br>将原本的<code>sys.exit(_main())</code> 改为 <code>sys.exit(_main__._main())</code> ,如下图<br><img src="https://pic.imgdb.cn/item/664340940ea9cb1403bb8198.png" alt="在这里插入图片描述" decoding="async" loading="lazy"></p>
+<p><img src="https://pic.imgdb.cn/item/664340940ea9cb1403bb81b5.png" alt="pip 启动 Traceback" decoding="async" loading="eager" fetchpriority="high"></p>
+<h2 id="确认-pip-对应的-Python"><a href="#确认-pip-对应的-Python" class="headerlink" title="确认 pip 对应的 Python"></a>确认 pip 对应的 Python</h2><p>先确认当前命令实际使用的解释器，避免系统中多个 Python 环境互相干扰：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python -V</span><br><span class="line">python -m pip --version</span><br></pre></td></tr></table></figure>
+
+<h2 id="安全修复-pip"><a href="#安全修复-pip" class="headerlink" title="安全修复 pip"></a>安全修复 pip</h2><p>优先让 Python 自身恢复并升级 pip，而不是直接修改 <code>site-packages/pip</code> 中的源码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python -m ensurepip --upgrade</span><br><span class="line">python -m pip install --upgrade --force-reinstall pip</span><br></pre></td></tr></table></figure>
+
+<p>如果命令仍然指向错误环境，请激活目标虚拟环境后重试，或重新安装对应 Python 版本。直接修改 pip 的 <code>__main__.py</code> 容易掩盖版本不匹配问题，后续升级也会覆盖该改动。</p>
 
     </div>
 
@@ -319,7 +326,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/39939.html" title="pip问题Traceback (most recent call last)">https://lengmo714.top/39939.html</a>
+    <a href="https://lengmo714.top/39939.html" title="pip 启动 Traceback 修复：确认解释器并重新安装 pip">https://lengmo714.top/39939.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -331,6 +338,7 @@
           
           <div class="post-tags">
               <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+              <a href="/tags/pip/" rel="tag"><i class="fa fa-tag"></i> pip</a>
           </div>
 
         
@@ -339,12 +347,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/39939.html" rel="prev" title="Repairing a Broken pip Installation">
-      <i class="fa fa-chevron-left"></i> Repairing a Broken pip Installation
+    <a href="/en/39939.html" rel="prev" title="Fix a pip Startup Traceback: Check Python and Reinstall pip Safely">
+      <i class="fa fa-chevron-left"></i> Fix a pip Startup Traceback: Check Python and Reinstall pip Safely
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/3247.html" rel="next" title="The Difference Between Dot and Colon Syntax in Lua">
-      The Difference Between Dot and Colon Syntax in Lua <i class="fa fa-chevron-right"></i>
+    <a href="/en/3247.html" rel="next" title="Lua Dot vs Colon Syntax: self, Method Definitions and Calls">
+      Lua Dot vs Colon Syntax: self, Method Definitions and Calls <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -404,6 +412,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E7%8E%B0%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">问题现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AE%E8%AE%A4-pip-%E5%AF%B9%E5%BA%94%E7%9A%84-Python"><span class="nav-number">2.</span> <span class="nav-text">确认 pip 对应的 Python</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E4%BF%AE%E5%A4%8D-pip"><span class="nav-number">3.</span> <span class="nav-text">安全修复 pip</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -430,13 +439,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

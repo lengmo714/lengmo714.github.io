@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Use Windows built-in cleanup tools to remove temporary files without recursively deleting broad classes of system files.">
+  <meta name="description" content="Use Windows Temporary Files, Storage Sense, and Disk Cleanup to reclaim space safely without recursively deleting broad system-file categories.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Safely Freeing Disk Space on Windows">
+<meta property="og:title" content="Safely Free Windows Disk Space: Temporary Files, Storage Sense and Cleanup">
 <meta property="og:url" content="https://lengmo714.top/en/628b7aeb.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Use Windows built-in cleanup tools to remove temporary files without recursively deleting broad classes of system files.">
+<meta property="og:description" content="Use Windows Temporary Files, Storage Sense, and Disk Cleanup to reclaim space safely without recursively deleting broad system-file categories.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-05-02T11:48:48.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:38:46.938Z">
+<meta property="article:modified_time" content="2026-07-31T10:06:37.435Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Windows">
 <meta name="twitter:card" content="summary">
@@ -47,10 +47,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/628b7aeb.html#article","headline":"Safely Freeing Disk Space on Windows","description":"Use Windows built-in cleanup tools to remove temporary files without recursively deleting broad classes of system files.","datePublished":"2023-05-02T11:48:48.000Z","dateModified":"2026-07-30T04:38:46.938Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/628b7aeb.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Computer Tips"],"keywords":"Windows","wordCount":215,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/628b7aeb.html#article","headline":"Safely Free Windows Disk Space: Temporary Files, Storage Sense and Cleanup","description":"Use Windows Temporary Files, Storage Sense, and Disk Cleanup to reclaim space safely without recursively deleting broad system-file categories.","datePublished":"2023-05-02T11:48:48.000Z","dateModified":"2026-07-31T10:06:37.435Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/628b7aeb.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Computer Tips"],"keywords":"Windows","wordCount":215}</script>
 
 
 
@@ -66,7 +63,7 @@
   };
 </script>
 
-  <title>Safely Freeing Disk Space on Windows | 南锋</title>
+  <title>Safely Free Windows Disk Space: Temporary Files, Storage Sense and Cleanup | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -247,7 +244,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Safely Freeing Disk Space on Windows
+          Safely Free Windows Disk Space: Temporary Files, Storage Sense and Cleanup
         </h1>
 
         <div class="post-meta">
@@ -262,7 +259,7 @@
             </span>
 
           
-            <div class="post-description">Use Windows built-in cleanup tools to remove temporary files without recursively deleting broad classes of system files.</div>
+            <div class="post-description">Use Windows Temporary Files, Storage Sense, and Disk Cleanup to reclaim space safely without recursively deleting broad system-file categories.</div>
 
         </div>
       </header>
@@ -275,14 +272,14 @@
       
         <p>The Windows system drive can gradually lose free space as temporary files, update caches, recycle-bin contents, and application data accumulate.</p>
 <p>The original article proposed a batch file that recursively deleted every <code>.tmp</code>, <code>.log</code>, <code>.old</code>, and several other file types across the entire system drive. That approach is too broad: those extensions may contain active application data, diagnostic records, or files required for recovery. A safer process is to use Windows’ built-in cleanup controls.</p>
-<h3 id="Temporary-files"><a href="#Temporary-files" class="headerlink" title="Temporary files"></a>Temporary files</h3><ol>
+<h2 id="Temporary-Files"><a href="#Temporary-Files" class="headerlink" title="Temporary Files"></a>Temporary Files</h2><ol>
 <li>Open <strong>Settings → System → Storage</strong>.</li>
 <li>Select <strong>Temporary files</strong>.</li>
 <li>Review every category. In particular, verify <strong>Downloads</strong> before selecting it.</li>
 <li>Choose only the categories you understand, then click <strong>Remove files</strong>.</li>
 </ol>
-<h3 id="Storage-Sense"><a href="#Storage-Sense" class="headerlink" title="Storage Sense"></a>Storage Sense</h3><p>Under <strong>Settings → System → Storage</strong>, enable <strong>Storage Sense</strong> and configure when Windows may remove temporary files or old recycle-bin items. Keep automatic deletion of Downloads disabled unless that behavior is intentional.</p>
-<h3 id="Disk-Cleanup"><a href="#Disk-Cleanup" class="headerlink" title="Disk Cleanup"></a>Disk Cleanup</h3><p>Search for <strong>Disk Cleanup</strong>, choose the system drive, and review the proposed categories. The <strong>Clean up system files</strong> option can remove obsolete Windows Update files, but create a backup or restore point first if rollback capability matters.</p>
+<h2 id="Storage-Sense"><a href="#Storage-Sense" class="headerlink" title="Storage Sense"></a>Storage Sense</h2><p>Under <strong>Settings → System → Storage</strong>, enable <strong>Storage Sense</strong> and configure when Windows may remove temporary files or old recycle-bin items. Keep automatic deletion of Downloads disabled unless that behavior is intentional.</p>
+<h2 id="Disk-Cleanup"><a href="#Disk-Cleanup" class="headerlink" title="Disk Cleanup"></a>Disk Cleanup</h2><p>Search for <strong>Disk Cleanup</strong>, choose the system drive, and review the proposed categories. The <strong>Clean up system files</strong> option can remove obsolete Windows Update files, but create a backup or restore point first if rollback capability matters.</p>
 <p>Also uninstall unused applications through <strong>Settings → Apps</strong>, move personal media to another drive, and use the Storage page to identify the largest categories. Avoid third-party “registry cleaners” and scripts that recursively delete files from the Windows or system-drive root.</p>
 
     </div>
@@ -319,7 +316,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/628b7aeb.html" title="Safely Freeing Disk Space on Windows">https://lengmo714.top/en/628b7aeb.html</a>
+    <a href="https://lengmo714.top/en/628b7aeb.html" title="Safely Free Windows Disk Space: Temporary Files, Storage Sense and Cleanup">https://lengmo714.top/en/628b7aeb.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -339,12 +336,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/628b7aeb.html" rel="prev" title="Windows系统垃圾清理指南：释放磁盘空间的高效方法">
-      <i class="fa fa-chevron-left"></i> Windows系统垃圾清理指南：释放磁盘空间的高效方法
+    <a href="/628b7aeb.html" rel="prev" title="Windows 安全释放磁盘空间：临时文件、存储感知与磁盘清理">
+      <i class="fa fa-chevron-left"></i> Windows 安全释放磁盘空间：临时文件、存储感知与磁盘清理
     </a></div>
       <div class="post-nav-item">
-    <a href="/45f4cb45.html" rel="next" title="TypeScript实现字符串格式化：自定义format.string方法">
-      TypeScript实现字符串格式化：自定义format.string方法 <i class="fa fa-chevron-right"></i>
+    <a href="/en/45f4cb45.html" rel="next" title="TypeScript String Formatting with {0} and {1} Indexed Placeholders">
+      TypeScript String Formatting with {0} and {1} Indexed Placeholders <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -404,7 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Temporary-files"><span class="nav-number">1.</span> <span class="nav-text">Temporary files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Storage-Sense"><span class="nav-number">2.</span> <span class="nav-text">Storage Sense</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Disk-Cleanup"><span class="nav-number">3.</span> <span class="nav-text">Disk Cleanup</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Temporary-Files"><span class="nav-number">1.</span> <span class="nav-text">Temporary Files</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Storage-Sense"><span class="nav-number">2.</span> <span class="nav-text">Storage Sense</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Disk-Cleanup"><span class="nav-number">3.</span> <span class="nav-text">Disk Cleanup</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -431,13 +428,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

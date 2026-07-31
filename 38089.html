@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="定时器在游戏开发中必不可少，下面简单介绍下定时器在Cocos2dx-lua中的一种用法">
+  <meta name="description" content="在 Cocos2d-x Lua 中通过 framework.scheduler.scheduleGlobal 周期调用函数，保存返回句柄，并使用 unscheduleGlobal 在场景退出时取消定时器。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cocos2dx Lua中的schedule定时器：创建、调用与取消操作详解">
+<meta property="og:title" content="Cocos2d-x Lua 定时器：scheduleGlobal、回调参数与取消句柄">
 <meta property="og:url" content="https://lengmo714.top/38089.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="定时器在游戏开发中必不可少，下面简单介绍下定时器在Cocos2dx-lua中的一种用法">
+<meta property="og:description" content="在 Cocos2d-x Lua 中通过 framework.scheduler.scheduleGlobal 周期调用函数，保存返回句柄，并使用 unscheduleGlobal 在场景退出时取消定时器。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-06T02:44:23.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T12:11:23.107Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta property="article:tag" content="Cocos2dx">
@@ -48,10 +48,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/38089.html#article","headline":"Cocos2dx Lua中的schedule定时器：创建、调用与取消操作详解","description":"定时器在游戏开发中必不可少，下面简单介绍下定时器在Cocos2dx-lua中的一种用法","datePublished":"2021-11-06T02:44:23.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/38089.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"Lua, Cocos2dx","wordCount":23,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/38089.html#article","headline":"Cocos2d-x Lua 定时器：scheduleGlobal、回调参数与取消句柄","description":"在 Cocos2d-x Lua 中通过 framework.scheduler.scheduleGlobal 周期调用函数，保存返回句柄，并使用 unscheduleGlobal 在场景退出时取消定时器。","datePublished":"2021-11-06T02:44:23.000Z","dateModified":"2026-07-31T12:11:23.107Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/38089.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"Lua, Cocos2dx","wordCount":23}</script>
 
 
 
@@ -67,7 +64,7 @@
   };
 </script>
 
-  <title>Cocos2dx Lua中的schedule定时器：创建、调用与取消操作详解 | 南锋</title>
+  <title>Cocos2d-x Lua 定时器：scheduleGlobal、回调参数与取消句柄 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +245,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Cocos2dx Lua中的schedule定时器：创建、调用与取消操作详解
+          Cocos2d-x Lua 定时器：scheduleGlobal、回调参数与取消句柄
         </h1>
 
         <div class="post-meta">
@@ -263,7 +260,7 @@
             </span>
 
           
-            <div class="post-description">定时器在游戏开发中必不可少，下面简单介绍下定时器在Cocos2dx-lua中的一种用法</div>
+            <div class="post-description">在 Cocos2d-x Lua 中通过 framework.scheduler.scheduleGlobal 周期调用函数，保存返回句柄，并使用 unscheduleGlobal 在场景退出时取消定时器。</div>
 
         </div>
       </header>
@@ -283,6 +280,7 @@
 
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> scheduler = <span class="built_in">require</span>(<span class="string">&quot;framework.scheduler&quot;</span>) </span><br><span class="line"><span class="keyword">local</span> handler = scheduler.scheduleGlobal(<span class="function"><span class="keyword">function</span><span class="params">()</span></span> </span><br><span class="line">        <span class="comment">-- 想做的事情   </span></span><br><span class="line"><span class="keyword">end</span>,</span><br><span class="line"><span class="number">0.2</span>) <span class="comment">-- 调用间隔</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scheduler.unscheduleGlobal(handler) <span class="comment">-- 取消定时器</span></span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -317,7 +315,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/38089.html" title="Cocos2dx Lua中的schedule定时器：创建、调用与取消操作详解">https://lengmo714.top/38089.html</a>
+    <a href="https://lengmo714.top/38089.html" title="Cocos2d-x Lua 定时器：scheduleGlobal、回调参数与取消句柄">https://lengmo714.top/38089.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -338,12 +336,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/39213.html" rel="prev" title="Controlling Node Order in Cocos2d-x Lua">
-      <i class="fa fa-chevron-left"></i> Controlling Node Order in Cocos2d-x Lua
+    <a href="/en/39213.html" rel="prev" title="Cocos2d-x Lua Render Order: setLocalZOrder and Sibling Nodes">
+      <i class="fa fa-chevron-left"></i> Cocos2d-x Lua Render Order: setLocalZOrder and Sibling Nodes
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/38089.html" rel="next" title="Scheduling and Cancelling Timers in Cocos2d-x Lua">
-      Scheduling and Cancelling Timers in Cocos2d-x Lua <i class="fa fa-chevron-right"></i>
+    <a href="/en/38089.html" rel="next" title="Cocos2d-x Lua Timers with scheduleGlobal, Callbacks and Cancellation">
+      Cocos2d-x Lua Timers with scheduleGlobal, Callbacks and Cancellation <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -429,13 +427,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

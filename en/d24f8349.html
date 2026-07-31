@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Subscribe to Game EVENT_HIDE and EVENT_SHOW and clean up both listeners when no longer needed.">
+  <meta name="description" content="Subscribe to Cocos Creator Game.EVENT_HIDE and EVENT_SHOW for background and foreground transitions, then remove both callbacks with game.off during cleanup.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Listening for Background and Foreground Events in Cocos Creator">
+<meta property="og:title" content="Cocos Creator Background Events: EVENT_HIDE, EVENT_SHOW and Cleanup">
 <meta property="og:url" content="https://lengmo714.top/en/d24f8349.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Subscribe to Game EVENT_HIDE and EVENT_SHOW and clean up both listeners when no longer needed.">
+<meta property="og:description" content="Subscribe to Cocos Creator Game.EVENT_HIDE and EVENT_SHOW for background and foreground transitions, then remove both callbacks with game.off during cleanup.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-01-16T15:07:46.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:25:10.471Z">
+<meta property="article:modified_time" content="2026-07-31T09:15:51.411Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="TypeScript">
@@ -48,10 +48,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/d24f8349.html#article","headline":"Listening for Background and Foreground Events in Cocos Creator","description":"Subscribe to Game EVENT_HIDE and EVENT_SHOW and clean up both listeners when no longer needed.","datePublished":"2024-01-16T15:07:46.000Z","dateModified":"2026-07-30T04:25:10.471Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/d24f8349.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript","wordCount":59,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/d24f8349.html#article","headline":"Cocos Creator Background Events: EVENT_HIDE, EVENT_SHOW and Cleanup","description":"Subscribe to Cocos Creator Game.EVENT_HIDE and EVENT_SHOW for background and foreground transitions, then remove both callbacks with game.off during cleanup.","datePublished":"2024-01-16T15:07:46.000Z","dateModified":"2026-07-31T09:15:51.411Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/d24f8349.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript","wordCount":64}</script>
 
 
 
@@ -67,7 +64,7 @@
   };
 </script>
 
-  <title>Listening for Background and Foreground Events in Cocos Creator | 南锋</title>
+  <title>Cocos Creator Background Events: EVENT_HIDE, EVENT_SHOW and Cleanup | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +245,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Listening for Background and Foreground Events in Cocos Creator
+          Cocos Creator Background Events: EVENT_HIDE, EVENT_SHOW and Cleanup
         </h1>
 
         <div class="post-meta">
@@ -263,7 +260,7 @@
             </span>
 
           
-            <div class="post-description">Subscribe to Game EVENT_HIDE and EVENT_SHOW and clean up both listeners when no longer needed.</div>
+            <div class="post-description">Subscribe to Cocos Creator Game.EVENT_HIDE and EVENT_SHOW for background and foreground transitions, then remove both callbacks with game.off during cleanup.</div>
 
         </div>
       </header>
@@ -274,7 +271,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; game, <span class="title class_">Game</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;cc&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppLifecycle</span> &#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="title function_">onLoad</span>(<span class="params"></span>) &#123;</span><br><span class="line">    game.<span class="title function_">on</span>(<span class="title class_">Game</span>.<span class="property">EVENT_HIDE</span>, <span class="variable language_">this</span>.<span class="property">onHide</span>, <span class="variable language_">this</span>);</span><br><span class="line">    game.<span class="title function_">on</span>(<span class="title class_">Game</span>.<span class="property">EVENT_SHOW</span>, <span class="variable language_">this</span>.<span class="property">onShow</span>, <span class="variable language_">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="title function_">onHide</span>(<span class="params"></span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Application entered the background&#x27;</span>); &#125;</span><br><span class="line">  <span class="keyword">static</span> <span class="title function_">onShow</span>(<span class="params"></span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Application returned to the foreground&#x27;</span>); &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="title function_">onDestroy</span>(<span class="params"></span>) &#123;</span><br><span class="line">    game.<span class="title function_">off</span>(<span class="title class_">Game</span>.<span class="property">EVENT_HIDE</span>, <span class="variable language_">this</span>.<span class="property">onHide</span>, <span class="variable language_">this</span>);</span><br><span class="line">    game.<span class="title function_">off</span>(<span class="title class_">Game</span>.<span class="property">EVENT_SHOW</span>, <span class="variable language_">this</span>.<span class="property">onShow</span>, <span class="variable language_">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="Register-and-Remove-App-Lifecycle-Listeners"><a href="#Register-and-Remove-App-Lifecycle-Listeners" class="headerlink" title="Register and Remove App Lifecycle Listeners"></a>Register and Remove App Lifecycle Listeners</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; game, <span class="title class_">Game</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;cc&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppLifecycle</span> &#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="title function_">onLoad</span>(<span class="params"></span>) &#123;</span><br><span class="line">    game.<span class="title function_">on</span>(<span class="title class_">Game</span>.<span class="property">EVENT_HIDE</span>, <span class="variable language_">this</span>.<span class="property">onHide</span>, <span class="variable language_">this</span>);</span><br><span class="line">    game.<span class="title function_">on</span>(<span class="title class_">Game</span>.<span class="property">EVENT_SHOW</span>, <span class="variable language_">this</span>.<span class="property">onShow</span>, <span class="variable language_">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="title function_">onHide</span>(<span class="params"></span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Application entered the background&#x27;</span>); &#125;</span><br><span class="line">  <span class="keyword">static</span> <span class="title function_">onShow</span>(<span class="params"></span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Application returned to the foreground&#x27;</span>); &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="title function_">onDestroy</span>(<span class="params"></span>) &#123;</span><br><span class="line">    game.<span class="title function_">off</span>(<span class="title class_">Game</span>.<span class="property">EVENT_HIDE</span>, <span class="variable language_">this</span>.<span class="property">onHide</span>, <span class="variable language_">this</span>);</span><br><span class="line">    game.<span class="title function_">off</span>(<span class="title class_">Game</span>.<span class="property">EVENT_SHOW</span>, <span class="variable language_">this</span>.<span class="property">onShow</span>, <span class="variable language_">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>Call <code>onLoad</code> during startup and <code>onDestroy</code> when the listener owner is released.</p>
 
@@ -312,7 +309,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/d24f8349.html" title="Listening for Background and Foreground Events in Cocos Creator">https://lengmo714.top/en/d24f8349.html</a>
+    <a href="https://lengmo714.top/en/d24f8349.html" title="Cocos Creator Background Events: EVENT_HIDE, EVENT_SHOW and Cleanup">https://lengmo714.top/en/d24f8349.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -333,12 +330,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/dc26bed4.html" rel="prev" title="Updating an Android App's targetSdkVersion">
-      <i class="fa fa-chevron-left"></i> Updating an Android App's targetSdkVersion
+    <a href="/en/dc26bed4.html" rel="prev" title="Fix This App Was Built for an Older Version of Android by Updating targetSdkVersion">
+      <i class="fa fa-chevron-left"></i> Fix This App Was Built for an Older Version of Android by Updating targetSdkVersion
     </a></div>
       <div class="post-nav-item">
-    <a href="/d24f8349.html" rel="next" title="cocosCreator监听应用后台与前台切换的实现方法">
-      cocosCreator监听应用后台与前台切换的实现方法 <i class="fa fa-chevron-right"></i>
+    <a href="/d24f8349.html" rel="next" title="Cocos Creator 前后台切换监听：Game.EVENT_HIDE 与 EVENT_SHOW">
+      Cocos Creator 前后台切换监听：Game.EVENT_HIDE 与 EVENT_SHOW <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -398,6 +395,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Register-and-Remove-App-Lifecycle-Listeners"><span class="nav-number">1.</span> <span class="nav-text">Register and Remove App Lifecycle Listeners</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -424,13 +422,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

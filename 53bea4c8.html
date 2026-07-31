@@ -22,19 +22,19 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="cocosCreator导出PWA包">
+  <meta name="description" content="将 Cocos Creator Web Mobile 构建改造成可安装 PWA，配置 manifest.json、应用图标、theme-color 和 Service Worker，并使用 Chrome 检查安装条件与缓存问题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cocosCreator导出PWA包">
+<meta property="og:title" content="Cocos Creator Web 导出 PWA：manifest、Service Worker 与安装验证">
 <meta property="og:url" content="https://lengmo714.top/53bea4c8.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="cocosCreator导出PWA包">
+<meta property="og:description" content="将 Cocos Creator Web Mobile 构建改造成可安装 PWA，配置 manifest.json、应用图标、theme-color 和 Service Worker，并使用 Chrome 检查安装条件与缓存问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lengmo714.top/postImg/pwa/1.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/pwa/2.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/pwa/3.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/pwa/4.png">
 <meta property="article:published_time" content="2025-01-17T07:14:20.000Z">
-<meta property="article:modified_time" content="2025-06-16T03:13:24.000Z">
+<meta property="article:modified_time" content="2026-07-31T12:12:38.250Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="cocosCreator">
 <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/53bea4c8.html#article","headline":"cocosCreator导出PWA包","description":"cocosCreator导出PWA包","datePublished":"2025-01-17T07:14:20.000Z","dateModified":"2025-06-16T03:13:24.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/53bea4c8.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":272,"image":["https://lengmo714.top/postImg/pwa/1.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/53bea4c8.html#article","headline":"Cocos Creator Web 导出 PWA：manifest、Service Worker 与安装验证","description":"将 Cocos Creator Web Mobile 构建改造成可安装 PWA，配置 manifest.json、应用图标、theme-color 和 Service Worker，并使用 Chrome 检查安装条件与缓存问题。","datePublished":"2025-01-17T07:14:20.000Z","dateModified":"2026-07-31T12:12:38.250Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/53bea4c8.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":292,"image":["https://lengmo714.top/postImg/pwa/1.png"]}</script>
 
 
 
@@ -68,7 +68,7 @@
   };
 </script>
 
-  <title>cocosCreator导出PWA包 | 南锋</title>
+  <title>Cocos Creator Web 导出 PWA：manifest、Service Worker 与安装验证 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -249,7 +249,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          cocosCreator导出PWA包
+          Cocos Creator Web 导出 PWA：manifest、Service Worker 与安装验证
         </h1>
 
         <div class="post-meta">
@@ -264,7 +264,7 @@
             </span>
 
           
-            <div class="post-description">cocosCreator导出PWA包</div>
+            <div class="post-description">将 Cocos Creator Web Mobile 构建改造成可安装 PWA，配置 manifest.json、应用图标、theme-color 和 Service Worker，并使用 Chrome 检查安装条件与缓存问题。</div>
 
         </div>
       </header>
@@ -283,10 +283,10 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果对<code>PWA</code>这个概念不太清楚的，可以先去了解一下。<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/microsoft-edge/progressive-web-apps-chromium/">渐进式 Web 应用(PWA)概述</a>，可以先跟着里面的教程走一遍。很简单，走通之后直接移植到cocosCreator即可。本文介绍也就是分享下我创建的过程和踩的一些坑。</p>
-<h3 id="设置cocosCreator项目为Web平台"><a href="#设置cocosCreator项目为Web平台" class="headerlink" title="设置cocosCreator项目为Web平台"></a>设置cocosCreator项目为Web平台</h3><p>个人理解，<code>PWA</code>本质上就是一个<code>web</code>程序，所以我们首先要做的就是将cocosCreator导出为web平台，我这里导出的是<code>web-mobile</code>。</p>
-<h3 id="配置PWA所需的文件"><a href="#配置PWA所需的文件" class="headerlink" title="配置PWA所需的文件"></a>配置PWA所需的文件</h3><p>PWA需要一些特定的文件和配置，我这里就用到了2个，有了这两个基本上就可以了，但是你有其他的需要，则需要其他的一些文件。</p>
-<h4 id="创建-Web-应用清单"><a href="#创建-Web-应用清单" class="headerlink" title="创建 Web 应用清单"></a>创建 Web 应用清单</h4><p>Web 应用清单是一个 JSON 文件，其中包含有关应用的元数据，例如其名称、说明、图标及其使用的各种操作系统功能。 有关详细信息，请参阅 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable#the_web_app_manifest">使用 Web 应用清单将 PWA 集成到 OS</a> 中。</p>
+<h2 id="Cocos-Creator-Web-构建与-PWA-前提"><a href="#Cocos-Creator-Web-构建与-PWA-前提" class="headerlink" title="Cocos Creator Web 构建与 PWA 前提"></a>Cocos Creator Web 构建与 PWA 前提</h2><p>如果对<code>PWA</code>这个概念不太清楚的，可以先去了解一下。<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/microsoft-edge/progressive-web-apps-chromium/">渐进式 Web 应用(PWA)概述</a>，可以先跟着里面的教程走一遍。很简单，走通之后直接移植到cocosCreator即可。本文介绍也就是分享下我创建的过程和踩的一些坑。</p>
+<h2 id="将-Cocos-Creator-项目构建为-Web-Mobile"><a href="#将-Cocos-Creator-项目构建为-Web-Mobile" class="headerlink" title="将 Cocos Creator 项目构建为 Web Mobile"></a>将 Cocos Creator 项目构建为 Web Mobile</h2><p>个人理解，<code>PWA</code>本质上就是一个<code>web</code>程序，所以我们首先要做的就是将cocosCreator导出为web平台，我这里导出的是<code>web-mobile</code>。</p>
+<h2 id="配置-PWA-所需文件"><a href="#配置-PWA-所需文件" class="headerlink" title="配置 PWA 所需文件"></a>配置 PWA 所需文件</h2><p>PWA需要一些特定的文件和配置，我这里就用到了2个，有了这两个基本上就可以了，但是你有其他的需要，则需要其他的一些文件。</p>
+<h3 id="创建-manifest-json-应用清单"><a href="#创建-manifest-json-应用清单" class="headerlink" title="创建 manifest.json 应用清单"></a>创建 manifest.json 应用清单</h3><p>Web 应用清单是一个 JSON 文件，其中包含有关应用的元数据，例如其名称、说明、图标及其使用的各种操作系统功能。 有关详细信息，请参阅 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable#the_web_app_manifest">使用 Web 应用清单将 PWA 集成到 OS</a> 中。</p>
 <ol>
 <li><p>在项目的<code>build/web-mobile</code>文件夹内，创建一个名为<code>manifest.json</code>的文件。该文件包含应用的基本信息，如名称、图标和主题色。示例代码如下：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;lang&quot;</span><span class="punctuation">:</span> <span class="string">&quot;en-us&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;My cocosCreator Game&quot;</span><span class="punctuation">,</span> </span><br><span class="line">  <span class="attr">&quot;short_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Game&quot;</span><span class="punctuation">,</span>  </span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;A fun game built with cocosCreator&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;start_url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/&quot;</span><span class="punctuation">,</span>     </span><br><span class="line">  <span class="attr">&quot;display&quot;</span><span class="punctuation">:</span> <span class="string">&quot;standalone&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;background_color&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#ffffff&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;theme_color&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#000000&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;icons&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;src&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/icons/icon-192x192.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;sizes&quot;</span><span class="punctuation">:</span> <span class="string">&quot;192x192&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;image/png&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;src&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/icons/icon-512x512.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;sizes&quot;</span><span class="punctuation">:</span> <span class="string">&quot;512x512&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;image/png&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
@@ -295,7 +295,7 @@
 <li><p>在导出的<code>index.html</code>中添加下面代码</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;manifest&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/manifest.json&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 </ol>
-<h4 id="添加服务辅助角色"><a href="#添加服务辅助角色" class="headerlink" title="添加服务辅助角色"></a>添加服务辅助角色</h4><p>服务辅助角色是一项关键技术，可帮助使 PWA 快速且独立于网络条件。</p>
+<h3 id="注册-Service-Worker"><a href="#注册-Service-Worker" class="headerlink" title="注册 Service Worker"></a>注册 Service Worker</h3><p>服务辅助角色是一项关键技术，可帮助使 PWA 快速且独立于网络条件。</p>
 <p>服务辅助角色是一个专用 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API">的 Web 辅助角色</a> ，可以截获来自 PWA 的网络请求，并启用如下方案：</p>
 <ul>
 <li>脱机支持，包括间歇性连接。</li>
@@ -308,7 +308,7 @@
 再在<code>index.html</code>中引入下面代码：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">if</span>(<span class="string">&#x27;serviceWorker&#x27;</span> <span class="keyword">in</span> navigator) &#123;</span><br><span class="line">    navigator.<span class="property">serviceWorker</span>.<span class="title function_">register</span>(<span class="string">&#x27;/sw.js&#x27;</span>, &#123; <span class="attr">scope</span>: <span class="string">&#x27;/&#x27;</span> &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">registration</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Service Worker registered with scope: &#x27;</span>, registration.<span class="property">scope</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Service Worker registration failed: &#x27;</span>, error);</span><br><span class="line">  &#125;);;</span><br><span class="line">  &#125;</span><br><span class="line">  &lt;/script&gt;</span><br></pre></td></tr></table></figure>
 做完上述步骤后，整个接入步骤就已经完成了。</li>
 </ol>
-<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>在<code>web-mobile</code>文件夹下打开终端，开启本地服务器，方法：<br>方法1：使用python</p>
+<h2 id="使用-Chrome-验证-PWA-安装条件"><a href="#使用-Chrome-验证-PWA-安装条件" class="headerlink" title="使用 Chrome 验证 PWA 安装条件"></a>使用 Chrome 验证 PWA 安装条件</h2><p>在<code>web-mobile</code>文件夹下打开终端，开启本地服务器，方法：<br>方法1：使用python</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server 8080</span><br></pre></td></tr></table></figure>
 <p>方法2：使用Node.js</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx http-server</span><br></pre></td></tr></table></figure>
@@ -316,7 +316,7 @@
 <p>1、如果是在电脑端，最简单的方式就是看浏览器有没有安装的图标，如果有就是成功了。如下<br><img src="https://lengmo714.top/postImg/pwa/1.png" alt="谷歌浏览器" decoding="async" loading="eager" fetchpriority="high"><br><img src="https://lengmo714.top/postImg/pwa/2.png" alt="Edge浏览器" decoding="async" loading="lazy"></p>
 <p>2、打开浏览器开发者工具，查看<code>sw.js</code>是否生效，如下图<br><img src="https://lengmo714.top/postImg/pwa/3.png" alt="sw.js是否生效" decoding="async" loading="lazy"></p>
 <p>3、查看<code>sw.js</code>中设置的缓存资源路径下的资源是否有缓存，如下图<br><img src="https://lengmo714.top/postImg/pwa/4.png" alt="是否缓存" decoding="async" loading="lazy"></p>
-<h3 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h3><p>1、个人在整个过程中，踩的最多的坑就是文件路径的问题，然后基本上所有的问题都是文件路径设置不对的原因。<br>因为我在开发过程中是在自己电脑上使用的本地服务器，然后正式测试的时候是将web包上传到CDN上测试的，<code>index.html</code>的索引路径不一样。<br>2、在手机上安装后，icon显示的不对<br>我在手机上使用谷歌浏览器打开的，提示我安装后，桌面icon右下角会加上一个谷歌浏览器的icon。原因：<code>manifest.json</code>设置的icon尺寸不对。</p>
+<h2 id="常见-PWA-缓存与路径问题"><a href="#常见-PWA-缓存与路径问题" class="headerlink" title="常见 PWA 缓存与路径问题"></a>常见 PWA 缓存与路径问题</h2><p>1、个人在整个过程中，踩的最多的坑就是文件路径的问题，然后基本上所有的问题都是文件路径设置不对的原因。<br>因为我在开发过程中是在自己电脑上使用的本地服务器，然后正式测试的时候是将web包上传到CDN上测试的，<code>index.html</code>的索引路径不一样。<br>2、在手机上安装后，icon显示的不对<br>我在手机上使用谷歌浏览器打开的，提示我安装后，桌面icon右下角会加上一个谷歌浏览器的icon。原因：<code>manifest.json</code>设置的icon尺寸不对。</p>
 
     </div>
 
@@ -352,7 +352,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/53bea4c8.html" title="cocosCreator导出PWA包">https://lengmo714.top/53bea4c8.html</a>
+    <a href="https://lengmo714.top/53bea4c8.html" title="Cocos Creator Web 导出 PWA：manifest、Service Worker 与安装验证">https://lengmo714.top/53bea4c8.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -372,12 +372,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/53bea4c8.html" rel="prev" title="Exporting a Cocos Creator Game as a PWA">
-      <i class="fa fa-chevron-left"></i> Exporting a Cocos Creator Game as a PWA
+    <a href="/en/53bea4c8.html" rel="prev" title="Export Cocos Creator Web as a PWA with Manifest and Service Worker">
+      <i class="fa fa-chevron-left"></i> Export Cocos Creator Web as a PWA with Manifest and Service Worker
     </a></div>
       <div class="post-nav-item">
-    <a href="/a37e9cdc.html" rel="next" title="pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况">
-      pwa应用进阶-区分AB面-添加安装按钮而且区分不同的系统和浏览器的各种情况 <i class="fa fa-chevron-right"></i>
+    <a href="/a37e9cdc.html" rel="next" title="PWA 自定义安装按钮：beforeinstallprompt、iOS 引导与独立页面">
+      PWA 自定义安装按钮：beforeinstallprompt、iOS 引导与独立页面 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -437,7 +437,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEcocosCreator%E9%A1%B9%E7%9B%AE%E4%B8%BAWeb%E5%B9%B3%E5%8F%B0"><span class="nav-number">2.</span> <span class="nav-text">设置cocosCreator项目为Web平台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEPWA%E6%89%80%E9%9C%80%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">配置PWA所需的文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-Web-%E5%BA%94%E7%94%A8%E6%B8%85%E5%8D%95"><span class="nav-number">3.1.</span> <span class="nav-text">创建 Web 应用清单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%9C%8D%E5%8A%A1%E8%BE%85%E5%8A%A9%E8%A7%92%E8%89%B2"><span class="nav-number">3.2.</span> <span class="nav-text">添加服务辅助角色</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-number">4.</span> <span class="nav-text">验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B8%A9%E5%9D%91"><span class="nav-number">5.</span> <span class="nav-text">踩坑</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cocos-Creator-Web-%E6%9E%84%E5%BB%BA%E4%B8%8E-PWA-%E5%89%8D%E6%8F%90"><span class="nav-number">1.</span> <span class="nav-text">Cocos Creator Web 构建与 PWA 前提</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86-Cocos-Creator-%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E4%B8%BA-Web-Mobile"><span class="nav-number">2.</span> <span class="nav-text">将 Cocos Creator 项目构建为 Web Mobile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PWA-%E6%89%80%E9%9C%80%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">配置 PWA 所需文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-manifest-json-%E5%BA%94%E7%94%A8%E6%B8%85%E5%8D%95"><span class="nav-number">3.1.</span> <span class="nav-text">创建 manifest.json 应用清单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C-Service-Worker"><span class="nav-number">3.2.</span> <span class="nav-text">注册 Service Worker</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Chrome-%E9%AA%8C%E8%AF%81-PWA-%E5%AE%89%E8%A3%85%E6%9D%A1%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">使用 Chrome 验证 PWA 安装条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81-PWA-%E7%BC%93%E5%AD%98%E4%B8%8E%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">常见 PWA 缓存与路径问题</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -464,13 +464,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

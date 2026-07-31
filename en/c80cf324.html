@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Understand callback receiver rules and preserve a class instance inside JavaScript timers.">
+  <meta name="description" content="Understand why timer callbacks lose their class receiver in Cocos Creator and preserve this with a captured variable, bind, or an arrow function.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Preserving this in setTimeout and setInterval Callbacks">
+<meta property="og:title" content="Cocos Creator Timer this Binding: setTimeout, setInterval, bind and Arrows">
 <meta property="og:url" content="https://lengmo714.top/en/c80cf324.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Understand callback receiver rules and preserve a class instance inside JavaScript timers.">
+<meta property="og:description" content="Understand why timer callbacks lose their class receiver in Cocos Creator and preserve this with a captured variable, bind, or an arrow function.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-04-20T14:21:59.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:38:47.213Z">
+<meta property="article:modified_time" content="2026-07-31T09:43:13.259Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="TypeScript">
@@ -48,10 +48,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/c80cf324.html#article","headline":"Preserving this in setTimeout and setInterval Callbacks","description":"Understand callback receiver rules and preserve a class instance inside JavaScript timers.","datePublished":"2023-04-20T14:21:59.000Z","dateModified":"2026-07-30T04:38:47.213Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/c80cf324.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript","wordCount":176,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/c80cf324.html#article","headline":"Cocos Creator Timer this Binding: setTimeout, setInterval, bind and Arrows","description":"Understand why timer callbacks lose their class receiver in Cocos Creator and preserve this with a captured variable, bind, or an arrow function.","datePublished":"2023-04-20T14:21:59.000Z","dateModified":"2026-07-31T09:43:13.259Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/c80cf324.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript","wordCount":176}</script>
 
 
 
@@ -67,7 +64,7 @@
   };
 </script>
 
-  <title>Preserving this in setTimeout and setInterval Callbacks | 南锋</title>
+  <title>Cocos Creator Timer this Binding: setTimeout, setInterval, bind and Arrows | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +245,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Preserving this in setTimeout and setInterval Callbacks
+          Cocos Creator Timer this Binding: setTimeout, setInterval, bind and Arrows
         </h1>
 
         <div class="post-meta">
@@ -263,7 +260,7 @@
             </span>
 
           
-            <div class="post-description">Understand callback receiver rules and preserve a class instance inside JavaScript timers.</div>
+            <div class="post-description">Understand why timer callbacks lose their class receiver in Cocos Creator and preserve this with a captured variable, bind, or an arrow function.</div>
 
         </div>
       </header>
@@ -275,14 +272,14 @@
 
       
         <p>When a traditional function is passed directly to <code>setTimeout</code> or <code>setInterval</code>, it is invoked without the original object’s method-call context. Its <code>this</code> therefore does not reliably refer to the component instance.</p>
-<h3 id="Capture-the-instance"><a href="#Capture-the-instance" class="headerlink" title="Capture the instance"></a>Capture the instance</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">startBroadcast</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> that = <span class="variable language_">this</span>;</span><br><span class="line">    <span class="built_in">setInterval</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(that.<span class="property">msg</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Capture-the-Instance"><a href="#Capture-the-Instance" class="headerlink" title="Capture the Instance"></a>Capture the Instance</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">startBroadcast</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> that = <span class="variable language_">this</span>;</span><br><span class="line">    <span class="built_in">setInterval</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(that.<span class="property">msg</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="Bind-the-callback"><a href="#Bind-the-callback" class="headerlink" title="Bind the callback"></a>Bind the callback</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">startBroadcast</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="built_in">setInterval</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">msg</span>);</span><br><span class="line">    &#125;.<span class="title function_">bind</span>(<span class="variable language_">this</span>), <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Bind-the-Callback"><a href="#Bind-the-Callback" class="headerlink" title="Bind the Callback"></a>Bind the Callback</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">startBroadcast</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="built_in">setInterval</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">msg</span>);</span><br><span class="line">    &#125;.<span class="title function_">bind</span>(<span class="variable language_">this</span>), <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="Use-an-arrow-function"><a href="#Use-an-arrow-function" class="headerlink" title="Use an arrow function"></a>Use an arrow function</h3><p>Arrow functions inherit <code>this</code> lexically from the surrounding scope and are usually the clearest TypeScript option:</p>
+<h2 id="Use-an-Arrow-Function"><a href="#Use-an-Arrow-Function" class="headerlink" title="Use an Arrow Function"></a>Use an Arrow Function</h2><p>Arrow functions inherit <code>this</code> lexically from the surrounding scope and are usually the clearest TypeScript option:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">startBroadcast</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">msg</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="How-JavaScript-chooses-this"><a href="#How-JavaScript-chooses-this" class="headerlink" title="How JavaScript chooses this"></a>How JavaScript chooses this</h3><ul>
+<h2 id="How-JavaScript-Chooses-this"><a href="#How-JavaScript-Chooses-this" class="headerlink" title="How JavaScript Chooses this"></a>How JavaScript Chooses this</h2><ul>
 <li>A function invoked with <code>new</code> receives the newly created object.</li>
 <li><code>call</code>, <code>apply</code>, and <code>bind</code> explicitly supply the receiver.</li>
 <li>A method call such as <code>obj.foo()</code> uses <code>obj</code> as the receiver.</li>
@@ -325,7 +322,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/c80cf324.html" title="Preserving this in setTimeout and setInterval Callbacks">https://lengmo714.top/en/c80cf324.html</a>
+    <a href="https://lengmo714.top/en/c80cf324.html" title="Cocos Creator Timer this Binding: setTimeout, setInterval, bind and Arrows">https://lengmo714.top/en/c80cf324.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -346,12 +343,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/c80cf324.html" rel="prev" title="cocosCreator中关于setTimeOut和setInterval改变this指向的问题">
-      <i class="fa fa-chevron-left"></i> cocosCreator中关于setTimeOut和setInterval改变this指向的问题
+    <a href="/c80cf324.html" rel="prev" title="Cocos Creator 定时器 this 指向：setTimeout、setInterval、bind 与箭头函数">
+      <i class="fa fa-chevron-left"></i> Cocos Creator 定时器 this 指向：setTimeout、setInterval、bind 与箭头函数
     </a></div>
       <div class="post-nav-item">
-    <a href="/c2be17de.html" rel="next" title="cocosCreator实现广播消息功能：从设计到代码实现">
-      cocosCreator实现广播消息功能：从设计到代码实现 <i class="fa fa-chevron-right"></i>
+    <a href="/c2be17de.html" rel="next" title="Cocos Creator 广播消息队列：WebSocket、Tween 与逐条播放">
+      Cocos Creator 广播消息队列：WebSocket、Tween 与逐条播放 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -411,7 +408,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Capture-the-instance"><span class="nav-number">1.</span> <span class="nav-text">Capture the instance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bind-the-callback"><span class="nav-number">2.</span> <span class="nav-text">Bind the callback</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-an-arrow-function"><span class="nav-number">3.</span> <span class="nav-text">Use an arrow function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-JavaScript-chooses-this"><span class="nav-number">4.</span> <span class="nav-text">How JavaScript chooses this</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Capture-the-Instance"><span class="nav-number">1.</span> <span class="nav-text">Capture the Instance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bind-the-Callback"><span class="nav-number">2.</span> <span class="nav-text">Bind the Callback</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Use-an-Arrow-Function"><span class="nav-number">3.</span> <span class="nav-text">Use an Arrow Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-JavaScript-Chooses-this"><span class="nav-number">4.</span> <span class="nav-text">How JavaScript Chooses this</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -438,13 +435,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

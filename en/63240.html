@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Resize a panel without distorting its corners by using a nine-slice sprite in Cocos2d-x Lua.">
+  <meta name="description" content="Resize Cocos2d-x Lua panels and buttons without distorting corners by using Scale9Sprite, cap insets, content size, and reusable nine-slice UI textures.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nine-Slice Image Scaling in Cocos2d-x Lua">
+<meta property="og:title" content="Cocos2d-x Lua Nine-Slice Scaling: Resize UI with Scale9Sprite">
 <meta property="og:url" content="https://lengmo714.top/en/63240.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Resize a panel without distorting its corners by using a nine-slice sprite in Cocos2d-x Lua.">
+<meta property="og:description" content="Resize Cocos2d-x Lua panels and buttons without distorting corners by using Scale9Sprite, cap insets, content size, and reusable nine-slice UI textures.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-08T09:42:47.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:51:20.119Z">
+<meta property="article:modified_time" content="2026-07-31T09:00:26.527Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta property="article:tag" content="Cocos2d-x">
@@ -48,10 +48,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/63240.html#article","headline":"Nine-Slice Image Scaling in Cocos2d-x Lua","description":"Resize a panel without distorting its corners by using a nine-slice sprite in Cocos2d-x Lua.","datePublished":"2022-04-08T09:42:47.000Z","dateModified":"2026-07-30T04:51:20.119Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/63240.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Game Development"],"keywords":"Lua, Cocos2d-x","wordCount":107,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/63240.html#article","headline":"Cocos2d-x Lua Nine-Slice Scaling: Resize UI with Scale9Sprite","description":"Resize Cocos2d-x Lua panels and buttons without distorting corners by using Scale9Sprite, cap insets, content size, and reusable nine-slice UI textures.","datePublished":"2022-04-08T09:42:47.000Z","dateModified":"2026-07-31T09:00:26.527Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/63240.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Game Development"],"keywords":"Lua, Cocos2d-x","wordCount":111}</script>
 
 
 
@@ -67,7 +64,7 @@
   };
 </script>
 
-  <title>Nine-Slice Image Scaling in Cocos2d-x Lua | 南锋</title>
+  <title>Cocos2d-x Lua Nine-Slice Scaling: Resize UI with Scale9Sprite | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +245,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Nine-Slice Image Scaling in Cocos2d-x Lua
+          Cocos2d-x Lua Nine-Slice Scaling: Resize UI with Scale9Sprite
         </h1>
 
         <div class="post-meta">
@@ -263,7 +260,7 @@
             </span>
 
           
-            <div class="post-description">Resize a panel without distorting its corners by using a nine-slice sprite in Cocos2d-x Lua.</div>
+            <div class="post-description">Resize Cocos2d-x Lua panels and buttons without distorting corners by using Scale9Sprite, cap insets, content size, and reusable nine-slice UI textures.</div>
 
         </div>
       </header>
@@ -275,7 +272,7 @@
 
       
         <p><strong>Environment:</strong> Cocos2d-x 3.17<br><strong>Language:</strong> Lua</p>
-<p>Scaling a normal parent sprite also scales its visual details and may affect the appearance of its child hierarchy. For resizable panels and buttons, nine-slice scaling divides an image into nine regions: the corners remain fixed, the edges stretch in one direction, and the center stretches in both directions.</p>
+<h2 id="Resize-UI-without-Distorting-Corners"><a href="#Resize-UI-without-Distorting-Corners" class="headerlink" title="Resize UI without Distorting Corners"></a>Resize UI without Distorting Corners</h2><p>Scaling a normal parent sprite also scales its visual details and may affect the appearance of its child hierarchy. For resizable panels and buttons, nine-slice scaling divides an image into nine regions: the corners remain fixed, the edges stretch in one direction, and the center stretches in both directions.</p>
 <p>Create a scale-nine sprite with quick-Cocos2d-x:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> panel = display.newScale9Sprite(</span><br><span class="line">    <span class="string">&quot;Box.png&quot;</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    cc.size(<span class="number">400</span>, <span class="number">300</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
@@ -315,7 +312,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/63240.html" title="Nine-Slice Image Scaling in Cocos2d-x Lua">https://lengmo714.top/en/63240.html</a>
+    <a href="https://lengmo714.top/en/63240.html" title="Cocos2d-x Lua Nine-Slice Scaling: Resize UI with Scale9Sprite">https://lengmo714.top/en/63240.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -336,12 +333,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/63240.html" rel="prev" title="Cocos2d-x Lua：实现图片九宫格缩放的完整指南">
-      <i class="fa fa-chevron-left"></i> Cocos2d-x Lua：实现图片九宫格缩放的完整指南
+    <a href="/63240.html" rel="prev" title="Cocos2d-x Lua 九宫格缩放：Scale9Sprite 拉伸面板不变形">
+      <i class="fa fa-chevron-left"></i> Cocos2d-x Lua 九宫格缩放：Scale9Sprite 拉伸面板不变形
     </a></div>
       <div class="post-nav-item">
-    <a href="/37340.html" rel="next" title="用Python绘制布朗熊：Turtle库实现的创意编程">
-      用Python绘制布朗熊：Turtle库实现的创意编程 <i class="fa fa-chevron-right"></i>
+    <a href="/37340.html" rel="next" title="Python Turtle 绘制布朗熊：圆形、填充、坐标与分层绘图">
+      Python Turtle 绘制布朗熊：圆形、填充、坐标与分层绘图 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -401,6 +398,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Resize-UI-without-Distorting-Corners"><span class="nav-number">1.</span> <span class="nav-text">Resize UI without Distorting Corners</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -427,13 +425,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

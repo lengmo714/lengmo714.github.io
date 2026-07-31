@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Cocos2dx-lua热更新实现:版本管理与资源更新详解">
+  <meta name="description" content="使用 AssetsManager 实现 Cocos2d-x Lua 热更新，生成 version 和 project manifest，下载并校验资源、更新搜索路径，并设计失败恢复与发布安全策略。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cocos2dx-lua热更新实现：版本管理与资源更新详解">
+<meta property="og:title" content="Cocos2d-x Lua 热更新：Manifest、校验、搜索路径与回滚">
 <meta property="og:url" content="https://lengmo714.top/49721.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Cocos2dx-lua热更新实现:版本管理与资源更新详解">
+<meta property="og:description" content="使用 AssetsManager 实现 Cocos2d-x Lua 热更新，生成 version 和 project manifest，下载并校验资源、更新搜索路径，并设计失败恢复与发布安全策略。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-12-21T06:27:33.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T12:06:11.111Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta property="article:tag" content="Cocos2dx">
@@ -48,10 +48,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/49721.html#article","headline":"Cocos2dx-lua热更新实现：版本管理与资源更新详解","description":"Cocos2dx-lua热更新实现:版本管理与资源更新详解","datePublished":"2018-12-21T06:27:33.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/49721.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"Lua, Cocos2dx","wordCount":575,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/49721.html#article","headline":"Cocos2d-x Lua 热更新：Manifest、校验、搜索路径与回滚","description":"使用 AssetsManager 实现 Cocos2d-x Lua 热更新，生成 version 和 project manifest，下载并校验资源、更新搜索路径，并设计失败恢复与发布安全策略。","datePublished":"2018-12-21T06:27:33.000Z","dateModified":"2026-07-31T12:06:11.111Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/49721.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"Lua, Cocos2dx","wordCount":575}</script>
 
 
 
@@ -67,7 +64,7 @@
   };
 </script>
 
-  <title>Cocos2dx-lua热更新实现：版本管理与资源更新详解 | 南锋</title>
+  <title>Cocos2d-x Lua 热更新：Manifest、校验、搜索路径与回滚 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +245,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Cocos2dx-lua热更新实现：版本管理与资源更新详解
+          Cocos2d-x Lua 热更新：Manifest、校验、搜索路径与回滚
         </h1>
 
         <div class="post-meta">
@@ -263,7 +260,7 @@
             </span>
 
           
-            <div class="post-description">Cocos2dx-lua热更新实现:版本管理与资源更新详解</div>
+            <div class="post-description">使用 AssetsManager 实现 Cocos2d-x Lua 热更新，生成 version 和 project manifest，下载并校验资源、更新搜索路径，并设计失败恢复与发布安全策略。</div>
 
         </div>
       </header>
@@ -282,7 +279,7 @@
 </script>
 
 <p>一个包含了版本信息，第二个包含了游戏所有资源的MD5码。首先通过version文件对比本地的版本是否相同，如果不相同，再通过跟本地的project文件对比MD5码来判断哪些文件需要重新下载，替换资源。 </p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤:"></a>步骤:</h2><ol>
+<h2 id="热更新步骤"><a href="#热更新步骤" class="headerlink" title="热更新步骤"></a>热更新步骤</h2><ol>
 <li>有一个文件下载的热更新服务器，将最新项目资源(res&#x2F;  src&#x2F; 目录)放入热更新服务器中，添加版本信息母文件(version_info.json)和python脚本文件eneateManifest.py(生成project.manifest、version.manifest文件)。</li>
 </ol>
 <p>2.version_info.json文件: 主要用来配置信息</p>
@@ -339,7 +336,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/49721.html" title="Cocos2dx-lua热更新实现：版本管理与资源更新详解">https://lengmo714.top/49721.html</a>
+    <a href="https://lengmo714.top/49721.html" title="Cocos2d-x Lua 热更新：Manifest、校验、搜索路径与回滚">https://lengmo714.top/49721.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -360,12 +357,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/43145.html" rel="prev" title="Loading CSB Files and Binding Controls in Cocos2d-x 3.17 Lua">
-      <i class="fa fa-chevron-left"></i> Loading CSB Files and Binding Controls in Cocos2d-x 3.17 Lua
+    <a href="/en/43145.html" rel="prev" title="Cocos2d-x 3.17 Lua CSB Loading: Controls, Timelines and ViewBase">
+      <i class="fa fa-chevron-left"></i> Cocos2d-x 3.17 Lua CSB Loading: Controls, Timelines and ViewBase
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/49721.html" rel="next" title="Secure Hot Updates for Cocos2d-x Lua Games">
-      Secure Hot Updates for Cocos2d-x Lua Games <i class="fa fa-chevron-right"></i>
+    <a href="/en/49721.html" rel="next" title="Cocos2d-x Lua Hot Updates: Manifests, Verification, Search Paths and Recovery">
+      Cocos2d-x Lua Hot Updates: Manifests, Verification, Search Paths and Recovery <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -425,7 +422,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">步骤:</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%83%AD%E6%9B%B4%E6%96%B0%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">热更新步骤</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -452,13 +449,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

@@ -22,32 +22,19 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="pwa应用进阶2-动态加载manifest.json文件">
+  <meta name="description" content="通过 JavaScript 动态创建 manifest 链接，并由 Go 服务端按参数生成 PWA manifest.json，实现语言、主题、start_url 与资源路径切换。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pwa应用进阶2-动态加载manifest.json文件">
+<meta property="og:title" content="PWA 动态加载 manifest.json：JavaScript 注入与 Go 服务端生成">
 <meta property="og:url" content="https://lengmo714.top/7d6b9bcd.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="pwa应用进阶2-动态加载manifest.json文件">
+<meta property="og:description" content="通过 JavaScript 动态创建 manifest 链接，并由 Go 服务端按参数生成 PWA manifest.json，实现语言、主题、start_url 与资源路径切换。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-02-13T06:22:12.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:43:13.670Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="ios">
-<meta property="article:tag" content="android">
-<meta property="article:tag" content="游戏开发">
-<meta property="article:tag" content="quick-cocos">
-<meta property="article:tag" content="游戏上架">
-<meta property="article:tag" content="cocoscreater">
-<meta property="article:tag" content="c语言">
-<meta property="article:tag" content="C++">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="cocos2dx">
-<meta property="article:tag" content="Lua">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="数据手套">
-<meta property="article:tag" content="嵌入式开发">
-<meta property="article:tag" content="stem32">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="PWA">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://lengmo714.top/7d6b9bcd.html">
@@ -62,10 +49,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/7d6b9bcd.html#article","headline":"pwa应用进阶2-动态加载manifest.json文件","description":"pwa应用进阶2-动态加载manifest.json文件","datePublished":"2025-02-13T06:22:12.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/7d6b9bcd.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":[],"keywords":"","wordCount":228,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/7d6b9bcd.html#article","headline":"PWA 动态加载 manifest.json：JavaScript 注入与 Go 服务端生成","description":"通过 JavaScript 动态创建 manifest 链接，并由 Go 服务端按参数生成 PWA manifest.json，实现语言、主题、start_url 与资源路径切换。","datePublished":"2025-02-13T06:22:12.000Z","dateModified":"2026-07-31T09:43:13.670Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/7d6b9bcd.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Web Development"],"keywords":"PWA, JavaScript, Go","wordCount":229}</script>
 
 
 
@@ -81,7 +65,7 @@
   };
 </script>
 
-  <title>pwa应用进阶2-动态加载manifest.json文件 | 南锋</title>
+  <title>PWA 动态加载 manifest.json：JavaScript 注入与 Go 服务端生成 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -262,13 +246,22 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          pwa应用进阶2-动态加载manifest.json文件
+          PWA 动态加载 manifest.json：JavaScript 注入与 Go 服务端生成
         </h1>
 
         <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web-Development/" itemprop="url" rel="index"><span itemprop="name">Web Development</span></a>
+                </span>
+            </span>
 
           
-            <div class="post-description">pwa应用进阶2-动态加载manifest.json文件</div>
+            <div class="post-description">通过 JavaScript 动态创建 manifest 链接，并由 Go 服务端按参数生成 PWA manifest.json，实现语言、主题、start_url 与资源路径切换。</div>
 
         </div>
       </header>
@@ -290,7 +283,7 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h3 id="步骤及说明"><a href="#步骤及说明" class="headerlink" title="步骤及说明"></a>步骤及说明</h3><ol>
+<h2 id="浏览器端步骤与说明"><a href="#浏览器端步骤与说明" class="headerlink" title="浏览器端步骤与说明"></a>浏览器端步骤与说明</h2><ol>
 <li><p>修改<code>index.html</code>中<code>manifest</code>的引用<br>将之前的</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;manifest&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/manifest.json&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>改为</p>
@@ -307,7 +300,7 @@
 <p>这里我将<code>manifest.json</code>中的<code>start_url</code>和两个icon传给服务器，服务器返回给我一个<code>manifest.json</code>文件，然后我再动态的加载这个文件。</p>
 </li>
 </ol>
-<h3 id="服务器代码"><a href="#服务器代码" class="headerlink" title="服务器代码"></a>服务器代码</h3><p>我这里是使用的go语言，具体代码如下:</p>
+<h2 id="Go-服务端代码"><a href="#Go-服务端代码" class="headerlink" title="Go 服务端代码"></a>Go 服务端代码</h2><p>我这里是使用的go语言，具体代码如下:</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">        <span class="string">&quot;encoding/json&quot;</span></span><br><span class="line">        <span class="string">&quot;fmt&quot;</span></span><br><span class="line">        <span class="string">&quot;net/http&quot;</span></span><br><span class="line">        <span class="string">&quot;net/url&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Manifest 结构体</span></span><br><span class="line"><span class="keyword">type</span> Manifest <span class="keyword">struct</span> &#123;</span><br><span class="line">        Name            <span class="type">string</span> <span class="string">`json:&quot;name&quot;`</span></span><br><span class="line">        ShortName       <span class="type">string</span> <span class="string">`json:&quot;short_name&quot;`</span></span><br><span class="line">        StartURL        <span class="type">string</span> <span class="string">`json:&quot;start_url&quot;`</span></span><br><span class="line">        Display         <span class="type">string</span> <span class="string">`json:&quot;display&quot;`</span></span><br><span class="line">        ThemeColor      <span class="type">string</span> <span class="string">`json:&quot;theme_color&quot;`</span></span><br><span class="line">        BackgroundColor <span class="type">string</span> <span class="string">`json:&quot;background_color&quot;`</span></span><br><span class="line">        Icons          []Icon <span class="string">`json:&quot;icons&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Icon 结构体</span></span><br><span class="line"><span class="keyword">type</span> Icon <span class="keyword">struct</span> &#123;</span><br><span class="line">        Src   <span class="type">string</span> <span class="string">`json:&quot;src&quot;`</span></span><br><span class="line">        Sizes <span class="type">string</span> <span class="string">`json:&quot;sizes&quot;`</span></span><br><span class="line">        Type  <span class="type">string</span> <span class="string">`json:&quot;type&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">manifestHandler</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 获取 URL 参数 p</span></span><br><span class="line">        p := r.URL.Query().Get(<span class="string">&quot;p&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> p == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">                http.Error(w, <span class="string">`&#123;&quot;error&quot;: &quot;Missing parameter &#x27;p&#x27;&quot;&#125;`</span>, http.StatusBadRequest)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 解析 URL 编码的 JSON 字符串</span></span><br><span class="line">        decodedP, err := url.QueryUnescape(p)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                http.Error(w, <span class="string">`&#123;&quot;error&quot;: &quot;Failed to decode parameter &#x27;p&#x27;&quot;&#125;`</span>, http.StatusBadRequest)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 解析 JSON 数据</span></span><br><span class="line">        <span class="keyword">var</span> data <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span></span><br><span class="line">        err = json.Unmarshal([]<span class="type">byte</span>(decodedP), &amp;data)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                http.Error(w, <span class="string">`&#123;&quot;error&quot;: &quot;Invalid JSON format&quot;&#125;`</span>, http.StatusInternalServerError)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 生成 manifest.json</span></span><br><span class="line">        manifest := Manifest&#123;</span><br><span class="line">                Name:            data[<span class="string">&quot;name&quot;</span>],</span><br><span class="line">                ShortName:       data[<span class="string">&quot;name&quot;</span>],</span><br><span class="line">                StartURL:        data[<span class="string">&quot;start_url&quot;</span>],</span><br><span class="line">                Display:         <span class="string">&quot;standalone&quot;</span>,</span><br><span class="line">                ThemeColor:      <span class="string">&quot;#ffffff&quot;</span>,</span><br><span class="line">                BackgroundColor: <span class="string">&quot;#000000&quot;</span>,</span><br><span class="line">                Icons: []Icon&#123;</span><br><span class="line">                        &#123;Src: data[<span class="string">&quot;i1&quot;</span>], Sizes: <span class="string">&quot;192x192&quot;</span>, Type: <span class="string">&quot;image/png&quot;</span>&#125;,</span><br><span class="line">                        &#123;Src: data[<span class="string">&quot;i2&quot;</span>], Sizes: <span class="string">&quot;512x512&quot;</span>, Type: <span class="string">&quot;image/png&quot;</span>&#125;,</span><br><span class="line">                &#125;,</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置 HTTP 头</span></span><br><span class="line">        w.Header().Set(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/json&quot;</span>)</span><br><span class="line">        w.WriteHeader(http.StatusOK)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 返回 JSON 响应</span></span><br><span class="line">        json.NewEncoder(w).Encode(manifest)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">        http.HandleFunc(<span class="string">&quot;/manifest&quot;</span>, manifestHandler)</span><br><span class="line">        port := <span class="number">8080</span></span><br><span class="line">        fmt.Printf(<span class="string">&quot;Server running at http://localhost:%d\n&quot;</span>, port)</span><br><span class="line">        http.ListenAndServe(fmt.Sprintf(<span class="string">&quot;:%d&quot;</span>, port), <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>自己在服务器另起一个go的服务器即可。</p>
 
@@ -345,7 +338,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/7d6b9bcd.html" title="pwa应用进阶2-动态加载manifest.json文件">https://lengmo714.top/7d6b9bcd.html</a>
+    <a href="https://lengmo714.top/7d6b9bcd.html" title="PWA 动态加载 manifest.json：JavaScript 注入与 Go 服务端生成">https://lengmo714.top/7d6b9bcd.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -354,6 +347,12 @@
 </div>
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/PWA/" rel="tag"><i class="fa fa-tag"></i> PWA</a>
+              <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+              <a href="/tags/Go/" rel="tag"><i class="fa fa-tag"></i> Go</a>
+          </div>
 
         
 
@@ -361,12 +360,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/61cfa629.html" rel="prev" title="Comparing Files Between Git Branches with Beyond Compare">
-      <i class="fa fa-chevron-left"></i> Comparing Files Between Git Branches with Beyond Compare
+    <a href="/en/61cfa629.html" rel="prev" title="Compare Git Branches with Beyond Compare: Difftool Setup and Commands">
+      <i class="fa fa-chevron-left"></i> Compare Git Branches with Beyond Compare: Difftool Setup and Commands
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/7d6b9bcd.html" rel="next" title="Dynamically Loading a PWA Manifest">
-      Dynamically Loading a PWA Manifest <i class="fa fa-chevron-right"></i>
+    <a href="/en/7d6b9bcd.html" rel="next" title="Dynamically Load a PWA Manifest with JavaScript and a Go Server">
+      Dynamically Load a PWA Manifest with JavaScript and a Go Server <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -426,7 +425,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E5%8F%8A%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">步骤及说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">服务器代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AB%AF%E6%AD%A5%E9%AA%A4%E4%B8%8E%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">浏览器端步骤与说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">Go 服务端代码</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -453,13 +452,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

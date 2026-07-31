@@ -22,18 +22,18 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Xcode各种目录路径和调试方法">
+  <meta name="description" content="汇总 macOS 上 Xcode 的 DerivedData、Archives、模拟器数据和描述文件路径，并介绍 Instruments Leaks、Zombies 及多版本 Xcode 切换方法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xcode在Mac上的目录管理与调试技巧：从插件到缓存路径">
+<meta property="og:title" content="Xcode 常用目录与调试工具：DerivedData、模拟器、Leaks 和 Zombies">
 <meta property="og:url" content="https://lengmo714.top/22026.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Xcode各种目录路径和调试方法">
+<meta property="og:description" content="汇总 macOS 上 Xcode 的 DerivedData、Archives、模拟器数据和描述文件路径，并介绍 Instruments Leaks、Zombies 及多版本 Xcode 切换方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-22T02:54:16.000Z">
-<meta property="article:modified_time" content="2024-11-14T17:27:00.000Z">
+<meta property="article:modified_time" content="2026-07-31T10:06:37.808Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="mac">
 <meta property="article:tag" content="Xcode">
+<meta property="article:tag" content="mac">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://lengmo714.top/22026.html">
@@ -48,10 +48,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/22026.html#article","headline":"Xcode在Mac上的目录管理与调试技巧：从插件到缓存路径","description":"Xcode各种目录路径和调试方法","datePublished":"2020-07-22T02:54:16.000Z","dateModified":"2024-11-14T17:27:00.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/22026.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":[],"keywords":"mac, Xcode","wordCount":49,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/22026.html#article","headline":"Xcode 常用目录与调试工具：DerivedData、模拟器、Leaks 和 Zombies","description":"汇总 macOS 上 Xcode 的 DerivedData、Archives、模拟器数据和描述文件路径，并介绍 Instruments Leaks、Zombies 及多版本 Xcode 切换方法。","datePublished":"2020-07-22T02:54:16.000Z","dateModified":"2026-07-31T10:06:37.808Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/22026.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["开发工具的使用"],"keywords":"Xcode, mac","wordCount":49}</script>
 
 
 
@@ -67,7 +64,7 @@
   };
 </script>
 
-  <title>Xcode在Mac上的目录管理与调试技巧：从插件到缓存路径 | 南锋</title>
+  <title>Xcode 常用目录与调试工具：DerivedData、模拟器、Leaks 和 Zombies | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,13 +245,22 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Xcode在Mac上的目录管理与调试技巧：从插件到缓存路径
+          Xcode 常用目录与调试工具：DerivedData、模拟器、Leaks 和 Zombies
         </h1>
 
         <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">开发工具的使用</span></a>
+                </span>
+            </span>
 
           
-            <div class="post-description">Xcode各种目录路径和调试方法</div>
+            <div class="post-description">汇总 macOS 上 Xcode 的 DerivedData、Archives、模拟器数据和描述文件路径，并介绍 Instruments Leaks、Zombies 及多版本 Xcode 切换方法。</div>
 
         </div>
       </header>
@@ -298,6 +304,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 ）在product－scheme－edit scheme－diagnostics中将enable zombie objects勾选上。</span><br><span class="line"></span><br><span class="line">2）在Xcode－open developer tool－Instruments打开工具集，选择Zombies工具可以对已安装的应用进行僵尸对象检测。</span><br></pre></td></tr></table></figure>
 <p>存在多Xcode 时，更改默认路径：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Xcode</span> &gt; <span class="title class_">Preferences</span> &gt; <span class="title class_">Locations</span>路径查看到正在使用的版本和该版本路径。可下拉选择需要版本。</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -332,7 +339,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/22026.html" title="Xcode在Mac上的目录管理与调试技巧：从插件到缓存路径">https://lengmo714.top/22026.html</a>
+    <a href="https://lengmo714.top/22026.html" title="Xcode 常用目录与调试工具：DerivedData、模拟器、Leaks 和 Zombies">https://lengmo714.top/22026.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -343,8 +350,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/mac/" rel="tag"><i class="fa fa-tag"></i> mac</a>
               <a href="/tags/Xcode/" rel="tag"><i class="fa fa-tag"></i> Xcode</a>
+              <a href="/tags/mac/" rel="tag"><i class="fa fa-tag"></i> mac</a>
           </div>
 
         
@@ -353,12 +360,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/22026.html" rel="prev" title="Useful Xcode Paths and Debugging Tools on macOS">
-      <i class="fa fa-chevron-left"></i> Useful Xcode Paths and Debugging Tools on macOS
+    <a href="/en/22026.html" rel="prev" title="Xcode Paths and Debugging Tools: DerivedData, Simulators, Leaks and Zombies">
+      <i class="fa fa-chevron-left"></i> Xcode Paths and Debugging Tools: DerivedData, Simulators, Leaks and Zombies
     </a></div>
       <div class="post-nav-item">
-    <a href="/43588.html" rel="next" title="Lua线程与状态详解：并发编程与状态管理教程">
-      Lua线程与状态详解：并发编程与状态管理教程 <i class="fa fa-chevron-right"></i>
+    <a href="/43588.html" rel="next" title="Lua 线程、协程与独立状态：lua_newthread、resume 和 yield">
+      Lua 线程、协程与独立状态：lua_newthread、resume 和 yield <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -444,13 +451,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

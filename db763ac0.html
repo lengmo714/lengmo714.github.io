@@ -22,18 +22,19 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="TS时间戳格式转换与实用代码示例">
+  <meta name="description" content="使用 TypeScript 和 JavaScript Date 将 ISO 时间或时间戳转换为 YYYY-MM-DD HH:mm:ss，处理月份补一、日期补零和本地时间展示。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TS时间戳格式转换与实用代码示例">
+<meta property="og:title" content="TypeScript 时间戳格式化：转换为 YYYY-MM-DD HH:mm:ss">
 <meta property="og:url" content="https://lengmo714.top/db763ac0.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="TS时间戳格式转换与实用代码示例">
+<meta property="og:description" content="使用 TypeScript 和 JavaScript Date 将 ISO 时间或时间戳转换为 YYYY-MM-DD HH:mm:ss，处理月份补一、日期补零和本地时间展示。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-29T15:18:19.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T09:44:42.858Z">
 <meta property="article:author" content="南锋">
+<meta property="article:tag" content="TypeScript">
 <meta property="article:tag" content="quick Cocos">
-<meta property="article:tag" content="ts">
+<meta property="article:tag" content="JavaScript Date">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://lengmo714.top/db763ac0.html">
@@ -48,10 +49,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/db763ac0.html#article","headline":"TS时间戳格式转换与实用代码示例","description":"TS时间戳格式转换与实用代码示例","datePublished":"2023-11-29T15:18:19.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/db763ac0.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"quick Cocos, ts","wordCount":45,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/db763ac0.html#article","headline":"TypeScript 时间戳格式化：转换为 YYYY-MM-DD HH:mm:ss","description":"使用 TypeScript 和 JavaScript Date 将 ISO 时间或时间戳转换为 YYYY-MM-DD HH:mm:ss，处理月份补一、日期补零和本地时间展示。","datePublished":"2023-11-29T15:18:19.000Z","dateModified":"2026-07-31T09:44:42.858Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/db763ac0.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"TypeScript, quick Cocos, JavaScript Date","wordCount":45}</script>
 
 
 
@@ -67,7 +65,7 @@
   };
 </script>
 
-  <title>TS时间戳格式转换与实用代码示例 | 南锋</title>
+  <title>TypeScript 时间戳格式化：转换为 YYYY-MM-DD HH:mm:ss | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +246,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          TS时间戳格式转换与实用代码示例
+          TypeScript 时间戳格式化：转换为 YYYY-MM-DD HH:mm:ss
         </h1>
 
         <div class="post-meta">
@@ -263,7 +261,7 @@
             </span>
 
           
-            <div class="post-description">TS时间戳格式转换与实用代码示例</div>
+            <div class="post-description">使用 TypeScript 和 JavaScript Date 将 ISO 时间或时间戳转换为 YYYY-MM-DD HH:mm:ss，处理月份补一、日期补零和本地时间展示。</div>
 
         </div>
       </header>
@@ -319,7 +317,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/db763ac0.html" title="TS时间戳格式转换与实用代码示例">https://lengmo714.top/db763ac0.html</a>
+    <a href="https://lengmo714.top/db763ac0.html" title="TypeScript 时间戳格式化：转换为 YYYY-MM-DD HH:mm:ss">https://lengmo714.top/db763ac0.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -330,8 +328,9 @@
       <footer class="post-footer">
           
           <div class="post-tags">
+              <a href="/tags/TypeScript/" rel="tag"><i class="fa fa-tag"></i> TypeScript</a>
               <a href="/tags/quick-Cocos/" rel="tag"><i class="fa fa-tag"></i> quick Cocos</a>
-              <a href="/tags/ts/" rel="tag"><i class="fa fa-tag"></i> ts</a>
+              <a href="/tags/JavaScript-Date/" rel="tag"><i class="fa fa-tag"></i> JavaScript Date</a>
           </div>
 
         
@@ -340,12 +339,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/fbea9931.html" rel="prev" title="IE浏览器停用，靠IE才能打开的网页怎么办">
-      <i class="fa fa-chevron-left"></i> IE浏览器停用，靠IE才能打开的网页怎么办
+    <a href="/en/fbea9931.html" rel="prev" title="Open Legacy IE-Only Websites with Microsoft Edge IE Mode">
+      <i class="fa fa-chevron-left"></i> Open Legacy IE-Only Websites with Microsoft Edge IE Mode
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/db763ac0.html" rel="next" title="Formatting a Timestamp in TypeScript">
-      Formatting a Timestamp in TypeScript <i class="fa fa-chevron-right"></i>
+    <a href="/en/db763ac0.html" rel="next" title="Format a Timestamp in TypeScript as YYYY-MM-DD HH:mm:ss">
+      Format a Timestamp in TypeScript as YYYY-MM-DD HH:mm:ss <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -431,13 +430,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

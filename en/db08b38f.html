@@ -22,18 +22,18 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Trace a missing SpriteFrame texture by inspecting its UUID in the Cocos Creator debugger.">
+  <meta name="description" content="Fix a Cocos Creator getGFXTexture null error by inspecting the failing SpriteFrame, searching its UUID in Assets, and repairing invalid texture references.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Fixing getGFXTexture Null Errors in Cocos Creator">
+<meta property="og:title" content="Fix Cocos Creator Cannot Read Properties of Null (reading getGFXTexture)">
 <meta property="og:url" content="https://lengmo714.top/en/db08b38f.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Trace a missing SpriteFrame texture by inspecting its UUID in the Cocos Creator debugger.">
+<meta property="og:description" content="Fix a Cocos Creator getGFXTexture null error by inspecting the failing SpriteFrame, searching its UUID in Assets, and repairing invalid texture references.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s11.ax1x.com/2024/01/30/pFKDIqs.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6643274b0ea9cb14038e966b.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/664327760ea9cb14038eceba.png">
 <meta property="article:published_time" content="2024-01-30T16:38:18.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:25:09.915Z">
+<meta property="article:modified_time" content="2026-07-31T08:25:23.467Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
 <meta name="twitter:card" content="summary">
@@ -51,7 +51,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/db08b38f.html#article","headline":"Fixing getGFXTexture Null Errors in Cocos Creator","description":"Trace a missing SpriteFrame texture by inspecting its UUID in the Cocos Creator debugger.","datePublished":"2024-01-30T16:38:18.000Z","dateModified":"2026-07-30T04:25:09.915Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/db08b38f.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator","wordCount":70,"image":["https://s11.ax1x.com/2024/01/30/pFKDIqs.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/db08b38f.html#article","headline":"Fix Cocos Creator Cannot Read Properties of Null (reading getGFXTexture)","description":"Fix a Cocos Creator getGFXTexture null error by inspecting the failing SpriteFrame, searching its UUID in Assets, and repairing invalid texture references.","datePublished":"2024-01-30T16:38:18.000Z","dateModified":"2026-07-31T08:25:23.467Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/db08b38f.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator","wordCount":79,"image":["https://s11.ax1x.com/2024/01/30/pFKDIqs.png"]}</script>
 
 
 
@@ -67,7 +67,7 @@
   };
 </script>
 
-  <title>Fixing getGFXTexture Null Errors in Cocos Creator | 南锋</title>
+  <title>Fix Cocos Creator Cannot Read Properties of Null (reading getGFXTexture) | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -248,7 +248,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Fixing getGFXTexture Null Errors in Cocos Creator
+          Fix Cocos Creator Cannot Read Properties of Null (reading getGFXTexture)
         </h1>
 
         <div class="post-meta">
@@ -263,7 +263,7 @@
             </span>
 
           
-            <div class="post-description">Trace a missing SpriteFrame texture by inspecting its UUID in the Cocos Creator debugger.</div>
+            <div class="post-description">Fix a Cocos Creator getGFXTexture null error by inspecting the failing SpriteFrame, searching its UUID in Assets, and repairing invalid texture references.</div>
 
         </div>
       </header>
@@ -274,10 +274,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>The browser repeatedly reported <code>Cannot read properties of null (reading &#39;getGFXTexture&#39;)</code>:</p>
+        <h2 id="Identify-the-getGFXTexture-Null-Error"><a href="#Identify-the-getGFXTexture-Null-Error" class="headerlink" title="Identify the getGFXTexture Null Error"></a>Identify the getGFXTexture Null Error</h2><p>The browser repeatedly reported <code>Cannot read properties of null (reading &#39;getGFXTexture&#39;)</code>:</p>
 <img src="https://s11.ax1x.com/2024/01/30/pFKDIqs.png" alt="Error" decoding="async" loading="eager" fetchpriority="high">
 
-<p>The underlying image texture had become invalid or empty. Enable Cocos source debugging in VS Code, stop at the failing frame, and inspect the <code>frame</code> object:</p>
+<h2 id="Trace-the-Invalid-SpriteFrame-by-UUID"><a href="#Trace-the-Invalid-SpriteFrame-by-UUID" class="headerlink" title="Trace the Invalid SpriteFrame by UUID"></a>Trace the Invalid SpriteFrame by UUID</h2><p>The underlying image texture had become invalid or empty. Enable Cocos source debugging in VS Code, stop at the failing frame, and inspect the <code>frame</code> object:</p>
 <img src="https://pic.imgdb.cn/item/6643274b0ea9cb14038e966b.png" alt="Debugger frame" decoding="async" loading="lazy">
 
 <p>Copy its <code>uuid</code>, search for it in the Cocos Creator Assets panel, then use Find UUID References on that image:</p>
@@ -319,7 +319,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/db08b38f.html" title="Fixing getGFXTexture Null Errors in Cocos Creator">https://lengmo714.top/en/db08b38f.html</a>
+    <a href="https://lengmo714.top/en/db08b38f.html" title="Fix Cocos Creator Cannot Read Properties of Null (reading getGFXTexture)">https://lengmo714.top/en/db08b38f.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -339,12 +339,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/31318c8f.html" rel="prev" title="cocosCreator动态刷新Label长度的两种解决方法">
-      <i class="fa fa-chevron-left"></i> cocosCreator动态刷新Label长度的两种解决方法
+    <a href="/31318c8f.html" rel="prev" title="Cocos Creator 修改 Label 后尺寸未更新：updateRenderData 与下一帧读取">
+      <i class="fa fa-chevron-left"></i> Cocos Creator 修改 Label 后尺寸未更新：updateRenderData 与下一帧读取
     </a></div>
       <div class="post-nav-item">
-    <a href="/db08b38f.html" rel="next" title="cocosCreator错误解决：如何处理'Cannot read properties of null (reading 'getGFXTexture')'问题">
-      cocosCreator错误解决：如何处理'Cannot read properties of null (reading 'getGFXTexture')'问题 <i class="fa fa-chevron-right"></i>
+    <a href="/db08b38f.html" rel="next" title="Cocos Creator Cannot read properties of null (reading getGFXTexture) 解决方法">
+      Cocos Creator Cannot read properties of null (reading getGFXTexture) 解决方法 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -404,6 +404,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Identify-the-getGFXTexture-Null-Error"><span class="nav-number">1.</span> <span class="nav-text">Identify the getGFXTexture Null Error</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Trace-the-Invalid-SpriteFrame-by-UUID"><span class="nav-number">2.</span> <span class="nav-text">Trace the Invalid SpriteFrame by UUID</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -430,13 +431,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

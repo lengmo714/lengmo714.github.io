@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="使用Shader实现扑克牌透视效果">
+  <meta name="description" content="在 Cocos Creator 3.7.2 中修改 Sprite 顶点坐标，让多张扑克牌上边缘向透视点收拢，并将偏移和基线暴露为材质参数。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cocosCreator教程：使用Shader实现扑克牌透视效果">
+<meta property="og:title" content="Cocos Creator 3.7 扑克牌透视 Shader：顶点偏移与材质参数">
 <meta property="og:url" content="https://lengmo714.top/bb4fae33.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="使用Shader实现扑克牌透视效果">
+<meta property="og:description" content="在 Cocos Creator 3.7.2 中修改 Sprite 顶点坐标，让多张扑克牌上边缘向透视点收拢，并将偏移和基线暴露为材质参数。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-16T15:30:45.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T10:08:11.000Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="cocosCreator">
 <meta property="article:tag" content="TypeScript">
@@ -49,10 +49,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/bb4fae33.html#article","headline":"cocosCreator教程：使用Shader实现扑克牌透视效果","description":"使用Shader实现扑克牌透视效果","datePublished":"2023-10-16T15:30:45.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/bb4fae33.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, TypeScript, shader","wordCount":314,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/bb4fae33.html#article","headline":"Cocos Creator 3.7 扑克牌透视 Shader：顶点偏移与材质参数","description":"在 Cocos Creator 3.7.2 中修改 Sprite 顶点坐标，让多张扑克牌上边缘向透视点收拢，并将偏移和基线暴露为材质参数。","datePublished":"2023-10-16T15:30:45.000Z","dateModified":"2026-07-31T10:08:11.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/bb4fae33.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, TypeScript, shader","wordCount":315}</script>
 
 
 
@@ -68,7 +65,7 @@
   };
 </script>
 
-  <title>cocosCreator教程：使用Shader实现扑克牌透视效果 | 南锋</title>
+  <title>Cocos Creator 3.7 扑克牌透视 Shader：顶点偏移与材质参数 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -249,7 +246,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          cocosCreator教程：使用Shader实现扑克牌透视效果
+          Cocos Creator 3.7 扑克牌透视 Shader：顶点偏移与材质参数
         </h1>
 
         <div class="post-meta">
@@ -264,7 +261,7 @@
             </span>
 
           
-            <div class="post-description">使用Shader实现扑克牌透视效果</div>
+            <div class="post-description">在 Cocos Creator 3.7.2 中修改 Sprite 顶点坐标，让多张扑克牌上边缘向透视点收拢，并将偏移和基线暴露为材质参数。</div>
 
         </div>
       </header>
@@ -286,7 +283,7 @@
 <p>因为使用的第三方图床，导致文中图片丢失，看来以后还是得靠谱的图床了</p>
 </blockquote>
 <h2 id="顶点着色器"><a href="#顶点着色器" class="headerlink" title="顶点着色器"></a>顶点着色器</h2><p>开始实现这个功能，对定点着色器应该有了基本的了解，这里不过多说明。<br>这里我们先看下cocosCreator默认使用的着色器代码：<code>builtin-sprite.effect</code>,可以直接在资源管理器中搜索</p>
-<h3 id="想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标"><a href="#想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标" class="headerlink" title="想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标"></a>想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标</h3><p>但是想要修改，最起码得知道现在的值，做个小测试看一下。让顶点坐标的x值+&#x3D;y值，观察x坐标的变化规律.<br>复制粘贴<code>builtin-sprite.effect</code>文件(必须要复制粘贴，系统最开始的不能被修改)，在复制出来的文件中搜索<code>vec4 pos = vec4(a_position, 1)</code><br>并在该代码后面添加代码<code>pos.x += pos.y;</code>,如下：</p>
+<h3 id="修改扑克牌上边缘顶点坐标"><a href="#修改扑克牌上边缘顶点坐标" class="headerlink" title="修改扑克牌上边缘顶点坐标"></a>修改扑克牌上边缘顶点坐标</h3><p>但是想要修改，最起码得知道现在的值，做个小测试看一下。让顶点坐标的x值+&#x3D;y值，观察x坐标的变化规律.<br>复制粘贴<code>builtin-sprite.effect</code>文件(必须要复制粘贴，系统最开始的不能被修改)，在复制出来的文件中搜索<code>vec4 pos = vec4(a_position, 1)</code><br>并在该代码后面添加代码<code>pos.x += pos.y;</code>,如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vec4 pos = vec4(a_position, 1);</span><br><span class="line">pos.x += pos.y;</span><br></pre></td></tr></table></figure>
 <p>这里可以看到，蓝色框区域是牌原本显示的边框，底边的x轴没有变化，所以底边的+&#x3D;pos.y这里的y值为0。</p>
 <p>调整下牌的位置，让牌的左上角顶点和画布左上角顶点重合<br>从图上可以看出，当牌的左上角顶点和画布左上角顶点重合时，上边两个顶点的值往右偏了屏幕高度那么多的值。看下蓝框，很直观，一个正方形，偏移宽度&#x3D;屏幕高度。</p>
@@ -298,12 +295,12 @@
 <h3 id="修改起点y值"><a href="#修改起点y值" class="headerlink" title="修改起点y值"></a>修改起点y值</h3><p>有个问题，就是这里的计算 都是用屏幕底边y值0计算的，我牌桌变如果不在屏幕底边咋办呢，我要指定一个起点的y值可以计算这个三角形。</p>
 <p>比如我牌摆在离底边100px的位置，将参与计算的y坐标 减100就行了。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pos.x += (point.x - pos.x) * ((pos.y - 100.) / point.y);</span><br></pre></td></tr></table></figure>
-<h3 id="shader代码"><a href="#shader代码" class="headerlink" title="shader代码"></a>shader代码</h3><p>放一下最终代码，让起点y值和终点坐标都用可变变量，从材质传值进来。</p>
+<h2 id="Shader-代码"><a href="#Shader-代码" class="headerlink" title="Shader 代码"></a>Shader 代码</h2><p>放一下最终代码，让起点y值和终点坐标都用可变变量，从材质传值进来。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// Copyright (c) 2017-2020 Xiamen Yaji Software Co., Ltd.</span><br><span class="line">CCEffect %&#123;</span><br><span class="line">  techniques:</span><br><span class="line">  - passes:</span><br><span class="line">  - vert: sprite-vs:vert</span><br><span class="line">      frag: sprite-fs:frag</span><br><span class="line">      depthStencilState:</span><br><span class="line">        depthTest: false</span><br><span class="line">        depthWrite: false</span><br><span class="line">      blendState:</span><br><span class="line">        targets:</span><br><span class="line">  - blend: true</span><br><span class="line">          blendSrc: src_alpha</span><br><span class="line">          blendDst: one_minus_src_alpha</span><br><span class="line">          blendDstAlpha: one_minus_src_alpha</span><br><span class="line">      rasterizerState:</span><br><span class="line">        cullMode: none</span><br><span class="line">      properties:</span><br><span class="line">        alphaThreshold: &#123; value: 0.5 &#125;</span><br><span class="line">        u_point: &#123; value: [1,1] &#125;</span><br><span class="line">        u_starty: &#123;value: 0 &#125;</span><br><span class="line">&#125;%</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">CCProgram sprite-vs %&#123;</span><br><span class="line">  precision highp float;</span><br><span class="line">  #include &lt;builtin/uniforms/cc-global&gt;</span><br><span class="line">  #include &lt;builtin/internal/embedded-alpha&gt;</span><br><span class="line">  #if USE_LOCAL</span><br><span class="line">    #include &lt;builtin/uniforms/cc-local&gt;</span><br><span class="line">  #endif</span><br><span class="line">  #if SAMPLE_FROM_RT</span><br><span class="line">    #include &lt;common/common-define&gt;</span><br><span class="line">  #endif</span><br><span class="line">  in vec3 a_position;</span><br><span class="line">  in vec2 a_texCoord;</span><br><span class="line">  in vec4 a_color;</span><br><span class="line"></span><br><span class="line">  out vec4 color;</span><br><span class="line">  out vec2 uv0;</span><br><span class="line">  uniform Constant&#123;</span><br><span class="line">    vec2 u_point;   // 自己定义的顶点</span><br><span class="line">    float u_starty; // 扑克牌底边离屏幕下边的距离</span><br><span class="line">  &#125;;</span><br><span class="line">  vec4 vert () &#123;</span><br><span class="line">    vec4 pos = vec4(a_position, 1);</span><br><span class="line">    pos.x += (u_point.x - pos.x) * ((pos.y - u_starty) / u_point.y);</span><br><span class="line">    #if USE_LOCAL</span><br><span class="line">      pos = cc_matWorld * pos;</span><br><span class="line">    #endif</span><br><span class="line"></span><br><span class="line">    #if USE_PIXEL_ALIGNMENT</span><br><span class="line">      pos = cc_matView * pos;</span><br><span class="line">      pos.xyz = floor(pos.xyz);</span><br><span class="line">      pos = cc_matProj * pos;</span><br><span class="line">    #else</span><br><span class="line">      pos = cc_matViewProj * pos;</span><br><span class="line">    #endif</span><br><span class="line"></span><br><span class="line">    uv0 = a_texCoord;</span><br><span class="line">    #if SAMPLE_FROM_RT</span><br><span class="line">      CC_HANDLE_RT_SAMPLE_FLIP(uv0);</span><br><span class="line">    #endif</span><br><span class="line">    color = a_color;</span><br><span class="line"></span><br><span class="line">    return pos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;%</span><br><span class="line"></span><br><span class="line">CCProgram sprite-fs %&#123;</span><br><span class="line">  precision highp float;</span><br><span class="line">  #include &lt;builtin/internal/embedded-alpha&gt;</span><br><span class="line">  #include &lt;builtin/internal/alpha-test&gt;</span><br><span class="line"></span><br><span class="line">  in vec4 color;</span><br><span class="line"></span><br><span class="line">  #if USE_TEXTURE</span><br><span class="line">    in vec2 uv0;</span><br><span class="line">    #pragma builtin(local)</span><br><span class="line">    layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;</span><br><span class="line">  #endif</span><br><span class="line"></span><br><span class="line">  vec4 frag () &#123;</span><br><span class="line">    vec4 o = vec4(1, 1, 1, 1);</span><br><span class="line"></span><br><span class="line">    #if USE_TEXTURE</span><br><span class="line">      o *= CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);</span><br><span class="line">      #if IS_GRAY</span><br><span class="line">        float gray  = 0.2126 * o.r + 0.7152 * o.g + 0.0722 * o.b;</span><br><span class="line">        o.r = o.g = o.b = gray;</span><br><span class="line">      #endif</span><br><span class="line">    #endif</span><br><span class="line"></span><br><span class="line">    o *= color;</span><br><span class="line">    ALPHA_TEST(o);</span><br><span class="line">    return o;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;%</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>在cocosCreator 中找到精灵默认使用的材质<code>ui-sprite-material.mtl</code>，将材质拷贝出来放在自己的资源文件夹下（必须拷贝出来，不然无法修改）。将上面代码保存为<code>gradient.effect</code>，名字按照自己的想法来。最后修改下面4个地方即可</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>在cocosCreator 中找到精灵默认使用的材质<code>ui-sprite-material.mtl</code>，将材质拷贝出来放在自己的资源文件夹下（必须拷贝出来，不然无法修改）。将上面代码保存为<code>gradient.effect</code>，名字按照自己的想法来。最后修改下面4个地方即可</p>
 <ol>
 <li>将精灵的”CustomMaterial”属性设置为你刚刚拷贝出来的材质</li>
 <li>将材质的<code>Effect</code>属性设置为刚刚保存的<code>gradient.effect</code>shader文件</li>
@@ -345,7 +342,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/bb4fae33.html" title="cocosCreator教程：使用Shader实现扑克牌透视效果">https://lengmo714.top/bb4fae33.html</a>
+    <a href="https://lengmo714.top/bb4fae33.html" title="Cocos Creator 3.7 扑克牌透视 Shader：顶点偏移与材质参数">https://lengmo714.top/bb4fae33.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -367,12 +364,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/bb4fae33.html" rel="prev" title="Creating a Playing-Card Perspective Effect with a Cocos Creator Shader">
-      <i class="fa fa-chevron-left"></i> Creating a Playing-Card Perspective Effect with a Cocos Creator Shader
+    <a href="/en/390fff19.html" rel="prev" title="Draw a Strawberry Bear with Python Turtle: Canvas, Shapes and Layers">
+      <i class="fa fa-chevron-left"></i> Draw a Strawberry Bear with Python Turtle: Canvas, Shapes and Layers
     </a></div>
       <div class="post-nav-item">
-    <a href="/a80afa50.html" rel="next" title="Python实现批量修改图片名：添加前缀与完整代码示例">
-      Python实现批量修改图片名：添加前缀与完整代码示例 <i class="fa fa-chevron-right"></i>
+    <a href="/en/bb4fae33.html" rel="next" title="Cocos Creator 3.7 Playing-Card Perspective Shader with Vertex Offsets">
+      Cocos Creator 3.7 Playing-Card Perspective Shader with Vertex Offsets <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -432,7 +429,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B6%E7%82%B9%E7%9D%80%E8%89%B2%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">顶点着色器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%B3%E8%A6%81%E8%BE%BE%E5%88%B0%E6%95%88%E6%9E%9C%EF%BC%8C%E5%85%B6%E5%AE%9E%E4%BF%AE%E6%94%B9%E5%B0%B1%E6%98%AF%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%8A%E8%BE%B9%E7%BC%98%E4%B8%A4%E4%B8%AA%E9%A1%B6%E7%82%B9%E7%9A%84x%E8%BD%B4%E5%9D%90%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">想要达到效果，其实修改就是扑克牌上边缘两个顶点的x轴坐标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B6%E9%83%A8%E5%81%8F%E7%A7%BB"><span class="nav-number">1.2.</span> <span class="nav-text">顶部偏移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E8%B5%B7%E7%82%B9y%E5%80%BC"><span class="nav-number">1.3.</span> <span class="nav-text">修改起点y值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shader%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">shader代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">使用方法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B6%E7%82%B9%E7%9D%80%E8%89%B2%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">顶点着色器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%8A%E8%BE%B9%E7%BC%98%E9%A1%B6%E7%82%B9%E5%9D%90%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">修改扑克牌上边缘顶点坐标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B6%E9%83%A8%E5%81%8F%E7%A7%BB"><span class="nav-number">1.2.</span> <span class="nav-text">顶部偏移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E8%B5%B7%E7%82%B9y%E5%80%BC"><span class="nav-number">1.3.</span> <span class="nav-text">修改起点y值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shader-%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">Shader 代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">使用方法</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -459,13 +456,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

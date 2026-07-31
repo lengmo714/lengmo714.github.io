@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Configure Firebase Cloud Messaging for an iOS app using an APNs authentication key.">
+  <meta name="description" content="Set up Firebase Cloud Messaging on iOS using an APNs authentication key, including Push Notifications capability, .p8 key creation, and Firebase configuration.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Integrating FCM Push Notifications on iOS">
+<meta property="og:title" content="Firebase FCM Push Notifications on iOS: APNs .p8 Key Setup Guide">
 <meta property="og:url" content="https://lengmo714.top/en/c0d79c9e.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Configure Firebase Cloud Messaging for an iOS app using an APNs authentication key.">
+<meta property="og:description" content="Set up Firebase Cloud Messaging on iOS using an APNs authentication key, including Push Notifications capability, .p8 key creation, and Firebase configuration.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lengmo714.top/postImg/c0d79c9e/1.jpg">
 <meta property="og:image" content="https://lengmo714.top/postImg/c0d79c9e/2.png">
@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://lengmo714.top/postImg/c0d79c9e/4.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/c0d79c9e/5.png">
 <meta property="article:published_time" content="2026-04-21T12:12:29.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:01:51.815Z">
+<meta property="article:modified_time" content="2026-07-31T07:56:38.400Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="iOS">
@@ -55,7 +55,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/c0d79c9e.html#article","headline":"Integrating FCM Push Notifications on iOS","description":"Configure Firebase Cloud Messaging for an iOS app using an APNs authentication key.","datePublished":"2026-04-21T12:12:29.000Z","dateModified":"2026-07-30T04:01:51.815Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/c0d79c9e.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, iOS, FCM","wordCount":162,"image":["https://lengmo714.top/postImg/c0d79c9e/1.jpg"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/c0d79c9e.html#article","headline":"Firebase FCM Push Notifications on iOS: APNs .p8 Key Setup Guide","description":"Set up Firebase Cloud Messaging on iOS using an APNs authentication key, including Push Notifications capability, .p8 key creation, and Firebase configuration.","datePublished":"2026-04-21T12:12:29.000Z","dateModified":"2026-07-31T07:56:38.400Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/c0d79c9e.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, iOS, FCM","wordCount":170,"image":["https://lengmo714.top/postImg/c0d79c9e/1.jpg"]}</script>
 
 
 
@@ -71,7 +71,7 @@
   };
 </script>
 
-  <title>Integrating FCM Push Notifications on iOS | 南锋</title>
+  <title>Firebase FCM Push Notifications on iOS: APNs .p8 Key Setup Guide | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -252,7 +252,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Integrating FCM Push Notifications on iOS
+          Firebase FCM Push Notifications on iOS: APNs .p8 Key Setup Guide
         </h1>
 
         <div class="post-meta">
@@ -267,7 +267,7 @@
             </span>
 
           
-            <div class="post-description">Configure Firebase Cloud Messaging for an iOS app using an APNs authentication key.</div>
+            <div class="post-description">Set up Firebase Cloud Messaging on iOS using an APNs authentication key, including Push Notifications capability, .p8 key creation, and Firebase configuration.</div>
 
         </div>
       </header>
@@ -282,17 +282,17 @@
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-<h3 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h3><ol>
+<h2 id="Prerequisites-for-iOS-FCM"><a href="#Prerequisites-for-iOS-FCM" class="headerlink" title="Prerequisites for iOS FCM"></a>Prerequisites for iOS FCM</h2><ol>
 <li>An Apple Developer account. <strong>This is required even for testing.</strong></li>
 <li>An App ID with <code>Push Notifications</code> enabled.</li>
 </ol>
-<h3 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h3><ol>
+<h2 id="Add-the-iOS-App-to-Firebase"><a href="#Add-the-iOS-App-to-Firebase" class="headerlink" title="Add the iOS App to Firebase"></a>Add the iOS App to Firebase</h2><ol>
 <li>Open the <a target="_blank" rel="noopener" href="https://console.firebase.google.com/?pli=1">Firebase console</a> and create an iOS app. Unlike Android setup, you must first create the app in the Apple Developer portal and enter its bundle ID in Firebase.</li>
 <li>Open the section shown below and upload the corresponding APNs authentication key, which is the <strong>recommended</strong> option.</li>
 </ol>
 <p><img src="/postImg/c0d79c9e/1.jpg" alt="Upload the APNs key in Firebase" decoding="async" loading="eager" fetchpriority="high"></p>
 <p>You can also upload an APNs certificate—the <code>.p12</code> certificate commonly used for push notifications. The authentication key described above is a <code>.p8</code> file.</p>
-<h3 id="Create-an-APNs-authentication-key-p8"><a href="#Create-an-APNs-authentication-key-p8" class="headerlink" title="Create an APNs authentication key (.p8)"></a>Create an APNs authentication key (<code>.p8</code>)</h3><p>Open <a target="_blank" rel="noopener" href="https://developer.apple.com/account/resources/authkeys/list">Certificates, Identifiers &amp; Profiles</a> in the Apple Developer portal and create an APNs key:</p>
+<h2 id="Create-an-APNs-Authentication-Key-p8"><a href="#Create-an-APNs-Authentication-Key-p8" class="headerlink" title="Create an APNs Authentication Key (.p8)"></a>Create an APNs Authentication Key (<code>.p8</code>)</h2><p>Open <a target="_blank" rel="noopener" href="https://developer.apple.com/account/resources/authkeys/list">Certificates, Identifiers &amp; Profiles</a> in the Apple Developer portal and create an APNs key:</p>
 <p><img src="/postImg/c0d79c9e/2.png" alt="Create an APNs key" decoding="async" loading="lazy"></p>
 <p>Enter a name and description, then enable <code>Apple Push Notifications service (APNs)</code>:</p>
 <p><img src="/postImg/c0d79c9e/3.png" alt="Enable APNs" decoding="async" loading="lazy"></p>
@@ -335,7 +335,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/c0d79c9e.html" title="Integrating FCM Push Notifications on iOS">https://lengmo714.top/en/c0d79c9e.html</a>
+    <a href="https://lengmo714.top/en/c0d79c9e.html" title="Firebase FCM Push Notifications on iOS: APNs .p8 Key Setup Guide">https://lengmo714.top/en/c0d79c9e.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -357,12 +357,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/c0d79c9e.html" rel="prev" title="ios如何接入FCM推送">
-      <i class="fa fa-chevron-left"></i> ios如何接入FCM推送
+    <a href="/c0d79c9e.html" rel="prev" title="iOS 接入 Firebase FCM 推送完整教程：APNs .p8 Key 配置">
+      <i class="fa fa-chevron-left"></i> iOS 接入 Firebase FCM 推送完整教程：APNs .p8 Key 配置
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/5e764de5.html" rel="next" title="Showing the iOS Status Bar in a Cocos Creator App">
-      Showing the iOS Status Bar in a Cocos Creator App <i class="fa fa-chevron-right"></i>
+    <a href="/en/5e764de5.html" rel="next" title="How to Show the iOS Status Bar in Cocos Creator: ViewController and Info.plist">
+      How to Show the iOS Status Bar in Cocos Creator: ViewController and Info.plist <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -422,7 +422,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Prerequisites"><span class="nav-number">1.</span> <span class="nav-text">Prerequisites</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup"><span class="nav-number">2.</span> <span class="nav-text">Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-an-APNs-authentication-key-p8"><span class="nav-number">3.</span> <span class="nav-text">Create an APNs authentication key (.p8)</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Prerequisites-for-iOS-FCM"><span class="nav-number">1.</span> <span class="nav-text">Prerequisites for iOS FCM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Add-the-iOS-App-to-Firebase"><span class="nav-number">2.</span> <span class="nav-text">Add the iOS App to Firebase</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-an-APNs-Authentication-Key-p8"><span class="nav-number">3.</span> <span class="nav-text">Create an APNs Authentication Key (.p8)</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -449,13 +449,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

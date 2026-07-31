@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Support clickable rich-text segments and both positional and named parameters in Cocos Creator translations.">
+  <meta name="description" content="Extend Cocos Creator localization with clickable rich-text segments, positional parameters, and named placeholders that adapt safely to different language word orders.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Localization Parameters and Rich Text in Cocos Creator">
+<meta property="og:title" content="Cocos Creator Localization: Rich Text and Named Parameters">
 <meta property="og:url" content="https://lengmo714.top/en/430c113d.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="Support clickable rich-text segments and both positional and named parameters in Cocos Creator translations.">
+<meta property="og:description" content="Extend Cocos Creator localization with clickable rich-text segments, positional parameters, and named placeholders that adapt safely to different language word orders.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-04-11T02:58:10.000Z">
-<meta property="article:modified_time" content="2026-07-30T04:08:51.347Z">
+<meta property="article:modified_time" content="2026-07-31T09:08:48.917Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="TypeScript">
@@ -49,10 +49,7 @@
 
 
   
-    <meta property="og:image" content="https://lengmo714.top/images/share.png">
-    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
-  
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/430c113d.html#article","headline":"Localization Parameters and Rich Text in Cocos Creator","description":"Support clickable rich-text segments and both positional and named parameters in Cocos Creator translations.","datePublished":"2025-04-11T02:58:10.000Z","dateModified":"2026-07-30T04:08:51.347Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/430c113d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript, Localization","wordCount":258,"image":["https://lengmo714.top/images/share.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/430c113d.html#article","headline":"Cocos Creator Localization: Rich Text and Named Parameters","description":"Extend Cocos Creator localization with clickable rich-text segments, positional parameters, and named placeholders that adapt safely to different language word orders.","datePublished":"2025-04-11T02:58:10.000Z","dateModified":"2026-07-31T09:08:48.917Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/430c113d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript, Localization","wordCount":262}</script>
 
 
 
@@ -68,7 +65,7 @@
   };
 </script>
 
-  <title>Localization Parameters and Rich Text in Cocos Creator | 南锋</title>
+  <title>Cocos Creator Localization: Rich Text and Named Parameters | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -249,7 +246,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Localization Parameters and Rich Text in Cocos Creator
+          Cocos Creator Localization: Rich Text and Named Parameters
         </h1>
 
         <div class="post-meta">
@@ -264,7 +261,7 @@
             </span>
 
           
-            <div class="post-description">Support clickable rich-text segments and both positional and named parameters in Cocos Creator translations.</div>
+            <div class="post-description">Extend Cocos Creator localization with clickable rich-text segments, positional parameters, and named placeholders that adapt safely to different language word orders.</div>
 
         </div>
       </header>
@@ -280,7 +277,7 @@
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-<h3 id="Rich-text"><a href="#Rich-text" class="headerlink" title="Rich text"></a>Rich text</h3><p>You can either embed Cocos rich-text markup directly in translations, or use custom semantic tags and convert them with regular expressions. The second approach keeps the translation format easier to control.</p>
+<h2 id="Localized-Rich-Text-and-Clickable-Segments"><a href="#Localized-Rich-Text-and-Clickable-Segments" class="headerlink" title="Localized Rich Text and Clickable Segments"></a>Localized Rich Text and Clickable Segments</h2><p>You can either embed Cocos rich-text markup directly in translations, or use custom semantic tags and convert them with regular expressions. The second approach keeps the translation format easier to control.</p>
 <p>Suppose “Terms” and “Privacy Policy” must be blue and clickable:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;Terms&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;zh-CN&quot;</span>: <span class="string">&quot;[str1]同意我们的[/str1][str2]使用条款[/str2]和[str3]隐私政策[/str3]&quot;</span>,</span><br><span class="line">    <span class="string">&quot;en-US&quot;</span>: <span class="string">&quot;[str1]Agree to our [/str1][str2]Terms[/str2] and [str3]Privacy Policy[/str3]&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -289,12 +286,12 @@
 
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">parseToRichText</span>(<span class="attr">text</span>: <span class="built_in">string</span>): <span class="built_in">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> text</span><br><span class="line">        .<span class="title function_">replace</span>(<span class="regexp">/\[str1\](.*?)\[\/str1\]/g</span>, <span class="string">&#x27;&lt;color=#a1a3bfC0&gt;$1&lt;/color&gt;&#x27;</span>)</span><br><span class="line">        .<span class="title function_">replace</span>(<span class="regexp">/\[str2\](.*?)\[\/str2\]/g</span>, <span class="string">&#x27;&lt;color=#1583ff&gt;&lt;u&gt;&lt;on click=&quot;onClick&quot; param=&quot;terms&quot;&gt;$1&lt;/on&gt;&lt;/u&gt;&lt;/color&gt;&#x27;</span>)</span><br><span class="line">        .<span class="title function_">replace</span>(<span class="regexp">/\[str3\](.*?)\[\/str3\]/g</span>, <span class="string">&#x27;&lt;color=#1583ff&gt;&lt;u&gt;&lt;on click=&quot;onClick&quot; param=&quot;privacy&quot;&gt;$1&lt;/on&gt;&lt;/u&gt;&lt;/color&gt;&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="Positional-parameters"><a href="#Positional-parameters" class="headerlink" title="Positional parameters"></a>Positional parameters</h3><p>If parameter order is identical across languages, <code>%s</code> is adequate:</p>
+<h2 id="Positional-Parameters"><a href="#Positional-Parameters" class="headerlink" title="Positional Parameters"></a>Positional Parameters</h2><p>If parameter order is identical across languages, <code>%s</code> is adequate:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;Terms&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;zh-CN&quot;</span>: <span class="string">&quot;同意我们的%s和%s&quot;</span>,</span><br><span class="line">    <span class="string">&quot;en-US&quot;</span>: <span class="string">&quot;Agree to our %s and %s&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">label</span>.<span class="property">string</span> = <span class="title class_">Lang</span>.<span class="title function_">getText</span>(<span class="string">&#x27;Terms&#x27;</span>, <span class="string">&#x27;Terms&#x27;</span>, <span class="string">&#x27;Privacy Policy&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
-<h3 id="Named-parameters"><a href="#Named-parameters" class="headerlink" title="Named parameters"></a>Named parameters</h3><p>When word order differs, use named placeholders:</p>
+<h2 id="Named-Parameters"><a href="#Named-Parameters" class="headerlink" title="Named Parameters"></a>Named Parameters</h2><p>When word order differs, use named placeholders:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;Terms&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;zh-CN&quot;</span>: <span class="string">&quot;同意我们的&#123;term&#125;和&#123;privacy&#125;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;en-US&quot;</span>: <span class="string">&quot;Agree to our &#123;term&#125; and &#123;privacy&#125;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">label</span>.<span class="property">string</span> = <span class="title class_">Lang</span>.<span class="title function_">getText</span>(<span class="string">&#x27;Terms&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">term</span>: <span class="string">&#x27;Terms&#x27;</span>,</span><br><span class="line">    <span class="attr">privacy</span>: <span class="string">&#x27;Privacy Policy&#x27;</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
@@ -338,7 +335,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://lengmo714.top/en/430c113d.html" title="Localization Parameters and Rich Text in Cocos Creator">https://lengmo714.top/en/430c113d.html</a>
+    <a href="https://lengmo714.top/en/430c113d.html" title="Cocos Creator Localization: Rich Text and Named Parameters">https://lengmo714.top/en/430c113d.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -360,12 +357,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/fb636e72.html" rel="prev" title="Implementing Google Web Sign-In on Android">
-      <i class="fa fa-chevron-left"></i> Implementing Google Web Sign-In on Android
+    <a href="/en/fb636e72.html" rel="prev" title="Google Web Sign-In on Android: External Browser OAuth and App Links">
+      <i class="fa fa-chevron-left"></i> Google Web Sign-In on Android: External Browser OAuth and App Links
     </a></div>
       <div class="post-nav-item">
-    <a href="/430c113d.html" rel="next" title="cocosCreator多语言拓展-传参和富文本">
-      cocosCreator多语言拓展-传参和富文本 <i class="fa fa-chevron-right"></i>
+    <a href="/430c113d.html" rel="next" title="Cocos Creator 多语言扩展：富文本、位置参数和命名占位符">
+      Cocos Creator 多语言扩展：富文本、位置参数和命名占位符 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -425,7 +422,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Rich-text"><span class="nav-number">1.</span> <span class="nav-text">Rich text</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Positional-parameters"><span class="nav-number">2.</span> <span class="nav-text">Positional parameters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Named-parameters"><span class="nav-number">3.</span> <span class="nav-text">Named parameters</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Localized-Rich-Text-and-Clickable-Segments"><span class="nav-number">1.</span> <span class="nav-text">Localized Rich Text and Clickable Segments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Positional-Parameters"><span class="nav-number">2.</span> <span class="nav-text">Positional Parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Named-Parameters"><span class="nav-number">3.</span> <span class="nav-text">Named Parameters</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -452,13 +449,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

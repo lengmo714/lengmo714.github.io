@@ -22,16 +22,16 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="解决Facebook登录错误：invalid key hash问题">
+  <meta name="description" content="解决 Android Facebook Login 提示 invalid key hash、key hash does not match any stored key hashes 的问题，并介绍 Google Play App Signing 后应注册的正式签名哈希。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决Facebook登录错误：invalid key hash问题">
+<meta property="og:title" content="Android Facebook 登录 Invalid Key Hash：Google Play 签名哈希解决方法">
 <meta property="og:url" content="https://lengmo714.top/ce912ca5.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="解决Facebook登录错误：invalid key hash问题">
+<meta property="og:description" content="解决 Android Facebook Login 提示 invalid key hash、key hash does not match any stored key hashes 的问题，并介绍 Google Play App Signing 后应注册的正式签名哈希。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6646eadad9c307b7e9d68ab3.png">
 <meta property="article:published_time" content="2024-05-17T05:28:21.000Z">
-<meta property="article:modified_time" content="2025-03-11T11:10:34.000Z">
+<meta property="article:modified_time" content="2026-07-31T08:06:37.644Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="facebook">
 <meta name="twitter:card" content="summary">
@@ -49,7 +49,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/ce912ca5.html#article","headline":"解决Facebook登录错误：invalid key hash问题","description":"解决Facebook登录错误：invalid key hash问题","datePublished":"2024-05-17T05:28:21.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/ce912ca5.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["android studio","facebook"],"keywords":"facebook","wordCount":43,"image":["https://pic.imgdb.cn/item/6646eadad9c307b7e9d68ab3.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/ce912ca5.html#article","headline":"Android Facebook 登录 Invalid Key Hash：Google Play 签名哈希解决方法","description":"解决 Android Facebook Login 提示 invalid key hash、key hash does not match any stored key hashes 的问题，并介绍 Google Play App Signing 后应注册的正式签名哈希。","datePublished":"2024-05-17T05:28:21.000Z","dateModified":"2026-07-31T08:06:37.644Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/ce912ca5.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["android studio","facebook"],"keywords":"facebook","wordCount":53,"image":["https://pic.imgdb.cn/item/6646eadad9c307b7e9d68ab3.png"]}</script>
 
 
 
@@ -65,7 +65,7 @@
   };
 </script>
 
-  <title>解决Facebook登录错误：invalid key hash问题 | 南锋</title>
+  <title>Android Facebook 登录 Invalid Key Hash：Google Play 签名哈希解决方法 | 南锋</title>
   
     <script>
       function sendPageView() {
@@ -246,7 +246,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          解决Facebook登录错误：invalid key hash问题
+          Android Facebook 登录 Invalid Key Hash：Google Play 签名哈希解决方法
         </h1>
 
         <div class="post-meta">
@@ -265,7 +265,7 @@
             </span>
 
           
-            <div class="post-description">解决Facebook登录错误：invalid key hash问题</div>
+            <div class="post-description">解决 Android Facebook Login 提示 invalid key hash、key hash does not match any stored key hashes 的问题，并介绍 Google Play App Signing 后应注册的正式签名哈希。</div>
 
         </div>
       </header>
@@ -284,8 +284,8 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h3 id="问题出现的原因"><a href="#问题出现的原因" class="headerlink" title="问题出现的原因"></a>问题出现的原因</h3><p>自己在facebook开发者后台添加的密钥散列不对。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><h4 id="网传方法"><a href="#网传方法" class="headerlink" title="网传方法"></a>网传方法</h4><ul>
+<h2 id="Facebook-Invalid-Key-Hash-的原因"><a href="#Facebook-Invalid-Key-Hash-的原因" class="headerlink" title="Facebook Invalid Key Hash 的原因"></a>Facebook Invalid Key Hash 的原因</h2><p>自己在facebook开发者后台添加的密钥散列不对。</p>
+<h2 id="注册-Google-Play-App-Signing-Key-Hash"><a href="#注册-Google-Play-App-Signing-Key-Hash" class="headerlink" title="注册 Google Play App Signing Key Hash"></a>注册 Google Play App Signing Key Hash</h2><h4 id="网传方法"><a href="#网传方法" class="headerlink" title="网传方法"></a>网传方法</h4><ul>
 <li>网传方法：有人说将这里提示的<code>key hash</code>添加到后台密钥散列的地方就行了</li>
 <li>效果：我这里不适用</li>
 <li>分析原因：可能是因为我的应用已经在<code>google play</code>上架，apk包已经被<code>google play</code>后台重新签名了。</li>
@@ -330,7 +330,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lengmo714.top/ce912ca5.html" title="解决Facebook登录错误：invalid key hash问题">https://lengmo714.top/ce912ca5.html</a>
+    <a href="https://lengmo714.top/ce912ca5.html" title="Android Facebook 登录 Invalid Key Hash：Google Play 签名哈希解决方法">https://lengmo714.top/ce912ca5.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -350,12 +350,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/ce912ca5.html" rel="prev" title="Fixing Facebook Login “Invalid Key Hash”">
-      <i class="fa fa-chevron-left"></i> Fixing Facebook Login “Invalid Key Hash”
+    <a href="/en/ce912ca5.html" rel="prev" title="Fix Facebook Login Invalid Key Hash with Google Play App Signing">
+      <i class="fa fa-chevron-left"></i> Fix Facebook Login Invalid Key Hash with Google Play App Signing
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/e68dac10.html" rel="next" title="Creating a Radial Progress Bar in Cocos Creator">
-      Creating a Radial Progress Bar in Cocos Creator <i class="fa fa-chevron-right"></i>
+    <a href="/en/e68dac10.html" rel="next" title="Cocos Creator Radial Progress Bar with ProgressBar and Sprite Fill">
+      Cocos Creator Radial Progress Bar with ProgressBar and Sprite Fill <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -415,7 +415,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%87%BA%E7%8E%B0%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">问题出现的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E4%BC%A0%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">网传方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%952"><span class="nav-number">2.2.</span> <span class="nav-text">方法2</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Facebook-Invalid-Key-Hash-%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">Facebook Invalid Key Hash 的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C-Google-Play-App-Signing-Key-Hash"><span class="nav-number">2.</span> <span class="nav-text">注册 Google Play App Signing Key Hash</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E4%BC%A0%E6%96%B9%E6%B3%95"><span class="nav-number">2.0.1.</span> <span class="nav-text">网传方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%952"><span class="nav-number">2.0.2.</span> <span class="nav-text">方法2</span></a></li></ol></li></ol></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
@@ -442,13 +442,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
