@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="最近新换了个博客主题，matery，感觉这个主题还挺好看的">
@@ -66,7 +66,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/f223ff9c.html#article","headline":"Hexo博客使用Matery主题进行分类页美化","description":"最近新换了个博客主题，matery，感觉这个主题还挺好看的","image":["https://s1.ax1x.com/2022/11/03/xqs36I.png"],"datePublished":"2022-10-29T15:04:50.000Z","dateModified":"2024-11-14T17:42:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/f223ff9c.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo"],"keywords":"","wordCount":392}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/f223ff9c.html#article","headline":"Hexo博客使用Matery主题进行分类页美化","description":"最近新换了个博客主题，matery，感觉这个主题还挺好看的","datePublished":"2022-10-29T15:04:50.000Z","dateModified":"2024-11-14T17:42:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/f223ff9c.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo"],"keywords":"","wordCount":392,"image":["https://s1.ax1x.com/2022/11/03/xqs36I.png"]}</script>
 
 
 
@@ -84,14 +84,21 @@
 
   <title>Hexo博客使用Matery主题进行分类页美化 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -125,7 +132,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -229,7 +236,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -290,8 +296,8 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>先给看下效果图吧，喜欢就接着往下看<br><img data-src="https://s1.ax1x.com/2022/11/03/xqs36I.png" alt="效果图"></p>
-<img data-src="https://s1.ax1x.com/2022/11/03/xqs11A.png" alt="效果图">
+<p>先给看下效果图吧，喜欢就接着往下看<br><img src="https://s1.ax1x.com/2022/11/03/xqs36I.png" alt="效果图" decoding="async" loading="eager" fetchpriority="high"></p>
+<img src="https://s1.ax1x.com/2022/11/03/xqs11A.png" alt="效果图" decoding="async" loading="lazy">
 
 <h2 id="文章分类页美化"><a href="#文章分类页美化" class="headerlink" title="文章分类页美化"></a>文章分类页美化</h2><h3 id="引入代码"><a href="#引入代码" class="headerlink" title="引入代码"></a>引入代码</h3><ul>
 <li>首先，打开”&#x2F;layout&#x2F;category-cloud.ejs”文件</li>
@@ -306,7 +312,7 @@
 <p>这里是博主自己设置的颜色，你也可以设置为自己喜欢的颜色</p>
 <h2 id="标签美化"><a href="#标签美化" class="headerlink" title="标签美化"></a>标签美化</h2><p>标签页就很简单了呀<br>打开<code>matery.css</code>文件，修改颜色代码</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.<span class="property">chip</span>-<span class="keyword">default</span> .<span class="property">tag</span>-length &#123;</span><br><span class="line">    <span class="attr">color</span>: <span class="title function_">rgba</span>(<span class="number">66</span>, <span class="number">92</span>, <span class="number">118</span>, <span class="number">.8</span>);</span><br><span class="line">    margin-<span class="attr">top</span>: 1px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.<span class="property">chip</span>-active .<span class="property">tag</span>-length &#123;</span><br><span class="line">    <span class="attr">color</span>: #64c45b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>效果如图：<br><img data-src="https://s1.ax1x.com/2022/11/03/xqs8Xt.png" alt="效果图"></p>
+<p>效果如图：<br><img src="https://s1.ax1x.com/2022/11/03/xqs8Xt.png" alt="效果图" decoding="async" loading="lazy"></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43662760/article/details/122311171?spm=1001.2101.3001.6650.14&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-14-122311171-blog-109411974.pc_relevant_3mothn_strategy_recovery&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-14-122311171-blog-109411974.pc_relevant_3mothn_strategy_recovery&utm_relevant_index=15">文章参考链接</a></p>
 
     </div>
@@ -359,8 +365,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/4002b8ea.html" rel="prev" title="Troubleshooting “Password Authentication Failed” over SSH">
-      <i class="fa fa-chevron-left"></i> Troubleshooting “Password Authentication Failed” over SSH
+    <a href="/4002b8ea.html" rel="prev" title="解决SSH远程登录失败：密码验证错误与连接调试">
+      <i class="fa fa-chevron-left"></i> 解决SSH远程登录失败：密码验证错误与连接调试
     </a></div>
       <div class="post-nav-item">
     <a href="/en/f223ff9c.html" rel="next" title="Styling the Category Page in Hexo’s Matery Theme">
@@ -551,23 +557,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -622,21 +619,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="cocosCreator导出IOS工程热更后依然走旧逻辑的问题">
@@ -51,7 +51,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/2a8f95cc.html#article","headline":"cocosCreator导出IOS工程热更后依然走旧逻辑的问题","description":"cocosCreator导出IOS工程热更后依然走旧逻辑的问题","image":["https://lengmo714.top/postImg/2a8f95cc/1.png"],"datePublished":"2026-06-17T07:18:59.000Z","dateModified":"2026-07-29T06:47:09.806Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/2a8f95cc.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, ios","wordCount":166}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/2a8f95cc.html#article","headline":"cocosCreator导出IOS工程热更后依然走旧逻辑的问题","description":"cocosCreator导出IOS工程热更后依然走旧逻辑的问题","datePublished":"2026-06-17T07:18:59.000Z","dateModified":"2026-07-29T06:47:09.806Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/2a8f95cc.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, ios","wordCount":166,"image":["https://lengmo714.top/postImg/2a8f95cc/1.png"]}</script>
 
 
 
@@ -69,14 +69,21 @@
 
   <title>cocosCreator导出IOS工程热更后依然走旧逻辑的问题 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -110,7 +117,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +221,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -281,8 +287,8 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build/ios/data</span><br></pre></td></tr></table></figure>
 <p>热更后本地路径一般类似：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Documents/asset</span><br></pre></td></tr></table></figure>
-<p>我这里就是没注意，在OC中改路径，导致路径不对。<br><img data-src="/postImg/2a8f95cc/1.png" alt="cocosCreator导出IOS工程热更后依然走旧逻辑的问题 — Cocos 3.X常见坑：热更路径要指向assets根目录"></p>
-<p>改了路径后，路径就对了<br><img data-src="/postImg/2a8f95cc/2.png" alt="cocosCreator导出IOS工程热更后依然走旧逻辑的问题 — Cocos 3.X常见坑：热更路径要指向assets根目录"></p>
+<p>我这里就是没注意，在OC中改路径，导致路径不对。<br><img src="/postImg/2a8f95cc/1.png" decoding="async" loading="eager" fetchpriority="high" alt="cocosCreator导出IOS工程热更后依然走旧逻辑的问题 — Cocos 3.X常见坑：热更路径要指向assets根目录"></p>
+<p>改了路径后，路径就对了<br><img src="/postImg/2a8f95cc/2.png" decoding="async" loading="lazy" alt="cocosCreator导出IOS工程热更后依然走旧逻辑的问题 — Cocos 3.X常见坑：热更路径要指向assets根目录"></p>
 <h3 id="关键问题"><a href="#关键问题" class="headerlink" title="关键问题"></a>关键问题</h3><p>上面路径改了之后问题依然存在，说明没有找到问题的本质原因<br>关键问题在于</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">_am</span>.<span class="title function_">setEventCallback</span>(<span class="literal">null</span>!);</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">_updateListener</span> = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> searchPaths = jsb.<span class="property">fileUtils</span>.<span class="title function_">getSearchPaths</span>();</span><br><span class="line"><span class="keyword">var</span> newPaths = <span class="variable language_">this</span>.<span class="property">_am</span>.<span class="title function_">getLocalManifest</span>().<span class="title function_">getSearchPaths</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;---- newPaths&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(newPaths));</span><br><span class="line"><span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">unshift</span>.<span class="title function_">apply</span>(searchPaths, newPaths);</span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;HotUpdateSearchPaths&#x27;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(searchPaths));</span><br><span class="line">jsb.<span class="property">fileUtils</span>.<span class="title function_">setSearchPaths</span>(searchPaths);</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    game.<span class="title function_">restart</span>();</span><br><span class="line">&#125;, <span class="number">100</span>)</span><br></pre></td></tr></table></figure>
 <p>我这里只在热更完成后<strong>setSearchPaths</strong>。但是重启后，没有在游戏入口最早的位置重新setSearchPaths。所以IOS依旧走了旧代码。<br>最简单的方法，在<code>main.js</code>中改成下面这样：</p>
@@ -537,23 +543,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -608,21 +605,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

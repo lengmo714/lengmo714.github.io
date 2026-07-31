@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="自动售货机控制系统设计与实现（基于VHDL开发）">
@@ -55,7 +55,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/16522.html#article","headline":"自动售货机控制系统设计与实现（基于VHDL开发）","description":"自动售货机控制系统设计与实现（基于VHDL开发）","image":["https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24021.png"],"datePublished":"2016-11-10T22:37:06.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/16522.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["嵌入式开发"],"keywords":"硬件","wordCount":25}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/16522.html#article","headline":"自动售货机控制系统设计与实现（基于VHDL开发）","description":"自动售货机控制系统设计与实现（基于VHDL开发）","datePublished":"2016-11-10T22:37:06.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/16522.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["嵌入式开发"],"keywords":"硬件","wordCount":25,"image":["https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24021.png"]}</script>
 
 
 
@@ -73,14 +73,21 @@
 
   <title>自动售货机控制系统设计与实现（基于VHDL开发） | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -114,7 +121,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -218,7 +225,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -283,7 +289,7 @@
 
 <h2 id="设计说明"><a href="#设计说明" class="headerlink" title="设计说明"></a>设计说明</h2><p>根据要求可自动出售两种货物，这里的自动售货机可销售cola和pepsi两种饮料：售货机可识别1元和0.5元两种货币，在一次购买过程中，可购买一个或者多个商品，系统会自动计算所需钱数和找零的钱数并自动找零。另外有3个发光二极管、6个LCD数码管：两个用来显示所需金额，两个用来显示已付金额，两个用来显示找零数。</p>
 <hr>
-<h3 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h3><p>这里设计的自动售货机当通电时，表示一次销售的开始。顾客选择一种商品或多种商品后就进入投币状态。若不投币，则自动返回初始状态。投币后，系统自动计算所投钱数。若投币够，则出货并找零。若投币不够，如果顾客没有继续投币，则退币并回到初始状态。本系统的投币销售流程图如图所示：<br><img data-src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24021.png" alt="流程图"></p>
+<h3 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h3><p>这里设计的自动售货机当通电时，表示一次销售的开始。顾客选择一种商品或多种商品后就进入投币状态。若不投币，则自动返回初始状态。投币后，系统自动计算所投钱数。若投币够，则出货并找零。若投币不够，如果顾客没有继续投币，则退币并回到初始状态。本系统的投币销售流程图如图所示：<br><img src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24021.png" alt="流程图" decoding="async" loading="eager" fetchpriority="high"></p>
 <hr>
 <h3 id="各模块说明"><a href="#各模块说明" class="headerlink" title="各模块说明"></a>各模块说明</h3><p>本文设计的自动售货机总体分四个模块：总控模块、二进制译码模块、BCD码译码模块和顶层模块。</p>
 <p><strong>总控模块：</strong>总控模块是本系统最重要的模块，该模块大体有5个输入端口和6个输出端口。其输入端口包括clk、coin1（投入一元货币）、coin5（投入0.5元货币）、cola（选择cola）、pepsi(选择pepsi)，输出端口有paid（已投入多少钱）、needed（还需多少钱）moneyout（找零）、success（灯亮表示交易成功）、failure（灯亮表示交易失败）、showmoneyout（灯亮表示正在找零）。该模块实现了本系统最重要的交易过程，包括选择商品、投入货币，计算剩余金额，找零出货等。</p>
@@ -293,20 +299,20 @@
 <hr>
 <h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><strong>主控模块完整程序</strong><br><strong>BCD译码模块完整程序</strong><br><strong>顶层模块完整程序</strong><br>具体的代码见我的<a target="_blank" rel="noopener" href="https://github.com/lengmo714/Vending-machine-system">github网站</a>（1自动售货机文档）.</p>
 <h3 id="各模块连接"><a href="#各模块连接" class="headerlink" title="各模块连接"></a>各模块连接</h3><blockquote>
-<p>售货机主控系统和译码器模块图：<br><img data-src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24035.png" alt="售货机主控系统和译码器模块图"></p>
+<p>售货机主控系统和译码器模块图：<br><img src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24035.png" alt="售货机主控系统和译码器模块图" decoding="async" loading="lazy"></p>
 </blockquote>
 <blockquote>
-<p>售货机顶层模块：<br><img data-src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24042.png" alt="顶层模块"></p>
+<p>售货机顶层模块：<br><img src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24042.png" alt="顶层模块" decoding="async" loading="lazy"></p>
 </blockquote>
 <h2 id="波形仿真"><a href="#波形仿真" class="headerlink" title="波形仿真"></a>波形仿真</h2><h3 id="主控模块的波形方真"><a href="#主控模块的波形方真" class="headerlink" title="主控模块的波形方真"></a>主控模块的波形方真</h3><blockquote>
-<p><img data-src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24069.png" alt="这里写图片描述"><br>上图表示顾客选择了pepsi饮料后，且投了2个一元的硬币。Success为高电平，代表售货机有饮料售出。且余额为0.</p>
-<p><img data-src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24081.png" alt="这里写图片描述"><br>上图表示顾客选择了cola饮料后，且投2个一元的硬币。Success为高电平，代表有饮料售出，且找回顾客0.5元。</p>
+<p><img src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24069.png" alt="这里写图片描述" decoding="async" loading="lazy"><br>上图表示顾客选择了pepsi饮料后，且投了2个一元的硬币。Success为高电平，代表售货机有饮料售出。且余额为0.</p>
+<p><img src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24081.png" alt="这里写图片描述" decoding="async" loading="lazy"><br>上图表示顾客选择了cola饮料后，且投2个一元的硬币。Success为高电平，代表有饮料售出，且找回顾客0.5元。</p>
 </blockquote>
 <h3 id="BCD译码仿真"><a href="#BCD译码仿真" class="headerlink" title="BCD译码仿真"></a>BCD译码仿真</h3><blockquote>
-<p><img data-src="https://pic.imgdb.cn/item/66434cbe0ea9cb1403d284c4.png" alt="这里写图片描述"><br>上图表示自动售货机的译码系统，上图表示将8位数字转换成４位BCD码。</p>
+<p><img src="https://pic.imgdb.cn/item/66434cbe0ea9cb1403d284c4.png" alt="这里写图片描述" decoding="async" loading="lazy"><br>上图表示自动售货机的译码系统，上图表示将8位数字转换成４位BCD码。</p>
 </blockquote>
 <h3 id="TOP文件的仿真"><a href="#TOP文件的仿真" class="headerlink" title="TOP文件的仿真"></a>TOP文件的仿真</h3><blockquote>
-<p><img data-src="https://pic.imgdb.cn/item/66434cbe0ea9cb1403d284da.png" alt="这里写图片描述"><br>上图表示顾客选择了pepsi饮料后，且投了2个一元的硬币。Success为高电平，代表售货机有饮料售出。且余额为0。</p>
+<p><img src="https://pic.imgdb.cn/item/66434cbe0ea9cb1403d284da.png" alt="这里写图片描述" decoding="async" loading="lazy"><br>上图表示顾客选择了pepsi饮料后，且投了2个一元的硬币。Success为高电平，代表售货机有饮料售出。且余额为0。</p>
 </blockquote>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实这个自动售货机控制系统老师很早之前就要我弄了，我自己一直拖，直到老师要考核才重视起来。<br>这个项目很多都是在网上找资料借鉴的别人的东西，自己就是把别人的代码读懂了，再将整个的流程走了一遍。收货还是很多的。自己为了第二天老师考核（答辩）的时候能够顺利通过，前一天晚上熬夜到三点。也算是体会到了做项目的艰辛。<br>在答辩的过程中，老师的一些问题，一些话语也是让我受益匪浅。做项目真的是让我收益很多。这里也希望这篇博客能给大家带来帮助，但是希望只是作为一个参考，更多的部分还是要自己去做，这才您才能真正学习到知识。</p>
 
@@ -553,23 +559,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -624,21 +621,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

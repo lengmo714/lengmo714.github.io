@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Xcode升级带来的bug">
@@ -56,7 +56,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/26963.html#article","headline":"解决Xcode中的错误：Argument value 10880超出有效范围","description":"Xcode升级带来的bug","image":["https://pic.imgdb.cn/item/66433d1d0ea9cb1403b5a7ca.png"],"datePublished":"2021-06-08T16:17:15.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/26963.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":[],"keywords":"mac, Xcode","wordCount":20}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/26963.html#article","headline":"解决Xcode中的错误：Argument value 10880超出有效范围","description":"Xcode升级带来的bug","datePublished":"2021-06-08T16:17:15.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/26963.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":[],"keywords":"mac, Xcode","wordCount":20,"image":["https://pic.imgdb.cn/item/66433d1d0ea9cb1403b5a7ca.png"]}</script>
 
 
 
@@ -74,14 +74,21 @@
 
   <title>解决Xcode中的错误：Argument value 10880超出有效范围 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -115,7 +122,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -219,7 +226,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -274,12 +280,12 @@
 
 
 <ul>
-<li>双击左边提示错误的地方，会直接跳转到错误代码处<br><img data-src="https://pic.imgdb.cn/item/66433d1d0ea9cb1403b5a7ca.png" alt="在这里插入图片描述"></li>
-<li>鼠标选中bt_splat_ps，右键，Jump to Definition就会跳转到该变量定义的地方<br><img data-src="https://pic.imgdb.cn/item/66433d2b0ea9cb1403b5b649.png" alt="在这里插入图片描述"><br> bt_splat_ps是一个定义宏，直接指向 bt_pshufd_ps</li>
-<li>同理，也可以找到定义bt_pshufd_ps的地方<br> <img data-src="https://pic.imgdb.cn/item/66433d3e0ea9cb1403b5ca3f.png" alt="在这里插入图片描述"><br>不难发现，bt_pshufd_ps同样也是一个定义宏</li>
+<li>双击左边提示错误的地方，会直接跳转到错误代码处<br><img src="https://pic.imgdb.cn/item/66433d1d0ea9cb1403b5a7ca.png" alt="在这里插入图片描述" decoding="async" loading="eager" fetchpriority="high"></li>
+<li>鼠标选中bt_splat_ps，右键，Jump to Definition就会跳转到该变量定义的地方<br><img src="https://pic.imgdb.cn/item/66433d2b0ea9cb1403b5b649.png" alt="在这里插入图片描述" decoding="async" loading="lazy"><br> bt_splat_ps是一个定义宏，直接指向 bt_pshufd_ps</li>
+<li>同理，也可以找到定义bt_pshufd_ps的地方<br> <img src="https://pic.imgdb.cn/item/66433d3e0ea9cb1403b5ca3f.png" alt="在这里插入图片描述" decoding="async" loading="lazy"><br>不难发现，bt_pshufd_ps同样也是一个定义宏</li>
 </ul>
-<p>这里可以看到，错误是值超出了范围了<br><img data-src="https://pic.imgdb.cn/item/66433d4c0ea9cb1403b5dc6f.png" alt="在这里插入图片描述"></p>
-<p>这里，直接修改值的范围就行了，修改下面值的范围<br><img data-src="https://pic.imgdb.cn/item/66433d5b0ea9cb1403b5ea9e.png" alt="在这里插入图片描述"><br>修改如下<br><img data-src="https://pic.imgdb.cn/item/66433d5b0ea9cb1403b5ea13.png" alt="在这里插入图片描述"><br>这样，这个bug就解决啦<br>当我满怀欣喜去运行工程的时候，又出现了下面这个问题<br><img data-src="https://pic.imgdb.cn/item/66433d5b0ea9cb1403b5ea9e.png" alt="在这里插入图片描述"><br>心中顿时“万马奔腾”，这个苹果公司，升级的产品总是一大堆bug，让人头疼。</p>
+<p>这里可以看到，错误是值超出了范围了<br><img src="https://pic.imgdb.cn/item/66433d4c0ea9cb1403b5dc6f.png" alt="在这里插入图片描述" decoding="async" loading="lazy"></p>
+<p>这里，直接修改值的范围就行了，修改下面值的范围<br><img src="https://pic.imgdb.cn/item/66433d5b0ea9cb1403b5ea9e.png" alt="在这里插入图片描述" decoding="async" loading="lazy"><br>修改如下<br><img src="https://pic.imgdb.cn/item/66433d5b0ea9cb1403b5ea13.png" alt="在这里插入图片描述" decoding="async" loading="lazy"><br>这样，这个bug就解决啦<br>当我满怀欣喜去运行工程的时候，又出现了下面这个问题<br><img src="https://pic.imgdb.cn/item/66433d5b0ea9cb1403b5ea9e.png" alt="在这里插入图片描述" decoding="async" loading="lazy"><br>心中顿时“万马奔腾”，这个苹果公司，升级的产品总是一大堆bug，让人头疼。</p>
 <p>时间不早了，为了头上仅剩的几根头发，决定睡觉不看。<br>如果您有好的解决方案，可以发给我学习学习，望各位大佬多多指教，小白在此敬上</p>
 
     </div>
@@ -528,23 +534,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -599,21 +596,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

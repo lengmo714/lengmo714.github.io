@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Configure Algolia indexing and site search for a Hexo blog without committing the administrative API key.">
@@ -52,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/ed933f20.html#article","headline":"Adding Algolia Search to a Hexo Blog","description":"Configure Algolia indexing and site search for a Hexo blog without committing the administrative API key.","image":["https://s1.ax1x.com/2023/08/19/pP8ni40.jpg"],"datePublished":"2023-08-19T14:21:12.000Z","dateModified":"2026-07-30T04:36:01.922Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/ed933f20.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo","Algolia"],"keywords":"Hexo, Algolia","wordCount":177}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/ed933f20.html#article","headline":"Adding Algolia Search to a Hexo Blog","description":"Configure Algolia indexing and site search for a Hexo blog without committing the administrative API key.","datePublished":"2023-08-19T14:21:12.000Z","dateModified":"2026-07-30T04:36:01.922Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/ed933f20.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo","Algolia"],"keywords":"Hexo, Algolia","wordCount":177,"image":["https://s1.ax1x.com/2023/08/19/pP8ni40.jpg"]}</script>
 
 
 
@@ -70,14 +70,21 @@
 
   <title>Adding Algolia Search to a Hexo Blog | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -111,7 +118,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -215,7 +222,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -276,7 +282,7 @@
         <p>My blog previously had no search feature, so I added one with Algolia. These are the important setup points.</p>
 <h3 id="Create-an-Algolia-account"><a href="#Create-an-Algolia-account" class="headerlink" title="Create an Algolia account"></a>Create an Algolia account</h3><p>Register through the <a target="_blank" rel="noopener" href="https://dashboard.algolia.com/">Algolia dashboard</a> and create an application and index.</p>
 <h3 id="Install-the-Hexo-integration"><a href="#Install-the-Hexo-integration" class="headerlink" title="Install the Hexo integration"></a>Install the Hexo integration</h3><p>Install and configure <a target="_blank" rel="noopener" href="https://github.com/LouisBarranqueiro/hexo-algoliasearch"><code>hexo-algoliasearch</code></a> by following its documentation. Map the application ID, index name, and search-only key to the corresponding fields in your Hexo&#x2F;theme configuration.</p>
-<img data-src="https://s1.ax1x.com/2023/08/19/pP8ni40.jpg" alt="Algolia key fields">
+<img src="https://s1.ax1x.com/2023/08/19/pP8ni40.jpg" alt="Algolia key fields" decoding="async" loading="eager" fetchpriority="high">
 
 <p>Put the site indexing configuration in the Hexo root <code>_config.yml</code>, not the theme’s <code>_config.yml</code>.</p>
 <h3 id="Configure-the-indexing-key"><a href="#Configure-the-indexing-key" class="headerlink" title="Configure the indexing key"></a>Configure the indexing key</h3><p>The browser-facing search-only key is different from the administrative indexing key. Keep the administrative key out of Git and provide it through an environment variable:</p>
@@ -286,7 +292,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo algolia</span><br></pre></td></tr></table></figure>
 
 <p>The indexed records should appear in the Algolia dashboard.</p>
-<img data-src="https://s1.ax1x.com/2023/08/19/pP8nkCV.jpg" alt="Records uploaded to the Algolia index">
+<img src="https://s1.ax1x.com/2023/08/19/pP8nkCV.jpg" alt="Records uploaded to the Algolia index" decoding="async" loading="lazy">
 
 <blockquote>
 <p>Never commit an Admin API key or put it in client-side code. If a real key has ever been published, revoke and rotate it in Algolia before continuing.</p>
@@ -294,7 +300,7 @@
 <h3 id="Rebuild-and-deploy"><a href="#Rebuild-and-deploy" class="headerlink" title="Rebuild and deploy"></a>Rebuild and deploy</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo generate --deploy</span><br></pre></td></tr></table></figure>
 
 <p>After deployment, the configured search interface should return results from the new index.</p>
-<img data-src="https://s1.ax1x.com/2023/08/19/pP8u3on.jpg" alt="Algolia search running on the Hexo blog">
+<img src="https://s1.ax1x.com/2023/08/19/pP8u3on.jpg" alt="Algolia search running on the Hexo blog" decoding="async" loading="lazy">
 
     </div>
 
@@ -543,23 +549,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -614,12 +611,7 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
-</body>
-</html>
 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
@@ -631,4 +623,5 @@
      data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</script></body>
+</html>

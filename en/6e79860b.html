@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="A practical guide to creating a Telegram bot for a Mini App or game using grammY and Deno.">
@@ -57,7 +57,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/6e79860b.html#article","headline":"Setting Up a Bot for Telegram Mini App and Game Development","description":"A practical guide to creating a Telegram bot for a Mini App or game using grammY and Deno.","image":["https://pic.imgdb.cn/item/667e6133d9c307b7e9486bb0.png"],"datePublished":"2024-06-28T06:57:31.000Z","dateModified":"2026-07-30T03:49:25.159Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/6e79860b.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Telegram","Mini App","Game"],"keywords":"Game, Telegram, Mini App","wordCount":733}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/6e79860b.html#article","headline":"Setting Up a Bot for Telegram Mini App and Game Development","description":"A practical guide to creating a Telegram bot for a Mini App or game using grammY and Deno.","datePublished":"2024-06-28T06:57:31.000Z","dateModified":"2026-07-30T03:49:25.159Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/6e79860b.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Telegram","Mini App","Game"],"keywords":"Game, Telegram, Mini App","wordCount":733,"image":["https://pic.imgdb.cn/item/667e6133d9c307b7e9486bb0.png"]}</script>
 
 
 
@@ -75,14 +75,21 @@
 
   <title>Setting Up a Bot for Telegram Mini App and Game Development | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -116,7 +123,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -220,7 +227,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -292,7 +298,7 @@
 
 <p>If you want to build a <code>Mini App</code> or <code>game</code> on Telegram, you first need to create a bot of your own.</p>
 <h3 id="Create-a-bot"><a href="#Create-a-bot" class="headerlink" title="Create a bot"></a>Create a bot</h3><p>Search for <code>@BotFather</code> on Telegram, or open <a target="_blank" rel="noopener" href="https://t.me/BotFather">BotFather</a>.</p>
-<p><img data-src="https://pic.imgdb.cn/item/667e6133d9c307b7e9486bb0.png" alt="BotFather chat"></p>
+<p><img src="https://pic.imgdb.cn/item/667e6133d9c307b7e9486bb0.png" alt="BotFather chat" decoding="async" loading="eager" fetchpriority="high"></p>
 <p>In the chat, select <code>Menu</code> → <code>/newbot</code>, or enter <code>/newbot</code> directly. Then follow BotFather’s instructions step by step to create your bot.</p>
 <h3 id="Create-a-Mini-App-or-game"><a href="#Create-a-Mini-App-or-game" class="headerlink" title="Create a Mini App or game"></a>Create a Mini App or game</h3><p>After creating the bot, create a Mini App or game according to your needs. The process is similar: send the relevant command to <code>@BotFather</code>. You can also find the steps in the reference guide above.</p>
 <h3 id="Set-up-the-development-environment"><a href="#Set-up-the-development-environment" class="headerlink" title="Set up the development environment"></a>Set up the development environment</h3><p>This environment is used to develop the bot, rather than the Mini App or game itself. You can use either <code>Node.js</code> or <code>Deno</code>; this article uses <code>Deno</code>.</p>
@@ -310,7 +316,7 @@
 <ol start="3">
 <li>Return to Telegram and send <code>/start</code> to your own bot—not to <code>BotFather</code>. The bot will reply with a game card:</li>
 </ol>
-<p><img data-src="https://pic.imgdb.cn/item/667e657ed9c307b7e950201c.png" alt="Game dialog"></p>
+<p><img src="https://pic.imgdb.cn/item/667e657ed9c307b7e950201c.png" alt="Game dialog" decoding="async" loading="lazy"></p>
 <p>At this point, clicking the <code>Play</code> button does nothing because the callback has not been handled yet.</p>
 <ol start="4">
 <li>Add the following callback handler to the script:</li>
@@ -331,7 +337,7 @@
 <ol start="3">
 <li>Send <code>/start</code> to your bot. It will reply with the Mini App dialog shown below:</li>
 </ol>
-<p><img data-src="https://pic.imgdb.cn/item/667e6c98d9c307b7e95bbe1e.png" alt="Mini App dialog"></p>
+<p><img src="https://pic.imgdb.cn/item/667e6c98d9c307b7e95bbe1e.png" alt="Mini App dialog" decoding="async" loading="lazy"></p>
 <ol start="4">
 <li>Select the option to open the app. Telegram will navigate to the Mini App URL you configured earlier.</li>
 </ol>
@@ -339,23 +345,23 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Bot</span>,<span class="title class_">InlineKeyboard</span>&#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> keyboard = <span class="keyword">new</span> <span class="title class_">InlineKeyboard</span>().<span class="title function_">text</span>(<span class="string">&quot;Start game 1&quot;</span>, <span class="string">&quot;one&quot;</span>).<span class="title function_">row</span>()</span><br><span class="line">                                    .<span class="title function_">text</span>(<span class="string">&quot;Start game 2&quot;</span>, <span class="string">&quot;two&quot;</span>).<span class="title function_">row</span>()</span><br><span class="line">                                    .<span class="title function_">text</span>(<span class="string">&quot;Start game 3&quot;</span>, <span class="string">&quot;three&quot;</span>);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">command</span>(<span class="string">&quot;start&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">reply</span>(<span class="string">&quot;Choose an option&quot;</span>, &#123;</span><br><span class="line">        <span class="attr">reply_markup</span>: keyboard,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
 
 <p>After the script starts, the result looks like this:</p>
-<p><img data-src="https://pic.imgdb.cn/item/667e6ea9d9c307b7e960ac34.png" alt="Inline keyboard"></p>
+<p><img src="https://pic.imgdb.cn/item/667e6ea9d9c307b7e960ac34.png" alt="Inline keyboard" decoding="async" loading="lazy"></p>
 <p>The three buttons are arranged vertically. To place them on one row, remove the <code>row()</code> calls:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> keyboard = <span class="keyword">new</span> <span class="title class_">InlineKeyboard</span>().<span class="title function_">text</span>(<span class="string">&quot;Start game 1&quot;</span>, <span class="string">&quot;one&quot;</span>)</span><br><span class="line">                                    .<span class="title function_">text</span>(<span class="string">&quot;Start game 2&quot;</span>, <span class="string">&quot;two&quot;</span>)</span><br><span class="line">                                    .<span class="title function_">text</span>(<span class="string">&quot;Start game 3&quot;</span>, <span class="string">&quot;three&quot;</span>);</span><br></pre></td></tr></table></figure>
 
 <p>There are several button types. The four I have used are <code>.text</code>, <code>.game</code>, <code>.url</code>, and <code>.webApp</code>; grammY may support additional types.</p>
 <h3 id="Reply-with-an-image-text-and-buttons"><a href="#Reply-with-an-image-text-and-buttons" class="headerlink" title="Reply with an image, text, and buttons"></a>Reply with an image, text, and buttons</h3><p>I once saw a Telegram bot response that combined a GIF, text, and three buttons. It could also access the sender’s user ID.</p>
-<p><img data-src="https://pic.imgdb.cn/item/667e7068d9c307b7e9640de7.png" alt="Combined bot response"></p>
+<p><img src="https://pic.imgdb.cn/item/667e7068d9c307b7e9640de7.png" alt="Combined bot response" decoding="async" loading="lazy"></p>
 <p>I liked the result, so I built something similar:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Bot</span>,<span class="title class_">InlineKeyboard</span> &#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TELEGRAM_GAME_URL</span> = <span class="string">&#x27;https://lengmo714.top&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> keyboard = <span class="keyword">new</span> <span class="title class_">InlineKeyboard</span>()</span><br><span class="line">  .<span class="title function_">url</span>(<span class="string">&quot;Start game 1&quot;</span>, <span class="variable constant_">TELEGRAM_GAME_URL</span>).<span class="title function_">row</span>()</span><br><span class="line">  .<span class="title function_">url</span>(<span class="string">&quot;Start game 2&quot;</span>, <span class="variable constant_">TELEGRAM_GAME_URL</span>).<span class="title function_">row</span>()</span><br><span class="line">  .<span class="title function_">url</span>(<span class="string">&quot;Start game 3&quot;</span>, <span class="variable constant_">TELEGRAM_GAME_URL</span>);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">command</span>(<span class="string">&quot;start&quot;</span>, <span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ctx.update.message = &quot;</span>, ctx.<span class="property">update</span>.<span class="property">message</span>.<span class="property">from</span>.<span class="property">first_name</span>);</span><br><span class="line">    <span class="keyword">const</span> gifUrl = <span class="string">&quot;https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> caption = <span class="string">`Hi <span class="subst">$&#123;ctx.update.message.<span class="keyword">from</span>.first_name&#125;</span>!\n\nHere is a great game for you.\n\n🎰 Enjoy the game\n\n💸 Have fun playing\n\n🎁 Good luck!`</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> ctx.<span class="title function_">replyWithAnimation</span>(gifUrl, &#123;</span><br><span class="line">      <span class="attr">caption</span>: caption,</span><br><span class="line">      <span class="attr">reply_markup</span>: keyboard,</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">bot.<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
 
 <p>The final result looks like this:</p>
-<p><img data-src="https://pic.imgdb.cn/item/667e7162d9c307b7e965dc7d.png" alt="Final bot response"></p>
+<p><img src="https://pic.imgdb.cn/item/667e7162d9c307b7e965dc7d.png" alt="Final bot response" decoding="async" loading="lazy"></p>
 <h3 id="Refinement"><a href="#Refinement" class="headerlink" title="Refinement"></a>Refinement</h3><p>The example above creates three URL buttons, each with an arrow icon in its upper-right corner. This works, but it differs from the reference design, which uses an icon resembling two overlapping windows. To achieve that appearance, change the relevant buttons from <code>.url</code> to <code>.webApp</code>:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> keyboard = <span class="keyword">new</span> <span class="title class_">InlineKeyboard</span>()</span><br><span class="line">  .<span class="title function_">webApp</span>(<span class="string">&quot;Start game&quot;</span>, <span class="variable constant_">TELEGRAM_GAME_URL</span>).<span class="title function_">row</span>()</span><br><span class="line">  .<span class="title function_">webApp</span>(<span class="string">&quot;Start game&quot;</span>, <span class="variable constant_">TELEGRAM_GAME_URL</span>).<span class="title function_">row</span>()</span><br><span class="line">  .<span class="title function_">url</span>(<span class="string">&quot;Start game&quot;</span>, <span class="variable constant_">TELEGRAM_GAME_URL</span>);</span><br></pre></td></tr></table></figure>
 
 <p>The updated result is shown below:</p>
-<p><img data-src="https://pic.imgdb.cn/item/66836d9fd9c307b7e9f4ad96.png" alt="Web App buttons"></p>
+<p><img src="https://pic.imgdb.cn/item/66836d9fd9c307b7e9f4ad96.png" alt="Web App buttons" decoding="async" loading="lazy"></p>
 <p>This is the final button style we wanted.</p>
 
     </div>
@@ -606,23 +612,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -677,21 +674,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

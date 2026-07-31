@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Create an iOS development certificate, register an App ID and test device, and generate a provisioning profile.">
@@ -73,7 +73,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/1fb96e6b.html#article","headline":"How to Create an iOS Development Certificate","description":"Create an iOS development certificate, register an App ID and test device, and generate a provisioning profile.","image":["https://lengmo714.top/postImg/1fb96e6b/1.png"],"datePublished":"2026-04-16T12:17:49.000Z","dateModified":"2026-07-30T04:01:52.231Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/1fb96e6b.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["iOS Development"],"keywords":"Xcode, iOS","wordCount":332}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/1fb96e6b.html#article","headline":"How to Create an iOS Development Certificate","description":"Create an iOS development certificate, register an App ID and test device, and generate a provisioning profile.","datePublished":"2026-04-16T12:17:49.000Z","dateModified":"2026-07-30T04:01:52.231Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/1fb96e6b.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["iOS Development"],"keywords":"Xcode, iOS","wordCount":332,"image":["https://lengmo714.top/postImg/1fb96e6b/1.png"]}</script>
 
 
 
@@ -91,14 +91,21 @@
 
   <title>How to Create an iOS Development Certificate | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -132,7 +139,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -236,7 +243,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -296,58 +302,58 @@
 
 <p>One of the first steps in iOS development is obtaining a certificate. Developers commonly refer to development and distribution certificates; this guide uses a development certificate to demonstrate the complete process.</p>
 <p>Open the <a target="_blank" rel="noopener" href="https://developer.apple.com/account">Apple Developer portal</a>, sign in, and select Certificates:</p>
-<p><img data-src="/postImg/1fb96e6b/1.png" alt="Open Certificates"></p>
+<p><img src="/postImg/1fb96e6b/1.png" alt="Open Certificates" decoding="async" loading="eager" fetchpriority="high"></p>
 <p>Click the <code>+</code> button next to Certificates:</p>
-<p><img data-src="/postImg/1fb96e6b/2.png" alt="Create a certificate"></p>
+<p><img src="/postImg/1fb96e6b/2.png" alt="Create a certificate" decoding="async" loading="lazy"></p>
 <p>Select the certificate type appropriate for your project. This example uses an app development certificate:</p>
-<p><img data-src="/postImg/1fb96e6b/3.png" alt="Choose the certificate type"></p>
+<p><img src="/postImg/1fb96e6b/3.png" alt="Choose the certificate type" decoding="async" loading="lazy"></p>
 <p>Apple now asks you to upload a certificate signing request (<code>CSR</code>):</p>
-<p><img data-src="/postImg/1fb96e6b/4.png" alt="CSR requirement"></p>
+<p><img src="/postImg/1fb96e6b/4.png" alt="CSR requirement" decoding="async" loading="lazy"></p>
 <p>Create the CSR on your Mac by following the Keychain Access steps shown below:</p>
-<p><img data-src="/postImg/1fb96e6b/5.png" alt="Open the CSR assistant"></p>
-<p><img data-src="/postImg/1fb96e6b/6.png" alt="Create the CSR"></p>
+<p><img src="/postImg/1fb96e6b/5.png" alt="Open the CSR assistant" decoding="async" loading="lazy"></p>
+<p><img src="/postImg/1fb96e6b/6.png" alt="Create the CSR" decoding="async" loading="lazy"></p>
 <p>Return to the browser and select the CSR you just created:</p>
-<p><img data-src="/postImg/1fb96e6b/7.png" alt="Upload the CSR"></p>
+<p><img src="/postImg/1fb96e6b/7.png" alt="Upload the CSR" decoding="async" loading="lazy"></p>
 <p>Confirm the request and download the certificate:</p>
-<p><img data-src="/postImg/1fb96e6b/8.png" alt="Download the certificate"></p>
+<p><img src="/postImg/1fb96e6b/8.png" alt="Download the certificate" decoding="async" loading="lazy"></p>
 <p>The downloaded certificate has a <code>.cer</code> extension:</p>
-<p><img data-src="/postImg/1fb96e6b/9.png" alt="Downloaded CER file"></p>
+<p><img src="/postImg/1fb96e6b/9.png" alt="Downloaded CER file" decoding="async" loading="lazy"></p>
 <p>Double-click it to import it into Keychain Access:</p>
-<p><img data-src="/postImg/1fb96e6b/10.png" alt="Import into Keychain"></p>
+<p><img src="/postImg/1fb96e6b/10.png" alt="Import into Keychain" decoding="async" loading="lazy"></p>
 <p>If a trust warning appears, open the certificate in Keychain Access and configure it as trusted.</p>
 <h3 id="Create-an-identifier-App-ID"><a href="#Create-an-identifier-App-ID" class="headerlink" title="Create an identifier (App ID)"></a>Create an identifier (App ID)</h3><p>Click the <code>+</code> button under Identifiers:</p>
-<p><img data-src="/postImg/1fb96e6b/11.png" alt="Create an identifier"></p>
+<p><img src="/postImg/1fb96e6b/11.png" alt="Create an identifier" decoding="async" loading="lazy"></p>
 <p>Choose <code>App IDs</code>, then continue:</p>
-<p><img data-src="/postImg/1fb96e6b/12.png" alt="Choose App IDs"></p>
+<p><img src="/postImg/1fb96e6b/12.png" alt="Choose App IDs" decoding="async" loading="lazy"></p>
 <p>Select <code>App</code>:</p>
-<p><img data-src="/postImg/1fb96e6b/13.png" alt="Choose App"></p>
+<p><img src="/postImg/1fb96e6b/13.png" alt="Choose App" decoding="async" loading="lazy"></p>
 <p>Enter a description and a bundle ID, usually in a format such as <code>com.company.app</code>:</p>
-<p><img data-src="/postImg/1fb96e6b/14.png" alt="Enter the App ID"></p>
+<p><img src="/postImg/1fb96e6b/14.png" alt="Enter the App ID" decoding="async" loading="lazy"></p>
 <p>You must also choose between an explicit and wildcard App ID:</p>
 <ol>
 <li><strong>Explicit App ID:</strong> identifies one specific app, such as <code>com.company.app</code>. It supports capabilities such as Push Notifications and App Groups, avoids conflicts with other apps, and is the normal choice for a production app.</li>
 <li><strong>Wildcard App ID:</strong> uses <code>*</code> to cover several apps, such as <code>com.company.*</code>. It can be convenient for temporary or similar apps, but it does not support every capability and is less isolated.</li>
 </ol>
-<p><img data-src="/postImg/1fb96e6b/15.png" alt="Choose the Bundle ID type"></p>
+<p><img src="/postImg/1fb96e6b/15.png" alt="Choose the Bundle ID type" decoding="async" loading="lazy"></p>
 <p>Confirm the information and click Register. The new identifier will appear in the Identifiers list:</p>
-<p><img data-src="/postImg/1fb96e6b/16.png" alt="Registered identifier"></p>
+<p><img src="/postImg/1fb96e6b/16.png" alt="Registered identifier" decoding="async" loading="lazy"></p>
 <h3 id="Register-a-test-device"><a href="#Register-a-test-device" class="headerlink" title="Register a test device"></a>Register a test device</h3><p>Add a new device:</p>
-<p><img data-src="/postImg/1fb96e6b/17.png" alt="Add a test device"></p>
+<p><img src="/postImg/1fb96e6b/17.png" alt="Add a test device" decoding="async" loading="lazy"></p>
 <p>Verify the information and click Register:</p>
-<p><img data-src="/postImg/1fb96e6b/18.png" alt="Register the device"></p>
+<p><img src="/postImg/1fb96e6b/18.png" alt="Register the device" decoding="async" loading="lazy"></p>
 <p>The device now appears in the Devices list.</p>
 <h3 id="Create-a-provisioning-profile"><a href="#Create-a-provisioning-profile" class="headerlink" title="Create a provisioning profile"></a>Create a provisioning profile</h3><p>Create a new profile:</p>
-<p><img data-src="/postImg/1fb96e6b/19.png" alt="Create a provisioning profile"></p>
+<p><img src="/postImg/1fb96e6b/19.png" alt="Create a provisioning profile" decoding="async" loading="lazy"></p>
 <p>Choose the profile type appropriate for your project:</p>
-<p><img data-src="/postImg/1fb96e6b/20.png" alt="Choose the profile type"></p>
+<p><img src="/postImg/1fb96e6b/20.png" alt="Choose the profile type" decoding="async" loading="lazy"></p>
 <p>Select the App ID created earlier:</p>
-<p><img data-src="/postImg/1fb96e6b/21.png" alt="Select the App ID"></p>
+<p><img src="/postImg/1fb96e6b/21.png" alt="Select the App ID" decoding="async" loading="lazy"></p>
 <p>Select the development certificate:</p>
-<p><img data-src="/postImg/1fb96e6b/22.png" alt="Select the certificate"></p>
+<p><img src="/postImg/1fb96e6b/22.png" alt="Select the certificate" decoding="async" loading="lazy"></p>
 <p>Select the registered test device and enter a name for the profile:</p>
-<p><img data-src="/postImg/1fb96e6b/23.png" alt="Name the profile"></p>
+<p><img src="/postImg/1fb96e6b/23.png" alt="Name the profile" decoding="async" loading="lazy"></p>
 <p>Confirm the information and download the resulting <code>.mobileprovision</code> file:</p>
-<p><img data-src="/postImg/1fb96e6b/24.png" alt="Download the provisioning profile"></p>
+<p><img src="/postImg/1fb96e6b/24.png" alt="Download the provisioning profile" decoding="async" loading="lazy"></p>
 
     </div>
 
@@ -596,23 +602,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -667,21 +664,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Call the Telegram Bot API from a Cocos Creator web preview to send an invoice and open the bot chat.">
@@ -52,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/1069c4d4.html#article","headline":"Sending a Telegram Invoice from Cocos Creator","description":"Call the Telegram Bot API from a Cocos Creator web preview to send an invoice and open the bot chat.","image":["https://pic.imgdb.cn/item/6686a008d9c307b7e91bb03b.png"],"datePublished":"2024-07-04T13:01:57.000Z","dateModified":"2026-07-30T04:20:28.207Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/1069c4d4.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Telegram","Mini App"],"keywords":"Cocos Creator, Telegram, Payments","wordCount":139}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/1069c4d4.html#article","headline":"Sending a Telegram Invoice from Cocos Creator","description":"Call the Telegram Bot API from a Cocos Creator web preview to send an invoice and open the bot chat.","datePublished":"2024-07-04T13:01:57.000Z","dateModified":"2026-07-30T04:20:28.207Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/1069c4d4.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Telegram","Mini App"],"keywords":"Cocos Creator, Telegram, Payments","wordCount":139,"image":["https://pic.imgdb.cn/item/6686a008d9c307b7e91bb03b.png"]}</script>
 
 
 
@@ -70,14 +70,21 @@
 
   <title>Sending a Telegram Invoice from Cocos Creator | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -111,7 +118,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -215,7 +222,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -280,8 +286,8 @@
 
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">InvoiceData</span> &#123;</span><br><span class="line">  <span class="attr">chat_id</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">title</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">description</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">payload</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">provider_token</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">start_parameter</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">currency</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">prices</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> apiUrl = <span class="string">`https://api.telegram.org/bot<span class="subst">$&#123;BOT_TOKEN&#125;</span>/sendInvoice`</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">invoice</span>: <span class="title class_">InvoiceData</span> = &#123;</span><br><span class="line">  <span class="attr">chat_id</span>: <span class="variable constant_">CHAT_ID</span>,</span><br><span class="line">  <span class="attr">title</span>: <span class="string">&#x27;Product Title&#x27;</span>,</span><br><span class="line">  <span class="attr">description</span>: <span class="string">&#x27;Product Description&#x27;</span>,</span><br><span class="line">  <span class="attr">payload</span>: <span class="string">&#x27;UniquePayload&#x27;</span>,</span><br><span class="line">  <span class="attr">provider_token</span>: <span class="variable constant_">PROVIDER_TOKEN</span>,</span><br><span class="line">  <span class="attr">start_parameter</span>: <span class="string">&#x27;start&#x27;</span>,</span><br><span class="line">  <span class="attr">currency</span>: <span class="string">&#x27;USD&#x27;</span>,</span><br><span class="line">  <span class="attr">prices</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>([&#123; <span class="attr">label</span>: <span class="string">&#x27;Product&#x27;</span>, <span class="attr">amount</span>: <span class="number">1000</span> &#125;]),</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">openBot</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(apiUrl, &#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">    <span class="attr">headers</span>: &#123; <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span> &#125;,</span><br><span class="line">    <span class="attr">body</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(invoice),</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> data = <span class="keyword">await</span> response.<span class="title function_">json</span>();</span><br><span class="line">  <span class="keyword">if</span> (data.<span class="property">ok</span>) <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="string">`https://t.me/<span class="subst">$&#123;BOT_USERNAME&#125;</span>`</span>;</span><br><span class="line">  <span class="keyword">else</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Failed to send invoice:&#x27;</span>, data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img data-src="https://pic.imgdb.cn/item/6686a008d9c307b7e91bb03b.png" alt="Open Telegram"></p>
-<p><img data-src="https://pic.imgdb.cn/item/6686a0fcd9c307b7e91da7b6.png" alt="Invoice in the bot chat"></p>
+<p><img src="https://pic.imgdb.cn/item/6686a008d9c307b7e91bb03b.png" alt="Open Telegram" decoding="async" loading="eager" fetchpriority="high"></p>
+<p><img src="https://pic.imgdb.cn/item/6686a0fcd9c307b7e91da7b6.png" alt="Invoice in the bot chat" decoding="async" loading="lazy"></p>
 <p>Do not ship a bot token in public client code. In production, send invoice requests through your own authenticated server.</p>
 
     </div>
@@ -531,23 +537,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -602,21 +599,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

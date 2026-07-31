@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Learn how to create, replace, export, and dynamically switch 2D particle effects in Cocos Creator 3.7.2.">
@@ -55,7 +55,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/9d7c5e64.html#article","headline":"Getting Started with Particle Effects in Cocos Creator 3.7.2","description":"Learn how to create, replace, export, and dynamically switch 2D particle effects in Cocos Creator 3.7.2.","image":["https://pic.imgdb.cn/item/66432e9b0ea9cb14039d77d9.jpg"],"datePublished":"2023-12-19T04:45:00.000Z","dateModified":"2026-07-30T04:28:37.312Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/9d7c5e64.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Game Development"],"keywords":"Cocos Creator, Particle Effects","wordCount":292}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/9d7c5e64.html#article","headline":"Getting Started with Particle Effects in Cocos Creator 3.7.2","description":"Learn how to create, replace, export, and dynamically switch 2D particle effects in Cocos Creator 3.7.2.","datePublished":"2023-12-19T04:45:00.000Z","dateModified":"2026-07-30T04:28:37.312Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/9d7c5e64.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Game Development"],"keywords":"Cocos Creator, Particle Effects","wordCount":292,"image":["https://pic.imgdb.cn/item/66432e9b0ea9cb14039d77d9.jpg"]}</script>
 
 
 
@@ -73,14 +73,21 @@
 
   <title>Getting Started with Particle Effects in Cocos Creator 3.7.2 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -114,7 +121,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -218,7 +225,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -275,23 +281,23 @@
         <p>Particle effects can make a game more expressive and help draw the player’s attention. A particle system can be used to create explosions, magic, weather, and many other visual effects. This article explains how to use the particle system in Cocos Creator 3.7.2.</p>
 <p>You can create an effect yourself, use one supplied by your art team, or obtain a suitable asset elsewhere. The example here uses an effect supplied by an artist.</p>
 <h3 id="Create-a-particle-system"><a href="#Create-a-particle-system" class="headerlink" title="Create a particle system"></a>Create a particle system</h3><p>In the editor, select <strong>Create → 2D Object → ParticleSystem2D</strong>.</p>
-<img data-src="https://pic.imgdb.cn/item/66432e9b0ea9cb14039d77d9.jpg" alt="Creating a ParticleSystem2D node">
+<img src="https://pic.imgdb.cn/item/66432e9b0ea9cb14039d77d9.jpg" alt="Creating a ParticleSystem2D node" decoding="async" loading="eager" fetchpriority="high">
 
 <p>The editor now displays its built-in particle effect.</p>
-<img data-src="https://pic.imgdb.cn/item/66432edf0ea9cb14039ddd96.png" alt="The default particle effect">
+<img src="https://pic.imgdb.cn/item/66432edf0ea9cb14039ddd96.png" alt="The default particle effect" decoding="async" loading="lazy">
 
 <p>Next, replace it with your own effect.</p>
 <h3 id="Change-the-File-property"><a href="#Change-the-File-property" class="headerlink" title="Change the File property"></a>Change the File property</h3><p>Select the particle node and find <strong>File</strong> in the Inspector. This property points to the particle configuration, which uses the <code>.plist</code> format. Replace it with your own file.</p>
-<img data-src="https://pic.imgdb.cn/item/66432fc10ea9cb14039fc4d9.png" alt="Replacing the particle configuration file">
+<img src="https://pic.imgdb.cn/item/66432fc10ea9cb14039fc4d9.png" alt="Replacing the particle configuration file" decoding="async" loading="lazy">
 
 <p>The editor may now report an error and fail to display the expected effect. This happens when it cannot locate the particle texture referenced by the configuration.</p>
-<h3 id="Replace-the-texture"><a href="#Replace-the-texture" class="headerlink" title="Replace the texture"></a>Replace the texture</h3><img data-src="https://pic.imgdb.cn/item/66432ff00ea9cb1403a06225.png" alt="Enabling a custom particle texture">
+<h3 id="Replace-the-texture"><a href="#Replace-the-texture" class="headerlink" title="Replace the texture"></a>Replace the texture</h3><img src="https://pic.imgdb.cn/item/66432ff00ea9cb1403a06225.png" alt="Enabling a custom particle texture" decoding="async" loading="lazy">
 
 <p>Enable <strong>Custom</strong>. The <strong>Sprite Frame</strong> field will turn red and display <code>Missing Asset</code>. Drag the required particle texture into that field.</p>
-<img data-src="https://pic.imgdb.cn/item/6643301c0ea9cb1403a0afc0.png" alt="Assigning the particle sprite frame">
+<img src="https://pic.imgdb.cn/item/6643301c0ea9cb1403a0afc0.png" alt="Assigning the particle sprite frame" decoding="async" loading="lazy">
 
 <p>The custom effect should now appear correctly.</p>
-<h3 id="Export-the-effect"><a href="#Export-the-effect" class="headerlink" title="Export the effect"></a>Export the effect</h3><img data-src="https://pic.imgdb.cn/item/664330490ea9cb1403a10817.png" alt="Exporting the particle configuration">
+<h3 id="Export-the-effect"><a href="#Export-the-effect" class="headerlink" title="Export the effect"></a>Export the effect</h3><img src="https://pic.imgdb.cn/item/664330490ea9cb1403a10817.png" alt="Exporting the particle configuration" decoding="async" loading="lazy">
 
 <p>Finally, export the current particle configuration and use the exported particle file in your project.</p>
 <blockquote>
@@ -355,12 +361,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/9d7c5e64.html" rel="prev" title="cocosCreator 3.7.2 粒子特效入门与动态替换教程">
-      <i class="fa fa-chevron-left"></i> cocosCreator 3.7.2 粒子特效入门与动态替换教程
+    <a href="/b4b7357d.html" rel="prev" title="Markdown转Word教程：高效方法与实用工具">
+      <i class="fa fa-chevron-left"></i> Markdown转Word教程：高效方法与实用工具
     </a></div>
       <div class="post-nav-item">
-    <a href="/c7dbb86a.html" rel="next" title="解决cocosCreator调试时的Chrome错误：Could not reat source map问题">
-      解决cocosCreator调试时的Chrome错误：Could not reat source map问题 <i class="fa fa-chevron-right"></i>
+    <a href="/9d7c5e64.html" rel="next" title="cocosCreator 3.7.2 粒子特效入门与动态替换教程">
+      cocosCreator 3.7.2 粒子特效入门与动态替换教程 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -547,23 +553,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -618,12 +615,7 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
-</body>
-</html>
 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
@@ -635,4 +627,5 @@
      data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</script></body>
+</html>

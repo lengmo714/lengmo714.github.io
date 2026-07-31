@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Telegram Bot设置左下角菜单按钮教程">
@@ -52,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/69613828.html#article","headline":"Telegram Bot设置左下角菜单按钮教程 - 实现WebApp跳转与菜单配置","description":"Telegram Bot设置左下角菜单按钮教程","image":["https://pic.imgdb.cn/item/6687e484d9c307b7e9239939.png"],"datePublished":"2024-07-05T12:11:08.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/69613828.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["telegram","mini APP","Game"],"keywords":"telegram, mini APP, Game","wordCount":125}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/69613828.html#article","headline":"Telegram Bot设置左下角菜单按钮教程 - 实现WebApp跳转与菜单配置","description":"Telegram Bot设置左下角菜单按钮教程","datePublished":"2024-07-05T12:11:08.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/69613828.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["telegram","mini APP","Game"],"keywords":"telegram, mini APP, Game","wordCount":125,"image":["https://pic.imgdb.cn/item/6687e484d9c307b7e9239939.png"]}</script>
 
 
 
@@ -70,14 +70,21 @@
 
   <title>Telegram Bot设置左下角菜单按钮教程 - 实现WebApp跳转与菜单配置 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -111,7 +118,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -215,7 +222,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -286,10 +292,10 @@
 
 <h3 id="跳转到url"><a href="#跳转到url" class="headerlink" title="跳转到url"></a>跳转到url</h3><p>比如我们创建了一个网页，然后想要点击左下角菜单栏的时候就直接跳转到我们的网页，很简单，代码如下：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Bot</span>, api &#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;  <span class="comment">// 你机器人的token</span></span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>);</span><br><span class="line"><span class="comment">// 设置命令</span></span><br><span class="line">bot.<span class="title function_">command</span>(<span class="string">&quot;start&quot;</span>, <span class="function">(<span class="params">ctx</span>) =&gt;</span> &#123;</span><br><span class="line">  ctx.<span class="title function_">reply</span>(<span class="string">&quot;欢迎使用我的Telegram机器人!&quot;</span>);</span><br><span class="line">  <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">setWebAppMenuButton</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> bot.<span class="property">api</span>.<span class="title function_">setChatMenuButton</span>(&#123;</span><br><span class="line">      <span class="attr">menu_button</span>: &#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&quot;web_app&quot;</span>,</span><br><span class="line">        <span class="attr">text</span>: <span class="string">&quot;Open WebApp&quot;</span>, <span class="comment">// 按钮文本</span></span><br><span class="line">        <span class="attr">web_app</span>: &#123;</span><br><span class="line">          <span class="attr">url</span>: <span class="string">&quot;https://lengmo714.top&quot;</span> <span class="comment">// 替换为你的WebApp URL</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Menu button set response:&quot;</span>, response);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="title function_">setWebAppMenuButton</span>();</span><br><span class="line">&#125;);</span><br><span class="line">bot.<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
-<p>运行上面代码，再打开自己的机器人界面，就会看到自己的菜单按钮已经变成了<code>Open WebApp</code>，如下图。要是在手机上面看，会发现这个按钮的左边有一个窗口的标志，说明是没问题的。<br><img data-src="https://pic.imgdb.cn/item/6687e484d9c307b7e9239939.png" alt="Open WebApp"></p>
+<p>运行上面代码，再打开自己的机器人界面，就会看到自己的菜单按钮已经变成了<code>Open WebApp</code>，如下图。要是在手机上面看，会发现这个按钮的左边有一个窗口的标志，说明是没问题的。<br><img src="https://pic.imgdb.cn/item/6687e484d9c307b7e9239939.png" alt="Open WebApp" decoding="async" loading="eager" fetchpriority="high"></p>
 <h3 id="设置菜单"><a href="#设置菜单" class="headerlink" title="设置菜单"></a>设置菜单</h3><p>我们像要和BotFather一样，在菜单中设置很多命令，可以给我们的机器人添加很多的功能。<br>代码如下：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Bot</span>, api &#125; <span class="keyword">from</span> <span class="string">&quot;https://deno.land/x/grammy@v1.25.0/mod.ts&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">TOKEN</span> = <span class="string">&#x27;&#x27;</span>;  <span class="comment">// token</span></span><br><span class="line"><span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="title class_">Bot</span>(<span class="variable constant_">TOKEN</span>);</span><br><span class="line">bot.<span class="title function_">command</span>(<span class="string">&quot;start&quot;</span>, <span class="function">(<span class="params">ctx</span>) =&gt;</span> &#123;</span><br><span class="line">  ctx.<span class="title function_">reply</span>(<span class="string">&quot;欢迎使用我的Telegram机器人!&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line">bot.<span class="property">api</span>.<span class="title function_">setMyCommands</span>([</span><br><span class="line">  &#123; <span class="attr">command</span>: <span class="string">&quot;one&quot;</span>, <span class="attr">description</span>: <span class="string">&quot;一&quot;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">command</span>: <span class="string">&quot;two&quot;</span>, <span class="attr">description</span>: <span class="string">&quot;二&quot;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">command</span>: <span class="string">&quot;three&quot;</span>, <span class="attr">description</span>: <span class="string">&quot;三&quot;</span> &#125;,</span><br><span class="line">  <span class="comment">// 可以添加更多命令</span></span><br><span class="line">])</span><br><span class="line">.<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;命令设置成功&quot;</span>);</span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;设置命令时出错&quot;</span>, err);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取并打印现有的命令</span></span><br><span class="line">bot.<span class="property">api</span>.<span class="title function_">getMyCommands</span>()</span><br><span class="line">.<span class="title function_">then</span>(<span class="function">(<span class="params">commands</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;当前命令：&quot;</span>, commands);</span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;获取命令时出错&quot;</span>, err);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开始监听</span></span><br><span class="line">bot.<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
-<p>运行上面代码，再打开机器人，就可以看到左下角你设置的菜单啦~，如下图所示：<br><img data-src="https://pic.imgdb.cn/item/6687e770d9c307b7e929508e.png" alt="菜单按钮"></p>
+<p>运行上面代码，再打开机器人，就可以看到左下角你设置的菜单啦~，如下图所示：<br><img src="https://pic.imgdb.cn/item/6687e770d9c307b7e929508e.png" alt="菜单按钮" decoding="async" loading="lazy"></p>
 <blockquote>
 <p>注意，无论上面哪种方法，都不会立马生效，可能是有缓存。</p>
 </blockquote>
@@ -542,23 +548,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -613,21 +610,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
@@ -69,14 +69,21 @@
 
   <title>南锋 - 南奔万里空，脱死锋镝余</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -110,7 +117,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +221,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -266,7 +272,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/284d90f4.html" aria-label="Creating a Shine Sweep Effect with a Cocos Creator Shader">
-          <img src="https://pic.imgdb.cn/item/6643262e0ea9cb14038c40d8.gif" alt="Creating a Shine Sweep Effect with a Cocos Creator Shader" loading="lazy" decoding="async">
+          <img src="https://pic.imgdb.cn/item/6643262e0ea9cb14038c40d8.gif" alt="Creating a Shine Sweep Effect with a Cocos Creator Shader" width="543" height="260"
+            loading="eager" decoding="async" fetchpriority="high">
         </a>
       </figure>
 
@@ -337,7 +344,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/f978efae.html" aria-label="Debugging JavaScript on Cocos Creator Native Platforms">
-          <img src="https://s11.ax1x.com/2024/02/22/pFNIi60.png" alt="Debugging JavaScript on Cocos Creator Native Platforms" loading="lazy" decoding="async">
+          <img src="https://s11.ax1x.com/2024/02/22/pFNIi60.png" alt="Debugging JavaScript on Cocos Creator Native Platforms" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -408,7 +416,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/dfc8d152.html" aria-label="Fixing “Build Type Isn't Debuggable” in Android Studio">
-          <img src="https://s11.ax1x.com/2024/02/22/pFNIFXV.png" alt="Fixing “Build Type Isn't Debuggable” in Android Studio" loading="lazy" decoding="async">
+          <img src="https://s11.ax1x.com/2024/02/22/pFNIFXV.png" alt="Fixing “Build Type Isn't Debuggable” in Android Studio" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -479,7 +488,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/db08b38f.html" aria-label="Fixing getGFXTexture Null Errors in Cocos Creator">
-          <img src="https://s11.ax1x.com/2024/01/30/pFKDIqs.png" alt="Fixing getGFXTexture Null Errors in Cocos Creator" loading="lazy" decoding="async">
+          <img src="https://s11.ax1x.com/2024/01/30/pFKDIqs.png" alt="Fixing getGFXTexture Null Errors in Cocos Creator" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -548,11 +558,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/en/31318c8f.html" aria-label="Refreshing Label Size in Cocos Creator">
-          <img src="/images/share.png" alt="Refreshing Label Size in Cocos Creator" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -621,7 +626,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/d1e46ee1.html" aria-label="Fixing checkReleaseDuplicateClasses in a Cocos Creator Android Project">
-          <img src="https://pic.imgdb.cn/item/664327ba0ea9cb14038f1b05.png" alt="Fixing checkReleaseDuplicateClasses in a Cocos Creator Android Project" loading="lazy" decoding="async">
+          <img src="https://pic.imgdb.cn/item/664327ba0ea9cb14038f1b05.png" alt="Fixing checkReleaseDuplicateClasses in a Cocos Creator Android Project" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -692,7 +698,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/a463e3d8.html" aria-label="Understanding the timeRecords Maximum Size Warning">
-          <img src="https://pic.imgdb.cn/item/664328220ea9cb140391bed7.png" alt="Understanding the timeRecords Maximum Size Warning" loading="lazy" decoding="async">
+          <img src="https://pic.imgdb.cn/item/664328220ea9cb140391bed7.png" alt="Understanding the timeRecords Maximum Size Warning" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -761,11 +768,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/en/d24f8349.html" aria-label="Listening for Background and Foreground Events in Cocos Creator">
-          <img src="/images/share.png" alt="Listening for Background and Foreground Events in Cocos Creator" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -834,7 +836,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/dc26bed4.html" aria-label="Updating an Android App's targetSdkVersion">
-          <img src="https://pic.imgdb.cn/item/664328cb0ea9cb140393500c.png" alt="Updating an Android App's targetSdkVersion" loading="lazy" decoding="async">
+          <img src="https://pic.imgdb.cn/item/664328cb0ea9cb140393500c.png" alt="Updating an Android App's targetSdkVersion" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -903,11 +906,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/en/386fc021.html" aria-label="When an OpenAI Payment Method Cannot Be Authenticated">
-          <img src="/images/share.png" alt="When an OpenAI Payment Method Cannot Be Authenticated" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -1120,23 +1118,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -1191,21 +1180,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

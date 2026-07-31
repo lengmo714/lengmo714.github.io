@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Cannot read properties of null (reading &#39;getGFXTexture&#39;)">
@@ -51,7 +51,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/db08b38f.html#article","headline":"cocosCreator错误解决：如何处理'Cannot read properties of null (reading 'getGFXTexture')'问题","description":"Cannot read properties of null (reading 'getGFXTexture')","image":["https://s11.ax1x.com/2024/01/30/pFKDIqs.png"],"datePublished":"2024-01-30T16:38:18.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/db08b38f.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":22}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/db08b38f.html#article","headline":"cocosCreator错误解决：如何处理'Cannot read properties of null (reading 'getGFXTexture')'问题","description":"Cannot read properties of null (reading 'getGFXTexture')","datePublished":"2024-01-30T16:38:18.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/db08b38f.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":22,"image":["https://s11.ax1x.com/2024/01/30/pFKDIqs.png"]}</script>
 
 
 
@@ -69,14 +69,21 @@
 
   <title>cocosCreator错误解决：如何处理'Cannot read properties of null (reading 'getGFXTexture')'问题 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -110,7 +117,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +221,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -275,12 +281,12 @@
 </script>
 
 <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>最近在浏览器上运行cocosCreator工程时，总是提示这个错误<code>Cannot read properties of null (reading &#39;getGFXTexture&#39;)</code>,如下图：</p>
-<img data-src="https://s11.ax1x.com/2024/01/30/pFKDIqs.png" alt="示意图">
+<img src="https://s11.ax1x.com/2024/01/30/pFKDIqs.png" alt="示意图" decoding="async" loading="eager" fetchpriority="high">
 
 <h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>图片纹理被清空所导致，自己在网上找的答案</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>这里简单说下我自己的解决方案。<br>1、vsCode打开Cocos的源码调试功能(报这个错的时候vscode会有提示，或者自己百度)<br>2、查看堆栈，定位到这个地方，如下图：<br><img data-src="https://pic.imgdb.cn/item/6643274b0ea9cb14038e966b.png" alt="示意图"></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>这里简单说下我自己的解决方案。<br>1、vsCode打开Cocos的源码调试功能(报这个错的时候vscode会有提示，或者自己百度)<br>2、查看堆栈，定位到这个地方，如下图：<br><img src="https://pic.imgdb.cn/item/6643274b0ea9cb14038e966b.png" alt="示意图" decoding="async" loading="lazy"></p>
 <p>3.1 在cocosCreator中文社区里有人回答了一种方法，将这里 <code>if(frame)</code> 的判断改为<code>if(frame &amp;&amp; frame.isVaild)</code>，我试了下这个方法，好像没有什么用，即使有用的话也只是阻止报错，不能从根本上解决问题（后面一句是自己的见解，如果有误，还请谅解）。</p>
-<p>这里介绍我的方法：<br>还是一样断点到这个地方，千万别想着打日志，这个文件是只读文件。然后查看<code>frame</code>的值，这个<code>frame</code>就是你要加载的那个<code>SpriteFrame</code>，这里面有个参数<code>uuid</code>。复制<code>uuid</code>然后在cocosCreator的资源管理器中直接搜索，看是哪张图片的纹理被清空了。<br><img data-src="https://pic.imgdb.cn/item/664327760ea9cb14038eceba.png" alt="示意图"></p>
+<p>这里介绍我的方法：<br>还是一样断点到这个地方，千万别想着打日志，这个文件是只读文件。然后查看<code>frame</code>的值，这个<code>frame</code>就是你要加载的那个<code>SpriteFrame</code>，这里面有个参数<code>uuid</code>。复制<code>uuid</code>然后在cocosCreator的资源管理器中直接搜索，看是哪张图片的纹理被清空了。<br><img src="https://pic.imgdb.cn/item/664327760ea9cb14038eceba.png" alt="示意图" decoding="async" loading="lazy"></p>
 <p>找到这张图片后，点击右键，选择<code>查找UUID的使用</code>，就可以知道有哪些地方引用了这张图片，然后根据引用去查看，就可以很好的解决这个问题啦~</p>
 
     </div>
@@ -529,23 +535,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -600,21 +597,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

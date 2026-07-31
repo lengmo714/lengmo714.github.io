@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
@@ -69,14 +69,21 @@
 
   <title>南锋 - 南奔万里空，脱死锋镝余</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -110,7 +117,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +221,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -266,7 +272,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/1fb96e6b.html" aria-label="How to Create an iOS Development Certificate">
-          <img src="/postImg/1fb96e6b/1.png" alt="How to Create an iOS Development Certificate" loading="lazy" decoding="async">
+          <img src="/postImg/1fb96e6b/1.png" alt="How to Create an iOS Development Certificate" width="543" height="260"
+            loading="eager" decoding="async" fetchpriority="high">
         </a>
       </figure>
 
@@ -337,7 +344,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/b87ddd87.html" aria-label="How to Find an iPhone UDID">
-          <img src="/postImg/b87ddd87/1.png" alt="How to Find an iPhone UDID" loading="lazy" decoding="async">
+          <img src="/postImg/b87ddd87/1.png" alt="How to Find an iPhone UDID" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -408,7 +416,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/4a105b12.html" aria-label="Understanding “Copying Shared Cache Symbols” in Xcode">
-          <img src="/postImg/4a105b12/1.png" alt="Understanding “Copying Shared Cache Symbols” in Xcode" loading="lazy" decoding="async">
+          <img src="/postImg/4a105b12/1.png" alt="Understanding “Copying Shared Cache Symbols” in Xcode" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -479,7 +488,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/eff95905.html" aria-label="Creating a Circular Mask with a Shader in Cocos Creator">
-          <img src="/postImg/eff95905/2.png" alt="Creating a Circular Mask with a Shader in Cocos Creator" loading="lazy" decoding="async">
+          <img src="/postImg/eff95905/2.png" alt="Creating a Circular Mask with a Shader in Cocos Creator" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -550,7 +560,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/1369ddb7.html" aria-label="Debugging an iPhone Web Page with Safari">
-          <img src="https://lengmo714.top/postImg/1369ddb7/1.png" alt="Debugging an iPhone Web Page with Safari" loading="lazy" decoding="async">
+          <img src="https://lengmo714.top/postImg/1369ddb7/1.png" alt="Debugging an iPhone Web Page with Safari" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -619,11 +630,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/en/f1e76f08.html" aria-label="Correctly Detecting iOS and iPadOS in Frontend Code">
-          <img src="/images/share.png" alt="Correctly Detecting iOS and iPadOS in Frontend Code" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -692,7 +698,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/54fa1c27.html" aria-label="Checking Whether an APK Supports 16 KB Page Sizes">
-          <img src="https://lengmo714.top/postImg/54fa1c27/1.png" alt="Checking Whether an APK Supports 16 KB Page Sizes" loading="lazy" decoding="async">
+          <img src="https://lengmo714.top/postImg/54fa1c27/1.png" alt="Checking Whether an APK Supports 16 KB Page Sizes" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -763,7 +770,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/eb391a75.html" aria-label="Analyzing Resource Load Times in a Cocos Creator Web Build">
-          <img src="https://lengmo714.top/postImg/eb391a75/1.png" alt="Analyzing Resource Load Times in a Cocos Creator Web Build" loading="lazy" decoding="async">
+          <img src="https://lengmo714.top/postImg/eb391a75/1.png" alt="Analyzing Resource Load Times in a Cocos Creator Web Build" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -834,7 +842,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/d7156845.html" aria-label="Deploying a TRC-20 Token on the TRON Nile Testnet">
-          <img src="https://lengmo714.top/postImg/d7156845/1.png" alt="Deploying a TRC-20 Token on the TRON Nile Testnet" loading="lazy" decoding="async">
+          <img src="https://lengmo714.top/postImg/d7156845/1.png" alt="Deploying a TRC-20 Token on the TRON Nile Testnet" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -905,7 +914,8 @@
       </header>
       <figure class="post-cover">
         <a href="/en/645ccd2b.html" aria-label="Mapping Cocos Creator Production Errors Back to Source Code">
-          <img src="https://lengmo714.top/postImg/sourceMap/1.png" alt="Mapping Cocos Creator Production Errors Back to Source Code" loading="lazy" decoding="async">
+          <img src="https://lengmo714.top/postImg/sourceMap/1.png" alt="Mapping Cocos Creator Production Errors Back to Source Code" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -1120,23 +1130,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -1191,21 +1192,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

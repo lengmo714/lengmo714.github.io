@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
@@ -69,14 +69,21 @@
 
   <title>南锋 - 南奔万里空，脱死锋镝余</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -110,7 +117,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +221,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -253,7 +259,8 @@
       </header>
       <figure class="post-cover">
         <a href="/fbdc8ced.html" aria-label="如何取消ChatGPT Plus自动扣费订阅">
-          <img src="https://lengmo714.top/postImg/ChatGPT/cancel/1.jpg" alt="如何取消ChatGPT Plus自动扣费订阅" loading="lazy" decoding="async">
+          <img src="https://lengmo714.top/postImg/ChatGPT/cancel/1.jpg" alt="如何取消ChatGPT Plus自动扣费订阅" width="543" height="260"
+            loading="eager" decoding="async" fetchpriority="high">
         </a>
       </figure>
 
@@ -332,7 +339,8 @@
       </header>
       <figure class="post-cover">
         <a href="/90db261b.html" aria-label="Telegram MiniApp分享与打开教程 | 两种分享链接和MiniApp启动方法">
-          <img src="https://lengmo714.top/postImg/tg/1.jpg" alt="Telegram MiniApp分享与打开教程 | 两种分享链接和MiniApp启动方法" loading="lazy" decoding="async">
+          <img src="https://lengmo714.top/postImg/tg/1.jpg" alt="Telegram MiniApp分享与打开教程 | 两种分享链接和MiniApp启动方法" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -401,11 +409,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/c53c1f3e.html" aria-label="cocosCreator导出Web工程并上传本地图片教程 | 游戏开发技巧">
-          <img src="/images/share.png" alt="cocosCreator导出Web工程并上传本地图片教程 | 游戏开发技巧" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -474,7 +477,8 @@
       </header>
       <figure class="post-cover">
         <a href="/8cde5f7c.html" aria-label="cocosCreator实现一个验证码弹窗验证功能">
-          <img src="https://pic.imgdb.cn/item/66def5e3d9c307b7e94ee90c.gif" alt="cocosCreator实现一个验证码弹窗验证功能" loading="lazy" decoding="async">
+          <img src="https://pic.imgdb.cn/item/66def5e3d9c307b7e94ee90c.gif" alt="cocosCreator实现一个验证码弹窗验证功能" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -543,11 +547,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/2f9dcd90.html" aria-label="cocosCreator实现每日首次登录功能 | 游戏开发教程">
-          <img src="/images/share.png" alt="cocosCreator实现每日首次登录功能 | 游戏开发教程" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -622,11 +621,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/9a29c8a1.html" aria-label="如何判断使用手机或PC端打开Telegram Mini App | 开发者指南">
-          <img src="/images/share.png" alt="如何判断使用手机或PC端打开Telegram Mini App | 开发者指南" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -701,11 +695,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/688ebf18.html" aria-label="Telegram Bot机器人打开WebApp时自动全屏设置教程 | 开发者指南">
-          <img src="/images/share.png" alt="Telegram Bot机器人打开WebApp时自动全屏设置教程 | 开发者指南" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -776,11 +765,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/4a64b591.html" aria-label="Python脚本：遍历文件夹查找大于500KB的图片并输出路径">
-          <img src="/images/share.png" alt="Python脚本：遍历文件夹查找大于500KB的图片并输出路径" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -853,7 +837,8 @@
       </header>
       <figure class="post-cover">
         <a href="/8c2ab891.html" aria-label="如何在HTML文件的指定位置插入文本 | 实用技巧">
-          <img src="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png" alt="如何在HTML文件的指定位置插入文本 | 实用技巧" loading="lazy" decoding="async">
+          <img src="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png" alt="如何在HTML文件的指定位置插入文本 | 实用技巧" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -932,7 +917,8 @@
       </header>
       <figure class="post-cover">
         <a href="/39e5712d.html" aria-label="Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化">
-          <img src="https://pic.imgdb.cn/item/669666ced9c307b7e91688f0.png" alt="Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化" loading="lazy" decoding="async">
+          <img src="https://pic.imgdb.cn/item/669666ced9c307b7e91688f0.png" alt="Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -1147,23 +1133,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -1218,21 +1195,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Enable Internet Explorer mode in Microsoft Edge when a legacy website still depends on IE compatibility.">
@@ -53,7 +53,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/fbea9931.html#article","headline":"How to Open Legacy IE-Only Websites in Microsoft Edge","description":"Enable Internet Explorer mode in Microsoft Edge when a legacy website still depends on IE compatibility.","image":["https://pic.imgdb.cn/item/664332a50ea9cb1403a5089c.png"],"datePublished":"2023-11-23T16:35:22.000Z","dateModified":"2026-07-30T04:32:50.224Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/fbea9931.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Computer Tips"],"keywords":"Microsoft Edge","wordCount":128}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/fbea9931.html#article","headline":"How to Open Legacy IE-Only Websites in Microsoft Edge","description":"Enable Internet Explorer mode in Microsoft Edge when a legacy website still depends on IE compatibility.","datePublished":"2023-11-23T16:35:22.000Z","dateModified":"2026-07-30T04:32:50.224Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/fbea9931.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Computer Tips"],"keywords":"Microsoft Edge","wordCount":128,"image":["https://pic.imgdb.cn/item/664332a50ea9cb1403a5089c.png"]}</script>
 
 
 
@@ -71,14 +71,21 @@
 
   <title>How to Open Legacy IE-Only Websites in Microsoft Edge | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -112,7 +119,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -216,7 +223,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -272,20 +278,20 @@
       
         <p>Microsoft has retired Internet Explorer and replaced it with Microsoft Edge. Some legacy business websites still require IE-specific behavior, but Edge includes an Internet Explorer compatibility mode that may allow them to run.</p>
 <p>I encountered the compatibility prompt while opening <a target="_blank" rel="noopener" href="https://www.yljr.com/register.xhtml">Zhongqi Cloud Chain</a>:</p>
-<img data-src="https://pic.imgdb.cn/item/664332a50ea9cb1403a5089c.png" alt="Legacy website compatibility prompt">
+<img src="https://pic.imgdb.cn/item/664332a50ea9cb1403a5089c.png" alt="Legacy website compatibility prompt" decoding="async" loading="eager" fetchpriority="high">
 
 <h3 id="Steps"><a href="#Steps" class="headerlink" title="Steps"></a>Steps</h3><ol>
 <li><p>Open Edge, click the three-dot menu in the upper-right corner, and select <strong>Settings</strong>.</p>
-<img data-src="https://pic.imgdb.cn/item/664335c30ea9cb1403a9ddb4.jpg" alt="Opening Microsoft Edge settings">
+<img src="https://pic.imgdb.cn/item/664335c30ea9cb1403a9ddb4.jpg" alt="Opening Microsoft Edge settings" decoding="async" loading="lazy">
 </li>
 <li><p>Select <strong>Default browser</strong>. Set <strong>Allow sites to be reloaded in Internet Explorer mode</strong> to <strong>Allow</strong>.</p>
-<img data-src="https://pic.imgdb.cn/item/664335ee0ea9cb1403aa1a24.png" alt="Allowing pages to reload in Internet Explorer mode">
+<img src="https://pic.imgdb.cn/item/664335ee0ea9cb1403aa1a24.png" alt="Allowing pages to reload in Internet Explorer mode" decoding="async" loading="lazy">
 </li>
 <li><p>Click <strong>Restart</strong> so the setting takes effect.</p>
-<img data-src="https://pic.imgdb.cn/item/664336140ea9cb1403ab4f22.png" alt="Restarting Microsoft Edge">
+<img src="https://pic.imgdb.cn/item/664336140ea9cb1403ab4f22.png" alt="Restarting Microsoft Edge" decoding="async" loading="lazy">
 </li>
 <li><p>After Edge restarts, open the required page, open the three-dot menu again, and select <strong>Reload in Internet Explorer mode</strong>.</p>
-<img data-src="https://pic.imgdb.cn/item/6643362b0ea9cb1403ac3245.jpg" alt="Reloading a page in Internet Explorer mode"></li>
+<img src="https://pic.imgdb.cn/item/6643362b0ea9cb1403ac3245.jpg" alt="Reloading a page in Internet Explorer mode" decoding="async" loading="lazy"></li>
 </ol>
 <p>The page should now use Edge’s legacy compatibility engine. Use IE mode only for trusted sites that genuinely require it; ask the site owner for a modern-browser version when possible.</p>
 
@@ -343,12 +349,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/fbea9931.html" rel="prev" title="IE浏览器停用，靠IE才能打开的网页怎么办">
-      <i class="fa fa-chevron-left"></i> IE浏览器停用，靠IE才能打开的网页怎么办
+    <a href="/en/a80afa50.html" rel="prev" title="Batch-Renaming Images with a Python Prefix Script">
+      <i class="fa fa-chevron-left"></i> Batch-Renaming Images with a Python Prefix Script
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/db763ac0.html" rel="next" title="Formatting a Timestamp in TypeScript">
-      Formatting a Timestamp in TypeScript <i class="fa fa-chevron-right"></i>
+    <a href="/fbea9931.html" rel="next" title="IE浏览器停用，靠IE才能打开的网页怎么办">
+      IE浏览器停用，靠IE才能打开的网页怎么办 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -535,23 +541,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -606,12 +603,7 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
-</body>
-</html>
 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
@@ -623,4 +615,5 @@
      data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</script></body>
+</html>

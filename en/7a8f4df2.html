@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Implement a card-flip animation with one sprite by swapping its frame halfway through a Y-axis tween.">
@@ -49,7 +49,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/7a8f4df2.html#article","headline":"A Simple Single-Sprite Card Flip in Cocos Creator","description":"Implement a card-flip animation with one sprite by swapping its frame halfway through a Y-axis tween.","image":["https://pic.imgdb.cn/item/64b2bbba1ddac507ccd07d8e.gif"],"datePublished":"2023-07-15T13:40:41.000Z","dateModified":"2026-07-30T04:36:02.482Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/7a8f4df2.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator","wordCount":71}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/7a8f4df2.html#article","headline":"A Simple Single-Sprite Card Flip in Cocos Creator","description":"Implement a card-flip animation with one sprite by swapping its frame halfway through a Y-axis tween.","datePublished":"2023-07-15T13:40:41.000Z","dateModified":"2026-07-30T04:36:02.482Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/7a8f4df2.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator","wordCount":71,"image":["https://pic.imgdb.cn/item/64b2bbba1ddac507ccd07d8e.gif"]}</script>
 
 
 
@@ -67,14 +67,21 @@
 
   <title>A Simple Single-Sprite Card Flip in Cocos Creator | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -108,7 +115,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -212,7 +219,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -270,7 +276,7 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">tween</span>(<span class="variable language_">this</span>.<span class="property">_view</span>.<span class="property">_ImgC_poker</span>.<span class="property">node</span>)</span><br><span class="line">    .<span class="title function_">to</span>(<span class="number">0.5</span>, &#123; <span class="attr">eulerAngles</span>: <span class="keyword">new</span> <span class="title class_">Vec3</span>(<span class="number">0</span>, <span class="number">90</span>, <span class="number">0</span>) &#125;)</span><br><span class="line">    .<span class="title function_">call</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_view</span>.<span class="property">_ImgC_poker</span>.<span class="title function_">getComponent</span>(<span class="title class_">Sprite</span>).<span class="property">spriteFrame</span> =</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">pokerImg</span>.<span class="title function_">getSpriteFrame</span>(<span class="string">&#x27;card_2&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">to</span>(<span class="number">0.5</span>, &#123; <span class="attr">eulerAngles</span>: <span class="keyword">new</span> <span class="title class_">Vec3</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>) &#125;)</span><br><span class="line">    .<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
 
 <p>The frame changes when the card has almost no visible width, which hides the transition.</p>
-<img data-src="https://pic.imgdb.cn/item/64b2bbba1ddac507ccd07d8e.gif" alt="Single-sprite card flip animation">
+<img src="https://pic.imgdb.cn/item/64b2bbba1ddac507ccd07d8e.gif" alt="Single-sprite card flip animation" decoding="async" loading="eager" fetchpriority="high">
 
     </div>
 
@@ -330,8 +336,8 @@
       <i class="fa fa-chevron-left"></i> 优化cocosCreator翻牌动画：简单实现方法与示例代码
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/40128d6b.html" rel="next" title="Publishing Hexo Content in a WeChat Mini Program">
-      Publishing Hexo Content in a WeChat Mini Program <i class="fa fa-chevron-right"></i>
+    <a href="/40128d6b.html" rel="next" title="Hexo部署到微信小程序教程：从安装到配置的完整指南">
+      Hexo部署到微信小程序教程：从安装到配置的完整指南 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -517,23 +523,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -588,12 +585,7 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
-</body>
-</html>
 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
@@ -605,4 +597,5 @@
      data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</script></body>
+</html>

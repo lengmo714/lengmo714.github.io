@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
@@ -69,14 +69,21 @@
 
   <title>南锋 - 南奔万里空，脱死锋镝余</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -110,7 +117,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +221,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -262,7 +268,8 @@
       </header>
       <figure class="post-cover">
         <a href="/33907.html" aria-label="数据手套的设计与实现：虚拟现实中的人机交互应用">
-          <img src="https://s1.ax1x.com/2022/11/03/xqy9DP.png" alt="数据手套的设计与实现：虚拟现实中的人机交互应用" loading="lazy" decoding="async">
+          <img src="https://s1.ax1x.com/2022/11/03/xqy9DP.png" alt="数据手套的设计与实现：虚拟现实中的人机交互应用" width="543" height="260"
+            loading="eager" decoding="async" fetchpriority="high">
         </a>
       </figure>
 
@@ -337,7 +344,8 @@
       </header>
       <figure class="post-cover">
         <a href="/56859.html" aria-label="两个HC05蓝牙模块通信步骤：从AT指令设置到数据传输">
-          <img src="https://pic.imgdb.cn/item/664347ce0ea9cb1403ca6fdc.png" alt="两个HC05蓝牙模块通信步骤：从AT指令设置到数据传输" loading="lazy" decoding="async">
+          <img src="https://pic.imgdb.cn/item/664347ce0ea9cb1403ca6fdc.png" alt="两个HC05蓝牙模块通信步骤：从AT指令设置到数据传输" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -408,7 +416,8 @@
       </header>
       <figure class="post-cover">
         <a href="/8eb5184f.html" aria-label="语音信号滤波去噪：基于MATLAB的FLATTOPWIN窗FIR滤波器设计">
-          <img src="https://pic.imgdb.cn/item/664348550ea9cb1403cb2ed2.png" alt="语音信号滤波去噪：基于MATLAB的FLATTOPWIN窗FIR滤波器设计" loading="lazy" decoding="async">
+          <img src="https://pic.imgdb.cn/item/664348550ea9cb1403cb2ed2.png" alt="语音信号滤波去噪：基于MATLAB的FLATTOPWIN窗FIR滤波器设计" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -479,7 +488,8 @@
       </header>
       <figure class="post-cover">
         <a href="/40929.html" aria-label="Arduino Mega 2560 Reference Design原理图解读">
-          <img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTA2MjMxMTA4NTU3?x-oss-process=image/format,png" alt="Arduino Mega 2560 Reference Design原理图解读" loading="lazy" decoding="async">
+          <img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTA2MjMxMTA4NTU3?x-oss-process=image/format,png" alt="Arduino Mega 2560 Reference Design原理图解读" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -550,7 +560,8 @@
       </header>
       <figure class="post-cover">
         <a href="/58656.html" aria-label="STM32系统时钟树分析：时钟源配置与管理详解">
-          <img src="https://pic.imgdb.cn/item/664349da0ea9cb1403cde7b8.png" alt="STM32系统时钟树分析：时钟源配置与管理详解" loading="lazy" decoding="async">
+          <img src="https://pic.imgdb.cn/item/664349da0ea9cb1403cde7b8.png" alt="STM32系统时钟树分析：时钟源配置与管理详解" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -621,7 +632,8 @@
       </header>
       <figure class="post-cover">
         <a href="/28639.html" aria-label="STM32 GPIO部分介绍：端口模式与寄存器配置详解">
-          <img src="https://pic.imgdb.cn/item/66434a6c0ea9cb1403ceb8c0.png" alt="STM32 GPIO部分介绍：端口模式与寄存器配置详解" loading="lazy" decoding="async">
+          <img src="https://pic.imgdb.cn/item/66434a6c0ea9cb1403ceb8c0.png" alt="STM32 GPIO部分介绍：端口模式与寄存器配置详解" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -692,7 +704,8 @@
       </header>
       <figure class="post-cover">
         <a href="/30360.html" aria-label="基于MATLAB的AM调制解调：信号处理与噪声分析">
-          <img src="https://s11.ax1x.com/2024/02/26/pFd9wJs.png" alt="基于MATLAB的AM调制解调：信号处理与噪声分析" loading="lazy" decoding="async">
+          <img src="https://s11.ax1x.com/2024/02/26/pFd9wJs.png" alt="基于MATLAB的AM调制解调：信号处理与噪声分析" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -763,7 +776,8 @@
       </header>
       <figure class="post-cover">
         <a href="/16522.html" aria-label="自动售货机控制系统设计与实现（基于VHDL开发）">
-          <img src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24021.png" alt="自动售货机控制系统设计与实现（基于VHDL开发）" loading="lazy" decoding="async">
+          <img src="https://pic.imgdb.cn/item/66434c8d0ea9cb1403d24021.png" alt="自动售货机控制系统设计与实现（基于VHDL开发）" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -978,23 +992,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -1049,21 +1054,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

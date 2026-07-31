@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Telegram Bot打开WebApp缓存问题及解决方法">
@@ -53,7 +53,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/39e5712d.html#article","headline":"Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化","description":"Telegram Bot打开WebApp缓存问题及解决方法","image":["https://pic.imgdb.cn/item/669666ced9c307b7e91688f0.png"],"datePublished":"2024-07-16T12:12:22.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/39e5712d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["telegram","mini APP","Game"],"keywords":"telegram, mini APP, Game","wordCount":10}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/39e5712d.html#article","headline":"Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化","description":"Telegram Bot打开WebApp缓存问题及解决方法","datePublished":"2024-07-16T12:12:22.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/39e5712d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["telegram","mini APP","Game"],"keywords":"telegram, mini APP, Game","wordCount":10,"image":["https://pic.imgdb.cn/item/669666ced9c307b7e91688f0.png"]}</script>
 
 
 
@@ -71,14 +71,21 @@
 
   <title>Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -112,7 +119,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -216,7 +223,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -286,7 +292,7 @@
 </script>
 
 <h3 id="原因：缓存"><a href="#原因：缓存" class="headerlink" title="原因：缓存"></a>原因：缓存</h3><p>刚开始我们以为是服务器的缓存，但是清除服务器缓存后没用。于是抓包，查看bot打开webApp时所有的网络请求。发现每次打开webApp的时候都没有重新拉取资源，因为更新后的文件名和文件路径和更新前是一样的。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>每次更新的时候文件名后面统一加上一个后缀，说干就干，在网上找插件，甚至要chatGPT写脚本，都没搞定。因为我们的web是用cocosCreator开发的(直接从安卓转过来的)。在用脚本加后缀后，文件索引会出问题。在这里也卡了一会儿，最后没办法去查看cocosCreator的官方文档，发现文档上已经给出了解决方法。如下图：<br><img data-src="https://pic.imgdb.cn/item/669666ced9c307b7e91688f0.png" alt="Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化 — 解决方法">;<br>其实也就是我们在打包的时候勾选上MD5缓存，就可以解决这个问题了。<br>如下图：<br><img data-src="https://pic.imgdb.cn/item/66966705d9c307b7e916faf6.png" alt="Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化 — 解决方法">;<br>我们来康康构建后的文件名：<br><img data-src="https://pic.imgdb.cn/item/66966750d9c307b7e9179139.png" alt="Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化 — 解决方法">;<br>完美，是我们想要的结果。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>每次更新的时候文件名后面统一加上一个后缀，说干就干，在网上找插件，甚至要chatGPT写脚本，都没搞定。因为我们的web是用cocosCreator开发的(直接从安卓转过来的)。在用脚本加后缀后，文件索引会出问题。在这里也卡了一会儿，最后没办法去查看cocosCreator的官方文档，发现文档上已经给出了解决方法。如下图：<br><img src="https://pic.imgdb.cn/item/669666ced9c307b7e91688f0.png" decoding="async" loading="eager" fetchpriority="high" alt="Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化 — 解决方法">;<br>其实也就是我们在打包的时候勾选上MD5缓存，就可以解决这个问题了。<br>如下图：<br><img src="https://pic.imgdb.cn/item/66966705d9c307b7e916faf6.png" decoding="async" loading="lazy" alt="Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化 — 解决方法">;<br>我们来康康构建后的文件名：<br><img src="https://pic.imgdb.cn/item/66966750d9c307b7e9179139.png" decoding="async" loading="lazy" alt="Telegram Bot打开WebApp缓存问题及解决方法 | cocosCreator优化 — 解决方法">;<br>完美，是我们想要的结果。</p>
 <p>先在本地运行，看有没有文件索引不到的bug，没问题直接推送到服务器或CDN即可。</p>
 <h3 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h3><p>还是得多看看官方文档，有时候看官方文档可以为你节约很长的时间。</p>
 
@@ -538,23 +544,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -609,21 +606,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

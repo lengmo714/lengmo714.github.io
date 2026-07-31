@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="基于MATLAB的AM调制解调：信号处理与噪声分析">
@@ -72,7 +72,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/30360.html#article","headline":"基于MATLAB的AM调制解调：信号处理与噪声分析","description":"基于MATLAB的AM调制解调：信号处理与噪声分析","image":["https://s11.ax1x.com/2024/02/26/pFd9wJs.png"],"datePublished":"2017-01-12T22:35:37.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/30360.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["课程设计"],"keywords":"","wordCount":65}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/30360.html#article","headline":"基于MATLAB的AM调制解调：信号处理与噪声分析","description":"基于MATLAB的AM调制解调：信号处理与噪声分析","datePublished":"2017-01-12T22:35:37.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/30360.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["课程设计"],"keywords":"","wordCount":65,"image":["https://s11.ax1x.com/2024/02/26/pFd9wJs.png"]}</script>
 
 
 
@@ -90,14 +90,21 @@
 
   <title>基于MATLAB的AM调制解调：信号处理与噪声分析 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -131,7 +138,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -235,7 +242,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -295,27 +301,27 @@
 <h3 id="课程设计目的"><a href="#课程设计目的" class="headerlink" title="课程设计目的"></a>课程设计目的</h3><p>本课程设计课题主要研究基于MATLAB的AM调制解调实现的理论设计和软件仿真方法。掌握模拟系统AM调制解调的原理；掌握AM调制解调模拟系统的理论设计方法；掌握应用MATLAB分析系统时域、频域特性的方法，进一步锻炼应用MATLAB进行编程仿真的能力。</p>
 <h3 id="课程设计要求"><a href="#课程设计要求" class="headerlink" title="课程设计要求"></a>课程设计要求</h3><p>熟悉MATLAB中M文件的使用方法，并在掌握AM调制解调原理的基础上，编写AM<br>调制解调程序。绘制出AM信号解调前后在时域和频域中的波形，并观察解调前后频谱有何变化以加深对AM信号解调原理的理解。对信号叠加噪声，并进行解调，绘制出解调前后信号的时频波形，改变噪声功率进行解调，分析噪声对信号传输造成的影响。</p>
 <h3 id="课程设计步骤"><a href="#课程设计步骤" class="headerlink" title="课程设计步骤"></a>课程设计步骤</h3><p>(1)给定一个调制信号mes，载波信号Uc，并设计AM调制解调相关参数。<br>(2)分别绘制出调制信号和载波信号的波形图和频谱图。<br>(3)使用modulate()函数对mes信号进行调制。<br>(4)使用demod()函数解调已调信号Uam。<br>(5)使用awgn()函数对已调信号Uam加入噪声，观察加入噪声后对信号的影响。</p>
-<h2 id="AM调制解调原理"><a href="#AM调制解调原理" class="headerlink" title="AM调制解调原理"></a>AM调制解调原理</h2><h3 id="AM调制原理"><a href="#AM调制原理" class="headerlink" title="AM调制原理"></a>AM调制原理</h3><p>AM是调幅，用AM调制与解调可以在电路里面实现很多功能，制造出很多有用又实惠的电子产品，为我们的生活带来便利。在我们日常生活中用的收音机就是采用了AM调制方式，而且在军事和民用领域都有十分重要的研究课题。<br>AM是指对信号进行幅度调制。在传送信号的一方将所要传送的信号附加在高频上，再由天线发射出去。高频震荡波就是携带信号的运载工具，也叫载波。振幅调制，就是由调制信号去控制高频载波的振幅，直至随调制信号做线性变化。仿真图如下：<br><img data-src="https://s11.ax1x.com/2024/02/26/pFd9wJs.png" alt="仿真原理图"></p>
+<h2 id="AM调制解调原理"><a href="#AM调制解调原理" class="headerlink" title="AM调制解调原理"></a>AM调制解调原理</h2><h3 id="AM调制原理"><a href="#AM调制原理" class="headerlink" title="AM调制原理"></a>AM调制原理</h3><p>AM是调幅，用AM调制与解调可以在电路里面实现很多功能，制造出很多有用又实惠的电子产品，为我们的生活带来便利。在我们日常生活中用的收音机就是采用了AM调制方式，而且在军事和民用领域都有十分重要的研究课题。<br>AM是指对信号进行幅度调制。在传送信号的一方将所要传送的信号附加在高频上，再由天线发射出去。高频震荡波就是携带信号的运载工具，也叫载波。振幅调制，就是由调制信号去控制高频载波的振幅，直至随调制信号做线性变化。仿真图如下：<br><img src="https://s11.ax1x.com/2024/02/26/pFd9wJs.png" alt="仿真原理图" decoding="async" loading="eager" fetchpriority="high"></p>
 <h3 id="AM解调原理"><a href="#AM解调原理" class="headerlink" title="AM解调原理"></a>AM解调原理</h3><p>调制的逆过程叫解调，调制是一个频谱搬移过程，它是将低频信号的频谱搬到载频位置。从已调信号的频谱中，将位于载频的信号频谱搬移回来。调制和解调都完成频谱搬移，各种调幅都是利用乘法器实现的。</p>
 <h2 id="仿真过程实现"><a href="#仿真过程实现" class="headerlink" title="仿真过程实现"></a>仿真过程实现</h2><h3 id="AM-信号的产生"><a href="#AM-信号的产生" class="headerlink" title="AM 信号的产生"></a>AM 信号的产生</h3><p>为了产生AM信号，我写了下面部分的代码：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fc=<span class="number">120</span>;            %载波信号频率</span><br><span class="line">fm=<span class="number">30</span>;             %调制信号频率</span><br><span class="line">Fs=<span class="number">960</span>;             %采样频率</span><br><span class="line">w0=<span class="number">2</span>*fc*pi;</span><br><span class="line">w1=<span class="number">2</span>*fm*pi;</span><br><span class="line">Uc=A0*<span class="built_in">cos</span>(w0*t);            %载波信号  </span><br><span class="line">mes=<span class="number">1</span>+A1*<span class="built_in">cos</span>(w1*t);          %调制信号</span><br><span class="line">Uam=modulate(mes,fc,Fs,<span class="string">&#x27;am&#x27;</span>); 			 %AM已调信号</span><br><span class="line">C3=fft(Uam);			 %对已调信号进行傅里叶变换</span><br><span class="line">asd=<span class="built_in">abs</span>(C3);			 % 求模</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>fm为调制信号频率、A0为载波信号振幅、A1为调制信号振幅、mes是调制信号、fc为载波信号频率。Uam为已调信号。</p>
 </blockquote>
-<p>调制信号是来自信源的调制信号，这些信号是模拟的。高频振荡信号又称载波，是正弦信号。载波由高频信号源直接产生，然后经过高频功率放大器进行放大，作为调幅波的载波，调制信号有低频信号源直接产生，给出以上参数后，在MATLAB中通过modulate()函数得到AM信号Uam。再通过fft()函数和abs()函数对AM信号进行傅里叶变换及求模，得到AM信号的频谱。<br><em>载波信号的波形与频谱图，调制信号的波形与频谱图，已调信号的波形与频谱图如下。</em><br><img data-src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMxMDU3OTY3?x-oss-process=image/format,png" alt="载波信号的波形与频谱图"><br>上图显示了载波信号的时域波形图和频谱图。图中横坐标表示载波持续时间，纵坐标表示载波幅值。从图中可知本次调制使用的载波幅度为1。<br>上图还显示了载波信号的频谱图。图中横坐标表示频率，纵坐标表示信号频谱幅值。从图中可以明显看出载波频谱的频率为120Hz。</p>
-<p><img data-src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMxMjU2Mzk5?x-oss-process=image/format,png" alt="调制信号的波形与频谱图"><br>上图显示了调制信号的时域波形图和频谱图。图中的横坐标和纵坐标分别对应表示时间和信号幅度值。从图中可以明显看出调制信号为余弦信号。<br>上图还显示了调制信号的频谱图。图中的横坐标和纵坐标分别对应表示频率和频谱幅值。从图中可以明显看出调制信号的频谱为30Hz。</p>
-<p><img data-src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMxNDE3MTEz?x-oss-process=image/format,png" alt="已调信号的波形与频谱图"><br>上图显示了系统中经过AM调制后信号的时域波形图和频谱图。图中横坐标和纵坐标分别对应表示时间和信号幅值。<br>上图还显示了经历调制后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。从图中可知原发送信号经过调制后，频谱明显从原来的低频部分搬移到载波部分。</p>
+<p>调制信号是来自信源的调制信号，这些信号是模拟的。高频振荡信号又称载波，是正弦信号。载波由高频信号源直接产生，然后经过高频功率放大器进行放大，作为调幅波的载波，调制信号有低频信号源直接产生，给出以上参数后，在MATLAB中通过modulate()函数得到AM信号Uam。再通过fft()函数和abs()函数对AM信号进行傅里叶变换及求模，得到AM信号的频谱。<br><em>载波信号的波形与频谱图，调制信号的波形与频谱图，已调信号的波形与频谱图如下。</em><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMxMDU3OTY3?x-oss-process=image/format,png" alt="载波信号的波形与频谱图" decoding="async" loading="lazy"><br>上图显示了载波信号的时域波形图和频谱图。图中横坐标表示载波持续时间，纵坐标表示载波幅值。从图中可知本次调制使用的载波幅度为1。<br>上图还显示了载波信号的频谱图。图中横坐标表示频率，纵坐标表示信号频谱幅值。从图中可以明显看出载波频谱的频率为120Hz。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMxMjU2Mzk5?x-oss-process=image/format,png" alt="调制信号的波形与频谱图" decoding="async" loading="lazy"><br>上图显示了调制信号的时域波形图和频谱图。图中的横坐标和纵坐标分别对应表示时间和信号幅度值。从图中可以明显看出调制信号为余弦信号。<br>上图还显示了调制信号的频谱图。图中的横坐标和纵坐标分别对应表示频率和频谱幅值。从图中可以明显看出调制信号的频谱为30Hz。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMxNDE3MTEz?x-oss-process=image/format,png" alt="已调信号的波形与频谱图" decoding="async" loading="lazy"><br>上图显示了系统中经过AM调制后信号的时域波形图和频谱图。图中横坐标和纵坐标分别对应表示时间和信号幅值。<br>上图还显示了经历调制后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。从图中可知原发送信号经过调制后，频谱明显从原来的低频部分搬移到载波部分。</p>
 <h3 id="AM解调实现"><a href="#AM解调实现" class="headerlink" title="AM解调实现"></a>AM解调实现</h3><p>给为对信号进行解调，我写了下面部分的代码：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Dam=demod(Uam,fc,Fs,<span class="string">&#x27;am&#x27;</span>);  % 对信号进行解调</span><br><span class="line">C4=fft(Dam);              %  对解调信号进行傅里叶变换</span><br><span class="line">wqe=<span class="built_in">abs</span>(C4);           % 求模</span><br></pre></td></tr></table></figure>
-<p>fc为载波信号频率，Fs为采样频率，Uam为已调信号，在MATLAB中通过demod()函数对已调信号进行解调，得到Dam。并对Dam解调信号进行傅里叶变换和求模，再绘制出相应的波形图。解调信号的波形与频谱图如下：<br><img data-src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMxNzEyNjAx?x-oss-process=image/format,png" alt="解调信号的波形与频谱图"><br>上图显示了系统中经过AM解调信号的时域波形图和频谱图。图中横坐标和纵坐标分别对应表示时间和信号幅值。解调将已调信号复原了，信号波形与调制信号波形完全吻合，没有出现失真。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。可以看出解调后信号频谱回到了原始频率，没有失真。</p>
+<p>fc为载波信号频率，Fs为采样频率，Uam为已调信号，在MATLAB中通过demod()函数对已调信号进行解调，得到Dam。并对Dam解调信号进行傅里叶变换和求模，再绘制出相应的波形图。解调信号的波形与频谱图如下：<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMxNzEyNjAx?x-oss-process=image/format,png" alt="解调信号的波形与频谱图" decoding="async" loading="lazy"><br>上图显示了系统中经过AM解调信号的时域波形图和频谱图。图中横坐标和纵坐标分别对应表示时间和信号幅值。解调将已调信号复原了，信号波形与调制信号波形完全吻合，没有出现失真。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。可以看出解调后信号频谱回到了原始频率，没有失真。</p>
 <h3 id="叠加噪声的AM解调"><a href="#叠加噪声的AM解调" class="headerlink" title="叠加噪声的AM解调"></a>叠加噪声的AM解调</h3><p>在实际信号传输过程中，通信系统不可能避免的会遇到噪声。这次设计使用的加性高斯白噪声。加性高斯白噪声是最基本的噪声和干扰模型。加性噪声是叠加在信号上的一种噪声，而且无论有无信号，噪声都始终存在，因此通常称它为加性噪声或者加性干扰。白噪声的噪声功率谱密度在所有的频率上均为一常数。如果白噪声取值的概念服从高斯分布，则称这样的噪声为高斯白噪声。通过在信道中叠加噪声，并绘制出相应的波形与频谱图，并与原始信号进行比较，分析噪声对信号的影响。<br>下面程序是在AM信号叠加噪声，并对叠加后的信号进行解调：<br><strong>加大噪声，信噪比为1：</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">k=awgn(Uam,<span class="number">1</span>);    %加大噪声，信噪比为<span class="number">1</span></span><br><span class="line">pp=fft(k,<span class="number">300</span>);     %进行傅里叶变换</span><br><span class="line">zs=<span class="built_in">abs</span>(pp);       %求模</span><br><span class="line">qaz=demod(k,fc,Fs,<span class="string">&#x27;am&#x27;</span>); %加大噪声后解调</span><br><span class="line">wsx=fft(qaz,<span class="number">300</span>);    %进行傅里叶变换</span><br><span class="line">edc=<span class="built_in">abs</span>(wsx);         %求模</span><br></pre></td></tr></table></figure>
 <p><strong>加小噪声，信噪比为20：</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">d=awgn(Uam,<span class="number">20</span>);  %加小噪声，信噪比为<span class="number">20</span></span><br><span class="line">op=fft(d,<span class="number">300</span>);       %进行傅里叶变换</span><br><span class="line">mm=<span class="built_in">abs</span>(op);           %求模</span><br><span class="line">vb=demod(d,fc,Fs,<span class="string">&#x27;am&#x27;</span>); %加小噪声后解调</span><br><span class="line">fg=fft(vb,<span class="number">300</span>);         %进行傅里叶变换</span><br><span class="line">ty=<span class="built_in">abs</span>(fg);            %求模</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://pic.imgdb.cn/item/66434b600ea9cb1403cfffce.png" alt="加大噪声后AM信号波形与频谱图"><br>上图是加大噪声后AM信号波形图与频谱图，图中横坐标和纵坐标分别对应表示时间和信号幅值。可以看出加噪声后对信号有很大的影响，最原始的波形表现的不是很明显。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。虽然噪声对频率有明显的影响，但是中心频率还是没有变，出现了失真。</p>
-<p><img data-src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMyNDAxNzQ4?x-oss-process=image/format,png" alt="加大噪声解调后的信号波形及频谱图"><br>上图是加大噪声后解调信号波形图与频谱图，图中横坐标和纵坐标分别对应表示时间和信号幅值。可以看出解调后噪声依然对信号有影响，也出现了失真。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。噪声对频率的影响很大，出现了失真，但是中心频率还是没有变。</p>
-<p><img data-src="https://pic.imgdb.cn/item/66434b9b0ea9cb1403d041db.png" alt="加小噪声后AM信号波形与频谱图"><br>上图是加小噪声后AM信号波形图与频谱图，图中横坐标和纵坐标分别对应表示时间和信号幅值。可以看出加噪声后对信号有一定的影响，但影响不大，基本可以看出原始波形。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。噪声对频率的影响很小，而且中心频率也没有变，失真很小。</p>
-<p><img data-src="https://pic.imgdb.cn/item/66434c030ea9cb1403d14669.png" alt="加小噪声解调后的信号波形及频谱图"><br>上图是加小噪声后解调信号波形图与频谱图，图中横坐标和纵坐标分别对应表示时间和信号幅值。可以看出解调后噪声依然对信号有影响，也出现了一些失真，但基本可以看出原波形。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。解调将频率搬回到原频率，噪声对频率的影响很小，出现了一些失真，但是中心频率还是没有变。<br>从加入噪声的几幅图可以看出不同功率的噪声对信号的影响不同，噪声功率越大，对信号的影响也越大。</p>
+<p><img src="https://pic.imgdb.cn/item/66434b600ea9cb1403cfffce.png" alt="加大噪声后AM信号波形与频谱图" decoding="async" loading="lazy"><br>上图是加大噪声后AM信号波形图与频谱图，图中横坐标和纵坐标分别对应表示时间和信号幅值。可以看出加噪声后对信号有很大的影响，最原始的波形表现的不是很明显。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。虽然噪声对频率有明显的影响，但是中心频率还是没有变，出现了失真。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwMTEzMjMyNDAxNzQ4?x-oss-process=image/format,png" alt="加大噪声解调后的信号波形及频谱图" decoding="async" loading="lazy"><br>上图是加大噪声后解调信号波形图与频谱图，图中横坐标和纵坐标分别对应表示时间和信号幅值。可以看出解调后噪声依然对信号有影响，也出现了失真。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。噪声对频率的影响很大，出现了失真，但是中心频率还是没有变。</p>
+<p><img src="https://pic.imgdb.cn/item/66434b9b0ea9cb1403d041db.png" alt="加小噪声后AM信号波形与频谱图" decoding="async" loading="lazy"><br>上图是加小噪声后AM信号波形图与频谱图，图中横坐标和纵坐标分别对应表示时间和信号幅值。可以看出加噪声后对信号有一定的影响，但影响不大，基本可以看出原始波形。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。噪声对频率的影响很小，而且中心频率也没有变，失真很小。</p>
+<p><img src="https://pic.imgdb.cn/item/66434c030ea9cb1403d14669.png" alt="加小噪声解调后的信号波形及频谱图" decoding="async" loading="lazy"><br>上图是加小噪声后解调信号波形图与频谱图，图中横坐标和纵坐标分别对应表示时间和信号幅值。可以看出解调后噪声依然对信号有影响，也出现了一些失真，但基本可以看出原波形。<br>上图还显示了解调后信号所对应的频谱。频谱图中横坐标代表频率，纵坐标代表频谱幅值。解调将频率搬回到原频率，噪声对频率的影响很小，出现了一些失真，但是中心频率还是没有变。<br>从加入噪声的几幅图可以看出不同功率的噪声对信号的影响不同，噪声功率越大，对信号的影响也越大。</p>
 <h2 id="遇到的问题及解决办法"><a href="#遇到的问题及解决办法" class="headerlink" title="遇到的问题及解决办法"></a>遇到的问题及解决办法</h2><p>开始对MATLAB这款软件的使用不是很熟悉，连.m文件不会建，弄不清楚fft(),abs()函数是干什么用的，不知道figure(),subplot()是怎么实现图形输出，自己便把以前MATLAB的教材拿出来看，以及上网查和问老师和同学才弄明白。自己在进行AM调制与解调时是用的乘法，这样做容易出错，而且导致程序特别长，将简单问题复杂化了。老师提示可以用modulate()函数进行调制，于是自己去看老师发在网络教学平台的资料以及在MATLAB中输入help modulate()才解决，并通过调用函数demod()函数实现了信号的解调。调制信号开始没有加直流分量，导致调制时频谱不对，缺少原信号的频率。后面给调制信号加上一个直流分量，得到正确结果。在进行调制时是用的Uam&#x3D;modulate(mes,fc,Fs,’am’)，解调时用的Dam&#x3D;demod(Uam,fc,Fs,’amssb’); 这行语句，这样解调波形可以出来，但是有错误，发现是调制与解调设置的参数不对，把解调时的语句改为Dam&#x3D;demod(Uam,fc,Fs,’am’);后能出现正常波形。在加噪声是d&#x3D;Uam+awgn(Uam,20);没有正确的使用awgn()函数，将表达式改为d&#x3D;awgn(Uam,20);，这样得到的波形图才是正确的。</p>
 <h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>本设计的主题是基于MATLAB的AM调制解调实现，第二章中队AM调制解调原理进行了理论分析。第三章中根据第二章的理论以及MATLAB的特点，对调制信号进行了调制与解调，最后通过程序得出的仿真结果和理论结果进行比较与分析。<br>本设计开始给定30Hz的调制信号和120Hz的载波，对AM波进行调制与解调。并在已调AM信号上叠加噪声，对信号进行解调。再将之与原始信号进行比较，了解AM信号的抗噪声性能。<br>在开始的时候，自己毫无头绪，不知道该怎么做，在网上找了很多资料，找一份相似的代码就试一下，一心只想着早点做出来交差，但是越想早点做出来，越是做不好，在网上也没有找到合适的代码。老师要检查我们的任务进度的时候就找了一份最相似的代码给老师看，自己也没有认真的去理解，结果犯了一些很低级的错误，在一个模拟信号的仿真中居然还出现了数字信号。老师给我讲解了一下我这个课题该怎么去做，于是自己顺着老师讲解的思路去做。自己先运行网上找的几个相似的代码，对着代码、仿真图去理解代码，有不懂的地方就看以前MATLAB的书以及上网查和向已经完成的同学寻求帮助。发现自己的课题没有想象中的那么难，只是自己没有用心去做。自己开始尝试写代码，其实也就是MATLAB中几个函数就能解决问题。沉下心来自己做，最后将课程设计做了出来。虽然效果不是很好，但也是自己用做的。本次课程设计，自己对AM信号调制解调有很更深刻的理解，能更熟练的使用MATLAB这款软件。也认识到学习要脚踏实地，自己认真去对待，沉下心来做，有些困难并不没有那么难。也感谢老师和同学的帮助。</p>
 <h2 id="AM解调程序清单"><a href="#AM解调程序清单" class="headerlink" title="AM解调程序清单"></a>AM解调程序清单</h2><p><a target="_blank" rel="noopener" href="https://download.csdn.net/download/Silent_F/85041123">完整代码下载链接</a></p>
@@ -562,23 +568,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -633,12 +630,7 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
-</body>
-</html>
 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
@@ -650,4 +642,5 @@
      data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</script></body>
+</html>

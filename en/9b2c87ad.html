@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Register one touch handler for several sprite nodes and identify which node was touched.">
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/9b2c87ad.html#article","headline":"Adding Touch Events to Multiple Sprites in Cocos Creator","description":"Register one touch handler for several sprite nodes and identify which node was touched.","image":["https://s1.ax1x.com/2023/04/10/ppq7zCR.png"],"datePublished":"2023-04-10T14:13:20.000Z","dateModified":"2026-07-30T04:41:14.499Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/9b2c87ad.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript","wordCount":147}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/9b2c87ad.html#article","headline":"Adding Touch Events to Multiple Sprites in Cocos Creator","description":"Register one touch handler for several sprite nodes and identify which node was touched.","datePublished":"2023-04-10T14:13:20.000Z","dateModified":"2026-07-30T04:41:14.499Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/9b2c87ad.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript","wordCount":147,"image":["https://s1.ax1x.com/2023/04/10/ppq7zCR.png"]}</script>
 
 
 
@@ -68,14 +68,21 @@
 
   <title>Adding Touch Events to Multiple Sprites in Cocos Creator | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -109,7 +116,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -213,7 +220,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -271,7 +277,7 @@
 <p>The scene contains several similar sprites, and the handler needs to know which one the user touched.</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; _decorator, <span class="title class_">Component</span>, <span class="title class_">Node</span>, <span class="title class_">EventTouch</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;cc&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> &#123; ccclass, property &#125; = _decorator;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ccclass</span>(<span class="string">&#x27;Drag&#x27;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Drag</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">    <span class="meta">@property</span>(&#123; <span class="attr">type</span>: [<span class="title class_">Node</span>] &#125;)</span><br><span class="line">    <span class="keyword">public</span> <span class="attr">dragNodes</span>: <span class="title class_">Node</span>[] = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> touchedNumber = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">onEnable</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> node <span class="keyword">of</span> <span class="variable language_">this</span>.<span class="property">dragNodes</span>) &#123;</span><br><span class="line">            node.<span class="title function_">on</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_START</span>, <span class="variable language_">this</span>.<span class="property">onTouchStart</span>, <span class="variable language_">this</span>);</span><br><span class="line">            node.<span class="title function_">on</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_MOVE</span>, <span class="variable language_">this</span>.<span class="property">onTouchMove</span>, <span class="variable language_">this</span>);</span><br><span class="line">            node.<span class="title function_">on</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_END</span>, <span class="variable language_">this</span>.<span class="property">onTouchEnd</span>, <span class="variable language_">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">onDisable</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> node <span class="keyword">of</span> <span class="variable language_">this</span>.<span class="property">dragNodes</span>) &#123;</span><br><span class="line">            node.<span class="title function_">off</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_START</span>, <span class="variable language_">this</span>.<span class="property">onTouchStart</span>, <span class="variable language_">this</span>);</span><br><span class="line">            node.<span class="title function_">off</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_MOVE</span>, <span class="variable language_">this</span>.<span class="property">onTouchMove</span>, <span class="variable language_">this</span>);</span><br><span class="line">            node.<span class="title function_">off</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_END</span>, <span class="variable language_">this</span>.<span class="property">onTouchEnd</span>, <span class="variable language_">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">onTouchStart</span>(<span class="params">event: EventTouch</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> index = <span class="variable language_">this</span>.<span class="property">dragNodes</span>.<span class="title function_">indexOf</span>(event.<span class="property">target</span> <span class="keyword">as</span> <span class="title class_">Node</span>);</span><br><span class="line">        <span class="keyword">if</span> (index !== -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">touchedNumber</span> = index + <span class="number">1</span>;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Touched sprite:&#x27;</span>, <span class="variable language_">this</span>.<span class="property">touchedNumber</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">onTouchMove</span>(<span class="params">event: EventTouch</span>) &#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">onTouchEnd</span>(<span class="params">event: EventTouch</span>) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img data-src="https://s1.ax1x.com/2023/04/10/ppq7zCR.png" style="width:300px;height:200px" alt="Sprite nodes assigned in the Inspector">
+<img src="https://s1.ax1x.com/2023/04/10/ppq7zCR.png" style="width:300px;height:200px" alt="Sprite nodes assigned in the Inspector" decoding="async" loading="eager" fetchpriority="high">
 
 <p>The original example accidentally called <code>on()</code> again in <code>onDisable</code>; use <code>off()</code> to prevent duplicate listeners each time the component is re-enabled.</p>
 
@@ -330,12 +336,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/9b2c87ad.html" rel="prev" title="cocosCreator：给多个精灵添加点击事件的实现">
-      <i class="fa fa-chevron-left"></i> cocosCreator：给多个精灵添加点击事件的实现
+    <a href="/en/722af58.html" rel="prev" title="Drawing an Underline Beneath Text in Cocos2d-x Lua">
+      <i class="fa fa-chevron-left"></i> Drawing an Underline Beneath Text in Cocos2d-x Lua
     </a></div>
       <div class="post-nav-item">
-    <a href="/3f5b9a1.html" rel="next" title="Windows 11中‘要在Microsoft Store中搜索应用吗’弹窗的解决方法">
-      Windows 11中‘要在Microsoft Store中搜索应用吗’弹窗的解决方法 <i class="fa fa-chevron-right"></i>
+    <a href="/9b2c87ad.html" rel="next" title="cocosCreator：给多个精灵添加点击事件的实现">
+      cocosCreator：给多个精灵添加点击事件的实现 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -521,23 +527,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -592,12 +589,7 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
-</body>
-</html>
 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
@@ -609,4 +601,5 @@
      data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</script></body>
+</html>

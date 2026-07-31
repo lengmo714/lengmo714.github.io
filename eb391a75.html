@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="cocosCreator导出Web-Mobile工程资源加载时间分析">
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/eb391a75.html#article","headline":"cocosCreator导出Web-Mobile工程资源加载时间分析","description":"cocosCreator导出Web-Mobile工程资源加载时间分析","image":["https://lengmo714.top/postImg/eb391a75/1.png"],"datePublished":"2025-09-19T06:09:00.000Z","dateModified":"2025-09-19T06:56:06.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/eb391a75.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":203}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/eb391a75.html#article","headline":"cocosCreator导出Web-Mobile工程资源加载时间分析","description":"cocosCreator导出Web-Mobile工程资源加载时间分析","datePublished":"2025-09-19T06:09:00.000Z","dateModified":"2025-09-19T06:56:06.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/eb391a75.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":203,"image":["https://lengmo714.top/postImg/eb391a75/1.png"]}</script>
 
 
 
@@ -68,14 +68,21 @@
 
   <title>cocosCreator导出Web-Mobile工程资源加载时间分析 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -109,7 +116,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -213,7 +220,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -275,7 +281,7 @@
 </script>
 
 <p>优化加载时间，首先我们得知道是什么原因导致了加载时间长。</p>
-<h3 id="打开浏览器F12查看加载时间"><a href="#打开浏览器F12查看加载时间" class="headerlink" title="打开浏览器F12查看加载时间"></a>打开浏览器F12查看加载时间</h3><p>我们可以直接通过打开浏览器开发者模式(快捷键F12),选择<code>Network(网络)</code>这一栏，就可以看到所有我们工程所有的请求，已经请求资源大小和时间。<br><img data-src="https://lengmo714.top/postImg/eb391a75/1.png" alt="打开浏览器F12查看加载时间"></p>
+<h3 id="打开浏览器F12查看加载时间"><a href="#打开浏览器F12查看加载时间" class="headerlink" title="打开浏览器F12查看加载时间"></a>打开浏览器F12查看加载时间</h3><p>我们可以直接通过打开浏览器开发者模式(快捷键F12),选择<code>Network(网络)</code>这一栏，就可以看到所有我们工程所有的请求，已经请求资源大小和时间。<br><img src="https://lengmo714.top/postImg/eb391a75/1.png" alt="打开浏览器F12查看加载时间" decoding="async" loading="eager" fetchpriority="high"></p>
 <p>这里其实也只能看到加载时间一共花了多长时间，但是并不知道具体的加载过程。</p>
 <h3 id="浏览器控制台可运行的js脚本"><a href="#浏览器控制台可运行的js脚本" class="headerlink" title="浏览器控制台可运行的js脚本"></a>浏览器控制台可运行的js脚本</h3><h4 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h4><p>我们可以通过这个脚本来分析cocos Creator Web-Mobile工程的资源加载情况，按<code>文件大小</code>、<code>等待时间</code>、<code>下载时间</code>等分类，更方便我们查看。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> resources = performance.<span class="title function_">getEntriesByType</span>(<span class="string">&#x27;resource&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> result = resources.<span class="title function_">map</span>(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> sizeKB = res.<span class="property">encodedBodySize</span> / <span class="number">1024</span>;</span><br><span class="line">        <span class="keyword">const</span> totalTime = res.<span class="property">duration</span>.<span class="title function_">toFixed</span>(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">const</span> waitTime = (res.<span class="property">responseStart</span> - res.<span class="property">startTime</span>).<span class="title function_">toFixed</span>(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">const</span> downloadTime = (res.<span class="property">responseEnd</span> - res.<span class="property">responseStart</span>).<span class="title function_">toFixed</span>(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">name</span>: res.<span class="property">name</span>.<span class="title function_">split</span>(<span class="string">&#x27;/&#x27;</span>).<span class="title function_">pop</span>(),</span><br><span class="line">            <span class="attr">type</span>: res.<span class="property">initiatorType</span>,</span><br><span class="line">            <span class="attr">sizeKB</span>: sizeKB.<span class="title function_">toFixed</span>(<span class="number">2</span>),</span><br><span class="line">            <span class="attr">totalTime</span>: <span class="built_in">parseFloat</span>(totalTime),</span><br><span class="line">            <span class="attr">waitTime</span>: <span class="built_in">parseFloat</span>(waitTime),</span><br><span class="line">            <span class="attr">downloadTime</span>: <span class="built_in">parseFloat</span>(downloadTime)</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 按总耗时排序</span></span><br><span class="line">    result.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> b.<span class="property">totalTime</span> - a.<span class="property">totalTime</span>);</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">table</span>(result);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 统计小图耗时异常的资源 </span></span><br><span class="line">    <span class="keyword">const</span> smallFiles = result.<span class="title function_">filter</span>(<span class="function"><span class="params">r</span> =&gt;</span> r.<span class="property">sizeKB</span> &lt; <span class="number">50</span> &amp;&amp; r.<span class="property">totalTime</span> &gt; <span class="number">100</span>);</span><br><span class="line">    <span class="keyword">if</span> (smallFiles.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;⚠️ 小文件耗时异常（&lt;50KB，总耗时&gt;100ms）:&#x27;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">table</span>(smallFiles);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;✅ 小文件耗时正常&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
@@ -284,7 +290,7 @@
 <li>打开你的 Web-Mobile 项目页面，这里建议将项目上传到服务器后查看，或者使用本地服务器查看。</li>
 <li>打开 浏览器开发者工具 → Console。</li>
 <li>粘贴上面的脚本并回车运行。</li>
-<li>脚本会输出所有资源的 文件名、类型、大小、总耗时、等待时间、下载时间以及异常列表，方便排查。<br><img data-src="https://lengmo714.top/postImg/eb391a75/2.png" alt="脚本使用示意图"></li>
+<li>脚本会输出所有资源的 文件名、类型、大小、总耗时、等待时间、下载时间以及异常列表，方便排查。<br><img src="https://lengmo714.top/postImg/eb391a75/2.png" alt="脚本使用示意图" decoding="async" loading="lazy"></li>
 </ul>
 <p><strong>浏览器警告</strong><br>如果在粘贴代码时遇到浏览器输出如下警告：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arning: Don’<span class="attribute">t</span> paste code into the DevTools Console that you don’t understand or haven’t reviewed yourself. This could allow attackers to steal your identity or take control of your computer. Please type ‘allow pasting’ below and hit Enter to allow pasting.</span><br></pre></td></tr></table></figure>
@@ -593,23 +599,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -664,21 +661,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
@@ -69,14 +69,21 @@
 
   <title>南锋 - 南奔万里空，脱死锋镝余</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -110,7 +117,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +221,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -260,11 +266,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/4002b8ea.html" aria-label="解决SSH远程登录失败：密码验证错误与连接调试">
-          <img src="/images/share.png" alt="解决SSH远程登录失败：密码验证错误与连接调试" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -333,7 +334,8 @@
       </header>
       <figure class="post-cover">
         <a href="/5391295.html" aria-label="Hexo Next主题归档页美化教程：提升分类与视觉效果">
-          <img src="https://s1.ax1x.com/2022/11/03/xqsc7T.jpg" alt="Hexo Next主题归档页美化教程：提升分类与视觉效果" loading="lazy" decoding="async">
+          <img src="https://s1.ax1x.com/2022/11/03/xqsc7T.jpg" alt="Hexo Next主题归档页美化教程：提升分类与视觉效果" width="543" height="260"
+            loading="eager" decoding="async" fetchpriority="high">
         </a>
       </figure>
 
@@ -404,7 +406,8 @@
       </header>
       <figure class="post-cover">
         <a href="/ced8a6a3.html" aria-label="Hexo博客集成jVectorMap：实现足迹地图功能">
-          <img src="https://s1.ax1x.com/2022/11/03/xqsHHK.jpg" alt="Hexo博客集成jVectorMap：实现足迹地图功能" loading="lazy" decoding="async">
+          <img src="https://s1.ax1x.com/2022/11/03/xqsHHK.jpg" alt="Hexo博客集成jVectorMap：实现足迹地图功能" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -464,11 +467,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/552db6f9.html" aria-label="C语言大学生考试全面题库（2）：经典题目与解答">
-          <img src="/images/share.png" alt="C语言大学生考试全面题库（2）：经典题目与解答" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -535,11 +533,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/54099.html" aria-label="Lua-cjson安装与部署教程：从配置到成功安装">
-          <img src="/images/share.png" alt="Lua-cjson安装与部署教程：从配置到成功安装" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -618,11 +611,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/12496.html" aria-label="用Python编写俄罗斯方块游戏：从基本操作到功能实现">
-          <img src="/images/share.png" alt="用Python编写俄罗斯方块游戏：从基本操作到功能实现" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -701,11 +689,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/37340.html" aria-label="用Python绘制布朗熊：Turtle库实现的创意编程">
-          <img src="/images/share.png" alt="用Python绘制布朗熊：Turtle库实现的创意编程" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -772,11 +755,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/63240.html" aria-label="Cocos2d-x Lua：实现图片九宫格缩放的完整指南">
-          <img src="/images/share.png" alt="Cocos2d-x Lua：实现图片九宫格缩放的完整指南" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -843,11 +821,6 @@
 
         </div>
       </header>
-      <figure class="post-cover">
-        <a href="/20289.html" aria-label="Python实现微信自动消息发送：如何用脚本自动发送信息给好友">
-          <img src="/images/share.png" alt="Python实现微信自动消息发送：如何用脚本自动发送信息给好友" loading="lazy" decoding="async">
-        </a>
-      </figure>
 
     
     
@@ -928,7 +901,8 @@
       </header>
       <figure class="post-cover">
         <a href="/8861.html" aria-label="Python下班倒计时计时器：自动提醒与关机功能">
-          <img src="https://pic.imgdb.cn/item/66433c1f0ea9cb1403b4ae2a.png" alt="Python下班倒计时计时器：自动提醒与关机功能" loading="lazy" decoding="async">
+          <img src="https://pic.imgdb.cn/item/66433c1f0ea9cb1403b4ae2a.png" alt="Python下班倒计时计时器：自动提醒与关机功能" width="543" height="260"
+            loading="lazy" decoding="async">
         </a>
       </figure>
 
@@ -1143,23 +1117,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -1214,21 +1179,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

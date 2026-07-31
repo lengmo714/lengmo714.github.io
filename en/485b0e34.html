@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Configure a legacy Lua debugger, player executable, and LuaDebug bootstrap for quick-Cocos2d-x on Windows.">
@@ -53,7 +53,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/485b0e34.html#article","headline":"Debugging a quick-Cocos2d-x Lua Project in VS Code","description":"Configure a legacy Lua debugger, player executable, and LuaDebug bootstrap for quick-Cocos2d-x on Windows.","image":["https://s1.ax1x.com/2022/11/01/x7LPOO.png"],"datePublished":"2022-11-01T14:30:08.000Z","dateModified":"2026-07-30T04:47:22.314Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/485b0e34.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Game Development"],"keywords":"Lua, Cocos2d-x, VS Code","wordCount":158}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/485b0e34.html#article","headline":"Debugging a quick-Cocos2d-x Lua Project in VS Code","description":"Configure a legacy Lua debugger, player executable, and LuaDebug bootstrap for quick-Cocos2d-x on Windows.","datePublished":"2022-11-01T14:30:08.000Z","dateModified":"2026-07-30T04:47:22.314Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/485b0e34.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Game Development"],"keywords":"Lua, Cocos2d-x, VS Code","wordCount":158,"image":["https://s1.ax1x.com/2022/11/01/x7LPOO.png"]}</script>
 
 
 
@@ -71,14 +71,21 @@
 
   <title>Debugging a quick-Cocos2d-x Lua Project in VS Code | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -112,7 +119,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -216,7 +223,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -272,14 +278,14 @@
       
         <p>This is the configuration that allowed an older quick-Cocos2d-x project to run and debug from VS Code on Windows.</p>
 <h2 id="1-Install-the-Lua-debugger"><a href="#1-Install-the-Lua-debugger" class="headerlink" title="1. Install the Lua debugger"></a>1. Install the Lua debugger</h2><p>The original setup used the <code>luaide-lite</code> extension. Other Lua debuggers use different launch fields, so follow the selected extension’s own documentation.</p>
-<img data-src="https://s1.ax1x.com/2022/11/01/x7LPOO.png" alt="luaide-lite VS Code extension">
+<img src="https://s1.ax1x.com/2022/11/01/x7LPOO.png" alt="luaide-lite VS Code extension" decoding="async" loading="eager" fetchpriority="high">
 
 <h2 id="2-Add-launch-json"><a href="#2-Add-launch-json" class="headerlink" title="2. Add launch.json"></a>2. Add launch.json</h2><p>Open <strong>Run and Debug</strong> and create <code>.vscode/launch.json</code>. Keep the extension’s <code>Cocos-launch</code> configuration and set <code>exePath</code> to the project’s <code>player3</code> executable, which was the path that worked in this environment.</p>
-<img data-src="https://s1.ax1x.com/2022/11/01/x7Lk0e.png" alt="Cocos launch executable path">
+<img src="https://s1.ax1x.com/2022/11/01/x7Lk0e.png" alt="Cocos launch executable path" decoding="async" loading="lazy">
 
 <p>At this stage the player can launch, but Lua breakpoints still require the debug bootstrap.</p>
 <h2 id="3-Add-LuaDebug-lua"><a href="#3-Add-LuaDebug-lua" class="headerlink" title="3. Add LuaDebug.lua"></a>3. Add LuaDebug.lua</h2><p>Place the debugger’s <code>LuaDebug.lua</code> file in the project’s <code>src</code> directory.</p>
-<img data-src="https://s1.ax1x.com/2022/11/01/x7LC6K.png" alt="LuaDebug.lua in the source folder">
+<img src="https://s1.ax1x.com/2022/11/01/x7LC6K.png" alt="LuaDebug.lua in the source folder" decoding="async" loading="lazy">
 
 <p><a target="_blank" rel="noopener" href="https://github.com/lengmo714/lengmo714.github.io/blob/master/download/debug.lua">Historical debug helper used by the project</a></p>
 <p>Review third-party debug code before running it and keep its listening socket limited to local development.</p>
@@ -536,23 +542,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -607,12 +604,7 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
-</body>
-</html>
 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
@@ -624,4 +616,5 @@
      data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</script></body>
+</html>

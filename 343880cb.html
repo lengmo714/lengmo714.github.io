@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Chrome调试手机网页的详细步骤与注意事项">
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/343880cb.html#article","headline":"Chrome调试手机网页的详细步骤与注意事项","description":"Chrome调试手机网页的详细步骤与注意事项","image":["https://pic.imgdb.cn/item/66586a1dd9c307b7e993fcc5.png"],"datePublished":"2024-05-30T12:00:13.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/343880cb.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["前端开发"],"keywords":"前端开发","wordCount":14}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/343880cb.html#article","headline":"Chrome调试手机网页的详细步骤与注意事项","description":"Chrome调试手机网页的详细步骤与注意事项","datePublished":"2024-05-30T12:00:13.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/343880cb.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["前端开发"],"keywords":"前端开发","wordCount":14,"image":["https://pic.imgdb.cn/item/66586a1dd9c307b7e993fcc5.png"]}</script>
 
 
 
@@ -68,14 +68,21 @@
 
   <title>Chrome调试手机网页的详细步骤与注意事项 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -109,7 +116,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -213,7 +220,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -275,8 +281,8 @@
 </script>
 
 <h3 id="手机打开调试模式"><a href="#手机打开调试模式" class="headerlink" title="手机打开调试模式"></a>手机打开调试模式</h3><p>进入手机设置，找到开发者模式，然后启用USB调试</p>
-<h3 id="打开PC端chrome调试功能"><a href="#打开PC端chrome调试功能" class="headerlink" title="打开PC端chrome调试功能"></a>打开PC端chrome调试功能</h3><p>1、点击chrmoe右上角的3个点点<br>2、选择扩展程序，选择管理扩展程序<br>3、管理扩展程序右上角有一个<code>开发者模式</code>的开关，将开发者模式打开<br>如下图：<br><img data-src="https://pic.imgdb.cn/item/66586a1dd9c307b7e993fcc5.png" alt="示意图"></p>
-<h3 id="浏览器连接手机"><a href="#浏览器连接手机" class="headerlink" title="浏览器连接手机"></a>浏览器连接手机</h3><p>1、打开浏览器，输入网址<code>chrome://inspect/#devices</code><br>2、手机通过数据线连上电脑，选择<code>允许访问手机文件</code><br>3、刷新浏览器，就会出现下面界面，如果没有出现，等一会儿再刷新，只要手机成功连上电脑，就一定会出现下面界面<br><img data-src="https://pic.imgdb.cn/item/66586a21d9c307b7e99411a9.png" alt="示意图"><br>4、点击<code>inspect</code>即可调试手机网页啦~</p>
+<h3 id="打开PC端chrome调试功能"><a href="#打开PC端chrome调试功能" class="headerlink" title="打开PC端chrome调试功能"></a>打开PC端chrome调试功能</h3><p>1、点击chrmoe右上角的3个点点<br>2、选择扩展程序，选择管理扩展程序<br>3、管理扩展程序右上角有一个<code>开发者模式</code>的开关，将开发者模式打开<br>如下图：<br><img src="https://pic.imgdb.cn/item/66586a1dd9c307b7e993fcc5.png" alt="示意图" decoding="async" loading="eager" fetchpriority="high"></p>
+<h3 id="浏览器连接手机"><a href="#浏览器连接手机" class="headerlink" title="浏览器连接手机"></a>浏览器连接手机</h3><p>1、打开浏览器，输入网址<code>chrome://inspect/#devices</code><br>2、手机通过数据线连上电脑，选择<code>允许访问手机文件</code><br>3、刷新浏览器，就会出现下面界面，如果没有出现，等一会儿再刷新，只要手机成功连上电脑，就一定会出现下面界面<br><img src="https://pic.imgdb.cn/item/66586a21d9c307b7e99411a9.png" alt="示意图" decoding="async" loading="lazy"><br>4、点击<code>inspect</code>即可调试手机网页啦~</p>
 <h3 id="其它说明"><a href="#其它说明" class="headerlink" title="其它说明"></a>其它说明</h3><p>1、该界面如没有没有出现<code>Remote Target</code>，说明手机没有连接成功，只要连接成功，哪怕手机没有打开浏览器，也会出现对应手机的型号。<br>2、手机打开<code>Chrome</code>浏览器，就会有图中框框中的内容，浏览器页面越多，框框里的内容就越多，而且每一条下面都会显示你打开的网址，选择自己要调试的网页就行。<br>3、需要科学上网，可以自行下载梯子，也可以修改本地<code>host</code>文件。</p>
 
     </div>
@@ -525,23 +531,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -596,21 +593,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

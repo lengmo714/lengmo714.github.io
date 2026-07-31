@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Drawing a festive rabbit in Python by composing reusable Turtle shapes.">
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/92589552.html#article","headline":"Drawing a Rabbit with Python Turtle","description":"Drawing a festive rabbit in Python by composing reusable Turtle shapes.","image":["https://s1.ax1x.com/2023/01/21/pSGUd9x.jpg"],"datePublished":"2023-01-20T16:14:52.000Z","dateModified":"2026-07-30T05:32:07.645Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/92589552.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Creative Coding","Python Drawing"],"keywords":"Python, Turtle","wordCount":171}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/92589552.html#article","headline":"Drawing a Rabbit with Python Turtle","description":"Drawing a festive rabbit in Python by composing reusable Turtle shapes.","datePublished":"2023-01-20T16:14:52.000Z","dateModified":"2026-07-30T05:32:07.645Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/92589552.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Creative Coding","Python Drawing"],"keywords":"Python, Turtle","wordCount":171,"image":["https://s1.ax1x.com/2023/01/21/pSGUd9x.jpg"]}</script>
 
 
 
@@ -68,14 +68,21 @@
 
   <title>Drawing a Rabbit with Python Turtle | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -109,7 +116,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -213,7 +220,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -271,7 +277,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img data-src="https://s1.ax1x.com/2023/01/21/pSGUd9x.jpg" alt="Rabbit drawing result"></p>
+        <p><img src="https://s1.ax1x.com/2023/01/21/pSGUd9x.jpg" alt="Rabbit drawing result" decoding="async" loading="eager" fetchpriority="high"></p>
 <p>This Turtle example uses ellipses and circles to build a rabbit. Breaking the illustration into reusable primitives makes the code much easier to adjust than a single long sequence of coordinates.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle <span class="keyword">as</span> t</span><br><span class="line"></span><br><span class="line">t.setup(<span class="number">800</span>, <span class="number">700</span>)</span><br><span class="line">t.bgcolor(<span class="string">&quot;#fff3df&quot;</span>)</span><br><span class="line">t.speed(<span class="number">0</span>)</span><br><span class="line">t.hideturtle()</span><br><span class="line">t.tracer(<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">move</span>(<span class="params">x, y, heading=<span class="number">0</span></span>):</span><br><span class="line">    t.penup()</span><br><span class="line">    t.goto(x, y)</span><br><span class="line">    t.setheading(heading)</span><br><span class="line">    t.pendown()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ellipse</span>(<span class="params">x, y, width, height, color</span>):</span><br><span class="line">    move(x, y)</span><br><span class="line">    t.color(color)</span><br><span class="line">    t.begin_fill()</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">        t.circle(height, <span class="number">90</span>)</span><br><span class="line">        t.circle(width, <span class="number">90</span>)</span><br><span class="line">    t.end_fill()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dot</span>(<span class="params">x, y, size, color</span>):</span><br><span class="line">    move(x, y)</span><br><span class="line">    t.dot(size, color)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Body and head</span></span><br><span class="line">ellipse(-<span class="number">70</span>, -<span class="number">185</span>, <span class="number">105</span>, <span class="number">150</span>, <span class="string">&quot;white&quot;</span>)</span><br><span class="line">dot(<span class="number">0</span>, <span class="number">70</span>, <span class="number">290</span>, <span class="string">&quot;white&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Long ears with pink inner sections</span></span><br><span class="line">ellipse(-<span class="number">90</span>, <span class="number">165</span>, <span class="number">28</span>, <span class="number">105</span>, <span class="string">&quot;white&quot;</span>)</span><br><span class="line">ellipse(<span class="number">35</span>, <span class="number">165</span>, <span class="number">28</span>, <span class="number">105</span>, <span class="string">&quot;white&quot;</span>)</span><br><span class="line">ellipse(-<span class="number">78</span>, <span class="number">180</span>, <span class="number">13</span>, <span class="number">80</span>, <span class="string">&quot;#f3a7b8&quot;</span>)</span><br><span class="line">ellipse(<span class="number">47</span>, <span class="number">180</span>, <span class="number">13</span>, <span class="number">80</span>, <span class="string">&quot;#f3a7b8&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Face</span></span><br><span class="line">dot(-<span class="number">48</span>, <span class="number">95</span>, <span class="number">20</span>, <span class="string">&quot;#2d2730&quot;</span>)</span><br><span class="line">dot(<span class="number">48</span>, <span class="number">95</span>, <span class="number">20</span>, <span class="string">&quot;#2d2730&quot;</span>)</span><br><span class="line">dot(<span class="number">0</span>, <span class="number">56</span>, <span class="number">18</span>, <span class="string">&quot;#e98fa6&quot;</span>)</span><br><span class="line"></span><br><span class="line">move(-<span class="number">35</span>, <span class="number">42</span>, -<span class="number">25</span>)</span><br><span class="line">t.pencolor(<span class="string">&quot;#6d4b56&quot;</span>)</span><br><span class="line">t.width(<span class="number">4</span>)</span><br><span class="line">t.circle(<span class="number">40</span>, <span class="number">50</span>)</span><br><span class="line">move(<span class="number">35</span>, <span class="number">42</span>, <span class="number">205</span>)</span><br><span class="line">t.circle(-<span class="number">40</span>, <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">t.update()</span><br><span class="line">t.done()</span><br></pre></td></tr></table></figure>
 
@@ -523,23 +529,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -594,12 +591,7 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
-</body>
-</html>
 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
@@ -611,4 +603,5 @@
      data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</script></body>
+</html>

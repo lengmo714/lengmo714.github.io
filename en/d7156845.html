@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Create, deploy, register, and verify a TRC-20 token contract on the TRON Nile testnet.">
@@ -77,7 +77,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/d7156845.html#article","headline":"Deploying a TRC-20 Token on the TRON Nile Testnet","description":"Create, deploy, register, and verify a TRC-20 token contract on the TRON Nile testnet.","image":["https://lengmo714.top/postImg/d7156845/1.png"],"datePublished":"2025-09-18T08:48:20.000Z","dateModified":"2026-07-30T04:07:21.936Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/d7156845.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Blockchain"],"keywords":"Blockchain, TRON, TRC-20","wordCount":454}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/d7156845.html#article","headline":"Deploying a TRC-20 Token on the TRON Nile Testnet","description":"Create, deploy, register, and verify a TRC-20 token contract on the TRON Nile testnet.","datePublished":"2025-09-18T08:48:20.000Z","dateModified":"2026-07-30T04:07:21.936Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/d7156845.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Blockchain"],"keywords":"Blockchain, TRON, TRC-20","wordCount":454,"image":["https://lengmo714.top/postImg/d7156845/1.png"]}</script>
 
 
 
@@ -95,14 +95,21 @@
 
   <title>Deploying a TRC-20 Token on the TRON Nile Testnet | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -136,7 +143,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -240,7 +247,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -305,56 +311,56 @@
 <li>Access to <a target="_blank" rel="noopener" href="https://tronscan.org/">TRONSCAN</a> and its Nile testnet pages.</li>
 </ol>
 <h3 id="Obtain-test-TRX"><a href="#Obtain-test-TRX" class="headerlink" title="Obtain test TRX"></a>Obtain test TRX</h3><p>Copy your wallet address from TronLink. Open the <a target="_blank" rel="noopener" href="https://nileex.io/join/getJoinPage">Nile test-coin faucet</a>, enter the address under <code>Get 2000 test coins</code>, and click <code>Obtain</code>.</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/1.png" alt="Request test coins"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/1.png" alt="Request test coins" decoding="async" loading="eager" fetchpriority="high"></p>
 <p>A <code>Successful</code> message indicates that the request completed. Each address can request the funds only once. In TronLink, change the active network to <code>TRON Nile Testnet</code>; test coins are not visible on mainnet.</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/3.png" alt="Open the network selector"></p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/4.png" alt="Select Nile Testnet"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/3.png" alt="Open the network selector" decoding="async" loading="lazy"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/4.png" alt="Select Nile Testnet" decoding="async" loading="lazy"></p>
 <p>Confirm that the balance arrived:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/2.png" alt="Test TRX balance"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/2.png" alt="Test TRX balance" decoding="async" loading="lazy"></p>
 <h3 id="Prepare-the-TRC-20-contract"><a href="#Prepare-the-TRC-20-contract" class="headerlink" title="Prepare the TRC-20 contract"></a>Prepare the TRC-20 contract</h3><p>Download the five contract files from the <a target="_blank" rel="noopener" href="https://github.com/lengmo714/TRC20/tree/main">example repository</a>. In <code>Token.sol</code>, change the token name, symbol, decimals, and supply as needed. Avoid changing the decimals unless you understand the consequences.</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/5.png" alt="Token settings"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/5.png" alt="Token settings" decoding="async" loading="lazy"></p>
 <p>Keep the file structure and Solidity syntax intact or compilation will fail.</p>
 <h3 id="Compile-and-deploy"><a href="#Compile-and-deploy" class="headerlink" title="Compile and deploy"></a>Compile and deploy</h3><p>All operations below must use the Nile testnet. Confirm that TRONSCAN URLs begin with <code>nile.</code>:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/6.png" alt="Confirm the Nile domain"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/6.png" alt="Confirm the Nile domain" decoding="async" loading="lazy"></p>
 <p>Click <code>Connect Wallet</code> and select TronLink:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/7.png" alt="Connect Wallet"></p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/8.png" alt="Select TronLink"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/7.png" alt="Connect Wallet" decoding="async" loading="lazy"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/8.png" alt="Select TronLink" decoding="async" loading="lazy"></p>
 <p>Open the <a target="_blank" rel="noopener" href="https://nile.tronscan.org/#/contracts/contract-compiler">Nile contract compiler</a>. Click <code>Upload Contract File</code>, upload all five files, verify the list, and click <code>Compile</code>.</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/9.png" alt="Upload the contract files"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/9.png" alt="Upload the contract files" decoding="async" loading="lazy"></p>
 <p>Choose Solidity compiler <code>v0.5.10+</code>, leave the other options unchanged, and compile:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/10.png" alt="Compiler settings"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/10.png" alt="Compiler settings" decoding="async" loading="lazy"></p>
 <p>The following state indicates a successful build:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/11.png" alt="Compilation succeeded"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/11.png" alt="Compilation succeeded" decoding="async" loading="lazy"></p>
 <p>Select Deploy. Change <code>Main Contract</code> to <code>Token</code>, keep the other defaults, and click <code>Confirm</code>:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/12.png" alt="Deployment settings"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/12.png" alt="Deployment settings" decoding="async" loading="lazy"></p>
 <p>Before signing, verify that the request comes from <code>nile.tronscan.org</code>, the correct wallet is selected, and TronLink is connected to Nile Testnet:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/13.png" alt="Confirm the signature"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/13.png" alt="Confirm the signature" decoding="async" loading="lazy"></p>
 <p>If a timeout error appears, repeat the signing flow:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/15.png" alt="Signature timeout"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/15.png" alt="Signature timeout" decoding="async" loading="lazy"></p>
 <p>Deployment normally takes one or two minutes. When it succeeds, record the resulting contract address:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/14.png" alt="Deployment succeeded"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/14.png" alt="Deployment succeeded" decoding="async" loading="lazy"></p>
 <h3 id="Register-the-token-on-TRONSCAN"><a href="#Register-the-token-on-TRONSCAN" class="headerlink" title="Register the token on TRONSCAN"></a>Register the token on TRONSCAN</h3><p>Open the <a target="_blank" rel="noopener" href="https://nile.tronscan.org/#/tokens/create/Type">token creation page</a>, choose <code>TRC20</code>, and click <code>Confirm</code>:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/16.png" alt="Choose TRC20"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/16.png" alt="Choose TRC20" decoding="async" loading="lazy"></p>
 <p>Enter the new contract address, description, website, and email. Complete all required fields and click <code>Next</code>:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/17.png" alt="Token information"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/17.png" alt="Token information" decoding="async" loading="lazy"></p>
 <p>If TRONSCAN says <code>This address has been recorded...</code> even on the first attempt, follow the link in that notice and click <code>Update Token Information</code>:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/18.png" alt="Address already recorded"></p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/19.png" alt="Update token information"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/18.png" alt="Address already recorded" decoding="async" loading="lazy"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/19.png" alt="Update token information" decoding="async" loading="lazy"></p>
 <p>Review the details, select <code>Submit</code>, and approve the wallet signature. If registration fails, select <code>Resubmit</code>; adding a token icon before resubmitting may be required.</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/20.png" alt="Resubmit token information"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/20.png" alt="Resubmit token information" decoding="async" loading="lazy"></p>
 <p>After approval, the token page looks like this:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/21.png" alt="Registered token"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/21.png" alt="Registered token" decoding="async" loading="lazy"></p>
 <p>Use the <a target="_blank" rel="noopener" href="https://nile.tronscan.org/#/token20/TEE1H4NJKcU8SKgf35d5Y4YWvHJckLj5aM">example token page</a> as a reference, replacing its final path component with your contract address.</p>
 <h3 id="Add-the-token-to-TronLink"><a href="#Add-the-token-to-TronLink" class="headerlink" title="Add the token to TronLink"></a>Add the token to TronLink</h3><p>On the TronLink home page, click <code>+</code>, choose the custom-token option, and enter the contract address. TronLink should populate the remaining fields automatically. Confirm the details to add it.</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/23.png" alt="Add a token"></p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/24.png" alt="Choose custom token"></p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/25.png" alt="Token in TronLink"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/23.png" alt="Add a token" decoding="async" loading="lazy"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/24.png" alt="Choose custom token" decoding="async" loading="lazy"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/25.png" alt="Token in TronLink" decoding="async" loading="lazy"></p>
 <h3 id="Verify-the-contract"><a href="#Verify-the-contract" class="headerlink" title="Verify the contract"></a>Verify the contract</h3><p>Open the <a target="_blank" rel="noopener" href="https://nile.tronscan.org/#/contracts/verify">Nile contract verification page</a>, enter the deployment information, and upload the same five source files:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/26.png" alt="Verification form"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/26.png" alt="Verification form" decoding="async" loading="lazy"></p>
 <p>Click <code>Verify And Publish</code>. A successful verification produces this result:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/27.png" alt="Verification succeeded"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/27.png" alt="Verification succeeded" decoding="async" loading="lazy"></p>
 <p>The token’s Code page will then display the uploaded source code rather than only hexadecimal bytecode:</p>
-<p><img data-src="https://lengmo714.top/postImg/d7156845/28.png" alt="Verified source code"></p>
+<p><img src="https://lengmo714.top/postImg/d7156845/28.png" alt="Verified source code" decoding="async" loading="lazy"></p>
 
     </div>
 
@@ -604,23 +610,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -675,21 +672,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Beyond Compare5 授权密钥已被吊销">
@@ -46,7 +46,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/16df8c3b.html#article","headline":"Beyond Compare5 授权密钥已被吊销","description":"Beyond Compare5 授权密钥已被吊销","image":["https://lengmo714.top/postImg/beyond/f4a089dca93aef56ecc7cdd15ad878e.png"],"datePublished":"2025-07-18T07:55:08.000Z","dateModified":"2025-07-30T09:02:04.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/16df8c3b.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["工具使用"],"keywords":"工具使用","wordCount":180}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/16df8c3b.html#article","headline":"Beyond Compare5 授权密钥已被吊销","description":"Beyond Compare5 授权密钥已被吊销","datePublished":"2025-07-18T07:55:08.000Z","dateModified":"2025-07-30T09:02:04.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/16df8c3b.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["工具使用"],"keywords":"工具使用","wordCount":180,"image":["https://lengmo714.top/postImg/beyond/f4a089dca93aef56ecc7cdd15ad878e.png"]}</script>
 
 
 
@@ -64,14 +64,21 @@
 
   <title>Beyond Compare5 授权密钥已被吊销 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -105,7 +112,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -209,7 +216,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -263,7 +269,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p>在网上找了个<code>Beyond Compare5</code>的授权码，用来使用Beyond Compare5，但是发现经常会出现<code>Beyond Compare5 授权密钥已被吊销</code>的提示，就无法使用了。如下图：<br><img data-src="https://lengmo714.top/postImg/beyond/f4a089dca93aef56ecc7cdd15ad878e.png" alt="提示"></p>
+        <h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p>在网上找了个<code>Beyond Compare5</code>的授权码，用来使用Beyond Compare5，但是发现经常会出现<code>Beyond Compare5 授权密钥已被吊销</code>的提示，就无法使用了。如下图：<br><img src="https://lengmo714.top/postImg/beyond/f4a089dca93aef56ecc7cdd15ad878e.png" alt="提示" decoding="async" loading="eager" fetchpriority="high"></p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
@@ -271,8 +277,8 @@
 </script>
 
 <h3 id="解决方法（windows-系统）"><a href="#解决方法（windows-系统）" class="headerlink" title="解决方法（windows 系统）"></a>解决方法（windows 系统）</h3><ol>
-<li>找到下图所示文件<code>BCSessions.xml</code>和<code>BCState.xml</code><br><img data-src="https://lengmo714.top/postImg/beyond/370f20b33f827c2a3e7da7a4a41cda2.png" alt="文件路径"></li>
-<li>在文件<code>BCSessions.xml</code>中，找到<code>Flags=</code>，删掉掉<code>Flags=</code>后面的所有内容，保存文件。如下图：<br><img data-src="https://lengmo714.top/postImg/beyond/e58f4a2537e19a51a87ed5c6d9faed0.png" alt="BCSessions.xml"><br>3.在文件<code>BCState.xml</code>中，找到<code>CheckID</code>和<code>LastChecked</code>，将这两行删除即可。如下图：<br><img data-src="https://lengmo714.top/postImg/beyond/a3479f546187222c42de3da7b633373.png" alt="BCState.xml"></li>
+<li>找到下图所示文件<code>BCSessions.xml</code>和<code>BCState.xml</code><br><img src="https://lengmo714.top/postImg/beyond/370f20b33f827c2a3e7da7a4a41cda2.png" alt="文件路径" decoding="async" loading="lazy"></li>
+<li>在文件<code>BCSessions.xml</code>中，找到<code>Flags=</code>，删掉掉<code>Flags=</code>后面的所有内容，保存文件。如下图：<br><img src="https://lengmo714.top/postImg/beyond/e58f4a2537e19a51a87ed5c6d9faed0.png" alt="BCSessions.xml" decoding="async" loading="lazy"><br>3.在文件<code>BCState.xml</code>中，找到<code>CheckID</code>和<code>LastChecked</code>，将这两行删除即可。如下图：<br><img src="https://lengmo714.top/postImg/beyond/a3479f546187222c42de3da7b633373.png" alt="BCState.xml" decoding="async" loading="lazy"></li>
 </ol>
 <h3 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h3><p>重启，问题解决。</p>
 <h3 id="自动处理方法"><a href="#自动处理方法" class="headerlink" title="自动处理方法"></a>自动处理方法</h3><p>我发现我这边经常出现这个问题，如果每次都手动去修改的话，比较麻烦。所以偷懒写了一个自动化的脚本。每当失效的时候，直接执行这个脚本就行了。</p>
@@ -526,23 +532,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -597,21 +594,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

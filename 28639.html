@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="STM32 GPIO部分介绍：端口模式与寄存器配置详解">
@@ -53,7 +53,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/28639.html#article","headline":"STM32 GPIO部分介绍：端口模式与寄存器配置详解","description":"STM32 GPIO部分介绍：端口模式与寄存器配置详解","image":["https://pic.imgdb.cn/item/66434a6c0ea9cb1403ceb8c0.png"],"datePublished":"2017-04-16T22:33:57.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/28639.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["嵌入式开发"],"keywords":"硬件","wordCount":32}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/28639.html#article","headline":"STM32 GPIO部分介绍：端口模式与寄存器配置详解","description":"STM32 GPIO部分介绍：端口模式与寄存器配置详解","datePublished":"2017-04-16T22:33:57.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/28639.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["嵌入式开发"],"keywords":"硬件","wordCount":32,"image":["https://pic.imgdb.cn/item/66434a6c0ea9cb1403ceb8c0.png"]}</script>
 
 
 
@@ -71,14 +71,21 @@
 
   <title>STM32 GPIO部分介绍：端口模式与寄存器配置详解 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -112,7 +119,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -216,7 +223,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -272,21 +278,21 @@
       
         <p>最近在老师交给了一个项目，需要用到STM32单片机，这里就在学习的过程中所注意到的一些地方或细节部分记录了下来，笔者所使用的是STM32F407ZGT6芯片（探索者）。</p>
 <p><strong>查看芯片的数据手册</strong></p>
-<p><img data-src="https://pic.imgdb.cn/item/66434a6c0ea9cb1403ceb8c0.png" alt="这里写图片描述"><br>这个表格对每个I&#x2F;O口的功能进行了很详细的介绍。每个I&#x2F;O除了作为I&#x2F;O使用外，还可以作为其他的复用。已以PE2口为例，“Alternate functions”所展示就是其可以复用的功能。</p>
+<p><img src="https://pic.imgdb.cn/item/66434a6c0ea9cb1403ceb8c0.png" alt="这里写图片描述" decoding="async" loading="eager" fetchpriority="high"><br>这个表格对每个I&#x2F;O口的功能进行了很详细的介绍。每个I&#x2F;O除了作为I&#x2F;O使用外，还可以作为其他的复用。已以PE2口为例，“Alternate functions”所展示就是其可以复用的功能。</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p> <strong>芯片结构</strong><br>F3系列和F4系列芯片的芯片结构大体相似，区别在于F4将F3芯片的上下拉结构配置由内部转到了外部。如下图所示。<br><img data-src="https://pic.imgdb.cn/item/66434b080ea9cb1403cf85ba.png" alt="STM32 GPIO部分介绍：端口模式与寄存器配置详解 — 图片 2"><br><img data-src="https://pic.imgdb.cn/item/66434b090ea9cb1403cf8655.png" alt="STM32 GPIO部分介绍：端口模式与寄存器配置详解 — 图片 3"><br>同时大家注意到在第二张图的右边有一个“TF:5V容忍”，F4芯片I&#x2F;O口大部分也支持5V容忍，5V容忍就是说STM32的输出电压是3.3V，但是也容忍输出5V。<br>那么哪些I&#x2F;O口支持5V容忍了，这个得看最上面的芯片手册，如果芯片后面有一栏写有“TF”标示，即说明支持5V容忍。</p>
+<p> <strong>芯片结构</strong><br>F3系列和F4系列芯片的芯片结构大体相似，区别在于F4将F3芯片的上下拉结构配置由内部转到了外部。如下图所示。<br><img src="https://pic.imgdb.cn/item/66434b080ea9cb1403cf85ba.png" decoding="async" loading="lazy" alt="STM32 GPIO部分介绍：端口模式与寄存器配置详解 — 图片 2"><br><img src="https://pic.imgdb.cn/item/66434b090ea9cb1403cf8655.png" decoding="async" loading="lazy" alt="STM32 GPIO部分介绍：端口模式与寄存器配置详解 — 图片 3"><br>同时大家注意到在第二张图的右边有一个“TF:5V容忍”，F4芯片I&#x2F;O口大部分也支持5V容忍，5V容忍就是说STM32的输出电压是3.3V，但是也容忍输出5V。<br>那么哪些I&#x2F;O口支持5V容忍了，这个得看最上面的芯片手册，如果芯片后面有一栏写有“TF”标示，即说明支持5V容忍。</p>
 <p><strong>GPIO相关配置寄存器</strong><br>每组GPIO口包含１０组寄存器。</p>
 <p><code>一个端口模式寄存器（GPIOx_MODER） 一个端口输出类型寄存器(GPIOx_OTYPER) 一个端口输出速度寄存器（GPIOx_OSPEEDR) 一个端口上拉下拉寄存器（GPIOx_PUPDR)　　前４个为３２位配置寄存器 一个端口输入数据寄存器（GPIOx_IDR） 一个端口输出数据寄存器（GPIOx_ODR)　　中间２个为３２位数据寄存器 一个端口置位/复位寄存器（GPIOx_BSRR) 一个端口配置锁存寄存器（GPIOx_LCKR) 两个复位功能寄存器（低位GPIOx_AFRL &amp; GPIOx_AFRH) </code> </p>
 <blockquote>
 <p>如果配置一个IO口需要2个位，那么刚好32位寄存器配置一组IO口16个IO口<br>如果配置一个IO口只需要1个位，一般高16位保留<br>BSRR寄存器32位分为低16位BSRRL和高16位BSRRH，BSRRL配置一组IO口的16个IO口的置位状态（1），BSRRH配置复位状态（0）。</p>
 </blockquote>
-<p><strong>端口模式寄存器(GPIOx_MODER)</strong><br><img data-src="https://pic.imgdb.cn/item/66434a6c0ea9cb1403ceb86e.png" alt="这里写图片描述"><br>MODER寄存器没２位控制一个IO,３２位就控制１６个IO。以GPIOA为例，它就有GPIOA0~15，如果配置为’00’,则为“输入（复位状态）”模式。那么32位刚好可以配置一组IO的16个IO。</p>
-<p><strong>端口输出类型寄存器(GPIOx_OTYPER)</strong><br>但是只有输出模式是不够的，还需要输出类型。<br><img data-src="https://pic.imgdb.cn/item/66434a6c0ea9cb1403ceb886.png" alt="这里写图片描述"><br>OTYPER寄存器每位控制一个IO，低16位控制一组IO的16个IO，高16位保留没有用。<br> 每个IO只用到一位，可以设置位0或者1。如果设置为0则为“输出推挽”，若要设置为“复用输出推挽”，则将端口模式寄存器设置为“复用功能模式”，再将这里设置为“输出推挽”模式即可。</p>
+<p><strong>端口模式寄存器(GPIOx_MODER)</strong><br><img src="https://pic.imgdb.cn/item/66434a6c0ea9cb1403ceb86e.png" alt="这里写图片描述" decoding="async" loading="lazy"><br>MODER寄存器没２位控制一个IO,３２位就控制１６个IO。以GPIOA为例，它就有GPIOA0~15，如果配置为’00’,则为“输入（复位状态）”模式。那么32位刚好可以配置一组IO的16个IO。</p>
+<p><strong>端口输出类型寄存器(GPIOx_OTYPER)</strong><br>但是只有输出模式是不够的，还需要输出类型。<br><img src="https://pic.imgdb.cn/item/66434a6c0ea9cb1403ceb886.png" alt="这里写图片描述" decoding="async" loading="lazy"><br>OTYPER寄存器每位控制一个IO，低16位控制一组IO的16个IO，高16位保留没有用。<br> 每个IO只用到一位，可以设置位0或者1。如果设置为0则为“输出推挽”，若要设置为“复用输出推挽”，则将端口模式寄存器设置为“复用功能模式”，再将这里设置为“输出推挽”模式即可。</p>
 <p><strong>提示</strong> 任何方式操作IO口，都必须先使能相应IO口始终。<br>‘RCC_AHB1PeriphColckCmd();’</p>
 <blockquote>
 <p>其它的寄存器设置方法与这两个类似，这里不过多介绍。</p>
@@ -540,23 +546,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -611,21 +608,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

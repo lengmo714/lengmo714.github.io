@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="cocosCreator3.7.2粒子特效入门与动态替换教程">
@@ -55,7 +55,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/9d7c5e64.html#article","headline":"cocosCreator 3.7.2 粒子特效入门与动态替换教程","description":"cocosCreator3.7.2粒子特效入门与动态替换教程","image":["https://pic.imgdb.cn/item/66432e9b0ea9cb14039d77d9.jpg"],"datePublished":"2023-12-19T04:45:00.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/9d7c5e64.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"cocosCreator, 粒子特效","wordCount":51}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/9d7c5e64.html#article","headline":"cocosCreator 3.7.2 粒子特效入门与动态替换教程","description":"cocosCreator3.7.2粒子特效入门与动态替换教程","datePublished":"2023-12-19T04:45:00.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/9d7c5e64.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"cocosCreator, 粒子特效","wordCount":51,"image":["https://pic.imgdb.cn/item/66432e9b0ea9cb14039d77d9.jpg"]}</script>
 
 
 
@@ -73,14 +73,21 @@
 
   <title>cocosCreator 3.7.2 粒子特效入门与动态替换教程 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -114,7 +121,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -218,7 +225,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -281,14 +287,14 @@
 <p>在游戏开发过程中，粒子特效是提升游戏画面表现力和吸引玩家注意力的重要工具。通过合理使用粒子系统，你可以创造出炫目的爆炸、魔法效果和天气等引人入胜的游戏场景。在本文中，我们将介绍如何在cocosCreator 3.7.2中使用粒子特效系统。</p>
 <p>在使用过程中，你可以自己创建粒子效果，也可以使用你们公司美术给你提供的粒子效果或者自己在网上找。</p>
 <p>这里我的粒子效果是美术提供的！</p>
-<h3 id="创建粒子"><a href="#创建粒子" class="headerlink" title="创建粒子"></a>创建粒子</h3><p>graph TD<br>创建–&gt;2D对象–&gt;ParticleSystem2D（粒子）<br><img data-src="https://pic.imgdb.cn/item/66432e9b0ea9cb14039d77d9.jpg" alt="示意图"><br>这时可以看到编辑器中已经存在一个系统自带的粒子效果了<br><img data-src="https://pic.imgdb.cn/item/66432edf0ea9cb14039ddd96.png" alt="示意图"><br>下面我们开始对粒子进行替换</p>
-<h3 id="修改File"><a href="#修改File" class="headerlink" title="修改File"></a>修改File</h3><p>在上面图中，我们点击粒子可以到右边的属性检查器中有<code>File</code>，这个就是粒子的配置文件，这里是<code>.plist</code>格式的。<br>我们现在将这个文件修改为我们自己的<br><img data-src="https://pic.imgdb.cn/item/66432fc10ea9cb14039fc4d9.png" alt="示意图"><br>可以看到，文件替换后编辑器报错了，而且粒子也没有出现我们想要的效果，这是因为没有找到配置文件中的粒子贴图文件。</p>
-<h3 id="替换贴图"><a href="#替换贴图" class="headerlink" title="替换贴图"></a>替换贴图</h3><img data-src="https://pic.imgdb.cn/item/66432ff00ea9cb1403a06225.png" alt="示意图">
+<h3 id="创建粒子"><a href="#创建粒子" class="headerlink" title="创建粒子"></a>创建粒子</h3><p>graph TD<br>创建–&gt;2D对象–&gt;ParticleSystem2D（粒子）<br><img src="https://pic.imgdb.cn/item/66432e9b0ea9cb14039d77d9.jpg" alt="示意图" decoding="async" loading="eager" fetchpriority="high"><br>这时可以看到编辑器中已经存在一个系统自带的粒子效果了<br><img src="https://pic.imgdb.cn/item/66432edf0ea9cb14039ddd96.png" alt="示意图" decoding="async" loading="lazy"><br>下面我们开始对粒子进行替换</p>
+<h3 id="修改File"><a href="#修改File" class="headerlink" title="修改File"></a>修改File</h3><p>在上面图中，我们点击粒子可以到右边的属性检查器中有<code>File</code>，这个就是粒子的配置文件，这里是<code>.plist</code>格式的。<br>我们现在将这个文件修改为我们自己的<br><img src="https://pic.imgdb.cn/item/66432fc10ea9cb14039fc4d9.png" alt="示意图" decoding="async" loading="lazy"><br>可以看到，文件替换后编辑器报错了，而且粒子也没有出现我们想要的效果，这是因为没有找到配置文件中的粒子贴图文件。</p>
+<h3 id="替换贴图"><a href="#替换贴图" class="headerlink" title="替换贴图"></a>替换贴图</h3><img src="https://pic.imgdb.cn/item/66432ff00ea9cb1403a06225.png" alt="示意图" decoding="async" loading="lazy">
 我们将`Custom`属性前面的框框勾上，就可以看到`Sprite Frame`属性标红，提示`Missing Asset`，我们将需要用到的粒子贴图拖过来即可。
-<img data-src="https://pic.imgdb.cn/item/6643301c0ea9cb1403a0afc0.png" alt="示意图">
+<img src="https://pic.imgdb.cn/item/6643301c0ea9cb1403a0afc0.png" alt="示意图" decoding="async" loading="lazy">
 这个时候我们就可以看到我们自己想要替换的粒子效果了。
 
-<h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><img data-src="https://pic.imgdb.cn/item/664330490ea9cb1403a10817.png" alt="示意图">
+<h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><img src="https://pic.imgdb.cn/item/664330490ea9cb1403a10817.png" alt="示意图" decoding="async" loading="lazy">
 这里我们还需要进行最后一步，将现在的粒子配置导出，我们在使用的时候直接用导出后的粒子文件，就可以啦。
 > 注意，这里不导出的话，在使用过程中可能会存在找不到粒子贴图的问题。
 
@@ -351,12 +357,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/b4b7357d.html" rel="prev" title="Markdown转Word教程：高效方法与实用工具">
-      <i class="fa fa-chevron-left"></i> Markdown转Word教程：高效方法与实用工具
+    <a href="/en/9d7c5e64.html" rel="prev" title="Getting Started with Particle Effects in Cocos Creator 3.7.2">
+      <i class="fa fa-chevron-left"></i> Getting Started with Particle Effects in Cocos Creator 3.7.2
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/9d7c5e64.html" rel="next" title="Getting Started with Particle Effects in Cocos Creator 3.7.2">
-      Getting Started with Particle Effects in Cocos Creator 3.7.2 <i class="fa fa-chevron-right"></i>
+    <a href="/en/c7dbb86a.html" rel="next" title="Fixing the Cocos Creator VS Code Chrome Source Map Error">
+      Fixing the Cocos Creator VS Code Chrome Source Map Error <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -543,23 +549,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -614,21 +611,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

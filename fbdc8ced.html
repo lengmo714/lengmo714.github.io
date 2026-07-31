@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="如何取消ChatGPT Plus自动扣费订阅">
@@ -67,7 +67,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/fbdc8ced.html#article","headline":"如何取消ChatGPT Plus自动扣费订阅","description":"如何取消ChatGPT Plus自动扣费订阅","image":["https://lengmo714.top/postImg/ChatGPT/cancel/1.jpg"],"datePublished":"2024-11-16T18:58:27.000Z","dateModified":"2025-05-30T06:59:32.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/fbdc8ced.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":[],"keywords":"","wordCount":22}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/fbdc8ced.html#article","headline":"如何取消ChatGPT Plus自动扣费订阅","description":"如何取消ChatGPT Plus自动扣费订阅","datePublished":"2024-11-16T18:58:27.000Z","dateModified":"2025-05-30T06:59:32.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/fbdc8ced.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":[],"keywords":"","wordCount":22,"image":["https://lengmo714.top/postImg/ChatGPT/cancel/1.jpg"]}</script>
 
 
 
@@ -85,14 +85,21 @@
 
   <title>如何取消ChatGPT Plus自动扣费订阅 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -126,7 +133,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -230,7 +237,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -284,13 +290,13 @@
 
 <p>取消订阅的步骤很简单，web 端是这么操作：</p>
 <ol>
-<li><p>登录<code>ChatGPT</code>，点击右下角帐户的头像，在弹窗中，点击<code>我的套餐</code><br><img data-src="https://lengmo714.top/postImg/ChatGPT/cancel/1.jpg" alt="我的套餐"></p>
+<li><p>登录<code>ChatGPT</code>，点击右下角帐户的头像，在弹窗中，点击<code>我的套餐</code><br><img src="https://lengmo714.top/postImg/ChatGPT/cancel/1.jpg" alt="我的套餐" decoding="async" loading="eager" fetchpriority="high"></p>
 </li>
-<li><p>在弹出的<code>我的套餐</code>弹窗中，选择<code>管理我的订阅</code><br><img data-src="https://lengmo714.top/postImg/ChatGPT/cancel/2.jpg" alt="管理我的订阅"></p>
+<li><p>在弹出的<code>我的套餐</code>弹窗中，选择<code>管理我的订阅</code><br><img src="https://lengmo714.top/postImg/ChatGPT/cancel/2.jpg" alt="管理我的订阅" decoding="async" loading="lazy"></p>
 </li>
-<li><p>在当前方案页面，选择<code>取消订阅</code><br><img data-src="https://lengmo714.top/postImg/ChatGPT/cancel/3.jpg" alt="取消订阅"></p>
+<li><p>在当前方案页面，选择<code>取消订阅</code><br><img src="https://lengmo714.top/postImg/ChatGPT/cancel/3.jpg" alt="取消订阅" decoding="async" loading="lazy"></p>
 </li>
-<li><p>最后再次确认，<code>取消订阅</code>即可。<br><img data-src="https://lengmo714.top/postImg/ChatGPT/cancel/4.jpg" alt="取消订阅"></p>
+<li><p>最后再次确认，<code>取消订阅</code>即可。<br><img src="https://lengmo714.top/postImg/ChatGPT/cancel/4.jpg" alt="取消订阅" decoding="async" loading="lazy"></p>
 </li>
 </ol>
 <p>当你成功取消订阅后，可能会弹出一些民意调查，完全不用管，哈哈哈哈~</p>
@@ -349,8 +355,8 @@
       <i class="fa fa-chevron-left"></i> How to Cancel a ChatGPT Plus Subscription
     </a></div>
       <div class="post-nav-item">
-    <a href="/52bab61c.html" rel="next" title="TypeScript 结构体赋值后不相等的原因">
-      TypeScript 结构体赋值后不相等的原因 <i class="fa fa-chevron-right"></i>
+    <a href="/en/52bab61c.html" rel="next" title="TypeScript Object Assignment, Copying, and Equality">
+      TypeScript Object Assignment, Copying, and Equality <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -536,23 +542,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -607,21 +604,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

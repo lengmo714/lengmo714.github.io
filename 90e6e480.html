@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="excel转换为json">
@@ -51,7 +51,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/90e6e480.html#article","headline":"Excel文件转JSON：用Node.js轻松实现数据格式转换","description":"excel转换为json","image":["https://s1.ax1x.com/2023/08/14/pPMrZtS.png"],"datePublished":"2023-08-14T14:36:07.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/90e6e480.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator","json","js","node","TypeScript"],"keywords":"cocosCreator","wordCount":134}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/90e6e480.html#article","headline":"Excel文件转JSON：用Node.js轻松实现数据格式转换","description":"excel转换为json","datePublished":"2023-08-14T14:36:07.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/90e6e480.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator","json","js","node","TypeScript"],"keywords":"cocosCreator","wordCount":134,"image":["https://s1.ax1x.com/2023/08/14/pPMrZtS.png"]}</script>
 
 
 
@@ -69,14 +69,21 @@
 
   <title>Excel文件转JSON：用Node.js轻松实现数据格式转换 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -110,7 +117,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +221,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -290,8 +296,8 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>先来看下效果<br>将脚本和放excel表格的文件夹置于同一级目录<br><img data-src="https://s1.ax1x.com/2023/08/14/pPMrZtS.png" alt="示意图"></p>
-<p>在该目录下执行js脚本<br>表格内容如下：<br><img data-src="https://s1.ax1x.com/2023/08/14/pPMrnpQ.png" alt="示意图"><br>转为json后：<br><img data-src="https://s1.ax1x.com/2023/08/14/pPMrefg.png" alt="示意图"></p>
+<p>先来看下效果<br>将脚本和放excel表格的文件夹置于同一级目录<br><img src="https://s1.ax1x.com/2023/08/14/pPMrZtS.png" alt="示意图" decoding="async" loading="eager" fetchpriority="high"></p>
+<p>在该目录下执行js脚本<br>表格内容如下：<br><img src="https://s1.ax1x.com/2023/08/14/pPMrnpQ.png" alt="示意图" decoding="async" loading="lazy"><br>转为json后：<br><img src="https://s1.ax1x.com/2023/08/14/pPMrefg.png" alt="示意图" decoding="async" loading="lazy"></p>
 <p>脚本代码：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> xlsx = <span class="built_in">require</span>(<span class="string">&#x27;node-xlsx&#x27;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> dirs = [];</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取文件夹里所有的文件</span></span><br><span class="line">fs.<span class="title function_">readdir</span>(__dirname+<span class="string">&#x27;/excel/&#x27;</span>, <span class="keyword">function</span>(<span class="params">err, files</span>)&#123;</span><br><span class="line">    </span><br><span class="line">    (<span class="keyword">function</span> <span class="title function_">iterator</span>(<span class="params">i</span>)&#123;</span><br><span class="line">      <span class="keyword">if</span>(i == files.<span class="property">length</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;所有文件在一个数组里：&#x27;</span>,dirs);</span><br><span class="line">        <span class="comment">//把文件名提取出来</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i1 =<span class="number">0</span>;i1&lt;dirs.<span class="property">length</span>;i1++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">let</span> ss = dirs[i1].<span class="title function_">split</span>(<span class="string">&quot;.&quot;</span>);</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;把文件名提取出来:&#x27;</span>,ss[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//开始将excel文件转变成json文件</span></span><br><span class="line">            <span class="comment">//读取文件内容</span></span><br><span class="line">            <span class="keyword">var</span> obj = xlsx.<span class="title function_">parse</span>(__dirname+<span class="string">&#x27;/excel/&#x27;</span>+dirs[i1]);</span><br><span class="line">            <span class="keyword">var</span> excelObj=obj[<span class="number">0</span>].<span class="property">data</span>;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(excelObj);</span><br><span class="line">            <span class="keyword">var</span> data = [];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> excelObj)&#123;</span><br><span class="line">              <span class="keyword">var</span> arr=[];</span><br><span class="line">              <span class="keyword">var</span> value=excelObj[i];</span><br><span class="line">              <span class="keyword">for</span>(<span class="keyword">var</span> j <span class="keyword">in</span> value)&#123;</span><br><span class="line">                arr.<span class="title function_">push</span>(value[j]);</span><br><span class="line">              &#125;</span><br><span class="line">              data.<span class="title function_">push</span>(arr);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;data:&#x27;</span>,data);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> array_json = &#123;&#125;;</span><br><span class="line">            <span class="keyword">var</span> array_json_index = [];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">1</span>,j=<span class="number">0</span>;i&lt;data.<span class="property">length</span>;i++,j++)</span><br><span class="line">            &#123;</span><br><span class="line">                array_json_index[j] = data[i];</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;array_json_index:&#x27;</span>,array_json_index);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">1</span>;i&lt;array_json_index.<span class="property">length</span>;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                array_json[array_json_index[i][<span class="number">0</span>]] = &#123;&#125;;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;array_json_index[0].length&#x27;</span>,array_json_index[<span class="number">0</span>].<span class="property">length</span>);</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">let</span> j=<span class="number">1</span>;j&lt;array_json_index[<span class="number">0</span>].<span class="property">length</span>;j++)</span><br><span class="line">                &#123;</span><br><span class="line">                  array_json[array_json_index[i][<span class="number">0</span>]][array_json_index[<span class="number">0</span>][j]] = array_json_index[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;array_json:&#x27;</span>,array_json);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> str = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(array_json)</span><br><span class="line">             </span><br><span class="line">            <span class="keyword">let</span> dir_json = ss[<span class="number">0</span>]+<span class="string">&#x27;.json&#x27;</span>;</span><br><span class="line">            fs.<span class="title function_">writeFile</span>(__dirname+<span class="string">&#x27;/excel/&#x27;</span>+dir_json,str,<span class="keyword">function</span>(<span class="params">err</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(<span class="string">&#x27;Server is error...&#x27;</span>)&#125;</span><br><span class="line">            &#125;)</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">      &#125;</span><br><span class="line">      fs.<span class="title function_">stat</span>(path.<span class="title function_">join</span>(__dirname+<span class="string">&#x27;/excel/&#x27;</span>, files[i]), <span class="keyword">function</span>(<span class="params">err, data</span>)&#123;     </span><br><span class="line">        <span class="keyword">if</span>(data.<span class="title function_">isFile</span>())&#123;               </span><br><span class="line">            dirs.<span class="title function_">push</span>(files[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="title function_">iterator</span>(i+<span class="number">1</span>);</span><br><span class="line">       &#125;);   </span><br><span class="line">    &#125;)(<span class="number">0</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
@@ -546,23 +552,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -617,21 +614,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

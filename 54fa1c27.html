@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="如何判断自己的apk是否支持16KB">
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/54fa1c27.html#article","headline":"如何判断自己的apk是否支持16KB","description":"如何判断自己的apk是否支持16KB","image":["https://lengmo714.top/postImg/54fa1c27/1.png"],"datePublished":"2025-10-09T06:56:10.000Z","dateModified":"2025-10-09T08:35:52.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/54fa1c27.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["android"],"keywords":"android","wordCount":265}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/54fa1c27.html#article","headline":"如何判断自己的apk是否支持16KB","description":"如何判断自己的apk是否支持16KB","datePublished":"2025-10-09T06:56:10.000Z","dateModified":"2025-10-09T08:35:52.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/54fa1c27.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["android"],"keywords":"android","wordCount":265,"image":["https://lengmo714.top/postImg/54fa1c27/1.png"]}</script>
 
 
 
@@ -68,14 +68,21 @@
 
   <title>如何判断自己的apk是否支持16KB | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -109,7 +116,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -213,7 +220,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -287,7 +293,7 @@
 </ul>
 <ol>
 <li>使用<code>readelf</code>命令查看<br>如果你有Android NDK，可以执行命名：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">readelf -l yourlib.so </span><br></pre></td></tr></table></figure>
- 这里是readllef 是 <code>readelf.exe</code>文件，具体位置在：<br><code>..\ndk\21.1.6352462\toolchains\llvm\prebuilt\windows-x86_64\aarch64-linux-android\bin\readelf.exe</code>，具体看你自己的ndk文件位置。<br>输入如下：<br><img data-src="https://lengmo714.top/postImg/54fa1c27/1.png" alt="输出示意图"><br>看LOAD后面数字的最后一列：</li>
+ 这里是readllef 是 <code>readelf.exe</code>文件，具体位置在：<br><code>..\ndk\21.1.6352462\toolchains\llvm\prebuilt\windows-x86_64\aarch64-linux-android\bin\readelf.exe</code>，具体看你自己的ndk文件位置。<br>输入如下：<br><img src="https://lengmo714.top/postImg/54fa1c27/1.png" alt="输出示意图" decoding="async" loading="eager" fetchpriority="high"><br>看LOAD后面数字的最后一列：</li>
 </ol>
 <ul>
 <li>如果是 1000 → 表示对齐 4K ❌（不兼容 16K）</li>
@@ -296,7 +302,7 @@
 <ol start="2">
 <li>使用脚本批量扫描apk中的<code>.so</code>文件<br>复制下面脚本，保存为<code>check_so_align.ps1</code><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">param</span>(</span><br><span class="line">    [<span class="built_in">string</span>]<span class="variable">$ApkPath</span> = <span class="string">&quot;apk路径&quot;</span>,</span><br><span class="line">    [<span class="built_in">string</span>]<span class="variable">$ReadElfPath</span> = <span class="string">&quot;readelf.exe路径&quot;</span> <span class="comment"># 上面有给出路径地址</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 临时解压目录</span></span><br><span class="line"><span class="variable">$tempDir</span> = <span class="built_in">Join-Path</span> <span class="variable">$env:TEMP</span> (<span class="string">&quot;apk_extract_&quot;</span> + [<span class="type">System.Guid</span>]::NewGuid().ToString())</span><br><span class="line"><span class="built_in">Write-Host</span> <span class="string">&quot;Extracting APK to temporary directory: <span class="variable">$tempDir</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 .NET 方法解压 APK</span></span><br><span class="line"><span class="built_in">Add-Type</span> <span class="literal">-AssemblyName</span> System.IO.Compression.FileSystem</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    [<span class="type">System.IO.Compression.ZipFile</span>]::ExtractToDirectory(<span class="variable">$ApkPath</span>, <span class="variable">$tempDir</span>)</span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">    <span class="built_in">Write-Host</span> <span class="string">&quot;Failed to extract APK. Make sure the file exists and is not corrupted.&quot;</span> <span class="literal">-ForegroundColor</span> Red</span><br><span class="line">    <span class="keyword">exit</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查找 .so 文件</span></span><br><span class="line"><span class="variable">$soFiles</span> = <span class="built_in">Get-ChildItem</span> <span class="literal">-Path</span> <span class="variable">$tempDir</span> <span class="literal">-Recurse</span> <span class="literal">-Include</span> *.so</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$soFiles</span>.Count <span class="operator">-eq</span> <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">Write-Host</span> <span class="string">&quot;No .so files found. Please check if the APK contains native libraries.&quot;</span></span><br><span class="line">    <span class="built_in">Remove-Item</span> <span class="literal">-Path</span> <span class="variable">$tempDir</span> <span class="literal">-Recurse</span> <span class="literal">-Force</span></span><br><span class="line">    <span class="keyword">exit</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Write-Host</span> <span class="string">&quot;Checking LOAD segments for 16KB alignment...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$notAligned</span> = <span class="selector-tag">@</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$file</span> <span class="keyword">in</span> <span class="variable">$soFiles</span>) &#123;</span><br><span class="line">    <span class="variable">$output</span> = &amp; <span class="variable">$ReadElfPath</span> <span class="literal">-l</span> <span class="variable">$file</span>.FullName <span class="number">2</span>&gt;<span class="variable">$null</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$LASTEXITCODE</span> <span class="operator">-ne</span> <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">Write-Host</span> <span class="string">&quot;Cannot read <span class="variable">$</span>(<span class="variable">$file</span>.Name), skipping.&quot;</span></span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="variable">$fileAligned</span> = <span class="variable">$true</span></span><br><span class="line">    <span class="keyword">foreach</span> (<span class="variable">$line</span> <span class="keyword">in</span> <span class="variable">$output</span>) &#123;</span><br><span class="line">        <span class="comment"># 只检查 LOAD 段</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$line</span> <span class="operator">-match</span> <span class="string">&quot;LOAD\s+.*\s+(\S+)<span class="variable">$</span>&quot;</span>) &#123;</span><br><span class="line">            <span class="variable">$alignHex</span> = <span class="variable">$matches</span>[<span class="number">1</span>]</span><br><span class="line">            <span class="variable">$alignValue</span> = <span class="number">0</span></span><br><span class="line">            <span class="keyword">try</span> &#123; <span class="variable">$alignValue</span> = [<span class="type">Convert</span>]::ToInt32(<span class="variable">$alignHex</span>,<span class="number">16</span>) &#125; <span class="keyword">catch</span> &#123;&#125;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable">$alignValue</span> <span class="operator">-lt</span> <span class="number">0</span>x4000) &#123;</span><br><span class="line">                <span class="variable">$fileAligned</span> = <span class="variable">$false</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="operator">-not</span> <span class="variable">$fileAligned</span>) &#123;</span><br><span class="line">        <span class="variable">$notAligned</span> += <span class="variable">$file</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$notAligned</span>.Count <span class="operator">-eq</span> <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">Write-Host</span> <span class="string">&quot;All .so files meet 16KB LOAD segment alignment!&quot;</span> <span class="literal">-ForegroundColor</span> Green</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">Write-Host</span> <span class="string">&quot;The following .so files are NOT aligned to 16KB in LOAD segments:&quot;</span> <span class="literal">-ForegroundColor</span> Red</span><br><span class="line">    <span class="keyword">foreach</span> (<span class="variable">$f</span> <span class="keyword">in</span> <span class="variable">$notAligned</span>) &#123; <span class="built_in">Write-Host</span> <span class="string">&quot; - <span class="variable">$</span>(<span class="variable">$f</span>.FullName)&quot;</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除临时目录</span></span><br><span class="line"><span class="built_in">Remove-Item</span> <span class="literal">-Path</span> <span class="variable">$tempDir</span> <span class="literal">-Recurse</span> <span class="literal">-Force</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 打开终端，直接执行<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\check_so_align.ps1</span><br></pre></td></tr></table></figure>
-输出结果如下：<br><img data-src="https://lengmo714.top/postImg/54fa1c27/2.png" alt="输出示意图"></li>
+输出结果如下：<br><img src="https://lengmo714.top/postImg/54fa1c27/2.png" alt="输出示意图" decoding="async" loading="lazy"></li>
 </ol>
 
     </div>
@@ -545,23 +551,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -616,21 +613,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

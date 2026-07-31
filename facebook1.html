@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="解决Android Studio中Facebook登录失败的RuntimeException错误">
@@ -51,7 +51,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/facebook1.html#article","headline":"解决Android Studio中Facebook登录失败的RuntimeException错误","description":"解决Android Studio中Facebook登录失败的RuntimeException错误","image":["https://pic.imgdb.cn/item/6646e299d9c307b7e9ccc15e.png"],"datePublished":"2024-05-17T04:53:41.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/facebook1.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["android studio","facebook"],"keywords":"facebook","wordCount":36}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/facebook1.html#article","headline":"解决Android Studio中Facebook登录失败的RuntimeException错误","description":"解决Android Studio中Facebook登录失败的RuntimeException错误","datePublished":"2024-05-17T04:53:41.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/facebook1.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["android studio","facebook"],"keywords":"facebook","wordCount":36,"image":["https://pic.imgdb.cn/item/6646e299d9c307b7e9ccc15e.png"]}</script>
 
 
 
@@ -69,14 +69,21 @@
 
   <title>解决Android Studio中Facebook登录失败的RuntimeException错误 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -110,7 +117,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +221,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -274,7 +280,7 @@
       
         <p>今天在接入facebook第三方登录的时候，点击登录按钮，APP闪退，并报错<br><code>java.lang.RuntimeException Failure delivering result ResultInfo&#123;who=null,request=64206,result=-1&#125;</code></p>
 <p>如下图：</p>
-<img data-src="https://pic.imgdb.cn/item/6646e299d9c307b7e9ccc15e.png" alt="示意图">
+<img src="https://pic.imgdb.cn/item/6646e299d9c307b7e9ccc15e.png" alt="示意图" decoding="async" loading="eager" fetchpriority="high">
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
@@ -289,8 +295,8 @@
 <li>添加名称为 <code>facebook_app_id</code>、<code>fb_login_protocol_scheme</code> 以及 <code>facebook_client_token</code> 的 <code>string</code> 元素，并将值相应设置为<strong>应用编号</strong>和<strong>客户端口令</strong>。获取方式下面说到。例如，如果您的应用编号为 <code>1234</code>，并且客户端口令为 <code>56789</code>，则您的代码格式如下所示：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;string name=<span class="string">&quot;facebook_app_id&quot;</span>&gt;<span class="number">1234</span>&lt;/string&gt;</span><br><span class="line">&lt;string name=<span class="string">&quot;fb_login_protocol_scheme&quot;</span>&gt;fb1234&lt;/string&gt;</span><br><span class="line">&lt;string name=<span class="string">&quot;facebook_client_token&quot;</span>&gt;<span class="number">56789</span>&lt;/string&gt;</span><br></pre></td></tr></table></figure>
 仔细看，这里的<code>fb_login_protocol_scheme</code>其实就是在<code>facebook_app_id</code>前面加上<code>fb</code>即可，不要傻傻的到处找了。</li>
 </ul>
-<h3 id="获取方式"><a href="#获取方式" class="headerlink" title="获取方式"></a>获取方式</h3><h4 id="获取应用编号"><a href="#获取应用编号" class="headerlink" title="获取应用编号"></a>获取应用编号</h4><p>打开你的facebook开发者后台，查看相应的应用，上面就有个应用编号，如下图：<br><img data-src="https://pic.imgdb.cn/item/6646e632d9c307b7e9d12171.png" alt="示意图"></p>
-<h4 id="获取客户端口令"><a href="#获取客户端口令" class="headerlink" title="获取客户端口令"></a>获取客户端口令</h4><p>在开发者后台，点击你所创建的应用，依次选择<code>应用设置</code>，<code>高级</code>，在<code>安全</code>这一栏就可以看到<code>客户端口令</code>了，如下图：<br><img data-src="https://pic.imgdb.cn/item/6646e692d9c307b7e9d18988.png" alt="示意图"></p>
+<h3 id="获取方式"><a href="#获取方式" class="headerlink" title="获取方式"></a>获取方式</h3><h4 id="获取应用编号"><a href="#获取应用编号" class="headerlink" title="获取应用编号"></a>获取应用编号</h4><p>打开你的facebook开发者后台，查看相应的应用，上面就有个应用编号，如下图：<br><img src="https://pic.imgdb.cn/item/6646e632d9c307b7e9d12171.png" alt="示意图" decoding="async" loading="lazy"></p>
+<h4 id="获取客户端口令"><a href="#获取客户端口令" class="headerlink" title="获取客户端口令"></a>获取客户端口令</h4><p>在开发者后台，点击你所创建的应用，依次选择<code>应用设置</code>，<code>高级</code>，在<code>安全</code>这一栏就可以看到<code>客户端口令</code>了，如下图：<br><img src="https://pic.imgdb.cn/item/6646e692d9c307b7e9d18988.png" alt="示意图" decoding="async" loading="lazy"></p>
 <p>配置好后就可以继续下一步了~</p>
 
     </div>
@@ -539,23 +545,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -610,21 +607,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

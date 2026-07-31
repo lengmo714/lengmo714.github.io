@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="An introduction to Shenzhen Zhongren&#39;s enterprise certification and management consulting services.">
@@ -51,7 +51,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/zhongren.html#article","headline":"Shenzhen Zhongren Enterprise Consulting and ISO Certification Services","description":"An introduction to Shenzhen Zhongren's enterprise certification and management consulting services.","image":["https://s1.ax1x.com/2023/09/04/pPrNOld.jpg"],"datePublished":"2023-09-04T15:06:33.000Z","dateModified":"2026-07-30T05:32:07.218Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/zhongren.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Advertisement"],"keywords":"ISO Certification, Business Consulting","wordCount":136}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/zhongren.html#article","headline":"Shenzhen Zhongren Enterprise Consulting and ISO Certification Services","description":"An introduction to Shenzhen Zhongren's enterprise certification and management consulting services.","datePublished":"2023-09-04T15:06:33.000Z","dateModified":"2026-07-30T05:32:07.218Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/zhongren.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Advertisement"],"keywords":"ISO Certification, Business Consulting","wordCount":136,"image":["https://s1.ax1x.com/2023/09/04/pPrNOld.jpg"]}</script>
 
 
 
@@ -69,14 +69,21 @@
 
   <title>Shenzhen Zhongren Enterprise Consulting and ISO Certification Services | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -110,7 +117,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +221,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -268,13 +274,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <img data-src="https://s1.ax1x.com/2023/09/04/pPrNOld.jpg" style="width:100px;height:100px" alt="Shenzhen Zhongren illustration">
+        <img src="https://s1.ax1x.com/2023/09/04/pPrNOld.jpg" style="width:100px;height:100px" alt="Shenzhen Zhongren illustration" decoding="async" loading="eager" fetchpriority="high">
 
 <h1 id="Shenzhen-Zhongren-Enterprise-Consulting-Management-Co-Ltd"><a href="#Shenzhen-Zhongren-Enterprise-Consulting-Management-Co-Ltd" class="headerlink" title="Shenzhen Zhongren Enterprise Consulting Management Co., Ltd."></a>Shenzhen Zhongren Enterprise Consulting Management Co., Ltd.</h1><p>Shenzhen Zhongren Enterprise Consulting Management Co., Ltd. provides consulting related to enterprise certification. Its services are intended to help organizations prepare for certification processes, understand applicable standards and regulations, and improve their internal management systems.</p>
 <p>Service areas described by the company include ISO certification, quality management systems, environmental management systems, and occupational health and safety management systems. Consulting may include requirements analysis, certification planning, training, assessment of existing processes, and recommendations for improvement.</p>
 <p>Organizations should independently verify the consultant’s current business registration, qualifications, service scope, fees, and the accreditation status of any certification body before entering an agreement. A consultant can support preparation, but certification decisions belong to an authorized certification body.</p>
 <h2 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h2><p>The original Chinese listing provides a WeChat QR code and the following telephone contact:</p>
-<img data-src="/images/caiyun.JPG" style="width:100px;height:100px" alt="WeChat contact QR code">
+<img src="/images/caiyun.JPG" style="width:100px;height:100px" alt="WeChat contact QR code" decoding="async" loading="lazy">
 
 <p>Telephone: 15816884862 (Ms. Zhang)</p>
 
@@ -337,8 +343,8 @@
       <i class="fa fa-chevron-left"></i> 深圳中认企业咨询管理：ISO认证与企业管理提升服务
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/d23c2fe2.html" rel="next" title="Changing Node Order with setSiblingIndex in Cocos Creator">
-      Changing Node Order with setSiblingIndex in Cocos Creator <i class="fa fa-chevron-right"></i>
+    <a href="/d23c2fe2.html" rel="next" title="如何在cocosCreator中使用setSiblingIndex调整节点层级">
+      如何在cocosCreator中使用setSiblingIndex调整节点层级 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -525,23 +531,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -596,12 +593,7 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
-</body>
-</html>
 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
      crossorigin="anonymous"></script>
@@ -613,4 +605,5 @@
      data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</script></body>
+</html>

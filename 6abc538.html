@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="在cocosCreator中实现进度条的渐变色">
@@ -51,7 +51,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/6abc538.html#article","headline":"cocosCreator进度条渐变色实现：完整设置与注意事项","description":"在cocosCreator中实现进度条的渐变色","image":["https://pic.imgdb.cn/item/66432bdc0ea9cb14039867bf.png"],"datePublished":"2024-01-04T02:54:38.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/6abc538.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":17}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/6abc538.html#article","headline":"cocosCreator进度条渐变色实现：完整设置与注意事项","description":"在cocosCreator中实现进度条的渐变色","datePublished":"2024-01-04T02:54:38.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/6abc538.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":17,"image":["https://pic.imgdb.cn/item/66432bdc0ea9cb14039867bf.png"]}</script>
 
 
 
@@ -69,14 +69,21 @@
 
   <title>cocosCreator进度条渐变色实现：完整设置与注意事项 | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -110,7 +117,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +221,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -275,7 +281,7 @@
 </script>
 
 <p>进度条是我们在游戏开发中常用的一个组件，默认情况下，进度条节点的<code>Sprite</code>会根据不同的进度压缩图片，不是我们想要的效果。我们想要实现一个进度条的渐变色。</p>
-<p>首先，要美术出一张渐变色的图片。然后去设置进度条的<code>Sprite</code>节点属性，将<code>Sprite</code>属性<code>Type</code>改为<code>FILLED</code>,同时将<code>ProgressBar</code>属性<code>Mode</code>也改为<code>FILLED</code>,同时需要将<code>Total Length</code>的值设置为<code>1</code>。<br>如下图：<br><img data-src="https://pic.imgdb.cn/item/66432bdc0ea9cb14039867bf.png" alt="示意图"><br>其次，将子节点<code>Bar</code>的<code>Sprite</code>属性<code>Type</code>改为<code>FILLED</code>即可。<br>如下图：<br><img data-src="https://pic.imgdb.cn/item/66432c0a0ea9cb140398a871.png" alt="示意图"><br>注意：上面需要改属性的地方如果有一个地方没有，就会报错<code>ProgressBar non-FILLED mode only works when barSprite&#39;s Type is non-FILLED!</code>。<br>如下图：<br><img data-src="https://pic.imgdb.cn/item/66432b620ea9cb140397d29e.png" alt="示意图"></p>
+<p>首先，要美术出一张渐变色的图片。然后去设置进度条的<code>Sprite</code>节点属性，将<code>Sprite</code>属性<code>Type</code>改为<code>FILLED</code>,同时将<code>ProgressBar</code>属性<code>Mode</code>也改为<code>FILLED</code>,同时需要将<code>Total Length</code>的值设置为<code>1</code>。<br>如下图：<br><img src="https://pic.imgdb.cn/item/66432bdc0ea9cb14039867bf.png" alt="示意图" decoding="async" loading="eager" fetchpriority="high"><br>其次，将子节点<code>Bar</code>的<code>Sprite</code>属性<code>Type</code>改为<code>FILLED</code>即可。<br>如下图：<br><img src="https://pic.imgdb.cn/item/66432c0a0ea9cb140398a871.png" alt="示意图" decoding="async" loading="lazy"><br>注意：上面需要改属性的地方如果有一个地方没有，就会报错<code>ProgressBar non-FILLED mode only works when barSprite&#39;s Type is non-FILLED!</code>。<br>如下图：<br><img src="https://pic.imgdb.cn/item/66432b620ea9cb140397d29e.png" alt="示意图" decoding="async" loading="lazy"></p>
 
     </div>
 
@@ -522,23 +528,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -593,21 +590,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>

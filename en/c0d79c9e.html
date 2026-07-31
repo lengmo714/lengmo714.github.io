@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Configure Firebase Cloud Messaging for an iOS app using an APNs authentication key.">
@@ -55,7 +55,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/c0d79c9e.html#article","headline":"Integrating FCM Push Notifications on iOS","description":"Configure Firebase Cloud Messaging for an iOS app using an APNs authentication key.","image":["https://lengmo714.top/postImg/c0d79c9e/1.jpg"],"datePublished":"2026-04-21T12:12:29.000Z","dateModified":"2026-07-30T04:01:51.815Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/c0d79c9e.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, iOS, FCM","wordCount":162}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/c0d79c9e.html#article","headline":"Integrating FCM Push Notifications on iOS","description":"Configure Firebase Cloud Messaging for an iOS app using an APNs authentication key.","datePublished":"2026-04-21T12:12:29.000Z","dateModified":"2026-07-30T04:01:51.815Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/c0d79c9e.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, iOS, FCM","wordCount":162,"image":["https://lengmo714.top/postImg/c0d79c9e/1.jpg"]}</script>
 
 
 
@@ -73,14 +73,21 @@
 
   <title>Integrating FCM Push Notifications on iOS | 南锋</title>
   
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDK58GP86Z"></script>
     <script>
-      if (CONFIG.hostname === location.hostname) {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XDK58GP86Z');
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'G-XDK58GP86Z',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
       }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
     </script>
 
 
@@ -114,7 +121,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -218,7 +225,6 @@
 
     
   <div class="reading-progress-bar"></div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -284,15 +290,15 @@
 <li>Open the <a target="_blank" rel="noopener" href="https://console.firebase.google.com/?pli=1">Firebase console</a> and create an iOS app. Unlike Android setup, you must first create the app in the Apple Developer portal and enter its bundle ID in Firebase.</li>
 <li>Open the section shown below and upload the corresponding APNs authentication key, which is the <strong>recommended</strong> option.</li>
 </ol>
-<p><img data-src="/postImg/c0d79c9e/1.jpg" alt="Upload the APNs key in Firebase"></p>
+<p><img src="/postImg/c0d79c9e/1.jpg" alt="Upload the APNs key in Firebase" decoding="async" loading="eager" fetchpriority="high"></p>
 <p>You can also upload an APNs certificate—the <code>.p12</code> certificate commonly used for push notifications. The authentication key described above is a <code>.p8</code> file.</p>
 <h3 id="Create-an-APNs-authentication-key-p8"><a href="#Create-an-APNs-authentication-key-p8" class="headerlink" title="Create an APNs authentication key (.p8)"></a>Create an APNs authentication key (<code>.p8</code>)</h3><p>Open <a target="_blank" rel="noopener" href="https://developer.apple.com/account/resources/authkeys/list">Certificates, Identifiers &amp; Profiles</a> in the Apple Developer portal and create an APNs key:</p>
-<p><img data-src="/postImg/c0d79c9e/2.png" alt="Create an APNs key"></p>
+<p><img src="/postImg/c0d79c9e/2.png" alt="Create an APNs key" decoding="async" loading="lazy"></p>
 <p>Enter a name and description, then enable <code>Apple Push Notifications service (APNs)</code>:</p>
-<p><img data-src="/postImg/c0d79c9e/3.png" alt="Enable APNs"></p>
+<p><img src="/postImg/c0d79c9e/3.png" alt="Enable APNs" decoding="async" loading="lazy"></p>
 <p>Continue, click <code>Save</code>, and download the key:</p>
-<p><img data-src="/postImg/c0d79c9e/4.png" alt="Save the key"></p>
-<p><img data-src="/postImg/c0d79c9e/5.png" alt="Download the key"></p>
+<p><img src="/postImg/c0d79c9e/4.png" alt="Save the key" decoding="async" loading="lazy"></p>
+<p><img src="/postImg/c0d79c9e/5.png" alt="Download the key" decoding="async" loading="lazy"></p>
 <p>Pay attention to the warning in yellow: the key can be downloaded only once, so store it securely. Finally, return to Firebase and enter the requested APNs key information.</p>
 
     </div>
@@ -543,23 +549,14 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
 
 
@@ -614,21 +611,6 @@
   
 
   +  
-  
-	<script type="text/javascript" src="/js/cursor/fireworks.js"></script>
-  
 
 </body>
 </html>
-
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
