@@ -45,6 +45,13 @@
 <link rel="canonical" href="https://lengmo714.top/c0d79c9e.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/c0d79c9e.html#article","headline":"ios如何接入FCM推送","description":"ios如何接入FCM推送","image":["https://lengmo714.top/postImg/c0d79c9e/1.jpg"],"datePublished":"2026-04-21T12:12:29.000Z","dateModified":"2026-04-21T12:30:40.615Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/c0d79c9e.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, ios","wordCount":17}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -256,21 +263,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 <h3 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h3><p>1、Apple Developer账号，<strong>这个是必须的，不然测试都无法测试</strong><br>2、App ID开启<code>Push Notification</code></p>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>1、先去<a target="_blank" rel="noopener" href="https://console.firebase.google.com/?pli=1">firbase控制台</a>创建一个ios应用，这里创建和安卓不一样，需要先去苹果后台创建一个应用，填写应用ID<br>2、然后去下图所示位置，上传相应APNs密钥（<strong>官方推荐</strong>）<br><img data-src="/postImg/c0d79c9e/1.jpg"><br>当然也可以上传APNs证书，也就是我们平时说的<code>.p12</code>证书。上面密钥是<code>.p8</code>为后缀的文件。</p>
-<h3 id="APNs申请步骤（-p8）"><a href="#APNs申请步骤（-p8）" class="headerlink" title="APNs申请步骤（.p8）"></a>APNs申请步骤（.p8）</h3><p>进入<a target="_blank" rel="noopener" href="https://developer.apple.com/account/resources/authkeys/list">Apple Developer后台</a>创建APNs Key<br>如下图所示<br><img data-src="/postImg/c0d79c9e/2.png"><br>这里两个随便填，因为我们是接推送，所以这里勾选<code>Apple Push Notifications service(APNs)</code><br><img data-src="/postImg/c0d79c9e/3.png"><br>然后继续，这里点<code>save</code>然后将密钥<code>Download</code>下来即可。<br><img data-src="/postImg/c0d79c9e/4.png"><br><img data-src="/postImg/c0d79c9e/5.png"><br>注意这里黄色文本的提示，这个密钥只能下载一次，所以一定要妥善保管</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>1、先去<a target="_blank" rel="noopener" href="https://console.firebase.google.com/?pli=1">firbase控制台</a>创建一个ios应用，这里创建和安卓不一样，需要先去苹果后台创建一个应用，填写应用ID<br>2、然后去下图所示位置，上传相应APNs密钥（<strong>官方推荐</strong>）<br><img data-src="/postImg/c0d79c9e/1.jpg" alt="ios如何接入FCM推送 — 步骤"><br>当然也可以上传APNs证书，也就是我们平时说的<code>.p12</code>证书。上面密钥是<code>.p8</code>为后缀的文件。</p>
+<h3 id="APNs申请步骤（-p8）"><a href="#APNs申请步骤（-p8）" class="headerlink" title="APNs申请步骤（.p8）"></a>APNs申请步骤（.p8）</h3><p>进入<a target="_blank" rel="noopener" href="https://developer.apple.com/account/resources/authkeys/list">Apple Developer后台</a>创建APNs Key<br>如下图所示<br><img data-src="/postImg/c0d79c9e/2.png" alt="ios如何接入FCM推送 — APNs申请步骤（.p8）"><br>这里两个随便填，因为我们是接推送，所以这里勾选<code>Apple Push Notifications service(APNs)</code><br><img data-src="/postImg/c0d79c9e/3.png" alt="ios如何接入FCM推送 — APNs申请步骤（.p8）"><br>然后继续，这里点<code>save</code>然后将密钥<code>Download</code>下来即可。<br><img data-src="/postImg/c0d79c9e/4.png" alt="ios如何接入FCM推送 — APNs申请步骤（.p8）"><br><img data-src="/postImg/c0d79c9e/5.png" alt="ios如何接入FCM推送 — APNs申请步骤（.p8）"><br>注意这里黄色文本的提示，这个密钥只能下载一次，所以一定要妥善保管</p>
 <p>然后再去Firebase后台去填写相关信息就可以了啦</p>
 
     </div>
@@ -414,21 +415,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -472,7 +473,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

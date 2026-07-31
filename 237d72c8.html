@@ -42,6 +42,13 @@
 <link rel="canonical" href="https://lengmo714.top/237d72c8.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/237d72c8.html#article","headline":"ios版本构建Build不对的问题","description":"ios版本构建Build不对的问题","image":["https://lengmo714.top/postImg/237d72c8/1.png"],"datePublished":"2026-07-02T02:21:05.000Z","dateModified":"2026-07-29T10:32:40.020Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/237d72c8.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, ios","wordCount":16}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -253,20 +260,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 <p>这两天在构建ios版本的时候发现一个严重的问题，我发布到后台的版本和我自己本地构建的版本对应不上。</p>
-<p>如图，<br><img data-src="/postImg/237d72c8/1.png"><br>我Archive出来的版本都一样，刚开始我没有在意，结果今天我准备正儿八经提审的时候，发现<em>找不到</em>我的昨天上传的包了，因为我昨天构建的是下面这样子的<br><img data-src="/postImg/237d72c8/2.png"><br>结果我在后台找不到版本和构建为<code>1.0.0(8)</code>的这个包，这时候才意识到问题。</p>
+<p>如图，<br><img data-src="/postImg/237d72c8/1.png" alt="ios版本构建Build不对的问题 — 图片 1"><br>我Archive出来的版本都一样，刚开始我没有在意，结果今天我准备正儿八经提审的时候，发现<em>找不到</em>我的昨天上传的包了，因为我昨天构建的是下面这样子的<br><img data-src="/postImg/237d72c8/2.png" alt="ios版本构建Build不对的问题 — 图片 2"><br>结果我在后台找不到版本和构建为<code>1.0.0(8)</code>的这个包，这时候才意识到问题。</p>
 <p>仔细检查一番发现，原来是我在这里修改的<code>Build=8</code>没有生效到最终<code>.app</code>的<code>Info.plist</code>文件里。</p>
 <p><strong>解决步骤：</strong><br>1、找到我们Archives真正使用的Info.plist<br>进入<code>Build Setting</code>,搜索<code>Info.plist File</code>。</p>
 <p>2、直接用编辑器打开Info.plist，我个人习惯看XML格式的文件。<br>查找<code>CFBundleShortVersionString</code>和<code>CFBundleVersion</code>两个关键词。修改这两个值即可。<br>比如我这里就改成了</p>
@@ -415,21 +416,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -473,7 +474,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

@@ -55,6 +55,13 @@
 <link rel="canonical" href="https://lengmo714.top/7bbb7305.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/7bbb7305.html#article","headline":"cocosCreator事件穿透与阻止机制详解：捕获与冒泡的实现","description":"cocosCreator事件穿透与阻止机制详解:捕获与冒泡的实现","image":["https://s1.ax1x.com/2023/04/17/p9PlfKI.png"],"datePublished":"2023-04-17T13:37:10.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/7bbb7305.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"","wordCount":6}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -266,19 +273,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>今天在写代码的时候给父节点和子节点添加了2个不同的点击事件.然后发现在触发子节点的点击事件时会同时触发父节点的点击事件.<br>查了下发现在cocosCreator中,事件分为两种类型:捕获事件和冒泡事件。默认情况下，所有节点的事件都是冒泡事件，以为着当子节点触发了一个事件后，它的父节点也会接受到这个事件。<br>解决问题的方法（我这里用到的方法）<br>在子节点上添加一个<code>BlockInputEvents</code>组件，如下图：<br><img data-src="https://s1.ax1x.com/2023/04/17/p9PlfKI.png" style="width:600px;height:200px" alt="示意图" /></p>
+<p>今天在写代码的时候给父节点和子节点添加了2个不同的点击事件.然后发现在触发子节点的点击事件时会同时触发父节点的点击事件.<br>查了下发现在cocosCreator中,事件分为两种类型:捕获事件和冒泡事件。默认情况下，所有节点的事件都是冒泡事件，以为着当子节点触发了一个事件后，它的父节点也会接受到这个事件。<br>解决问题的方法（我这里用到的方法）<br>在子节点上添加一个<code>BlockInputEvents</code>组件，如下图：<br><img data-src="https://s1.ax1x.com/2023/04/17/p9PlfKI.png" style="width:600px;height:200px" alt="示意图"></p>
 
     </div>
 
@@ -415,21 +416,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -473,7 +474,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

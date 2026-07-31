@@ -42,6 +42,13 @@
 <link rel="canonical" href="https://lengmo714.top/2a8f95cc.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/2a8f95cc.html#article","headline":"cocosCreator导出IOS工程热更后依然走旧逻辑的问题","description":"cocosCreator导出IOS工程热更后依然走旧逻辑的问题","image":["https://lengmo714.top/postImg/2a8f95cc/1.png"],"datePublished":"2026-06-17T07:18:59.000Z","dateModified":"2026-07-29T06:47:09.806Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/2a8f95cc.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, ios","wordCount":166}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -253,14 +260,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
@@ -272,8 +273,8 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build/ios/data</span><br></pre></td></tr></table></figure>
 <p>热更后本地路径一般类似：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Documents/asset</span><br></pre></td></tr></table></figure>
-<p>我这里就是没注意，在OC中改路径，导致路径不对。<br><img data-src="/postImg/2a8f95cc/1.png"></p>
-<p>改了路径后，路径就对了<br><img data-src="/postImg/2a8f95cc/2.png"></p>
+<p>我这里就是没注意，在OC中改路径，导致路径不对。<br><img data-src="/postImg/2a8f95cc/1.png" alt="cocosCreator导出IOS工程热更后依然走旧逻辑的问题 — Cocos 3.X常见坑：热更路径要指向assets根目录"></p>
+<p>改了路径后，路径就对了<br><img data-src="/postImg/2a8f95cc/2.png" alt="cocosCreator导出IOS工程热更后依然走旧逻辑的问题 — Cocos 3.X常见坑：热更路径要指向assets根目录"></p>
 <h3 id="关键问题"><a href="#关键问题" class="headerlink" title="关键问题"></a>关键问题</h3><p>上面路径改了之后问题依然存在，说明没有找到问题的本质原因<br>关键问题在于</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">_am</span>.<span class="title function_">setEventCallback</span>(<span class="literal">null</span>!);</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">_updateListener</span> = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> searchPaths = jsb.<span class="property">fileUtils</span>.<span class="title function_">getSearchPaths</span>();</span><br><span class="line"><span class="keyword">var</span> newPaths = <span class="variable language_">this</span>.<span class="property">_am</span>.<span class="title function_">getLocalManifest</span>().<span class="title function_">getSearchPaths</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;---- newPaths&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(newPaths));</span><br><span class="line"><span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">unshift</span>.<span class="title function_">apply</span>(searchPaths, newPaths);</span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;HotUpdateSearchPaths&#x27;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(searchPaths));</span><br><span class="line">jsb.<span class="property">fileUtils</span>.<span class="title function_">setSearchPaths</span>(searchPaths);</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    game.<span class="title function_">restart</span>();</span><br><span class="line">&#125;, <span class="number">100</span>)</span><br></pre></td></tr></table></figure>
 <p>我这里只在热更完成后<strong>setSearchPaths</strong>。但是重启后，没有在游戏入口最早的位置重新setSearchPaths。所以IOS依旧走了旧代码。<br>最简单的方法，在<code>main.js</code>中改成下面这样：</p>
@@ -422,21 +423,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -480,7 +481,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

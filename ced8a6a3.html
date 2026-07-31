@@ -56,6 +56,13 @@
 <link rel="canonical" href="https://lengmo714.top/ced8a6a3.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/ced8a6a3.html#article","headline":"Hexo博客集成jVectorMap：实现足迹地图功能","description":"Hexo博客集成jVectorMap：实现足迹地图功能","image":["https://s1.ax1x.com/2022/11/03/xqsHHK.jpg"],"datePublished":"2022-10-21T17:12:19.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/ced8a6a3.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo"],"keywords":"","wordCount":228}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -267,30 +274,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>本方法适用与任何主题<br>足迹地图作者效果如下：<br><img data-src="https://s1.ax1x.com/2022/11/03/xqsHHK.jpg" alt="效果图" /></p>
+<p>本方法适用与任何主题<br>足迹地图作者效果如下：<br><img data-src="https://s1.ax1x.com/2022/11/03/xqsHHK.jpg" alt="效果图"></p>
 <h3 id="jVectorMap"><a href="#jVectorMap" class="headerlink" title="jVectorMap"></a>jVectorMap</h3><p>JVectorMap 是一个优秀的、兼容性强的 jQuery 地图插件。</p>
 <p>它可以工作在包括 IE6 在内的各款浏览器中，矢量图输出，除官方提供各国地图数据外，用户可以使用数据转换程序定制地图数据。例如街道地图、小区地图等等。</p>
 <p>JVectorMap 官方网站提供了很多相关文档和使用示例，感兴趣的小伙伴可以自己研究一下。</p>
-<a href="http://jvectormap.com/" title="" target="">官方网站,</a>
+<a target="_blank" rel="noopener" href="http://jvectormap.com/" title target>官方网站,</a>
 
 <p>今天教大家通过 jVectorMap 制作旅行足迹地图，最终的效果可以查看下面的 Demo 演示（中国），并教大家如何将制作好的足迹地图嵌入到我们自己的博客中。</p>
-<a href="https://lengmo714.top/net/map/index.html" title="" target="">Demo,</a>
+<a href="https://lengmo714.top/net/map/index.html" title target>Demo,</a>
 
 
 <h3 id="获取源码"><a href="#获取源码" class="headerlink" title="获取源码"></a>获取源码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="attr">https</span>:<span class="comment">//github.com/HelloWuJiaYi/jVectorMap-Footprint</span></span><br></pre></td></tr></table></figure>
-<h3 id="文件说明"><a href="#文件说明" class="headerlink" title="文件说明"></a>文件说明</h3><img data-src="https://s1.ax1x.com/2022/11/03/xqs7B6.jpg" alt="示意图"/>
+<h3 id="文件说明"><a href="#文件说明" class="headerlink" title="文件说明"></a>文件说明</h3><img data-src="https://s1.ax1x.com/2022/11/03/xqs7B6.jpg" alt="示意图">
 
 <ul>
 <li>绿色框中是必须要引入的文件内容。</li>
@@ -311,7 +312,7 @@
 <h3 id="添加足迹位置"><a href="#添加足迹位置" class="headerlink" title="添加足迹位置"></a>添加足迹位置</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">markers</span>: [ <span class="comment">// 足迹位置</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#123;latLng: [经度（保留两位小数）, 纬度（保留两位小数）], name: &#x27;城市名称&#x27;&#125;,</span></span><br><span class="line"></span><br><span class="line">        &#123;<span class="attr">latLng</span>: [<span class="number">39.90</span>, <span class="number">116.41</span>], <span class="attr">name</span>: <span class="string">&#x27;北京&#x27;</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">latLng</span>: [<span class="number">31.24</span>, <span class="number">121.50</span>], <span class="attr">name</span>: <span class="string">&#x27;上海&#x27;</span>&#125;,</span><br><span class="line"></span><br><span class="line">        &#123;<span class="attr">latLng</span>: [<span class="number">46.06</span>, <span class="number">122.06</span>], <span class="attr">name</span>: <span class="string">&#x27;内蒙古 - 乌兰浩特&#x27;</span>&#125;</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure>
 <p>语法：<code>&#123;latLng: [经度（保留两位小数）, 纬度（保留两位小数）], name: &#39;城市名称&#39;&#125;</code>。</p>
 <h3 id="嵌入到博客"><a href="#嵌入到博客" class="headerlink" title="嵌入到博客"></a>嵌入到博客</h3><p>这里介绍作者嵌入到博客中的方法，不一定通用。<br>作者使用的是Hexo静态博客。<br>首先将下载下来的源代码放到blog文件夹下，上传到服务器。<br>再在主题配置文件<code>_config.yml</code>中<code>menu</code>中添加刚刚修改好的<code>index.html</code>在服务器上的文件路径，比如<code>https://abc.com/map/index</code><br>最后将修改后的配置文件上传即可。</p>
-<a href="https://lengmo714.top/net/map/index.html" title="" target="">笔者效果,</a>
+<a href="https://lengmo714.top/net/map/index.html" title target>笔者效果,</a>
 
 
     </div>
@@ -450,21 +451,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -508,7 +509,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

@@ -41,6 +41,13 @@
 <link rel="canonical" href="https://lengmo714.top/f4442f9c.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/f4442f9c.html#article","headline":"如何在服务器上强制将HTTP跳转到HTTPS：配置与实施","description":"如何在服务器上强制将HTTP跳转到HTTPS","image":["https://s1.ax1x.com/2022/11/06/xj0uLt.md.jpg"],"datePublished":"2022-11-06T15:19:04.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/f4442f9c.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["https"],"keywords":"http, https","wordCount":64}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -253,14 +260,8 @@
 
       
         <p>博主最近心血来潮，将网站从github部署到云服务器上。<br>在域名解析之后发现访问博客只能通过<code>http</code>访问，而且总是提示网站不安全，于是便心生了将<code>http</code>强制跳转到<code>https</code>的想法~</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
@@ -269,7 +270,7 @@
 <h3 id="下载ssl证书"><a href="#下载ssl证书" class="headerlink" title="下载ssl证书"></a>下载ssl证书</h3><p>下载nginx的ssl证书，没有的需要先去申请，网上很多教程，这里就不介绍了</p>
 <h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>打开云服务器终端，修改<code>nginx.conf</code>配置，输入命令<br><code>vim /etc/nginx/nginx.conf</code><br>将下面代码复制粘贴到原有的配置的<code>server&#123;&#125;</code>下面</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">        listen <span class="number">443</span> ssl;</span><br><span class="line">        server_name localhost;  <span class="comment"># localhost修改为您证书绑定的域名。</span></span><br><span class="line">        ssl_certificate cert/domain_name.top.pem;   <span class="comment">#将domain_name.pem替换成您证书的文件名。</span></span><br><span class="line">        ssl_certificate_key cert/domain_name.top.key;   <span class="comment">#将domain_name.key替换成您证书的密钥文件名。</span></span><br><span class="line">        ssl_session_timeout 5m;</span><br><span class="line">        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;  <span class="comment">#使用此加密套件。</span></span><br><span class="line">        ssl_protocols TLSv1 TLSv1<span class="number">.1</span> TLSv1<span class="number">.2</span>;   <span class="comment">#使用该协议进行配置。</span></span><br><span class="line">        ssl_prefer_server_ciphers on;</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass   http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">80</span>;  <span class="comment">#选填你的端口号</span></span><br><span class="line">            proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            proxy_set_header Host $host;</span><br><span class="line">            proxy_set_header Upgrade-Insecure-Requests <span class="number">1</span>;</span><br><span class="line">            proxy_set_header X-Forwarded-Proto https;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>复制好后，按<code>esc</code>键，然后按<code>shift + :</code>键，输入<code>x</code>保存退出<br>再在终端输入<code>nginx -s reload</code>重启nginx服务即可<br><img data-src="https://s1.ax1x.com/2022/11/06/xj0uLt.md.jpg" alt="示意图"/></p>
+<p>复制好后，按<code>esc</code>键，然后按<code>shift + :</code>键，输入<code>x</code>保存退出<br>再在终端输入<code>nginx -s reload</code>重启nginx服务即可<br><img data-src="https://s1.ax1x.com/2022/11/06/xj0uLt.md.jpg" alt="示意图"></p>
 
     </div>
 
@@ -326,12 +327,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/3315f663.html" rel="prev" title="Building an APK from a Legacy quick-Cocos2d-x Project">
-      <i class="fa fa-chevron-left"></i> Building an APK from a Legacy quick-Cocos2d-x Project
+    <a href="/en/f4442f9c.html" rel="prev" title="Redirecting HTTP to HTTPS with Nginx">
+      <i class="fa fa-chevron-left"></i> Redirecting HTTP to HTTPS with Nginx
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/f4442f9c.html" rel="next" title="Redirecting HTTP to HTTPS with Nginx">
-      Redirecting HTTP to HTTPS with Nginx <i class="fa fa-chevron-right"></i>
+    <a href="/391391b6.html" rel="next" title="在Mac上安装Android NDK：详细步骤与配置指南">
+      在Mac上安装Android NDK：详细步骤与配置指南 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -412,21 +413,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -470,7 +471,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

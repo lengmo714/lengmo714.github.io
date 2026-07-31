@@ -44,6 +44,13 @@
 <link rel="canonical" href="https://lengmo714.top/40cf3e63.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/40cf3e63.html#article","headline":"IOS开发过程中Swift兼容库问题","description":"IOS开发过程中Swift兼容库问题","image":["https://lengmo714.top/postImg/40cf3e63/1.png"],"datePublished":"2026-06-24T11:12:50.000Z","dateModified":"2026-06-24T12:01:45.131Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/40cf3e63.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, ios","wordCount":137}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -255,19 +262,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>今天在给IOS工程接入AdMob广告时，遇到下面问题<br><img data-src="/postImg/40cf3e63/1.png">;</p>
+<p>今天在给IOS工程接入AdMob广告时，遇到下面问题<br><img data-src="/postImg/40cf3e63/1.png" alt="IOS开发过程中Swift兼容库问题 — 图片 1">;</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Undefined symbol: __swift_FORCE_LOAD_$_swiftCompatibility51</span><br><span class="line">Undefined symbol: __swift_FORCE_LOAD_$_swiftCompatibility56</span><br><span class="line">Undefined symbol: __swift_FORCE_LOAD_$_swiftCompatibilityConcurrency</span><br></pre></td></tr></table></figure>
 <p>其实这三个是同一类问题：工程里用了Swift&#x2F;Swift编译产物，但最终链接阶段没有把对应的Swift Compatibility库带进去。<br>这里不是代码错误，只需要加几个库即可。</p>
 <h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>把这几个<code>.tbd</code>加到<strong>主App Target的Link binary With Libraries</strong><br>具体方法：</p>
@@ -282,12 +283,12 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">主Target</span><br><span class="line">→ Build Settings</span><br><span class="line">→ Other Linker Flags</span><br></pre></td></tr></table></figure>
 <p>加上这三行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(inherited)</span><br><span class="line">-lswiftCompatibility51</span><br><span class="line">-lswiftCompatibility56</span><br><span class="line">-lswiftCompatibilityConcurrency</span><br></pre></td></tr></table></figure>
-<p><img data-src="/postImg/40cf3e63/2.png">;<br>注意是加到主Target,不是Pods，也不是Project。<br>然后再确认：</p>
+<p><img data-src="/postImg/40cf3e63/2.png" alt="IOS开发过程中Swift兼容库问题 — 方法二">;<br>注意是加到主Target,不是Pods，也不是Project。<br>然后再确认：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Always Embed Swift Standard Libraries = YES</span><br></pre></td></tr></table></figure>
 
-<p>到这里，如果不出意外的意外，你会遇到这个问题<code>library &#39;swiftCompatibility51&#39; not found</code><br><img data-src="/postImg/40cf3e63/4.png">;<br>这里在下面路径</p>
+<p>到这里，如果不出意外的意外，你会遇到这个问题<code>library &#39;swiftCompatibility51&#39; not found</code><br><img data-src="/postImg/40cf3e63/4.png" alt="IOS开发过程中Swift兼容库问题 — 方法二">;<br>这里在下面路径</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Build Settings</span><br><span class="line">→ Library Search Paths</span><br></pre></td></tr></table></figure>
-<p><img data-src="/postImg/40cf3e63/3.png">;<br>加</p>
+<p><img data-src="/postImg/40cf3e63/3.png" alt="IOS开发过程中Swift兼容库问题 — 方法二">;<br>加</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(inherited)</span><br><span class="line">$(SDKROOT)/usr/lib/swift</span><br><span class="line">$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)</span><br></pre></td></tr></table></figure>
 <p><em>温馨小提示：这些地方如果不太好找，可以直接搜索关键词，很快就能跳出来</em></p>
 <p>到这里，你的工程完成编译是没什么问题了。</p>
@@ -446,21 +447,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -504,7 +505,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

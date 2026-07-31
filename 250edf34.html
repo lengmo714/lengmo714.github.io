@@ -43,6 +43,13 @@
 <link rel="canonical" href="https://lengmo714.top/250edf34.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/250edf34.html#article","headline":"cocosCreator教程：动态修改精灵图片并解决图片路径问题","description":"cocosCreator动态修改精灵图片","image":["https://s1.ax1x.com/2023/04/13/ppx2mSP.png"],"datePublished":"2023-04-13T13:52:14.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/250edf34.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, TypeScript, Cocos","wordCount":77}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -254,22 +261,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 <p>今天在用cocosCreator写代码过程中，需要给7个精灵动态修改图片。出现了下面错误。图片找不到</p>
-<img data-src="https://s1.ax1x.com/2023/04/13/ppx2mSP.png" alt="示意图" />
+<img data-src="https://s1.ax1x.com/2023/04/13/ppx2mSP.png" alt="示意图">
 
-<p>自己就很郁闷，查看图片路径又是没有问题的<br><img data-src="https://s1.ax1x.com/2023/04/13/ppx2ZWt.png" alt="示意图" /></p>
+<p>自己就很郁闷，查看图片路径又是没有问题的<br><img data-src="https://s1.ax1x.com/2023/04/13/ppx2ZWt.png" alt="示意图"></p>
 <p>下面给出有bug和解决bug的代码<br>有bug</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> <span class="attr">i</span>:<span class="built_in">number</span> = <span class="number">0</span>;i&lt;<span class="number">7</span>;i++)&#123;</span><br><span class="line">    <span class="keyword">let</span> spriteFrame = <span class="keyword">new</span> <span class="title class_">SpriteFrame</span>();</span><br><span class="line">    <span class="keyword">let</span> imagePath = <span class="string">&quot;ui/Atlas/gameHall/game_type_btn_&quot;</span> + (i+<span class="number">1</span>) + <span class="string">&quot;.png&quot;</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;imagePath = &quot;</span>,imagePath);</span><br><span class="line">    resources.<span class="title function_">load</span>(imagePath,<span class="title class_">SpriteFrame</span>,<span class="function">(<span class="params">err,res</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;图片不存在&quot;</span>,err)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        spriteFrame = res;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">hallImage</span>[i].<span class="property">spriteFrame</span> = spriteFrame;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -331,8 +332,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/d7ba392e.html" rel="prev" title="Hiding .meta Files in VS Code">
-      <i class="fa fa-chevron-left"></i> Hiding .meta Files in VS Code
+    <a href="/d7ba392e.html" rel="prev" title="如何在vsCode中隐藏.meta文件：cocosCreator工程优化技巧">
+      <i class="fa fa-chevron-left"></i> 如何在vsCode中隐藏.meta文件：cocosCreator工程优化技巧
     </a></div>
       <div class="post-nav-item">
     <a href="/en/250edf34.html" rel="next" title="Dynamically Changing Sprite Images in Cocos Creator">
@@ -416,21 +417,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -474,7 +475,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

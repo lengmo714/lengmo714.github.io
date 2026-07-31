@@ -43,6 +43,13 @@
 <link rel="canonical" href="https://lengmo714.top/53dce82e.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/53dce82e.html#article","headline":"安卓手机如何直接安装aab包","description":"安卓手机如何直接安装aab包","image":["https://lengmo714.top/postImg/53dce82e/1.png"],"datePublished":"2026-06-17T12:52:21.000Z","dateModified":"2026-06-17T13:17:09.447Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/53dce82e.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Android"],"keywords":"Android","wordCount":28}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -254,14 +261,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
@@ -270,14 +271,14 @@
 <h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><p><strong>下载Bundletool</strong><br><a target="_blank" rel="noopener" href="https://github.com/google/bundletool/releases">Bundletool下载地址</a></p>
 <p><strong>生成apks文件</strong><br>将前面下载的<code>Bundletool</code>工具和<code>aab</code>文件放在同一目录下，然后再打开终端，执行命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar bundletool.jar build-apks --bundle=app-release.aab --output=app.apks --mode=universal</span><br></pre></td></tr></table></figure>
-<p>如下图<br><img data-src="/postImg/53dce82e/1.png"><br>注意这里的INFO输入只是一个提示，告诉你这个apk是用的你电脑里debug的签名文件。<br>执行之后就会在你上面指定的路径下生成一个<code>app.apks</code>文件。<br><img data-src="/postImg/53dce82e/2.png"></p>
+<p>如下图<br><img data-src="/postImg/53dce82e/1.png" alt="安卓手机如何直接安装aab包 — 具体步骤"><br>注意这里的INFO输入只是一个提示，告诉你这个apk是用的你电脑里debug的签名文件。<br>执行之后就会在你上面指定的路径下生成一个<code>app.apks</code>文件。<br><img data-src="/postImg/53dce82e/2.png" alt="安卓手机如何直接安装aab包 — 具体步骤"></p>
 <p><strong>安装到手机(adb安装)</strong><br>1、打开手机USB调试功能,在电脑终端输入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb devices</span><br></pre></td></tr></table></figure>
-<p>如果是向下图一样，就表示电脑连上手机了，且USB调试可以用<br><img data-src="/postImg/53dce82e/3.png"></p>
+<p>如果是向下图一样，就表示电脑连上手机了，且USB调试可以用<br><img data-src="/postImg/53dce82e/3.png" alt="安卓手机如何直接安装aab包 — 具体步骤"></p>
 <p>然后执行命令</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar bundletool.jar install-apks --apks=app.apks</span><br></pre></td></tr></table></figure>
 <p>在手机上点安装就可以了。</p>
-<p><strong>安装到手机(解压安装)</strong><br>如果你上面adb安装不会，或者说你要把apk发送给一个不懂技术的人，那行，可以直接对<code>app.apks</code>文件进行解压。<br>将文件后缀改为<code>.zip</code>，然后解压，解压之后会有2个文件<code>toc.pb</code>和<code>universal.apk</code><br><img data-src="/postImg/53dce82e/4.png"><br>直接把apk发送给别人即可。</p>
+<p><strong>安装到手机(解压安装)</strong><br>如果你上面adb安装不会，或者说你要把apk发送给一个不懂技术的人，那行，可以直接对<code>app.apks</code>文件进行解压。<br>将文件后缀改为<code>.zip</code>，然后解压，解压之后会有2个文件<code>toc.pb</code>和<code>universal.apk</code><br><img data-src="/postImg/53dce82e/4.png" alt="安卓手机如何直接安装aab包 — 具体步骤"><br>直接把apk发送给别人即可。</p>
 
     </div>
 
@@ -419,21 +420,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -477,7 +478,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

@@ -41,6 +41,13 @@
 <link rel="canonical" href="https://lengmo714.top/9b2c87ad.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/9b2c87ad.html#article","headline":"cocosCreator：给多个精灵添加点击事件的实现","description":"cocosCreator给几个精灵添加点击事件","image":["https://s1.ax1x.com/2023/04/10/ppq7zCR.png"],"datePublished":"2023-04-10T14:13:20.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/9b2c87ad.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, TypeScript","wordCount":92}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -252,21 +259,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 <p><strong>开发环境：</strong> cocosCreator 3.7.2<br><strong>开发语言：</strong> TypeScript<br><strong>背景：</strong> 小白开始学习cocosCreator，在一个场景中有6个相同的精灵，自己需要知道按钮、移动的是哪个精灵。<br>自己小白一个，记录自己的方法，如果您有更好更简便的方法，欢迎评论区回复，还望各位大佬多多指教<br><strong>代码：</strong></p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; _decorator, <span class="title class_">Component</span>, <span class="title class_">Node</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;cc&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> &#123; ccclass, property &#125; = _decorator;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ccclass</span>(<span class="string">&#x27;Drag&#x27;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Drag</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">    <span class="meta">@property</span>(&#123;<span class="attr">type</span>:<span class="title class_">Node</span>&#125;)</span><br><span class="line">    <span class="keyword">public</span> <span class="title class_">DragRoll</span>:<span class="title class_">Node</span>[] =[];  <span class="comment">// 挂载的节点，如下图</span></span><br><span class="line">    <span class="keyword">public</span> <span class="attr">touchNum</span>:<span class="built_in">number</span> = <span class="number">0</span>;  <span class="comment">// 记录点的是哪个精灵</span></span><br><span class="line">    <span class="title function_">start</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">onEnable</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>;i&lt;<span class="number">6</span>;i++)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">DragRoll</span>[i].<span class="title function_">on</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_START</span>,<span class="variable language_">this</span>.<span class="property">_onTouchStart</span>,<span class="variable language_">this</span>);</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">DragRoll</span>[i].<span class="title function_">on</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_MOVE</span>,<span class="variable language_">this</span>.<span class="property">_onTouchMove</span>,<span class="variable language_">this</span>);</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">DragRoll</span>[i].<span class="title function_">on</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_END</span>,<span class="variable language_">this</span>.<span class="property">_onTouchEnd</span>,<span class="variable language_">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">onDisable</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>;i&lt;<span class="number">6</span>;i++)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">DragRoll</span>[i].<span class="title function_">on</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_START</span>,<span class="variable language_">this</span>.<span class="property">_onTouchStart</span>,<span class="variable language_">this</span>);</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">DragRoll</span>[i].<span class="title function_">on</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_MOVE</span>,<span class="variable language_">this</span>.<span class="property">_onTouchMove</span>,<span class="variable language_">this</span>);</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">DragRoll</span>[i].<span class="title function_">on</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_END</span>,<span class="variable language_">this</span>.<span class="property">_onTouchEnd</span>,<span class="variable language_">this</span>);            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">_onTouchStart</span>(<span class="params">touchEvent</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">6</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (touchEvent.<span class="property">target</span> == <span class="variable language_">this</span>.<span class="property">DragRoll</span>[i])&#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">touchNum</span> = i + <span class="number">1</span>;  <span class="comment">//ts的下标从0开始，所以+1</span></span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;点击了第几个按钮 = &quot;</span>,<span class="variable language_">this</span>.<span class="property">touchNum</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">_onTouchMove</span>(<span class="params">touchEvent</span>)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">_onTouchEnd</span>(<span class="params">touchEvent</span>)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">update</span>(<span class="params">deltaTime: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<img data-src="https://s1.ax1x.com/2023/04/10/ppq7zCR.png" style="width:300px;height:200px" alt="示意图" />
+<img data-src="https://s1.ax1x.com/2023/04/10/ppq7zCR.png" style="width:300px;height:200px" alt="示意图">
 
 
     </div>
@@ -409,21 +410,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -467,7 +468,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

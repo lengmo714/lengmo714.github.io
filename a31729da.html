@@ -40,6 +40,13 @@
 <link rel="canonical" href="https://lengmo714.top/a31729da.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/a31729da.html#article","headline":"Fetching FCM registration token failed导致手机闪退","description":"Fetching FCM registration token failed导致手机闪退","image":["https://lengmo714.top/postImg/FCM/1.jpg"],"datePublished":"2025-01-05T15:01:03.000Z","dateModified":"2025-05-30T06:59:32.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/a31729da.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["安卓开发"],"keywords":"安卓开发","wordCount":89}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -252,21 +259,15 @@
 
       
         <p>今天在接完firebase FCM通知后，发现手机会出现闪退的情况，而且都是在刚启动应用的前一两分钟。查看日志，发现是因为FCM通知导致的。</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 <h3 id="表现"><a href="#表现" class="headerlink" title="表现"></a>表现</h3><p>日志报错如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Fetching FCM registartion token failed</span><br><span class="line">java.io.IOException: java.util.concurrent.ExecutionException: java.io.IOException: SERVICE_NOT_AVAILABLE.</span><br></pre></td></tr></table></figure>
-<p>错误日志如下图所示：<br><img data-src="https://lengmo714.top/postImg/FCM/1.jpg" width = "150" height = "200" alt="日志截图" /></p>
+<p>错误日志如下图所示：<br><img data-src="https://lengmo714.top/postImg/FCM/1.jpg" width="150" height="200" alt="日志截图"></p>
 <h3 id="报错原因及解决方法"><a href="#报错原因及解决方法" class="headerlink" title="报错原因及解决方法"></a>报错原因及解决方法</h3><h4 id="原因一、手机不支持谷歌服务"><a href="#原因一、手机不支持谷歌服务" class="headerlink" title="原因一、手机不支持谷歌服务"></a>原因一、手机不支持谷歌服务</h4><p>可以在获取FCMtoken前加入一个判断，判断是否支持谷歌服务，代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">checkIsSupportGoogle</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">    <span class="type">GoogleApiAvailability</span> <span class="variable">googleApiAvailability</span> <span class="operator">=</span> GoogleApiAvailability.getInstance();</span><br><span class="line">    <span class="type">int</span> <span class="variable">resultCode</span> <span class="operator">=</span> googleApiAvailability.isGooglePlayServicesAvailable(context);</span><br><span class="line">    <span class="keyword">return</span> resultCode == ConnectionResult.SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>然后引入库</p>
@@ -416,21 +417,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -474,7 +475,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

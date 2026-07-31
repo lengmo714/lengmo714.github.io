@@ -43,6 +43,13 @@
 <link rel="canonical" href="https://lengmo714.top/en/ed933f20.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/ed933f20.html#article","headline":"Adding Algolia Search to a Hexo Blog","description":"Configure Algolia indexing and site search for a Hexo blog without committing the administrative API key.","image":["https://s1.ax1x.com/2023/08/19/pP8ni40.jpg"],"datePublished":"2023-08-19T14:21:12.000Z","dateModified":"2026-07-30T04:36:01.922Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/ed933f20.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo","Algolia"],"keywords":"Hexo, Algolia","wordCount":177}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -138,22 +145,22 @@
           </li>
         
           <li class="menu-item menu-item-about">
-            <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About
+            <a href="/en/about/" rel="section"><i class="fa fa-user fa-fw"></i>About
             </a>
           </li>
         
           <li class="menu-item menu-item-tags">
-            <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags
+            <a href="/en/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags
             </a>
           </li>
         
           <li class="menu-item menu-item-categories">
-            <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories
+            <a href="/en/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories
             </a>
           </li>
         
           <li class="menu-item menu-item-archives">
-            <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives
+            <a href="/en/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives
             </a>
           </li>
       <li class="menu-item menu-item-search">
@@ -261,7 +268,7 @@
         <p>My blog previously had no search feature, so I added one with Algolia. These are the important setup points.</p>
 <h3 id="Create-an-Algolia-account"><a href="#Create-an-Algolia-account" class="headerlink" title="Create an Algolia account"></a>Create an Algolia account</h3><p>Register through the <a target="_blank" rel="noopener" href="https://dashboard.algolia.com/">Algolia dashboard</a> and create an application and index.</p>
 <h3 id="Install-the-Hexo-integration"><a href="#Install-the-Hexo-integration" class="headerlink" title="Install the Hexo integration"></a>Install the Hexo integration</h3><p>Install and configure <a target="_blank" rel="noopener" href="https://github.com/LouisBarranqueiro/hexo-algoliasearch"><code>hexo-algoliasearch</code></a> by following its documentation. Map the application ID, index name, and search-only key to the corresponding fields in your Hexo&#x2F;theme configuration.</p>
-<img data-src="https://s1.ax1x.com/2023/08/19/pP8ni40.jpg" alt="Algolia key fields" />
+<img data-src="https://s1.ax1x.com/2023/08/19/pP8ni40.jpg" alt="Algolia key fields">
 
 <p>Put the site indexing configuration in the Hexo root <code>_config.yml</code>, not the theme’s <code>_config.yml</code>.</p>
 <h3 id="Configure-the-indexing-key"><a href="#Configure-the-indexing-key" class="headerlink" title="Configure the indexing key"></a>Configure the indexing key</h3><p>The browser-facing search-only key is different from the administrative indexing key. Keep the administrative key out of Git and provide it through an environment variable:</p>
@@ -271,7 +278,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo algolia</span><br></pre></td></tr></table></figure>
 
 <p>The indexed records should appear in the Algolia dashboard.</p>
-<img data-src="https://s1.ax1x.com/2023/08/19/pP8nkCV.jpg" alt="Records uploaded to the Algolia index" />
+<img data-src="https://s1.ax1x.com/2023/08/19/pP8nkCV.jpg" alt="Records uploaded to the Algolia index">
 
 <blockquote>
 <p>Never commit an Admin API key or put it in client-side code. If a real key has ever been published, revoke and rotate it in Algolia before continuing.</p>
@@ -279,7 +286,7 @@
 <h3 id="Rebuild-and-deploy"><a href="#Rebuild-and-deploy" class="headerlink" title="Rebuild and deploy"></a>Rebuild and deploy</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo generate --deploy</span><br></pre></td></tr></table></figure>
 
 <p>After deployment, the configured search interface should return results from the new index.</p>
-<img data-src="https://s1.ax1x.com/2023/08/19/pP8u3on.jpg" alt="Algolia search running on the Hexo blog" />
+<img data-src="https://s1.ax1x.com/2023/08/19/pP8u3on.jpg" alt="Algolia search running on the Hexo blog">
 
     </div>
 
@@ -422,21 +429,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -480,7 +487,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

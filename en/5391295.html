@@ -43,6 +43,13 @@
 <link rel="canonical" href="https://lengmo714.top/en/5391295.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/5391295.html#article","headline":"Customizing the Archive Page in Hexo’s NexT Theme","description":"Render archive entries with compact dates, icons, hover cards, and custom year headings in an older NexT theme.","image":["https://s1.ax1x.com/2022/11/03/xqsc7T.jpg"],"datePublished":"2022-10-22T06:06:35.000Z","dateModified":"2026-07-30T04:51:19.426Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/5391295.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo"],"keywords":"Hexo, NexT","wordCount":280}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -138,22 +145,22 @@
           </li>
         
           <li class="menu-item menu-item-about">
-            <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About
+            <a href="/en/about/" rel="section"><i class="fa fa-user fa-fw"></i>About
             </a>
           </li>
         
           <li class="menu-item menu-item-tags">
-            <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags
+            <a href="/en/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags
             </a>
           </li>
         
           <li class="menu-item menu-item-categories">
-            <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories
+            <a href="/en/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories
             </a>
           </li>
         
           <li class="menu-item menu-item-archives">
-            <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives
+            <a href="/en/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives
             </a>
           </li>
       <li class="menu-item menu-item-search">
@@ -255,7 +262,7 @@
 
       
         <p>The customized Hexo archive page looks like this:</p>
-<img data-src="https://s1.ax1x.com/2022/11/03/xqsc7T.jpg" alt="Customized NexT archive page" />
+<img data-src="https://s1.ax1x.com/2022/11/03/xqsc7T.jpg" alt="Customized NexT archive page">
 
 <p>This article targeted a NexT version that mixed Nunjucks and Swig templates. Current NexT releases may use different files, so first inspect <code>themes/next/layout</code> and adapt the idea rather than blindly replacing theme internals.</p>
 <h2 id="Archive-entry-macro"><a href="#Archive-entry-macro" class="headerlink" title="Archive entry macro"></a>Archive entry macro</h2><p>The custom macro groups posts by year, displays <code>MM-DD</code>, and applies custom classes:</p>
@@ -265,9 +272,9 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.page-archive</span> <span class="selector-class">.archive-page-counter</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">8px</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#49b1f5</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">18px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.my-post</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">margin-bottom</span>: <span class="number">1rem</span>;</span><br><span class="line">  <span class="attribute">transition</span>: transform .<span class="number">15s</span> ease, box-shadow .<span class="number">15s</span> ease;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.my-post</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="built_in">min</span>(<span class="number">400px</span>, <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">20px</span>));</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">25px</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">1px</span> <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">10px</span> <span class="number">10px</span> <span class="number">15px</span> <span class="number">2px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, .<span class="number">12</span>);</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">scale</span>(<span class="number">1.05</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.my-post-time</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#49b1f5</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">11px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.my-post-title</span> &#123;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">4.5rem</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: .<span class="number">8rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.my-post-title-link</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: inherit;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.my-post-title-link</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;📚&quot;</span>;</span><br><span class="line">  <span class="attribute">margin-right</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>The original workaround changed <code>layout/archive.njk</code> to import <code>_macro/post-collapse.swig</code>. Only do that if your installed theme actually supports the Swig renderer; otherwise convert the macro to the template engine used by your NexT version. Keep theme modifications in source control so upgrades can be reconciled.</p>
-<img data-src="https://s1.ax1x.com/2022/11/03/xqs6BV.jpg" alt="Archive stylesheet location" />
+<img data-src="https://s1.ax1x.com/2022/11/03/xqs6BV.jpg" alt="Archive stylesheet location">
 
-<img data-src="https://s1.ax1x.com/2022/11/03/xqs2AU.jpg" alt="Archive macro import modification" />
+<img data-src="https://s1.ax1x.com/2022/11/03/xqs2AU.jpg" alt="Archive macro import modification">
 
     </div>
 
@@ -410,21 +417,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -468,7 +475,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

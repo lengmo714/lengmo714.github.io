@@ -57,6 +57,13 @@
 <link rel="canonical" href="https://lengmo714.top/ed933f20.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/ed933f20.html#article","headline":"在Hexo博客中集成Algolia搜索功能：从配置到部署","description":"在Hexo博客中集成Algolia搜索功能","image":["https://s1.ax1x.com/2023/08/19/pP8ni40.jpg"],"datePublished":"2023-08-19T14:21:12.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/ed933f20.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo","algolia"],"keywords":"","wordCount":41}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -273,27 +280,21 @@
 
       
         <p>之前博客一直都没有搜索系统，趁着周末，给博客添加一个搜索系统，我这里选择的是使用<code>algolia</code>搜索。<br>在这个过程中遇到了几个需要注意的地方，这里特意说明下：</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 <h3 id="algolia注册"><a href="#algolia注册" class="headerlink" title="algolia注册"></a>algolia注册</h3><p>先去<a target="_blank" rel="noopener" href="https://dashboard.algolia.com/">algolia官网</a>,进行注册。</p>
-<h3 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h3><p>你需要安装<a target="_blank" rel="noopener" href="https://github.com/LouisBarranqueiro/hexo-algoliasearch">hexo-algoliasearche</a>。<br>按照这上面的步骤进行操作就行了~<br><code>api Key</code>的位置如下，一一对应的填写好就行<br><img data-src="https://s1.ax1x.com/2023/08/19/pP8ni40.jpg" alt="示意图" /></p>
+<h3 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h3><p>你需要安装<a target="_blank" rel="noopener" href="https://github.com/LouisBarranqueiro/hexo-algoliasearch">hexo-algoliasearche</a>。<br>按照这上面的步骤进行操作就行了~<br><code>api Key</code>的位置如下，一一对应的填写好就行<br><img data-src="https://s1.ax1x.com/2023/08/19/pP8ni40.jpg" alt="示意图"></p>
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1、配置文件需要放在根目录下的<code>_config.yml</code>中，而不是主题的<code>_config.yml</code>,</p>
 <p>这个时候博客的搜索是搜索不到任何内容的，我们需要通过 <code>Hexo Aloglia</code> 获取站点数据</p>
 <h3 id="Hexo-Aloglia获取站点数据"><a href="#Hexo-Aloglia获取站点数据" class="headerlink" title="Hexo Aloglia获取站点数据"></a>Hexo Aloglia获取站点数据</h3><p>1、配置本地环境<br>我们需要配置一个名称为 <code>HEXO_ALGOLIA_INDEXING_KEY</code>，内容为 <code>Alogolia</code> 网页中 <code>Admin API KEY </code>的环境变量,<br>以mac端为例:<br>打开终端<code>vim ~/.bash_profile</code>添加下面语句：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HEXO_ALGOLIA_INDEXING_KEY=d9987de239cbf5ad94ddcad7a5ef1682</span><br><span class="line">export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$MYSQL_HOME/bin:$MAVEN_HOME/bin:$CATALINA_HOME/bin:$CALIBRE_HOME:$JAVA_HOME/bin:$HEXO_ALGOLIA_INDEXING_KEY</span><br></pre></td></tr></table></figure>
 <p>再执行<code>source ~/.bash_profile</code>刷新即可。</p>
-<p>再在 <code>hexo</code>站点根目录下执行<code>hexo algolia</code> 来搜集数据更新到我们刚创建的 <code>Index</code> 中,我们可以在网页中看到所有的数据，如下图<br><img data-src="https://s1.ax1x.com/2023/08/19/pP8nkCV.jpg" alt="示意图" /></p>
-<h3 id="重新部署"><a href="#重新部署" class="headerlink" title="重新部署"></a>重新部署</h3><p>执行<code>hexo clean &amp;&amp; hexo g -d</code>重新部署，部署完成后再次访问，即可看到搜索功能已经配置完成：<br><img data-src="https://s1.ax1x.com/2023/08/19/pP8u3on.jpg" alt="示意图" /></p>
+<p>再在 <code>hexo</code>站点根目录下执行<code>hexo algolia</code> 来搜集数据更新到我们刚创建的 <code>Index</code> 中,我们可以在网页中看到所有的数据，如下图<br><img data-src="https://s1.ax1x.com/2023/08/19/pP8nkCV.jpg" alt="示意图"></p>
+<h3 id="重新部署"><a href="#重新部署" class="headerlink" title="重新部署"></a>重新部署</h3><p>执行<code>hexo clean &amp;&amp; hexo g -d</code>重新部署，部署完成后再次访问，即可看到搜索功能已经配置完成：<br><img data-src="https://s1.ax1x.com/2023/08/19/pP8u3on.jpg" alt="示意图"></p>
 
     </div>
 
@@ -345,8 +346,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/90e6e480.html" rel="prev" title="Converting Excel Files to JSON with Node.js">
-      <i class="fa fa-chevron-left"></i> Converting Excel Files to JSON with Node.js
+    <a href="/90e6e480.html" rel="prev" title="Excel文件转JSON：用Node.js轻松实现数据格式转换">
+      <i class="fa fa-chevron-left"></i> Excel文件转JSON：用Node.js轻松实现数据格式转换
     </a></div>
       <div class="post-nav-item">
     <a href="/en/ed933f20.html" rel="next" title="Adding Algolia Search to a Hexo Blog">
@@ -431,21 +432,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -489,7 +490,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

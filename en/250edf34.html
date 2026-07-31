@@ -42,6 +42,13 @@
 <link rel="canonical" href="https://lengmo714.top/en/250edf34.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/250edf34.html#article","headline":"Dynamically Changing Sprite Images in Cocos Creator","description":"Load SpriteFrame sub-assets with the correct resource path and assign them to multiple sprites.","image":["https://s1.ax1x.com/2023/04/13/ppx2mSP.png"],"datePublished":"2023-04-13T13:52:14.000Z","dateModified":"2026-07-30T04:41:13.953Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/250edf34.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript","wordCount":140}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -137,22 +144,22 @@
           </li>
         
           <li class="menu-item menu-item-about">
-            <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About
+            <a href="/en/about/" rel="section"><i class="fa fa-user fa-fw"></i>About
             </a>
           </li>
         
           <li class="menu-item menu-item-tags">
-            <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags
+            <a href="/en/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags
             </a>
           </li>
         
           <li class="menu-item menu-item-categories">
-            <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories
+            <a href="/en/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories
             </a>
           </li>
         
           <li class="menu-item menu-item-archives">
-            <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives
+            <a href="/en/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives
             </a>
           </li>
       <li class="menu-item menu-item-search">
@@ -254,10 +261,10 @@
 
       
         <p>I needed to replace the images on seven sprites at runtime, but Cocos Creator reported that the image could not be found:</p>
-<img data-src="https://s1.ax1x.com/2023/04/13/ppx2mSP.png" alt="SpriteFrame resource not found" />
+<img data-src="https://s1.ax1x.com/2023/04/13/ppx2mSP.png" alt="SpriteFrame resource not found">
 
 <p>The apparent image path looked correct:</p>
-<img data-src="https://s1.ax1x.com/2023/04/13/ppx2ZWt.png" alt="Image path in the Cocos Creator project" />
+<img data-src="https://s1.ax1x.com/2023/04/13/ppx2ZWt.png" alt="Image path in the Cocos Creator project">
 
 <p>The failing version included the source filename extension:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">7</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> imagePath = <span class="string">`ui/Atlas/gameHall/game_type_btn_<span class="subst">$&#123;i + <span class="number">1</span>&#125;</span>.png`</span>;</span><br><span class="line">    resources.<span class="title function_">load</span>(imagePath, <span class="title class_">SpriteFrame</span>, <span class="function">(<span class="params">err, spriteFrame</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Image not found&#x27;</span>, err);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">hallImage</span>[i].<span class="property">spriteFrame</span> = spriteFrame;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -326,8 +333,8 @@
       <i class="fa fa-chevron-left"></i> cocosCreator教程：动态修改精灵图片并解决图片路径问题
     </a></div>
       <div class="post-nav-item">
-    <a href="/3a1a4bc4.html" rel="next" title="解决cocosCreator Chrome跨域问题：开发环境配置详解">
-      解决cocosCreator Chrome跨域问题：开发环境配置详解 <i class="fa fa-chevron-right"></i>
+    <a href="/en/3a1a4bc4.html" rel="next" title="Testing Cocos Creator Across Origins in Chrome">
+      Testing Cocos Creator Across Origins in Chrome <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -407,21 +414,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -465,7 +472,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

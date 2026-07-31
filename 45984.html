@@ -38,6 +38,16 @@
 <link rel="canonical" href="https://lengmo714.top/45984.html">
 
 
+  
+    <meta property="og:image" content="https://lengmo714.top/images/share.png">
+    <meta name="twitter:image" content="https://lengmo714.top/images/share.png">
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/45984.html#article","headline":"Lua资源管理详解：文件、内存与用户数据的高效管理","description":"Lua资源管理详解：文件、内存与用户数据的高效管理","image":["https://lengmo714.top/images/share.png"],"datePublished":"2020-07-21T16:52:38.000Z","dateModified":"2025-07-18T08:09:18.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/45984.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["编程语言"],"keywords":"Lua","wordCount":645}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -250,14 +260,8 @@
 
       
         <p>函数dir会遍历目录并返回一张包含指定目录下所有内容的表。这里对dir新的实现会返回一个迭代器，每次调用这个迭代器时它都会返回一个新元素。通过这种实现，我们就能使用如下的循环来遍历目录：</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
@@ -274,7 +278,7 @@
 </blockquote>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">dir_iter</span><span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	DIR *d = *(DIR **)lua_touserdata(L, lua_upvalueindex(<span class="number">1</span>));</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">dirent</span> *<span class="title">entry</span> =</span> readdir(d);</span><br><span class="line">	<span class="keyword">if</span> (entry != <span class="literal">NULL</span>)&#123;</span><br><span class="line">		lua_pushstring(L,entry -&gt;d_name);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">/* 遍历完成*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">dir_gc</span><span class="params">(lua_State *L)</span> &#123;</span><br><span class="line">	DIR *d = *(DIR **)lua_touserdata(L,<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">if</span>(d) closedir(d);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">luaL_Reg</span> <span class="title">dirlib</span> [] =</span> &#123;</span><br><span class="line">	&#123;<span class="string">&quot;open&quot;</span>,l_dir&#125;,</span><br><span class="line">	(<span class="literal">NULL</span>,<span class="literal">NULL</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">luaopen_dir</span> <span class="params">(lua_State *L)</span>&#123;</span><br><span class="line">	luaL_newmetatable(L,<span class="string">&quot;luaBook.dir&quot;</span>);</span><br><span class="line">	<span class="comment">/*设置__gc字段*/</span></span><br><span class="line">	lua_pushcfunction(L,dir_gc);</span><br><span class="line">	lua_setfield(L,<span class="number">-2</span>,<span class="string">&quot;__gc&quot;</span>);</span><br><span class="line">	<span class="comment">/*创建库*/</span></span><br><span class="line">	luaL_newlib(L,dirlib);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上述代码很简单，它从上值中获取DIR结构体的地址，然后调用readdir读取下一个元素。<br>函数dir_gc就是元方法__gc，该元方法用于关闭目录。正如之前提到的，该元方法必须做好防御措施：如果初始化出现错误，那么目录可能会是NULL。<br>整个示例中还有一点需要注意。dir_gc似乎应该检查其参数是否为一个目录以及目录是否已经被关闭；否则，恶意用户可能会用其他类型的用户数据来调用dir_gc或者关闭一个目录两次，这样会造成灾难性后果。然而，Lua程序时无法访问这个函数的：该函数被保存在目录的元表中，而用户数据又被保存为迭代函数的上值，因此Lua代码无法访问这些目录。</p>
-<h2 id="XML解析器"><a href="#XML解析器" class="headerlink" title="XML解析器"></a>XML解析器</h2><p>接下来，我们介绍一种使用Lua语言编写的Expat绑定的简单实现，称为lxp。Expat是一个用C语言编写的开源XML1.0解析器，实现了SAX，即<em>Simple API for XML</em>。SAX是一套基于事件的API，这就意味着一个SAX解析器在读取XML文档时会边读取边通过回调函数向应用上报读取到的内容。例如，如果让Expat解析形如”<tag cap="5">hi</tag>“的字符串，那么Expat会生成三个事件：当读取到子串”<tag cap ="5">“时，生成开始元素事件；当读取到”hi”时，生成文本事件，也称为字符数据事件；当读取到”</tag>“时，生成结束元素事件。每个事件都会调用应用中相应的回调处理器。<br>在此我们不会介绍整个Expat库，只关注于那些用于演示与Lua交互的新技术部分。虽然Expat可以处理很多不同的事件，但我们只考虑前面示例中所提到的三个事件（开始元素、结束元素和文本事件）。<br>本例中用到的Expat API很少。首先，我们需要用于创建和销毁Expat解析器的函数：</p>
+<h2 id="XML解析器"><a href="#XML解析器" class="headerlink" title="XML解析器"></a>XML解析器</h2><p>接下来，我们介绍一种使用Lua语言编写的Expat绑定的简单实现，称为lxp。Expat是一个用C语言编写的开源XML1.0解析器，实现了SAX，即<em>Simple API for XML</em>。SAX是一套基于事件的API，这就意味着一个SAX解析器在读取XML文档时会边读取边通过回调函数向应用上报读取到的内容。例如，如果让Expat解析形如”<tag cap="5">hi</tag>“的字符串，那么Expat会生成三个事件：当读取到子串”<tag cap="5">“时，生成开始元素事件；当读取到”hi”时，生成文本事件，也称为字符数据事件；当读取到”</tag>“时，生成结束元素事件。每个事件都会调用应用中相应的回调处理器。<br>在此我们不会介绍整个Expat库，只关注于那些用于演示与Lua交互的新技术部分。虽然Expat可以处理很多不同的事件，但我们只考虑前面示例中所提到的三个事件（开始元素、结束元素和文本事件）。<br>本例中用到的Expat API很少。首先，我们需要用于创建和销毁Expat解析器的函数：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">XML_Parser <span class="title function_">XML_ParserCreate</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *encoding)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">XML_PaserFree</span><span class="params">(XML_Parser p)</span>;</span><br></pre></td></tr></table></figure>
 <p>参数encoding是可选的，本例中将使用NULL。<br>当解析器创建完成后，必须注册回调处理器：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">XML_SetElementHandler</span><span class="params">(SML_Parser p,XML_StartElementHandler start,XML_EndElementHandler end)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">XML_SetCharacterDataHandler</span><span class="params">(XML_Parser p, XML_CharacterDataHandler hndl)</span>;</span><br></pre></td></tr></table></figure>
@@ -288,7 +292,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Expat通过连续调用函数XML_Parse一段一段地接收要解析的文档。XML_Parse的最后一个参数，布尔类型的isLast，告知Expat该片段是否是文档的最后一个片段。如果检测到解析错误，XML_返回零。</span><br><span class="line">Expat中要用到的最后一个函数允许我们设置传递给事件处理函数的用户数据：</span><br><span class="line">```c</span><br><span class="line">void XML_SetUserData(XML_Parser p, void *uData);</span><br></pre></td></tr></table></figure>
 <p>现在，让我们看一下如何在Lua中使用这个库。第一种方法是一种直接的方法，即简单地把所有函数导出给Lua。另一个更好的方法是让这些函数适配Lua。例如，因为Lua语言不是强类型的，所以不需要为每一种回调函数设置不同的函数。我们可以做得更好，甚至免去所有注册回调函数的函数。我们要做的只是创建解析器时提供一个包含所有事件处理函数的回调函数表，其中每一个键值对是与相应时间对应的键和事件处理函数。例如，如果需要打印出一个文档的布局，可以使用如下的回调函数表：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">local count = <span class="number">0</span></span><br><span class="line">callbacks = &#123;</span><br><span class="line">	StartElement = function(parser, tagname)</span><br><span class="line">		io.write(<span class="string">&quot;+ &quot;</span>, string.rep(<span class="string">&quot; &quot;</span>,count),tagname,<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">		count = count + <span class="number">1</span></span><br><span class="line">	end,</span><br><span class="line"></span><br><span class="line">	EndElement = function (parser,tagname)</span><br><span class="line">		count = count - <span class="number">1</span></span><br><span class="line">		io.write(<span class="string">&quot;- &quot;</span>,string.rep(<span class="string">&quot; &quot;</span>,count),tagname,<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">	end,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输入内容”<to><yes/></to>“时，这些事件处理函数会打印出如下内容：</p>
+<p>输入内容”<to><yes></yes></to>“时，这些事件处理函数会打印出如下内容：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+ to</span><br><span class="line">+   yes</span><br><span class="line">-   yes</span><br><span class="line">- to</span><br></pre></td></tr></table></figure>
 <p>有了这个API，我们就不再需要那些操作回调函数的函数了，可以直接在回调函数表中操作它们。因此，整个API只需用到三个函数：一个用于创建解析器，一个用于解析文本，一个用于关闭解析器。实际上，我们可以将后两个函数实现为解析器对象的方法。该API的典型用法如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">local lxp = require <span class="string">&quot;lxp&quot;</span></span><br><span class="line">p = lxp.new(callbacks)</span><br><span class="line"><span class="keyword">for</span> l in io.lines() <span class="keyword">do</span></span><br><span class="line">	assert(p:parse(l))</span><br><span class="line">	assert(p:parse(<span class="string">&quot;\n&quot;</span>))</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">assert(p:parse())</span><br><span class="line">p:close()</span><br></pre></td></tr></table></figure>
@@ -472,21 +476,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -530,7 +534,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

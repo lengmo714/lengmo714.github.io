@@ -58,6 +58,13 @@
 <link rel="canonical" href="https://lengmo714.top/574ca0fa.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/574ca0fa.html#article","headline":"Hexo部署阿里云服务器教程：从文件上传到网站搭建的完整流程","description":"Hexo部署阿里云服务器教程","image":["https://s1.ax1x.com/2023/07/11/pCfkGFO.jpg"],"datePublished":"2023-07-11T14:57:45.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/574ca0fa.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo"],"keywords":"","wordCount":109}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -272,14 +279,8 @@
         <blockquote>
 <p>说明:这里其实是分为两个部分，第一个部分是将hexo生成的静态文件上传到服务器，第二个部分就是部署网站了（个人理解）</p>
 </blockquote>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
@@ -291,7 +292,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sudoers</span><br></pre></td></tr></table></figure>
 <p>找到<code>User privilege specification</code>部分，添加如下内容：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git     ALL=(ALL:ALL) ALL</span><br></pre></td></tr></table></figure>
-<p>如下图：<br><img data-src="https://s1.ax1x.com/2023/07/11/pCfkGFO.jpg" alt="示意图" /></p>
+<p>如下图：<br><img data-src="https://s1.ax1x.com/2023/07/11/pCfkGFO.jpg" alt="示意图"></p>
 <h3 id="切换至git用户"><a href="#切换至git用户" class="headerlink" title="切换至git用户"></a>切换至git用户</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su git</span><br></pre></td></tr></table></figure>
 <p>这里需要输入<code>git</code>的用户密码</p>
 <h3 id="添加密钥"><a href="#添加密钥" class="headerlink" title="添加密钥"></a>添加密钥</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.ssh</span><br><span class="line">touch ~/.ssh/authorized_keys</span><br><span class="line">chmod 600 ~/.ssh/authorzied_keys</span><br><span class="line">chmod 700 ~/.ssh</span><br><span class="line">vim ~/.ssh/authorized_keys    #将ssh密钥粘贴进去</span><br></pre></td></tr></table></figure>
@@ -313,7 +314,7 @@
 <p>到这里，还只是将hexo的静态文件上传到服务器，下面我们进行下一步。</p>
 <h2 id="搭建网站"><a href="#搭建网站" class="headerlink" title="搭建网站"></a>搭建网站</h2><p>搭建网站比较简单</p>
 <h3 id="安装宝塔"><a href="#安装宝塔" class="headerlink" title="安装宝塔"></a>安装宝塔</h3><p>注意：宝塔安装完后需要安装<code>nginx</code>，首次进入宝塔会有安装提示，根据提示安装即可。</p>
-<h3 id="添加网站"><a href="#添加网站" class="headerlink" title="添加网站"></a>添加网站</h3><p>在宝塔界面直接添加网站即可，填写自己的域名，根目录选择服务器存放hexo静态文件的文件目录即可，如下图<br><img data-src="https://s1.ax1x.com/2023/07/11/pCfAptO.jpg" alt="示意图" /><br><img data-src="https://s1.ax1x.com/2023/07/11/pCfAnN8.jpg" alt="示意图" /><br><img data-src="https://s1.ax1x.com/2023/07/11/pCfAmAf.jpg" alt="示意图" /></p>
+<h3 id="添加网站"><a href="#添加网站" class="headerlink" title="添加网站"></a>添加网站</h3><p>在宝塔界面直接添加网站即可，填写自己的域名，根目录选择服务器存放hexo静态文件的文件目录即可，如下图<br><img data-src="https://s1.ax1x.com/2023/07/11/pCfAptO.jpg" alt="示意图"><br><img data-src="https://s1.ax1x.com/2023/07/11/pCfAnN8.jpg" alt="示意图"><br><img data-src="https://s1.ax1x.com/2023/07/11/pCfAmAf.jpg" alt="示意图"></p>
 <h2 id="整个过程踩的几个坑"><a href="#整个过程踩的几个坑" class="headerlink" title="整个过程踩的几个坑"></a>整个过程踩的几个坑</h2><h3 id="网站部署完后域名无法访问"><a href="#网站部署完后域名无法访问" class="headerlink" title="网站部署完后域名无法访问"></a>网站部署完后域名无法访问</h3><p>可能性：<br>1、运行目录选择错误。<br>解决方法：查看运行目录下是否有本地推送上来的文件<br>2、域名是否解析<br>域名要正常解析到自己的服务器<br>3、网站是否有SSL证书<br>博主这里就是遇到了这个问题，网站没有配置SSL证书，域名始终打不来，配置好证书后可以正常访问</p>
 <h3 id="文件无法推送"><a href="#文件无法推送" class="headerlink" title="文件无法推送"></a>文件无法推送</h3><p>全部配置好在执行三连的时候可能会遇到本地文件无法推送的问题，可能是因为服务器上存放这些文件的文件夹权限问题，修改好权限即可。</p>
 
@@ -367,8 +368,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/6803a9d8.html" rel="prev" title="cocosCreator PageView与ScrollView触摸事件冲突处理教程">
-      <i class="fa fa-chevron-left"></i> cocosCreator PageView与ScrollView触摸事件冲突处理教程
+    <a href="/en/6803a9d8.html" rel="prev" title="Resolving PageView and ScrollView Touch Conflicts in Cocos Creator">
+      <i class="fa fa-chevron-left"></i> Resolving PageView and ScrollView Touch Conflicts in Cocos Creator
     </a></div>
       <div class="post-nav-item">
     <a href="/en/574ca0fa.html" rel="next" title="Deploying a Hexo Blog to an Alibaba Cloud Server">
@@ -453,21 +454,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -511,7 +512,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

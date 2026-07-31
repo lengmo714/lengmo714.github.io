@@ -41,6 +41,13 @@
 <link rel="canonical" href="https://lengmo714.top/d24f8349.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/d24f8349.html#article","headline":"cocosCreator监听应用后台与前台切换的实现方法","description":"cocosCreator监听应用后台与前台切换的实现方法","image":["https://pic.imgdb.cn/item/6643287f0ea9cb1403928192.png"],"datePublished":"2024-01-16T15:07:46.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/d24f8349.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, TypeScript","wordCount":50}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -252,20 +259,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; game, <span class="title class_">Game</span> &#125; <span class="keyword">from</span> <span class="string">&quot;cc&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HideOrShow</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">onLoad</span>(<span class="params"></span>) &#123;</span><br><span class="line">        game.<span class="title function_">on</span>(<span class="title class_">Game</span>.<span class="property">EVENT_HIDE</span>, <span class="variable language_">this</span>.<span class="property">onAppHide</span>, <span class="variable language_">this</span>);</span><br><span class="line">        game.<span class="title function_">on</span>(<span class="title class_">Game</span>.<span class="property">EVENT_SHOW</span>, <span class="variable language_">this</span>.<span class="property">onAppShow</span>, <span class="variable language_">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">onAppHide</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;应用进入后台&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">onAppShow</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;应用回到前台&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">onDestroy</span>(<span class="params"></span>) &#123;</span><br><span class="line">        game.<span class="title function_">off</span>(<span class="title class_">Game</span>.<span class="property">EVENT_HIDE</span>, <span class="variable language_">this</span>.<span class="property">onAppHide</span>, <span class="variable language_">this</span>);</span><br><span class="line">        game.<span class="title function_">off</span>(<span class="title class_">Game</span>.<span class="property">EVENT_SHOW</span>, <span class="variable language_">this</span>.<span class="property">onAppShow</span>, <span class="variable language_">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后在应用打开的时候调用上面的<code>onLoad</code>函数就可以啦，我们去看看日志吧~<br><img data-src="https://pic.imgdb.cn/item/6643287f0ea9cb1403928192.png" alt="示意图" /></p>
+<p>然后在应用打开的时候调用上面的<code>onLoad</code>函数就可以啦，我们去看看日志吧~<br><img data-src="https://pic.imgdb.cn/item/6643287f0ea9cb1403928192.png" alt="示意图"></p>
 
     </div>
 
@@ -408,21 +409,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -466,7 +467,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

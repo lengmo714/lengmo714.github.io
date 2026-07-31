@@ -42,6 +42,13 @@
 <link rel="canonical" href="https://lengmo714.top/caa789c3.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/caa789c3.html#article","headline":"解决Facebook生成密钥散列时24位问题及替代方法","description":"在做facebook第三方登录过程中出现的问题","image":["https://pic.imgdb.cn/item/664626b7d9c307b7e9060e0c.png"],"datePublished":"2024-05-16T15:28:55.000Z","dateModified":"2024-11-15T16:36:30.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/caa789c3.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["android studio","facebook"],"keywords":"facebook, android studio","wordCount":32}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -257,24 +264,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 <h3 id="生成密钥散列"><a href="#生成密钥散列" class="headerlink" title="生成密钥散列"></a>生成密钥散列</h3><p>今天按照官方说明，在生成facebook生成密钥散列时，生成的密钥<strong>居然只有24位</strong>，官方要求28位。<br>命令:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -exportcert -alias YOUR_RELEASE_KEY_ALIAS -keystore YOUR_RELEASE_KEY_PATH | openssl sha1 -binary | openssl base64</span><br></pre></td></tr></table></figure>
-<p>现象：<br><img data-src="https://pic.imgdb.cn/item/664626b7d9c307b7e9060e0c.png" alt="示意图" />试了好多遍，每次都只有24位，最终不得不放弃这个方法，如果有大佬知道原因，还请告知，我将十分感谢。</p>
+<p>现象：<br><img data-src="https://pic.imgdb.cn/item/664626b7d9c307b7e9060e0c.png" alt="示意图">试了好多遍，每次都只有24位，最终不得不放弃这个方法，如果有大佬知道原因，还请告知，我将十分感谢。</p>
 <h3 id="换了种方法"><a href="#换了种方法" class="headerlink" title="换了种方法"></a>换了种方法</h3><p>由于官方给的方法不行（我这里还未实现），于是只能在网上找其他的方法，结果还真让我给找到了。<br>在<code>Android studio</code>中输入命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -list -v -keystore key.jks -alias key0  // 注意key.jks和key0换成自己的路径和别名</span><br></pre></td></tr></table></figure>
-<p>拿到证书指纹的SHA1值<br>如下：<br><img data-src="https://pic.imgdb.cn/item/6646283ad9c307b7e9091a4c.png" alt="示意图" />然后通过<a target="_blank" rel="noopener" href="https://tomeko.net/online_tools/hex_to_base64.php">转换工具</a>转换成我们想要的密钥即可。</p>
+<p>拿到证书指纹的SHA1值<br>如下：<br><img data-src="https://pic.imgdb.cn/item/6646283ad9c307b7e9091a4c.png" alt="示意图">然后通过<a target="_blank" rel="noopener" href="https://tomeko.net/online_tools/hex_to_base64.php">转换工具</a>转换成我们想要的密钥即可。</p>
 
     </div>
 
@@ -417,21 +418,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -475,7 +476,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

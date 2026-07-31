@@ -56,6 +56,13 @@
 <link rel="canonical" href="https://lengmo714.top/6803a9d8.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/6803a9d8.html#article","headline":"cocosCreator PageView与ScrollView触摸事件冲突处理教程","description":"PageView与ScrollView触摸事件冲突处理教程","image":["https://s1.ax1x.com/2023/07/07/pCcG7lT.png"],"datePublished":"2023-07-07T07:34:23.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/6803a9d8.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"","wordCount":144}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -267,24 +274,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 <p>在开发的时候，我们需要一个既能翻页又能上下滑动的界面，这时候就会遇到翻页容器和滚动容器触摸冲突的情况。以下是博主这里的解决方法。</p>
-<p><code>ScrollView</code>和<code>PageView</code>层级关系如下：<br><img data-src="https://s1.ax1x.com/2023/07/07/pCcG7lT.png" alt="示意图" /><br>在不做任何处理前，在<code>ScrollView</code>区域（上图白色区域）滑动，<code>ScrollView</code>可以正常上下滑动，<code>PageView</code>不能左右滑动，但是<code>PageView</code>可以在上图中红不红、粉不粉的区域左右滑动。查了一下，是因为两者的触摸冲突了。<br>下面是我的解决方法：</p>
+<p><code>ScrollView</code>和<code>PageView</code>层级关系如下：<br><img data-src="https://s1.ax1x.com/2023/07/07/pCcG7lT.png" alt="示意图"><br>在不做任何处理前，在<code>ScrollView</code>区域（上图白色区域）滑动，<code>ScrollView</code>可以正常上下滑动，<code>PageView</code>不能左右滑动，但是<code>PageView</code>可以在上图中红不红、粉不粉的区域左右滑动。查了一下，是因为两者的触摸冲突了。<br>下面是我的解决方法：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">intiView</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_view</span>.<span class="property">_ScrollC_game</span>.<span class="property">node</span>.<span class="title function_">on</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_START</span>, <span class="variable language_">this</span>.<span class="property">touchStart</span>, <span class="variable language_">this</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_view</span>.<span class="property">_ScrollC_game</span>.<span class="property">node</span>.<span class="title function_">on</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_MOVE</span>, <span class="variable language_">this</span>.<span class="property">touchMove</span>, <span class="variable language_">this</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_view</span>.<span class="property">_ScrollC_game</span>.<span class="property">node</span>.<span class="title function_">on</span>(<span class="title class_">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_END</span>, <span class="variable language_">this</span>.<span class="property">touchEnd</span>, <span class="variable language_">this</span>);       </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">touchStart</span>(<span class="params">event</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">chuandi</span> = <span class="literal">true</span>; <span class="comment">//chuandi:是否可以传递，默认为true；</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;开始&quot;</span>,event.<span class="title function_">getLocation</span>());</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">startPosition</span> = event.<span class="title function_">getLocation</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">pageIdx</span> = <span class="variable language_">this</span>.<span class="property">_view</span>.<span class="property">_PageC_record</span>.<span class="title function_">getCurrentPageIndex</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">touchMove</span>(<span class="params">event</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">chuandi</span> == <span class="literal">false</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">chuandi</span> = <span class="literal">true</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;移动 = &quot;</span>, event.<span class="title function_">getLocation</span>());</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">movePosition</span> = event.<span class="title function_">getLocation</span>();</span><br><span class="line">        <span class="keyword">let</span> distance_x = <span class="variable language_">this</span>.<span class="property">movePosition</span>.<span class="property">x</span> - <span class="variable language_">this</span>.<span class="property">startPosition</span>.<span class="property">x</span>;</span><br><span class="line">        <span class="keyword">let</span> distance_y = <span class="variable language_">this</span>.<span class="property">movePosition</span>.<span class="property">y</span> - <span class="variable language_">this</span>.<span class="property">startPosition</span>.<span class="property">y</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;距离差== &quot;</span>, distance_x, distance_y);</span><br><span class="line">        <span class="comment">//判断是否需要翻页</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="title class_">Math</span>.<span class="title function_">abs</span>(distance_x) &gt; <span class="number">50</span> &amp;&amp; distance_x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;向前翻页&quot;</span>);</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">_view</span>.<span class="property">_PageC_record</span>.<span class="title function_">scrollToPage</span>(<span class="variable language_">this</span>.<span class="property">pageIdx</span> - <span class="number">1</span>);</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">chuandi</span> = <span class="literal">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Math</span>.<span class="title function_">abs</span>(distance_x) &gt; <span class="number">50</span> &amp;&amp; distance_x &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;向后翻页&quot;</span>);</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">_view</span>.<span class="property">_PageC_record</span>.<span class="title function_">scrollToPage</span>(<span class="variable language_">this</span>.<span class="property">pageIdx</span> + <span class="number">1</span>);</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">chuandi</span> = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">touchEnd</span>(<span class="params">event</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">endPosition</span> = event.<span class="title function_">getLocation</span>();</span><br><span class="line">        <span class="keyword">let</span> distance_x = <span class="variable language_">this</span>.<span class="property">endPosition</span>.<span class="property">x</span> - <span class="variable language_">this</span>.<span class="property">startPosition</span>.<span class="property">x</span>;</span><br><span class="line">        <span class="keyword">let</span> distance_y = <span class="variable language_">this</span>.<span class="property">endPosition</span>.<span class="property">y</span> - <span class="variable language_">this</span>.<span class="property">startPosition</span>.<span class="property">y</span>;</span><br><span class="line">        <span class="comment">//判断是否是点击</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="title class_">Math</span>.<span class="title function_">abs</span>(distance_y) &lt; <span class="number">50</span> &amp;&amp; <span class="title class_">Math</span>.<span class="title function_">abs</span>(distance_x) &lt; <span class="number">50</span>) &#123;</span><br><span class="line">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;触摸结束，是点击&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;结束1&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
 <p>最后实现了期望效果:</p>
 <!-- ![](/img/gif/View.gif) -->
-<img data-src="https://pic.imgdb.cn/item/64b2bbbd1ddac507ccd0891a.gif" alt="示意图" />
+<img data-src="https://pic.imgdb.cn/item/64b2bbbd1ddac507ccd0891a.gif" alt="示意图">
 
 
     </div>
@@ -337,12 +338,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/6803a9d8.html" rel="prev" title="Resolving PageView and ScrollView Touch Conflicts in Cocos Creator">
-      <i class="fa fa-chevron-left"></i> Resolving PageView and ScrollView Touch Conflicts in Cocos Creator
+    <a href="/67c55f29.html" rel="prev" title="使用TypeScript去除数字字符串后面的零：高效实现方法">
+      <i class="fa fa-chevron-left"></i> 使用TypeScript去除数字字符串后面的零：高效实现方法
     </a></div>
       <div class="post-nav-item">
-    <a href="/574ca0fa.html" rel="next" title="Hexo部署阿里云服务器教程：从文件上传到网站搭建的完整流程">
-      Hexo部署阿里云服务器教程：从文件上传到网站搭建的完整流程 <i class="fa fa-chevron-right"></i>
+    <a href="/en/6803a9d8.html" rel="next" title="Resolving PageView and ScrollView Touch Conflicts in Cocos Creator">
+      Resolving PageView and ScrollView Touch Conflicts in Cocos Creator <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -422,21 +423,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -480,7 +481,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

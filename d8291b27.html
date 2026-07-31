@@ -44,6 +44,13 @@
 <link rel="canonical" href="https://lengmo714.top/d8291b27.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/d8291b27.html#article","headline":"解决Python与Tkinter版本冲突：安装Miniconda与配置环境","description":"解决Python与Tkinter版本冲突：安装Miniconda与配置环境","image":["https://s1.ax1x.com/2023/02/19/pSLs2OH.jpg"],"datePublished":"2023-02-18T16:04:51.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/d8291b27.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["python"],"keywords":"python, Thinter","wordCount":125}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -255,21 +262,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>周末在家闲着无聊，就想着写点好玩的代码。在尝试Python的GUI编程的时候，就出现了问题。<br>学习了基本语法后，就开始了自己的GUI之旅。运行第一段代码之后发现它长这样<br><img data-src="https://s1.ax1x.com/2023/02/19/pSLs2OH.jpg" style="width:300px;height:200px" alt="示意图" /><br>哎……好像有点不对，我那行字呢？而且怎么这么黑，我看人家的效果不是这样啊……<br>看终端输出，有一行警告：</p>
+<p>周末在家闲着无聊，就想着写点好玩的代码。在尝试Python的GUI编程的时候，就出现了问题。<br>学习了基本语法后，就开始了自己的GUI之旅。运行第一段代码之后发现它长这样<br><img data-src="https://s1.ax1x.com/2023/02/19/pSLs2OH.jpg" style="width:300px;height:200px" alt="示意图"><br>哎……好像有点不对，我那行字呢？而且怎么这么黑，我看人家的效果不是这样啊……<br>看终端输出，有一行警告：</p>
 <blockquote>
-<p>DEPRECATION WARNING: The system version of Tk is deprecated and may be removed in a future release. Please don’t rely on it. Set TK_SILENCE_DEPRECATION&#x3D;1 to suppress this warning.<br><img data-src="https://s1.ax1x.com/2023/02/19/pSLsf0A.jpg" style="width:300px;height:200px" alt="示意图" /></p>
+<p>DEPRECATION WARNING: The system version of Tk is deprecated and may be removed in a future release. Please don’t rely on it. Set TK_SILENCE_DEPRECATION&#x3D;1 to suppress this warning.<br><img data-src="https://s1.ax1x.com/2023/02/19/pSLsf0A.jpg" style="width:300px;height:200px" alt="示意图"></p>
 </blockquote>
 <p>发现是版本问题，发现问题就好解决了。于是在网上疯狂的搜资料，终于找到了方法。<br>在某位博主的文章中了解到了<code>Conda</code>这个玩意儿</p>
 <blockquote>
@@ -286,10 +287,10 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate python3</span><br></pre></td></tr></table></figure>
 <p>和</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda deactivate</span><br></pre></td></tr></table></figure>
-<p>来进入和退出环境。<br>如果进入conda环境，终端是会有表示的，如下图：<br><img data-src="https://s1.ax1x.com/2023/02/19/pSLyZA1.jpg"  alt="示意图" /><br>会发现我们的终端前面会多一个环境名。</p>
-<a href="https://docs.conda.io/en/latest/miniconda.html#macos-installers" title="" target="">参考:conda命令 ,</a>
+<p>来进入和退出环境。<br>如果进入conda环境，终端是会有表示的，如下图：<br><img data-src="https://s1.ax1x.com/2023/02/19/pSLyZA1.jpg" alt="示意图"><br>会发现我们的终端前面会多一个环境名。</p>
+<a target="_blank" rel="noopener" href="https://docs.conda.io/en/latest/miniconda.html#macos-installers" title target>参考:conda命令 ,</a>
 
-<p>到这里Tkinter版本的问题就已经解决，我们重新运行下程序，出现预期效果<br><img data-src="https://s1.ax1x.com/2023/02/19/pSLsWmd.jpg" style="width:300px;height:200px" alt="示意图" /></p>
+<p>到这里Tkinter版本的问题就已经解决，我们重新运行下程序，出现预期效果<br><img data-src="https://s1.ax1x.com/2023/02/19/pSLsWmd.jpg" style="width:300px;height:200px" alt="示意图"></p>
 
     </div>
 
@@ -431,21 +432,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -489,7 +490,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

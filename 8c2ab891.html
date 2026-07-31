@@ -55,6 +55,13 @@
 <link rel="canonical" href="https://lengmo714.top/8c2ab891.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/8c2ab891.html#article","headline":"如何在HTML文件的指定位置插入文本 | 实用技巧","description":"如何在HTML文件的指定位置插入文本","image":["https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png"],"datePublished":"2024-07-16T12:34:02.000Z","dateModified":"2025-03-11T11:10:34.000Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/8c2ab891.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["日常代码","Python应用"],"keywords":"","wordCount":320}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -271,14 +278,8 @@
 
       
         <p>记录自己工作中用到的脚本，因为我们的cocosCreator项目导出<code>web</code>项目后，需要修改<code>index.html</code>文件，每次手动修改都很麻烦，而且容易出错，于是决定用脚本来搞定。<br>我这里是用python写的，python版本为3.8</p>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
-     crossorigin="anonymous"></script>
-<p><ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3160571902547760"
-     data-ad-slot="8630948880"></ins></p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
@@ -292,7 +293,7 @@
 <p>由于自己太懒，连代码都不想运行，于是乎，直接将上面python脚本导出了一个<code>.exe</code>可执行文件，每次只要双击改执行文件就行了。</p>
 <h3 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h3><p>运行的时候报下面错：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;.\html.py&quot;, line 1, in &lt;module&gt;</span><br><span class="line">    from bs4 import BeautifulSoup</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\__init__.py&quot;, line 37, in &lt;module&gt;</span><br><span class="line">    from .builder import (</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\builder\__init__.py&quot;, line 9, in &lt;module&gt;</span><br><span class="line">    from bs4.element import (</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\element.py&quot;, line 13, in &lt;module&gt;</span><br><span class="line">    from bs4.formatter import (</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\formatter.py&quot;, line 1, in &lt;module&gt;</span><br><span class="line">    from bs4.dammit import EntitySubstitution</span><br><span class="line">  File &quot;C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\dammit.py&quot;, line 12, in &lt;module&gt;</span><br><span class="line">    from html.entities import codepoint2name</span><br><span class="line">  File &quot;E:\Project_D_tg\build\html.py&quot;, line 1, in &lt;module&gt;</span><br><span class="line">    from bs4 import BeautifulSoup</span><br><span class="line">ImportError: cannot import name &#x27;BeautifulSoup&#x27; from partially initialized module &#x27;bs4&#x27; (most likely due to a circular import) (C:\Users\84267\AppData\Roaming\Python\Python38\site-packages\bs4\__init__.py)</span><br></pre></td></tr></table></figure>
-<p>如下图：<br><img data-src="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png"></p>
+<p>如下图：<br><img data-src="https://pic.imgdb.cn/item/66966a97d9c307b7e91d1f74.png" alt="如何在HTML文件的指定位置插入文本 | 实用技巧 — 踩坑"></p>
 <p><strong>解决方案：</strong> python文件名的问题，因为我的python脚本命名为<code>html.py</code>，这里的<code>html</code>和代码里面的<code>html</code>冲突，所以导致报错，这里只需要修改python的文件名即可。</p>
 <blockquote>
 <p>好吧，表示自己第一次遇到这种因为文件名报错的情况。</p>
@@ -434,21 +435,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -492,7 +493,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>

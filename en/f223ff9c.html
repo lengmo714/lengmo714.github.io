@@ -43,6 +43,13 @@
 <link rel="canonical" href="https://lengmo714.top/en/f223ff9c.html">
 
 
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/f223ff9c.html#article","headline":"Styling the Category Page in Hexo’s Matery Theme","description":"Turn Matery category chips into animated notebook-style cards with an EJS template and CSS.","image":["https://s1.ax1x.com/2022/11/03/xqs36I.png"],"datePublished":"2022-10-29T15:04:50.000Z","dateModified":"2026-07-30T04:51:19.143Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/f223ff9c.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Hexo"],"keywords":"Hexo, Matery","wordCount":349}</script>
+
+
+
+
+
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
@@ -138,22 +145,22 @@
           </li>
         
           <li class="menu-item menu-item-about">
-            <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About
+            <a href="/en/about/" rel="section"><i class="fa fa-user fa-fw"></i>About
             </a>
           </li>
         
           <li class="menu-item menu-item-tags">
-            <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags
+            <a href="/en/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags
             </a>
           </li>
         
           <li class="menu-item menu-item-categories">
-            <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories
+            <a href="/en/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories
             </a>
           </li>
         
           <li class="menu-item menu-item-archives">
-            <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives
+            <a href="/en/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives
             </a>
           </li>
       <li class="menu-item menu-item-search">
@@ -255,9 +262,9 @@
 
       
         <p>After switching to the Matery theme, I customized its category page so each category looks like an animated notebook.</p>
-<img data-src="https://s1.ax1x.com/2022/11/03/xqs36I.png" alt="Notebook-style category cards" />
+<img data-src="https://s1.ax1x.com/2022/11/03/xqs36I.png" alt="Notebook-style category cards">
 
-<img data-src="https://s1.ax1x.com/2022/11/03/xqs11A.png" alt="Category card hover effect" />
+<img data-src="https://s1.ax1x.com/2022/11/03/xqs11A.png" alt="Category card hover effect">
 
 <blockquote>
 <p>Theme internals can change between releases. Commit or back up the theme before editing it, and reapply the customization carefully after upgrades.</p>
@@ -269,7 +276,7 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.chip-container</span> <span class="selector-class">.tag-chips</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">  <span class="attribute">justify-content</span>: space-around;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.moleskine-wrapper</span> &#123;</span><br><span class="line">  <span class="attribute">min-width</span>: <span class="number">10em</span>;</span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">25%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.moleskine-notebook</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">5px</span> <span class="number">15px</span> <span class="number">15px</span> <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">transform-origin</span>: left center;</span><br><span class="line">  <span class="attribute">transition</span>: transform .<span class="number">5s</span> linear;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.notebook-cover</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">10</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">140px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">5px</span> <span class="number">15px</span> <span class="number">15px</span> <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">transform-origin</span>: left center;</span><br><span class="line">  <span class="attribute">transform-style</span>: preserve-<span class="number">3</span>d;</span><br><span class="line">  <span class="attribute">transition</span>: transform .<span class="number">5s</span> linear, box-shadow .<span class="number">5s</span> linear;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.notebook-cover</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: -<span class="number">1px</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">25px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="built_in">calc</span>(<span class="number">100%</span> + <span class="number">2px</span>);</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">2px</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">repeating-linear-gradient</span>(</span><br><span class="line">    <span class="number">90deg</span>,</span><br><span class="line">    <span class="number">#1e606e</span> <span class="number">0</span>,</span><br><span class="line">    <span class="number">#2e95aa</span> <span class="number">12%</span>,</span><br><span class="line">    <span class="number">#1e606e</span> <span class="number">25%</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.notebook-skin</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">10</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">74px</span>;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">42px</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">32px</span> <span class="number">10px</span> <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#e8e8e0</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#222</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">19px</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.notebook-skin</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#cddc39</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.notebook-page</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">140px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">5px</span> <span class="number">16px</span> <span class="number">16px</span> <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#fbfae8</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.notebook-page</span><span class="selector-class">.dotted</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">repeating-linear-gradient</span>(</span><br><span class="line">    to bottom,</span><br><span class="line">    <span class="number">#fbfae8</span> <span class="number">0</span>,</span><br><span class="line">    <span class="number">#fbfae8</span> <span class="number">9px</span>,</span><br><span class="line">    <span class="number">#e4e4e4</span> <span class="number">9px</span>,</span><br><span class="line">    <span class="number">#e4e4e4</span> <span class="number">10px</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.moleskine-notebook</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotateZ</span>(-<span class="number">10deg</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.moleskine-notebook</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.notebook-cover</span> &#123;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">99</span>;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotateY</span>(-<span class="number">50deg</span>);</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">20px</span> <span class="number">10px</span> <span class="number">50px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, .<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>Adjust the active and hover colors in <code>source/css/matery.css</code> to match the rest of your site. Rebuild Hexo and test both desktop and mobile widths.</p>
-<img data-src="https://s1.ax1x.com/2022/11/03/xqs8Xt.png" alt="Customized tag colors" />
+<img data-src="https://s1.ax1x.com/2022/11/03/xqs8Xt.png" alt="Customized tag colors">
 
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43662760/article/details/122311171">Original inspiration</a></p>
 
@@ -328,12 +335,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/4002b8ea.html" rel="prev" title="Troubleshooting “Password Authentication Failed” over SSH">
-      <i class="fa fa-chevron-left"></i> Troubleshooting “Password Authentication Failed” over SSH
+    <a href="/f223ff9c.html" rel="prev" title="Hexo博客使用Matery主题进行分类页美化">
+      <i class="fa fa-chevron-left"></i> Hexo博客使用Matery主题进行分类页美化
     </a></div>
       <div class="post-nav-item">
-    <a href="/f223ff9c.html" rel="next" title="Hexo博客使用Matery主题进行分类页美化">
-      Hexo博客使用Matery主题进行分类页美化 <i class="fa fa-chevron-right"></i>
+    <a href="/62d7ce39.html" rel="next" title="解决Windows缺少dll文件问题：手动下载与修复方法">
+      解决Windows缺少dll文件问题：手动下载与修复方法 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -414,21 +421,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">473</span>
+          <span class="site-state-item-count">238</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">125</span>
-        <span class="site-state-item-name">分类</span></a>
+        <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">164</span>
-        <span class="site-state-item-name">标签</span></a>
+        <a href="/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -472,7 +479,8 @@
           <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
         </li>
     </ul>
-  </div>       
+  </div>
+       
       </div>
         <div class="back-to-top motion-element">
           <i class="fa fa-arrow-up"></i>
