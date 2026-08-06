@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/66966705d9c307b7e916faf6.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/66966750d9c307b7e9179139.png">
 <meta property="article:published_time" content="2024-07-16T12:12:22.000Z">
-<meta property="article:modified_time" content="2026-07-31T12:06:39.191Z">
+<meta property="article:modified_time" content="2026-08-06T10:57:59.438Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="telegram">
 <meta property="article:tag" content="mini APP">
@@ -53,7 +53,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/39e5712d.html#article","headline":"Telegram Web App 更新后仍显示旧版本：Cocos Creator MD5 Cache","description":"Telegram Bot 打开的 Cocos Creator Web App 更新后仍显示旧资源，可启用 MD5 Cache 为构建文件生成新名称，使客户端绕过陈旧缓存。","datePublished":"2024-07-16T12:12:22.000Z","dateModified":"2026-07-31T12:06:39.191Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/39e5712d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["telegram","mini APP","Game"],"keywords":"telegram, mini APP, Game","wordCount":12,"image":["https://pic.imgdb.cn/item/669666ced9c307b7e91688f0.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/39e5712d.html#article","headline":"Telegram Web App 更新后仍显示旧版本：Cocos Creator MD5 Cache","description":"Telegram Bot 打开的 Cocos Creator Web App 更新后仍显示旧资源，可启用 MD5 Cache 为构建文件生成新名称，使客户端绕过陈旧缓存。","datePublished":"2024-07-16T12:12:22.000Z","dateModified":"2026-08-06T10:57:59.438Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/39e5712d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["telegram","mini APP","Game"],"keywords":"telegram, mini APP, Game","wordCount":14,"image":["https://pic.imgdb.cn/item/669666ced9c307b7e91688f0.png"]}</script>
 
 
 
@@ -292,7 +292,7 @@
 </script>
 
 <h2 id="原因：客户端缓存"><a href="#原因：客户端缓存" class="headerlink" title="原因：客户端缓存"></a>原因：客户端缓存</h2><p>刚开始我们以为是服务器的缓存，但是清除服务器缓存后没用。于是抓包，查看bot打开webApp时所有的网络请求。发现每次打开webApp的时候都没有重新拉取资源，因为更新后的文件名和文件路径和更新前是一样的。</p>
-<h2 id="解决方法：启用-MD5-Cache"><a href="#解决方法：启用-MD5-Cache" class="headerlink" title="解决方法：启用 MD5 Cache"></a>解决方法：启用 MD5 Cache</h2><p>每次更新的时候文件名后面统一加上一个后缀，说干就干，在网上找插件，甚至要chatGPT写脚本，都没搞定。因为我们的web是用cocosCreator开发的(直接从安卓转过来的)。在用脚本加后缀后，文件索引会出问题。在这里也卡了一会儿，最后没办法去查看cocosCreator的官方文档，发现文档上已经给出了解决方法。如下图：<br><img src="https://pic.imgdb.cn/item/669666ced9c307b7e91688f0.png" decoding="async" loading="eager" fetchpriority="high" alt="Telegram Web App 更新后仍显示旧版本：Cocos Creator MD5 Cache — 解决方法：启用 MD5 Cache">;<br>其实也就是我们在打包的时候勾选上MD5缓存，就可以解决这个问题了。<br>如下图：<br><img src="https://pic.imgdb.cn/item/66966705d9c307b7e916faf6.png" decoding="async" loading="lazy" alt="Telegram Web App 更新后仍显示旧版本：Cocos Creator MD5 Cache — 解决方法：启用 MD5 Cache">;<br>我们来康康构建后的文件名：<br><img src="https://pic.imgdb.cn/item/66966750d9c307b7e9179139.png" decoding="async" loading="lazy" alt="Telegram Web App 更新后仍显示旧版本：Cocos Creator MD5 Cache — 解决方法：启用 MD5 Cache">;<br>完美，是我们想要的结果。</p>
+<h2 id="解决方法：启用-MD5-Cache"><a href="#解决方法：启用-MD5-Cache" class="headerlink" title="解决方法：启用 MD5 Cache"></a>解决方法：启用 MD5 Cache</h2><p>每次更新的时候文件名后面统一加上一个后缀，说干就干，在网上找插件，甚至要chatGPT写脚本，都没搞定。因为我们的web是用Cocos Creator开发的(直接从安卓转过来的)。在用脚本加后缀后，文件索引会出问题。在这里也卡了一会儿，最后没办法去查看Cocos Creator的官方文档，发现文档上已经给出了解决方法。如下图：<br><img src="https://pic.imgdb.cn/item/669666ced9c307b7e91688f0.png" decoding="async" loading="eager" fetchpriority="high" alt="Telegram Web App 更新后仍显示旧版本：Cocos Creator MD5 Cache — 解决方法：启用 MD5 Cache">;<br>其实也就是我们在打包的时候勾选上MD5缓存，就可以解决这个问题了。<br>如下图：<br><img src="https://pic.imgdb.cn/item/66966705d9c307b7e916faf6.png" decoding="async" loading="lazy" alt="Telegram Web App 更新后仍显示旧版本：Cocos Creator MD5 Cache — 解决方法：启用 MD5 Cache">;<br>我们来康康构建后的文件名：<br><img src="https://pic.imgdb.cn/item/66966750d9c307b7e9179139.png" decoding="async" loading="lazy" alt="Telegram Web App 更新后仍显示旧版本：Cocos Creator MD5 Cache — 解决方法：启用 MD5 Cache">;<br>完美，是我们想要的结果。</p>
 <p>先在本地运行，看有没有文件索引不到的bug，没问题直接推送到服务器或CDN即可。</p>
 <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>还是得多看看官方文档，有时候看官方文档可以为你节约很长的时间。</p>
 
@@ -444,13 +444,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

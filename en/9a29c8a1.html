@@ -30,7 +30,7 @@
 <meta property="og:description" content="Use navigator.userAgent to distinguish mobile and desktop Telegram Mini App clients, then store the result during Cocos Creator initialization.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-08-17T05:04:41.000Z">
-<meta property="article:modified_time" content="2026-07-31T09:34:15.377Z">
+<meta property="article:modified_time" content="2026-08-06T10:53:43.202Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Telegram">
 <meta property="article:tag" content="Mini App">
@@ -48,7 +48,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/9a29c8a1.html#article","headline":"Telegram Mini App Mobile vs Desktop Detection with User Agent","description":"Use navigator.userAgent to distinguish mobile and desktop Telegram Mini App clients, then store the result during Cocos Creator initialization.","datePublished":"2024-08-17T05:04:41.000Z","dateModified":"2026-07-31T09:34:15.377Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/9a29c8a1.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Telegram","Mini App"],"keywords":"Telegram, Mini App","wordCount":75}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/9a29c8a1.html#article","headline":"Telegram Mini App Mobile vs Desktop Detection with User Agent","description":"Use navigator.userAgent to distinguish mobile and desktop Telegram Mini App clients, then store the result during Cocos Creator initialization.","datePublished":"2024-08-17T05:04:41.000Z","dateModified":"2026-08-06T10:53:43.202Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/9a29c8a1.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Telegram","Mini App"],"keywords":"Telegram, Mini App","wordCount":75}</script>
 
 
 
@@ -280,7 +280,7 @@
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> ua = navigator.<span class="property">userAgent</span>.<span class="title function_">toLowerCase</span>();</span><br><span class="line">    <span class="keyword">const</span> isMobile = <span class="regexp">/mobile|android|iphone|ipad|phone/i</span>.<span class="title function_">test</span>(ua);</span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">Device</span> = isMobile ? <span class="string">&#x27;mobile&#x27;</span> : <span class="string">&#x27;desktop&#x27;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> ua = navigator.<span class="property">userAgent</span>.<span class="title function_">toLowerCase</span>();</span><br><span class="line">    <span class="keyword">const</span> isMobile = <span class="regexp">/mobile|Android|iphone|ipad|phone/i</span>.<span class="title function_">test</span>(ua);</span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">Device</span> = isMobile ? <span class="string">&#x27;mobile&#x27;</span> : <span class="string">&#x27;desktop&#x27;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>For a Cocos Creator Web Mobile export, add this to <code>index.html</code>, then read the global value in TypeScript:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> device = <span class="variable language_">window</span>[<span class="string">&#x27;Device&#x27;</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Device:&#x27;</span>, device);</span><br></pre></td></tr></table></figure>
@@ -433,13 +433,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

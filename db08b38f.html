@@ -33,9 +33,9 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/6643274b0ea9cb14038e966b.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/664327760ea9cb14038eceba.png">
 <meta property="article:published_time" content="2024-01-30T16:38:18.000Z">
-<meta property="article:modified_time" content="2026-07-31T12:12:36.831Z">
+<meta property="article:modified_time" content="2026-08-06T10:57:59.360Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="cocosCreator">
+<meta property="article:tag" content="Cocos Creator">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s11.ax1x.com/2024/01/30/pFKDIqs.png">
 
@@ -51,7 +51,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/db08b38f.html#article","headline":"Cocos Creator Cannot read properties of null (reading getGFXTexture) 解决方法","description":"解决 Cocos Creator 浏览器运行时出现 Cannot read properties of null reading getGFXTexture 的问题，通过调试 SpriteFrame、查询 UUID 和引用定位失效纹理。","datePublished":"2024-01-30T16:38:18.000Z","dateModified":"2026-07-31T12:12:36.831Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/db08b38f.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":26,"image":["https://s11.ax1x.com/2024/01/30/pFKDIqs.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/db08b38f.html#article","headline":"Cocos Creator Cannot read properties of null (reading getGFXTexture) 解决方法","description":"解决 Cocos Creator 浏览器运行时出现 Cannot read properties of null reading getGFXTexture 的问题，通过调试 SpriteFrame、查询 UUID 和引用定位失效纹理。","datePublished":"2024-01-30T16:38:18.000Z","dateModified":"2026-08-06T10:57:59.360Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/db08b38f.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator","wordCount":29,"image":["https://s11.ax1x.com/2024/01/30/pFKDIqs.png"]}</script>
 
 
 
@@ -258,7 +258,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cocosCreator/" itemprop="url" rel="index"><span itemprop="name">cocosCreator</span></a>
+                  <a href="/categories/Cocos-Creator/" itemprop="url" rel="index"><span itemprop="name">Cocos Creator</span></a>
                 </span>
             </span>
 
@@ -280,13 +280,13 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h2 id="getGFXTexture-空对象错误现象"><a href="#getGFXTexture-空对象错误现象" class="headerlink" title="getGFXTexture 空对象错误现象"></a>getGFXTexture 空对象错误现象</h2><p>最近在浏览器上运行cocosCreator工程时，总是提示这个错误<code>Cannot read properties of null (reading &#39;getGFXTexture&#39;)</code>,如下图：</p>
+<h2 id="getGFXTexture-空对象错误现象"><a href="#getGFXTexture-空对象错误现象" class="headerlink" title="getGFXTexture 空对象错误现象"></a>getGFXTexture 空对象错误现象</h2><p>最近在浏览器上运行Cocos Creator工程时，总是提示这个错误<code>Cannot read properties of null (reading &#39;getGFXTexture&#39;)</code>,如下图：</p>
 <img src="https://s11.ax1x.com/2024/01/30/pFKDIqs.png" alt="示意图" decoding="async" loading="eager" fetchpriority="high">
 
 <h2 id="错误原因：SpriteFrame-纹理失效"><a href="#错误原因：SpriteFrame-纹理失效" class="headerlink" title="错误原因：SpriteFrame 纹理失效"></a>错误原因：SpriteFrame 纹理失效</h2><p>图片纹理被清空所导致，自己在网上找的答案</p>
 <h2 id="通过-UUID-定位失效纹理和引用"><a href="#通过-UUID-定位失效纹理和引用" class="headerlink" title="通过 UUID 定位失效纹理和引用"></a>通过 UUID 定位失效纹理和引用</h2><p>这里简单说下我自己的解决方案。<br>1、vsCode打开Cocos的源码调试功能(报这个错的时候vscode会有提示，或者自己百度)<br>2、查看堆栈，定位到这个地方，如下图：<br><img src="https://pic.imgdb.cn/item/6643274b0ea9cb14038e966b.png" alt="示意图" decoding="async" loading="lazy"></p>
-<p>3.1 在cocosCreator中文社区里有人回答了一种方法，将这里 <code>if(frame)</code> 的判断改为<code>if(frame &amp;&amp; frame.isVaild)</code>，我试了下这个方法，好像没有什么用，即使有用的话也只是阻止报错，不能从根本上解决问题（后面一句是自己的见解，如果有误，还请谅解）。</p>
-<p>这里介绍我的方法：<br>还是一样断点到这个地方，千万别想着打日志，这个文件是只读文件。然后查看<code>frame</code>的值，这个<code>frame</code>就是你要加载的那个<code>SpriteFrame</code>，这里面有个参数<code>uuid</code>。复制<code>uuid</code>然后在cocosCreator的资源管理器中直接搜索，看是哪张图片的纹理被清空了。<br><img src="https://pic.imgdb.cn/item/664327760ea9cb14038eceba.png" alt="示意图" decoding="async" loading="lazy"></p>
+<p>3.1 在Cocos Creator中文社区里有人回答了一种方法，将这里 <code>if(frame)</code> 的判断改为<code>if(frame &amp;&amp; frame.isVaild)</code>，我试了下这个方法，好像没有什么用，即使有用的话也只是阻止报错，不能从根本上解决问题（后面一句是自己的见解，如果有误，还请谅解）。</p>
+<p>这里介绍我的方法：<br>还是一样断点到这个地方，千万别想着打日志，这个文件是只读文件。然后查看<code>frame</code>的值，这个<code>frame</code>就是你要加载的那个<code>SpriteFrame</code>，这里面有个参数<code>uuid</code>。复制<code>uuid</code>然后在Cocos Creator的资源管理器中直接搜索，看是哪张图片的纹理被清空了。<br><img src="https://pic.imgdb.cn/item/664327760ea9cb14038eceba.png" alt="示意图" decoding="async" loading="lazy"></p>
 <p>找到这张图片后，点击右键，选择<code>查找UUID的使用</code>，就可以知道有哪些地方引用了这张图片，然后根据引用去查看，就可以很好的解决这个问题啦~</p>
 
     </div>
@@ -334,7 +334,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/cocosCreator/" rel="tag"><i class="fa fa-tag"></i> cocosCreator</a>
+              <a href="/tags/Cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> Cocos Creator</a>
           </div>
 
         
@@ -435,13 +435,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

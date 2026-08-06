@@ -30,7 +30,7 @@
 <meta property="og:description" content="讲解 Lua 同一状态内的协作式线程、lua_newthread 创建方式、lua_resume 与 lua_yield 生命周期，以及独立 Lua 状态的隔离和资源管理。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-23T12:36:53.000Z">
-<meta property="article:modified_time" content="2026-07-31T09:57:35.807Z">
+<meta property="article:modified_time" content="2026-08-06T11:00:53.335Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta property="article:tag" content="C API">
@@ -49,7 +49,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/43588.html#article","headline":"Lua 线程、协程与独立状态：lua_newthread、resume 和 yield","description":"讲解 Lua 同一状态内的协作式线程、lua_newthread 创建方式、lua_resume 与 lua_yield 生命周期，以及独立 Lua 状态的隔离和资源管理。","datePublished":"2020-07-23T12:36:53.000Z","dateModified":"2026-07-31T09:57:35.807Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/43588.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["编程语言","Lua编程","并发编程"],"keywords":"Lua, C API, 协程","wordCount":518}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/43588.html#article","headline":"Lua 线程、协程与独立状态：lua_newthread、resume 和 yield","description":"讲解 Lua 同一状态内的协作式线程、lua_newthread 创建方式、lua_resume 与 lua_yield 生命周期，以及独立 Lua 状态的隔离和资源管理。","datePublished":"2020-07-23T12:36:53.000Z","dateModified":"2026-08-06T11:00:53.335Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/43588.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["编程语言","Lua编程","并发编程"],"keywords":"Lua, C API, 协程","wordCount":518}</script>
 
 
 
@@ -281,7 +281,7 @@
 
       
         <p>本文深入探讨Lua编程语言中的线程和状态的概念，介绍Lua中如何处理并发编程以及状态管理，为使用Lua进行开发的开发者提供实用的知识和技巧。</p>
-<p>Lua语言不支持真正的多线程，即不支持共享内存的抢占式线程。原因有两个，其一是IOS C没有提供这样的功能，因此也没有可移植的方法能在Lua中实现这种机制：</p>
+<p>Lua语言不支持真正的多线程，即不支持共享内存的抢占式线程。原因有两个，其一是iOS C没有提供这样的功能，因此也没有可移植的方法能在Lua中实现这种机制：</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
@@ -431,12 +431,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/22026.html" rel="prev" title="Xcode 常用目录与调试工具：DerivedData、模拟器、Leaks 和 Zombies">
-      <i class="fa fa-chevron-left"></i> Xcode 常用目录与调试工具：DerivedData、模拟器、Leaks 和 Zombies
+    <a href="/en/43588.html" rel="prev" title="Lua Threads and Independent States: lua_newthread, resume and yield">
+      <i class="fa fa-chevron-left"></i> Lua Threads and Independent States: lua_newthread, resume and yield
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/43588.html" rel="next" title="Lua Threads and Independent States: lua_newthread, resume and yield">
-      Lua Threads and Independent States: lua_newthread, resume and yield <i class="fa fa-chevron-right"></i>
+    <a href="/40902.html" rel="next" title="使用python检测微信好友是否已删除：自动化脚本教程">
+      使用python检测微信好友是否已删除：自动化脚本教程 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -523,13 +523,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

@@ -30,10 +30,10 @@
 <meta property="og:description" content="现代 iPadOS 可能以 MacIntel 身份访问网页，本文结合 userAgent、navigator.platform 和 maxTouchPoints 判断 iPhone、iPad 与桌面 Mac。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-06T02:53:08.000Z">
-<meta property="article:modified_time" content="2026-07-31T09:48:03.410Z">
+<meta property="article:modified_time" content="2026-08-06T11:00:53.327Z">
 <meta property="article:author" content="南锋">
+<meta property="article:tag" content="iOS开发">
 <meta property="article:tag" content="TypeScript">
-<meta property="article:tag" content="iOS">
 <meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary">
 
@@ -49,7 +49,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/f1e76f08.html#article","headline":"前端正确判断 iOS 与 iPadOS：User Agent、MacIntel 和触控点","description":"现代 iPadOS 可能以 MacIntel 身份访问网页，本文结合 userAgent、navigator.platform 和 maxTouchPoints 判断 iPhone、iPad 与桌面 Mac。","datePublished":"2025-11-06T02:53:08.000Z","dateModified":"2026-07-31T09:48:03.410Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/f1e76f08.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["前端"],"keywords":"TypeScript, iOS, 前端","wordCount":71}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/f1e76f08.html#article","headline":"前端正确判断 iOS 与 iPadOS：User Agent、MacIntel 和触控点","description":"现代 iPadOS 可能以 MacIntel 身份访问网页，本文结合 userAgent、navigator.platform 和 maxTouchPoints 判断 iPhone、iPad 与桌面 Mac。","datePublished":"2025-11-06T02:53:08.000Z","dateModified":"2026-08-06T11:00:53.327Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/f1e76f08.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["前端"],"keywords":"iOS开发, TypeScript, 前端","wordCount":71}</script>
 
 
 
@@ -278,13 +278,13 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h2 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h2><p>我们在前端开发中，会遇到一些判断设备类型的问题，比如判断是否是IOS设备，判断是否是安卓设备等等。</p>
+<h2 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h2><p>我们在前端开发中，会遇到一些判断设备类型的问题，比如判断是否是iOS设备，判断是否是安卓设备等等。</p>
 <h2 id="判断方法"><a href="#判断方法" class="headerlink" title="判断方法"></a>判断方法</h2><p>以前一般只会对浏览器的ua进行判断，比如下面代码</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/iPhone|iPad|iPod/i.<span class="title function_">test</span>(navigator.<span class="property">userAgent</span>);</span><br></pre></td></tr></table></figure>
 
-<p>但是在现在的新ipad上你会发现，很多时候没有将ipad识别为一个IOS设备，而是将其识别成了MAC设备。这是因为<code>iPad OS 13+ </code>会把 UA 改成 <code>MacIntel</code>，这里就看个人需求了，如果对ipad要求不高的就无所谓</p>
+<p>但是在现在的新ipad上你会发现，很多时候没有将ipad识别为一个iOS设备，而是将其识别成了MAC设备。这是因为<code>iPad OS 13+ </code>会把 UA 改成 <code>MacIntel</code>，这里就看个人需求了，如果对ipad要求不高的就无所谓</p>
 <p>我们可以用下面方法去判断</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getDeviceType</span>(<span class="params"></span>): <span class="string">&#x27;Android&#x27;</span> | <span class="string">&#x27;IOS&#x27;</span> | <span class="string">&#x27;unknown&#x27;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> ua = navigator.<span class="property">userAgent</span> || navigator.<span class="property">vendor</span> || (<span class="variable language_">window</span> <span class="keyword">as</span> any).<span class="property">opera</span>;</span><br><span class="line">    <span class="keyword">const</span> platform = (navigator <span class="keyword">as</span> any).<span class="property">platform</span>;</span><br><span class="line">    <span class="keyword">const</span> maxTouchPoints = navigator.<span class="property">maxTouchPoints</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/android/i</span>.<span class="title function_">test</span>(ua)) <span class="keyword">return</span> <span class="string">&#x27;Android&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/iPad|iPhone|iPod/</span>.<span class="title function_">test</span>(ua)) <span class="keyword">return</span> <span class="string">&#x27;IOS&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (platform === <span class="string">&#x27;MacIntel&#x27;</span> &amp;&amp; maxTouchPoints &gt; <span class="number">1</span>) <span class="keyword">return</span> <span class="string">&#x27;IOS&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;unknown&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getDeviceType</span>(<span class="params"></span>): <span class="string">&#x27;Android&#x27;</span> | <span class="string">&#x27;iOS&#x27;</span> | <span class="string">&#x27;unknown&#x27;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> ua = navigator.<span class="property">userAgent</span> || navigator.<span class="property">vendor</span> || (<span class="variable language_">window</span> <span class="keyword">as</span> any).<span class="property">opera</span>;</span><br><span class="line">    <span class="keyword">const</span> platform = (navigator <span class="keyword">as</span> any).<span class="property">platform</span>;</span><br><span class="line">    <span class="keyword">const</span> maxTouchPoints = navigator.<span class="property">maxTouchPoints</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/Android/i</span>.<span class="title function_">test</span>(ua)) <span class="keyword">return</span> <span class="string">&#x27;Android&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/iPad|iPhone|iPod/</span>.<span class="title function_">test</span>(ua)) <span class="keyword">return</span> <span class="string">&#x27;iOS&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (platform === <span class="string">&#x27;MacIntel&#x27;</span> &amp;&amp; maxTouchPoints &gt; <span class="number">1</span>) <span class="keyword">return</span> <span class="string">&#x27;iOS&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;unknown&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>因为<code>iPad OS 13+ </code>虽然会把 UA 改成 <code>MacIntel</code>，但是依旧支持触控，所以我们能够通过这个条件来进行判断。</p>
 
@@ -333,8 +333,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
+              <a href="/tags/iOS%E5%BC%80%E5%8F%91/" rel="tag"><i class="fa fa-tag"></i> iOS开发</a>
               <a href="/tags/TypeScript/" rel="tag"><i class="fa fa-tag"></i> TypeScript</a>
-              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
               <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
           </div>
 
@@ -436,13 +436,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

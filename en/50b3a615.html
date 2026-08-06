@@ -34,10 +34,10 @@
 <meta property="og:image" content="https://lengmo714.top/postImg/50b3a615/3.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/50b3a615/4.png">
 <meta property="article:published_time" content="2025-04-30T11:23:56.000Z">
-<meta property="article:modified_time" content="2026-07-31T08:24:22.736Z">
+<meta property="article:modified_time" content="2026-08-06T10:57:59.436Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="Android">
 <meta property="article:tag" content="Cocos Creator">
+<meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://lengmo714.top/postImg/50b3a615/1.png">
 
@@ -53,7 +53,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/50b3a615.html#article","headline":"Show the Android Status Bar in Cocos Creator: Remove SYSTEM_UI_FLAG_FULLSCREEN","description":"Show the Android status bar in a Cocos Creator export by removing SYSTEM_UI_FLAG_FULLSCREEN and checking window flags and immersive-mode settings.","datePublished":"2025-04-30T11:23:56.000Z","dateModified":"2026-07-31T08:24:22.736Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/50b3a615.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Android, Cocos Creator","wordCount":121,"image":["https://lengmo714.top/postImg/50b3a615/1.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/50b3a615.html#article","headline":"Show the Android Status Bar in Cocos Creator: Remove SYSTEM_UI_FLAG_FULLSCREEN","description":"Show the Android status bar in a Cocos Creator export by removing SYSTEM_UI_FLAG_FULLSCREEN and checking window flags and immersive-mode settings.","datePublished":"2025-04-30T11:23:56.000Z","dateModified":"2026-08-06T10:57:59.436Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/50b3a615.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, Android","wordCount":121,"image":["https://lengmo714.top/postImg/50b3a615/1.png"]}</script>
 
 
 
@@ -287,12 +287,12 @@
 <p><img src="https://lengmo714.top/postImg/50b3a615/2.png" alt="Additional CocosActivity change" decoding="async" loading="lazy"></p>
 <p><img src="https://lengmo714.top/postImg/50b3a615/3.png" alt="Utils.java change" decoding="async" loading="lazy"></p>
 <p>The main change is to comment out the three lines highlighted in those images. The resulting status-bar color may not match your design, so customize it if necessary.</p>
-<h2 id="Configure-an-Optional-Android-Theme"><a href="#Configure-an-Optional-Android-Theme" class="headerlink" title="Configure an Optional Android Theme"></a>Configure an Optional Android Theme</h2><p>In <code>AndroidManifest.xml</code>, change the <code>android:theme</code> attribute to:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:theme=&quot;@style/CustomTheme&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="Configure-an-Optional-Android-Theme"><a href="#Configure-an-Optional-Android-Theme" class="headerlink" title="Configure an Optional Android Theme"></a>Configure an Optional Android Theme</h2><p>In <code>AndroidManifest.xml</code>, change the <code>Android:theme</code> attribute to:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Android:theme=&quot;@style/CustomTheme&quot;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://lengmo714.top/postImg/50b3a615/4.png" alt="Use CustomTheme" decoding="async" loading="lazy"></p>
 <p>Create <code>res/values/styles.xml</code>:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;CustomTheme&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Theme.AppCompat.Light.NoActionBar&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:windowTranslucentStatus&quot;</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:windowTranslucentNavigation&quot;</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:windowDrawsSystemBarBackgrounds&quot;</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:statusBarColor&quot;</span>&gt;</span>@android:color/transparent<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;CustomTheme&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Theme.AppCompat.Light.NoActionBar&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;Android:windowTranslucentStatus&quot;</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;Android:windowTranslucentNavigation&quot;</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;Android:windowDrawsSystemBarBackgrounds&quot;</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;Android:statusBarColor&quot;</span>&gt;</span>@Android:color/transparent<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>Rebuild the project and the status bar should be visible.</p>
 
@@ -341,8 +341,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
               <a href="/tags/Cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> Cocos Creator</a>
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
           </div>
 
         
@@ -443,13 +443,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

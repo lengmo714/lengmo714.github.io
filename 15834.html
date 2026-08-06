@@ -30,7 +30,7 @@
 <meta property="og:description" content="介绍 Lua 模块和包的实现方式，说明 require、package.loaded、package.path、package.cpath、搜索器、模块返回表及子模块命名规则。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-21T12:41:58.000Z">
-<meta property="article:modified_time" content="2026-07-31T08:38:50.846Z">
+<meta property="article:modified_time" content="2026-08-06T11:00:53.257Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta name="twitter:card" content="summary">
@@ -47,7 +47,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/15834.html#article","headline":"Lua 模块与包教程：require、package.path、搜索器和子模块","description":"介绍 Lua 模块和包的实现方式，说明 require、package.loaded、package.path、package.cpath、搜索器、模块返回表及子模块命名规则。","datePublished":"2020-04-21T12:41:58.000Z","dateModified":"2026-07-31T08:38:50.846Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/15834.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["编程语言"],"keywords":"Lua","wordCount":289}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/15834.html#article","headline":"Lua 模块与包教程：require、package.path、搜索器和子模块","description":"介绍 Lua 模块和包的实现方式，说明 require、package.loaded、package.path、package.cpath、搜索器、模块返回表及子模块命名规则。","datePublished":"2020-04-21T12:41:58.000Z","dateModified":"2026-08-06T11:00:53.257Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/15834.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["编程语言"],"keywords":"Lua","wordCount":289}</script>
 
 
 
@@ -302,7 +302,7 @@
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="built_in">mod</span> = <span class="built_in">require</span> <span class="string">&quot;mod&quot;</span>.init(<span class="number">0</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 <p>请记住，模块在任何情况下只加载一次；至于如何处理冲突的加载，取决于模块自己。</p>
 <h3 id="模块重命名"><a href="#模块重命名" class="headerlink" title="模块重命名"></a>模块重命名</h3><p>通常，我们通过模块本来的名称来使用它们，但有时，我们也需要将一个模块改名以避免命名冲突。一点典型的情况就是，处于测试的目的而需要加载同一模块的不同版本。对于一个Lua语言模块来说，其内部的名称并不要求是固定的，因此通常修改.lua文件的文件名就够了。不过，我们却无法修改C标准库的二进制目标代码中<code>luaopen_*</code>函数的名称。为了进行这种重命名，函数require运用了一个连字符的技巧：如果一个模块名中包含连字符，那么函数require就会用连字符之前的内容创建<code>luaopen_*</code>函数的名称。例如，如果一个模块的名称为mod-v3.4，那么函数require会认为该模块的加载函数应该是<code>luaopen_mod</code>而不是luaopen_mod-v3.4（这也不是有效的C语言函数名）。因此，如果需要使用两个名称均为mod的模块（或相同模块的两个不同版本），那么可以对其中的一个进行重命名，如mod-v1.当调用m1&#x3D;require “mod-v1”时，函数require会找到改名后的文件mod-v1并将其中原名为luaopen_mod的函数作为加载函数。</p>
-<h3 id="搜索路径"><a href="#搜索路径" class="headerlink" title="搜索路径"></a>搜索路径</h3><p>在搜索一个Lua文件时，函数require使用的路径与典型的路径略有不同。典型的路径是很多目录组成的列表，并在其中搜索指定的文件。不过，IOS C（Lua语言依赖的抽象平台）并没有目录的概念。所以，函数require使用的路径是一组模块，其中的每项都指定了蒋模块名(函数require的参数)转换为文件名的方式。更准确地说，这种路径中的每一个模块都是一个包含可选问号的文件名。对于每个模板，函数require会用模块名来替换每一个问号，然后检查结果是否存在对应的文件；如果不存在，则尝试下一个模板。路径中模板以在大所述操作系统中很少被用于文件名的分号隔开。例如，考虑如下路径：</p>
+<h3 id="搜索路径"><a href="#搜索路径" class="headerlink" title="搜索路径"></a>搜索路径</h3><p>在搜索一个Lua文件时，函数require使用的路径与典型的路径略有不同。典型的路径是很多目录组成的列表，并在其中搜索指定的文件。不过，iOS C（Lua语言依赖的抽象平台）并没有目录的概念。所以，函数require使用的路径是一组模块，其中的每项都指定了蒋模块名(函数require的参数)转换为文件名的方式。更准确地说，这种路径中的每一个模块都是一个包含可选问号的文件名。对于每个模板，函数require会用模块名来替换每一个问号，然后检查结果是否存在对应的文件；如果不存在，则尝试下一个模板。路径中模板以在大所述操作系统中很少被用于文件名的分号隔开。例如，考虑如下路径：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?;?.lua;c:\windows\?;/usr/<span class="keyword">local</span>/lua/?/?.lua</span><br></pre></td></tr></table></figure>
 <p>在使用这个路径时，调用require “sql”将尝试打开如下的Lua文件：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sql</span><br><span class="line">sql.lua</span><br><span class="line">c:\windows\sql</span><br><span class="line">/usr/<span class="keyword">local</span>/lua/sql/sql.lua</span><br></pre></td></tr></table></figure>
@@ -486,13 +486,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

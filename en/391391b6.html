@@ -30,7 +30,7 @@
 <meta property="og:description" content="Install a project-compatible Android NDK on macOS with Android Studio Side by side or sdkmanager, then configure the NDK path and zsh environment variables.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-11-09T15:23:16.000Z">
-<meta property="article:modified_time" content="2026-07-31T09:24:48.558Z">
+<meta property="article:modified_time" content="2026-08-06T10:53:43.189Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="NDK">
@@ -48,7 +48,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/391391b6.html#article","headline":"Install Android NDK on macOS with Android Studio or sdkmanager","description":"Install a project-compatible Android NDK on macOS with Android Studio Side by side or sdkmanager, then configure the NDK path and zsh environment variables.","datePublished":"2022-11-09T15:23:16.000Z","dateModified":"2026-07-31T09:24:48.558Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/391391b6.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Android NDK"],"keywords":"Android, NDK","wordCount":154}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/391391b6.html#article","headline":"Install Android NDK on macOS with Android Studio or sdkmanager","description":"Install a project-compatible Android NDK on macOS with Android Studio Side by side or sdkmanager, then configure the NDK path and zsh environment variables.","datePublished":"2022-11-09T15:23:16.000Z","dateModified":"2026-08-06T10:53:43.189Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/391391b6.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Android NDK"],"keywords":"Android, NDK","wordCount":154}</script>
 
 
 
@@ -277,16 +277,16 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sdkmanager --list | grep <span class="string">&#x27;ndk;&#x27;</span></span><br><span class="line">sdkmanager <span class="string">&#x27;ndk;VERSION_REQUIRED_BY_PROJECT&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>Side-by-side releases are normally placed under:</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ANDROID_SDK_ROOT/ndk/VERSION</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$Android_SDK_ROOT/ndk/VERSION</span><br></pre></td></tr></table></figure>
 
 <p>Gradle projects should pin the version:</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    ndkVersion <span class="string">&quot;VERSION_REQUIRED_BY_PROJECT&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Android &#123;</span><br><span class="line">    ndkVersion <span class="string">&quot;VERSION_REQUIRED_BY_PROJECT&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="Shell-configuration"><a href="#Shell-configuration" class="headerlink" title="Shell configuration"></a>Shell configuration</h2><p>On current macOS versions, zsh normally reads <code>~/.zshrc</code>. Add paths that match your installation:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> ANDROID_SDK_ROOT=<span class="string">&quot;<span class="variable">$HOME</span>/Library/Android/sdk&quot;</span></span><br><span class="line"><span class="built_in">export</span> ANDROID_NDK_HOME=<span class="string">&quot;<span class="variable">$ANDROID_SDK_ROOT</span>/ndk/VERSION_REQUIRED_BY_PROJECT&quot;</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$ANDROID_SDK_ROOT</span>/platform-tools:<span class="variable">$PATH</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> Android_SDK_ROOT=<span class="string">&quot;<span class="variable">$HOME</span>/Library/Android/sdk&quot;</span></span><br><span class="line"><span class="built_in">export</span> Android_NDK_HOME=<span class="string">&quot;<span class="variable">$Android_SDK_ROOT</span>/ndk/VERSION_REQUIRED_BY_PROJECT&quot;</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$Android_SDK_ROOT</span>/platform-tools:<span class="variable">$PATH</span>&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>Reload the shell and verify:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br><span class="line"><span class="built_in">test</span> -d <span class="string">&quot;<span class="variable">$ANDROID_NDK_HOME</span>&quot;</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;NDK found&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br><span class="line"><span class="built_in">test</span> -d <span class="string">&quot;<span class="variable">$Android_NDK_HOME</span>&quot;</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">&#x27;NDK found&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>Very old projects may require archived releases such as r10e. Prefer official Android archives, verify the checksum, and isolate the old toolchain because it does not include current compiler and security updates.</p>
 
@@ -349,8 +349,8 @@
       <i class="fa fa-chevron-left"></i> macOS 安装 Android NDK：Android Studio、sdkmanager 与环境变量
     </a></div>
       <div class="post-nav-item">
-    <a href="/e883772a.html" rel="next" title="Cocos2d-x Lua Sprite 与 ImageView：换图、图集和九宫格区别">
-      Cocos2d-x Lua Sprite 与 ImageView：换图、图集和九宫格区别 <i class="fa fa-chevron-right"></i>
+    <a href="/en/e883772a.html" rel="next" title="Cocos2d-x Lua Sprite vs ImageView: Image Replacement, Atlases and Scale9">
+      Cocos2d-x Lua Sprite vs ImageView: Image Replacement, Atlases and Scale9 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -437,13 +437,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

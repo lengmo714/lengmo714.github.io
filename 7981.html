@@ -30,7 +30,7 @@
 <meta property="og:description" content="介绍 Lua 数据文件的读取和序列化方法，涵盖基本类型、普通表、共享引用与循环引用，并说明 load 执行数据时的输入校验和沙盒安全风险。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-18T15:56:16.000Z">
-<meta property="article:modified_time" content="2026-07-31T08:46:17.414Z">
+<meta property="article:modified_time" content="2026-08-06T10:52:48.187Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Lua">
 <meta name="twitter:card" content="summary">
@@ -47,7 +47,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/7981.html#article","headline":"Lua 数据文件与序列化：表、循环引用和安全反序列化","description":"介绍 Lua 数据文件的读取和序列化方法，涵盖基本类型、普通表、共享引用与循环引用，并说明 load 执行数据时的输入校验和沙盒安全风险。","datePublished":"2020-04-18T15:56:16.000Z","dateModified":"2026-07-31T08:46:17.414Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/7981.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["编程语言"],"keywords":"Lua","wordCount":490}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/7981.html#article","headline":"Lua 数据文件与序列化：表、循环引用和安全反序列化","description":"介绍 Lua 数据文件的读取和序列化方法，涵盖基本类型、普通表、共享引用与循环引用，并说明 load 执行数据时的输入校验和沙盒安全风险。","datePublished":"2020-04-18T15:56:16.000Z","dateModified":"2026-08-06T10:52:48.187Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/7981.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["编程语言"],"keywords":"Lua","wordCount":490}</script>
 
 
 
@@ -277,7 +277,7 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>Lua语言自1993年发布以来，其主要用途之一就是描述数据。在那个年代，主要的文本数据描述语言之一是SGML。对于很多人来说，SGML既臃肿又复杂。在1998年，有些人将其简化成XML，但以我们的眼光看仍然臃肿又复杂。有些人跟我们的观点一直，进而在2001年开发了JSON。JSON基于JavaScript，类似于一种精简过的Lua语言数据文件。一方面，JSON的一大优势在于它是国际标准，包括Lua语言在内的多种语言都具有操作JSON文件的标准库。另一方面，Lua语言数据文件的读取更加容易和灵活。<br>使用一门全功能的编程语言来描述数据确实非常灵活，但也会带来两个问题。问题之一在于安全性，这是因为“数据”文件能够肆意地在我们的程序中运行。我们可以通过沙盒中运行程序来解决这个问题。<br>另一个问题是性能问题。Lua语言不仅运行得快，编译也很快。例如，在笔者的新机器上，Lua5.3可以在4秒以内，占用240MB内存，完成1000万条赋值语句的读取、编译和运行。作为对比，Perl5.18需要21秒、占用6GB内存，Python2.7和Python3.4直接崩溃，Node.js0.10.25在运行8秒后抛出“内存溢出”异常，Rhino1.7在运行6分钟后也抛出了“内存溢出”异常。</p>
+<p>Lua语言自1993年发布以来，其主要用途之一就是描述数据。在那个年代，主要的文本数据描述语言之一是SGML。对于很多人来说，SGML既臃肿又复杂。在1998年，有些人将其简化成XML，但以我们的眼光看仍然臃肿又复杂。有些人跟我们的观点一直，进而在2001年开发了JSON。JSON基于JavaScript，类似于一种精简过的Lua语言数据文件。一方面，JSON的一大优势在于它是国际标准，包括Lua语言在内的多种语言都具有操作JSON文件的标准库。另一方面，Lua语言数据文件的读取更加容易和灵活。<br>使用一门全功能的编程语言来描述数据确实非常灵活，但也会带来两个问题。问题之一在于安全性，这是因为“数据”文件能够肆意地在我们的程序中运行。我们可以通过沙盒中运行程序来解决这个问题。<br>另一个问题是性能问题。Lua语言不仅运行得快，编译也很快。例如，在笔者的新机器上，Lua5.3可以在4秒以内，占用240MB内存，完成1000万条赋值语句的读取、编译和运行。作为对比，Perl5.18需要21秒、占用6GB内存，python2.7和python3.4直接崩溃，Node.js0.10.25在运行8秒后抛出“内存溢出”异常，Rhino1.7在运行6分钟后也抛出了“内存溢出”异常。</p>
 <h2 id="数据文件"><a href="#数据文件" class="headerlink" title="数据文件"></a>数据文件</h2><p>对于文件格式来说，表构造器提供了一种有趣的替代方法。只需在写入数据时做一点额外的工作，就能使得读数据变得容易。这种技巧就是将数据文件写成Lua代码，当这些代码运行时，程序也就把数据重建了。使用表构造器时，这些代码段看上去会非常像是一个普通的数据文件。<br>下面通过一个示例来进一步展示处理数据文件的方式。如果数据文件使用的是诸如CSV或XML等预先定义好的格式，那么我们能够选择的方法不多。不过，如果处理的是处于自身需求而创建的数据文件，那么就可以将Lua语言的构造器用于格式定义。此时，我们把每条数据记录表示为一个Lua构造器。这样，原来类似</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Donald E. Knuth,Literate Programming,CSLI,<span class="number">1992</span></span><br><span class="line">Jon Bentley,More Programming Pearls, Addison-Wesley,<span class="number">1990</span></span><br></pre></td></tr></table></figure>
 <p>的数据文件就可以改为：</p>
@@ -488,13 +488,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

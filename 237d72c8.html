@@ -32,10 +32,9 @@
 <meta property="og:image" content="https://lengmo714.top/postImg/237d72c8/1.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/237d72c8/2.png">
 <meta property="article:published_time" content="2026-07-02T02:21:05.000Z">
-<meta property="article:modified_time" content="2026-07-31T07:55:57.799Z">
+<meta property="article:modified_time" content="2026-08-06T11:00:53.309Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="Xcode">
-<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="iOS开发">
 <meta property="article:tag" content="CFBundleVersion">
 <meta property="article:tag" content="App Store Connect">
 <meta name="twitter:card" content="summary">
@@ -53,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/237d72c8.html#article","headline":"Xcode Archive 后 Build 版本号不生效：CFBundleVersion 解决方法","description":"解决 Xcode 修改 Build Number 后 Archive 仍然使用旧版本号、App Store Connect 找不到指定 Build 的问题，并介绍 CFBundleVersion 和 CURRENT_PROJECT_VERSION 的正确配置。","datePublished":"2026-07-02T02:21:05.000Z","dateModified":"2026-07-31T07:55:57.799Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/237d72c8.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"Xcode, iOS, CFBundleVersion, App Store Connect","wordCount":16,"image":["https://lengmo714.top/postImg/237d72c8/1.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/237d72c8.html#article","headline":"Xcode Archive 后 Build 版本号不生效：CFBundleVersion 解决方法","description":"解决 Xcode 修改 Build Number 后 Archive 仍然使用旧版本号、App Store Connect 找不到指定 Build 的问题，并介绍 CFBundleVersion 和 CURRENT_PROJECT_VERSION 的正确配置。","datePublished":"2026-07-02T02:21:05.000Z","dateModified":"2026-08-06T11:00:53.309Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/237d72c8.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"iOS开发, CFBundleVersion, App Store Connect","wordCount":16,"image":["https://lengmo714.top/postImg/237d72c8/1.png"]}</script>
 
 
 
@@ -260,7 +259,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cocosCreator/" itemprop="url" rel="index"><span itemprop="name">cocosCreator</span></a>
+                  <a href="/categories/Cocos-Creator/" itemprop="url" rel="index"><span itemprop="name">Cocos Creator</span></a>
                 </span>
             </span>
 
@@ -282,7 +281,7 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>这两天在构建ios版本的时候发现一个严重的问题，我发布到后台的版本和我自己本地构建的版本对应不上。</p>
+<p>这两天在构建iOS版本的时候发现一个严重的问题，我发布到后台的版本和我自己本地构建的版本对应不上。</p>
 <p>如图，<br><img src="/postImg/237d72c8/1.png" decoding="async" loading="eager" fetchpriority="high" alt="Xcode Archive 后 Build 版本号不生效：CFBundleVersion 解决方法 — 图片 1"><br>我Archive出来的版本都一样，刚开始我没有在意，结果今天我准备正儿八经提审的时候，发现<em>找不到</em>我的昨天上传的包了，因为我昨天构建的是下面这样子的<br><img src="/postImg/237d72c8/2.png" decoding="async" loading="lazy" alt="Xcode Archive 后 Build 版本号不生效：CFBundleVersion 解决方法 — 图片 2"><br>结果我在后台找不到版本和构建为<code>1.0.0(8)</code>的这个包，这时候才意识到问题。</p>
 <p>仔细检查一番发现，原来是我在这里修改的<code>Build=8</code>没有生效到最终<code>.app</code>的<code>Info.plist</code>文件里。</p>
 <p><strong>解决步骤：</strong><br>1、找到我们Archives真正使用的Info.plist<br>进入<code>Build Setting</code>,搜索<code>Info.plist File</code>。</p>
@@ -337,8 +336,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Xcode/" rel="tag"><i class="fa fa-tag"></i> Xcode</a>
-              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/iOS%E5%BC%80%E5%8F%91/" rel="tag"><i class="fa fa-tag"></i> iOS开发</a>
               <a href="/tags/CFBundleVersion/" rel="tag"><i class="fa fa-tag"></i> CFBundleVersion</a>
               <a href="/tags/App-Store-Connect/" rel="tag"><i class="fa fa-tag"></i> App Store Connect</a>
           </div>
@@ -440,13 +438,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

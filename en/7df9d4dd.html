@@ -30,7 +30,7 @@
 <meta property="og:description" content="Add calendar events and reminders from an Android app with CalendarContract by opening the system editor or writing through Calendar Provider with runtime permissions.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-09-10T08:24:26.000Z">
-<meta property="article:modified_time" content="2026-07-31T08:29:17.477Z">
+<meta property="article:modified_time" content="2026-08-06T11:02:34.712Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Calendar">
@@ -48,7 +48,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/7df9d4dd.html#article","headline":"Add Android Calendar Events and Reminders with CalendarContract","description":"Add calendar events and reminders from an Android app with CalendarContract by opening the system editor or writing through Calendar Provider with runtime permissions.","datePublished":"2025-09-10T08:24:26.000Z","dateModified":"2026-07-31T08:29:17.477Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/7df9d4dd.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Android Studio"],"keywords":"Android, Calendar","wordCount":250}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/7df9d4dd.html#article","headline":"Add Android Calendar Events and Reminders with CalendarContract","description":"Add calendar events and reminders from an Android app with CalendarContract by opening the system editor or writing through Calendar Provider with runtime permissions.","datePublished":"2025-09-10T08:24:26.000Z","dateModified":"2026-08-06T11:02:34.712Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/7df9d4dd.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Android开发"],"keywords":"Android, Calendar","wordCount":250}</script>
 
 
 
@@ -255,7 +255,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android-Studio/" itemprop="url" rel="index"><span itemprop="name">Android Studio</span></a>
+                  <a href="/categories/Android%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Android开发</span></a>
                 </span>
             </span>
 
@@ -277,7 +277,7 @@
 
 <p>Use this unless silent, app-managed insertion is a real product requirement.</p>
 <h2 id="Option-2-Insert-an-Event-with-Calendar-Provider"><a href="#Option-2-Insert-an-Event-with-Calendar-Provider" class="headerlink" title="Option 2: Insert an Event with Calendar Provider"></a>Option 2: Insert an Event with Calendar Provider</h2><p>Declare permissions in <code>AndroidManifest.xml</code>:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.READ_CALENDAR&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.WRITE_CALENDAR&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">Android:name</span>=<span class="string">&quot;Android.permission.READ_CALENDAR&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">Android:name</span>=<span class="string">&quot;Android.permission.WRITE_CALENDAR&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>On Android 6.0 and later, request both dangerous permissions at runtime. After permission is granted, select a writable calendar from <code>CalendarContract.Calendars</code>, then insert the event:</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> zone = TimeZone.getDefault().id</span><br><span class="line"><span class="keyword">val</span> values = ContentValues().apply &#123;</span><br><span class="line">    put(CalendarContract.Events.CALENDAR_ID, calendarId)</span><br><span class="line">    put(CalendarContract.Events.TITLE, <span class="string">&quot;Project reminder&quot;</span>)</span><br><span class="line">    put(CalendarContract.Events.DTSTART, start)</span><br><span class="line">    put(CalendarContract.Events.DTEND, end)</span><br><span class="line">    put(CalendarContract.Events.EVENT_TIMEZONE, zone)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> eventUri = contentResolver.insert(</span><br><span class="line">    CalendarContract.Events.CONTENT_URI,</span><br><span class="line">    values</span><br><span class="line">) ?: error(<span class="string">&quot;Unable to create event&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> eventId = ContentUris.parseId(eventUri)</span><br></pre></td></tr></table></figure>
@@ -434,13 +434,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

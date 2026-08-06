@@ -32,10 +32,10 @@
 <meta property="og:image" content="https://lengmo714.top/postImg/2a8f95cc/1.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/2a8f95cc/2.png">
 <meta property="article:published_time" content="2026-06-17T07:18:59.000Z">
-<meta property="article:modified_time" content="2026-07-31T07:57:34.656Z">
+<meta property="article:modified_time" content="2026-08-06T11:00:53.274Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
-<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="iOS开发">
 <meta property="article:tag" content="Hot Update">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://lengmo714.top/postImg/2a8f95cc/1.png">
@@ -52,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/2a8f95cc.html#article","headline":"Cocos Creator iOS Hot Update Completes but Still Runs Old Code: How to Fix It","description":"Fix a Cocos Creator 3.x iOS hot update that reaches 100% but still loads old code after restart by restoring the hot-update search paths correctly.","datePublished":"2026-06-17T07:18:59.000Z","dateModified":"2026-07-31T07:57:34.656Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/2a8f95cc.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, iOS, Hot Update","wordCount":333,"image":["https://lengmo714.top/postImg/2a8f95cc/1.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/2a8f95cc.html#article","headline":"Cocos Creator iOS Hot Update Completes but Still Runs Old Code: How to Fix It","description":"Fix a Cocos Creator 3.x iOS hot update that reaches 100% but still loads old code after restart by restoring the hot-update search paths correctly.","datePublished":"2026-06-17T07:18:59.000Z","dateModified":"2026-08-06T11:00:53.274Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/2a8f95cc.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, iOS开发, Hot Update","wordCount":333,"image":["https://lengmo714.top/postImg/2a8f95cc/1.png"]}</script>
 
 
 
@@ -284,7 +284,7 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.<span class="property">onAfterBuild</span> = <span class="keyword">function</span> (<span class="params">options, result</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> resdir = <span class="string">&#x27;assets&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (fs.<span class="title function_">existsSync</span>(path.<span class="title function_">join</span>(result.<span class="property">dest</span>, <span class="string">&#x27;data&#x27;</span>))) &#123;</span><br><span class="line">        resdir = <span class="string">&#x27;data&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> cmd = <span class="string">`node version_generator.js -v <span class="subst">$&#123;game_version&#125;</span> -u https://lengmo714/<span class="subst">$&#123;game_version&#125;</span>/ -s <span class="subst">$&#123;path.join(result.dest, resdir)&#125;</span> -d <span class="subst">$&#123;path.join(Editor.Project.path, <span class="string">&quot;assets\\resources&quot;</span>)&#125;</span>`</span></span><br><span class="line"></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="string">&quot;Hot update path:&quot;</span>, cmd);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">exec</span>(cmd, &#123; <span class="attr">cwd</span>: <span class="title class_">Editor</span>.<span class="property">Project</span>.<span class="property">path</span> &#125;, <span class="function">(<span class="params">err, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!err) <span class="keyword">return</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>On iOS, the build path is usually:</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build/ios/data</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build/iOS/data</span><br></pre></td></tr></table></figure>
 
 <p>The local path after an update usually looks like:</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Documents/asset</span><br></pre></td></tr></table></figure>
@@ -348,7 +348,7 @@
           
           <div class="post-tags">
               <a href="/tags/Cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> Cocos Creator</a>
-              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/iOS%E5%BC%80%E5%8F%91/" rel="tag"><i class="fa fa-tag"></i> iOS开发</a>
               <a href="/tags/Hot-Update/" rel="tag"><i class="fa fa-tag"></i> Hot Update</a>
           </div>
 
@@ -450,13 +450,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

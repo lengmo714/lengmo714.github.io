@@ -32,9 +32,9 @@
 <meta property="og:image" content="https://lengmo714.top/postImg/eb391a75/1.png">
 <meta property="og:image" content="https://lengmo714.top/postImg/eb391a75/2.png">
 <meta property="article:published_time" content="2025-09-19T06:09:00.000Z">
-<meta property="article:modified_time" content="2026-07-31T12:12:38.396Z">
+<meta property="article:modified_time" content="2026-08-06T10:57:59.402Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="cocosCreator">
+<meta property="article:tag" content="Cocos Creator">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://lengmo714.top/postImg/eb391a75/1.png">
 
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/eb391a75.html#article","headline":"Cocos Creator Web 资源加载分析：DevTools 与 Performance API","description":"分析 Cocos Creator Web Mobile 构建的资源加载时间，使用 Chrome Network 和 Performance API 统计文件大小、等待、下载耗时，并定位慢资源。","datePublished":"2025-09-19T06:09:00.000Z","dateModified":"2026-07-31T12:12:38.396Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/eb391a75.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":209,"image":["https://lengmo714.top/postImg/eb391a75/1.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/eb391a75.html#article","headline":"Cocos Creator Web 资源加载分析：DevTools 与 Performance API","description":"分析 Cocos Creator Web Mobile 构建的资源加载时间，使用 Chrome Network 和 Performance API 统计文件大小、等待、下载耗时，并定位慢资源。","datePublished":"2025-09-19T06:09:00.000Z","dateModified":"2026-08-06T10:57:59.402Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/eb391a75.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator","wordCount":210,"image":["https://lengmo714.top/postImg/eb391a75/1.png"]}</script>
 
 
 
@@ -257,7 +257,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cocosCreator/" itemprop="url" rel="index"><span itemprop="name">cocosCreator</span></a>
+                  <a href="/categories/Cocos-Creator/" itemprop="url" rel="index"><span itemprop="name">Cocos Creator</span></a>
                 </span>
             </span>
 
@@ -273,7 +273,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>我们使用cocosCreator导出Web-Mobile工程，加载时间长，从而导致用户体验差。所以解决加载是个比较重要的事情。</p>
+        <p>我们使用Cocos Creator导出Web-Mobile工程，加载时间长，从而导致用户体验差。所以解决加载是个比较重要的事情。</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
@@ -283,7 +283,7 @@
 <p>优化加载时间，首先我们得知道是什么原因导致了加载时间长。</p>
 <h2 id="使用-DevTools-Network-查看资源耗时"><a href="#使用-DevTools-Network-查看资源耗时" class="headerlink" title="使用 DevTools Network 查看资源耗时"></a>使用 DevTools Network 查看资源耗时</h2><p>我们可以直接通过打开浏览器开发者模式(快捷键F12),选择<code>Network(网络)</code>这一栏，就可以看到所有我们工程所有的请求，已经请求资源大小和时间。<br><img src="https://lengmo714.top/postImg/eb391a75/1.png" alt="打开浏览器F12查看加载时间" decoding="async" loading="eager" fetchpriority="high"></p>
 <p>这里其实也只能看到加载时间一共花了多长时间，但是并不知道具体的加载过程。</p>
-<h2 id="使用-Performance-API-分析加载数据"><a href="#使用-Performance-API-分析加载数据" class="headerlink" title="使用 Performance API 分析加载数据"></a>使用 Performance API 分析加载数据</h2><h3 id="控制台分析脚本"><a href="#控制台分析脚本" class="headerlink" title="控制台分析脚本"></a>控制台分析脚本</h3><p>我们可以通过这个脚本来分析cocos Creator Web-Mobile工程的资源加载情况，按<code>文件大小</code>、<code>等待时间</code>、<code>下载时间</code>等分类，更方便我们查看。</p>
+<h2 id="使用-Performance-API-分析加载数据"><a href="#使用-Performance-API-分析加载数据" class="headerlink" title="使用 Performance API 分析加载数据"></a>使用 Performance API 分析加载数据</h2><h3 id="控制台分析脚本"><a href="#控制台分析脚本" class="headerlink" title="控制台分析脚本"></a>控制台分析脚本</h3><p>我们可以通过这个脚本来分析Cocos Creator Web-Mobile工程的资源加载情况，按<code>文件大小</code>、<code>等待时间</code>、<code>下载时间</code>等分类，更方便我们查看。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> resources = performance.<span class="title function_">getEntriesByType</span>(<span class="string">&#x27;resource&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> result = resources.<span class="title function_">map</span>(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> sizeKB = res.<span class="property">encodedBodySize</span> / <span class="number">1024</span>;</span><br><span class="line">        <span class="keyword">const</span> totalTime = res.<span class="property">duration</span>.<span class="title function_">toFixed</span>(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">const</span> waitTime = (res.<span class="property">responseStart</span> - res.<span class="property">startTime</span>).<span class="title function_">toFixed</span>(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">const</span> downloadTime = (res.<span class="property">responseEnd</span> - res.<span class="property">responseStart</span>).<span class="title function_">toFixed</span>(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">name</span>: res.<span class="property">name</span>.<span class="title function_">split</span>(<span class="string">&#x27;/&#x27;</span>).<span class="title function_">pop</span>(),</span><br><span class="line">            <span class="attr">type</span>: res.<span class="property">initiatorType</span>,</span><br><span class="line">            <span class="attr">sizeKB</span>: sizeKB.<span class="title function_">toFixed</span>(<span class="number">2</span>),</span><br><span class="line">            <span class="attr">totalTime</span>: <span class="built_in">parseFloat</span>(totalTime),</span><br><span class="line">            <span class="attr">waitTime</span>: <span class="built_in">parseFloat</span>(waitTime),</span><br><span class="line">            <span class="attr">downloadTime</span>: <span class="built_in">parseFloat</span>(downloadTime)</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 按总耗时排序</span></span><br><span class="line">    result.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> b.<span class="property">totalTime</span> - a.<span class="property">totalTime</span>);</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">table</span>(result);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 统计小图耗时异常的资源 </span></span><br><span class="line">    <span class="keyword">const</span> smallFiles = result.<span class="title function_">filter</span>(<span class="function"><span class="params">r</span> =&gt;</span> r.<span class="property">sizeKB</span> &lt; <span class="number">50</span> &amp;&amp; r.<span class="property">totalTime</span> &gt; <span class="number">100</span>);</span><br><span class="line">    <span class="keyword">if</span> (smallFiles.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;⚠️ 小文件耗时异常（&lt;50KB，总耗时&gt;100ms）:&#x27;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">table</span>(smallFiles);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;✅ 小文件耗时正常&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
 <p>我这里添加了判断小文件耗时异常的代码，如果小文件耗时超过100ms，就会打印出来。这个地方的阈值可以根据自己的需求进行修改。</p>
 <h3 id="脚本使用方法"><a href="#脚本使用方法" class="headerlink" title="脚本使用方法"></a>脚本使用方法</h3><ul>
@@ -398,7 +398,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/cocosCreator/" rel="tag"><i class="fa fa-tag"></i> cocosCreator</a>
+              <a href="/tags/Cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> Cocos Creator</a>
           </div>
 
         
@@ -499,13 +499,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

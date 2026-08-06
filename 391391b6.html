@@ -22,19 +22,19 @@
     var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="在 macOS 安装项目指定版本的 Android NDK，介绍 Android Studio Side by side、sdkmanager、解压路径、ANDROID_NDK_HOME 和 zsh 环境变量配置。">
+  <meta name="description" content="在 macOS 安装项目指定版本的 Android NDK，介绍 Android Studio Side by side、sdkmanager、解压路径、Android_NDK_HOME 和 zsh 环境变量配置。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="macOS 安装 Android NDK：Android Studio、sdkmanager 与环境变量">
 <meta property="og:url" content="https://lengmo714.top/391391b6.html">
 <meta property="og:site_name" content="南锋">
-<meta property="og:description" content="在 macOS 安装项目指定版本的 Android NDK，介绍 Android Studio Side by side、sdkmanager、解压路径、ANDROID_NDK_HOME 和 zsh 环境变量配置。">
+<meta property="og:description" content="在 macOS 安装项目指定版本的 Android NDK，介绍 Android Studio Side by side、sdkmanager、解压路径、Android_NDK_HOME 和 zsh 环境变量配置。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-09T15:23:16.000Z">
-<meta property="article:modified_time" content="2026-07-31T09:24:48.426Z">
+<meta property="article:modified_time" content="2026-08-06T10:53:43.190Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="android ndk">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Android ndk">
 <meta property="article:tag" content="ndkr10e">
-<meta property="article:tag" content="android">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://lengmo714.top/391391b6.html">
@@ -49,7 +49,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/391391b6.html#article","headline":"macOS 安装 Android NDK：Android Studio、sdkmanager 与环境变量","description":"在 macOS 安装项目指定版本的 Android NDK，介绍 Android Studio Side by side、sdkmanager、解压路径、ANDROID_NDK_HOME 和 zsh 环境变量配置。","datePublished":"2022-11-09T15:23:16.000Z","dateModified":"2026-07-31T09:24:48.426Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/391391b6.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["android ndk"],"keywords":"android ndk, ndkr10e, android","wordCount":53}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/391391b6.html#article","headline":"macOS 安装 Android NDK：Android Studio、sdkmanager 与环境变量","description":"在 macOS 安装项目指定版本的 Android NDK，介绍 Android Studio Side by side、sdkmanager、解压路径、Android_NDK_HOME 和 zsh 环境变量配置。","datePublished":"2022-11-09T15:23:16.000Z","dateModified":"2026-08-06T10:53:43.190Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/391391b6.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Android ndk"],"keywords":"Android, Android ndk, ndkr10e","wordCount":53}</script>
 
 
 
@@ -256,12 +256,12 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android-ndk/" itemprop="url" rel="index"><span itemprop="name">android ndk</span></a>
+                  <a href="/categories/Android-ndk/" itemprop="url" rel="index"><span itemprop="name">Android ndk</span></a>
                 </span>
             </span>
 
           
-            <div class="post-description">在 macOS 安装项目指定版本的 Android NDK，介绍 Android Studio Side by side、sdkmanager、解压路径、ANDROID_NDK_HOME 和 zsh 环境变量配置。</div>
+            <div class="post-description">在 macOS 安装项目指定版本的 Android NDK，介绍 Android Studio Side by side、sdkmanager、解压路径、Android_NDK_HOME 和 zsh 环境变量配置。</div>
 
         </div>
       </header>
@@ -272,19 +272,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>最近博主在做android平台的游戏开发，不得不说android开发是真的麻烦。</p>
+        <p>最近博主在做Android平台的游戏开发，不得不说Android开发是真的麻烦。</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h2 id="下载项目需要的-NDK-版本"><a href="#下载项目需要的-NDK-版本" class="headerlink" title="下载项目需要的 NDK 版本"></a>下载项目需要的 NDK 版本</h2><p>android开发需要安装android ndk，这里对ndk的版本有着高要求。<br>推荐大家一个下载地址<a target="_blank" rel="noopener" href="https://blog.csdn.net/momo0853/article/details/73898066">ndk老版本下载</a>这上面的ndk版本相对比较全面，选择自己需要的版本下载即可。<br>博主这里用到的是<code>ndkr10e</code>版本。</p>
-<h2 id="解压并安装-Android-NDK"><a href="#解压并安装-Android-NDK" class="headerlink" title="解压并安装 Android NDK"></a>解压并安装 Android NDK</h2><p>下载下来后，完整的文件名字是<code>android-ndk-r10e-darwin-x86_64.bin</code><br>在Mac上，<code>.bin</code>文件是不能直接用解压文件直接解压的，这时候需要输入下面命令。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x android-ndk-r10c-darwin-x86_64.<span class="property">bin</span></span><br><span class="line">./android-ndk-r10c-darwin-x86_64.<span class="property">bin</span> <span class="comment">//在这个过程中可能需要安全认证</span></span><br></pre></td></tr></table></figure>
+<h2 id="下载项目需要的-NDK-版本"><a href="#下载项目需要的-NDK-版本" class="headerlink" title="下载项目需要的 NDK 版本"></a>下载项目需要的 NDK 版本</h2><p>Android开发需要安装Android ndk，这里对ndk的版本有着高要求。<br>推荐大家一个下载地址<a target="_blank" rel="noopener" href="https://blog.csdn.net/momo0853/article/details/73898066">ndk老版本下载</a>这上面的ndk版本相对比较全面，选择自己需要的版本下载即可。<br>博主这里用到的是<code>ndkr10e</code>版本。</p>
+<h2 id="解压并安装-Android-NDK"><a href="#解压并安装-Android-NDK" class="headerlink" title="解压并安装 Android NDK"></a>解压并安装 Android NDK</h2><p>下载下来后，完整的文件名字是<code>Android-ndk-r10e-darwin-x86_64.bin</code><br>在Mac上，<code>.bin</code>文件是不能直接用解压文件直接解压的，这时候需要输入下面命令。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x <span class="title class_">Android</span>-ndk-r10c-darwin-x86_64.<span class="property">bin</span></span><br><span class="line">./<span class="title class_">Android</span>-ndk-r10c-darwin-x86_64.<span class="property">bin</span> <span class="comment">//在这个过程中可能需要安全认证</span></span><br></pre></td></tr></table></figure>
 <p>输入第二行命令后，就会看到文件再解压了，解压需要一小小小会儿，稍等一下下就行。</p>
 <h2 id="配置-macOS-NDK-环境变量"><a href="#配置-macOS-NDK-环境变量" class="headerlink" title="配置 macOS NDK 环境变量"></a>配置 macOS NDK 环境变量</h2><p>要使用ndk，还得将ndk配置到设备的环境变量中。<br>在终端执行下面操作<br><code>vim .bash_profile</code><br>复制粘贴如下内容</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="variable constant_">ANDROID_SDK_ROOT</span>=<span class="regexp">/Users/</span>cxf/<span class="title class_">Library</span>/<span class="title class_">Android</span>/sdk     <span class="comment">// android sdk路径</span></span><br><span class="line"><span class="keyword">export</span> <span class="variable constant_">ANDROID_NDK_ROOT</span>=<span class="regexp">/Users/</span>cxf/<span class="title class_">Documents</span>/android-ndk-r10e  <span class="comment">// ndk路径</span></span><br><span class="line"><span class="keyword">export</span> <span class="variable constant_">NDK_ROOT</span>=<span class="regexp">/Users/</span>cxf/<span class="title class_">Documents</span>/android-ndk-r10e </span><br><span class="line"><span class="keyword">export</span> NDK_ROOT_quick=<span class="regexp">/Users/</span>cxf/<span class="title class_">Documents</span>/android-ndk-r10e</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="title class_">Android</span>_SDK_ROOT=<span class="regexp">/Users/</span>cxf/<span class="title class_">Library</span>/<span class="title class_">Android</span>/sdk     <span class="comment">// Android sdk路径</span></span><br><span class="line"><span class="keyword">export</span> <span class="title class_">Android</span>_NDK_ROOT=<span class="regexp">/Users/</span>cxf/<span class="title class_">Documents</span>/<span class="title class_">Android</span>-ndk-r10e  <span class="comment">// ndk路径</span></span><br><span class="line"><span class="keyword">export</span> <span class="variable constant_">NDK_ROOT</span>=<span class="regexp">/Users/</span>cxf/<span class="title class_">Documents</span>/<span class="title class_">Android</span>-ndk-r10e </span><br><span class="line"><span class="keyword">export</span> NDK_ROOT_quick=<span class="regexp">/Users/</span>cxf/<span class="title class_">Documents</span>/<span class="title class_">Android</span>-ndk-r10e</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注意：上面的路径都要改成自己的路径</p>
 </blockquote>
@@ -336,9 +336,9 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/android-ndk/" rel="tag"><i class="fa fa-tag"></i> android ndk</a>
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+              <a href="/tags/Android-ndk/" rel="tag"><i class="fa fa-tag"></i> Android ndk</a>
               <a href="/tags/ndkr10e/" rel="tag"><i class="fa fa-tag"></i> ndkr10e</a>
-              <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
           </div>
 
         
@@ -439,13 +439,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

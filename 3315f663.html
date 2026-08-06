@@ -33,9 +33,9 @@
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xq67FO.png">
 <meta property="og:image" content="https://s1.ax1x.com/2022/11/03/xq6Old.png">
 <meta property="article:published_time" content="2022-11-03T15:40:09.000Z">
-<meta property="article:modified_time" content="2026-07-31T09:43:51.117Z">
+<meta property="article:modified_time" content="2026-08-06T11:00:53.318Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="android">
+<meta property="article:tag" content="Android">
 <meta property="article:tag" content="quick Cocos">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s1.ax1x.com/2022/11/03/xq6X6A.png">
@@ -52,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/3315f663.html#article","headline":"quick-Cocos2d-x 编译 Android APK：NDK、原生库与 Ant 工程","description":"记录旧版 quick-Cocos2d-x Android 项目的构建流程，包括匹配 JDK、SDK、NDK 和 Ant 版本，编译原生库、更新工程并生成 APK。","datePublished":"2022-11-03T15:40:09.000Z","dateModified":"2026-07-31T09:43:51.117Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/3315f663.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"android, quick Cocos","wordCount":27,"image":["https://s1.ax1x.com/2022/11/03/xq6X6A.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/3315f663.html#article","headline":"quick-Cocos2d-x 编译 Android APK：NDK、原生库与 Ant 工程","description":"记录旧版 quick-Cocos2d-x Android 项目的构建流程，包括匹配 JDK、SDK、NDK 和 Ant 版本，编译原生库、更新工程并生成 APK。","datePublished":"2022-11-03T15:40:09.000Z","dateModified":"2026-08-06T11:00:53.318Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/3315f663.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"Android, quick Cocos","wordCount":27,"image":["https://s1.ax1x.com/2022/11/03/xq6X6A.png"]}</script>
 
 
 
@@ -275,22 +275,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>毕业后开始做游戏，一直都是做的ios端的，最近换份新工作，做android端游戏开发。<br>android端+quickCocos这简直就是个坑啊，都2天了，一个开发环境都还没有搭建好。废话不多说，开始介绍博主遇到的坑吧~</p>
-<h2 id="安装兼容版本的构建工具"><a href="#安装兼容版本的构建工具" class="headerlink" title="安装兼容版本的构建工具"></a>安装兼容版本的构建工具</h2><p>什么jdk、android-ndk、adt什么的，网上有教程，这里就不细说了，但是千万要注意版本~</p>
+        <p>毕业后开始做游戏，一直都是做的iOS端的，最近换份新工作，做Android端游戏开发。<br>Android端+quickCocos这简直就是个坑啊，都2天了，一个开发环境都还没有搭建好。废话不多说，开始介绍博主遇到的坑吧~</p>
+<h2 id="安装兼容版本的构建工具"><a href="#安装兼容版本的构建工具" class="headerlink" title="安装兼容版本的构建工具"></a>安装兼容版本的构建工具</h2><p>什么jdk、Android-ndk、adt什么的，网上有教程，这里就不细说了，但是千万要注意版本~</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h2 id="编译原生库"><a href="#编译原生库" class="headerlink" title="编译原生库"></a>编译原生库</h2><p>插件安装好后，就可以开始生成os库<br>网上的教程都说是在<code>frameworks\runtime-src\proj.android</code>下执行什么<code>clean.bat</code>等命令，但是博主新建的项目下面就没有这几个bat文件。于是自己执行了<code>python .\build_native.py</code></p>
+<h2 id="编译原生库"><a href="#编译原生库" class="headerlink" title="编译原生库"></a>编译原生库</h2><p>插件安装好后，就可以开始生成os库<br>网上的教程都说是在<code>frameworks\runtime-src\proj.Android</code>下执行什么<code>clean.bat</code>等命令，但是博主新建的项目下面就没有这几个bat文件。于是自己执行了<code>python .\build_native.py</code></p>
 <img src="https://s1.ax1x.com/2022/11/03/xq6X6A.png" alt="示意图" decoding="async" loading="eager" fetchpriority="high">
 执行后报错，说`ndk-build不是内部或外部命令`,将其加入环境变量即可。
 
 <img src="https://s1.ax1x.com/2022/11/03/xq67FO.png" alt="示意图" decoding="async" loading="lazy">
 
 <p>然后再执行<code>python .\build_native.py</code>命令就可以啦</p>
-<h2 id="更新-Android-编译工程"><a href="#更新-Android-编译工程" class="headerlink" title="更新 Android 编译工程"></a>更新 Android 编译工程</h2><p>os库生成好后，执行<code>android update project -p . -t 1</code><br>关于这个网上有不同的说法，有的说不用执行这行命令，有的说是在<code>frameworks\runtime-src\proj.android</code>目录下执行。博主都试了，至少在博主这里行不通。<br>博主这里需要在<code>frameworks\runtime-src\proj.android\src\main</code>下执行，因为需要生成一个<code>build.xml</code>文本。</p>
+<h2 id="更新-Android-编译工程"><a href="#更新-Android-编译工程" class="headerlink" title="更新 Android 编译工程"></a>更新 Android 编译工程</h2><p>os库生成好后，执行<code>Android update project -p . -t 1</code><br>关于这个网上有不同的说法，有的说不用执行这行命令，有的说是在<code>frameworks\runtime-src\proj.Android</code>目录下执行。博主都试了，至少在博主这里行不通。<br>博主这里需要在<code>frameworks\runtime-src\proj.Android\src\main</code>下执行，因为需要生成一个<code>build.xml</code>文本。</p>
 <img src="https://s1.ax1x.com/2022/11/03/xq6Old.png" alt="示意图" decoding="async" loading="lazy">
 
 
@@ -344,7 +344,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
               <a href="/tags/quick-Cocos/" rel="tag"><i class="fa fa-tag"></i> quick Cocos</a>
           </div>
 
@@ -354,12 +354,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/3315f663.html" rel="prev" title="Build a Legacy quick-Cocos2d-x APK: NDK, Native Libraries and Ant">
-      <i class="fa fa-chevron-left"></i> Build a Legacy quick-Cocos2d-x APK: NDK, Native Libraries and Ant
+    <a href="/en/485b0e34.html" rel="prev" title="Debug quick-Cocos2d-x Lua in VS Code with launch.json and LuaDebug">
+      <i class="fa fa-chevron-left"></i> Debug quick-Cocos2d-x Lua in VS Code with launch.json and LuaDebug
     </a></div>
       <div class="post-nav-item">
-    <a href="/f4442f9c.html" rel="next" title="Nginx 强制 HTTP 跳转 HTTPS：301 重定向与 TLS 配置">
-      Nginx 强制 HTTP 跳转 HTTPS：301 重定向与 TLS 配置 <i class="fa fa-chevron-right"></i>
+    <a href="/en/3315f663.html" rel="next" title="Build a Legacy quick-Cocos2d-x APK: NDK, Native Libraries and Ant">
+      Build a Legacy quick-Cocos2d-x APK: NDK, Native Libraries and Ant <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -446,13 +446,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

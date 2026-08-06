@@ -29,14 +29,14 @@
 <meta property="og:site_name" content="南锋">
 <meta property="og:description" content="解决 Cocos Creator 使用脚本构建 iOS 工程时报 run cmake failed，以及 xcrun unable to find utility xcodebuild 错误，重点检查 Xcode Command Line Tools。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lengmo714.top/postImg/ios/1.jpg">
+<meta property="og:image" content="https://lengmo714.top/postImg/iOS/1.jpg">
 <meta property="article:published_time" content="2025-02-22T14:49:35.000Z">
-<meta property="article:modified_time" content="2026-07-31T08:05:43.067Z">
+<meta property="article:modified_time" content="2026-08-06T11:00:53.329Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="cocosCreator">
-<meta property="article:tag" content="ios">
+<meta property="article:tag" content="Cocos Creator">
+<meta property="article:tag" content="iOS开发">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://lengmo714.top/postImg/ios/1.jpg">
+<meta name="twitter:image" content="https://lengmo714.top/postImg/iOS/1.jpg">
 
 <link rel="canonical" href="https://lengmo714.top/7903be95.html">
 
@@ -50,7 +50,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/7903be95.html#article","headline":"Cocos Creator 脚本构建 iOS 报错 run cmake failed / xcodebuild not found 解决方法","description":"解决 Cocos Creator 使用脚本构建 iOS 工程时报 run cmake failed，以及 xcrun unable to find utility xcodebuild 错误，重点检查 Xcode Command Line Tools。","datePublished":"2025-02-22T14:49:35.000Z","dateModified":"2026-07-31T08:05:43.067Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/7903be95.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, ios","wordCount":83,"image":["https://lengmo714.top/postImg/ios/1.jpg"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/7903be95.html#article","headline":"Cocos Creator 脚本构建 iOS 报错 run cmake failed / xcodebuild not found 解决方法","description":"解决 Cocos Creator 使用脚本构建 iOS 工程时报 run cmake failed，以及 xcrun unable to find utility xcodebuild 错误，重点检查 Xcode Command Line Tools。","datePublished":"2025-02-22T14:49:35.000Z","dateModified":"2026-08-06T11:00:53.329Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/7903be95.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, iOS开发","wordCount":85,"image":["https://lengmo714.top/postImg/iOS/1.jpg"]}</script>
 
 
 
@@ -257,7 +257,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cocosCreator/" itemprop="url" rel="index"><span itemprop="name">cocosCreator</span></a>
+                  <a href="/categories/Cocos-Creator/" itemprop="url" rel="index"><span itemprop="name">Cocos Creator</span></a>
                 </span>
             </span>
 
@@ -273,8 +273,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>今天在使用脚本构建cocosCreator工程导出ios包时报错</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">run cmake failed &quot;cmake -S &quot;/Users/fandong/Desktop/cxf/iosStudy/cocos_ios_demo/native/engine/ios&quot; -GXcode -B&quot;/Users/fandong/Desktop/cxf/iosStudy/cocos_ios_demo/build/ios/proj&quot; -T buildsystem=1 -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DRES_DIR=&quot;/Users/fandong/Desktop/cxf/iosStudy/cocos_ios_demo/build/ios&quot; -DAPP_NAME=&quot;IOSStudy&quot; &quot;, code: 1, signal: null</span><br><span class="line">at ChildProcess.&lt;anonymous&gt; (/Applications/Cocos/Creator/3.6.0/CocosCreator.app/Contents/Resources/resources/3d/engine/scripts/native-pack-tool/source/utils.ts:462:28)</span><br><span class="line">at ChildProcess.emit (events.js:315:20)</span><br><span class="line">at maybeClose (internal/child_process.js:1048:16)</span><br><span class="line">at Process.onexit (internal/child_process.js:288:5)</span><br></pre></td></tr></table></figure>
+        <p>今天在使用脚本构建Cocos Creator工程导出iOS包时报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">run cmake failed &quot;cmake -S &quot;/Users/fandong/Desktop/cxf/iOSStudy/cocos_iOS_demo/native/engine/iOS&quot; -GXcode -B&quot;/Users/fandong/Desktop/cxf/iOSStudy/cocos_iOS_demo/build/iOS/proj&quot; -T buildsystem=1 -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DRES_DIR=&quot;/Users/fandong/Desktop/cxf/iOSStudy/cocos_iOS_demo/build/iOS&quot; -DAPP_NAME=&quot;iOSStudy&quot; &quot;, code: 1, signal: null</span><br><span class="line">at ChildProcess.&lt;anonymous&gt; (/Applications/Cocos/Creator/3.6.0/Cocos Creator.app/Contents/Resources/resources/3d/engine/scripts/native-pack-tool/source/utils.ts:462:28)</span><br><span class="line">at ChildProcess.emit (events.js:315:20)</span><br><span class="line">at maybeClose (internal/child_process.js:1048:16)</span><br><span class="line">at Process.onexit (internal/child_process.js:288:5)</span><br></pre></td></tr></table></figure>
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
@@ -283,7 +283,7 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>截图如下：<br><img src="https://lengmo714.top/postImg/ios/1.jpg" alt="错误截图" decoding="async" loading="eager" fetchpriority="high"></p>
+<p>截图如下：<br><img src="https://lengmo714.top/postImg/iOS/1.jpg" alt="错误截图" decoding="async" loading="eager" fetchpriority="high"></p>
 <h3 id="注意踩坑"><a href="#注意踩坑" class="headerlink" title="注意踩坑"></a>注意踩坑</h3><p>这里这个错其实和本地的<code>cmake</code>没有一毛钱的关系，刚开始我还特意去安装了升级了<code>cmake</code>。后面发现根本就不是本地<code>cmake</code>的原因，于是为了避免本地<code>cmake</code>对脚本执行过程中产生干扰，直接将本地的<code>cmake</code>又给卸载了。</p>
 <h2 id="查看-run-cmake-failed-的关键报错"><a href="#查看-run-cmake-failed-的关键报错" class="headerlink" title="查看 run cmake failed 的关键报错"></a>查看 run cmake failed 的关键报错</h2><p>仔细看报错，会发现有这么一行报错：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Assets] Command failed: xcrun xcodebuild -version</span><br><span class="line">xcrun: error: unable to find utility &quot;xcodebuild&quot;, not a developer tool or in PATH</span><br></pre></td></tr></table></figure>
@@ -342,8 +342,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/cocosCreator/" rel="tag"><i class="fa fa-tag"></i> cocosCreator</a>
-              <a href="/tags/ios/" rel="tag"><i class="fa fa-tag"></i> ios</a>
+              <a href="/tags/Cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> Cocos Creator</a>
+              <a href="/tags/iOS%E5%BC%80%E5%8F%91/" rel="tag"><i class="fa fa-tag"></i> iOS开发</a>
           </div>
 
         
@@ -444,13 +444,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

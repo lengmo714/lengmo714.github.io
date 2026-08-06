@@ -30,11 +30,10 @@
 <meta property="og:description" content="Fix the Cocos Creator 3.7.2 libwebp.a error 64-bit mach-o member utils.o not 8-byte aligned when building an iOS project with a newer Xcode linker.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-04-20T06:53:41.000Z">
-<meta property="article:modified_time" content="2026-07-31T07:56:37.846Z">
+<meta property="article:modified_time" content="2026-08-06T11:00:53.302Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="Cocos Creator">
-<meta property="article:tag" content="Xcode">
-<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="iOS开发">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://lengmo714.top/en/7930163d.html">
@@ -49,7 +48,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/7930163d.html#article","headline":"Fix Cocos Creator libwebp.a Mach-O Member Not 8-Byte Aligned in Xcode","description":"Fix the Cocos Creator 3.7.2 libwebp.a error 64-bit mach-o member utils.o not 8-byte aligned when building an iOS project with a newer Xcode linker.","datePublished":"2026-04-20T06:53:41.000Z","dateModified":"2026-07-31T07:56:37.846Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/7930163d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, Xcode, iOS","wordCount":153}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/en/7930163d.html#article","headline":"Fix Cocos Creator libwebp.a Mach-O Member Not 8-Byte Aligned in Xcode","description":"Fix the Cocos Creator 3.7.2 libwebp.a error 64-bit mach-o member utils.o not 8-byte aligned when building an iOS project with a newer Xcode linker.","datePublished":"2026-04-20T06:53:41.000Z","dateModified":"2026-08-06T11:00:53.302Z","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/en/7930163d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/en/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, iOS开发","wordCount":154}</script>
 
 
 
@@ -281,7 +280,7 @@
 <li>Cocos Creator: 3.7.2</li>
 </ul>
 <p>After exporting an iOS project, it failed to compile with this error:</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ios.xcodeproj 64-bit mach-o member &#x27;utils.o&#x27; not 8-byte aligned in &#x27;/Applications/Cocos/Creator/3.7.2/CocosCreator.app/Contents/Resources/resources/3d/engine/native/external/ios/libs/libwebp.a&#x27;</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iOS.xcodeproj 64-bit mach-o member &#x27;utils.o&#x27; not 8-byte aligned in &#x27;/Applications/Cocos/Creator/3.7.2/Cocos Creator.app/Contents/Resources/resources/3d/engine/native/external/iOS/libs/libwebp.a&#x27;</span><br></pre></td></tr></table></figure>
 
 <p>Nothing in the project had changed, so the failure was confusing at first. I later learned that the <code>libwebp.a</code> bundled with Cocos Creator 3.7.2 conflicts with the linker in newer Xcode versions. That reminded me that I had upgraded Xcode the previous Friday.</p>
 <blockquote>
@@ -339,8 +338,7 @@
           
           <div class="post-tags">
               <a href="/tags/Cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> Cocos Creator</a>
-              <a href="/tags/Xcode/" rel="tag"><i class="fa fa-tag"></i> Xcode</a>
-              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/iOS%E5%BC%80%E5%8F%91/" rel="tag"><i class="fa fa-tag"></i> iOS开发</a>
           </div>
 
         
@@ -441,13 +439,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

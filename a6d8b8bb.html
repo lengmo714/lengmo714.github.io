@@ -31,9 +31,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/666becc7d9c307b7e9869ffb.png">
 <meta property="article:published_time" content="2024-06-14T07:07:10.000Z">
-<meta property="article:modified_time" content="2026-07-31T12:07:00.916Z">
+<meta property="article:modified_time" content="2026-08-06T10:57:59.439Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="cocosCreator">
+<meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="TypeScript">
 <meta property="article:tag" content="Label">
 <meta property="article:tag" content="font">
@@ -52,7 +52,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/a6d8b8bb.html#article","headline":"Cocos Creator Font Size Too Big for Texture Atlas：Label 缓存修复","description":"解决 Cocos Creator “The font size is too big to be fitted into texture atlas” 警告，比较 Label 缓存模式、字体大小、图集容量和字符集调整方法。","datePublished":"2024-06-14T07:07:10.000Z","dateModified":"2026-07-31T12:07:00.916Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/a6d8b8bb.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator, TypeScript, Label, font","wordCount":60,"image":["https://pic.imgdb.cn/item/666becc7d9c307b7e9869ffb.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/a6d8b8bb.html#article","headline":"Cocos Creator Font Size Too Big for Texture Atlas：Label 缓存修复","description":"解决 Cocos Creator “The font size is too big to be fitted into texture atlas” 警告，比较 Label 缓存模式、字体大小、图集容量和字符集调整方法。","datePublished":"2024-06-14T07:07:10.000Z","dateModified":"2026-08-06T10:57:59.439Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/a6d8b8bb.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator, TypeScript, Label, font","wordCount":64,"image":["https://pic.imgdb.cn/item/666becc7d9c307b7e9869ffb.png"]}</script>
 
 
 
@@ -259,7 +259,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cocosCreator/" itemprop="url" rel="index"><span itemprop="name">cocosCreator</span></a>
+                  <a href="/categories/Cocos-Creator/" itemprop="url" rel="index"><span itemprop="name">Cocos Creator</span></a>
                 </span>
             </span>
 
@@ -283,12 +283,12 @@
 </script>
 
 <p><img src="https://pic.imgdb.cn/item/666becc7d9c307b7e9869ffb.png" alt="示意图" decoding="async" loading="eager" fetchpriority="high">  </p>
-<p>在cocosCreator 中，如果选择<code>Bitmap</code>模式，字体大小的最大限制取决于纹理图集的大小以及字符数量和复杂度。cocosCreator 没有明确规定一个统一的最大字体大小，因为这会受到具体项目的纹理图集配置、字符集内容和其他图形资源的影响。</p>
+<p>在Cocos Creator 中，如果选择<code>Bitmap</code>模式，字体大小的最大限制取决于纹理图集的大小以及字符数量和复杂度。Cocos Creator 没有明确规定一个统一的最大字体大小，因为这会受到具体项目的纹理图集配置、字符集内容和其他图形资源的影响。</p>
 <p>但是，一般情况下，如果使用 Bitmap 模式，字体大小建议保持在合理范围内，以避免超出纹理图集的容量。</p>
 <h2 id="调整字体大小"><a href="#调整字体大小" class="headerlink" title="调整字体大小"></a>调整字体大小</h2><p>通常，字体大小在 <code>20</code> 到 <code>40</code> 之间是比较安全的范围。具体可接受的最大字体大小还需要根据项目的实际需求进行调整。</p>
-<h2 id="检查纹理图集容量"><a href="#检查纹理图集容量" class="headerlink" title="检查纹理图集容量"></a>检查纹理图集容量</h2><p>确保你项目中的纹理图集大小足够大，以容纳所需的字体和其他资源。cocosCreator 默认的最大纹理图集大小通常为 2048x2048 像素。如果你的字体大小过大，可能会超出这个限制。</p>
+<h2 id="检查纹理图集容量"><a href="#检查纹理图集容量" class="headerlink" title="检查纹理图集容量"></a>检查纹理图集容量</h2><p>确保你项目中的纹理图集大小足够大，以容纳所需的字体和其他资源。Cocos Creator 默认的最大纹理图集大小通常为 2048x2048 像素。如果你的字体大小过大，可能会超出这个限制。</p>
 <h2 id="调整字符集"><a href="#调整字符集" class="headerlink" title="调整字符集"></a>调整字符集</h2><p>如果你的标签只包含少量字符，可以尝试减少字符集的数量，从而使更大的字体能够适应纹理图集。</p>
-<h2 id="实际操作步骤"><a href="#实际操作步骤" class="headerlink" title="实际操作步骤"></a>实际操作步骤</h2><p>设置 <code>Bitmap</code> 模式<br>打开 cocosCreator 项目。<br>选择要调整的标签节点。<br>在右侧的属性面板中，找到 <code>Cache Mode</code> 属性。<br>将 <code>Cache Mode</code> 更改为 <code>Bitmap</code>。<br>逐步测试字体大小<br>设置字体大小为一个较小的值，例如 20。<br>运行项目并观察效果，如果没有问题，逐步增加字体大小。<br>当出现错误或警告信息时，将字体大小调整到最后一个没有问题的值。</p>
+<h2 id="实际操作步骤"><a href="#实际操作步骤" class="headerlink" title="实际操作步骤"></a>实际操作步骤</h2><p>设置 <code>Bitmap</code> 模式<br>打开 Cocos Creator 项目。<br>选择要调整的标签节点。<br>在右侧的属性面板中，找到 <code>Cache Mode</code> 属性。<br>将 <code>Cache Mode</code> 更改为 <code>Bitmap</code>。<br>逐步测试字体大小<br>设置字体大小为一个较小的值，例如 20。<br>运行项目并观察效果，如果没有问题，逐步增加字体大小。<br>当出现错误或警告信息时，将字体大小调整到最后一个没有问题的值。</p>
 <blockquote>
 <p>这里出现警告或者错误并一定每次都会出现，比如我这里的字体大小是<code>56</code>，但是这种情况只有某种极端情况下才会出现。</p>
 </blockquote>
@@ -338,7 +338,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/cocosCreator/" rel="tag"><i class="fa fa-tag"></i> cocosCreator</a>
+              <a href="/tags/Cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> Cocos Creator</a>
               <a href="/tags/TypeScript/" rel="tag"><i class="fa fa-tag"></i> TypeScript</a>
               <a href="/tags/Label/" rel="tag"><i class="fa fa-tag"></i> Label</a>
               <a href="/tags/font/" rel="tag"><i class="fa fa-tag"></i> font</a>
@@ -442,13 +442,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

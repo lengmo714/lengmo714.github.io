@@ -31,9 +31,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/66def5e3d9c307b7e94ee90c.gif">
 <meta property="article:published_time" content="2024-09-09T13:20:49.000Z">
-<meta property="article:modified_time" content="2026-07-31T09:34:55.569Z">
+<meta property="article:modified_time" content="2026-08-06T10:57:59.400Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="cocosCreator">
+<meta property="article:tag" content="Cocos Creator">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pic.imgdb.cn/item/66def5e3d9c307b7e94ee90c.gif">
 
@@ -49,7 +49,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/8cde5f7c.html#article","headline":"Cocos Creator 6 位验证码弹窗：连续输入、粘贴与删除","description":"使用一个隐藏 EditBox 驱动六个验证码显示框，在 Cocos Creator 中实现 6 位验证码的连续输入、整段粘贴和连续删除。","datePublished":"2024-09-09T13:20:49.000Z","dateModified":"2026-07-31T09:34:55.569Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/8cde5f7c.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":75,"image":["https://pic.imgdb.cn/item/66def5e3d9c307b7e94ee90c.gif"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/8cde5f7c.html#article","headline":"Cocos Creator 6 位验证码弹窗：连续输入、粘贴与删除","description":"使用一个隐藏 EditBox 驱动六个验证码显示框，在 Cocos Creator 中实现 6 位验证码的连续输入、整段粘贴和连续删除。","datePublished":"2024-09-09T13:20:49.000Z","dateModified":"2026-08-06T10:57:59.400Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/8cde5f7c.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator","wordCount":77,"image":["https://pic.imgdb.cn/item/66def5e3d9c307b7e94ee90c.gif"]}</script>
 
 
 
@@ -256,7 +256,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cocosCreator/" itemprop="url" rel="index"><span itemprop="name">cocosCreator</span></a>
+                  <a href="/categories/Cocos-Creator/" itemprop="url" rel="index"><span itemprop="name">Cocos Creator</span></a>
                 </span>
             </span>
 
@@ -272,14 +272,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在 cocosCreator 中实现一个6位数的验证码输入弹窗功能。主要包含以下三点<br><strong>1、</strong> 可以连续输入验证码<br><strong>2、</strong> 可以粘贴验证码<br><strong>3、</strong> 可以连续删除验证码</p>
+        <p>在 Cocos Creator 中实现一个6位数的验证码输入弹窗功能。主要包含以下三点<br><strong>1、</strong> 可以连续输入验证码<br><strong>2、</strong> 可以粘贴验证码<br><strong>3、</strong> 可以连续删除验证码</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>引擎版本: cocosCreator 2.7.2<br>开发语言: ts</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>引擎版本: Cocos Creator 2.7.2<br>开发语言: ts</p>
 <h2 id="效果预览"><a href="#效果预览" class="headerlink" title="效果预览"></a>效果预览</h2><p><img src="https://pic.imgdb.cn/item/66def5e3d9c307b7e94ee90c.gif" alt="效果图" decoding="async" loading="eager" fetchpriority="high"></p>
 <h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p><strong>1、</strong> 在弹窗界面放置6个输入框的精灵，每个精灵添加一个Label的子节点，放置一个EditBox。<br><strong>2、</strong> 给6个输入框添加点击事件，不管点击哪个框，都聚焦到EditBox，触发EditBox的输入。<br><strong>3、</strong> 监听EditBox的内容变更，将更新后的文本绘制到对应的输入框的Label上</p>
 <h2 id="已知限制"><a href="#已知限制" class="headerlink" title="已知限制"></a>已知限制</h2><p><strong>1、</strong> 无法单独修改某一个输入框中的文本</p>
@@ -337,7 +337,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/cocosCreator/" rel="tag"><i class="fa fa-tag"></i> cocosCreator</a>
+              <a href="/tags/Cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> Cocos Creator</a>
           </div>
 
         
@@ -438,13 +438,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

@@ -30,7 +30,7 @@
 <meta property="og:description" content="从创建 lua_State 和运行脚本开始，系统介绍 Lua C API 栈的压入与查询、受保护函数调用、错误处理、函数注册和内存分配机制。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-26T15:21:06.000Z">
-<meta property="article:modified_time" content="2026-07-31T10:15:01.483Z">
+<meta property="article:modified_time" content="2026-08-06T11:00:53.249Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="C">
 <meta property="article:tag" content="Lua">
@@ -48,7 +48,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/21185.html#article","headline":"Lua C API 入门：状态机、栈、函数调用、错误与内存","description":"从创建 lua_State 和运行脚本开始，系统介绍 Lua C API 栈的压入与查询、受保护函数调用、错误处理、函数注册和内存分配机制。","datePublished":"2020-06-26T15:21:06.000Z","dateModified":"2026-07-31T10:15:01.483Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/21185.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["编程语言"],"keywords":"C, Lua","wordCount":468}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/21185.html#article","headline":"Lua C API 入门：状态机、栈、函数调用、错误与内存","description":"从创建 lua_State 和运行脚本开始，系统介绍 Lua C API 栈的压入与查询、受保护函数调用、错误处理、函数注册和内存分配机制。","datePublished":"2020-06-26T15:21:06.000Z","dateModified":"2026-08-06T11:00:53.249Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/21185.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["编程语言"],"keywords":"C, Lua","wordCount":468}</script>
 
 
 
@@ -342,7 +342,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">void</span> * (*lua_Alloc) (<span class="type">void</span> *ud,</span><br><span class="line">							 <span class="type">void</span> *ptr,</span><br><span class="line">							 <span class="type">size_t</span> osize,</span><br><span class="line">							 <span class="type">size_t</span> nsize);</span><br></pre></td></tr></table></figure>
 <p>第一个参数始终为lua_newstate所提供的用户数据；第二个参数是正要被分配或者释放的地址；第三个参数是原始块的大小；最后一个参数是请求的块大小。如果ptr不是NULL，Lua会保证其之前被分配的大小就是osize。<br>Lua语言使用NULL表示大小为零的块。当nsize为零时，分配函数必须释放ptr指向的块并返回NULL，对应于所要求的大小的块。当ptr是NULL时，该函数必须分配并返回一个指定大小的块；如果无法分配指定的块，则必须返回NULL。如果ptr是NULL并且nsize为零，则两条规则都适用：最终结果是分配函数什么都不做，返回NULL。<br>最后，当ptr不是NULL并且nsize不为零时，分配函数应该像realloc一样重新分配块并且返回新地址。同样，当出现错误分配函数必须返回NULL。Lua假定分配函数在块的新尺寸小于或等于旧尺寸时不会失败。<br>luaL_newstate使用的标准分配函数定义如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> *<span class="title function_">l_alloc</span> <span class="params">(<span class="type">void</span> *ud , <span class="type">void</span> *ptr, <span class="type">size_t</span> osize, <span class="type">size_t</span> nsize)</span>&#123;</span><br><span class="line">	(<span class="type">void</span>)ud; (<span class="type">void</span>)osie;<span class="comment">/*未使用*/</span></span><br><span class="line">	<span class="keyword">if</span>(nsize == <span class="number">0</span> )&#123;</span><br><span class="line">		<span class="built_in">free</span>(ptr);</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">realloc</span> (ptr,nsize);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>该函数假设free(NULL)什么也不做，并且realloc(NULL,size)等价于malloc(size)。IOSC标准会托管这两种行为。<br>我们可以通过调用lua_getallocf恢复Lua状态的内存分配器：</p>
+<p>该函数假设free(NULL)什么也不做，并且realloc(NULL,size)等价于malloc(size)。iOSC标准会托管这两种行为。<br>我们可以通过调用lua_getallocf恢复Lua状态的内存分配器：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua_Alloc <span class="title function_">lua_getallocf</span> <span class="params">(lua_State *L, <span class="type">void</span> **ud)</span>;</span><br></pre></td></tr></table></figure>
 <p>如果ud不是NULL，那么该函数会把*ud设置为该分配器的用户数据。我们可以通过调用lua_setallocf来更改Lua状态的内存分配器：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">lua_setallocf</span> <span class="params">(lua_State *L, Lua_Alloc f, <span class="type">void</span> *ud)</span>;</span><br></pre></td></tr></table></figure>
@@ -495,13 +495,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

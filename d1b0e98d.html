@@ -30,9 +30,9 @@
 <meta property="og:description" content="分析 Cocos Creator 纹理内存与 PNG、JPG 文件大小不一致的原因，包括解码后像素格式、Mipmap、纹理压缩、动态图集和显存占用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-02T14:46:25.000Z">
-<meta property="article:modified_time" content="2026-07-31T08:30:41.831Z">
+<meta property="article:modified_time" content="2026-08-06T10:57:59.362Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="cocosCreator">
+<meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="纹理优化">
 <meta property="article:tag" content="游戏性能">
 <meta name="twitter:card" content="summary">
@@ -49,7 +49,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/d1b0e98d.html#article","headline":"Cocos Creator 纹理内存为什么大于图片文件：格式、Mipmap 与图集分析","description":"分析 Cocos Creator 纹理内存与 PNG、JPG 文件大小不一致的原因，包括解码后像素格式、Mipmap、纹理压缩、动态图集和显存占用。","datePublished":"2023-12-02T14:46:25.000Z","dateModified":"2026-07-31T08:30:41.831Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/d1b0e98d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"cocosCreator, 纹理优化, 游戏性能","wordCount":14}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/d1b0e98d.html#article","headline":"Cocos Creator 纹理内存为什么大于图片文件：格式、Mipmap 与图集分析","description":"分析 Cocos Creator 纹理内存与 PNG、JPG 文件大小不一致的原因，包括解码后像素格式、Mipmap、纹理压缩、动态图集和显存占用。","datePublished":"2023-12-02T14:46:25.000Z","dateModified":"2026-08-06T10:57:59.362Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/d1b0e98d.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["游戏开发"],"keywords":"Cocos Creator, 纹理优化, 游戏性能","wordCount":17}</script>
 
 
 
@@ -278,13 +278,13 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-<p>在cocosCreator游戏开发中，纹理缓存大小与单个图片大小不一致可能涉及到一些额外的处理和优化，以提高游戏性能和效率。以下是一些可能导致这种差异的原因：</p>
+<p>在Cocos Creator游戏开发中，纹理缓存大小与单个图片大小不一致可能涉及到一些额外的处理和优化，以提高游戏性能和效率。以下是一些可能导致这种差异的原因：</p>
 <h2 id="图片压缩与解码后纹理内存"><a href="#图片压缩与解码后纹理内存" class="headerlink" title="图片压缩与解码后纹理内存"></a>图片压缩与解码后纹理内存</h2><p>游戏引擎通常会使用不同的压缩算法来减小纹理的内存占用。这包括各种纹理压缩技术，如ETC、PVRTC、ASTC等。这些算法在减小纹理占用内存的同时，保持较高的质量。</p>
 <h2 id="Mipmap-产生的额外显存"><a href="#Mipmap-产生的额外显存" class="headerlink" title="Mipmap 产生的额外显存"></a>Mipmap 产生的额外显存</h2><p>引擎可能会生成纹理的Mipmap，即原始纹理的不同分辨率版本。Mipmap可以提高渲染效果，但会增加纹理占用的内存。</p>
 <h2 id="RGBA-等纹理格式的影响"><a href="#RGBA-等纹理格式的影响" class="headerlink" title="RGBA 等纹理格式的影响"></a>RGBA 等纹理格式的影响</h2><p>引擎可能会使用不同的纹理格式，例如RGBA8888、RGB565等。这些格式在存储和渲染时都有不同的内存占用。</p>
-<h2 id="动态合批与图集占用"><a href="#动态合批与图集占用" class="headerlink" title="动态合批与图集占用"></a>动态合批与图集占用</h2><p>cocosCreator可能会对纹理进行动态合批，将多个小纹理合并成一个大的纹理集，以减少渲染调用和提高性能。这可能导致纹理缓存的大小与单个图片的大小不同。</p>
+<h2 id="动态合批与图集占用"><a href="#动态合批与图集占用" class="headerlink" title="动态合批与图集占用"></a>动态合批与图集占用</h2><p>Cocos Creator可能会对纹理进行动态合批，将多个小纹理合并成一个大的纹理集，以减少渲染调用和提高性能。这可能导致纹理缓存的大小与单个图片的大小不同。</p>
 <p>要查看纹理缓存的实际大小，可以使用开发者工具或引擎提供的性能分析工具。这样可以更详细地了解引擎是如何处理纹理的，并找到可能的优化方法。</p>
-<p>请注意，这些只是可能的原因之一，具体情况可能会因引擎版本、平台和项目设置而异。如果有特定的问题，建议查阅cocosCreator的官方文档或在相关的社区论坛上咨询。</p>
+<p>请注意，这些只是可能的原因之一，具体情况可能会因引擎版本、平台和项目设置而异。如果有特定的问题，建议查阅Cocos Creator的官方文档或在相关的社区论坛上咨询。</p>
 
     </div>
 
@@ -331,7 +331,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/cocosCreator/" rel="tag"><i class="fa fa-tag"></i> cocosCreator</a>
+              <a href="/tags/Cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> Cocos Creator</a>
               <a href="/tags/%E7%BA%B9%E7%90%86%E4%BC%98%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 纹理优化</a>
               <a href="/tags/%E6%B8%B8%E6%88%8F%E6%80%A7%E8%83%BD/" rel="tag"><i class="fa fa-tag"></i> 游戏性能</a>
           </div>
@@ -342,12 +342,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/en/db763ac0.html" rel="prev" title="Format a Timestamp in TypeScript as YYYY-MM-DD HH:mm:ss">
-      <i class="fa fa-chevron-left"></i> Format a Timestamp in TypeScript as YYYY-MM-DD HH:mm:ss
+    <a href="/en/d1b0e98d.html" rel="prev" title="Why Cocos Creator Texture Memory Exceeds PNG or JPG File Size">
+      <i class="fa fa-chevron-left"></i> Why Cocos Creator Texture Memory Exceeds PNG or JPG File Size
     </a></div>
       <div class="post-nav-item">
-    <a href="/en/d1b0e98d.html" rel="next" title="Why Cocos Creator Texture Memory Exceeds PNG or JPG File Size">
-      Why Cocos Creator Texture Memory Exceeds PNG or JPG File Size <i class="fa fa-chevron-right"></i>
+    <a href="/3344996d.html" rel="next" title="Cocos Creator EditBox 输入事件：监听开始、内容变化和结束编辑">
+      Cocos Creator EditBox 输入事件：监听开始、内容变化和结束编辑 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -434,13 +434,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

@@ -30,9 +30,9 @@
 <meta property="og:description" content="介绍 Cocos Creator Web 构建如何监听 window error、unhandledrejection 和资源加载失败，并将错误堆栈、URL 与设备信息上报服务器。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-20T02:56:19.000Z">
-<meta property="article:modified_time" content="2026-07-31T12:12:37.683Z">
+<meta property="article:modified_time" content="2026-08-06T10:57:59.396Z">
 <meta property="article:author" content="南锋">
-<meta property="article:tag" content="cocosCreator">
+<meta property="article:tag" content="Cocos Creator">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://lengmo714.top/1264b199.html">
@@ -47,7 +47,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/1264b199.html#article","headline":"Cocos Creator Web 全局错误监听：捕获 error、unhandledrejection 和资源加载失败","description":"介绍 Cocos Creator Web 构建如何监听 window error、unhandledrejection 和资源加载失败，并将错误堆栈、URL 与设备信息上报服务器。","datePublished":"2025-06-20T02:56:19.000Z","dateModified":"2026-07-31T12:12:37.683Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/1264b199.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["cocosCreator"],"keywords":"cocosCreator","wordCount":157}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/1264b199.html#article","headline":"Cocos Creator Web 全局错误监听：捕获 error、unhandledrejection 和资源加载失败","description":"介绍 Cocos Creator Web 构建如何监听 window error、unhandledrejection 和资源加载失败，并将错误堆栈、URL 与设备信息上报服务器。","datePublished":"2025-06-20T02:56:19.000Z","dateModified":"2026-08-06T10:57:59.396Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/1264b199.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["Cocos Creator"],"keywords":"Cocos Creator","wordCount":159}</script>
 
 
 
@@ -254,7 +254,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cocosCreator/" itemprop="url" rel="index"><span itemprop="name">cocosCreator</span></a>
+                  <a href="/categories/Cocos-Creator/" itemprop="url" rel="index"><span itemprop="name">Cocos Creator</span></a>
                 </span>
             </span>
 
@@ -270,7 +270,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>我们在使用cocosCreator开发游戏，如果游戏上线，出现了bug我们一般是不知道的，除了玩家反馈。而且算有玩家反馈，也不知道具体是哪里出现了问题。我这里是做了一个全局的错误监听，然后将错误日志上报到服务器，然后通过上报的错误日志来定位问题。甚至可以发现很多玩家没有反馈到的bug。</p>
+        <p>我们在使用Cocos Creator开发游戏，如果游戏上线，出现了bug我们一般是不知道的，除了玩家反馈。而且算有玩家反馈，也不知道具体是哪里出现了问题。我这里是做了一个全局的错误监听，然后将错误日志上报到服务器，然后通过上报的错误日志来定位问题。甚至可以发现很多玩家没有反馈到的bug。</p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
 <p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
 <script>
@@ -284,7 +284,7 @@
 <li>上报的接口要改成你自己的，我这里是随便写的一个</li>
 <li>在捕获全局错误<code>window.onerror</code>时，一旦触发可能就是无限触发，会导致游戏卡死的那种，只有杀掉进程才能恢复。所以我做了一个判断，如果行号和列号和上一次相同，并且错误信息相同，则不再上报，减少服务器的压力。</li>
 </ol>
-<h2 id="上报并定位-Cocos-Creator-Web-线上错误"><a href="#上报并定位-Cocos-Creator-Web-线上错误" class="headerlink" title="上报并定位 Cocos Creator Web 线上错误"></a>上报并定位 Cocos Creator Web 线上错误</h2><p>见<a href="https://lengmo714.top/645ccd2b.html">cocosCreator导出后的代码和源码进行对比</a>;</p>
+<h2 id="上报并定位-Cocos-Creator-Web-线上错误"><a href="#上报并定位-Cocos-Creator-Web-线上错误" class="headerlink" title="上报并定位 Cocos Creator Web 线上错误"></a>上报并定位 Cocos Creator Web 线上错误</h2><p>见<a href="https://lengmo714.top/645ccd2b.html">Cocos Creator导出后的代码和源码进行对比</a>;</p>
 
     </div>
 
@@ -331,7 +331,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/cocosCreator/" rel="tag"><i class="fa fa-tag"></i> cocosCreator</a>
+              <a href="/tags/Cocos-Creator/" rel="tag"><i class="fa fa-tag"></i> Cocos Creator</a>
           </div>
 
         
@@ -432,13 +432,13 @@
       </div>
       <div class="site-state-item site-state-categories">
         <a href="/categories/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
         <a href="/tags/">
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
