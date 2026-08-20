@@ -74,41 +74,20 @@ NexT.boot.registerEvents = function() {
 };
 
 NexT.boot.refresh = function() {
-
-  /**
-   * Register JS handlers by condition option.
-   * Need to add config option in Front-End at 'layout/_partials/head.swig' file.
-   */
-  CONFIG.fancybox && NexT.utils.wrapImageWithFancyBox();
-  CONFIG.mediumzoom && window.mediumZoom('.post-body :not(a) > img, .post-body > img');
-  CONFIG.lazyload && window.lozad('.post-body img').observe();
-  CONFIG.pangu && window.pangu.spacingPage();
-
-  CONFIG.exturl && NexT.utils.registerExtURL();
   CONFIG.copycode.enable && NexT.utils.registerCopyCode();
   NexT.utils.registerTabsTag();
   NexT.utils.registerActiveMenuItem();
-  NexT.utils.registerLangSelect();
   NexT.utils.registerSidebarTOC();
   NexT.utils.wrapTableWithBox();
   NexT.utils.registerVideoIframe();
 };
 
-NexT.boot.motion = function() {
-  // Define Motion Sequence & Bootstrap Motion.
-  if (CONFIG.motion.enable) {
-    NexT.motion.integrator
-      .add(NexT.motion.middleWares.logo)
-      .add(NexT.motion.middleWares.menu)
-      .add(NexT.motion.middleWares.postList)
-      .add(NexT.motion.middleWares.sidebar)
-      .bootstrap();
-  }
+NexT.boot.updateSidebar = function() {
   NexT.utils.updateSidebarPosition();
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   NexT.boot.registerEvents();
   NexT.boot.refresh();
-  NexT.boot.motion();
+  NexT.boot.updateSidebar();
 });

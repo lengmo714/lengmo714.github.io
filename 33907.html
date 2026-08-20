@@ -13,13 +13,12 @@
   <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
 
 <link rel="stylesheet" href="/css/main.css">
-
-
 <link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
+
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
   <meta name="description" content="基于 STM32F103、弯曲传感器、MPU6050、HC-05 和 TFT 设计数据手套，结合 µC&#x2F;OS-II 实现机械臂控制与虚拟手动作映射。">
@@ -89,13 +88,8 @@
           dp : encodeURIComponent(location.pathname)
         }));
       }
-      document.addEventListener('pjax:complete', sendPageView);
       sendPageView();
     </script>
-
-
-
-
 
 
   <noscript>
@@ -195,7 +189,7 @@
 
   <div class="search-pop-overlay">
     <div class="popup search-popup">
-        <div class="search-header">
+      <div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -262,8 +256,6 @@
                   <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">嵌入式开发</span></a>
                 </span>
             </span>
-
-          
             <div class="post-description">基于 STM32F103、弯曲传感器、MPU6050、HC-05 和 TFT 设计数据手套，结合 µC/OS-II 实现机械臂控制与虚拟手动作映射。</div>
 
         </div>
@@ -395,10 +387,6 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
               <a href="/tags/%E4%BC%A0%E6%84%9F%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 传感器</a>
               <a href="/tags/%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92/" rel="tag"><i class="fa fa-tag"></i> 人机交互</a>
           </div>
-
-        
-
-
         
     <div class="post-nav">
       <div class="post-nav-item">
@@ -420,30 +408,6 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
 
 
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
         </div>
           
   
@@ -575,16 +539,8 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">南锋</span>
+
 </div>
-
-        
-
-
-
-
-
-
-
 
       </div>
     </footer>
@@ -600,8 +556,6 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
 
 
 <script src="/js/next-boot.js"></script>
-
-
 
 
   
@@ -631,29 +585,10 @@ R的阻值与弯曲传感器的弯曲程度成相关比例，X的值和弯曲度
       !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
   </script>
 
-
-
-
   
 <script src="/js/local-search.js"></script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-  +  
 
 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760"
