@@ -73,21 +73,6 @@
 
   <title>Cocos Creator 原生 JavaScript 调试：Debug 构建、端口与 Android 连接 | 南锋</title>
   
-    <script>
-      function sendPageView() {
-        if (CONFIG.hostname !== location.hostname) return;
-        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
-        localStorage.setItem('uid', uid);
-        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
-          v  : 1,
-          tid: 'G-XDK58GP86Z',
-          cid: uid,
-          t  : 'pageview',
-          dp : encodeURIComponent(location.pathname)
-        }));
-      }
-      sendPageView();
-    </script>
 
 
   <noscript>

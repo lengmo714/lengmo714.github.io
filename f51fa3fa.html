@@ -77,21 +77,6 @@
 
   <title>Google Play Console 在哪里查看应用签名 SHA-1 / SHA-256 | 南锋</title>
   
-    <script>
-      function sendPageView() {
-        if (CONFIG.hostname !== location.hostname) return;
-        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
-        localStorage.setItem('uid', uid);
-        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
-          v  : 1,
-          tid: 'G-XDK58GP86Z',
-          cid: uid,
-          t  : 'pageview',
-          dp : encodeURIComponent(location.pathname)
-        }));
-      }
-      sendPageView();
-    </script>
 
 
   <noscript>
