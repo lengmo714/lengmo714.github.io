@@ -1,5 +1,56 @@
-User-agent: *
+# ===== 正常搜索引擎：全放行 =====
+User-agent: Googlebot
 Allow: /
 
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ===== AI 搜索引擎：放行（让 AI 答案引用我们） =====
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# ===== 训练型爬虫：放行 GPTBot（内容被训练=品牌曝光），其余不专门接待 =====
+User-agent: GPTBot
+Allow: /
+
+# ===== 广告爬虫：屏蔽（不做 AdSense，poker 站以 affiliate 变现） =====
+User-agent: AdsBot-Google
+Disallow: /
+
+User-agent: Mediapartners-Google
+Disallow: /
+
+User-agent: AdsBot-Google-Mobile
+Disallow: /
+
 Sitemap: https://lengmo714.top/sitemap.xml
-Sitemap: https://lengmo714.top/baidusitemap.xml
