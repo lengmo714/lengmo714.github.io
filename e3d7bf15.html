@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png" color="#222">
+  <meta name="yandex-verification" content="7f4abda1472881d3">
+  <meta name="baidu-site-verification" content="5lU3qr1ysBwet0Uc">
+
+<link rel="stylesheet" href="/css/main.css">
+<link rel="preload" href="/lib/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"></noscript>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lengmo714.top","root":"/","scheme":"Gemini","version":"7.8.0","sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="windows如何上传ipa文件到App Store Connect后台">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows如何上传ipa文件到AppStoreConnect后台">
+<meta property="og:url" content="https://lengmo714.top/e3d7bf15.html">
+<meta property="og:site_name" content="南锋">
+<meta property="og:description" content="windows如何上传ipa文件到App Store Connect后台">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lengmo714.top/postImg/e3d7bf15/1.png">
+<meta property="article:published_time" content="2026-11-03T09:32:32.000Z">
+<meta property="article:modified_time" content="2026-11-03T10:13:59.395Z">
+<meta property="article:author" content="南锋">
+<meta property="article:tag" content="App Store Connect">
+<meta property="article:tag" content="ios">
+<meta property="article:tag" content="ios上架">
+<meta property="article:tag" content="ipa">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lengmo714.top/postImg/e3d7bf15/1.png">
+
+<link rel="canonical" href="https://lengmo714.top/e3d7bf15.html">
+
+
+  
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/e3d7bf15.html#article","headline":"windows如何上传ipa文件到AppStoreConnect后台","description":"windows如何上传ipa文件到App Store Connect后台","datePublished":"2026-11-03T09:32:32.000Z","dateModified":"2026-11-03T10:13:59.395Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/e3d7bf15.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["iOS上架"],"keywords":"App Store Connect, ios, ios上架, ipa","wordCount":106,"image":["https://lengmo714.top/postImg/e3d7bf15/1.png"]}</script>
+
+
+
+
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<!-- Google Tag Manager -->
+<script>
+  (function(w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l !== 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', 'GTM-KFTV77RM');
+</script>
+<!-- End Google Tag Manager -->
+
+  <title>windows如何上传ipa文件到AppStoreConnect后台 | 南锋</title>
+  
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">南锋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">南奔万里空，脱死锋镝余</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+      <li class="menu-item menu-item-contact">
+        <a href="https://t.me/winnerPlus7" rel="noopener" target="_blank"><i class="fab fa-telegram-plane fa-fw"></i>联系我
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  
+  <article class="post-block" lang="zh-CN">
+
+    <span hidden>
+      <meta content="/images/IMG_3307.JPG">
+      <meta content="南锋">
+      <meta content="记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员">
+    </span>
+
+    <span hidden>
+      <meta content="南锋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          windows如何上传ipa文件到AppStoreConnect后台
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS%E4%B8%8A%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">iOS上架</span></a>
+                </span>
+            </span>
+            <div class="post-description">windows如何上传ipa文件到App Store Connect后台</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3160571902547760" crossorigin="anonymous"></script>
+<p><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-3160571902547760" data-ad-slot="8630948880"></ins></p>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>网上教程很多，本文只为自己记录，不一定通用。为的就是防止人为关联</p>
+<h3 id="Windows上传IPA的推荐方案"><a href="#Windows上传IPA的推荐方案" class="headerlink" title="Windows上传IPA的推荐方案"></a>Windows上传IPA的推荐方案</h3><p>苹果官方其实明确支持<strong>通过Windows版iTMSTransporter上传IPA</strong>,不过有个重要条件:在Windows上上传时，还需要Xcode导出IPA时生成<code>AppStoreInfo.plist</code>文件。<a target="_blank" rel="noopener" href="https://help.apple.com/itc/transporteruserguide/en.lproj/static.html">Apple官方文档</a></p>
+<h3 id="生成AppStoreInfo-plist"><a href="#生成AppStoreInfo-plist" class="headerlink" title="生成AppStoreInfo.plist"></a>生成AppStoreInfo.plist</h3><p>我在Xcode导出IPA的时候是没有这个文件，导出的文件如下图<br><img src="/postImg/e3d7bf15/1.png" decoding="async" loading="eager" fetchpriority="high" alt="windows如何上传ipa文件到AppStoreConnect后台 — 生成AppStoreInfo.plist"></p>
+<p>苹果官方文档确认，<code>AppStoreInfo.plist</code> 需要通过 <code>xcodebuild -exportArchive</code> 并设置 <code>generateAppStoreInformation=YES</code> 生成。</p>
+<p><strong>第一步：修改ExportOptions.plist</strong><br>在你现有的 <code>ExportOptions.plist</code> 的 <code>&lt;dict&gt;</code> 内增加：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>generateAppStoreInformation<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>保留其他原有配置。</p>
+<p><strong>第二步：在 Mac 执行导出命令</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xcrun swinfo \</span><br><span class="line">  -f xxx.ipa \</span><br><span class="line">  -o AppStoreInfo.plist \</span><br><span class="line">  -prettyprint <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>成功后，导出目录应包含：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export/</span><br><span class="line">├── xxx.ipa</span><br><span class="line">├── AppStoreInfo.plist</span><br><span class="line">├── DistributionSummary.plist</span><br><span class="line">├── ExportOptions.plist</span><br><span class="line">└── Packaging.log</span><br></pre></td></tr></table></figure>
+<p>注意：需要使用这次导出生成的 IPA 和 <code>AppStoreInfo.plist</code> 配套上传。</p>
+<h3 id="执行上传命令"><a href="#执行上传命令" class="headerlink" title="执行上传命令"></a>执行上传命令</h3><p>打开 Windows CMD，进入 iTMSTransporter 安装目录（或者将其加入 PATH）。<br>先执行校验：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iTMSTransporter -m <span class="built_in">verify</span> ^</span><br><span class="line">  -assetFile &quot;D:\ios_upload\app.ipa&quot; ^</span><br><span class="line">  -assetDescription &quot;D:\ios_upload\AppStoreInfo.plist&quot; ^</span><br><span class="line">  -u &quot;你的Apple ID邮箱&quot; ^</span><br><span class="line">  -p &quot;你的App专用密码&quot;</span><br></pre></td></tr></table></figure>
+<p>校验通过后执行上传：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iTMSTransporter -m upload ^</span><br><span class="line">  -assetFile &quot;D:\ios_upload\app.ipa&quot; ^</span><br><span class="line">  -assetDescription &quot;D:\ios_upload\AppStoreInfo.plist&quot; ^</span><br><span class="line">  -u &quot;你的Apple ID邮箱&quot; ^</span><br><span class="line">  -p &quot;你的App专用密码&quot;</span><br></pre></td></tr></table></figure>
+<p>这里的密码是 Apple 账号生成的App 专用密码，不是正常登录 Apple ID 的密码。</p>
+<h3 id="如何生成App专用密码"><a href="#如何生成App专用密码" class="headerlink" title="如何生成App专用密码"></a>如何生成App专用密码</h3><ul>
+<li>1、登录苹果账号管理网站<br>打开<a target="_blank" rel="noopener" href="https://account.apple.com/">Apple Account</a>,使用你的开发者账号登录。</li>
+<li>2、进入登录和安全<br><code>登录和安全（Sign-In and Security）→ App 专用密码（App-Specific Passwords）</code></li>
+<li>3、点击生成App专用密码<br>输入一个名称，这个名称只是方便以后识别密码用途。</li>
+<li>4、复制生成的密码<br>格式通常类似：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abcd-efgh-ijkl-mnop</span><br></pre></td></tr></table></figure>
+注意：这个密码只会显示一次，生成后立即保存到安全的位置。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.png" alt="南锋 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="南锋 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>南锋
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lengmo714.top/e3d7bf15.html" title="windows如何上传ipa文件到AppStoreConnect后台">https://lengmo714.top/e3d7bf15.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/App-Store-Connect/" rel="tag"><i class="fa fa-tag"></i> App Store Connect</a>
+              <a href="/tags/ios/" rel="tag"><i class="fa fa-tag"></i> ios</a>
+              <a href="/tags/ios%E4%B8%8A%E6%9E%B6/" rel="tag"><i class="fa fa-tag"></i> ios上架</a>
+              <a href="/tags/ipa/" rel="tag"><i class="fa fa-tag"></i> ipa</a>
+          </div>
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/bba4371c.html" rel="prev" title="iOS App Store 审核被拒实战：Guideline 4.8、4.3(a)、5.1.2(i) ATT 解决方法">
+      <i class="fa fa-chevron-left"></i> iOS App Store 审核被拒实战：Guideline 4.8、4.3(a)、5.1.2(i) ATT 解决方法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows%E4%B8%8A%E4%BC%A0IPA%E7%9A%84%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">Windows上传IPA的推荐方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90AppStoreInfo-plist"><span class="nav-number">2.</span> <span class="nav-text">生成AppStoreInfo.plist</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%BC%A0%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">执行上传命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90App%E4%B8%93%E7%94%A8%E5%AF%86%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">如何生成App专用密码</span></a></li></ol></div>
+      </div>
+       <div class="sidebar-bottom-banner">
+            <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
+              <img src="/images/share.png" alt="banner">
+            </a>
+          </div>      
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="南锋"
+      src="/images/IMG_3307.JPG">
+  <p class="site-author-name" itemprop="name">南锋</p>
+  <div class="site-description" itemprop="description">记录工作中的一些笔记以及一些有趣的代码,致力于成为一个优秀的程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">239</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <a href="/categories/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <a href="/tags/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="/Link/" title="&#x2F;Link&#x2F;">友情链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/Silent_F" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;Silent_F" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/map/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;map&#x2F;index.html">足迹</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lengmo714.top/net/wechat/index.html" title="https:&#x2F;&#x2F;lengmo714.top&#x2F;net&#x2F;wechat&#x2F;index.html">微信对话生成器</a>
+        </li>
+    </ul>
+  </div>
+       
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备 2022022717号 </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%E6%B9%98%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8743011202000987%E5%8F%B7" rel="noopener" target="_blank">湘公网安备43011202000987号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南锋</span>
+
+</div>
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFTV77RM"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+</body>
+</html>
