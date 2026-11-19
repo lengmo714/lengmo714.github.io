@@ -29,8 +29,11 @@
 <meta property="og:description" content="windows如何上传ipa文件到App Store Connect后台">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lengmo714.top/postImg/e3d7bf15/1.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/e3d7bf15/2.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/e3d7bf15/3.png">
+<meta property="og:image" content="https://lengmo714.top/postImg/e3d7bf15/4.png">
 <meta property="article:published_time" content="2026-11-03T09:32:32.000Z">
-<meta property="article:modified_time" content="2026-11-03T10:13:59.395Z">
+<meta property="article:modified_time" content="2026-11-19T12:25:45.388Z">
 <meta property="article:author" content="南锋">
 <meta property="article:tag" content="App Store Connect">
 <meta property="article:tag" content="ios">
@@ -43,7 +46,7 @@
 
 
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/e3d7bf15.html#article","headline":"windows如何上传ipa文件到AppStoreConnect后台","description":"windows如何上传ipa文件到App Store Connect后台","datePublished":"2026-11-03T09:32:32.000Z","dateModified":"2026-11-03T10:13:59.395Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/e3d7bf15.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["iOS上架"],"keywords":"App Store Connect, ios, ios上架, ipa","wordCount":106,"image":["https://lengmo714.top/postImg/e3d7bf15/1.png"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://lengmo714.top/e3d7bf15.html#article","headline":"windows如何上传ipa文件到AppStoreConnect后台","description":"windows如何上传ipa文件到App Store Connect后台","datePublished":"2026-11-03T09:32:32.000Z","dateModified":"2026-11-19T12:25:45.388Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://lengmo714.top/e3d7bf15.html"},"author":{"@type":"Person","name":"南锋","url":"https://lengmo714.top/about/"},"publisher":{"@type":"Organization","name":"南锋","logo":{"@type":"ImageObject","url":"https://lengmo714.top/images/IMG_3307.JPG"}},"articleSection":["iOS上架"],"keywords":"App Store Connect, ios, ios上架, ipa","wordCount":178,"image":["https://lengmo714.top/postImg/e3d7bf15/1.png"]}</script>
 
 
 
@@ -275,11 +278,24 @@
 <p>成功后，导出目录应包含：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export/</span><br><span class="line">├── xxx.ipa</span><br><span class="line">├── AppStoreInfo.plist</span><br><span class="line">├── DistributionSummary.plist</span><br><span class="line">├── ExportOptions.plist</span><br><span class="line">└── Packaging.log</span><br></pre></td></tr></table></figure>
 <p>注意：需要使用这次导出生成的 IPA 和 <code>AppStoreInfo.plist</code> 配套上传。</p>
-<h3 id="执行上传命令"><a href="#执行上传命令" class="headerlink" title="执行上传命令"></a>执行上传命令</h3><p>打开 Windows CMD，进入 iTMSTransporter 安装目录（或者将其加入 PATH）。<br>先执行校验：</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iTMSTransporter -m <span class="built_in">verify</span> ^</span><br><span class="line">  -assetFile &quot;D:\ios_upload\app.ipa&quot; ^</span><br><span class="line">  -assetDescription &quot;D:\ios_upload\AppStoreInfo.plist&quot; ^</span><br><span class="line">  -u &quot;你的Apple ID邮箱&quot; ^</span><br><span class="line">  -p &quot;你的App专用密码&quot;</span><br></pre></td></tr></table></figure>
-<p>校验通过后执行上传：</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iTMSTransporter -m upload ^</span><br><span class="line">  -assetFile &quot;D:\ios_upload\app.ipa&quot; ^</span><br><span class="line">  -assetDescription &quot;D:\ios_upload\AppStoreInfo.plist&quot; ^</span><br><span class="line">  -u &quot;你的Apple ID邮箱&quot; ^</span><br><span class="line">  -p &quot;你的App专用密码&quot;</span><br></pre></td></tr></table></figure>
-<p>这里的密码是 Apple 账号生成的App 专用密码，不是正常登录 Apple ID 的密码。</p>
+<h3 id="执行上传命令-在Windows上执行"><a href="#执行上传命令-在Windows上执行" class="headerlink" title="执行上传命令 在Windows上执行"></a>执行上传命令 在Windows上执行</h3><p>打开 Windows CMD，进入 iTMSTransporter 安装目录（或者将其加入 PATH）。</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\iTMSTransporter -m upload -assetFile &quot;D:\ios_upload\app.ipa&quot; -assetDescription &quot;D:\ios_upload\AppStoreInfo.plist&quot; -u &quot;你的Apple ID邮箱&quot; -p &quot;你的App专用密码&quot;</span><br></pre></td></tr></table></figure>
+<p>这里的密码是 Apple 账号生成的App 专用密码，不是正常登录 Apple ID 的密码(后面有专用密码的获取方法)。</p>
+<p>如果上面脚本执行失败，出现下面错误：<br><img src="/postImg/e3d7bf15/2.png" decoding="async" loading="lazy" alt="windows如何上传ipa文件到AppStoreConnect后台 — 执行上传命令 在Windows上执行"><br>这时重点看有没有下面4行日志</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DEBUG: Provider lookup: checking supplier for publicId...</span><br><span class="line">DEBUG: Provider lookup: no publicId from supplier, resolving via Olympus...</span><br><span class="line">DEBUG: Upload phase transition: CONFIGURED -&gt; INITIAL</span><br><span class="line">ERROR: Client configuration failed</span><br></pre></td></tr></table></figure>
+<p>如果出现这个，可能就是账号的问题：<br>因为Apple的Transporter有一个专门的<code>provider</code>模式，可以查询当前Apple账号有权限上传的App Store Connect团队。</p>
+<p>Apple 官方文档特别说明：</p>
+<ul>
+<li>如果一个 Apple 账号关联多个 App Store Connect Provider，需要使用 <code>-asc_provider</code> 指定目标团队。</li>
+<li>可以通过 <code>-m provider</code> 查询 Provider 名称和 Short Name。</li>
+<li>App 开发者应该使用 App Store Connect 类型的 Provider。<a target="_blank" rel="noopener" href="https://help.apple.com/itc/transporteruserguide/en.lproj/static.html">参考链接</a></li>
+</ul>
+<p>查询命令，在CMD中执行</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\iTMSTransporter.<span class="built_in">cmd</span> -m provider -u &quot;你的Apple ID邮箱&quot; -p &quot;你的App专用密码&quot; -account_type itunes_connect -v eXtreme</span><br></pre></td></tr></table></figure>
+<p>这里可能出现几种情况<br>1、返回一个Provider，这种就比较好，直接用这个<code>Short Name</code>就行了<br>2、返回多个Provider，这里就需要自己找到自己对应的团队<br>3、没有返回Provider或者返回失败<br>我这里是只返回了一个Provider，如下图：<br><img src="/postImg/e3d7bf15/3.png" decoding="async" loading="lazy" alt="windows如何上传ipa文件到AppStoreConnect后台 — 执行上传命令 在Windows上执行"><br>在前面upload的命令后面加上 <code>-asc_provider $&#123;Short Name&#125;</code></p>
+<p>重新执行命令：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\iTMSTransporter -m upload  -assetFile &quot;D:\ios_upload\app.ipa&quot; -assetDescription &quot;D:\ios_upload\AppStoreInfo.plist&quot; -u &quot;你的Apple ID邮箱&quot; -p &quot;你的App专用密码&quot; -asc_provider &quot;Short Name&quot; -v eXtreme </span><br></pre></td></tr></table></figure>
+<p>如果ipa没问题，就会返回成功，如下图：<br><img src="/postImg/e3d7bf15/4.png" decoding="async" loading="lazy" alt="windows如何上传ipa文件到AppStoreConnect后台 — 执行上传命令 在Windows上执行"><br>个人感觉上传速度还挺快的，甚至比Mac设备上上传还快</p>
 <h3 id="如何生成App专用密码"><a href="#如何生成App专用密码" class="headerlink" title="如何生成App专用密码"></a>如何生成App专用密码</h3><ul>
 <li>1、登录苹果账号管理网站<br>打开<a target="_blank" rel="noopener" href="https://account.apple.com/">Apple Account</a>,使用你的开发者账号登录。</li>
 <li>2、进入登录和安全<br><code>登录和安全（Sign-In and Security）→ App 专用密码（App-Specific Passwords）</code></li>
@@ -379,7 +395,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows%E4%B8%8A%E4%BC%A0IPA%E7%9A%84%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">Windows上传IPA的推荐方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90AppStoreInfo-plist"><span class="nav-number">2.</span> <span class="nav-text">生成AppStoreInfo.plist</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%BC%A0%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">执行上传命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90App%E4%B8%93%E7%94%A8%E5%AF%86%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">如何生成App专用密码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows%E4%B8%8A%E4%BC%A0IPA%E7%9A%84%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">Windows上传IPA的推荐方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90AppStoreInfo-plist"><span class="nav-number">2.</span> <span class="nav-text">生成AppStoreInfo.plist</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%BC%A0%E5%91%BD%E4%BB%A4-%E5%9C%A8Windows%E4%B8%8A%E6%89%A7%E8%A1%8C"><span class="nav-number">3.</span> <span class="nav-text">执行上传命令 在Windows上执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90App%E4%B8%93%E7%94%A8%E5%AF%86%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">如何生成App专用密码</span></a></li></ol></div>
       </div>
        <div class="sidebar-bottom-banner">
             <a href="#小程序://时间折现/H74iLnpGbvfY3yH" target="_blank" rel="noopener">
